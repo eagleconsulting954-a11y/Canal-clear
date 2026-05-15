@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <!-- Background: rounded square for app icon style -->
+  <rect width="192" height="192" rx="38" fill="#0F1D32"/>
+  <!-- Ship body (hull) -->
+  <path d="M30 130 L50 100 L142 100 L162 130 Z" fill="#00D4AA"/>
+  <!-- Ship cabin/superstructure -->
+  <rect x="65" y="70" width="62" height="30" rx="4" fill="#00D4AA"/>
+  <!-- Mast/smokestack left -->
+  <rect x="75" y="52" width="10" height="18" rx="3" fill="#00D4AA"/>
+  <!-- Mast/smokestack right -->
+  <rect x="107" y="52" width="10" height="18" rx="3" fill="#00D4AA"/>
+  <!-- Water waves below hull -->
+  <path d="M20 142 Q36 130 52 142 Q68 154 84 142 Q100 130 116 142 Q132 154 148 142 Q164 130 172 142" stroke="#00D4AA" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M28 155 Q44 143 60 155 Q76 167 92 155 Q108 143 124 155 Q140 167 156 155 Q164 150 164 155" stroke="#00D4AA" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.5"/>
+</svg>

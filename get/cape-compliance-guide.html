@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+  <!-- Meta Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '972550615207303');
+    fbq('track', 'PageView');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cape of Good Hope Compliance Guide (Free Download) — CanalClear</title>
+  <meta name="description" content="Free guide: SAMSA ISPS pre-arrival message format (Marine Notice 12 of 2008), required fields, common rejection reasons, PSC inspection triggers at South African ports. Instant download.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://canalclear.org/get/cape-compliance-guide">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://canalclear.org/get/cape-compliance-guide">
+  <meta property="og:title" content="The Cape of Good Hope Compliance Guide (Free Download)">
+  <meta property="og:description" content="SAMSA ISPS pre-arrival requirements, 96-hour message format, PSC detention triggers at Durban and Cape Town, and the Sea Lord case study. Free PDF, no card.">
+  <meta property="og:image" content="https://canalclear.org/og-image.png">
+  <meta property="og:site_name" content="CanalClear">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Cape of Good Hope Compliance Guide (Free Download)">
+  <meta name="twitter:description" content="SAMSA ISPS pre-arrival requirements, PSC detention triggers, and the 5 rejection mistakes that get ships detained at Durban. Free PDF, no card.">
+  <link rel="icon" type="image/png" href="/icons/icon-192.png">
+
+  <!-- IBM Plex Sans — CanalClear brand font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:        #0d1b2e;
+      --navy-mid:    #142238;
+      --navy-card:   #1a2e48;
+      --navy-border: #243652;
+      --orange:      #d4622b;
+      --orange-lt:   #e8743e;
+      --orange-pale: rgba(212, 98, 43, 0.12);
+      --text:        #e8eef4;
+      --muted:       #8fa3b8;
+      --muted-lt:    #b8c8d8;
+      --white:       #ffffff;
+      --green:       #22c55e;
+      --radius:      12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: var(--navy);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Brand bar ─────────────────────────────────────────────────────── */
+    .brand-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--navy-border);
+    }
+    .brand-logo {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: -0.3px;
+      text-decoration: none;
+    }
+    .brand-tagline {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 400;
+    }
+    .brand-sep { color: var(--navy-border); }
+
+    /* ── Layout ─────────────────────────────────────────────────────────── */
+    .page-wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    /* ── Hero section ───────────────────────────────────────────────────── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    @media (max-width: 680px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .hero-form { order: 2; }
+      .hero-copy { order: 1; }
+    }
+
+    /* ── Copy column ────────────────────────────────────────────────────── */
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--orange);
+      background: var(--orange-pale);
+      border: 1px solid rgba(212, 98, 43, 0.25);
+      border-radius: 20px;
+      padding: 5px 12px;
+      margin-bottom: 18px;
+    }
+    .eyebrow::before {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--orange);
+      flex-shrink: 0;
+    }
+
+    .hero-title {
+      font-size: clamp(22px, 3.8vw, 30px);
+      font-weight: 700;
+      line-height: 1.22;
+      color: var(--white);
+      margin-bottom: 8px;
+      letter-spacing: -0.4px;
+    }
+    .hero-title em {
+      color: var(--orange);
+      font-style: normal;
+    }
+    .hero-edition {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 22px;
+      font-weight: 500;
+    }
+
+    /* Contents list */
+    .contents-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .toc {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+    .toc li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13.5px;
+      color: var(--muted-lt);
+      line-height: 1.45;
+    }
+    .toc-num {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--orange-pale);
+      border: 1px solid var(--orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9.5px;
+      font-weight: 700;
+      color: var(--orange);
+      margin-top: 1px;
+    }
+    .toc strong { color: var(--text); font-weight: 600; }
+
+    /* PDF preview */
+    .pdf-preview {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 6px;
+    }
+    .pdf-icon {
+      flex-shrink: 0;
+      width: 38px;
+      height: 46px;
+      background: var(--orange);
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pdf-icon::before {
+      content: 'PDF';
+      font-size: 8.5px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.5px;
+    }
+    .pdf-meta { flex: 1; }
+    .pdf-name {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+    .pdf-size {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* Trust bar */
+    .trust-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--navy-border);
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .trust-item svg {
+      width: 13px;
+      height: 13px;
+      stroke: var(--orange);
+      stroke-width: 2;
+      fill: none;
+      flex-shrink: 0;
+    }
+
+    /* ── Form card ──────────────────────────────────────────────────────── */
+    .form-card {
+      background: var(--navy-mid);
+      border: 1px solid var(--navy-border);
+      border-radius: 16px;
+      padding: 32px 28px;
+      position: sticky;
+      top: 24px;
+    }
+
+    @media (max-width: 680px) {
+      .form-card { position: static; }
+    }
+
+    .form-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+    .form-subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 22px;
+      line-height: 1.55;
+    }
+
+    .field { margin-bottom: 14px; }
+    .field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted-lt);
+      margin-bottom: 6px;
+      letter-spacing: 0.3px;
+    }
+    .field input {
+      width: 100%;
+      background: var(--navy);
+      border: 1.5px solid var(--navy-border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .field input::placeholder { color: var(--muted); }
+    .field input:focus { border-color: var(--orange); }
+    .field input.error {
+      border-color: #ef4444;
+      animation: shake 0.35s ease;
+    }
+
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%      { transform: translateX(-5px); }
+      40%      { transform: translateX(5px); }
+      60%      { transform: translateX(-4px); }
+      80%      { transform: translateX(4px); }
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 14px 20px;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .submit-btn:hover { background: var(--orange-lt); }
+    .submit-btn:active { transform: scale(0.98); }
+    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    .form-note {
+      margin-top: 11px;
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.55;
+    }
+    .form-note a { color: var(--orange); text-decoration: none; }
+
+    .form-error {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: #fca5a5;
+      margin-top: 10px;
+      display: none;
+    }
+
+    /* ── Success state ──────────────────────────────────────────────────── */
+    .success-state {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 8px 0;
+    }
+    .success-icon {
+      width: 56px;
+      height: 56px;
+      background: rgba(34, 197, 94, 0.1);
+      border: 2px solid var(--green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .success-icon svg {
+      width: 26px;
+      height: 26px;
+      stroke: var(--green);
+      stroke-width: 2.5;
+      fill: none;
+    }
+    .success-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .success-body {
+      font-size: 13px;
+      color: var(--muted-lt);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .success-ctas {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+    }
+    .success-link {
+      display: block;
+      font-size: 13px;
+      color: var(--orange);
+      text-decoration: none;
+      border: 1px solid var(--orange);
+      border-radius: 8px;
+      padding: 10px 18px;
+      transition: background 0.15s;
+      text-align: center;
+    }
+    .success-link:hover { background: var(--orange-pale); }
+    .success-link-secondary {
+      display: block;
+      font-size: 12.5px;
+      color: var(--muted-lt);
+      text-decoration: none;
+      border: 1px solid var(--navy-border);
+      border-radius: 8px;
+      padding: 9px 18px;
+      transition: border-color 0.15s;
+      text-align: center;
+    }
+    .success-link-secondary:hover { border-color: var(--muted); }
+
+    /* ── Content preview strip ──────────────────────────────────────────── */
+    .preview-section {
+      max-width: 960px;
+      margin: 64px auto 0;
+      padding: 0 24px;
+    }
+    .preview-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 14px;
+    }
+    .preview-card {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: var(--radius);
+      padding: 18px 16px;
+    }
+    .preview-num {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .preview-card h4 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+      line-height: 1.35;
+    }
+    .preview-card p {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* ── Social proof ───────────────────────────────────────────────────── */
+    .proof-strip {
+      max-width: 960px;
+      margin: 40px auto 0;
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .proof-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-align: center;
+    }
+    .proof-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .proof-chip {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      color: var(--muted-lt);
+    }
+
+    /* ── Bottom CTAs ────────────────────────────────────────────────────── */
+    .bottom-cta-section {
+      max-width: 960px;
+      margin: 60px auto 0;
+      padding: 0 24px;
+    }
+    .bottom-cta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 600px) {
+      .bottom-cta-grid { grid-template-columns: 1fr; }
+    }
+    .bottom-cta-card {
+      background: var(--navy-mid);
+      border: 1px solid var(--navy-border);
+      border-radius: 14px;
+      padding: 28px 24px;
+      text-decoration: none;
+      display: block;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .bottom-cta-card:hover {
+      border-color: var(--orange);
+      transform: translateY(-2px);
+    }
+    .bottom-cta-eyebrow {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 6px;
+    }
+    .bottom-cta-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+    .bottom-cta-card p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    .bottom-cta-arrow {
+      font-size: 13px;
+      color: var(--orange);
+      margin-top: 12px;
+      font-weight: 600;
+    }
+
+    /* ── Footer ─────────────────────────────────────────────────────────── */
+    .page-footer {
+      max-width: 960px;
+      margin: 60px auto 0;
+      padding: 24px 24px 40px;
+      border-top: 1px solid var(--navy-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-brand {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--orange);
+    }
+    .footer-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .footer-links a:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+
+<!-- BRAND BAR -->
+<div class="brand-bar">
+  <a href="/" class="brand-logo">CanalClear</a>
+  <span class="brand-sep">·</span>
+  <span class="brand-tagline">Maritime compliance automation</span>
+</div>
+
+<!-- HERO -->
+<div class="page-wrap">
+  <div class="hero">
+    <!-- Copy column -->
+    <div class="hero-copy">
+      <span class="eyebrow">Free Download — Cape of Good Hope</span>
+      <h1 class="hero-title">
+        The Cape of Good Hope<br><em>Compliance Guide</em>
+      </h1>
+      <p class="hero-edition">2026 Edition · SAMSA Marine Notice 12 of 2008 · IOMOU PSC Intelligence</p>
+
+      <p class="contents-label">What's inside</p>
+      <ul class="toc">
+        <li>
+          <span class="toc-num">1</span>
+          <span><strong>96-hour ISPS pre-arrival message</strong> — field-by-field template with SAMSA Marine Notice 12 of 2008 requirements and common rejection reasons</span>
+        </li>
+        <li>
+          <span class="toc-num">2</span>
+          <span><strong>SAMSA ISPS required fields</strong> — every mandatory field for the pre-arrival message, including last 10 port calls with security levels and ISSC certificate details</span>
+        </li>
+        <li>
+          <span class="toc-num">3</span>
+          <span><strong>PSC inspection triggers at South African ports</strong> — Durban, Cape Town, Richards Bay: deficiency patterns that get vessels targeted and the IOMOU risk score system</span>
+        </li>
+        <li>
+          <span class="toc-num">4</span>
+          <span><strong>Sea Lord case study (Durban, Nov 2025)</strong> — 42 deficiencies, 5-day detention, $180k+ off-hire. What triggered it and how to avoid it</span>
+        </li>
+        <li>
+          <span class="toc-num">5</span>
+          <span><strong>ISPS security level reference</strong> — what Level 1/2/3 declarations require in SAMSA filings and when Declaration of Security is triggered</span>
+        </li>
+        <li>
+          <span class="toc-num">6</span>
+          <span><strong>5 filing mistakes that get ships detained</strong> — the rejections SAMSA sees most and how to prevent each one on your next Cape transit</span>
+        </li>
+      </ul>
+
+      <div class="pdf-preview">
+        <div class="pdf-icon"></div>
+        <div class="pdf-meta">
+          <div class="pdf-name">Cape_of_Good_Hope_Compliance_Guide_2026.pdf</div>
+          <div class="pdf-size">SAMSA ISPS · PSC Intelligence · Sea Lord Case Study</div>
+        </div>
+      </div>
+
+      <div class="trust-bar">
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Free — no credit card
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Based on SAMSA Marine Notice 12 of 2008
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Includes Sea Lord case study (2025)
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          We'll alert you when SAMSA updates requirements
+        </div>
+      </div>
+    </div>
+
+    <!-- Form column -->
+    <div class="hero-form">
+      <div class="form-card">
+        <div id="form-state">
+          <p class="form-title">Get the Cape Compliance Guide</p>
+          <p class="form-subtitle">Free PDF. We'll also send you alerts when SAMSA updates its requirements — so your filings stay current without manual monitoring.</p>
+          <form id="guide-form" onsubmit="handleSubmit(event)" novalidate>
+            <div class="field">
+              <label for="f-name">Your name</label>
+              <input type="text" id="f-name" name="name" placeholder="Captain / Fleet Manager / Agent" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="f-email">Work email</label>
+              <input type="email" id="f-email" name="email" placeholder="you@company.com" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="f-company">Company (optional)</label>
+              <input type="text" id="f-company" name="company" placeholder="Shipping company / fleet name" autocomplete="organization">
+            </div>
+            <button type="submit" class="submit-btn" id="submit-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Send Me the Free Guide
+            </button>
+            <div class="form-error" id="form-error"></div>
+          </form>
+          <p class="form-note">
+            No spam. Unsubscribe any time. By submitting you agree to our <a href="/privacy" target="_blank">privacy policy</a>.
+          </p>
+        </div>
+
+        <div class="success-state" id="success-state">
+          <div class="success-icon">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <p class="success-title">Guide is on its way ✓</p>
+          <p class="success-body">Check your inbox — the Cape Compliance Guide will arrive in the next few minutes. Check your spam folder if it doesn't appear.</p>
+          <div class="success-ctas">
+            <a href="/cape-of-good-hope#checker" class="success-link">→ Run the free SAMSA compliance checker</a>
+            <a href="/pricing" class="success-link-secondary">View automated filing plans →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENT PREVIEW -->
+<div class="preview-section">
+  <p class="preview-label">Inside the guide</p>
+  <div class="preview-grid">
+    <div class="preview-card">
+      <div class="preview-num">SECTION 1</div>
+      <h4>96-Hour Pre-Arrival Message Format</h4>
+      <p>The exact fields SAMSA requires under Marine Notice 12 of 2008, with worked examples and the formatting requirements that cause most rejections.</p>
+    </div>
+    <div class="preview-card">
+      <div class="preview-num">SECTION 2</div>
+      <h4>ISSC Certificate Requirements</h4>
+      <p>When your ISSC is checked, what inspectors look for, and the certificate validity traps that cause detentions even when the certificate is "valid."</p>
+    </div>
+    <div class="preview-card">
+      <div class="preview-num">SECTION 3</div>
+      <h4>South African Port PSC Intelligence</h4>
+      <p>Inspection rate by port, what Durban PSC inspectors prioritise, and how your vessel's IOMOU deficiency history affects targeting probability.</p>
+    </div>
+    <div class="preview-card">
+      <div class="preview-num">SECTION 4</div>
+      <h4>Sea Lord Case Study</h4>
+      <p>November 2025 — 42 deficiencies, 5-day Durban detention, $180k+ off-hire. The complete chronology and the single 25-hour mistake that triggered it.</p>
+    </div>
+    <div class="preview-card">
+      <div class="preview-num">SECTION 5</div>
+      <h4>Security Level Declarations</h4>
+      <p>ISPS Level 1/2/3 in a SAMSA context — what each level requires in your pre-arrival message and when you need a Declaration of Security.</p>
+    </div>
+    <div class="preview-card">
+      <div class="preview-num">SECTION 6</div>
+      <h4>5 Rejection Mistakes</h4>
+      <p>The most common SAMSA pre-arrival message rejections, the rule behind each, and the exact fix to apply before your next Cape transit.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROOF STRIP -->
+<div class="proof-strip">
+  <p class="proof-label">Used by operators on the Cape, Indian Ocean, and Europe–Asia routes</p>
+  <div class="proof-items">
+    <span class="proof-chip">🌍 Cape of Good Hope transits</span>
+    <span class="proof-chip">🚢 Bulk carrier operators</span>
+    <span class="proof-chip">⛽ Tanker fleet managers</span>
+    <span class="proof-chip">📋 Ship agents — Durban & Cape Town</span>
+    <span class="proof-chip">🏢 P&I Club correspondents</span>
+    <span class="proof-chip">📦 Container line compliance teams</span>
+  </div>
+</div>
+
+<!-- BOTTOM CTAs -->
+<div class="bottom-cta-section">
+  <div class="bottom-cta-grid">
+    <a href="/cape-of-good-hope#checker" class="bottom-cta-card">
+      <div class="bottom-cta-eyebrow">Free Tool</div>
+      <h3>Run the SAMSA ISPS Compliance Checker</h3>
+      <p>Instant compliance score against SAMSA Marine Notice 12 of 2008. Enter vessel details, get score in seconds — no account required.</p>
+      <div class="bottom-cta-arrow">Run free check →</div>
+    </a>
+    <a href="/pricing" class="bottom-cta-card">
+      <div class="bottom-cta-eyebrow">Paid Plans</div>
+      <h3>Automate Filing Across All 5 Waterways</h3>
+      <p>Panama, Suez, Bosporus, Malacca — automated filings, compliance scoring, fleet dashboard. Cape automated filing in development.</p>
+      <div class="bottom-cta-arrow">View plans from $699/mo →</div>
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="page-footer">
+  <span class="footer-brand">CanalClear</span>
+  <div class="footer-links">
+    <a href="/cape-of-good-hope">Cape of Good Hope</a>
+    <a href="/malacca">Malacca</a>
+    <a href="/bosporus">Bosporus</a>
+    <a href="/suez">Suez</a>
+    <a href="/panama">Panama</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/privacy">Privacy</a>
+  </div>
+</div>
+
+<script src="/js/whatsapp-button.js" defer></script>
+<script src="/js/analytics.js" defer></script>
+<script>
+async function handleSubmit(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  const err = document.getElementById('form-error');
+  const name = document.getElementById('f-name').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  const company = document.getElementById('f-company').value.trim();
+
+  // Basic validation
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!name) {
+    document.getElementById('f-name').classList.add('error');
+    return;
+  }
+  if (!emailRe.test(email)) {
+    document.getElementById('f-email').classList.add('error');
+    err.textContent = 'Please enter a valid email address.';
+    err.style.display = 'block';
+    return;
+  }
+  ['f-name','f-email'].forEach(id => document.getElementById(id).classList.remove('error'));
+  err.style.display = 'none';
+
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  try {
+    const res = await fetch('/api/leads', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name,
+        email,
+        source: 'cape-compliance-guide',
+        canal: 'cape',
+        metadata: { company, page: 'get/cape-compliance-guide' }
+      })
+    });
+    if (typeof gtag !== 'undefined') gtag('event', 'primer_download_cape', {
+      event_category: 'lead_magnet',
+      event_label: 'cape_compliance_guide',
+    });
+    // Show success regardless of API outcome — guide delivery is via drip
+    document.getElementById('form-state').style.display = 'none';
+    const ss = document.getElementById('success-state');
+    ss.style.display = 'flex';
+  } catch (_) {
+    if (typeof gtag !== 'undefined') gtag('event', 'primer_download_cape', {
+      event_category: 'lead_magnet',
+      event_label: 'cape_compliance_guide',
+    });
+    // Still show success — lead capture is best-effort
+    document.getElementById('form-state').style.display = 'none';
+    const ss = document.getElementById('success-state');
+    ss.style.display = 'flex';
+  }
+}
+
+// Clear error state on input
+['f-name','f-email'].forEach(id => {
+  document.getElementById(id).addEventListener('input', () => {
+    document.getElementById(id).classList.remove('error');
+    document.getElementById('form-error').style.display = 'none';
+  });
+});
+</script>
+</body>
+</html>

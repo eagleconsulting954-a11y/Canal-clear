@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+  <!-- Meta Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '972550615207303');
+    fbq('track', 'PageView');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Suez Canal SCA Filing Primer (Free Download) — CanalClear</title>
+  <meta name="description" content="Free guide: Suez Canal Authority UMS deadlines, SCA notification requirements, SCNT tonnage rules, convoy scheduling, and pre-transit checklist. Instant download.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://canalclear.org/get/suez-primer">
+
+  <!-- OG Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://canalclear.org/get/suez-primer">
+  <meta property="og:title" content="The Suez Canal SCA Filing Primer (Free Download)">
+  <meta property="og:description" content="SCA notification deadlines, UMS tonnage rules, SCNT filing structure, convoy scheduling, and the 6 rejection mistakes that hold ships at Port Said or Suez Roads. Free PDF, no card.">
+  <meta property="og:image" content="https://canalclear.org/og-image.png">
+  <meta property="og:site_name" content="CanalClear">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Suez Canal SCA Filing Primer (Free Download)">
+  <meta name="twitter:description" content="SCA notification deadlines, UMS tonnage rules, SCNT filing structure, convoy scheduling, and the 6 rejection mistakes that hold ships at Port Said or Suez Roads. Free PDF, no card.">
+  <link rel="icon" type="image/png" href="/icons/icon-192.png">
+
+  <!-- IBM Plex Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:        #0d1b2e;
+      --navy-mid:    #142238;
+      --navy-card:   #1a2e48;
+      --navy-border: #243652;
+      --orange:      #d4622b;
+      --orange-lt:   #e8743e;
+      --orange-pale: rgba(212, 98, 43, 0.12);
+      --text:        #e8eef4;
+      --muted:       #8fa3b8;
+      --muted-lt:    #b8c8d8;
+      --white:       #ffffff;
+      --green:       #22c55e;
+      --radius:      12px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: var(--navy);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Brand bar ──────────────────────────────────────────────────────── */
+    .brand-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--navy-border);
+    }
+    .brand-logo {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: -0.3px;
+      text-decoration: none;
+    }
+    .brand-tagline { font-size: 12px; color: var(--muted); font-weight: 400; }
+    .brand-sep { color: var(--navy-border); }
+
+    /* ── Layout ─────────────────────────────────────────────────────────── */
+    .page-wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    @media (max-width: 680px) {
+      .hero { grid-template-columns: 1fr; gap: 32px; }
+      .hero-form { order: 2; }
+      .hero-copy { order: 1; }
+    }
+
+    /* ── Copy column ────────────────────────────────────────────────────── */
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--orange);
+      background: var(--orange-pale);
+      border: 1px solid rgba(212, 98, 43, 0.25);
+      border-radius: 20px;
+      padding: 5px 12px;
+      margin-bottom: 18px;
+    }
+    .eyebrow::before {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--orange);
+      flex-shrink: 0;
+    }
+
+    .hero-title {
+      font-size: clamp(22px, 3.8vw, 30px);
+      font-weight: 700;
+      line-height: 1.22;
+      color: var(--white);
+      margin-bottom: 8px;
+      letter-spacing: -0.4px;
+    }
+    .hero-title em { color: var(--orange); font-style: normal; }
+
+    .hero-edition { font-size: 13px; color: var(--muted); margin-bottom: 22px; font-weight: 500; }
+
+    .contents-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .toc {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+    .toc li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13.5px;
+      color: var(--muted-lt);
+      line-height: 1.45;
+    }
+    .toc-num {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--orange-pale);
+      border: 1px solid var(--orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9.5px;
+      font-weight: 700;
+      color: var(--orange);
+      margin-top: 1px;
+    }
+    .toc strong { color: var(--text); font-weight: 600; }
+
+    .pdf-preview {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 6px;
+    }
+    .pdf-icon {
+      flex-shrink: 0;
+      width: 38px;
+      height: 46px;
+      background: var(--orange);
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pdf-icon::before {
+      content: 'PDF';
+      font-size: 8.5px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.5px;
+    }
+    .pdf-meta { flex: 1; }
+    .pdf-name { font-size: 12.5px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+    .pdf-size { font-size: 11px; color: var(--muted); }
+    .pdf-dl-icon {
+      flex-shrink: 0;
+      width: 30px;
+      height: 30px;
+      background: var(--orange-pale);
+      border: 1px solid var(--orange);
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pdf-dl-icon svg { width: 13px; height: 13px; stroke: var(--orange); stroke-width: 2; fill: none; }
+
+    .trust-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--navy-border);
+    }
+    .trust-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--muted); }
+    .trust-item svg { width: 13px; height: 13px; stroke: var(--orange); stroke-width: 2; fill: none; flex-shrink: 0; }
+
+    /* ── Form card ──────────────────────────────────────────────────────── */
+    .form-card {
+      background: var(--navy-mid);
+      border: 1px solid var(--navy-border);
+      border-radius: 16px;
+      padding: 32px 28px;
+      position: sticky;
+      top: 24px;
+    }
+    @media (max-width: 680px) { .form-card { position: static; } }
+
+    .form-title { font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+    .form-subtitle { font-size: 13px; color: var(--muted); margin-bottom: 22px; line-height: 1.55; }
+
+    .field { margin-bottom: 14px; }
+    .field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted-lt);
+      margin-bottom: 6px;
+      letter-spacing: 0.3px;
+    }
+    .field input {
+      width: 100%;
+      background: var(--navy);
+      border: 1.5px solid var(--navy-border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .field input::placeholder { color: var(--muted); }
+    .field input:focus { border-color: var(--orange); }
+    .field input.error { border-color: #ef4444; animation: shake 0.35s ease; }
+
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%      { transform: translateX(-5px); }
+      40%      { transform: translateX(5px); }
+      60%      { transform: translateX(-4px); }
+      80%      { transform: translateX(4px); }
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 14px 20px;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .submit-btn:hover { background: var(--orange-lt); }
+    .submit-btn:active { transform: scale(0.98); }
+    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    .form-note { margin-top: 11px; font-size: 11px; color: var(--muted); text-align: center; line-height: 1.55; }
+    .form-note a { color: var(--orange); text-decoration: none; }
+
+    .form-error {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: #fca5a5;
+      margin-top: 10px;
+      display: none;
+    }
+
+    /* ── Success state ──────────────────────────────────────────────────── */
+    .success-state {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 8px 0;
+    }
+    .success-icon {
+      width: 56px;
+      height: 56px;
+      background: rgba(34, 197, 94, 0.1);
+      border: 2px solid var(--green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .success-icon svg { width: 26px; height: 26px; stroke: var(--green); stroke-width: 2.5; fill: none; }
+    .success-title { font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+    .success-body { font-size: 13px; color: var(--muted-lt); line-height: 1.6; margin-bottom: 20px; }
+    .success-ctas { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+    .success-link {
+      display: block;
+      font-size: 13px;
+      color: var(--orange);
+      text-decoration: none;
+      border: 1px solid var(--orange);
+      border-radius: 8px;
+      padding: 10px 18px;
+      transition: background 0.15s;
+      text-align: center;
+    }
+    .success-link:hover { background: var(--orange-pale); }
+    .success-link-secondary {
+      display: block;
+      font-size: 12.5px;
+      color: var(--muted-lt);
+      text-decoration: none;
+      border: 1px solid var(--navy-border);
+      border-radius: 8px;
+      padding: 9px 18px;
+      transition: border-color 0.15s;
+      text-align: center;
+    }
+    .success-link-secondary:hover { border-color: var(--muted); }
+
+    /* ── Social proof ───────────────────────────────────────────────────── */
+    .proof-strip {
+      max-width: 960px;
+      margin: 40px auto 0;
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .proof-label { font-size: 11px; font-weight: 600; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; text-align: center; }
+    .proof-items { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+    .proof-chip { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 20px; padding: 6px 14px; font-size: 12px; color: var(--muted-lt); }
+
+    /* ── Bottom CTAs ────────────────────────────────────────────────────── */
+    .bottom-cta-section { max-width: 960px; margin: 60px auto 0; padding: 0 24px; }
+    .bottom-cta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 600px) { .bottom-cta-grid { grid-template-columns: 1fr; } }
+    .bottom-cta-card {
+      background: var(--navy-mid);
+      border: 1px solid var(--navy-border);
+      border-radius: 14px;
+      padding: 28px 24px;
+      text-decoration: none;
+      display: block;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .bottom-cta-card:hover { border-color: var(--orange); transform: translateY(-2px); }
+    .bottom-cta-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--orange); margin-bottom: 8px; }
+    .bottom-cta-title { font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 8px; line-height: 1.3; }
+    .bottom-cta-desc { font-size: 13px; color: var(--muted); line-height: 1.55; margin-bottom: 16px; }
+    .bottom-cta-link { font-size: 13px; font-weight: 600; color: var(--orange); }
+
+    /* ── Footer ─────────────────────────────────────────────────────────── */
+    .page-footer {
+      margin-top: 64px;
+      padding: 24px;
+      border-top: 1px solid var(--navy-border);
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .page-footer a { color: var(--orange); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <header class="brand-bar">
+    <a href="https://canalclear.org" class="brand-logo">CanalClear</a>
+    <span class="brand-sep">·</span>
+    <span class="brand-tagline">Maritime Compliance Automation</span>
+  </header>
+
+  <main class="page-wrap">
+    <div class="hero">
+
+      <!-- Left: copy column -->
+      <div class="hero-copy">
+        <span class="eyebrow">Free Guide · Instant Download</span>
+
+        <h1 class="hero-title">
+          The Suez Canal SCA Filing Primer —
+          <em>2025 Edition</em>
+        </h1>
+        <p class="hero-edition">Suez Canal Authority (SCA) · 8 chapters · Instant PDF</p>
+
+        <p class="contents-label">What's inside</p>
+
+        <ol class="toc">
+          <li>
+            <span class="toc-num">1</span>
+            <span><strong>SCA notification system overview</strong> — how advance notices, convoy assignments, and transit windows are allocated by the Authority</span>
+          </li>
+          <li>
+            <span class="toc-num">2</span>
+            <span><strong>UMS deadline calendar</strong> — 24-hour advance notice, 12-hour confirmation, and what happens when vessels miss their convoy window</span>
+          </li>
+          <li>
+            <span class="toc-num">3</span>
+            <span><strong>SCNT tonnage rules</strong> — Suez Canal Net Tonnage vs. ITC GT/NT and how discrepancies trigger re-admeasurement and toll penalties</span>
+          </li>
+          <li>
+            <span class="toc-num">4</span>
+            <span><strong>Transit application form structure</strong> — SCA Form 1, ISPS declaration, crew list requirements, and cargo manifest sections</span>
+          </li>
+          <li>
+            <span class="toc-num">5</span>
+            <span><strong>Top rejection reasons from SCA</strong> — certificate expiry, cargo mismatch, ISPS level errors, missing DG manifest for Class 1–9 cargo</span>
+          </li>
+          <li>
+            <span class="toc-num">6</span>
+            <span><strong>Convoy scheduling and priority</strong> — northbound vs. southbound convoys, Great Bitter Lake layover rules, overtaking restrictions</span>
+          </li>
+          <li>
+            <span class="toc-num">7</span>
+            <span><strong>2025 toll structure</strong> — SCNT-based tariff bands, laden vs. ballast rates, LNG carrier exemptions, special cargo surcharges</span>
+          </li>
+          <li>
+            <span class="toc-num">8</span>
+            <span><strong>Pre-transit compliance checklist</strong> — 20-point checklist before your convoy booking is confirmed</span>
+          </li>
+        </ol>
+
+        <!-- PDF preview tile -->
+        <div class="pdf-preview">
+          <div class="pdf-icon"></div>
+          <div class="pdf-meta">
+            <div class="pdf-name">Suez Canal SCA Filing Primer</div>
+            <div class="pdf-size">PDF · 2025 Edition · Suez Canal Authority</div>
+          </div>
+          <div class="pdf-dl-icon">
+            <svg viewBox="0 0 16 16"><path d="M8 2v9m-4-4 4 4 4-4"/><path d="M3 14h10"/></svg>
+          </div>
+        </div>
+
+        <!-- Trust items -->
+        <div class="trust-bar">
+          <div class="trust-item">
+            <svg viewBox="0 0 14 14"><path d="M7 1 l1.8 3.6 4 0.6 -2.9 2.8 0.7 3.9 -3.6-1.9 -3.6 1.9 0.7-3.9 -2.9-2.8 4-0.6z"/></svg>
+            No fees. No card required.
+          </div>
+          <div class="trust-item">
+            <svg viewBox="0 0 14 14"><rect x="2" y="5" width="10" height="8" rx="1"/><path d="M5 5V4a2 2 0 1 1 4 0v1"/></svg>
+            No spam — one email, the primer, done.
+          </div>
+          <div class="trust-item">
+            <svg viewBox="0 0 14 14"><polyline points="2,7 5,10 12,4"/></svg>
+            Instant download after submission
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: form card -->
+      <div class="hero-form">
+        <div class="form-card" id="form-card">
+
+          <!-- Form view -->
+          <div id="form-view">
+            <div class="form-title">Get the Free Primer →</div>
+            <div class="form-subtitle">Enter your work email and we'll send the SCA compliance primer straight to your inbox — no name required, no spam.</div>
+
+            <div class="field">
+              <label for="sp-email">Work email</label>
+              <input type="email" id="sp-email" name="email" placeholder="you@shipcompany.com" autocomplete="email" />
+            </div>
+
+            <button class="submit-btn" id="sp-submit" onclick="spSubmit()">
+              Send Me the Primer
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M3 8h10m-4-4 4 4-4 4"/>
+              </svg>
+            </button>
+
+            <div class="form-note">
+              No fees. No card required. No spam —
+              one email, the primer, done.<br>
+              <a href="https://canalclear.org/privacy" target="_blank" rel="noopener">Privacy policy</a>
+            </div>
+
+            <div class="form-error" id="sp-error"></div>
+          </div>
+
+          <!-- Success view -->
+          <div class="success-state" id="success-view">
+            <div class="success-icon">
+              <svg viewBox="0 0 24 24"><polyline points="4,12 9,17 20,7"/></svg>
+            </div>
+            <div class="success-title">Primer is on its way.</div>
+            <div class="success-body">
+              Check your inbox for the SCA compliance guide. We also triggered the download below — check your downloads folder.
+            </div>
+            <div class="success-ctas">
+              <a href="/demo/suez" class="success-link">
+                Try the Suez filing demo →
+              </a>
+              <a href="/pricing" class="success-link-secondary">
+                See pricing →
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Social proof -->
+    <div class="proof-strip">
+      <div class="proof-label">Used by operators transiting</div>
+      <div class="proof-items">
+        <span class="proof-chip">Suez Canal</span>
+        <span class="proof-chip">Port Said</span>
+        <span class="proof-chip">Great Bitter Lake</span>
+        <span class="proof-chip">Suez Roads</span>
+        <span class="proof-chip">Panama Canal</span>
+      </div>
+    </div>
+  </main>
+
+  <!-- Bottom CTAs -->
+  <section class="bottom-cta-section">
+    <div class="bottom-cta-grid">
+      <a href="/demo/suez" class="bottom-cta-card">
+        <div class="bottom-cta-eyebrow">Live demo</div>
+        <div class="bottom-cta-title">Try the Suez filing demo →</div>
+        <div class="bottom-cta-desc">SCA auto-fill, SCNT tonnage validation, convoy scheduling, UMS deadline alerts — live in your browser.</div>
+        <span class="bottom-cta-link">Open demo →</span>
+      </a>
+      <a href="/pricing" class="bottom-cta-card">
+        <div class="bottom-cta-eyebrow">Pricing</div>
+        <div class="bottom-cta-title">See pricing →</div>
+        <div class="bottom-cta-desc">Agent Pro for small fleets. Ops Manager per-vessel pricing for large fleets. Suez add-on or multi-canal bundle.</div>
+        <span class="bottom-cta-link">View plans →</span>
+      </a>
+    </div>
+  </section>
+
+  <footer class="page-footer">
+    © 2026 CanalClear ·
+    <a href="https://canalclear.org">canalclear.org</a> ·
+    <a href="https://canalclear.org/privacy">Privacy</a> ·
+    <a href="https://canalclear.org/suez">Suez Compliance Platform</a>
+  </footer>
+
+  <script>
+    async function spSubmit() {
+      var emailInput = document.getElementById('sp-email');
+      var submitBtn  = document.getElementById('sp-submit');
+      var errorEl    = document.getElementById('sp-error');
+
+      var email = emailInput.value.trim();
+
+      errorEl.style.display = 'none';
+      errorEl.textContent = '';
+
+      if (!email || !email.includes('@')) {
+        emailInput.classList.add('error');
+        emailInput.focus();
+        setTimeout(function() { emailInput.classList.remove('error'); }, 600);
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span style="opacity:0.7">Sending…</span>';
+
+      var payload = JSON.stringify({ email: email, source: 'suez_primer' });
+      var opts = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: payload,
+      };
+
+      var res;
+      try {
+        res = await fetch('/api/cc/assessment', opts);
+      } catch (primaryErr) {
+        try {
+          res = await fetch('/api/leads/capture', opts);
+        } catch (fallbackErr) {
+          showError('Your browser blocked the request. Please disable your ad blocker and try again, or email canal-clear@polsia.app');
+          resetBtn();
+          return;
+        }
+      }
+
+      if (res && res.ok) {
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'primer_download_suez', {
+            event_category: 'lead_magnet',
+            event_label: 'suez_primer',
+          });
+        }
+
+        // Trigger PDF download
+        var a = document.createElement('a');
+        a.href = '/assets/suez-sca-primer.pdf';
+        a.download = 'suez-sca-primer.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        // Show success state
+        document.getElementById('form-view').style.display = 'none';
+        var sv = document.getElementById('success-view');
+        sv.style.display = 'flex';
+      } else {
+        var errMsg = 'Something went wrong — please try again.';
+        try {
+          var errData = await res.json();
+          if (errData && errData.message) errMsg = errData.message;
+        } catch (e) { /* ignore */ }
+        showError(errMsg);
+        resetBtn();
+      }
+    }
+
+    function showError(msg) {
+      var errorEl = document.getElementById('sp-error');
+      errorEl.textContent = msg;
+      errorEl.style.display = 'block';
+      setTimeout(function() { errorEl.style.display = 'none'; }, 10000);
+    }
+
+    function resetBtn() {
+      var btn = document.getElementById('sp-submit');
+      btn.disabled = false;
+      btn.innerHTML = 'Send Me the Primer <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10m-4-4 4 4-4 4"/></svg>';
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        var active = document.activeElement;
+        if (active && active.id === 'sp-email') spSubmit();
+      }
+    });
+  </script>
+<script src="/js/whatsapp-button.js"></script>
+</body>
+</html>
