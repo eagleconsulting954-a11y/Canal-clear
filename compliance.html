@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compliance Dashboard — CanalClear</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --navy:       #1a2d4a;
+            --deep:       #142238;
+            --slate:      #243350;
+            --teal:       #E85A00;
+            --teal-dim:   rgba(232, 90, 0, 0.12);
+            --teal-border:rgba(232, 90, 0, 0.25);
+            --cyan:       #00B4D8;
+            --white:      #ffffff;
+            --gray:       #6b7c93;
+            --light-gray: #8fa3b8;
+            --red:        #FF6B6B;
+            --red-dim:    rgba(255, 107, 107, 0.12);
+            --red-border: rgba(255, 107, 107, 0.3);
+            --yellow:     #FFD93D;
+            --yellow-dim: rgba(255, 217, 61, 0.12);
+            --yellow-border: rgba(255, 217, 61, 0.3);
+            --green:      #E85A00;
+            --green-dim:  rgba(232, 90, 0, 0.12);
+        }
+
+        html { scroll-behavior: smooth; }
+        body { font-family: 'IBM Plex Sans', sans-serif; background: var(--navy); color: var(--white); line-height: 1.6; overflow-x: hidden; }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 100;
+            padding: 1rem 2rem;
+            background: rgba(10, 22, 40, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(232, 90, 0, 0.08);
+        }
+        .nav-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+        .logo { display: flex; align-items: center; text-decoration: none; }
+        .logo img { height: 34px; width: auto; object-fit: contain; }
+        .nav-links { display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap; }
+        .nav-links a {
+            color: var(--gray); text-decoration: none; font-size: 0.875rem;
+            padding: 0.45rem 0.9rem; border-radius: 8px; transition: all 0.2s;
+        }
+        .nav-links a:hover { color: var(--white); background: rgba(232, 90, 0, 0.08); }
+        .nav-links a.active { color: var(--teal); background: var(--teal-dim); }
+        .nav-links button {
+            background: rgba(255, 107, 107, 0.1); border: 1px solid rgba(255, 107, 107, 0.2);
+            color: var(--red); border-radius: 8px; padding: 0.4rem 0.9rem;
+            font-size: 0.85rem; font-family: inherit; cursor: pointer; transition: all 0.2s;
+        }
+        .nav-links button:hover { background: rgba(255, 107, 107, 0.2); }
+
+        /* ── LAYOUT ── */
+        .app-container { max-width: 1300px; margin: 0 auto; padding: 5.5rem 1.5rem 3rem; min-height: 100vh; }
+
+        /* ── PAGE HEADER ── */
+        .page-header {
+            display: flex; align-items: flex-start; justify-content: space-between;
+            margin-bottom: 2rem; gap: 1rem; flex-wrap: wrap;
+        }
+        .page-header h1 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.25rem;
+        }
+        .page-header p { color: var(--gray); font-size: 0.95rem; }
+        .header-actions { display: flex; gap: 0.75rem; align-items: center; }
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.55rem 1.2rem; border-radius: 8px; font-size: 0.875rem;
+            font-family: inherit; font-weight: 600; cursor: pointer; transition: all 0.2s; border: none;
+        }
+        .btn-primary { background: var(--teal); color: var(--navy); }
+        .btn-primary:hover { background: #CC4F00; }
+        .btn-ghost { background: transparent; border: 1px solid rgba(255,255,255,0.1); color: var(--gray); }
+        .btn-ghost:hover { border-color: rgba(255,255,255,0.2); color: var(--white); }
+
+        /* ── SUMMARY CARDS ── */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .summary-card {
+            background: var(--slate); border-radius: 12px;
+            padding: 1.1rem 1.25rem;
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: transform 0.15s;
+        }
+        .summary-card:hover { transform: translateY(-2px); }
+        .summary-card-label {
+            font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.06em; color: var(--gray); margin-bottom: 0.5rem;
+        }
+        .summary-card-value {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 2rem; font-weight: 700; line-height: 1;
+        }
+        .summary-card-sub { font-size: 0.78rem; color: var(--gray); margin-top: 0.35rem; }
+        .summary-card.red   .summary-card-value { color: var(--red); }
+        .summary-card.yellow .summary-card-value { color: var(--yellow); }
+        .summary-card.green  .summary-card-value { color: var(--teal); }
+        .summary-card.score  .summary-card-value { color: var(--teal); }
+        .summary-card.urgent .summary-card-value { color: var(--yellow); }
+
+        /* ── FLEET FILTER BAR ── */
+        .filter-bar {
+            display: flex; gap: 0.5rem; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.825rem; font-weight: 600;
+            font-family: inherit; cursor: pointer; transition: all 0.2s; border: 1px solid;
+        }
+        .filter-btn.all    { background: var(--teal-dim); border-color: var(--teal-border); color: var(--teal); }
+        .filter-btn.red    { background: var(--red-dim);  border-color: var(--red-border);  color: var(--red);  }
+        .filter-btn.yellow { background: var(--yellow-dim); border-color: var(--yellow-border); color: var(--yellow); }
+        .filter-btn.green  { background: var(--green-dim); border-color: var(--teal-border);    color: var(--teal); }
+        .filter-btn.inactive { background: transparent; border-color: rgba(255,255,255,0.08); color: var(--gray); }
+        .filter-btn:hover { opacity: 0.85; }
+        .filter-spacer { flex: 1; }
+        .refresh-indicator { font-size: 0.78rem; color: var(--gray); }
+        #refreshCountdown { font-weight: 600; color: var(--light-gray); }
+
+        /* ── VESSEL GRID ── */
+        .vessel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1rem;
+        }
+
+        /* ── VESSEL CARD ── */
+        .vessel-card {
+            background: var(--deep); border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.06);
+            padding: 1.25rem 1.4rem;
+            cursor: pointer; transition: all 0.2s;
+            display: flex; flex-direction: column; gap: 1rem;
+        }
+        .vessel-card:hover { border-color: rgba(232, 90, 0, 0.25); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+        .vessel-card.risk-red    { border-left: 3px solid var(--red); }
+        .vessel-card.risk-yellow { border-left: 3px solid var(--yellow); }
+        .vessel-card.risk-green  { border-left: 3px solid var(--teal); }
+        .vessel-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; }
+        .vessel-name-block { flex: 1; min-width: 0; }
+        .vessel-name {
+            font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; font-weight: 600;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .vessel-meta { font-size: 0.8rem; color: var(--gray); margin-top: 0.1rem; }
+
+        /* Score ring */
+        .score-ring { position: relative; width: 52px; height: 52px; flex-shrink: 0; }
+        .score-ring svg { width: 52px; height: 52px; transform: rotate(-90deg); }
+        .score-ring-bg { fill: none; stroke: rgba(255,255,255,0.06); stroke-width: 4; }
+        .score-ring-fill { fill: none; stroke-width: 4; stroke-linecap: round; transition: stroke-dasharray 0.5s; }
+        .score-ring-text {
+            position: absolute; inset: 0; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            font-family: 'IBM Plex Sans', sans-serif; font-size: 0.85rem; font-weight: 700; line-height: 1;
+        }
+        .score-ring-sub { font-size: 0.55rem; color: var(--gray); margin-top: 1px; }
+
+        /* Risk badge */
+        .risk-badge {
+            display: inline-flex; align-items: center; gap: 0.35rem;
+            padding: 0.25rem 0.7rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700;
+        }
+        .risk-badge.red    { background: var(--red-dim);    border: 1px solid var(--red-border);    color: var(--red); }
+        .risk-badge.yellow { background: var(--yellow-dim); border: 1px solid var(--yellow-border); color: var(--yellow); }
+        .risk-badge.green  { background: var(--green-dim);  border: 1px solid var(--teal-border);   color: var(--teal); }
+        .risk-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+        .risk-badge.red .risk-dot { animation: pulse-red 1.5s infinite; }
+        @keyframes pulse-red { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+
+        /* Status pills row */
+        .status-row { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+        .status-pill-sm {
+            font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.55rem; border-radius: 12px;
+        }
+        .status-pill-sm.ok       { background: var(--green-dim); color: var(--teal); }
+        .status-pill-sm.warn     { background: var(--yellow-dim); color: var(--yellow); }
+        .status-pill-sm.critical { background: var(--red-dim); color: var(--red); }
+        .status-pill-sm.neutral  { background: rgba(136,153,170,0.1); color: var(--gray); }
+
+        /* Deadline countdown */
+        .deadline-card {
+            background: var(--yellow-dim); border: 1px solid var(--yellow-border);
+            border-radius: 8px; padding: 0.6rem 0.9rem;
+            display: flex; align-items: center; gap: 0.6rem; font-size: 0.8rem;
+        }
+        .deadline-card.critical { background: var(--red-dim); border-color: var(--red-border); }
+        .deadline-icon { font-size: 1rem; }
+        .deadline-label { color: var(--gray); }
+        .deadline-value { font-weight: 700; color: var(--yellow); margin-left: auto; }
+        .deadline-card.critical .deadline-value { color: var(--red); }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center; padding: 4rem 2rem; color: var(--gray);
+            grid-column: 1 / -1;
+        }
+        .empty-state-icon { font-size: 3rem; margin-bottom: 1rem; }
+        .empty-state h3 { font-family: 'IBM Plex Sans', sans-serif; color: var(--white); margin-bottom: 0.5rem; }
+
+        /* ── DETAIL PANEL (SIDE DRAWER) ── */
+        .panel-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 200;
+            opacity: 0; pointer-events: none; transition: opacity 0.25s;
+        }
+        .panel-overlay.open { opacity: 1; pointer-events: all; }
+        .detail-panel {
+            position: fixed; top: 0; right: 0; bottom: 0;
+            width: min(680px, 100vw);
+            background: var(--deep);
+            border-left: 1px solid rgba(232, 90, 0, 0.12);
+            z-index: 201;
+            display: flex; flex-direction: column;
+            transform: translateX(100%); transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+        }
+        .detail-panel.open { transform: translateX(0); }
+
+        .panel-header-row {
+            display: flex; align-items: center; gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            flex-shrink: 0;
+        }
+        .panel-close {
+            width: 32px; height: 32px; border-radius: 8px;
+            background: rgba(255,255,255,0.06); border: none; cursor: pointer;
+            color: var(--gray); font-size: 1.1rem; display: flex; align-items: center; justify-content: center;
+            transition: all 0.15s; flex-shrink: 0;
+        }
+        .panel-close:hover { background: rgba(255,255,255,0.1); color: var(--white); }
+        .panel-vessel-name {
+            font-family: 'IBM Plex Sans', sans-serif; font-size: 1.15rem; font-weight: 700; flex: 1; min-width: 0;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+
+        /* Tabs */
+        .panel-tabs {
+            display: flex; gap: 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding: 0 1.5rem; flex-shrink: 0; overflow-x: auto;
+        }
+        .tab-btn {
+            padding: 0.75rem 1rem; font-size: 0.85rem; font-weight: 600; font-family: inherit;
+            background: none; border: none; cursor: pointer; color: var(--gray);
+            border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap;
+            transition: all 0.15s;
+        }
+        .tab-btn:hover { color: var(--white); }
+        .tab-btn.active { color: var(--teal); border-bottom-color: var(--teal); }
+
+        /* Panel content */
+        .panel-body { flex: 1; overflow-y: auto; padding: 1.5rem; }
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+
+        /* Overview */
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.5rem; }
+        .info-item { background: var(--slate); border-radius: 8px; padding: 0.75rem 1rem; }
+        .info-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gray); margin-bottom: 0.2rem; }
+        .info-value { font-size: 0.92rem; font-weight: 600; }
+
+        .section-title {
+            font-family: 'IBM Plex Sans', sans-serif; font-size: 0.85rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.06em; color: var(--gray);
+            margin-bottom: 0.75rem; margin-top: 1.25rem;
+        }
+        .section-title:first-child { margin-top: 0; }
+
+        /* Table */
+        .data-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        .data-table th {
+            text-align: left; padding: 0.5rem 0.75rem; font-size: 0.72rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.05em; color: var(--gray);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .data-table td { padding: 0.6rem 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.04); }
+        .data-table tr:last-child td { border-bottom: none; }
+        .data-table tr:hover td { background: rgba(255,255,255,0.02); }
+        .tag {
+            display: inline-block; padding: 0.15rem 0.55rem; border-radius: 10px; font-size: 0.72rem; font-weight: 700;
+        }
+        .tag.approved  { background: var(--green-dim);  color: var(--teal);   }
+        .tag.submitted { background: var(--teal-dim);   color: var(--cyan);   }
+        .tag.rejected  { background: var(--red-dim);    color: var(--red);    }
+        .tag.pending   { background: var(--yellow-dim); color: var(--yellow); }
+        .tag.draft     { background: rgba(136,153,170,0.1); color: var(--gray); }
+        .tag.expired   { background: var(--red-dim);    color: var(--red);    }
+        .tag.expiring  { background: var(--yellow-dim); color: var(--yellow); }
+        .tag.valid     { background: var(--green-dim);  color: var(--teal);   }
+
+        /* Audit timeline */
+        .audit-list { display: flex; flex-direction: column; gap: 0; }
+        .audit-item {
+            display: flex; gap: 0.9rem; align-items: flex-start;
+            padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+            position: relative;
+        }
+        .audit-item:last-child { border-bottom: none; }
+        .audit-icon-wrap {
+            width: 30px; height: 30px; border-radius: 8px;
+            background: var(--slate); display: flex; align-items: center; justify-content: center;
+            font-size: 0.9rem; flex-shrink: 0; margin-top: 0.1rem;
+        }
+        .audit-text { flex: 1; min-width: 0; }
+        .audit-label { font-size: 0.875rem; font-weight: 500; }
+        .audit-time  { font-size: 0.75rem; color: var(--gray); margin-top: 0.1rem; }
+        .no-data { color: var(--gray); font-size: 0.875rem; padding: 1rem 0; }
+
+        /* Loading */
+        .loading-state { text-align: center; padding: 3rem; color: var(--gray); }
+        .spinner {
+            display: inline-block; width: 32px; height: 32px;
+            border: 3px solid rgba(232, 90, 0,0.2); border-top-color: var(--teal);
+            border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 1rem;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── LANG SWITCHER ── */
+        .lang-switcher { display: flex; gap: 0.3rem; align-items: center; margin-right: 0.5rem; }
+        .lang-btn {
+            background: none; border: 1px solid rgba(255,255,255,0.08);
+            color: var(--gray); padding: 0.25rem 0.5rem; border-radius: 5px;
+            font-size: 0.72rem; font-family: inherit; cursor: pointer; transition: all 0.15s;
+        }
+        .lang-btn.active { border-color: var(--teal-border); color: var(--teal); background: var(--teal-dim); }
+        .lang-btn:hover { border-color: rgba(255,255,255,0.15); color: var(--white); }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            .summary-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .app-container { padding: 5rem 1rem 2rem; }
+            .summary-grid { grid-template-columns: repeat(2, 1fr); }
+            .vessel-grid  { grid-template-columns: 1fr; }
+            .detail-panel { width: 100vw; }
+            nav { padding: 0.75rem 1rem; }
+            .nav-links { gap: 0.2rem; }
+            .nav-links a { padding: 0.35rem 0.6rem; font-size: 0.8rem; }
+            .info-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 480px) {
+            .summary-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="logo">
+            <img src="https://pub-629428d185ca4960a0a73c850d32294b.r2.dev/company_47541/images/9d5d2ef6-d9e0-40eb-ad15-df5e737cefc1.png" alt="CanalClear">
+        </a>
+        <div class="nav-links">
+            <a href="/app" data-i18n="appnav.validator">Validator</a>
+            <a href="/filing" data-i18n="appnav.filing">Filing</a>
+            <a href="/acp" data-i18n="appnav.acp">ACP Auto-Filing</a>
+            <a href="/compliance" class="active" data-i18n="appnav.compliance">Compliance</a>
+            <a href="/settings/alerts" data-i18n="appnav.alerts">⚙️ Alerts</a>
+            <div class="lang-switcher">
+                <button class="lang-btn active" onclick="setLang('en')">EN</button>
+                <button class="lang-btn" onclick="setLang('es')">ES</button>
+                <button class="lang-btn" onclick="setLang('zh')">ZH</button>
+                <button class="lang-btn" onclick="setLang('el')">EL</button>
+                <button class="lang-btn" onclick="setLang('ja')">JA</button>
+            </div>
+            <a href="/" data-i18n="appnav.home">Home</a>
+            <a href="/admin" id="adminNavLink" style="display:none;color:var(--teal);background:var(--teal-dim);border-radius:8px;padding:0.4rem 0.9rem;font-size:0.85rem;font-weight:600;">Admin</a>
+            <button onclick="logout()" data-i18n="appnav.logout">Log out</button>
+        </div>
+    </div>
+</nav>
+
+<!-- ── MAIN CONTENT ── -->
+<div class="app-container">
+
+    <!-- Page header -->
+    <div class="page-header">
+        <div>
+            <h1 data-i18n="compliance.title">Fleet Compliance Dashboard</h1>
+            <p data-i18n="compliance.subtitle">Real-time filing status, deadline tracking, and risk indicators for your entire fleet</p>
+        </div>
+        <div class="header-actions">
+            <span class="refresh-indicator" data-i18n="compliance.refresh_in">Refreshes in</span>
+            &nbsp;<span id="refreshCountdown">5:00</span>
+            <button class="btn btn-ghost" onclick="loadDashboard()" id="refreshBtn">
+                ↻ <span data-i18n="compliance.refresh">Refresh</span>
+            </button>
+            <a href="/dashboard" class="btn btn-primary" data-i18n="compliance.add_vessel">+ Add Vessel</a>
+        </div>
+    </div>
+
+    <!-- Loading state -->
+    <div class="loading-state" id="loadingState">
+        <div class="spinner"></div>
+        <p data-i18n="compliance.loading">Loading fleet data…</p>
+    </div>
+
+    <!-- Dashboard content (hidden until loaded) -->
+    <div id="dashboardContent" style="display:none;">
+
+        <!-- Summary cards -->
+        <div class="summary-grid">
+            <div class="summary-card">
+                <div class="summary-card-label" data-i18n="compliance.total_vessels">Total Vessels</div>
+                <div class="summary-card-value" id="statTotal">—</div>
+                <div class="summary-card-sub" data-i18n="compliance.active_fleet">Active fleet</div>
+            </div>
+            <div class="summary-card red">
+                <div class="summary-card-label" data-i18n="compliance.critical">🔴 Critical</div>
+                <div class="summary-card-value" id="statCritical">—</div>
+                <div class="summary-card-sub" data-i18n="compliance.need_attention">Need immediate attention</div>
+            </div>
+            <div class="summary-card yellow">
+                <div class="summary-card-label" data-i18n="compliance.warning">🟡 Warning</div>
+                <div class="summary-card-value" id="statWarning">—</div>
+                <div class="summary-card-sub" data-i18n="compliance.expiring_soon">Expiring soon / issues</div>
+            </div>
+            <div class="summary-card green">
+                <div class="summary-card-label" data-i18n="compliance.compliant">🟢 Compliant</div>
+                <div class="summary-card-value" id="statCompliant">—</div>
+                <div class="summary-card-sub" data-i18n="compliance.fully_compliant">Fully compliant</div>
+            </div>
+            <div class="summary-card score">
+                <div class="summary-card-label" data-i18n="compliance.fleet_score">Fleet Score</div>
+                <div class="summary-card-value" id="statScore">—</div>
+                <div class="summary-card-sub" data-i18n="compliance.out_of_100">/ 100</div>
+            </div>
+            <div class="summary-card urgent">
+                <div class="summary-card-label" data-i18n="compliance.urgent_deadlines">⚡ Urgent Deadlines</div>
+                <div class="summary-card-value" id="statUrgent">—</div>
+                <div class="summary-card-sub" data-i18n="compliance.next_96h">Next 96 hours</div>
+            </div>
+        </div>
+
+        <!-- Filter bar -->
+        <div class="filter-bar">
+            <button class="filter-btn all" onclick="setFilter('all')" id="filterAll" data-i18n="compliance.filter_all">All Vessels</button>
+            <button class="filter-btn red inactive" onclick="setFilter('red')" id="filterRed" data-i18n="compliance.filter_critical">🔴 Critical</button>
+            <button class="filter-btn yellow inactive" onclick="setFilter('yellow')" id="filterYellow" data-i18n="compliance.filter_warning">🟡 Warning</button>
+            <button class="filter-btn green inactive" onclick="setFilter('green')" id="filterGreen" data-i18n="compliance.filter_compliant">🟢 Compliant</button>
+            <div class="filter-spacer"></div>
+            <span class="refresh-indicator" id="lastRefresh"></span>
+        </div>
+
+        <!-- Vessel grid -->
+        <div class="vessel-grid" id="vesselGrid"></div>
+
+    </div><!-- /dashboardContent -->
+</div><!-- /app-container -->
+
+<!-- ── DETAIL PANEL ── -->
+<div class="panel-overlay" id="panelOverlay" onclick="closePanel()"></div>
+<div class="detail-panel" id="detailPanel">
+    <div class="panel-header-row">
+        <button class="panel-close" onclick="closePanel()">✕</button>
+        <div class="panel-vessel-name" id="panelVesselName">—</div>
+        <div id="panelRiskBadge"></div>
+    </div>
+    <div class="panel-tabs">
+        <button class="tab-btn active" onclick="switchTab('overview')"  id="tabOverview"  data-i18n="compliance.tab_overview">Overview</button>
+        <button class="tab-btn"        onclick="switchTab('certs')"     id="tabCerts"     data-i18n="compliance.tab_certs">Certificates</button>
+        <button class="tab-btn"        onclick="switchTab('filings')"   id="tabFilings"   data-i18n="compliance.tab_filings">Filings</button>
+        <button class="tab-btn"        onclick="switchTab('acp')"       id="tabAcp"       data-i18n="compliance.tab_acp">ACP History</button>
+        <button class="tab-btn"        onclick="switchTab('audit')"     id="tabAudit"     data-i18n="compliance.tab_audit">Audit Trail</button>
+    </div>
+    <div class="panel-body" id="panelBody">
+        <div class="loading-state"><div class="spinner"></div></div>
+    </div>
+</div>
+
+<script>
+// ─── i18n ────────────────────────────────────────────────────────────────────
+const I18N = {
+  en: {
+    'appnav.validator':   'Validator',
+    'appnav.filing':      'Filing',
+    'appnav.acp':         'ACP Auto-Filing',
+    'appnav.compliance':  'Compliance',
+    'appnav.alerts':      '⚙️ Alerts',
+    'appnav.home':        'Home',
+    'appnav.logout':      'Log out',
+    'compliance.title':   'Fleet Compliance Dashboard',
+    'compliance.subtitle':'Real-time filing status, deadline tracking, and risk indicators for your entire fleet',
+    'compliance.refresh_in': 'Refreshes in',
+    'compliance.refresh': 'Refresh',
+    'compliance.add_vessel': '+ Add Vessel',
+    'compliance.loading': 'Loading fleet data…',
+    'compliance.total_vessels': 'Total Vessels',
+    'compliance.active_fleet': 'Active fleet',
+    'compliance.critical': '🔴 Critical',
+    'compliance.need_attention': 'Need immediate attention',
+    'compliance.warning': '🟡 Warning',
+    'compliance.expiring_soon': 'Expiring soon / issues',
+    'compliance.compliant': '🟢 Compliant',
+    'compliance.fully_compliant': 'Fully compliant',
+    'compliance.fleet_score': 'Fleet Score',
+    'compliance.out_of_100': '/ 100',
+    'compliance.urgent_deadlines': '⚡ Urgent Deadlines',
+    'compliance.next_96h': 'Next 96 hours',
+    'compliance.filter_all': 'All Vessels',
+    'compliance.filter_critical': '🔴 Critical',
+    'compliance.filter_warning':  '🟡 Warning',
+    'compliance.filter_compliant': '🟢 Compliant',
+    'compliance.tab_overview': 'Overview',
+    'compliance.tab_certs':    'Certificates',
+    'compliance.tab_filings':  'Filings',
+    'compliance.tab_acp':      'ACP History',
+    'compliance.tab_audit':    'Audit Trail',
+    'compliance.no_vessels':   'No vessels yet',
+    'compliance.no_vessels_sub': 'Add your first vessel in the Fleet Dashboard to start tracking compliance.',
+    'compliance.go_fleet':     'Go to Fleet Dashboard',
+    'compliance.no_certs':     'No certificates added',
+    'compliance.no_filings':   'No filings found for this vessel',
+    'compliance.no_acp':       'No ACP submissions found',
+    'compliance.no_audit':     'No activity recorded yet',
+    'compliance.cert_type':    'Type',
+    'compliance.cert_number':  'Number',
+    'compliance.cert_expiry':  'Expiry',
+    'compliance.cert_status':  'Status',
+    'compliance.cert_issuer':  'Issuer',
+    'compliance.filing_type':  'Document',
+    'compliance.filing_status':'Status',
+    'compliance.filing_ref':   'Ref #',
+    'compliance.filing_date':  'Date',
+    'compliance.acp_type':     'Type',
+    'compliance.acp_status':   'Status',
+    'compliance.acp_date':     'Submitted',
+    'compliance.score_label':  'Score',
+    'compliance.risk_critical':'Critical',
+    'compliance.risk_warning': 'Warning',
+    'compliance.risk_compliant':'Compliant',
+    'compliance.days_left':    'd left',
+    'compliance.expired':      'Expired',
+    'compliance.overdue':      'd overdue',
+    'compliance.next_expiry':  'Next expiry',
+    'compliance.certs':        'Certs',
+    'compliance.imo':          'IMO',
+    'compliance.flag':         'Flag',
+    'compliance.type':         'Type',
+    'compliance.last_filing':  'Last filing',
+    'compliance.no_filings_short': 'No filings',
+    'compliance.countdown_label': '⏱ Cert expires in',
+  },
+  es: {
+    'appnav.validator':   'Validador',
+    'appnav.filing':      'Declaración',
+    'appnav.acp':         'Envío ACP',
+    'appnav.compliance':  'Cumplimiento',
+    'appnav.alerts':      '⚙️ Alertas',
+    'appnav.home':        'Inicio',
+    'appnav.logout':      'Cerrar sesión',
+    'compliance.title':   'Panel de Cumplimiento de Flota',
+    'compliance.subtitle':'Estado de declaraciones, plazos y riesgos en tiempo real para toda su flota',
+    'compliance.refresh_in': 'Actualiza en',
+    'compliance.refresh': 'Actualizar',
+    'compliance.add_vessel': '+ Añadir Buque',
+    'compliance.loading': 'Cargando datos de flota…',
+    'compliance.total_vessels': 'Total Buques',
+    'compliance.active_fleet': 'Flota activa',
+    'compliance.critical': '🔴 Crítico',
+    'compliance.need_attention': 'Atención inmediata requerida',
+    'compliance.warning': '🟡 Advertencia',
+    'compliance.expiring_soon': 'Próximos a vencer',
+    'compliance.compliant': '🟢 Cumple',
+    'compliance.fully_compliant': 'Totalmente en cumplimiento',
+    'compliance.fleet_score': 'Puntuación',
+    'compliance.out_of_100': '/ 100',
+    'compliance.urgent_deadlines': '⚡ Plazos Urgentes',
+    'compliance.next_96h': 'Próximas 96 horas',
+    'compliance.filter_all': 'Todos',
+    'compliance.filter_critical': '🔴 Crítico',
+    'compliance.filter_warning':  '🟡 Advertencia',
+    'compliance.filter_compliant': '🟢 Cumple',
+    'compliance.tab_overview': 'Resumen',
+    'compliance.tab_certs':    'Certificados',
+    'compliance.tab_filings':  'Declaraciones',
+    'compliance.tab_acp':      'Historial ACP',
+    'compliance.tab_audit':    'Auditoría',
+    'compliance.no_vessels':   'Sin buques',
+    'compliance.no_vessels_sub': 'Añada su primer buque en el Panel de Flota.',
+    'compliance.go_fleet':     'Ir al Panel de Flota',
+    'compliance.no_certs':     'Sin certificados añadidos',
+    'compliance.no_filings':   'Sin declaraciones para este buque',
+    'compliance.no_acp':       'Sin envíos ACP',
+    'compliance.no_audit':     'Sin actividad registrada',
+    'compliance.cert_type':    'Tipo',
+    'compliance.cert_number':  'Número',
+    'compliance.cert_expiry':  'Vencimiento',
+    'compliance.cert_status':  'Estado',
+    'compliance.cert_issuer':  'Emisor',
+    'compliance.filing_type':  'Documento',
+    'compliance.filing_status':'Estado',
+    'compliance.filing_ref':   'Ref #',
+    'compliance.filing_date':  'Fecha',
+    'compliance.acp_type':     'Tipo',
+    'compliance.acp_status':   'Estado',
+    'compliance.acp_date':     'Enviado',
+    'compliance.score_label':  'Punt.',
+    'compliance.risk_critical':'Crítico',
+    'compliance.risk_warning': 'Advertencia',
+    'compliance.risk_compliant':'Cumple',
+    'compliance.days_left':    'd restantes',
+    'compliance.expired':      'Vencido',
+    'compliance.overdue':      'd vencido',
+    'compliance.next_expiry':  'Próx. vencimiento',
+    'compliance.certs':        'Certs.',
+    'compliance.imo':          'IMO',
+    'compliance.flag':         'Bandera',
+    'compliance.type':         'Tipo',
+    'compliance.last_filing':  'Última declaración',
+    'compliance.no_filings_short': 'Sin declaraciones',
+    'compliance.countdown_label': '⏱ Cert. vence en',
+  },
+  zh: {
+    'appnav.validator':   '验证器',
+    'appnav.filing':      '申报',
+    'appnav.acp':         'ACP自动申报',
+    'appnav.compliance':  '合规',
+    'appnav.alerts':      '⚙️ 提醒',
+    'appnav.home':        '首页',
+    'appnav.logout':      '退出',
+    'compliance.title':   '船队合规仪表板',
+    'compliance.subtitle':'实时查看整个船队的申报状态、截止日期和风险指标',
+    'compliance.refresh_in': '刷新倒计时',
+    'compliance.refresh': '刷新',
+    'compliance.add_vessel': '+ 添加船舶',
+    'compliance.loading': '正在加载船队数据…',
+    'compliance.total_vessels': '船舶总数',
+    'compliance.active_fleet': '在役船队',
+    'compliance.critical': '🔴 紧急',
+    'compliance.need_attention': '需立即处理',
+    'compliance.warning': '🟡 警告',
+    'compliance.expiring_soon': '即将到期',
+    'compliance.compliant': '🟢 合规',
+    'compliance.fully_compliant': '完全合规',
+    'compliance.fleet_score': '合规评分',
+    'compliance.out_of_100': '/ 100',
+    'compliance.urgent_deadlines': '⚡ 紧急截止日期',
+    'compliance.next_96h': '未来96小时',
+    'compliance.filter_all': '全部',
+    'compliance.filter_critical': '🔴 紧急',
+    'compliance.filter_warning':  '🟡 警告',
+    'compliance.filter_compliant': '🟢 合规',
+    'compliance.tab_overview': '概览',
+    'compliance.tab_certs':    '证书',
+    'compliance.tab_filings':  '申报',
+    'compliance.tab_acp':      'ACP历史',
+    'compliance.tab_audit':    '审计记录',
+    'compliance.no_vessels':   '暂无船舶',
+    'compliance.no_vessels_sub': '在船队仪表板中添加您的第一艘船舶。',
+    'compliance.go_fleet':     '前往船队仪表板',
+    'compliance.no_certs':     '未添加证书',
+    'compliance.no_filings':   '未找到申报记录',
+    'compliance.no_acp':       '未找到ACP提交记录',
+    'compliance.no_audit':     '暂无活动记录',
+    'compliance.cert_type':    '类型',
+    'compliance.cert_number':  '编号',
+    'compliance.cert_expiry':  '到期日',
+    'compliance.cert_status':  '状态',
+    'compliance.cert_issuer':  '颁发机构',
+    'compliance.filing_type':  '文件',
+    'compliance.filing_status':'状态',
+    'compliance.filing_ref':   '参考号',
+    'compliance.filing_date':  '日期',
+    'compliance.acp_type':     '类型',
+    'compliance.acp_status':   '状态',
+    'compliance.acp_date':     '提交时间',
+    'compliance.score_label':  '评分',
+    'compliance.risk_critical':'紧急',
+    'compliance.risk_warning': '警告',
+    'compliance.risk_compliant':'合规',
+    'compliance.days_left':    '天剩余',
+    'compliance.expired':      '已过期',
+    'compliance.overdue':      '天逾期',
+    'compliance.next_expiry':  '下次到期',
+    'compliance.certs':        '证书',
+    'compliance.imo':          'IMO',
+    'compliance.flag':         '旗籍',
+    'compliance.type':         '类型',
+    'compliance.last_filing':  '最近申报',
+    'compliance.no_filings_short': '无申报',
+    'compliance.countdown_label': '⏱ 证书到期倒计时',
+  },
+  el: {
+    'appnav.validator':   'Επαλήθευση',
+    'appnav.filing':      'Υποβολή',
+    'appnav.acp':         'ACP Αυτόματο',
+    'appnav.compliance':  'Συμμόρφωση',
+    'appnav.alerts':      '⚙️ Ειδοποιήσεις',
+    'appnav.home':        'Αρχική',
+    'appnav.logout':      'Αποσύνδεση',
+    'compliance.title':   'Πίνακας Συμμόρφωσης Στόλου',
+    'compliance.subtitle':'Κατάσταση υποβολών, παρακολούθηση προθεσμιών και δείκτες κινδύνου σε πραγματικό χρόνο',
+    'compliance.refresh_in': 'Ανανέωση σε',
+    'compliance.refresh': 'Ανανέωση',
+    'compliance.add_vessel': '+ Προσθήκη Πλοίου',
+    'compliance.loading': 'Φόρτωση δεδομένων στόλου…',
+    'compliance.total_vessels': 'Σύνολο Πλοίων',
+    'compliance.active_fleet': 'Ενεργός στόλος',
+    'compliance.critical': '🔴 Κρίσιμο',
+    'compliance.need_attention': 'Χρειάζεται άμεση προσοχή',
+    'compliance.warning': '🟡 Προειδοποίηση',
+    'compliance.expiring_soon': 'Λήγει σύντομα',
+    'compliance.compliant': '🟢 Συμμορφωμένο',
+    'compliance.fully_compliant': 'Πλήρης συμμόρφωση',
+    'compliance.fleet_score': 'Βαθμολογία',
+    'compliance.out_of_100': '/ 100',
+    'compliance.urgent_deadlines': '⚡ Επείγουσες Προθεσμίες',
+    'compliance.next_96h': 'Επόμενες 96 ώρες',
+    'compliance.filter_all': 'Όλα',
+    'compliance.filter_critical': '🔴 Κρίσιμο',
+    'compliance.filter_warning':  '🟡 Προειδοποίηση',
+    'compliance.filter_compliant': '🟢 Συμμορφωμένο',
+    'compliance.tab_overview': 'Επισκόπηση',
+    'compliance.tab_certs':    'Πιστοποιητικά',
+    'compliance.tab_filings':  'Υποβολές',
+    'compliance.tab_acp':      'Ιστορικό ACP',
+    'compliance.tab_audit':    'Ελεγκτικό Ίχνος',
+    'compliance.no_vessels':   'Δεν υπάρχουν πλοία',
+    'compliance.no_vessels_sub': 'Προσθέστε το πρώτο πλοίο σας.',
+    'compliance.go_fleet':     'Πίνακας Στόλου',
+    'compliance.no_certs':     'Δεν έχουν προστεθεί πιστοποιητικά',
+    'compliance.no_filings':   'Δεν βρέθηκαν υποβολές',
+    'compliance.no_acp':       'Δεν βρέθηκαν υποβολές ACP',
+    'compliance.no_audit':     'Δεν υπάρχει καταγεγραμμένη δραστηριότητα',
+    'compliance.cert_type':    'Τύπος',
+    'compliance.cert_number':  'Αριθμός',
+    'compliance.cert_expiry':  'Λήξη',
+    'compliance.cert_status':  'Κατάσταση',
+    'compliance.cert_issuer':  'Εκδότης',
+    'compliance.filing_type':  'Έγγραφο',
+    'compliance.filing_status':'Κατάσταση',
+    'compliance.filing_ref':   'Αρ. Αναφ.',
+    'compliance.filing_date':  'Ημερομηνία',
+    'compliance.acp_type':     'Τύπος',
+    'compliance.acp_status':   'Κατάσταση',
+    'compliance.acp_date':     'Υποβολή',
+    'compliance.score_label':  'Βαθμός',
+    'compliance.risk_critical':'Κρίσιμο',
+    'compliance.risk_warning': 'Προειδοποίηση',
+    'compliance.risk_compliant':'Συμμορφωμένο',
+    'compliance.days_left':    'μέρες',
+    'compliance.expired':      'Έληξε',
+    'compliance.overdue':      'μέρες εκπρόθεσμα',
+    'compliance.next_expiry':  'Επόμενη λήξη',
+    'compliance.certs':        'Πιστ.',
+    'compliance.imo':          'IMO',
+    'compliance.flag':         'Σημαία',
+    'compliance.type':         'Τύπος',
+    'compliance.last_filing':  'Τελευταία υποβολή',
+    'compliance.no_filings_short': 'Καμία υποβολή',
+    'compliance.countdown_label': '⏱ Λήξη πιστοποιητικού σε',
+  },
+  ja: {
+    'appnav.validator':   'バリデーター',
+    'appnav.filing':      '申告',
+    'appnav.acp':         'ACP自動申告',
+    'appnav.compliance':  'コンプライアンス',
+    'appnav.alerts':      '⚙️ アラート',
+    'appnav.home':        'ホーム',
+    'appnav.logout':      'ログアウト',
+    'compliance.title':   '船隊コンプライアンスダッシュボード',
+    'compliance.subtitle':'船隊全体の申告状況、締切、リスク指標をリアルタイムで確認',
+    'compliance.refresh_in': '更新まで',
+    'compliance.refresh': '更新',
+    'compliance.add_vessel': '+ 船舶追加',
+    'compliance.loading': '船隊データを読み込み中…',
+    'compliance.total_vessels': '船舶総数',
+    'compliance.active_fleet': '稼働中船隊',
+    'compliance.critical': '🔴 重大',
+    'compliance.need_attention': '即時対応が必要',
+    'compliance.warning': '🟡 警告',
+    'compliance.expiring_soon': '期限切れ間近',
+    'compliance.compliant': '🟢 適合',
+    'compliance.fully_compliant': '完全適合',
+    'compliance.fleet_score': '船隊スコア',
+    'compliance.out_of_100': '/ 100',
+    'compliance.urgent_deadlines': '⚡ 緊急締切',
+    'compliance.next_96h': '今後96時間',
+    'compliance.filter_all': '全て',
+    'compliance.filter_critical': '🔴 重大',
+    'compliance.filter_warning':  '🟡 警告',
+    'compliance.filter_compliant': '🟢 適合',
+    'compliance.tab_overview': '概要',
+    'compliance.tab_certs':    '証書',
+    'compliance.tab_filings':  '申告',
+    'compliance.tab_acp':      'ACP履歴',
+    'compliance.tab_audit':    '監査証跡',
+    'compliance.no_vessels':   '船舶なし',
+    'compliance.no_vessels_sub': '船隊ダッシュボードで最初の船舶を追加してください。',
+    'compliance.go_fleet':     '船隊ダッシュボードへ',
+    'compliance.no_certs':     '証書が追加されていません',
+    'compliance.no_filings':   'この船舶の申告が見つかりません',
+    'compliance.no_acp':       'ACP提出記録が見つかりません',
+    'compliance.no_audit':     '記録された活動はありません',
+    'compliance.cert_type':    '種別',
+    'compliance.cert_number':  '番号',
+    'compliance.cert_expiry':  '有効期限',
+    'compliance.cert_status':  '状態',
+    'compliance.cert_issuer':  '発行機関',
+    'compliance.filing_type':  '書類',
+    'compliance.filing_status':'状態',
+    'compliance.filing_ref':   '参照番号',
+    'compliance.filing_date':  '日付',
+    'compliance.acp_type':     '種別',
+    'compliance.acp_status':   '状態',
+    'compliance.acp_date':     '提出日',
+    'compliance.score_label':  'スコア',
+    'compliance.risk_critical':'重大',
+    'compliance.risk_warning': '警告',
+    'compliance.risk_compliant':'適合',
+    'compliance.days_left':    '日残',
+    'compliance.expired':      '期限切れ',
+    'compliance.overdue':      '日超過',
+    'compliance.next_expiry':  '次の期限',
+    'compliance.certs':        '証書',
+    'compliance.imo':          'IMO',
+    'compliance.flag':         '船籍',
+    'compliance.type':         '種別',
+    'compliance.last_filing':  '最終申告',
+    'compliance.no_filings_short': '申告なし',
+    'compliance.countdown_label': '⏱ 証書期限まで',
+  },
+};
+
+let currentLang = localStorage.getItem('cc_lang') || 'en';
+let currentFilter = 'all';
+let dashboardData = null;
+let refreshTimer = null;
+let refreshSeconds = 300;
+
+function t(key) {
+  return (I18N[currentLang] && I18N[currentLang][key]) || (I18N.en[key]) || key;
+}
+
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('cc_lang', lang);
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.toLowerCase() === lang);
+  });
+  applyTranslations();
+  if (dashboardData) renderDashboard(dashboardData);
+}
+
+function applyTranslations() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (el.tagName === 'INPUT') el.placeholder = t(key);
+    else el.textContent = t(key);
+  });
+}
+
+// ─── Auth ─────────────────────────────────────────────────────────────────────
+function getToken() { return localStorage.getItem('token'); }
+function logout() {
+  localStorage.removeItem('token');
+  window.location.href = '/login';
+}
+async function checkAuth() {
+  const tok = getToken();
+  if (!tok) { window.location.href = '/login?redirect=/compliance'; return false; }
+  try {
+    const r = await fetch('/api/me', { headers: { Authorization: `Bearer ${tok}` } });
+    if (!r.ok) { window.location.href = '/login?redirect=/compliance'; return false; }
+    const d = await r.json();
+    if (d.user && d.user.role === 'admin') document.getElementById('adminNavLink').style.display = '';
+    return true;
+  } catch { window.location.href = '/login?redirect=/compliance'; return false; }
+}
+
+// ─── Dashboard load ───────────────────────────────────────────────────────────
+async function loadDashboard() {
+  try {
+    const r = await fetch('/api/compliance/dashboard', {
+      headers: { Authorization: `Bearer ${getToken()}` }
+    });
+    if (!r.ok) throw new Error('API error');
+    const data = await r.json();
+    if (!data.success) throw new Error(data.message);
+    dashboardData = data;
+    renderDashboard(data);
+    startRefreshTimer();
+    document.getElementById('lastRefresh').textContent = `↻ ${new Date().toLocaleTimeString()}`;
+  } catch (e) {
+    document.getElementById('loadingState').innerHTML =
+      `<div class="loading-state"><p style="color:var(--red)">Failed to load fleet data. <a href="#" onclick="loadDashboard()" style="color:var(--teal)">Retry</a></p></div>`;
+  }
+}
+
+function renderDashboard(data) {
+  // Hide loader
+  document.getElementById('loadingState').style.display = 'none';
+  document.getElementById('dashboardContent').style.display = '';
+
+  // Update summary cards
+  const s = data.summary;
+  document.getElementById('statTotal').textContent    = s.total;
+  document.getElementById('statCritical').textContent = s.critical;
+  document.getElementById('statWarning').textContent  = s.warning;
+  document.getElementById('statCompliant').textContent = s.compliant;
+  document.getElementById('statScore').textContent    = s.fleet_score;
+  document.getElementById('statUrgent').textContent   = s.urgent_deadlines;
+
+  renderVessels(data.vessels);
+}
+
+function setFilter(f) {
+  currentFilter = f;
+  ['all','red','yellow','green'].forEach(id => {
+    const btn = document.getElementById('filter' + id.charAt(0).toUpperCase() + id.slice(1));
+    if (btn) btn.classList.toggle('inactive', id !== f);
+  });
+  if (dashboardData) renderVessels(dashboardData.vessels);
+}
+
+function renderVessels(vessels) {
+  const grid = document.getElementById('vesselGrid');
+  const filtered = currentFilter === 'all'
+    ? vessels
+    : vessels.filter(v => v.risk === currentFilter);
+
+  if (!filtered.length) {
+    if (!vessels.length) {
+      grid.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">🚢</div>
+          <h3>${t('compliance.no_vessels')}</h3>
+          <p>${t('compliance.no_vessels_sub')}</p>
+          <br>
+          <a href="/dashboard" class="btn btn-primary">${t('compliance.go_fleet')}</a>
+        </div>`;
+    } else {
+      grid.innerHTML = `<div class="empty-state"><div class="empty-state-icon">✅</div><h3>${t('compliance.filter_' + currentFilter).replace(/[🔴🟡🟢]\s/,'')}</h3><p>No vessels in this category.</p></div>`;
+    }
+    return;
+  }
+
+  // Sort: red first, then yellow, then green
+  const order = { red: 0, yellow: 1, green: 2 };
+  const sorted = [...filtered].sort((a, b) => order[a.risk] - order[b.risk]);
+
+  grid.innerHTML = sorted.map(v => renderVesselCard(v)).join('');
+}
+
+function renderVesselCard(v) {
+  const riskLabel = t('compliance.risk_' + (v.risk === 'red' ? 'critical' : v.risk === 'yellow' ? 'warning' : 'compliant'));
+  const scoreColor = v.risk === 'red' ? '#FF6B6B' : v.risk === 'yellow' ? '#FFD93D' : '#E85A00';
+  const circumference = 2 * Math.PI * 22;
+  const dash = (v.score / 100) * circumference;
+
+  // Cert status pills
+  let certPills = '';
+  if (v.cert_count === 0) {
+    certPills = `<span class="status-pill-sm warn">${t('compliance.certs')}: 0</span>`;
+  } else {
+    if (v.certs_expired > 0)     certPills += `<span class="status-pill-sm critical">${v.certs_expired} ${t('compliance.expired')}</span>`;
+    if (v.certs_expiring_7d > 0) certPills += `<span class="status-pill-sm critical">⚡ &lt;7d</span>`;
+    if (v.certs_expiring_30d > 0) certPills += `<span class="status-pill-sm warn">&lt;30d</span>`;
+    const ok = v.cert_count - v.certs_expired - v.certs_expiring_7d - v.certs_expiring_30d;
+    if (ok > 0) certPills += `<span class="status-pill-sm ok">${ok} OK</span>`;
+  }
+
+  // Filing pills
+  if (v.filings.rejected > 0) certPills += `<span class="status-pill-sm critical">Filing ❌</span>`;
+  else if (v.filings.submitted > 0) certPills += `<span class="status-pill-sm warn">Filing ⏳</span>`;
+  else if (v.filings.approved > 0) certPills += `<span class="status-pill-sm ok">Filing ✅</span>`;
+
+  // ACP pills
+  if (v.acp.rejected > 0) certPills += `<span class="status-pill-sm critical">ACP ❌</span>`;
+  else if (v.acp.submitted > 0) certPills += `<span class="status-pill-sm warn">ACP ⏳</span>`;
+  else if (v.acp.approved > 0) certPills += `<span class="status-pill-sm ok">ACP ✅</span>`;
+
+  // Deadline countdown
+  let deadlineHtml = '';
+  if (v.days_until_next_expiry !== null && v.days_until_next_expiry <= 30) {
+    const isCrit = v.days_until_next_expiry <= 4;
+    const label  = v.days_until_next_expiry < 0
+      ? `${Math.abs(v.days_until_next_expiry)} ${t('compliance.overdue')}`
+      : `${v.days_until_next_expiry} ${t('compliance.days_left')}`;
+    deadlineHtml = `
+      <div class="deadline-card ${isCrit ? 'critical' : ''}">
+        <span class="deadline-icon">⏱</span>
+        <span class="deadline-label">${t('compliance.next_expiry')}:</span>
+        <span class="deadline-value">${label}</span>
+      </div>`;
+  }
+
+  const metaParts = [];
+  if (v.imo)  metaParts.push(`${t('compliance.imo')}: ${v.imo}`);
+  if (v.flag) metaParts.push(`${t('compliance.flag')}: ${v.flag}`);
+  if (v.type) metaParts.push(`${t('compliance.type')}: ${v.type}`);
+
+  return `
+    <div class="vessel-card risk-${v.risk}" onclick="openPanel(${v.id})">
+      <div class="vessel-card-top">
+        <div class="vessel-name-block">
+          <div class="vessel-name">${escHtml(v.name)}</div>
+          <div class="vessel-meta">${metaParts.join(' · ') || '—'}</div>
+        </div>
+        <div class="score-ring">
+          <svg viewBox="0 0 52 52">
+            <circle class="score-ring-bg" cx="26" cy="26" r="22"/>
+            <circle class="score-ring-fill" cx="26" cy="26" r="22"
+              stroke="${scoreColor}"
+              stroke-dasharray="${dash} ${circumference - dash}"/>
+          </svg>
+          <div class="score-ring-text">
+            <span style="color:${scoreColor}">${v.score}</span>
+            <span class="score-ring-sub">${t('compliance.score_label')}</span>
+          </div>
+        </div>
+      </div>
+      <div class="status-row">${certPills || '<span class="status-pill-sm neutral">—</span>'}</div>
+      ${deadlineHtml}
+    </div>`;
+}
+
+// ─── Detail Panel ─────────────────────────────────────────────────────────────
+let currentVesselId = null;
+
+function openPanel(vesselId) {
+  currentVesselId = vesselId;
+  document.getElementById('panelOverlay').classList.add('open');
+  document.getElementById('detailPanel').classList.add('open');
+  document.getElementById('panelBody').innerHTML = '<div class="loading-state"><div class="spinner"></div></div>';
+  document.getElementById('panelVesselName').textContent = '…';
+  document.getElementById('panelRiskBadge').innerHTML = '';
+  switchTab('overview');
+  loadVesselDetail(vesselId);
+  document.body.style.overflow = 'hidden';
+}
+
+function closePanel() {
+  document.getElementById('panelOverlay').classList.remove('open');
+  document.getElementById('detailPanel').classList.remove('open');
+  document.body.style.overflow = '';
+  currentVesselId = null;
+}
+
+let panelData = null;
+async function loadVesselDetail(id) {
+  try {
+    const r = await fetch(`/api/compliance/vessel/${id}`, {
+      headers: { Authorization: `Bearer ${getToken()}` }
+    });
+    if (!r.ok) throw new Error('Not found');
+    const data = await r.json();
+    if (!data.success) throw new Error(data.message);
+    panelData = data;
+
+    // Header
+    document.getElementById('panelVesselName').textContent = data.vessel.name;
+    const dashV = dashboardData && dashboardData.vessels.find(v => v.id === id);
+    if (dashV) {
+      const riskLabel = t('compliance.risk_' + (dashV.risk === 'red' ? 'critical' : dashV.risk === 'yellow' ? 'warning' : 'compliant'));
+      document.getElementById('panelRiskBadge').innerHTML =
+        `<span class="risk-badge ${dashV.risk}"><span class="risk-dot"></span>${riskLabel}</span>`;
+    }
+
+    renderPanelTab('overview');
+  } catch (e) {
+    document.getElementById('panelBody').innerHTML =
+      `<div class="no-data" style="color:var(--red)">Failed to load vessel details.</div>`;
+  }
+}
+
+function switchTab(tabName) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  const activeBtn = document.getElementById('tab' + tabName.charAt(0).toUpperCase() + tabName.slice(1));
+  if (activeBtn) activeBtn.classList.add('active');
+  if (panelData) renderPanelTab(tabName);
+}
+
+function renderPanelTab(tab) {
+  const body = document.getElementById('panelBody');
+  if (!panelData) return;
+  const { vessel, certificates, filings, acp, audit } = panelData;
+  const dashV = dashboardData && dashboardData.vessels.find(v => v.id === currentVesselId);
+
+  if (tab === 'overview') {
+    const score  = dashV ? dashV.score : '—';
+    const risk   = dashV ? dashV.risk : 'green';
+    const scoreColor = risk === 'red' ? '#FF6B6B' : risk === 'yellow' ? '#FFD93D' : '#E85A00';
+    const circumference = 2 * Math.PI * 22;
+    const dash = dashV ? ((dashV.score / 100) * circumference) : 0;
+
+    const lastFilingDate = filings.length > 0
+      ? formatDate(filings[0].created_at)
+      : t('compliance.no_filings_short');
+
+    body.innerHTML = `
+      <div style="display:flex;gap:1.5rem;align-items:flex-start;margin-bottom:1.5rem;flex-wrap:wrap;">
+        <div class="score-ring" style="width:80px;height:80px;flex-shrink:0;">
+          <svg viewBox="0 0 52 52" style="width:80px;height:80px;">
+            <circle class="score-ring-bg" cx="26" cy="26" r="22"/>
+            <circle class="score-ring-fill" cx="26" cy="26" r="22"
+              stroke="${scoreColor}"
+              stroke-dasharray="${dash} ${circumference - dash}"/>
+          </svg>
+          <div class="score-ring-text" style="font-size:1.1rem;">
+            <span style="color:${scoreColor}">${score}</span>
+            <span class="score-ring-sub">${t('compliance.score_label')}</span>
+          </div>
+        </div>
+        <div style="flex:1;min-width:0;">
+          <div class="info-grid" style="margin-bottom:0;">
+            ${vessel.imo   ? `<div class="info-item"><div class="info-label">${t('compliance.imo')}</div><div class="info-value">${escHtml(vessel.imo)}</div></div>` : ''}
+            ${vessel.flag  ? `<div class="info-item"><div class="info-label">${t('compliance.flag')}</div><div class="info-value">${escHtml(vessel.flag)}</div></div>` : ''}
+            ${vessel.type  ? `<div class="info-item"><div class="info-label">${t('compliance.type')}</div><div class="info-value">${escHtml(vessel.type)}</div></div>` : ''}
+            ${vessel.class_society ? `<div class="info-item"><div class="info-label">Class Society</div><div class="info-value">${escHtml(vessel.class_society)}</div></div>` : ''}
+            <div class="info-item"><div class="info-label">${t('compliance.certs')}</div><div class="info-value">${certificates.length}</div></div>
+            <div class="info-item"><div class="info-label">${t('compliance.last_filing')}</div><div class="info-value" style="font-size:0.82rem;">${lastFilingDate}</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">${t('compliance.tab_certs')}</div>
+      ${renderCertsSummary(certificates)}
+
+      <div class="section-title" style="margin-top:1.25rem;">${t('compliance.tab_filings')} & ACP</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+        <div class="info-item">
+          <div class="info-label">Filings</div>
+          <div class="info-value">${filings.length}</div>
+          <div style="font-size:0.75rem;color:var(--gray);margin-top:0.2rem;">
+            ${filings.filter(f=>f.status==='approved').length} approved ·
+            ${filings.filter(f=>f.status==='rejected').length} rejected
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">ACP Submissions</div>
+          <div class="info-value">${acp.length}</div>
+          <div style="font-size:0.75rem;color:var(--gray);margin-top:0.2rem;">
+            ${acp.filter(a=>a.status==='approved').length} approved ·
+            ${acp.filter(a=>a.status==='rejected').length} rejected
+          </div>
+        </div>
+      </div>`;
+
+  } else if (tab === 'certs') {
+    if (!certificates.length) {
+      body.innerHTML = `<p class="no-data">${t('compliance.no_certs')}</p>`;
+      return;
+    }
+    body.innerHTML = `
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>${t('compliance.cert_type')}</th>
+            <th>${t('compliance.cert_expiry')}</th>
+            <th>${t('compliance.cert_status')}</th>
+            <th>${t('compliance.cert_issuer')}</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${certificates.map(c => {
+            const days = c.days_until_expiry;
+            let statusTag, statusClass;
+            if (days < 0)  { statusTag = `${Math.abs(days)}d ${t('compliance.overdue')}`; statusClass = 'expired'; }
+            else if (days <= 7)  { statusTag = `${days}d`; statusClass = 'expiring'; }
+            else if (days <= 30) { statusTag = `${days}d`; statusClass = 'expiring'; }
+            else { statusTag = t('compliance.days_left').replace('d ','') + ` ${days}d`; statusClass = 'valid'; }
+            return `<tr>
+              <td style="font-weight:600;">${escHtml(c.cert_type)}</td>
+              <td>${c.expiry_date ? new Date(c.expiry_date).toLocaleDateString() : '—'}</td>
+              <td><span class="tag ${statusClass}">${statusTag}</span></td>
+              <td style="color:var(--gray);font-size:0.8rem;">${escHtml(c.issuing_body || '—')}</td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>`;
+
+  } else if (tab === 'filings') {
+    if (!filings.length) {
+      body.innerHTML = `<p class="no-data">${t('compliance.no_filings')}</p>`;
+      return;
+    }
+    body.innerHTML = `
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>${t('compliance.filing_type')}</th>
+            <th>${t('compliance.filing_status')}</th>
+            <th>${t('compliance.filing_ref')}</th>
+            <th>${t('compliance.filing_date')}</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${filings.map(f => `<tr>
+            <td style="font-weight:500;">${escHtml(f.document_type.replace(/_/g,' '))}</td>
+            <td><span class="tag ${f.status}">${f.status}</span></td>
+            <td style="color:var(--gray);font-size:0.8rem;">${f.reference_number || '—'}</td>
+            <td style="color:var(--gray);font-size:0.8rem;">${formatDate(f.submitted_at || f.created_at)}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table>`;
+
+  } else if (tab === 'acp') {
+    if (!acp.length) {
+      body.innerHTML = `<p class="no-data">${t('compliance.no_acp')}</p>`;
+      return;
+    }
+    body.innerHTML = `
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>${t('compliance.acp_type')}</th>
+            <th>${t('compliance.acp_status')}</th>
+            <th>${t('compliance.acp_date')}</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${acp.map(a => `<tr>
+            <td style="font-weight:500;">${escHtml((a.filing_type || 'submission').replace(/_/g,' '))}</td>
+            <td><span class="tag ${a.status}">${a.status}</span></td>
+            <td style="color:var(--gray);font-size:0.8rem;">${formatDate(a.submitted_at || a.created_at)}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table>`;
+
+  } else if (tab === 'audit') {
+    if (!audit.length) {
+      body.innerHTML = `<p class="no-data">${t('compliance.no_audit')}</p>`;
+      return;
+    }
+    body.innerHTML = `
+      <div class="audit-list">
+        ${audit.map(a => `
+          <div class="audit-item">
+            <div class="audit-icon-wrap">${a.icon}</div>
+            <div class="audit-text">
+              <div class="audit-label">${escHtml(a.label)}</div>
+              <div class="audit-time">${formatDate(a.ts, true)}</div>
+            </div>
+          </div>`).join('')}
+      </div>`;
+  }
+}
+
+function renderCertsSummary(certs) {
+  if (!certs.length) return `<p class="no-data">${t('compliance.no_certs')}</p>`;
+  const sorted = [...certs].sort((a, b) => a.days_until_expiry - b.days_until_expiry);
+  return `<div style="display:flex;flex-direction:column;gap:0.4rem;">
+    ${sorted.slice(0, 5).map(c => {
+      const d = c.days_until_expiry;
+      const cls = d < 0 ? 'critical' : d <= 7 ? 'critical' : d <= 30 ? 'warn' : 'ok';
+      const label = d < 0 ? `${Math.abs(d)}d ${t('compliance.overdue')}` : `${d}d ${t('compliance.days_left')}`;
+      return `<div style="display:flex;align-items:center;justify-content:space-between;padding:0.4rem 0;border-bottom:1px solid rgba(255,255,255,0.04);">
+        <span style="font-size:0.85rem;">${escHtml(c.cert_type)}</span>
+        <span class="status-pill-sm ${cls}">${label}</span>
+      </div>`;
+    }).join('')}
+    ${certs.length > 5 ? `<div style="font-size:0.78rem;color:var(--gray);padding-top:0.25rem;">+${certs.length-5} more — see Certificates tab</div>` : ''}
+  </div>`;
+}
+
+// ─── Refresh timer ────────────────────────────────────────────────────────────
+function startRefreshTimer() {
+  if (refreshTimer) clearInterval(refreshTimer);
+  refreshSeconds = 300;
+  refreshTimer = setInterval(() => {
+    refreshSeconds--;
+    const m = Math.floor(refreshSeconds / 60).toString();
+    const s = (refreshSeconds % 60).toString().padStart(2, '0');
+    document.getElementById('refreshCountdown').textContent = `${m}:${s}`;
+    if (refreshSeconds <= 0) { clearInterval(refreshTimer); loadDashboard(); }
+  }, 1000);
+}
+
+// ─── Utils ────────────────────────────────────────────────────────────────────
+function escHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function formatDate(iso, withTime = false) {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  if (isNaN(d)) return '—';
+  if (withTime) return d.toLocaleString();
+  return d.toLocaleDateString();
+}
+
+// Keyboard: Escape closes panel
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+(async function init() {
+  applyTranslations();
+  const authed = await checkAuth();
+  if (!authed) return;
+  await loadDashboard();
+})();
+</script>
+<script src="/js/whatsapp-button.js"></script>
+</body>
+</html>

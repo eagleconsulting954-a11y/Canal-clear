@@ -1,0 +1,2011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo Fleet Dashboard — CanalClear</title>
+  <meta name="description" content="See your entire fleet's canal compliance at a glance. Live demo with 11 sample vessels — Panama VUMPA/PCSOPEP, Suez SCA, Bosporus SP-1, Malacca STRAITREP, and Cape ISPS filings, compliance scores, and cost savings.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://canalclear.org/demo/dashboard">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://canalclear.org/demo/dashboard">
+  <meta property="og:title" content="Demo Fleet Dashboard — CanalClear Canal Compliance">
+  <meta property="og:description" content="See what your fleet dashboard looks like. 8 vessels, real compliance scores, cost savings tracker, and active alerts — no login required.">
+  <meta property="og:image" content="https://pub-629428d185ca4960a0a73c850d32294b.r2.dev/company_47541/images/7468770b-1ead-4654-b420-c985f9c28bf2.png">
+  <meta property="og:site_name" content="CanalClear">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/visual-polish.css">
+  <link rel="icon" type="image/png" href="/icons/icon-192.png">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #1a2d4a;
+      --deep: #0f1d30;
+      --slate: #1e2f4a;
+      --slate2: #243350;
+      --orange: #E85A00;
+      --orange-dim: rgba(232, 90, 0, 0.12);
+      --orange-border: rgba(232, 90, 0, 0.25);
+      --white: #ffffff;
+      --gray: #6b7c93;
+      --light: #8fa3b8;
+      --red: #FF6B6B;
+      --red-dim: rgba(255, 107, 107, 0.12);
+      --yellow: #FFD93D;
+      --yellow-dim: rgba(255, 217, 61, 0.12);
+      --green: #4CAF50;
+      --green-dim: rgba(76, 175, 80, 0.12);
+      --teal: #00BCD4;
+      --teal-dim: rgba(0, 188, 212, 0.12);
+      --teal-border: rgba(0, 188, 212, 0.25);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── DEMO BANNER ── */
+    .demo-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      background: rgba(232, 90, 0, 0.95);
+      padding: 0.6rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+    .demo-banner a {
+      color: #fff;
+      font-weight: 700;
+      text-decoration: underline;
+      white-space: nowrap;
+    }
+    .demo-banner .dismiss {
+      position: absolute;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.7);
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 0 0.5rem;
+      line-height: 1;
+    }
+    .demo-banner .dismiss:hover { color: #fff; }
+
+    /* ── TOP NAV ── */
+    nav {
+      position: fixed;
+      top: 38px;
+      width: 100%;
+      z-index: 100;
+      background: rgba(10, 22, 40, 0.96);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(232, 90, 0, 0.1);
+    }
+    .nav-inner {
+      max-width: 100%;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      height: 52px;
+    }
+
+    /* Logo + company */
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 200px;
+      padding-right: 1.5rem;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      text-decoration: none;
+    }
+    .nav-brand img { height: 28px; width: auto; }
+    .nav-company-name {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--light);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 130px;
+    }
+
+    /* Tab nav */
+    .nav-tabs {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      margin-left: 0.5rem;
+      flex: 1;
+    }
+    .nav-tab {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0 1.1rem;
+      height: 52px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--gray);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+    }
+    .nav-tab:hover { color: var(--white); background: rgba(255,255,255,0.03); }
+    .nav-tab.active {
+      color: var(--orange);
+      border-bottom-color: var(--orange);
+      background: rgba(232, 90, 0, 0.05);
+    }
+    .nav-tab .tab-icon { font-size: 0.9rem; }
+
+    /* User pill */
+    .nav-user {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .user-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--slate);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 100px;
+      padding: 0.3rem 0.75rem 0.3rem 0.4rem;
+      font-size: 0.8rem;
+      color: var(--light);
+    }
+    .user-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--orange-dim);
+      border: 1px solid var(--orange-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: var(--orange);
+      font-weight: 700;
+    }
+    .btn-signup {
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.4rem 1rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .btn-signup:hover { opacity: 0.85; }
+
+    /* ── LAYOUT ── */
+    .app-shell {
+      display: flex;
+      padding-top: 90px;
+      min-height: 100vh;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: 220px;
+      flex-shrink: 0;
+      background: var(--deep);
+      border-right: 1px solid rgba(255,255,255,0.06);
+      padding: 1.5rem 0.75rem;
+      position: sticky;
+      top: 90px;
+      height: calc(100vh - 90px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .sidebar-section-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gray);
+      padding: 0.75rem 0.75rem 0.4rem;
+      font-weight: 600;
+    }
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.55rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      color: var(--light);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .sidebar-item:hover { background: rgba(255,255,255,0.05); color: var(--white); }
+    .sidebar-item.active { background: var(--orange-dim); color: var(--orange); border: 1px solid var(--orange-border); }
+    .sidebar-item .si-icon { width: 18px; text-align: center; font-size: 0.9rem; }
+    .sidebar-badge {
+      margin-left: auto;
+      background: var(--red);
+      color: #fff;
+      border-radius: 100px;
+      padding: 0.05rem 0.45rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+    .sidebar-badge.warn { background: var(--yellow); color: #1a2d4a; }
+
+    /* ── MAIN PANEL ── */
+    .main-panel {
+      flex: 1;
+      padding: 1.75rem 2rem 4rem;
+      min-width: 0;
+    }
+
+    /* Page header */
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .page-title h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.2rem;
+    }
+    .page-title p { color: var(--gray); font-size: 0.9rem; }
+    .header-actions { display: flex; gap: 0.75rem; align-items: center; }
+    .btn-primary-sm {
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.5rem 1.1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .btn-primary-sm:hover { opacity: 0.85; }
+    .btn-ghost {
+      background: none;
+      color: var(--gray);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-ghost:hover { color: var(--white); border-color: rgba(255,255,255,0.2); }
+
+    /* ── KPI ROW ── */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .kpi-card {
+      background: var(--slate);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 1.1rem 1.25rem;
+      cursor: pointer;
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .kpi-card:hover { border-color: rgba(232,90,0,0.3); transform: translateY(-1px); }
+    .kpi-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--gray);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .kpi-value {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .kpi-value.orange { color: var(--orange); }
+    .kpi-value.green { color: var(--green); }
+    .kpi-value.yellow { color: var(--yellow); }
+    .kpi-value.red { color: var(--red); }
+    .kpi-meta { font-size: 0.78rem; color: var(--gray); }
+
+    /* ── GAUGE ── */
+    .gauge-row {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .gauge-card {
+      background: var(--slate);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+    }
+    .gauge-card:hover { border-color: var(--orange-border); }
+    .gauge-title {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--gray);
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .gauge-svg { width: 160px; height: 90px; overflow: visible; }
+    .gauge-number {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--green);
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+    .gauge-sub { font-size: 0.78rem; color: var(--gray); text-align: center; margin-top: 0.25rem; }
+
+    /* ── ALERTS CARD ── */
+    .alerts-card {
+      background: var(--slate);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+    .alerts-card:hover { border-color: rgba(255,107,107,0.3); }
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    .card-title {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--gray);
+      font-weight: 600;
+    }
+    .badge-count {
+      background: var(--red-dim);
+      color: var(--red);
+      border: 1px solid rgba(255,107,107,0.25);
+      border-radius: 100px;
+      padding: 0.1rem 0.6rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .alert-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      cursor: pointer;
+    }
+    .alert-item:last-child { border-bottom: none; }
+    .alert-item:hover { opacity: 0.85; }
+    .alert-dot {
+      flex-shrink: 0;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-top: 0.4rem;
+    }
+    .alert-dot.red { background: var(--red); box-shadow: 0 0 6px rgba(255,107,107,0.5); }
+    .alert-dot.yellow { background: var(--yellow); }
+    .alert-dot.orange { background: var(--orange); }
+    .alert-text { flex: 1; }
+    .alert-vessel { font-size: 0.875rem; font-weight: 600; margin-bottom: 0.1rem; }
+    .alert-desc { font-size: 0.8rem; color: var(--gray); }
+
+    /* ── TWO-COL ROW ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── FILINGS TABLE ── */
+    .table-card {
+      background: var(--slate);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+      overflow-x: auto;
+    }
+    .table-card:hover { border-color: var(--orange-border); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
+    }
+    th {
+      text-align: left;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--gray);
+      font-weight: 600;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    td {
+      padding: 0.75rem 0.75rem;
+      font-size: 0.875rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+    tr { cursor: pointer; }
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.2rem 0.65rem;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .status-pill.accepted { background: var(--green-dim); color: var(--green); border: 1px solid rgba(76,175,80,0.2); }
+    .status-pill.warning { background: var(--yellow-dim); color: var(--yellow); border: 1px solid rgba(255,217,61,0.2); }
+    .status-pill.rejected { background: var(--red-dim); color: var(--red); border: 1px solid rgba(255,107,107,0.2); }
+    .caught-yes { color: var(--green); font-weight: 600; }
+    .caught-no { color: var(--gray); }
+    .vessel-type-tag {
+      font-size: 0.72rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 100px;
+      background: rgba(255,255,255,0.06);
+      color: var(--light);
+    }
+
+    /* ── COST SAVINGS ── */
+    .savings-card {
+      background: linear-gradient(135deg, #142238 0%, #1a2d4a 100%);
+      border: 1px solid var(--orange-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .savings-card::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 120px;
+      height: 120px;
+      background: rgba(232,90,0,0.08);
+      border-radius: 50%;
+    }
+    .savings-card:hover { border-color: var(--orange); }
+    .savings-label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gray); font-weight: 600; margin-bottom: 0.5rem; }
+    .savings-amount {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .savings-sub { font-size: 0.82rem; color: var(--gray); margin-top: 0.4rem; }
+    .savings-breakdown { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .savings-line {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+    }
+    .savings-line .sl-label { color: var(--light); }
+    .savings-line .sl-val { color: var(--orange); font-weight: 600; }
+
+    /* ── TRANSIT CALENDAR ── */
+    .calendar-card {
+      background: var(--slate);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 1.25rem;
+      cursor: pointer;
+    }
+    .calendar-card:hover { border-color: var(--orange-border); }
+    .calendar-days {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding-bottom: 0.25rem;
+    }
+    .cal-day {
+      flex-shrink: 0;
+      min-width: 90px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px;
+      padding: 0.65rem 0.75rem;
+    }
+    .cal-date { font-size: 0.72rem; color: var(--gray); margin-bottom: 0.35rem; }
+    .cal-vessel { font-size: 0.78rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .cal-vessel.ready { color: var(--green); }
+    .cal-vessel.warning { color: var(--yellow); }
+    .cal-vessel.danger { color: var(--red); }
+    .cal-canal { font-size: 0.7rem; color: var(--gray); margin-top: 0.2rem; }
+    .cal-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+    .cal-dot.ready { background: var(--green); }
+    .cal-dot.warning { background: var(--yellow); }
+    .cal-dot.danger { background: var(--red); }
+    .cal-dot.bosporus { background: var(--teal); }
+    .cal-canal.bosporus { color: var(--teal); }
+    .cal-dot.malacca { background: #FFA000; }
+    .cal-canal.malacca { color: #FFA000; }
+    .cal-dot.cape { background: #CE93D8; }
+    .cal-canal.cape { color: #CE93D8; }
+    .canal-tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      padding: 0.08rem 0.4rem;
+      border-radius: 4px;
+      font-weight: 600;
+      margin-right: 0.25rem;
+    }
+    .canal-tag.panama { background: rgba(30,100,230,0.12); color: #5a9cf5; }
+    .canal-tag.suez { background: rgba(76,175,80,0.12); color: #4CAF50; }
+    .canal-tag.bosporus { background: var(--teal-dim); color: var(--teal); border: 1px solid var(--teal-border); }
+    .canal-tag.malacca { background: rgba(255,160,0,0.12); color: #FFA000; border: 1px solid rgba(255,160,0,0.25); }
+    .canal-tag.cape { background: rgba(156,39,176,0.12); color: #CE93D8; border: 1px solid rgba(156,39,176,0.25); }
+
+    /* ── CHARTER RATES ── */
+    .rates-card {
+      background: var(--slate);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 1.25rem;
+      cursor: pointer;
+    }
+    .rates-card:hover { border-color: var(--orange-border); }
+    .rate-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .rate-row:last-child { border-bottom: none; }
+    .rate-type { font-size: 0.875rem; color: var(--light); }
+    .rate-val { font-size: 0.9rem; font-weight: 600; }
+    .rate-val.up { color: var(--green); }
+    .rate-val.down { color: var(--red); }
+    .rate-val.flat { color: var(--gray); }
+    .rate-change { font-size: 0.75rem; margin-left: 0.35rem; }
+
+    /* ── FLEET GRID ── */
+    .fleet-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .vessel-row {
+      background: var(--slate);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+      padding: 0.85rem 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+    .vessel-row:hover { border-color: var(--orange-border); }
+    .vessel-row.has-warning { border-left: 3px solid var(--yellow); }
+    .vessel-row.has-alert { border-left: 3px solid var(--red); }
+    .vessel-row.all-clear { border-left: 3px solid var(--green); }
+
+    .vessel-score {
+      flex-shrink: 0;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    .vessel-score.s-high { background: var(--green-dim); color: var(--green); border: 1.5px solid rgba(76,175,80,0.3); }
+    .vessel-score.s-med { background: var(--yellow-dim); color: var(--yellow); border: 1.5px solid rgba(255,217,61,0.3); }
+    .vessel-score.s-low { background: var(--red-dim); color: var(--red); border: 1.5px solid rgba(255,107,107,0.3); }
+
+    .vessel-info { flex: 1; min-width: 0; }
+    .vessel-name { font-weight: 600; font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .vessel-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.2rem; }
+    .vtag { font-size: 0.7rem; padding: 0.12rem 0.45rem; border-radius: 100px; background: rgba(255,255,255,0.06); color: var(--gray); }
+
+    .vessel-stats {
+      display: flex;
+      gap: 1.25rem;
+      flex-shrink: 0;
+      align-items: center;
+    }
+    .vstat { text-align: right; }
+    .vstat-val { font-size: 0.85rem; font-weight: 600; }
+    .vstat-label { font-size: 0.68rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.04em; }
+
+    .vessel-rejection-tag {
+      flex-shrink: 0;
+      font-size: 0.72rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+    }
+    .vessel-rejection-tag.none { background: rgba(76,175,80,0.1); color: var(--green); }
+    .vessel-rejection-tag.resolved { background: rgba(255,217,61,0.1); color: var(--yellow); }
+    .vessel-rejection-tag.active { background: var(--red-dim); color: var(--red); }
+
+    /* ── FOOTER CTA ── */
+    .footer-cta {
+      position: sticky;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(10, 22, 40, 0.97);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid var(--orange-border);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      z-index: 50;
+      flex-wrap: wrap;
+    }
+    .footer-cta p { font-size: 0.9rem; color: var(--light); }
+    .footer-cta strong { color: var(--white); }
+    .btn-footer-trial {
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.55rem 1.25rem;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.15s;
+      white-space: nowrap;
+    }
+    .btn-footer-trial:hover { opacity: 0.85; }
+    .btn-footer-wa {
+      background: #25D366;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.55rem 1.1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.15s;
+      white-space: nowrap;
+    }
+    .btn-footer-wa:hover { opacity: 0.85; }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 500;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--deep);
+      border: 1px solid var(--orange-border);
+      border-radius: 14px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .modal p { font-size: 0.9rem; color: var(--light); margin-bottom: 1.25rem; line-height: 1.6; }
+    .modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem; }
+    .btn-modal-primary {
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.6rem 1.25rem;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .btn-modal-primary:hover { opacity: 0.85; }
+    .btn-modal-secondary {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--gray);
+      border-radius: 8px;
+      padding: 0.6rem 1.1rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-modal-secondary:hover { color: var(--white); border-color: rgba(255,255,255,0.3); }
+    .modal-detail-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.875rem; }
+    .modal-detail-row:last-child { border-bottom: none; }
+    .modal-detail-label { color: var(--gray); }
+    .modal-detail-val { font-weight: 600; }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 5rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--slate2);
+      border: 1px solid var(--orange-border);
+      border-radius: 10px;
+      padding: 0.75rem 1.25rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      z-index: 600;
+      opacity: 0;
+      transition: all 0.25s;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      max-width: 420px;
+      text-align: center;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+    .toast a { color: var(--orange); font-weight: 700; text-decoration: underline; }
+
+    /* ── TOOLTIP ── */
+    .tooltip-wrap { position: relative; }
+    .tooltip-box {
+      display: none;
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--deep);
+      border: 1px solid var(--orange-border);
+      border-radius: 8px;
+      padding: 0.65rem 0.85rem;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      z-index: 50;
+      line-height: 1.5;
+      min-width: 180px;
+    }
+    .tooltip-wrap:hover .tooltip-box { display: block; }
+    .tooltip-box strong { color: var(--white); display: block; margin-bottom: 0.25rem; }
+    .tooltip-box span { color: var(--light); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .sidebar { display: none; }
+      .kpi-row { grid-template-columns: repeat(2, 1fr); }
+      .gauge-row { grid-template-columns: 1fr; }
+      .two-col { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-tab span { display: none; }
+      .nav-tab .tab-icon { font-size: 1rem; }
+      .nav-company-name { display: none; }
+      .main-panel { padding: 1.25rem 1rem 5rem; }
+      .kpi-row { grid-template-columns: repeat(2, 1fr); }
+      .vessel-stats { display: none; }
+      .demo-banner { font-size: 0.78rem; padding: 0.5rem 2.5rem 0.5rem 1rem; }
+    }
+    @media (max-width: 480px) {
+      .kpi-row { grid-template-columns: 1fr 1fr; }
+      .kpi-value { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Demo Mode Banner -->
+<div class="demo-banner" id="demo-banner">
+  🔒 <span><strong>Demo Mode</strong> — sample data only.</span>
+  <a href="/pricing">Start Now — Limited Spots →</a>
+  <button class="dismiss" onclick="document.getElementById('demo-banner').style.display='none'" aria-label="Dismiss">×</button>
+</div>
+
+<!-- Top Navigation -->
+<nav>
+  <div class="nav-inner">
+    <!-- Brand -->
+    <a href="/" class="nav-brand">
+      <img src="/icons/logo.png" alt="CanalClear" onerror="this.style.display='none';this.parentElement.innerHTML+='<span style=\'font-weight:700;color:#fff;font-size:1rem;\'>Canal<span style=\'color:#E85A00;\'>Clear</span></span>'">
+      <span class="nav-company-name">Demo Maritime Co.</span>
+    </a>
+
+    <!-- Tab nav -->
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="demoToast()">
+        <span class="tab-icon">⚓</span>
+        <span>Fleet</span>
+      </button>
+      <button class="nav-tab" onclick="demoToast()">
+        <span class="tab-icon">📋</span>
+        <span>Filings</span>
+      </button>
+      <button class="nav-tab" onclick="demoToast()">
+        <span class="tab-icon">✅</span>
+        <span>Compliance</span>
+      </button>
+      <button class="nav-tab" onclick="demoToast()">
+        <span class="tab-icon">🔔</span>
+        <span>Alerts</span>
+      </button>
+      <button class="nav-tab" onclick="demoToast()">
+        <span class="tab-icon">📊</span>
+        <span>Reports</span>
+      </button>
+      <button class="nav-tab" onclick="demoToast()">
+        <span class="tab-icon">⚙️</span>
+        <span>Settings</span>
+      </button>
+    </div>
+
+    <!-- User -->
+    <div class="nav-user">
+      <div class="user-pill">
+        <div class="user-avatar">CD</div>
+        Captain Demo
+      </div>
+      <a href="/pricing" class="btn-signup">Start Now — Limited Spots</a>
+    </div>
+  </div>
+</nav>
+
+<!-- App Shell -->
+<div class="app-shell">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-section-label">Fleet</div>
+    <a class="sidebar-item active" onclick="demoToast()">
+      <span class="si-icon">⚓</span> All Vessels
+    </a>
+    <a class="sidebar-item" onclick="demoToast()">
+      <span class="si-icon">🟢</span> Compliant
+    </a>
+    <a class="sidebar-item" onclick="demoToast()">
+      <span class="si-icon">🟡</span> Warnings
+      <span class="sidebar-badge warn">3</span>
+    </a>
+    <a class="sidebar-item" onclick="demoToast()">
+      <span class="si-icon">🔴</span> Alerts
+      <span class="sidebar-badge">2</span>
+    </a>
+
+    <div class="sidebar-section-label">Canals</div>
+    <a class="sidebar-item" onclick="demoToast()">
+      <span class="si-icon">🇵🇦</span> Panama
+    </a>
+    <a class="sidebar-item" onclick="demoToast()">
+      <span class="si-icon">🇪🇬</span> Suez
+    </a>
+    <a class="sidebar-item" onclick="demoToast()">
+      <span class="si-icon">🇹🇷</span> Bosporus
+      <span class="sidebar-badge warn">2</span>
+    </a>
+    <a class="sidebar-item" onclick="demoToast()">
+      <span class="si-icon">🇸🇬</span> Malacca
+      <span class="sidebar-badge warn" style="background:#FFA000;color:#1a2d4a;">1</span>
+    </a>
+    <a class="sidebar-item" onclick="demoToast()">
+      <span class="si-icon">🇿🇦</span> Cape
+    </a>
+
+    <div class="sidebar-section-label">Quick Actions</div>
+    <a class="sidebar-item" onclick="demoToast()">
+      <span class="si-icon">📄</span> New Filing
+    </a>
+    <a class="sidebar-item" onclick="demoToast()">
+      <span class="si-icon">🔍</span> Validator
+    </a>
+  </aside>
+
+  <!-- Main Panel -->
+  <main class="main-panel">
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="page-title">
+        <h1>Fleet Overview</h1>
+        <p>Demo Maritime Co. — 11 vessels · Panama · Suez · Bosporus · Malacca · Cape operations</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn-ghost" onclick="demoToast()">↓ Export</button>
+        <button class="btn-primary-sm" onclick="demoToast()">+ Add Vessel</button>
+      </div>
+    </div>
+
+    <!-- KPI Row -->
+    <div class="kpi-row">
+      <div class="kpi-card" onclick="openModal('fleet-score')">
+        <div class="kpi-label">Fleet Compliance Score</div>
+        <div class="kpi-value green">91%</div>
+        <div class="kpi-meta">Avg across 11 vessels · 5 waterways</div>
+      </div>
+      <div class="kpi-card" onclick="openModal('transits')">
+        <div class="kpi-label">Transits YTD</div>
+        <div class="kpi-value orange">104</div>
+        <div class="kpi-meta">Panama 38 · Suez 24 · Bosporus 17 · Malacca 16 · Cape 9</div>
+      </div>
+      <div class="kpi-card" onclick="openModal('rejections')">
+        <div class="kpi-label">Rejections YTD</div>
+        <div class="kpi-value yellow">5</div>
+        <div class="kpi-meta">4 resolved · 1 active alert</div>
+      </div>
+      <div class="kpi-card" onclick="openModal('savings')">
+        <div class="kpi-label">Costs Prevented This Mo.</div>
+        <div class="kpi-value orange">$79.1K</div>
+        <div class="kpi-meta">All 5 waterways · May 2026</div>
+      </div>
+    </div>
+
+    <!-- ── Voyage Planner CTA ── -->
+    <div style="background:linear-gradient(135deg,#0f1d30 0%,#1a2d4a 100%);border:1px solid rgba(232,90,0,0.25);border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:1.25rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
+      <div style="font-size:2rem;flex-shrink:0;">🗺</div>
+      <div style="flex:1;min-width:200px;">
+        <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#E85A00;margin-bottom:0.3rem;">NEW — Killer Differentiator</div>
+        <div style="font-size:1rem;font-weight:700;margin-bottom:0.25rem;">Plan a Voyage → Generate All Filings in One Click</div>
+        <div style="font-size:0.82rem;color:#8fa3b8;">Panama → Suez → Bosporus on one voyage? Enter the route, auto-detect every waterway, and generate all required forms — VUMPA, SCA, SP-1, STRAITREP, SAMSA ISPS — pre-filled from your vessel data. No competitor does this.</div>
+      </div>
+      <a href="/voyage" style="background:#E85A00;color:#fff;font-weight:700;font-size:0.88rem;padding:0.7rem 1.4rem;border-radius:8px;text-decoration:none;white-space:nowrap;box-shadow:0 4px 16px rgba(232,90,0,0.35);transition:opacity 0.15s;" onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">Try Voyage Planner →</a>
+    </div>
+
+    <!-- Gauge + Alerts -->
+    <div class="gauge-row">
+      <!-- Compliance Gauge -->
+      <div class="gauge-card" onclick="openModal('fleet-score')">
+        <div class="gauge-title">Fleet Compliance Score</div>
+        <svg class="gauge-svg" viewBox="0 0 160 90">
+          <!-- Track -->
+          <path d="M 10 80 A 70 70 0 0 1 150 80" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="10" stroke-linecap="round"/>
+          <!-- Fill (91% = 163.8 degrees of 180) -->
+          <path d="M 10 80 A 70 70 0 0 1 150 80" fill="none" stroke="#4CAF50" stroke-width="10" stroke-linecap="round"
+                stroke-dasharray="220" stroke-dashoffset="20" style="transition: stroke-dashoffset 1s ease;"/>
+          <!-- Needle -->
+          <line x1="80" y1="80" x2="80" y2="18" stroke="#fff" stroke-width="2" stroke-linecap="round"
+                style="transform-origin: 80px 80px; transform: rotate(-7deg);"/>
+          <circle cx="80" cy="80" r="4" fill="#fff"/>
+        </svg>
+        <div class="gauge-number">91%</div>
+        <div class="gauge-sub">All 5 waterways · 11 vessels</div>
+      </div>
+
+      <!-- Active Alerts -->
+      <div class="alerts-card" onclick="void 0">
+        <div class="card-header">
+          <div class="card-title">Active Alerts</div>
+          <span class="badge-count">7 active</span>
+        </div>
+        <div class="alert-item" onclick="openModal('alert-1')">
+          <div class="alert-dot red"></div>
+          <div class="alert-text">
+            <div class="alert-vessel">NORDIC ORION</div>
+            <div class="alert-desc">VUMPA Pre-Arrival — missing crew change documentation. Transit in 6 days.</div>
+          </div>
+        </div>
+        <div class="alert-item" onclick="openModal('alert-2')">
+          <div class="alert-dot yellow"></div>
+          <div class="alert-text">
+            <div class="alert-vessel">MSC OSCAR</div>
+            <div class="alert-desc">PCSOPEP renewal due in 14 days. Auto-draft available.</div>
+          </div>
+        </div>
+        <div class="alert-item" onclick="openModal('alert-3')">
+          <div class="alert-dot orange"></div>
+          <div class="alert-text">
+            <div class="alert-vessel">NYK ROMULUS</div>
+            <div class="alert-desc">Booking number format flagged. Validator caught pre-submission — corrected.</div>
+          </div>
+        </div>
+        <div class="alert-item" onclick="openModal('alert-4')">
+          <div class="alert-dot red"></div>
+          <div class="alert-text">
+            <div class="alert-vessel">AEGEAN STAR <span class="canal-tag bosporus">SP-1</span></div>
+            <div class="alert-desc">Vessel >200m LOA — daytime transit scheduling required. SP-1 filing not yet submitted.</div>
+          </div>
+        </div>
+        <div class="alert-item" onclick="openModal('alert-5')">
+          <div class="alert-dot yellow"></div>
+          <div class="alert-text">
+            <div class="alert-vessel">YASA GOLDEN HORN <span class="canal-tag bosporus">SP-1</span></div>
+            <div class="alert-desc">SP-1 submission deadline in 18 hours. Pilotage booking not yet confirmed.</div>
+          </div>
+        </div>
+        <div class="alert-item" onclick="openModal('alert-6')">
+          <div class="alert-dot red"></div>
+          <div class="alert-text">
+            <div class="alert-vessel">TORM ELIZABETH <span class="canal-tag malacca">STRAITREP</span></div>
+            <div class="alert-desc">STRAITREP MPA filing overdue by 4 hours. TSS entry is 22 hours out — file immediately.</div>
+          </div>
+        </div>
+        <div class="alert-item" onclick="openModal('alert-7')">
+          <div class="alert-dot yellow"></div>
+          <div class="alert-text">
+            <div class="alert-vessel">EVER GIVEN <span class="canal-tag cape">ISPS</span></div>
+            <div class="alert-desc">SAMSA 96-hour pre-arrival window opens tomorrow. ISPS Level 1 declaration not yet prepared.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fleet Vessel Grid -->
+    <div class="card-header" style="margin-bottom: 0.75rem;">
+      <div class="card-title" style="font-size:0.85rem;">All Vessels <span style="color:var(--gray);font-weight:400;text-transform:none;">(11)</span></div>
+      <div style="display:flex;gap:0.5rem;">
+        <button class="btn-ghost" style="font-size:0.75rem;padding:0.25rem 0.65rem;border-radius:100px;" onclick="demoToast()">🇵🇦 Panama</button>
+        <button class="btn-ghost" style="font-size:0.75rem;padding:0.25rem 0.65rem;border-radius:100px;" onclick="demoToast()">🇪🇬 Suez</button>
+        <button class="btn-ghost" style="font-size:0.75rem;padding:0.25rem 0.65rem;border-radius:100px;color:var(--teal);border-color:var(--teal-border);" onclick="demoToast()">🇹🇷 Bosporus</button>
+        <button class="btn-ghost" style="font-size:0.75rem;padding:0.25rem 0.65rem;border-radius:100px;color:#FFA000;border-color:rgba(255,160,0,0.25);" onclick="demoToast()">🇸🇬 Malacca</button>
+        <button class="btn-ghost" style="font-size:0.75rem;padding:0.25rem 0.65rem;border-radius:100px;color:#CE93D8;border-color:rgba(156,39,176,0.25);" onclick="demoToast()">🇿🇦 Cape</button>
+      </div>
+    </div>
+    <div class="fleet-grid">
+
+      <!-- CMA CGM PANAMA -->
+      <div class="vessel-row all-clear tooltip-wrap" onclick="openVesselModal(0)">
+        <div class="vessel-score s-high">98%</div>
+        <div class="vessel-info">
+          <div class="vessel-name">CMA CGM PANAMA</div>
+          <div class="vessel-meta">
+            <span class="vtag">Container</span>
+            <span class="vtag">IMO 9839923</span>
+            <span class="vtag">364m</span>
+            <span class="vtag">🇫🇷 France</span>
+          </div>
+        </div>
+        <div class="vessel-stats">
+          <div class="vstat">
+            <div class="vstat-val">12</div>
+            <div class="vstat-label">Transits YTD</div>
+          </div>
+          <div class="vstat">
+            <div class="vstat-val">0</div>
+            <div class="vstat-label">Rejections</div>
+          </div>
+        </div>
+        <div class="vessel-rejection-tag none">✓ No rejections</div>
+        <div class="tooltip-box">
+          <strong>CMA CGM PANAMA</strong>
+          <span>IMO 9839923 · Container · 364m · GT 148,684<br>Flag: France · Class: Bureau Veritas<br>Score: 98% — Top performer</span>
+        </div>
+      </div>
+
+      <!-- MSC OSCAR -->
+      <div class="vessel-row has-warning tooltip-wrap" onclick="openVesselModal(1)">
+        <div class="vessel-score s-high">95%</div>
+        <div class="vessel-info">
+          <div class="vessel-name">MSC OSCAR</div>
+          <div class="vessel-meta">
+            <span class="vtag">Container</span>
+            <span class="vtag">IMO 9703291</span>
+            <span class="vtag">395m</span>
+            <span class="vtag">🇵🇦 Panama</span>
+          </div>
+        </div>
+        <div class="vessel-stats">
+          <div class="vstat">
+            <div class="vstat-val">8</div>
+            <div class="vstat-label">Transits YTD</div>
+          </div>
+          <div class="vstat">
+            <div class="vstat-val">1</div>
+            <div class="vstat-label">Rejections</div>
+          </div>
+        </div>
+        <div class="vessel-rejection-tag resolved">⚠ 1 Resolved</div>
+        <div class="tooltip-box">
+          <strong>MSC OSCAR</strong>
+          <span>IMO 9703291 · Container · 395m · GT 192,290<br>Flag: Panama · Class: Lloyd's Register<br>PCSOPEP renewal due in 14 days</span>
+        </div>
+      </div>
+
+      <!-- NORDIC ORION -->
+      <div class="vessel-row has-alert tooltip-wrap" onclick="openVesselModal(2)">
+        <div class="vessel-score s-med">87%</div>
+        <div class="vessel-info">
+          <div class="vessel-name">NORDIC ORION</div>
+          <div class="vessel-meta">
+            <span class="vtag">Bulk Carrier</span>
+            <span class="vtag">IMO 9501460</span>
+            <span class="vtag">225m</span>
+            <span class="vtag">🇸🇬 Singapore</span>
+          </div>
+        </div>
+        <div class="vessel-stats">
+          <div class="vstat">
+            <div class="vstat-val">4</div>
+            <div class="vstat-label">Transits YTD</div>
+          </div>
+          <div class="vstat">
+            <div class="vstat-val">1</div>
+            <div class="vstat-label">Rejections</div>
+          </div>
+        </div>
+        <div class="vessel-rejection-tag active">🔴 Active Warning</div>
+        <div class="tooltip-box">
+          <strong>NORDIC ORION</strong>
+          <span>IMO 9501460 · Bulk Carrier · 225m · GT 35,000<br>Flag: Singapore · Class: DNV<br>⚠ Missing crew change docs for VUMPA</span>
+        </div>
+      </div>
+
+      <!-- AL DAFNA -->
+      <div class="vessel-row all-clear tooltip-wrap" onclick="openVesselModal(3)">
+        <div class="vessel-score s-high">99%</div>
+        <div class="vessel-info">
+          <div class="vessel-name">AL DAFNA</div>
+          <div class="vessel-meta">
+            <span class="vtag">LNG Carrier</span>
+            <span class="vtag">IMO 9671879</span>
+            <span class="vtag">315m</span>
+            <span class="vtag">🇶🇦 Qatar</span>
+          </div>
+        </div>
+        <div class="vessel-stats">
+          <div class="vstat">
+            <div class="vstat-val">6</div>
+            <div class="vstat-label">Transits YTD</div>
+          </div>
+          <div class="vstat">
+            <div class="vstat-val">0</div>
+            <div class="vstat-label">Rejections</div>
+          </div>
+        </div>
+        <div class="vessel-rejection-tag none">✓ No rejections</div>
+        <div class="tooltip-box">
+          <strong>AL DAFNA</strong>
+          <span>IMO 9671879 · LNG Carrier · 315m · GT 95,000<br>Flag: Qatar · Class: Lloyd's Register<br>Score: 99% — Near-perfect compliance</span>
+        </div>
+      </div>
+
+      <!-- TORM ELIZABETH -->
+      <div class="vessel-row all-clear tooltip-wrap" onclick="openVesselModal(4)">
+        <div class="vessel-score s-high">92%</div>
+        <div class="vessel-info">
+          <div class="vessel-name">TORM ELIZABETH</div>
+          <div class="vessel-meta">
+            <span class="vtag">Tanker</span>
+            <span class="vtag">IMO 9630748</span>
+            <span class="vtag">183m</span>
+            <span class="vtag">🇩🇰 Denmark</span>
+          </div>
+        </div>
+        <div class="vessel-stats">
+          <div class="vstat">
+            <div class="vstat-val">9</div>
+            <div class="vstat-label">Transits YTD</div>
+          </div>
+          <div class="vstat">
+            <div class="vstat-val">0</div>
+            <div class="vstat-label">Rejections</div>
+          </div>
+        </div>
+        <div class="vessel-rejection-tag none">✓ No rejections</div>
+        <div class="tooltip-box">
+          <strong>TORM ELIZABETH</strong>
+          <span>IMO 9630748 · Tanker · 183m · GT 29,600<br>Flag: Denmark · Class: Bureau Veritas<br>Score: 92% — All certs current</span>
+        </div>
+      </div>
+
+      <!-- CSCL GLOBE -->
+      <div class="vessel-row all-clear tooltip-wrap" onclick="openVesselModal(5)">
+        <div class="vessel-score s-high">96%</div>
+        <div class="vessel-info">
+          <div class="vessel-name">CSCL GLOBE</div>
+          <div class="vessel-meta">
+            <span class="vtag">Container</span>
+            <span class="vtag">IMO 9695731</span>
+            <span class="vtag">400m</span>
+            <span class="vtag">🇨🇳 China</span>
+          </div>
+        </div>
+        <div class="vessel-stats">
+          <div class="vstat">
+            <div class="vstat-val">11</div>
+            <div class="vstat-label">Transits YTD</div>
+          </div>
+          <div class="vstat">
+            <div class="vstat-val">0</div>
+            <div class="vstat-label">Rejections</div>
+          </div>
+        </div>
+        <div class="vessel-rejection-tag none">✓ No rejections</div>
+        <div class="tooltip-box">
+          <strong>CSCL GLOBE</strong>
+          <span>IMO 9695731 · Container · 400m · GT 186,000<br>Flag: China · Class: China Classification<br>Score: 96% — High frequency, zero rejects</span>
+        </div>
+      </div>
+
+      <!-- NYK ROMULUS -->
+      <div class="vessel-row has-warning tooltip-wrap" onclick="openVesselModal(6)">
+        <div class="vessel-score s-med">89%</div>
+        <div class="vessel-info">
+          <div class="vessel-name">NYK ROMULUS</div>
+          <div class="vessel-meta">
+            <span class="vtag">Vehicle Carrier</span>
+            <span class="vtag">IMO 9321441</span>
+            <span class="vtag">200m</span>
+            <span class="vtag">🇯🇵 Japan</span>
+          </div>
+        </div>
+        <div class="vessel-stats">
+          <div class="vstat">
+            <div class="vstat-val">5</div>
+            <div class="vstat-label">Transits YTD</div>
+          </div>
+          <div class="vstat">
+            <div class="vstat-val">1</div>
+            <div class="vstat-label">Rejections</div>
+          </div>
+        </div>
+        <div class="vessel-rejection-tag resolved">⚠ 1 Resolved</div>
+        <div class="tooltip-box">
+          <strong>NYK ROMULUS</strong>
+          <span>IMO 9321441 · Vehicle Carrier · 200m · GT 71,673<br>Flag: Japan · Class: Nippon Kaiji Kyokai<br>Booking number format — caught &amp; resolved</span>
+        </div>
+      </div>
+
+      <!-- EVER GIVEN -->
+      <div class="vessel-row all-clear tooltip-wrap" onclick="openVesselModal(7)">
+        <div class="vessel-score s-high">94%</div>
+        <div class="vessel-info">
+          <div class="vessel-name">EVER GIVEN</div>
+          <div class="vessel-meta">
+            <span class="vtag">Container</span>
+            <span class="vtag">IMO 9811000</span>
+            <span class="vtag">400m</span>
+            <span class="vtag">🇵🇦 Panama</span>
+          </div>
+        </div>
+        <div class="vessel-stats">
+          <div class="vstat">
+            <div class="vstat-val">7</div>
+            <div class="vstat-label">Transits YTD</div>
+          </div>
+          <div class="vstat">
+            <div class="vstat-val">1</div>
+            <div class="vstat-label">Rejections</div>
+          </div>
+        </div>
+        <div class="vessel-rejection-tag resolved">⚠ 1 Resolved</div>
+        <div class="tooltip-box">
+          <strong>EVER GIVEN</strong>
+          <span>IMO 9811000 · Container · 400m · GT 199,630<br>Flag: Panama · Class: Lloyd's Register<br>Score: 94% — Prior incident resolved</span>
+        </div>
+      </div>
+
+      <!-- YASA GOLDEN HORN — Bosporus -->
+      <div class="vessel-row has-warning tooltip-wrap" onclick="openVesselModal(8)">
+        <div class="vessel-score s-med">88%</div>
+        <div class="vessel-info">
+          <div class="vessel-name">YASA GOLDEN HORN <span class="canal-tag bosporus">SP-1</span></div>
+          <div class="vessel-meta">
+            <span class="vtag">Bulk Carrier</span>
+            <span class="vtag">IMO 9712384</span>
+            <span class="vtag">185m</span>
+            <span class="vtag">🇹🇷 Turkey</span>
+          </div>
+        </div>
+        <div class="vessel-stats">
+          <div class="vstat">
+            <div class="vstat-val">7</div>
+            <div class="vstat-label">Transits YTD</div>
+          </div>
+          <div class="vstat">
+            <div class="vstat-val">0</div>
+            <div class="vstat-label">Rejections</div>
+          </div>
+        </div>
+        <div class="vessel-rejection-tag resolved">⚠ Deadline 18h</div>
+        <div class="tooltip-box">
+          <strong>YASA GOLDEN HORN</strong>
+          <span>IMO 9712384 · Bulk Carrier · 185m · GT 32,500<br>Flag: Turkey · Class: Turkish Lloyd<br>⚠ SP-1 submission deadline approaching — pilotage unconfirmed</span>
+        </div>
+      </div>
+
+      <!-- BOSPHORUS HIGHWAY — Bosporus -->
+      <div class="vessel-row all-clear tooltip-wrap" onclick="openVesselModal(9)">
+        <div class="vessel-score s-high">96%</div>
+        <div class="vessel-info">
+          <div class="vessel-name">BOSPHORUS HIGHWAY <span class="canal-tag bosporus">SP-1</span></div>
+          <div class="vessel-meta">
+            <span class="vtag">Vehicle Carrier</span>
+            <span class="vtag">IMO 9634201</span>
+            <span class="vtag">199m</span>
+            <span class="vtag">🇱🇷 Liberia</span>
+          </div>
+        </div>
+        <div class="vessel-stats">
+          <div class="vstat">
+            <div class="vstat-val">6</div>
+            <div class="vstat-label">Transits YTD</div>
+          </div>
+          <div class="vstat">
+            <div class="vstat-val">0</div>
+            <div class="vstat-label">Rejections</div>
+          </div>
+        </div>
+        <div class="vessel-rejection-tag none">✓ No rejections</div>
+        <div class="tooltip-box">
+          <strong>BOSPHORUS HIGHWAY</strong>
+          <span>IMO 9634201 · Vehicle Carrier · 199m · GT 58,400<br>Flag: Liberia · Class: Bureau Veritas<br>Score: 96% — Regular Istanbul strait passages</span>
+        </div>
+      </div>
+
+      <!-- AEGEAN STAR — Bosporus >200m alert -->
+      <div class="vessel-row has-alert tooltip-wrap" onclick="openVesselModal(10)">
+        <div class="vessel-score s-low">72%</div>
+        <div class="vessel-info">
+          <div class="vessel-name">AEGEAN STAR <span class="canal-tag bosporus">SP-1</span></div>
+          <div class="vessel-meta">
+            <span class="vtag">Tanker</span>
+            <span class="vtag">IMO 9748923</span>
+            <span class="vtag">210m</span>
+            <span class="vtag">🇬🇷 Greece</span>
+          </div>
+        </div>
+        <div class="vessel-stats">
+          <div class="vstat">
+            <div class="vstat-val">4</div>
+            <div class="vstat-label">Transits YTD</div>
+          </div>
+          <div class="vstat">
+            <div class="vstat-val">1</div>
+            <div class="vstat-label">Rejections</div>
+          </div>
+        </div>
+        <div class="vessel-rejection-tag active">🔴 LOA Alert</div>
+        <div class="tooltip-box">
+          <strong>AEGEAN STAR</strong>
+          <span>IMO 9748923 · Tanker · 210m · GT 47,200<br>Flag: Greece · Class: Lloyd's Register<br>🔴 >200m LOA: daytime transit + special scheduling required<br>SP-1 filing not yet submitted</span>
+        </div>
+      </div>
+
+    </div><!-- /fleet-grid -->
+
+    <!-- Recent Filings Table -->
+    <div class="table-card" onclick="void 0">
+      <div class="card-header">
+        <div class="card-title">Recent Filings <span style="color:var(--gray);font-weight:400;font-size:0.8rem;text-transform:none;">— All 5 waterways</span></div>
+        <div style="display:flex;gap:0.4rem;align-items:center;flex-wrap:wrap;">
+          <button class="btn-ghost" style="font-size:0.72rem;padding:0.2rem 0.55rem;border-radius:100px;" onclick="demoToast()">VUMPA</button>
+          <button class="btn-ghost" style="font-size:0.72rem;padding:0.2rem 0.55rem;border-radius:100px;" onclick="demoToast()">PCSOPEP</button>
+          <button class="btn-ghost" style="font-size:0.72rem;padding:0.2rem 0.55rem;border-radius:100px;" onclick="demoToast()">SCA / SCNT</button>
+          <button class="btn-ghost" style="font-size:0.72rem;padding:0.2rem 0.55rem;border-radius:100px;color:var(--teal);border-color:var(--teal-border);" onclick="demoToast()">SP-1</button>
+          <button class="btn-ghost" style="font-size:0.72rem;padding:0.2rem 0.55rem;border-radius:100px;color:#FFA000;border-color:rgba(255,160,0,0.25);" onclick="demoToast()">STRAITREP</button>
+          <button class="btn-ghost" style="font-size:0.72rem;padding:0.2rem 0.55rem;border-radius:100px;color:#CE93D8;border-color:rgba(156,39,176,0.25);" onclick="demoToast()">ISPS</button>
+          <button class="btn-ghost" style="font-size:0.8rem;padding:0.3rem 0.75rem;" onclick="demoToast()">View All</button>
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Vessel</th>
+            <th>Filing Type</th>
+            <th>Submitted</th>
+            <th>Status</th>
+            <th>Validator Caught</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr onclick="openFilingModal(0)">
+            <td><span class="vessel-type-tag">Container</span> CMA CGM PANAMA</td>
+            <td>VUMPA</td>
+            <td>May 7, 2026</td>
+            <td><span class="status-pill accepted">✓ Accepted</span></td>
+            <td><span class="caught-no">—</span></td>
+          </tr>
+          <tr onclick="openFilingModal(1)">
+            <td><span class="vessel-type-tag">LNG</span> AL DAFNA</td>
+            <td>PCSOPEP</td>
+            <td>May 6, 2026</td>
+            <td><span class="status-pill accepted">✓ Accepted</span></td>
+            <td><span class="caught-no">—</span></td>
+          </tr>
+          <tr onclick="openFilingModal(2)">
+            <td><span class="vessel-type-tag">Tanker</span> TORM ELIZABETH</td>
+            <td>SCA</td>
+            <td>May 6, 2026</td>
+            <td><span class="status-pill accepted">✓ Accepted</span></td>
+            <td><span class="caught-no">—</span></td>
+          </tr>
+          <tr onclick="openFilingModal(3)">
+            <td><span class="vessel-type-tag">Container</span> CSCL GLOBE</td>
+            <td>VUMPA</td>
+            <td>May 5, 2026</td>
+            <td><span class="status-pill accepted">✓ Accepted</span></td>
+            <td><span class="caught-no">—</span></td>
+          </tr>
+          <tr onclick="openFilingModal(4)">
+            <td><span class="vessel-type-tag">VehCar</span> NYK ROMULUS</td>
+            <td>PCSOPEP</td>
+            <td>May 4, 2026</td>
+            <td><span class="status-pill warning">⚠ Warning</span></td>
+            <td><span class="caught-yes">✓ Yes</span></td>
+          </tr>
+          <tr onclick="openFilingModal(5)">
+            <td><span class="vessel-type-tag">Container</span> MSC OSCAR</td>
+            <td>VUMPA</td>
+            <td>May 3, 2026</td>
+            <td><span class="status-pill accepted">✓ Accepted</span></td>
+            <td><span class="caught-no">—</span></td>
+          </tr>
+          <tr onclick="openFilingModal(6)">
+            <td><span class="vessel-type-tag">Bulk</span> NORDIC ORION</td>
+            <td>VUMPA</td>
+            <td>May 2, 2026</td>
+            <td><span class="status-pill rejected">✗ Rejected</span></td>
+            <td><span class="caught-yes">✓ Yes</span></td>
+          </tr>
+          <tr onclick="openFilingModal(7)">
+            <td><span class="vessel-type-tag">Container</span> EVER GIVEN</td>
+            <td>SCA</td>
+            <td>May 1, 2026</td>
+            <td><span class="status-pill accepted">✓ Accepted</span></td>
+            <td><span class="caught-no">—</span></td>
+          </tr>
+          <tr onclick="openFilingModal(8)">
+            <td><span class="vessel-type-tag">Container</span> CSCL GLOBE</td>
+            <td>SCNT</td>
+            <td>Apr 30, 2026</td>
+            <td><span class="status-pill accepted">✓ Accepted</span></td>
+            <td><span class="caught-no">—</span></td>
+          </tr>
+          <tr onclick="openFilingModal(9)">
+            <td><span class="vessel-type-tag">LNG</span> AL DAFNA</td>
+            <td>PCSOPEP</td>
+            <td>Apr 29, 2026</td>
+            <td><span class="status-pill warning">⚠ Warning</span></td>
+            <td><span class="caught-yes">✓ Yes</span></td>
+          </tr>
+          <tr onclick="openFilingModal(10)">
+            <td><span class="vessel-type-tag">VehCar</span> BOSPHORUS HIGHWAY</td>
+            <td><span class="canal-tag bosporus" style="margin-right:0">SP-1</span></td>
+            <td>May 8, 2026</td>
+            <td><span class="status-pill accepted">✓ Accepted</span></td>
+            <td><span class="caught-no">—</span></td>
+          </tr>
+          <tr onclick="openFilingModal(11)">
+            <td><span class="vessel-type-tag">Bulk</span> YASA GOLDEN HORN</td>
+            <td><span class="canal-tag bosporus" style="margin-right:0">SP-1</span></td>
+            <td>May 7, 2026</td>
+            <td><span class="status-pill warning">⚠ Warning</span></td>
+            <td><span class="caught-yes">✓ Yes</span></td>
+          </tr>
+          <tr onclick="openFilingModal(12)">
+            <td><span class="vessel-type-tag">Tanker</span> AEGEAN STAR</td>
+            <td><span class="canal-tag bosporus" style="margin-right:0">SP-1</span></td>
+            <td>May 5, 2026</td>
+            <td><span class="status-pill rejected">✗ Rejected</span></td>
+            <td><span class="caught-yes">✓ Yes</span></td>
+          </tr>
+          <tr onclick="openFilingModal(13)">
+            <td><span class="vessel-type-tag">VehCar</span> BOSPHORUS HIGHWAY</td>
+            <td><span class="canal-tag bosporus" style="margin-right:0">SP-1</span></td>
+            <td>Apr 28, 2026</td>
+            <td><span class="status-pill accepted">✓ Accepted</span></td>
+            <td><span class="caught-no">—</span></td>
+          </tr>
+          <tr onclick="openFilingModal(14)">
+            <td><span class="vessel-type-tag">Tanker</span> TORM ELIZABETH</td>
+            <td><span class="canal-tag malacca" style="margin-right:0">STRAITREP</span></td>
+            <td>May 9, 2026</td>
+            <td><span class="status-pill accepted">✓ Accepted</span></td>
+            <td><span class="caught-no">—</span></td>
+          </tr>
+          <tr onclick="openFilingModal(15)">
+            <td><span class="vessel-type-tag">LNG</span> AL DAFNA</td>
+            <td><span class="canal-tag malacca" style="margin-right:0">STRAITREP</span></td>
+            <td>May 7, 2026</td>
+            <td><span class="status-pill warning">⚠ Warning</span></td>
+            <td><span class="caught-yes">✓ Yes</span></td>
+          </tr>
+          <tr onclick="openFilingModal(16)">
+            <td><span class="vessel-type-tag">Container</span> CSCL GLOBE</td>
+            <td><span class="canal-tag malacca" style="margin-right:0">STRAITREP</span></td>
+            <td>May 3, 2026</td>
+            <td><span class="status-pill accepted">✓ Accepted</span></td>
+            <td><span class="caught-no">—</span></td>
+          </tr>
+          <tr onclick="openFilingModal(17)">
+            <td><span class="vessel-type-tag">Container</span> EVER GIVEN</td>
+            <td><span class="canal-tag cape" style="margin-right:0">ISPS Pre-Arrival</span></td>
+            <td>May 8, 2026</td>
+            <td><span class="status-pill accepted">✓ Accepted</span></td>
+            <td><span class="caught-no">—</span></td>
+          </tr>
+          <tr onclick="openFilingModal(18)">
+            <td><span class="vessel-type-tag">Bulk</span> NORDIC ORION</td>
+            <td><span class="canal-tag cape" style="margin-right:0">ISPS Pre-Arrival</span></td>
+            <td>Apr 30, 2026</td>
+            <td><span class="status-pill warning">⚠ Warning</span></td>
+            <td><span class="caught-yes">✓ Yes</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Cost Savings + Calendar row -->
+    <div class="two-col">
+
+      <!-- Cost Savings -->
+      <div class="savings-card" onclick="openModal('savings')">
+        <div class="savings-label">💰 Cost Savings This Month</div>
+        <div class="savings-amount" id="savings-counter">$0</div>
+        <div class="savings-sub">in prevented rejection costs (May 2026)</div>
+        <div class="savings-breakdown">
+          <div class="savings-line"><span class="sl-label">Panama filings — prevented (4)</span><span class="sl-val">$38,400</span></div>
+          <div class="savings-line"><span class="sl-label">Suez filings — fees avoided</span><span class="sl-val">$5,200</span></div>
+          <div class="savings-line"><span class="sl-label">Bosporus SP-1 — rejections caught</span><span class="sl-val">$14,800</span></div>
+          <div class="savings-line"><span class="sl-label" style="color:#FFA000;">Malacca STRAITREP — caught (2)</span><span class="sl-val">$9,600</span></div>
+          <div class="savings-line"><span class="sl-label" style="color:#CE93D8;">Cape ISPS — delays averted</span><span class="sl-val">$7,100</span></div>
+          <div class="savings-line"><span class="sl-label">Delay costs averted (all canals)</span><span class="sl-val">$4,000</span></div>
+        </div>
+      </div>
+
+      <!-- Transit Calendar -->
+      <div class="calendar-card" onclick="void 0">
+        <div class="card-header">
+          <div class="card-title">Transit Calendar</div>
+          <span style="font-size:0.78rem;color:var(--gray);">Next 7 days</span>
+        </div>
+        <div class="calendar-days">
+          <div class="cal-day">
+            <div class="cal-date">May 9</div>
+            <div class="cal-vessel ready"><span class="cal-dot ready"></span>CMA CGM PANAMA</div>
+            <div class="cal-canal">Panama · VUMPA ✓</div>
+          </div>
+          <div class="cal-day">
+            <div class="cal-date">May 10</div>
+            <div class="cal-vessel ready"><span class="cal-dot ready"></span>AL DAFNA</div>
+            <div class="cal-canal">Suez · SCA ✓</div>
+          </div>
+          <div class="cal-day">
+            <div class="cal-date">May 11</div>
+            <div class="cal-vessel warning"><span class="cal-dot warning"></span>MSC OSCAR</div>
+            <div class="cal-canal">Panama · Renewal due</div>
+          </div>
+          <div class="cal-day">
+            <div class="cal-date">May 12</div>
+            <div class="cal-vessel ready"><span class="cal-dot ready"></span>TORM ELIZABETH</div>
+            <div class="cal-canal">Suez · ISPS ✓</div>
+          </div>
+          <div class="cal-day">
+            <div class="cal-date">May 13</div>
+            <div class="cal-vessel danger"><span class="cal-dot danger"></span>NORDIC ORION</div>
+            <div class="cal-canal">Panama · Docs missing</div>
+          </div>
+          <div class="cal-day">
+            <div class="cal-date">May 14</div>
+            <div class="cal-vessel ready"><span class="cal-dot ready"></span>CSCL GLOBE</div>
+            <div class="cal-canal">Suez · SCNT ✓</div>
+          </div>
+          <div class="cal-day">
+            <div class="cal-date">May 15</div>
+            <div class="cal-vessel ready"><span class="cal-dot ready"></span>EVER GIVEN</div>
+            <div class="cal-canal">Panama · PCSOPEP ✓</div>
+          </div>
+          <div class="cal-day" style="border-color:var(--teal-border);">
+            <div class="cal-date">May 11</div>
+            <div class="cal-vessel ready"><span class="cal-dot bosporus"></span>BOSPHORUS HIGHWAY</div>
+            <div class="cal-canal bosporus">Bosporus · SP-1 ✓</div>
+          </div>
+          <div class="cal-day" style="border-color:var(--teal-border);">
+            <div class="cal-date">May 12</div>
+            <div class="cal-vessel warning"><span class="cal-dot warning"></span>YASA GOLDEN HORN</div>
+            <div class="cal-canal bosporus">Bosporus · SP-1 pending</div>
+          </div>
+          <div class="cal-day" style="border-color:rgba(255,107,107,0.25);">
+            <div class="cal-date">May 14</div>
+            <div class="cal-vessel danger"><span class="cal-dot danger"></span>AEGEAN STAR</div>
+            <div class="cal-canal bosporus">Bosporus · SP-1 not filed</div>
+          </div>
+          <div class="cal-day" style="border-color:rgba(255,160,0,0.25);">
+            <div class="cal-date">May 12</div>
+            <div class="cal-vessel danger"><span class="cal-dot malacca"></span>TORM ELIZABETH</div>
+            <div class="cal-canal malacca">Malacca · STRAITREP overdue</div>
+          </div>
+          <div class="cal-day" style="border-color:rgba(255,160,0,0.25);">
+            <div class="cal-date">May 14</div>
+            <div class="cal-vessel ready"><span class="cal-dot malacca"></span>AL DAFNA</div>
+            <div class="cal-canal malacca">Malacca · STRAITREP ✓</div>
+          </div>
+          <div class="cal-day" style="border-color:rgba(156,39,176,0.25);">
+            <div class="cal-date">May 13</div>
+            <div class="cal-vessel warning"><span class="cal-dot cape"></span>EVER GIVEN</div>
+            <div class="cal-canal cape">Cape · ISPS window opens</div>
+          </div>
+          <div class="cal-day" style="border-color:rgba(156,39,176,0.25);">
+            <div class="cal-date">May 16</div>
+            <div class="cal-vessel ready"><span class="cal-dot cape"></span>CSCL GLOBE</div>
+            <div class="cal-canal cape">Cape · ISPS Pre-Arrival ✓</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charter Rate Tracker -->
+    <div class="rates-card" onclick="void 0" style="margin-bottom:1.5rem;">
+      <div class="card-header">
+        <div class="card-title">Charter Rate Tracker</div>
+        <span style="font-size:0.75rem;color:var(--gray);">Spot rates · Updated May 8, 2026</span>
+      </div>
+      <div class="rate-row">
+        <span class="rate-type">VLCC (TD3C — Middle East Gulf/China)</span>
+        <span class="rate-val up">WS 68.5 <span class="rate-change">↑ +3.2</span></span>
+      </div>
+      <div class="rate-row">
+        <span class="rate-type">Suezmax (TD20 — W.Africa/Cont.)</span>
+        <span class="rate-val down">WS 82.0 <span class="rate-change">↓ -1.5</span></span>
+      </div>
+      <div class="rate-row">
+        <span class="rate-type">Aframax (TD19 — Cross-Med)</span>
+        <span class="rate-val up">WS 110.0 <span class="rate-change">↑ +5.0</span></span>
+      </div>
+      <div class="rate-row">
+        <span class="rate-type">Capesize (C5 — W.Australia/China)</span>
+        <span class="rate-val flat">$9,250/day <span class="rate-change">→ 0</span></span>
+      </div>
+      <div class="rate-row">
+        <span class="rate-type">LNG Carrier (Pacific round voyage)</span>
+        <span class="rate-val up">$52,000/day <span class="rate-change">↑ +2,500</span></span>
+      </div>
+      <div class="rate-row">
+        <span class="rate-type">PCTC (Vehicle Carrier)</span>
+        <span class="rate-val down">$18,400/day <span class="rate-change">↓ -800</span></span>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Sticky Footer CTA -->
+<div class="footer-cta">
+  <p><strong>This is what your fleet dashboard looks like.</strong> Real-time compliance, alerts, and filing status.</p>
+  <a href="/pricing" class="btn-footer-trial">Start Now — Limited Spots</a>
+  <a href="https://wa.me/19543098130?text=Hi%2C%20I%20saw%20the%20demo%20dashboard%20and%20want%20to%20learn%20more%20about%20CanalClear." class="btn-footer-wa" target="_blank" rel="noopener">💬 Talk to Founder</a>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  🔒 This is a demo — <a href="/pricing">sign up to use the live product →</a>
+</div>
+
+<!-- Vessel Detail Modal -->
+<div class="modal-overlay" id="modal-vessel">
+  <div class="modal" id="modal-vessel-content">
+    <div id="vessel-modal-inner"></div>
+    <div class="modal-actions">
+      <a href="/pricing" class="btn-modal-primary">Start Now — Limited Spots</a>
+      <button class="btn-modal-secondary" onclick="closeModal('modal-vessel')">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Generic Modal -->
+<div class="modal-overlay" id="modal-generic">
+  <div class="modal">
+    <div id="modal-generic-content"></div>
+    <div class="modal-actions">
+      <a href="/pricing" class="btn-modal-primary">Start Now — Limited Spots →</a>
+      <button class="btn-modal-secondary" onclick="closeModal('modal-generic')">Close</button>
+    </div>
+  </div>
+</div>
+
+<script src="/js/whatsapp-button.js"></script>
+<script src="/js/analytics.js"></script>
+<script>
+  /* ── VESSEL DATA ── */
+  const VESSELS = [
+    { name: 'CMA CGM PANAMA', imo: '9839923', type: 'Container', len: '364m', flag: '🇫🇷 France', gt: '148,684', class: 'Bureau Veritas', score: 98, transits: 12, rejections: 0, rejStatus: 'none', canal: 'Panama', notes: 'Top compliance performer. All VUMPA, PCSOPEP docs current. Zero deficiencies in 12 transits.' },
+    { name: 'MSC OSCAR', imo: '9703291', type: 'Container', len: '395m', flag: '🇵🇦 Panama', gt: '192,290', class: "Lloyd's Register", score: 95, transits: 8, rejections: 1, rejStatus: 'resolved', canal: 'Panama', notes: 'PCSOPEP renewal due in 14 days. 1 prior rejection resolved. Auto-draft available.' },
+    { name: 'NORDIC ORION', imo: '9501460', type: 'Bulk Carrier', len: '225m', flag: '🇸🇬 Singapore', gt: '35,000', class: 'DNV', score: 87, transits: 4, rejections: 1, rejStatus: 'active', canal: 'Panama', notes: '⚠ Active: VUMPA Pre-Arrival missing crew change documentation. Transit in 6 days — action required.' },
+    { name: 'AL DAFNA', imo: '9671879', type: 'LNG Carrier', len: '315m', flag: '🇶🇦 Qatar', gt: '95,000', class: "Lloyd's Register", score: 99, transits: 6, rejections: 0, rejStatus: 'none', canal: 'Panama + Suez', notes: 'Near-perfect compliance. LNG Prior Authorization current. Gas Detection System cert valid.' },
+    { name: 'TORM ELIZABETH', imo: '9630748', type: 'Tanker', len: '183m', flag: '🇩🇰 Denmark', gt: '29,600', class: 'Bureau Veritas', score: 92, transits: 9, rejections: 0, rejStatus: 'none', canal: 'Suez', notes: 'All certificates current. Regular Suez transits with zero rejection history.' },
+    { name: 'CSCL GLOBE', imo: '9695731', type: 'Container', len: '400m', flag: '🇨🇳 China', gt: '186,000', class: 'China Classification', score: 96, transits: 11, rejections: 0, rejStatus: 'none', canal: 'Panama + Suez', notes: 'High-frequency operator. 11 transits this year, zero rejections. SCNT calculated automatically.' },
+    { name: 'NYK ROMULUS', imo: '9321441', type: 'Vehicle Carrier', len: '200m', flag: '🇯🇵 Japan', gt: '71,673', class: 'Nippon Kaiji Kyokai', score: 89, transits: 5, rejections: 1, rejStatus: 'resolved', canal: 'Panama', notes: 'Booking number format flagged by validator before submission — corrected. Rejection resolved.' },
+    { name: 'EVER GIVEN', imo: '9811000', type: 'Container', len: '400m', flag: '🇵🇦 Panama', gt: '199,630', class: "Lloyd's Register", score: 94, transits: 7, rejections: 1, rejStatus: 'resolved', canal: 'Panama + Suez', notes: '1 prior rejection resolved. Current compliance solid. ISPS and SCNT certificates current.' },
+    { name: 'YASA GOLDEN HORN', imo: '9712384', type: 'Bulk Carrier', len: '185m', flag: '🇹🇷 Turkey', gt: '32,500', class: 'Turkish Lloyd', score: 88, transits: 7, rejections: 0, rejStatus: 'resolved', canal: 'Bosporus', notes: '⚠ SP-1 submission deadline in 18 hours. Pilotage booking not yet confirmed. Montreux Convention compliance: all cargo docs current.' },
+    { name: 'BOSPHORUS HIGHWAY', imo: '9634201', type: 'Vehicle Carrier', len: '199m', flag: '🇱🇷 Liberia', gt: '58,400', class: 'Bureau Veritas', score: 96, transits: 6, rejections: 0, rejStatus: 'none', canal: 'Bosporus', notes: 'Regular Istanbul strait passages. SP-1 compliance strong. Under 200m — standard scheduling applies. 6 transits with zero rejections.' },
+    { name: 'AEGEAN STAR', imo: '9748923', type: 'Tanker', len: '210m', flag: '🇬🇷 Greece', gt: '47,200', class: "Lloyd's Register", score: 72, transits: 4, rejections: 1, rejStatus: 'active', canal: 'Bosporus', notes: '🔴 CRITICAL: 210m LOA exceeds 200m threshold — Bosporus daytime transit mandatory + special scheduling required under Montreux Convention. SP-1 filing not yet submitted. Previous rejection for LOA restriction not flagged.' },
+  ];
+
+  /* ── TOAST ── */
+  let toastTimeout;
+  function demoToast() {
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => t.classList.remove('show'), 3500);
+  }
+
+  /* ── MODAL HELPERS ── */
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('open');
+  }
+
+  function openModal(type) {
+    const el = document.getElementById('modal-generic');
+    const content = document.getElementById('modal-generic-content');
+    let html = '';
+
+    if (type === 'fleet-score') {
+      html = `<h3>Fleet Compliance Score — 91%</h3>
+        <p>Average compliance score across all 11 vessels in Demo Maritime Co.'s fleet. Scored across all 5 waterways on certificate validity, filing acceptance rate, and pre-submission validation pass rate.</p>
+        <div class="modal-detail-row"><span class="modal-detail-label">Highest Score</span><span class="modal-detail-val" style="color:#4CAF50;">AL DAFNA — 99%</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Needs Attention</span><span class="modal-detail-val" style="color:#FF6B6B;">AEGEAN STAR — 72% (LOA alert)</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Fleet Average</span><span class="modal-detail-val">91% (5 waterways)</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Industry Benchmark</span><span class="modal-detail-val">~78% (without automation)</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Bosporus vessels</span><span class="modal-detail-val">3 vessels — 1 active LOA alert</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label" style="color:#FFA000;">Malacca vessels</span><span class="modal-detail-val">3 vessels — 1 STRAITREP overdue</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label" style="color:#CE93D8;">Cape vessels</span><span class="modal-detail-val">2 vessels — 1 ISPS window opening</span></div>`;
+    } else if (type === 'transits') {
+      html = `<h3>104 Transits Year-to-Date</h3>
+        <p>Total canal transits completed by Demo Maritime Co.'s fleet in 2026 (Jan–May) across all 5 critical maritime chokepoints.</p>
+        <div class="modal-detail-row"><span class="modal-detail-label">Panama Canal</span><span class="modal-detail-val">38 transits</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Suez Canal</span><span class="modal-detail-val">24 transits</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Bosporus Strait</span><span class="modal-detail-val">17 transits</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label" style="color:#FFA000;">Strait of Malacca</span><span class="modal-detail-val">16 transits</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label" style="color:#CE93D8;">Cape of Good Hope</span><span class="modal-detail-val">9 transits</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Avg transits/vessel</span><span class="modal-detail-val">9.5/year</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">On-schedule rate</span><span class="modal-detail-val">95.1%</span></div>`;
+    } else if (type === 'rejections') {
+      html = `<h3>5 Rejections YTD</h3>
+        <p>Of 5 total filing rejections this year, CanalClear's validator flagged all 5 pre-submission — preventing costly re-booking and delay penalties.</p>
+        <div class="modal-detail-row"><span class="modal-detail-label">Rejections caught pre-submit</span><span class="modal-detail-val" style="color:#4CAF50;">5 / 5 (100%)</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Panama rejections</span><span class="modal-detail-val">3 resolved · 1 active</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Bosporus rejections</span><span class="modal-detail-val">1 active (LOA restriction)</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Average correction time</span><span class="modal-detail-val">1.6 hours</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Avg penalty prevented/reject</span><span class="modal-detail-val">$12,480</span></div>`;
+    } else if (type === 'savings') {
+      html = `<h3>$79,100 in Costs Prevented — May 2026</h3>
+        <p>Estimated savings from filing rejections caught before submission across all 5 waterways, including re-scheduling fees and delay costs averted by CanalClear's validator.</p>
+        <div class="modal-detail-row"><span class="modal-detail-label">Panama filings — prevented (4)</span><span class="modal-detail-val" style="color:#E85A00;">$38,400</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Suez — re-submission fees avoided</span><span class="modal-detail-val" style="color:#E85A00;">$5,200</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Bosporus SP-1 — rejections caught</span><span class="modal-detail-val" style="color:#00BCD4;">$14,800</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label" style="color:#FFA000;">Malacca STRAITREP — caught (2)</span><span class="modal-detail-val" style="color:#FFA000;">$9,600</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label" style="color:#CE93D8;">Cape ISPS — delays averted</span><span class="modal-detail-val" style="color:#CE93D8;">$7,100</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Delay costs averted (all canals)</span><span class="modal-detail-val" style="color:#E85A00;">$4,000</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">CanalClear cost this month</span><span class="modal-detail-val">$699 – $1,799</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Net ROI this month</span><span class="modal-detail-val" style="color:#4CAF50;">~44× return</span></div>`;
+    } else if (type === 'alert-1') {
+      html = `<h3>🔴 NORDIC ORION — Active Alert</h3>
+        <p>VUMPA Pre-Arrival filing is missing crew change documentation. Transit is scheduled in 6 days.</p>
+        <div class="modal-detail-row"><span class="modal-detail-label">Alert type</span><span class="modal-detail-val">Missing document</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Filing</span><span class="modal-detail-val">VUMPA Pre-Arrival</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Missing doc</span><span class="modal-detail-val">Crew Change Declaration (Form ACP-7)</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Transit deadline</span><span class="modal-detail-val">May 13, 2026</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Action</span><span class="modal-detail-val" style="color:#E85A00;">Upload ACP-7 immediately</span></div>`;
+    } else if (type === 'alert-2') {
+      html = `<h3>🟡 MSC OSCAR — Renewal Due</h3>
+        <p>PCSOPEP (Panama Canal Spill Prevention Plan) renewal is due in 14 days. Auto-draft is available.</p>
+        <div class="modal-detail-row"><span class="modal-detail-label">Document</span><span class="modal-detail-val">PCSOPEP</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Current expiry</span><span class="modal-detail-val">May 22, 2026</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Auto-draft status</span><span class="modal-detail-val" style="color:#4CAF50;">Ready to review</span></div>`;
+    } else if (type === 'alert-3') {
+      html = `<h3>🟠 NYK ROMULUS — Format Corrected</h3>
+        <p>Booking number format was flagged by the validator before submission. The error was corrected — no rejection occurred.</p>
+        <div class="modal-detail-row"><span class="modal-detail-label">Issue</span><span class="modal-detail-val">Invalid booking # format</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Caught</span><span class="modal-detail-val" style="color:#4CAF50;">Pre-submission ✓</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Status</span><span class="modal-detail-val">Resolved</span></div>`;
+    } else if (type === 'alert-4') {
+      html = `<h3>🔴 AEGEAN STAR — Bosporus LOA Alert</h3>
+        <p>AEGEAN STAR (210m LOA) exceeds the Bosporus Strait 200m threshold under the Montreux Convention. Daytime transit scheduling and Turkish coastguard special notification are mandatory.</p>
+        <div class="modal-detail-row"><span class="modal-detail-label">Canal</span><span class="modal-detail-val" style="color:#00BCD4;">Bosporus Strait</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Filing type</span><span class="modal-detail-val">SP-1 (not yet submitted)</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Vessel LOA</span><span class="modal-detail-val" style="color:#FF6B6B;">210m — exceeds 200m limit</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Required</span><span class="modal-detail-val">Daytime transit window only</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Required</span><span class="modal-detail-val">Special scheduling notification (48h)</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Action</span><span class="modal-detail-val" style="color:#E85A00;">Submit SP-1 immediately with LOA notation</span></div>`;
+    } else if (type === 'alert-5') {
+      html = `<h3>🟡 YASA GOLDEN HORN — SP-1 Deadline 18h</h3>
+        <p>SP-1 filing deadline for the next Bosporus transit is in 18 hours. Pilotage booking has not yet been confirmed.</p>
+        <div class="modal-detail-row"><span class="modal-detail-label">Canal</span><span class="modal-detail-val" style="color:#00BCD4;">Bosporus Strait</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Filing type</span><span class="modal-detail-val">SP-1</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Submission deadline</span><span class="modal-detail-val" style="color:#FFD93D;">May 12, 2026 – 06:00 UTC</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Pilotage status</span><span class="modal-detail-val" style="color:#FF6B6B;">Not confirmed (mandatory >150m LOA)</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Montreux cargo check</span><span class="modal-detail-val" style="color:#4CAF50;">Passed ✓</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Action</span><span class="modal-detail-val" style="color:#E85A00;">Confirm pilotage + submit SP-1 now</span></div>`;
+    } else if (type === 'alert-6') {
+      html = `<h3>🔴 TORM ELIZABETH — STRAITREP Overdue</h3>
+        <p>STRAITREP MPA filing for the Malacca Strait TSS entry is overdue by 4 hours. The vessel enters the Traffic Separation Scheme in 22 hours — filing must be submitted immediately to avoid MPA enforcement.</p>
+        <div class="modal-detail-row"><span class="modal-detail-label">Canal</span><span class="modal-detail-val" style="color:#FFA000;">Strait of Malacca</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Filing type</span><span class="modal-detail-val">STRAITREP (MASTERPLAN 2008)</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Overdue by</span><span class="modal-detail-val" style="color:#FF6B6B;">4 hours</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">TSS entry in</span><span class="modal-detail-val">22 hours</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">VTIS status</span><span class="modal-detail-val" style="color:#FF6B6B;">Not reported</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Action</span><span class="modal-detail-val" style="color:#E85A00;">Submit STRAITREP immediately — VHF Ch.16</span></div>`;
+    } else if (type === 'alert-7') {
+      html = `<h3>🟡 EVER GIVEN — SAMSA 96h Window Opening</h3>
+        <p>The 96-hour pre-arrival notification window for EVER GIVEN's Cape of Good Hope transit opens tomorrow. SAMSA requires the ISPS declaration to be filed within this window under Marine Notice 12 of 2008.</p>
+        <div class="modal-detail-row"><span class="modal-detail-label">Canal</span><span class="modal-detail-val" style="color:#CE93D8;">Cape of Good Hope</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Filing type</span><span class="modal-detail-val">ISPS Pre-Arrival (SAMSA)</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Window opens</span><span class="modal-detail-val">May 13, 2026</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Deadline</span><span class="modal-detail-val" style="color:#FFD93D;">May 17, 2026 (96h before arrival)</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">ISPS Level</span><span class="modal-detail-val">Level 1 (standard)</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Last 10 ports</span><span class="modal-detail-val" style="color:#FF6B6B;">Not yet declared</span></div>
+        <div class="modal-detail-row"><span class="modal-detail-label">Action</span><span class="modal-detail-val" style="color:#E85A00;">Prepare ISPS declaration — file within 96h window</span></div>`;
+    }
+
+    content.innerHTML = html;
+    el.classList.add('open');
+  }
+
+  function openVesselModal(idx) {
+    const v = VESSELS[idx];
+    const scoreClass = v.score >= 95 ? 'color:#4CAF50' : v.score >= 90 ? 'color:#FFD93D' : 'color:#FF6B6B';
+    const rejTag = v.rejStatus === 'none'
+      ? '<span style="color:#4CAF50;">✓ No rejections</span>'
+      : v.rejStatus === 'resolved'
+        ? '<span style="color:#FFD93D;">⚠ 1 Resolved</span>'
+        : '<span style="color:#FF6B6B;">🔴 Active Warning</span>';
+
+    document.getElementById('vessel-modal-inner').innerHTML = `
+      <h3>${v.name}</h3>
+      <p style="margin-bottom:0.75rem;">${v.notes}</p>
+      <div class="modal-detail-row"><span class="modal-detail-label">IMO Number</span><span class="modal-detail-val">${v.imo}</span></div>
+      <div class="modal-detail-row"><span class="modal-detail-label">Vessel Type</span><span class="modal-detail-val">${v.type}</span></div>
+      <div class="modal-detail-row"><span class="modal-detail-label">Length</span><span class="modal-detail-val">${v.len}</span></div>
+      <div class="modal-detail-row"><span class="modal-detail-label">Gross Tonnage</span><span class="modal-detail-val">${v.gt} GT</span></div>
+      <div class="modal-detail-row"><span class="modal-detail-label">Flag State</span><span class="modal-detail-val">${v.flag}</span></div>
+      <div class="modal-detail-row"><span class="modal-detail-label">Classification</span><span class="modal-detail-val">${v.class}</span></div>
+      <div class="modal-detail-row"><span class="modal-detail-label">Canal Operations</span><span class="modal-detail-val">${v.canal}</span></div>
+      <div class="modal-detail-row"><span class="modal-detail-label">Compliance Score</span><span class="modal-detail-val" style="${scoreClass}">${v.score}%</span></div>
+      <div class="modal-detail-row"><span class="modal-detail-label">Transits YTD</span><span class="modal-detail-val">${v.transits}</span></div>
+      <div class="modal-detail-row"><span class="modal-detail-label">Rejection Status</span><span class="modal-detail-val">${rejTag}</span></div>
+    `;
+    document.getElementById('modal-vessel').classList.add('open');
+  }
+
+  function openFilingModal(idx) {
+    const filings = [
+      { vessel: 'CMA CGM PANAMA', type: 'VUMPA', date: 'May 7, 2026', canal: 'Panama', status: '✓ Accepted', caught: 'No', time: '14 min', notes: 'All sections validated. VUMPA Pre-Arrival submitted 48h before transit. Zero deficiencies.' },
+      { vessel: 'AL DAFNA', type: 'PCSOPEP', date: 'May 6, 2026', canal: 'Panama', status: '✓ Accepted', caught: 'No', time: '9 min', notes: 'PCSOPEP renewal. LNG-specific addendum included. Accepted first submission.' },
+      { vessel: 'TORM ELIZABETH', type: 'SCA', date: 'May 6, 2026', canal: 'Suez', status: '✓ Accepted', caught: 'No', time: '11 min', notes: 'Suez Canal Authority clearance. ISPS and security declarations complete.' },
+      { vessel: 'CSCL GLOBE', type: 'VUMPA', date: 'May 5, 2026', canal: 'Panama', status: '✓ Accepted', caught: 'No', time: '12 min', notes: 'Standard VUMPA Pre-Arrival. All 22 checklist items passed.' },
+      { vessel: 'NYK ROMULUS', type: 'PCSOPEP', date: 'May 4, 2026', canal: 'Panama', status: '⚠ Warning', caught: 'Yes', time: '18 min', notes: 'Validator flagged booking number format error. Corrected before submission. Warning acknowledged.' },
+      { vessel: 'MSC OSCAR', type: 'VUMPA', date: 'May 3, 2026', canal: 'Panama', status: '✓ Accepted', caught: 'No', time: '13 min', notes: 'VUMPA accepted. PCSOPEP renewal flagged as upcoming — action item created.' },
+      { vessel: 'NORDIC ORION', type: 'VUMPA', date: 'May 2, 2026', canal: 'Panama', status: '✗ Rejected', caught: 'Yes', time: '22 min', notes: 'Validator caught missing ACP-7 crew change declaration. Filing submitted anyway — rejected by ACP. Re-filing with docs required.' },
+      { vessel: 'EVER GIVEN', type: 'SCA', date: 'May 1, 2026', canal: 'Suez', status: '✓ Accepted', caught: 'No', time: '10 min', notes: 'Suez convoy booking confirmed. SCNT tonnage certificate included.' },
+      { vessel: 'CSCL GLOBE', type: 'SCNT', date: 'Apr 30, 2026', canal: 'Suez', status: '✓ Accepted', caught: 'No', time: '8 min', notes: 'SCNT tonnage calculation auto-filled. SCA accepted on first submission.' },
+      { vessel: 'AL DAFNA', type: 'PCSOPEP', date: 'Apr 29, 2026', canal: 'Panama', status: '⚠ Warning', caught: 'Yes', time: '16 min', notes: 'Expiry date discrepancy caught by validator. Corrected. Warning noted in record.' },
+      { vessel: 'BOSPHORUS HIGHWAY', type: 'SP-1', date: 'May 8, 2026', canal: 'Bosporus', status: '✓ Accepted', caught: 'No', time: '11 min', notes: 'SP-1 submission accepted. 199m LOA — standard scheduling. Mandatory pilot confirmed. Montreux Convention cargo check passed.' },
+      { vessel: 'YASA GOLDEN HORN', type: 'SP-1', date: 'May 7, 2026', canal: 'Bosporus', status: '⚠ Warning', caught: 'Yes', time: '17 min', notes: 'Validator flagged pilotage booking not confirmed at time of filing. Warning issued — pilotage confirmation required before transit cleared.' },
+      { vessel: 'AEGEAN STAR', type: 'SP-1', date: 'May 5, 2026', canal: 'Bosporus', status: '✗ Rejected', caught: 'Yes', time: '24 min', notes: 'Validator caught LOA restriction (210m > 200m threshold) not flagged in submission. Filing rejected — daytime transit notation and special scheduling required under Montreux Convention Art. 10.' },
+      { vessel: 'BOSPHORUS HIGHWAY', type: 'SP-1', date: 'Apr 28, 2026', canal: 'Bosporus', status: '✓ Accepted', caught: 'No', time: '9 min', notes: 'Standard SP-1 transit. All docs current. Pilot confirmed. Previous transit history accepted without issue.' },
+      { vessel: 'TORM ELIZABETH', type: 'STRAITREP', date: 'May 9, 2026', canal: 'Malacca', status: '✓ Accepted', caught: 'No', time: '10 min', notes: 'STRAITREP MPA submission for Malacca Strait TSS entry. VHF Channel 16 + VTIS confirmation included. Speed set to 12 kt per MASTERPLAN 2008. All validators passed.' },
+      { vessel: 'AL DAFNA', type: 'STRAITREP', date: 'May 7, 2026', canal: 'Malacca', status: '⚠ Warning', caught: 'Yes', time: '15 min', notes: 'LNG cargo classification triggered DG check. Validator flagged missing MARPOL Annex I declaration for ballast water. Warning issued — correction required before transit. LNG class reviewed against restricted hazmat list.' },
+      { vessel: 'CSCL GLOBE', type: 'STRAITREP', date: 'May 3, 2026', canal: 'Malacca', status: '✓ Accepted', caught: 'No', time: '11 min', notes: 'STRAITREP for eastbound TSS leg. Pilot booked (400m LOA mandatory pilotage). VTIS reporting confirmed. Draft 15.2m — within 21m limit. All 12 checks passed.' },
+      { vessel: 'EVER GIVEN', type: 'ISPS Pre-Arrival', date: 'May 8, 2026', canal: 'Cape', status: '✓ Accepted', caught: 'No', time: '13 min', notes: 'SAMSA ISPS pre-arrival notification submitted 96h in advance. Last 10 ports declaration complete. ISPS Level 1 declared. All 6 SAMSA Marine Notice 12 of 2008 checks passed. SSO details current.' },
+      { vessel: 'NORDIC ORION', type: 'ISPS Pre-Arrival', date: 'Apr 30, 2026', canal: 'Cape', status: '⚠ Warning', caught: 'Yes', time: '18 min', notes: 'Validator flagged last 10 ports declaration missing Port of Maputo call 47 days prior. PSC inspection record showed 3 deficiencies from Durban — above low-risk threshold. Warning issued — supplemental declaration required.' },
+    ];
+    const f = filings[idx];
+    const sColor = f.status.includes('Accepted') ? '#4CAF50' : f.status.includes('Warning') ? '#FFD93D' : '#FF6B6B';
+    document.getElementById('modal-generic-content').innerHTML = `
+      <h3>${f.type} Filing — ${f.vessel}</h3>
+      <p>${f.notes}</p>
+      <div class="modal-detail-row"><span class="modal-detail-label">Canal</span><span class="modal-detail-val">${f.canal}</span></div>
+      <div class="modal-detail-row"><span class="modal-detail-label">Submitted</span><span class="modal-detail-val">${f.date}</span></div>
+      <div class="modal-detail-row"><span class="modal-detail-label">Status</span><span class="modal-detail-val" style="color:${sColor}">${f.status}</span></div>
+      <div class="modal-detail-row"><span class="modal-detail-label">Validator caught issue</span><span class="modal-detail-val">${f.caught === 'Yes' ? '<span style="color:#4CAF50">✓ Yes</span>' : '<span style="color:#6b7c93">No issues found</span>'}</span></div>
+      <div class="modal-detail-row"><span class="modal-detail-label">Time to complete</span><span class="modal-detail-val">${f.time}</span></div>
+    `;
+    document.getElementById('modal-generic').classList.add('open');
+  }
+
+  /* ── Close on overlay click ── */
+  document.querySelectorAll('.modal-overlay').forEach(el => {
+    el.addEventListener('click', (e) => {
+      if (e.target === el) el.classList.remove('open');
+    });
+  });
+
+  /* ── Savings counter animation ── */
+  function animateCounter(el, target, duration) {
+    const start = performance.now();
+    function step(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const val = Math.round(eased * target);
+      el.textContent = '$' + val.toLocaleString();
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* ── Intersection observer for counter ── */
+  const counterEl = document.getElementById('savings-counter');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        animateCounter(counterEl, 79100, 1800);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  observer.observe(counterEl);
+
+  /* ── Track demo dashboard visit ── */
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'demo_dashboard_view', { event_category: 'demo', event_label: 'fleet_dashboard' });
+  }
+</script>
+</body>
+</html>

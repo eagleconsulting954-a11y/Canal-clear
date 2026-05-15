@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suez ISPS Pre-Arrival Notifications — CanalClear</title>
+  <link rel="canonical" href="https://canalclear.org/suez/notifications" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #1a2d4a;
+      --deep: #142238;
+      --slate: #243350;
+      --panel: #142236;
+      --teal: #E85A00;
+      --teal-dim: rgba(232, 90, 0,.13);
+      --teal-border: rgba(232, 90, 0,.25);
+      --cyan: #00B4D8;
+      --white: #ffffff;
+      --gray: #6b7c93;
+      --light-gray: #8fa3b8;
+      --red: #FF6B6B;
+      --red-dim: rgba(255,107,107,.15);
+      --yellow: #FFD93D;
+      --yellow-dim: rgba(255,217,61,.15);
+      --green: #34D399;
+      --green-dim: rgba(52,211,153,.15);
+      --blue: #60A5FA;
+      --blue-dim: rgba(96,165,250,.13);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: rgba(10,22,40,.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(232, 90, 0,.15);
+      padding: 14px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      z-index: 1000;
+    }
+    .nav-logo { font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; font-size: 18px; color: var(--teal); text-decoration: none; }
+    .nav-links { display: flex; gap: 8px; align-items: center; }
+    .nav-link { color: var(--gray); font-size: 14px; text-decoration: none; padding: 6px 12px; border-radius: 6px; transition: all .15s; }
+    .nav-link:hover { color: var(--white); background: rgba(255,255,255,.06); }
+    .nav-link.active { color: var(--teal); }
+    .nav-btn { background: var(--teal); color: var(--navy); font-weight: 600; font-size: 13px; padding: 7px 16px; border-radius: 7px; text-decoration: none; }
+
+    /* ── LAYOUT ── */
+    .page { padding-top: 80px; min-height: 100vh; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding: 40px 0 32px;
+      border-bottom: 1px solid rgba(232, 90, 0,.12);
+      margin-bottom: 36px;
+    }
+    .page-header-inner { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    .page-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 28px; font-weight: 700; }
+    .page-title span { color: var(--teal); }
+    .page-subtitle { color: var(--gray); font-size: 15px; margin-top: 6px; }
+    .badge-sca {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--teal-dim); border: 1px solid var(--teal-border);
+      color: var(--teal); font-size: 12px; font-weight: 600;
+      padding: 5px 12px; border-radius: 20px; letter-spacing: .5px;
+    }
+
+    /* ── FILING SELECTOR ── */
+    .filing-bar {
+      background: var(--panel);
+      border: 1px solid rgba(232, 90, 0,.15);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 28px;
+      display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap;
+    }
+    .field-group { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 200px; }
+    .field-group label { font-size: 12px; font-weight: 600; color: var(--gray); text-transform: uppercase; letter-spacing: .5px; }
+    .field-group select,
+    .field-group input {
+      background: var(--slate);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 8px;
+      color: var(--white);
+      font-size: 14px; font-family: inherit;
+      padding: 10px 14px;
+      outline: none;
+      transition: border-color .15s;
+    }
+    .field-group select:focus,
+    .field-group input:focus { border-color: var(--teal); }
+    .btn-load {
+      background: var(--teal); color: var(--navy);
+      border: none; border-radius: 8px;
+      font-size: 14px; font-weight: 700; font-family: inherit;
+      padding: 11px 24px; cursor: pointer;
+      transition: opacity .15s; white-space: nowrap;
+    }
+    .btn-load:hover { opacity: .88; }
+    .btn-load:disabled { opacity: .45; cursor: not-allowed; }
+
+    /* ── ETA BANNER (shown when no ETA set) ── */
+    .eta-banner {
+      background: var(--yellow-dim);
+      border: 1px solid rgba(255,217,61,.3);
+      border-radius: 10px;
+      padding: 14px 18px;
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 24px;
+      font-size: 14px; color: var(--yellow);
+    }
+    .eta-banner .ico { font-size: 20px; }
+    .eta-banner strong { color: var(--white); }
+
+    /* ── TIMELINE GRID ── */
+    .timeline { display: flex; flex-direction: column; gap: 0; position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 39px;
+      top: 60px;
+      bottom: 60px;
+      width: 2px;
+      background: linear-gradient(to bottom, rgba(232, 90, 0,.3), rgba(232, 90, 0,.05));
+    }
+
+    .stage-card {
+      position: relative;
+      padding: 0 0 24px 0;
+    }
+    .stage-card:last-child { padding-bottom: 0; }
+
+    .stage-inner {
+      background: var(--panel);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: border-color .2s;
+    }
+    .stage-inner:hover { border-color: rgba(232, 90, 0,.25); }
+
+    /* Stage statuses drive the left accent */
+    .stage-card[data-status="sent"]      .stage-inner { border-left: 3px solid var(--green); }
+    .stage-card[data-status="confirmed"] .stage-inner { border-left: 3px solid var(--teal); }
+    .stage-card[data-status="overdue"]   .stage-inner { border-left: 3px solid var(--red); }
+    .stage-card[data-status="upcoming"]  .stage-inner { border-left: 3px solid var(--yellow); }
+    .stage-card[data-status="pending"]   .stage-inner { border-left: 3px solid rgba(255,255,255,.1); }
+
+    /* Stage header row */
+    .stage-header {
+      display: flex; align-items: center; gap: 16px;
+      padding: 18px 22px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .stage-dot {
+      width: 42px; height: 42px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+      border: 2px solid rgba(255,255,255,.1);
+    }
+    .stage-card[data-status="sent"]      .stage-dot { background: var(--green-dim); border-color: var(--green); }
+    .stage-card[data-status="confirmed"] .stage-dot { background: var(--teal-dim); border-color: var(--teal); }
+    .stage-card[data-status="overdue"]   .stage-dot { background: var(--red-dim); border-color: var(--red); }
+    .stage-card[data-status="upcoming"]  .stage-dot { background: var(--yellow-dim); border-color: var(--yellow); }
+    .stage-card[data-status="pending"]   .stage-dot { background: rgba(255,255,255,.04); }
+
+    .stage-meta { flex: 1; }
+    .stage-label { font-family: 'IBM Plex Sans', sans-serif; font-size: 17px; font-weight: 700; }
+    .stage-desc { font-size: 13px; color: var(--gray); margin-top: 2px; }
+
+    .stage-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+    .stage-deadline { font-size: 13px; color: var(--gray); }
+    .stage-deadline strong { color: var(--white); }
+
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px;
+      text-transform: uppercase; letter-spacing: .5px;
+    }
+    .badge-sent      { background: var(--green-dim); color: var(--green); border: 1px solid rgba(52,211,153,.3); }
+    .badge-confirmed { background: var(--teal-dim); color: var(--teal); border: 1px solid var(--teal-border); }
+    .badge-overdue   { background: var(--red-dim); color: var(--red); border: 1px solid rgba(255,107,107,.3); }
+    .badge-upcoming  { background: var(--yellow-dim); color: var(--yellow); border: 1px solid rgba(255,217,61,.3); }
+    .badge-pending   { background: rgba(255,255,255,.05); color: var(--gray); border: 1px solid rgba(255,255,255,.1); }
+
+    .countdown {
+      font-size: 12px; font-weight: 700; font-family: 'IBM Plex Sans', sans-serif;
+      padding: 3px 10px; border-radius: 6px;
+    }
+    .countdown-red    { background: var(--red-dim); color: var(--red); }
+    .countdown-yellow { background: var(--yellow-dim); color: var(--yellow); }
+    .countdown-green  { background: var(--green-dim); color: var(--green); }
+    .countdown-gray   { background: rgba(255,255,255,.05); color: var(--gray); }
+
+    .chevron { font-size: 14px; color: var(--gray); margin-left: 8px; transition: transform .2s; }
+    .stage-header.open .chevron { transform: rotate(180deg); }
+
+    /* Stage body (collapsible) */
+    .stage-body { border-top: 1px solid rgba(255,255,255,.06); display: none; }
+    .stage-body.open { display: block; }
+    .stage-body-inner { padding: 22px; }
+
+    /* ── FORM FIELDS INSIDE STAGE ── */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } }
+    .form-col-full { grid-column: 1 / -1; }
+
+    .form-field { display: flex; flex-direction: column; gap: 6px; }
+    .form-field label { font-size: 12px; font-weight: 600; color: var(--gray); text-transform: uppercase; letter-spacing: .4px; }
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      background: var(--slate);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 8px;
+      color: var(--white);
+      font-size: 13px; font-family: inherit;
+      padding: 9px 13px;
+      outline: none;
+      transition: border-color .15s;
+      resize: vertical;
+    }
+    .form-field input:focus,
+    .form-field select:focus,
+    .form-field textarea:focus { border-color: var(--teal); }
+    .form-field .hint { font-size: 11px; color: var(--gray); }
+
+    /* Port calls table */
+    .ports-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+    .ports-table th {
+      text-align: left; padding: 8px 10px;
+      background: rgba(255,255,255,.04);
+      color: var(--gray); font-size: 11px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .4px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .ports-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid rgba(255,255,255,.04);
+    }
+    .ports-table td input {
+      width: 100%; background: transparent; border: none;
+      color: var(--white); font-size: 13px; font-family: inherit;
+      outline: none; padding: 2px 0;
+    }
+    .ports-table td input:focus { border-bottom: 1px solid var(--teal); }
+    .btn-add-port {
+      background: rgba(232, 90, 0,.1); color: var(--teal);
+      border: 1px solid var(--teal-border);
+      border-radius: 6px; padding: 6px 14px;
+      font-size: 12px; font-weight: 600; font-family: inherit;
+      cursor: pointer; margin-top: 10px;
+    }
+    .btn-add-port:hover { background: rgba(232, 90, 0,.18); }
+
+    /* Action buttons */
+    .stage-actions { display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
+    .btn-action {
+      display: inline-flex; align-items: center; gap: 6px;
+      border-radius: 8px; padding: 10px 20px;
+      font-size: 13px; font-weight: 700; font-family: inherit;
+      border: none; cursor: pointer; transition: opacity .15s;
+    }
+    .btn-action:disabled { opacity: .45; cursor: not-allowed; }
+    .btn-primary { background: var(--teal); color: var(--navy); }
+    .btn-primary:hover:not(:disabled) { opacity: .88; }
+    .btn-secondary { background: rgba(255,255,255,.07); color: var(--white); border: 1px solid rgba(255,255,255,.12); }
+    .btn-secondary:hover:not(:disabled) { background: rgba(255,255,255,.12); }
+    .btn-confirm { background: rgba(52,211,153,.15); color: var(--green); border: 1px solid rgba(52,211,153,.3); }
+    .btn-confirm:hover:not(:disabled) { background: rgba(52,211,153,.25); }
+
+    /* ── OVERDUE ALERT BANNER ── */
+    .alert-overdue {
+      background: var(--red-dim);
+      border: 1px solid rgba(255,107,107,.3);
+      border-radius: 10px; padding: 14px 18px;
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 20px; font-size: 14px;
+    }
+    .alert-overdue .ico { font-size: 22px; }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center; padding: 60px 24px;
+      color: var(--gray);
+    }
+    .empty-state .ico { font-size: 48px; margin-bottom: 16px; }
+    .empty-state h3 { font-size: 20px; color: var(--white); margin-bottom: 8px; }
+
+    /* ── TOAST ── */
+    #toast {
+      position: fixed; bottom: 28px; right: 28px; z-index: 9000;
+      background: #1E3A2F; border: 1px solid rgba(52,211,153,.4);
+      color: var(--green); font-size: 14px; font-weight: 600;
+      padding: 14px 20px; border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.4);
+      display: none; align-items: center; gap: 10px;
+      max-width: 340px;
+    }
+    #toast.error { background: #2A1A1A; border-color: rgba(255,107,107,.4); color: var(--red); }
+    #toast.show { display: flex; animation: slideIn .25s ease; }
+    @keyframes slideIn { from { transform: translateY(10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    /* ── SENT RECORD ── */
+    .sent-record {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(52,211,153,.07);
+      border: 1px solid rgba(52,211,153,.2);
+      border-radius: 8px; padding: 10px 14px;
+      margin-top: 16px; font-size: 13px;
+    }
+
+    /* ── LEGEND ── */
+    .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--gray); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+    /* ── SKELETON LOADER ── */
+    .skeleton {
+      background: linear-gradient(90deg, var(--panel) 25%, var(--slate) 50%, var(--panel) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+      border-radius: 8px; height: 120px; margin-bottom: 16px;
+    }
+    @keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+
+    /* ── INFO ROW ── */
+    .info-row {
+      display: flex; gap: 12px; flex-wrap: wrap;
+      background: var(--teal-dim); border: 1px solid var(--teal-border);
+      border-radius: 10px; padding: 14px 18px; margin-bottom: 24px;
+      font-size: 13px;
+    }
+    .info-item { display: flex; flex-direction: column; gap: 2px; }
+    .info-item span:first-child { font-size: 11px; color: var(--gray); text-transform: uppercase; letter-spacing: .4px; }
+    .info-item span:last-child { font-weight: 600; color: var(--white); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner" style="max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;width:100%;">
+    <a href="/" class="nav-logo">⚓ CanalClear</a>
+    <div class="nav-links">
+      <a href="/app" class="nav-link">Dashboard</a>
+      <a href="/filing" class="nav-link">New Filing</a>
+      <a href="/suez/convoy" class="nav-link">Convoy</a>
+      <a href="/suez/notifications" class="nav-link active">ISPS Alerts</a>
+      <a href="/settings/alerts" class="nav-link">Alert Settings</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page">
+  <div class="container">
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="page-header-inner">
+        <div>
+          <h1 class="page-title">🇪🇬 Suez <span>ISPS Pre-Arrival</span> Notifications</h1>
+          <p class="page-subtitle">SCA requires three mandatory security notifications: 72h, 48h, and 24h before arrival.</p>
+        </div>
+        <span class="badge-sca">🛡️ SCA ISPS COMPLIANCE</span>
+      </div>
+    </div>
+
+    <!-- Filing Selector -->
+    <div class="filing-bar">
+      <div class="field-group">
+        <label>Select Suez Filing</label>
+        <select id="filingSelect">
+          <option value="">— Select a filing —</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Vessel ETA at Suez Canal</label>
+        <input type="datetime-local" id="etaInput" placeholder="ETA at Suez" />
+      </div>
+      <button class="btn-load" id="loadBtn" onclick="loadTimeline()">Load Timeline</button>
+    </div>
+
+    <!-- Legend -->
+    <div class="legend" id="legend" style="display:none">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>Sent</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--teal)"></div>Confirmed by SCA</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--yellow)"></div>Due within 6h</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div>Overdue</div>
+      <div class="legend-item"><div class="legend-dot" style="background:rgba(255,255,255,.15)"></div>Pending</div>
+    </div>
+
+    <!-- Main content -->
+    <div id="mainContent">
+      <div class="empty-state" id="emptyState">
+        <div class="ico">🛡️</div>
+        <h3>Select a Suez Filing</h3>
+        <p>Choose a filing from the dropdown above to manage its ISPS pre-arrival notification timeline.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast"><span id="toastMsg"></span></div>
+
+<script>
+'use strict';
+
+// ── State ─────────────────────────────────────────────────────────────────────
+let currentFiling = null;
+let currentTimeline = null;
+let countdownInterval = null;
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  loadFilings();
+  // Refresh countdowns every 30 seconds
+  countdownInterval = setInterval(updateCountdowns, 30000);
+});
+
+// ── Load filings for dropdown ──────────────────────────────────────────────────
+async function loadFilings() {
+  try {
+    const res = await fetch('/api/suez/my-isps-filings');
+    if (!res.ok) {
+      if (res.status === 401) { window.location.href = '/login'; return; }
+      throw new Error('Failed to load filings');
+    }
+    const data = await res.json();
+    const sel = document.getElementById('filingSelect');
+    sel.innerHTML = '<option value="">— Select a filing —</option>';
+    if (!data.filings || data.filings.length === 0) {
+      sel.innerHTML = '<option value="">No Suez filings found</option>';
+      document.getElementById('emptyState').innerHTML = `
+        <div class="ico">🛡️</div>
+        <h3>No Suez Filings Yet</h3>
+        <p>Create a Suez Canal filing first, then come back here to manage your ISPS pre-arrival notification timeline.</p>
+        <a href="/filing?canal=suez" style="display:inline-block;margin-top:1rem;padding:0.7rem 1.5rem;background:var(--teal);color:var(--navy);border-radius:8px;text-decoration:none;font-weight:700;font-size:0.9rem;">Start a Suez Filing →</a>
+      `;
+      return;
+    }
+    for (const f of data.filings) {
+      const opt = document.createElement('option');
+      opt.value = f.id;
+      const sent = f.notif_sent_count || 0;
+      const total = 3;
+      opt.textContent = `${f.vessel_name} (IMO: ${f.imo_number}) — ${sent}/${total} sent`;
+      if (f.eta_arrival) {
+        const eta = new Date(f.eta_arrival);
+        opt.textContent += ` — ETA ${formatDate(eta)}`;
+      }
+      sel.appendChild(opt);
+    }
+  } catch (err) {
+    showToast('Could not load filings: ' + err.message, true);
+  }
+}
+
+// ── Load timeline for selected filing ─────────────────────────────────────────
+async function loadTimeline() {
+  const filingId = document.getElementById('filingSelect').value;
+  const etaVal   = document.getElementById('etaInput').value;
+
+  if (!filingId) {
+    showToast('Please select a filing', true);
+    return;
+  }
+
+  const btn = document.getElementById('loadBtn');
+  btn.disabled = true;
+  btn.textContent = 'Loading…';
+
+  document.getElementById('emptyState')?.remove();
+  document.getElementById('mainContent').innerHTML = `
+    <div class="skeleton"></div>
+    <div class="skeleton" style="height:80px"></div>
+    <div class="skeleton" style="height:80px"></div>
+  `;
+
+  try {
+    let url = `/api/suez/notifications/${filingId}`;
+    if (etaVal) {
+      const etaIso = new Date(etaVal).toISOString();
+      url += `?eta=${encodeURIComponent(etaIso)}`;
+    }
+
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('Server error loading timeline');
+    const data = await res.json();
+
+    if (!data.success) throw new Error(data.message || 'Failed');
+
+    currentFiling   = data.filing;
+    currentTimeline = data.timeline;
+
+    // Pre-fill ETA input if we got an ETA back
+    if (data.eta_arrival && !etaVal) {
+      const dt = new Date(data.eta_arrival);
+      document.getElementById('etaInput').value = toLocalDatetimeInput(dt);
+    }
+
+    renderTimeline(data);
+  } catch (err) {
+    document.getElementById('mainContent').innerHTML = `
+      <div class="empty-state"><div class="ico">⚠️</div><h3>Error</h3><p>${err.message}</p></div>
+    `;
+    showToast(err.message, true);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Load Timeline';
+  }
+}
+
+// ── Render the full timeline ───────────────────────────────────────────────────
+function renderTimeline(data) {
+  const { filing, timeline, eta_arrival } = data;
+  const hasEta = !!eta_arrival;
+
+  const overdueStages = timeline.filter(s => s.status === 'overdue');
+  const main = document.getElementById('mainContent');
+  document.getElementById('legend').style.display = 'flex';
+
+  let html = '';
+
+  // Vessel info row
+  html += `
+    <div class="info-row">
+      <div class="info-item">
+        <span>Vessel</span>
+        <span>${escHtml(filing.vessel_name)}</span>
+      </div>
+      <div class="info-item">
+        <span>IMO</span>
+        <span>${escHtml(filing.imo_number)}</span>
+      </div>
+      <div class="info-item">
+        <span>Reference</span>
+        <span>${escHtml(filing.reference_number || '—')}</span>
+      </div>
+      <div class="info-item">
+        <span>ETA at Suez</span>
+        <span>${hasEta ? formatDate(new Date(eta_arrival)) : '— Not set —'}</span>
+      </div>
+    </div>
+  `;
+
+  // ETA warning
+  if (!hasEta) {
+    html += `
+      <div class="eta-banner">
+        <span class="ico">📅</span>
+        <div><strong>ETA required.</strong> Enter the vessel's ETA at Suez Canal above and click "Load Timeline" to activate deadline tracking.</div>
+      </div>
+    `;
+  }
+
+  // Overdue alert
+  if (overdueStages.length > 0) {
+    const labels = overdueStages.map(s => s.stage).join(', ');
+    html += `
+      <div class="alert-overdue">
+        <span class="ico">🚨</span>
+        <div><strong>Overdue:</strong> ${labels} notification${overdueStages.length > 1 ? 's are' : ' is'} past deadline. Send immediately and notify your SCA agent.</div>
+      </div>
+    `;
+  }
+
+  // Timeline cards
+  html += '<div class="timeline">';
+  for (const stage of timeline) {
+    html += renderStageCard(stage, filing);
+  }
+  html += '</div>';
+
+  main.innerHTML = html;
+}
+
+function renderStageCard(stage, filing) {
+  const { stage: stageKey, status, deadline, sent_at, acknowledged_at,
+          hours_to_deadline, vessel_security_level, issc_number, issc_expiry,
+          issc_issuer, last_10_ports, special_measures, threat_reported,
+          sca_reference, content_data, id } = stage;
+
+  const stageLabels = {
+    '72h': { icon: '📋', title: '72-Hour Initial Notification', desc: 'Vessel ID, ETA, security level, last 10 ports, crew & passenger count' },
+    '48h': { icon: '🔄', title: '48-Hour Updated Notification', desc: 'Updated ETA, cargo manifest summary, agent details, convoy preference' },
+    '24h': { icon: '✅', title: '24-Hour Final Confirmation',   desc: 'Final ETA, draft readings (forward/aft), any changes since 48h notification' },
+  };
+  const meta = stageLabels[stageKey];
+
+  const statusLabel = { sent:'Sent', confirmed:'Confirmed', overdue:'Overdue', upcoming:'Due Soon', pending:'Pending' };
+  const statusClass = { sent:'badge-sent', confirmed:'badge-confirmed', overdue:'badge-overdue', upcoming:'badge-upcoming', pending:'badge-pending' };
+  const statusIcon  = { sent:'✓', confirmed:'✓✓', overdue:'!', upcoming:'⏰', pending:'○' };
+
+  let countdownHtml = '';
+  if (deadline) {
+    const hrs = hours_to_deadline;
+    if (status === 'overdue') {
+      const overdueHrs = Math.abs(hrs);
+      countdownHtml = `<span class="countdown countdown-red">⚠ ${overdueHrs}h overdue</span>`;
+    } else if (status === 'upcoming') {
+      countdownHtml = `<span class="countdown countdown-yellow" data-deadline="${deadline}">⏰ ${hrs}h remaining</span>`;
+    } else if (hrs !== null && hrs > 0) {
+      countdownHtml = `<span class="countdown countdown-gray" data-deadline="${deadline}">${hrs}h away</span>`;
+    }
+  }
+
+  let deadlineStr = '—';
+  if (deadline) {
+    deadlineStr = formatDate(new Date(deadline));
+  }
+
+  // Ports table (pre-populated or empty rows)
+  const ports = Array.isArray(last_10_ports) && last_10_ports.length > 0
+    ? last_10_ports
+    : Array(3).fill({ port_name: '', locode: '', arrival: '', departure: '', security_level: '' });
+
+  let portsRows = '';
+  for (let i = 0; i < Math.max(ports.length, 3); i++) {
+    const p = ports[i] || {};
+    portsRows += `
+      <tr>
+        <td><input type="text" value="${escHtml(p.port_name||'')}" placeholder="Port name" data-port="${i}" data-field="port_name"/></td>
+        <td><input type="text" value="${escHtml(p.locode||'')}" placeholder="LOCODE" style="width:90px" data-port="${i}" data-field="locode"/></td>
+        <td><input type="date" value="${p.arrival||''}" data-port="${i}" data-field="arrival"/></td>
+        <td><input type="date" value="${p.departure||''}" data-port="${i}" data-field="departure"/></td>
+        <td>
+          <select data-port="${i}" data-field="security_level" style="background:transparent;border:none;color:var(--white);font-size:12px;width:60px">
+            <option value="1" ${(p.security_level||1)==1?'selected':''}>SL 1</option>
+            <option value="2" ${p.security_level==2?'selected':''}>SL 2</option>
+            <option value="3" ${p.security_level==3?'selected':''}>SL 3</option>
+          </select>
+        </td>
+      </tr>
+    `;
+  }
+
+  // Stage-specific extra fields
+  let extraFields = '';
+  if (stageKey === '72h') {
+    extraFields = `
+      <div class="form-field">
+        <label>Crew Count</label>
+        <input type="number" id="${stageKey}_crew_count" value="${escHtml(content_data.crew_count||'')}" placeholder="e.g. 22" min="0"/>
+      </div>
+      <div class="form-field">
+        <label>Passenger Count</label>
+        <input type="number" id="${stageKey}_passenger_count" value="${escHtml(content_data.passenger_count||0)}" placeholder="e.g. 0" min="0"/>
+      </div>
+    `;
+  } else if (stageKey === '48h') {
+    extraFields = `
+      <div class="form-field">
+        <label>Convoy Preference</label>
+        <select id="${stageKey}_convoy_preference">
+          <option value="standard" ${(content_data.convoy_preference||'standard')==='standard'?'selected':''}>Standard</option>
+          <option value="high_priority" ${content_data.convoy_preference==='high_priority'?'selected':''}>High Priority</option>
+          <option value="economy" ${content_data.convoy_preference==='economy'?'selected':''}>Economy</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>SCA Agent Name</label>
+        <input type="text" id="${stageKey}_agent_name" value="${escHtml(content_data.agent_name||'')}" placeholder="Agent full name"/>
+      </div>
+      <div class="form-field">
+        <label>Agent Phone</label>
+        <input type="text" id="${stageKey}_agent_phone" value="${escHtml(content_data.agent_phone||'')}" placeholder="+20 ..."/>
+      </div>
+      <div class="form-field">
+        <label>Agent Email</label>
+        <input type="email" id="${stageKey}_agent_email" value="${escHtml(content_data.agent_email||'')}" placeholder="agent@example.com"/>
+      </div>
+      <div class="form-field form-col-full">
+        <label>Cargo Manifest Summary</label>
+        <textarea id="${stageKey}_cargo_manifest" rows="3" placeholder="DG cargo, IMDG classes, total units…">${escHtml(content_data.cargo_manifest||'')}</textarea>
+      </div>
+    `;
+  } else if (stageKey === '24h') {
+    extraFields = `
+      <div class="form-field">
+        <label>Draft Forward (m)</label>
+        <input type="number" step="0.01" id="${stageKey}_draft_forward" value="${escHtml(content_data.draft_forward||'')}" placeholder="e.g. 12.40"/>
+      </div>
+      <div class="form-field">
+        <label>Draft Aft (m)</label>
+        <input type="number" step="0.01" id="${stageKey}_draft_aft" value="${escHtml(content_data.draft_aft||'')}" placeholder="e.g. 12.80"/>
+      </div>
+      <div class="form-field form-col-full">
+        <label>Changes Since 48h Notification</label>
+        <textarea id="${stageKey}_changes_since_48h" rows="3" placeholder="Describe any ETA, cargo, or security level changes…">${escHtml(content_data.changes_since_48h||'')}</textarea>
+      </div>
+    `;
+  }
+
+  const sentInfo = sent_at
+    ? `<div class="sent-record">✓ Sent at ${formatDate(new Date(sent_at))}${sca_reference ? ` · SCA ref: <strong>${escHtml(sca_reference)}</strong>` : ''}</div>`
+    : '';
+  const confirmedInfo = acknowledged_at
+    ? `<div class="sent-record">✓✓ SCA acknowledged at ${formatDate(new Date(acknowledged_at))}</div>`
+    : '';
+
+  const isReadOnly = status === 'confirmed';
+  const fieldset = isReadOnly ? 'disabled' : '';
+
+  return `
+    <div class="stage-card" data-status="${status}" data-stage="${stageKey}" id="card-${stageKey}">
+      <div class="stage-inner">
+        <div class="stage-header" onclick="toggleStage('${stageKey}')">
+          <div class="stage-dot">${meta.icon}</div>
+          <div class="stage-meta">
+            <div class="stage-label">${meta.title}</div>
+            <div class="stage-desc">${meta.desc}</div>
+          </div>
+          <div class="stage-right">
+            <span class="status-badge ${statusClass[status]}">${statusIcon[status]} ${statusLabel[status]}</span>
+            ${countdownHtml}
+            <div class="stage-deadline">Deadline: <strong>${deadlineStr}</strong></div>
+          </div>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="stage-body" id="body-${stageKey}">
+          <div class="stage-body-inner">
+            ${sentInfo}${confirmedInfo}
+            <fieldset style="border:none;padding:0;${isReadOnly?'opacity:.7':''}" ${fieldset}>
+              <div class="form-grid">
+                <div class="form-field">
+                  <label>Vessel Security Level</label>
+                  <select id="${stageKey}_security_level">
+                    <option value="1" ${vessel_security_level==1?'selected':''}>Level 1 — Normal</option>
+                    <option value="2" ${vessel_security_level==2?'selected':''}>Level 2 — Heightened</option>
+                    <option value="3" ${vessel_security_level==3?'selected':''}>Level 3 — Exceptional</option>
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label>ISSC Number</label>
+                  <input type="text" id="${stageKey}_issc_number" value="${escHtml(issc_number||'')}" placeholder="ISSC certificate number"/>
+                </div>
+                <div class="form-field">
+                  <label>ISSC Expiry Date</label>
+                  <input type="date" id="${stageKey}_issc_expiry" value="${issc_expiry ? issc_expiry.slice(0,10) : ''}"/>
+                </div>
+                <div class="form-field">
+                  <label>ISSC Issuing Authority</label>
+                  <input type="text" id="${stageKey}_issc_issuer" value="${escHtml(issc_issuer||'')}" placeholder="e.g. Bureau Veritas"/>
+                </div>
+                ${extraFields}
+                <div class="form-field form-col-full">
+                  <label>Special Security Measures</label>
+                  <textarea id="${stageKey}_special_measures" rows="2" placeholder="Any special measures currently in effect…">${escHtml(special_measures||'')}</textarea>
+                </div>
+                <div class="form-field">
+                  <label>Threat Reported?</label>
+                  <select id="${stageKey}_threat_reported">
+                    <option value="false" ${!threat_reported?'selected':''}>No</option>
+                    <option value="true"  ${threat_reported?'selected':''}>Yes — threat has been reported</option>
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label>SCA Reference (if known)</label>
+                  <input type="text" id="${stageKey}_sca_ref" value="${escHtml(sca_reference||'')}" placeholder="SCA-XXXX-YYYY"/>
+                </div>
+              </div>
+
+              <div style="margin-top:20px">
+                <label style="font-size:12px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:8px">
+                  Last 10 Ports of Call (chronological)
+                </label>
+                <div style="overflow-x:auto">
+                  <table class="ports-table" id="ports-${stageKey}">
+                    <thead>
+                      <tr>
+                        <th>Port Name</th><th>LOCODE</th><th>Arrival</th><th>Departure</th><th>Sec. Level</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      ${portsRows}
+                    </tbody>
+                  </table>
+                </div>
+                <button class="btn-add-port" onclick="addPortRow('${stageKey}')">+ Add Port</button>
+              </div>
+            </fieldset>
+
+            <div class="stage-actions">
+              ${!isReadOnly ? `
+                <button class="btn-action btn-secondary" onclick="saveStage('${stageKey}', 'upsert')">💾 Save Draft</button>
+                <button class="btn-action btn-primary" onclick="saveStage('${stageKey}', 'mark_sent')" ${sent_at?'disabled':''}>
+                  📤 ${sent_at ? 'Already Sent' : `Mark ${stageKey} as Sent`}
+                </button>
+                ${sent_at && !acknowledged_at ? `
+                  <button class="btn-action btn-confirm" onclick="saveStage('${stageKey}', 'confirm')">✓✓ Mark SCA Confirmed</button>
+                ` : ''}
+              ` : `
+                <span style="color:var(--teal);font-size:13px;font-weight:600">✓✓ SCA Confirmed — no further action needed</span>
+              `}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ── Toggle stage panel ─────────────────────────────────────────────────────────
+function toggleStage(stage) {
+  const header = document.querySelector(`#card-${stage} .stage-header`);
+  const body   = document.getElementById(`body-${stage}`);
+  if (!body) return;
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open');
+  header.classList.toggle('open');
+}
+
+// ── Add port row ───────────────────────────────────────────────────────────────
+function addPortRow(stage) {
+  const tbody = document.querySelector(`#ports-${stage} tbody`);
+  const idx = tbody.rows.length;
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td><input type="text" placeholder="Port name" data-port="${idx}" data-field="port_name"/></td>
+    <td><input type="text" placeholder="LOCODE" style="width:90px" data-port="${idx}" data-field="locode"/></td>
+    <td><input type="date" data-port="${idx}" data-field="arrival"/></td>
+    <td><input type="date" data-port="${idx}" data-field="departure"/></td>
+    <td><select data-port="${idx}" data-field="security_level" style="background:transparent;border:none;color:var(--white);font-size:12px;width:60px">
+      <option value="1">SL 1</option><option value="2">SL 2</option><option value="3">SL 3</option>
+    </select></td>
+  `;
+  tbody.appendChild(tr);
+}
+
+// ── Collect port table data ────────────────────────────────────────────────────
+function collectPorts(stage) {
+  const rows = document.querySelectorAll(`#ports-${stage} tbody tr`);
+  const ports = [];
+  for (const row of rows) {
+    const portName = row.querySelector('[data-field="port_name"]')?.value?.trim();
+    if (!portName) continue; // skip empty rows
+    ports.push({
+      port_name:      portName,
+      locode:         row.querySelector('[data-field="locode"]')?.value?.trim() || '',
+      arrival:        row.querySelector('[data-field="arrival"]')?.value || '',
+      departure:      row.querySelector('[data-field="departure"]')?.value || '',
+      security_level: parseInt(row.querySelector('[data-field="security_level"]')?.value || '1'),
+    });
+  }
+  return ports;
+}
+
+// ── Collect stage content_data ─────────────────────────────────────────────────
+function collectContentData(stage) {
+  const g = (id) => document.getElementById(`${stage}_${id}`)?.value ?? null;
+  if (stage === '72h') {
+    return { crew_count: g('crew_count'), passenger_count: g('passenger_count') };
+  } else if (stage === '48h') {
+    return {
+      convoy_preference: g('convoy_preference'),
+      agent_name: g('agent_name'), agent_phone: g('agent_phone'), agent_email: g('agent_email'),
+      cargo_manifest: g('cargo_manifest'),
+    };
+  } else {
+    return { draft_forward: g('draft_forward'), draft_aft: g('draft_aft'), changes_since_48h: g('changes_since_48h') };
+  }
+}
+
+// ── Save / mark-sent ──────────────────────────────────────────────────────────
+async function saveStage(stage, action) {
+  if (!currentFiling) return;
+
+  const etaVal = document.getElementById('etaInput').value;
+  const etaIso = etaVal ? new Date(etaVal).toISOString() : undefined;
+
+  const body = {
+    action,
+    eta_arrival:          etaIso,
+    vessel_security_level: parseInt(document.getElementById(`${stage}_security_level`)?.value || '1'),
+    issc_number:          document.getElementById(`${stage}_issc_number`)?.value?.trim() || null,
+    issc_expiry:          document.getElementById(`${stage}_issc_expiry`)?.value || null,
+    issc_issuer:          document.getElementById(`${stage}_issc_issuer`)?.value?.trim() || null,
+    last_10_ports:        collectPorts(stage),
+    special_measures:     document.getElementById(`${stage}_special_measures`)?.value?.trim() || null,
+    threat_reported:      document.getElementById(`${stage}_threat_reported`)?.value === 'true',
+    sca_reference:        document.getElementById(`${stage}_sca_ref`)?.value?.trim() || null,
+    content_data:         collectContentData(stage),
+  };
+
+  try {
+    const res = await fetch(`/api/suez/notifications/${currentFiling.id}/${stage}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    const data = await res.json();
+    if (!data.success) throw new Error(data.message || 'Save failed');
+
+    showToast(data.message || 'Saved');
+
+    // Reload timeline to refresh status
+    await loadTimeline();
+
+    // Re-open the panel we were editing
+    const body2 = document.getElementById(`body-${stage}`);
+    const header = document.querySelector(`#card-${stage} .stage-header`);
+    if (body2 && !body2.classList.contains('open')) {
+      body2.classList.add('open');
+      header && header.classList.add('open');
+    }
+  } catch (err) {
+    showToast('Error: ' + err.message, true);
+  }
+}
+
+// ── Update countdowns live ─────────────────────────────────────────────────────
+function updateCountdowns() {
+  const els = document.querySelectorAll('[data-deadline]');
+  for (const el of els) {
+    const deadline = new Date(el.dataset.deadline);
+    const now = new Date();
+    const hrs = Math.round((deadline - now) / (60 * 60 * 1000));
+    if (hrs <= 0) {
+      el.textContent = `⚠ ${Math.abs(hrs)}h overdue`;
+      el.className = 'countdown countdown-red';
+    } else if (hrs <= 6) {
+      el.textContent = `⏰ ${hrs}h remaining`;
+      el.className = 'countdown countdown-yellow';
+    } else {
+      el.textContent = `${hrs}h away`;
+      el.className = 'countdown countdown-gray';
+    }
+  }
+}
+
+// ── Helpers ────────────────────────────────────────────────────────────────────
+function formatDate(d) {
+  return d.toLocaleString('en-GB', {
+    day:'2-digit', month:'short', year:'numeric',
+    hour:'2-digit', minute:'2-digit', timeZoneName:'short'
+  });
+}
+
+function toLocalDatetimeInput(d) {
+  const offset = d.getTimezoneOffset();
+  const local = new Date(d.getTime() - offset * 60000);
+  return local.toISOString().slice(0, 16);
+}
+
+function escHtml(str) {
+  if (str == null) return '';
+  return String(str)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function showToast(msg, isError = false) {
+  const t = document.getElementById('toast');
+  const m = document.getElementById('toastMsg');
+  t.className = 'show' + (isError ? ' error' : '');
+  m.textContent = msg;
+  clearTimeout(t._timeout);
+  t._timeout = setTimeout(() => { t.className = ''; }, 4000);
+}
+</script>
+<link rel="stylesheet" href="/css/mobile.css">
+<script src="/js/mobile-nav.js"></script>
+<script src="/js/whatsapp-button.js"></script>
+</body>
+</html>

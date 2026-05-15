@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TMS Data Import — Veson, Q88, Dataloy & More | CanalClear</title>
+  <meta name="description" content="Import voyage data from any TMS — Veson, Q88, Dataloy, ShipNet. Map your columns to CanalClear fields in one click and auto-fill your canal compliance filings.">
+  <meta name="robots" content="noindex"> <!-- Auth-gated tool, not for indexing -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/icons/icon-192.png">
+  <link rel="stylesheet" href="/css/nav.css">
+  <link rel="stylesheet" href="/css/mobile.css">
+
+  <!-- Meta Pixel -->
+  <script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '972550615207303');
+  fbq('track', 'PageView');
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --deep:          #07111F;
+      --navy:          #0f1d30;
+      --slate:         #142238;
+      --panel:         #111c2d;
+      --border:        rgba(255,255,255,0.08);
+      --border-active: rgba(0,180,255,0.35);
+      --cyan:          #00b4ff;
+      --cyan-dim:      rgba(0,180,255,0.10);
+      --cyan-glow:     rgba(0,180,255,0.20);
+      --orange:        #E85A00;
+      --orange-dim:    rgba(232,90,0,0.10);
+      --gold:          #FFD23F;
+      --green:         #22c55e;
+      --green-dim:     rgba(34,197,94,0.10);
+      --red:           #ef4444;
+      --red-dim:       rgba(239,68,68,0.10);
+      --amber:         #f59e0b;
+      --amber-dim:     rgba(245,158,11,0.10);
+      --text:          #e8edf3;
+      --muted:         #8094aa;
+      --mono:          'Space Mono', monospace;
+      --sans:          'IBM Plex Sans', sans-serif;
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--deep);
+      color: var(--text);
+      min-height: 100vh;
+      padding-top: 60px;
+    }
+
+    /* ── Layout ── */
+    .page-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    .page-header {
+      margin-bottom: 36px;
+    }
+    .page-header h1 {
+      font-family: var(--mono);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--cyan);
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    .page-header p {
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    /* ── Steps ── */
+    .steps {
+      display: flex;
+      gap: 0;
+      margin-bottom: 40px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .step {
+      flex: 1;
+      padding: 14px 20px;
+      background: var(--panel);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-right: 1px solid var(--border);
+      transition: background 0.2s, color 0.2s;
+    }
+    .step:last-child { border-right: none; }
+    .step.active {
+      background: var(--cyan-dim);
+      color: var(--cyan);
+      border-color: var(--border-active);
+    }
+    .step.done {
+      color: var(--green);
+    }
+    .step-num {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      border: 1.5px solid currentColor;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px;
+      flex-shrink: 0;
+    }
+    .step.done .step-num {
+      background: var(--green);
+      color: #000;
+      border-color: var(--green);
+      font-size: 14px;
+    }
+
+    /* ── Panels ── */
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+    .panel h2 {
+      font-family: var(--mono);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--cyan);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .panel h2 .badge {
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 20px;
+      background: var(--cyan-dim);
+      color: var(--cyan);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* ── Upload Zone ── */
+    .upload-zone {
+      border: 2px dashed rgba(0,180,255,0.25);
+      border-radius: 10px;
+      padding: 52px 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      background: rgba(0,180,255,0.03);
+    }
+    .upload-zone:hover,
+    .upload-zone.drag-over {
+      border-color: var(--cyan);
+      background: var(--cyan-dim);
+    }
+    .upload-icon {
+      font-size: 40px;
+      margin-bottom: 14px;
+      display: block;
+    }
+    .upload-zone h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .upload-zone p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+    .upload-formats {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .fmt-badge {
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 4px;
+      background: var(--slate);
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    /* ── TMS provider selector ── */
+    .tms-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .tms-chip {
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.15s;
+      background: transparent;
+    }
+    .tms-chip:hover { border-color: var(--cyan); color: var(--cyan); }
+    .tms-chip.active {
+      border-color: var(--cyan);
+      background: var(--cyan-dim);
+      color: var(--cyan);
+    }
+
+    /* ── Mapping table ── */
+    .mapping-table-wrap {
+      overflow-x: auto;
+    }
+    .mapping-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .mapping-table th {
+      text-align: left;
+      padding: 10px 14px;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--border);
+    }
+    .mapping-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      vertical-align: middle;
+    }
+    .mapping-table tr:hover td { background: rgba(0,180,255,0.03); }
+    .src-col {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text);
+      max-width: 180px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .preview-val {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      max-width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .mapping-select {
+      background: var(--slate);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      padding: 6px 10px;
+      font-size: 12px;
+      font-family: var(--sans);
+      width: 100%;
+      max-width: 260px;
+      cursor: pointer;
+    }
+    .mapping-select:focus {
+      outline: none;
+      border-color: var(--cyan);
+    }
+    .mapping-select option { background: #1a2d4a; }
+    .auto-badge {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 3px;
+      background: var(--cyan-dim);
+      color: var(--cyan);
+      text-transform: uppercase;
+      margin-left: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Template section ── */
+    .template-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .template-row label {
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .template-row input[type="text"] {
+      background: var(--slate);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      padding: 7px 12px;
+      font-size: 12px;
+      width: 200px;
+    }
+    .template-row input[type="text"]:focus { outline: none; border-color: var(--cyan); }
+
+    /* ── Validation results ── */
+    .summary-bar {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .stat-card {
+      flex: 1;
+      min-width: 140px;
+      background: var(--slate);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+      text-align: center;
+    }
+    .stat-card .stat-num {
+      font-family: var(--mono);
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-card .stat-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--muted);
+    }
+    .stat-valid .stat-num { color: var(--green); }
+    .stat-warn  .stat-num { color: var(--amber); }
+    .stat-error .stat-num { color: var(--red); }
+    .stat-total .stat-num { color: var(--cyan); }
+
+    .vessel-rows { display: flex; flex-direction: column; gap: 6px; }
+    .vessel-row {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .vessel-row-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      cursor: pointer;
+      background: var(--slate);
+      transition: background 0.15s;
+    }
+    .vessel-row-header:hover { background: rgba(255,255,255,0.04); }
+    .vrow-status {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .vrow-status.valid  { background: var(--green); }
+    .vrow-status.warning { background: var(--amber); }
+    .vrow-status.error  { background: var(--red); }
+    .vrow-name {
+      font-weight: 600;
+      font-size: 14px;
+      flex: 1;
+    }
+    .vrow-imo {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .vrow-tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 10px;
+      border-radius: 20px;
+      text-transform: capitalize;
+    }
+    .vrow-tag.valid   { background: var(--green-dim); color: var(--green); }
+    .vrow-tag.warning { background: var(--amber-dim); color: var(--amber); }
+    .vrow-tag.error   { background: var(--red-dim);   color: var(--red); }
+    .vrow-chevron { color: var(--muted); font-size: 12px; transition: transform 0.2s; }
+    .vessel-row.open .vrow-chevron { transform: rotate(180deg); }
+
+    .vessel-row-detail {
+      display: none;
+      padding: 14px 16px;
+      border-top: 1px solid var(--border);
+      background: var(--panel);
+    }
+    .vessel-row.open .vessel-row-detail { display: block; }
+
+    .issue-list { display: flex; flex-direction: column; gap: 6px; }
+    .issue-item {
+      display: flex;
+      gap: 10px;
+      font-size: 12px;
+      padding: 8px 12px;
+      border-radius: 6px;
+    }
+    .issue-item.error   { background: var(--red-dim);   color: var(--red); }
+    .issue-item.warning { background: var(--amber-dim); color: var(--amber); }
+    .issue-item .issue-field {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      min-width: 140px;
+    }
+
+    /* ── History table ── */
+    .history-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .history-table th {
+      text-align: left;
+      padding: 10px 14px;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--border);
+    }
+    .history-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .history-table tr:hover td { background: rgba(0,180,255,0.03); }
+    .status-pill {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .status-pill.pending   { background: var(--amber-dim);  color: var(--amber); }
+    .status-pill.validated { background: var(--green-dim);  color: var(--green); }
+    .status-pill.imported  { background: var(--cyan-dim);   color: var(--cyan); }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      border-radius: 8px;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-family: var(--sans);
+    }
+    .btn-primary {
+      background: var(--cyan);
+      color: #000;
+    }
+    .btn-primary:hover { background: #33c2ff; }
+    .btn-primary:disabled { background: #1a3a4a; color: var(--muted); cursor: not-allowed; }
+    .btn-secondary {
+      background: var(--slate);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { border-color: var(--cyan); color: var(--cyan); }
+    .btn-sm {
+      padding: 6px 14px;
+      font-size: 12px;
+    }
+
+    /* ── Alerts ── */
+    .alert {
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+    .alert-error   { background: var(--red-dim);   color: var(--red);   border: 1px solid rgba(239,68,68,0.2); }
+    .alert-success { background: var(--green-dim); color: var(--green); border: 1px solid rgba(34,197,94,0.2); }
+    .alert-info    { background: var(--cyan-dim);  color: var(--cyan);  border: 1px solid rgba(0,180,255,0.2); }
+
+    /* ── Loading ── */
+    .spinner {
+      display: inline-block;
+      width: 18px; height: 18px;
+      border: 2px solid rgba(0,180,255,0.3);
+      border-top-color: var(--cyan);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Empty state ── */
+    .empty-state {
+      text-align: center;
+      padding: 52px 24px;
+      color: var(--muted);
+    }
+    .empty-state .empty-icon { font-size: 48px; margin-bottom: 16px; }
+    .empty-state h3 { font-size: 18px; color: var(--text); margin-bottom: 8px; }
+    .empty-state p { font-size: 14px; line-height: 1.6; max-width: 400px; margin: 0 auto; }
+
+    /* ── Tabs ── */
+    .tab-row {
+      display: flex;
+      gap: 4px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 28px;
+    }
+    .tab-btn {
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      border: none;
+      background: none;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      font-family: var(--sans);
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .tab-btn.active { color: var(--cyan); border-color: var(--cyan); }
+    .tab-btn:hover:not(.active) { color: var(--text); }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── Utility ── */
+    .flex { display: flex; }
+    .gap-12 { gap: 12px; }
+    .mt-16 { margin-top: 16px; }
+    .mt-24 { margin-top: 24px; }
+    .hidden { display: none !important; }
+    .mono { font-family: var(--mono); }
+    .text-muted { color: var(--muted); }
+    .text-sm { font-size: 12px; }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="top-nav" id="mainNav"></nav>
+
+  <div class="page-wrap">
+    <!-- Header -->
+    <div class="page-header">
+      <h1>⇄ TMS DATA IMPORT</h1>
+      <p>Upload exports from Veson, Q88, Dataloy, ShipNet, or any TMS. Map your columns once, save the template, and auto-fill every filing in seconds.</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tab-row">
+      <button class="tab-btn active" data-tab="import">Import Data</button>
+      <button class="tab-btn" data-tab="history">Import History</button>
+      <button class="tab-btn" data-tab="templates">Saved Templates</button>
+    </div>
+
+    <!-- ══ TAB: Import ══════════════════════════════════════════════ -->
+    <div class="tab-panel active" id="tab-import">
+
+      <!-- Step indicator -->
+      <div class="steps" id="steps">
+        <div class="step active" data-step="1">
+          <div class="step-num">1</div> Upload File
+        </div>
+        <div class="step" data-step="2">
+          <div class="step-num">2</div> Map Columns
+        </div>
+        <div class="step" data-step="3">
+          <div class="step-num">3</div> Validate & Review
+        </div>
+      </div>
+
+      <!-- Alert zone -->
+      <div id="alert-zone"></div>
+
+      <!-- STEP 1: Upload -->
+      <div id="step1" class="panel">
+        <h2>Upload TMS Export <span class="badge">Step 1</span></h2>
+
+        <!-- TMS provider chips -->
+        <div style="margin-bottom: 16px;">
+          <div style="font-size: 13px; color: var(--muted); margin-bottom: 10px;">Which TMS are you exporting from? (optional — helps auto-detect columns)</div>
+          <div class="tms-row" id="tmsChips">
+            <button class="tms-chip" data-tms="veson">Veson IMOS</button>
+            <button class="tms-chip" data-tms="q88">Q88</button>
+            <button class="tms-chip" data-tms="dataloy">Dataloy VMS</button>
+            <button class="tms-chip" data-tms="shipnet">ShipNet</button>
+            <button class="tms-chip" data-tms="softmar">Softmar</button>
+            <button class="tms-chip" data-tms="other">Other / Custom</button>
+          </div>
+        </div>
+
+        <div class="upload-zone" id="uploadZone">
+          <span class="upload-icon">📤</span>
+          <h3>Drop your file here or click to browse</h3>
+          <p>Supports CSV, Excel (.xlsx), and JSON exports. Up to 500 vessels per file.</p>
+          <div class="upload-formats">
+            <span class="fmt-badge">CSV</span>
+            <span class="fmt-badge">XLSX</span>
+            <span class="fmt-badge">JSON</span>
+          </div>
+        </div>
+        <input type="file" id="fileInput" accept=".csv,.xlsx,.json" style="display:none">
+
+        <div class="mt-16">
+          <button class="btn btn-primary" id="btnUpload" disabled>
+            <span class="spinner hidden" id="uploadSpinner"></span>
+            Upload & Detect Columns
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Map Columns -->
+      <div id="step2" class="panel hidden">
+        <h2>Map Columns to CanalClear Fields <span class="badge">Step 2</span></h2>
+
+        <p class="text-muted text-sm" style="margin-bottom: 20px;">
+          We auto-detected some mappings based on your column names. Review and correct any that need adjusting.
+          Columns marked <span style="background:var(--cyan-dim);color:var(--cyan);padding:1px 6px;border-radius:3px;font-size:10px;font-weight:700;">AUTO</span> were matched automatically.
+        </p>
+
+        <div class="mapping-table-wrap">
+          <table class="mapping-table">
+            <thead>
+              <tr>
+                <th>Your Column</th>
+                <th>Sample Value</th>
+                <th>Maps To</th>
+              </tr>
+            </thead>
+            <tbody id="mappingTableBody"></tbody>
+          </table>
+        </div>
+
+        <!-- Template save option -->
+        <div class="template-row">
+          <label>
+            <input type="checkbox" id="cbSaveTemplate" style="accent-color: var(--cyan);">
+            Save this mapping as a template
+          </label>
+          <div id="templateNameWrap" class="hidden flex gap-12" style="align-items:center;">
+            <input type="text" id="templateName" placeholder="e.g. Veson Standard Export" maxlength="80">
+          </div>
+        </div>
+
+        <div class="mt-24 flex gap-12">
+          <button class="btn btn-secondary" id="btnBackToUpload">← Re-upload</button>
+          <button class="btn btn-primary" id="btnValidate">
+            <span class="spinner hidden" id="validateSpinner"></span>
+            Validate All Vessels
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Validation Results -->
+      <div id="step3" class="panel hidden">
+        <h2>Validation Results <span class="badge">Step 3</span></h2>
+
+        <div class="summary-bar" id="summaryBar"></div>
+
+        <div style="margin-bottom: 16px; color: var(--muted); font-size: 13px;">
+          Click any vessel to see detailed errors and warnings.
+        </div>
+
+        <div class="vessel-rows" id="vesselRows"></div>
+
+        <div class="mt-24 flex gap-12">
+          <button class="btn btn-secondary" id="btnStartOver">↩ New Import</button>
+          <button class="btn btn-primary" id="btnDone">
+            ✓ Done — Use in Filings
+          </button>
+        </div>
+      </div>
+
+    </div><!-- /tab-import -->
+
+    <!-- ══ TAB: History ═════════════════════════════════════════════ -->
+    <div class="tab-panel" id="tab-history">
+      <div id="historyLoading" class="empty-state">
+        <div class="spinner" style="width:32px;height:32px;margin:0 auto 16px;"></div>
+        <p>Loading import history…</p>
+      </div>
+      <div id="historyContent" class="hidden">
+        <div id="historyEmpty" class="empty-state hidden">
+          <div class="empty-icon">📂</div>
+          <h3>No imports yet</h3>
+          <p>Upload your first TMS export to get started. Your import history will appear here.</p>
+        </div>
+        <div id="historyTableWrap" class="hidden">
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>File</th>
+                <th>TMS</th>
+                <th>Rows</th>
+                <th>Valid</th>
+                <th>Errors</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="historyTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TAB: Templates ═══════════════════════════════════════════ -->
+    <div class="tab-panel" id="tab-templates">
+      <div id="tplLoading" class="empty-state">
+        <div class="spinner" style="width:32px;height:32px;margin:0 auto 16px;"></div>
+        <p>Loading templates…</p>
+      </div>
+      <div id="tplContent" class="hidden">
+        <div id="tplEmpty" class="empty-state hidden">
+          <div class="empty-icon">🗺</div>
+          <h3>No mapping templates saved</h3>
+          <p>When you import data, tick "Save as template" to remember the mapping for future one-click imports.</p>
+        </div>
+        <div id="tplList" class="hidden" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;"></div>
+      </div>
+    </div>
+
+  </div><!-- /page-wrap -->
+
+  <!-- Nav JS -->
+  <script src="/js/mobile-nav.js"></script>
+
+  <script>
+  (() => {
+    'use strict';
+
+    // ── State ─────────────────────────────────────────────────────────────────
+    let selectedTms    = null;
+    let selectedFile   = null;
+    let currentJobId   = null;
+    let rawRowsToken   = null;
+    let rawRowPreview  = null; // first few rows for preview
+    let fileHeaders    = [];
+
+    // ── DOM refs ──────────────────────────────────────────────────────────────
+    const uploadZone      = document.getElementById('uploadZone');
+    const fileInput       = document.getElementById('fileInput');
+    const btnUpload       = document.getElementById('btnUpload');
+    const uploadSpinner   = document.getElementById('uploadSpinner');
+    const mappingTableBody = document.getElementById('mappingTableBody');
+    const btnValidate     = document.getElementById('btnValidate');
+    const validateSpinner = document.getElementById('validateSpinner');
+    const btnBackToUpload = document.getElementById('btnBackToUpload');
+    const btnStartOver    = document.getElementById('btnStartOver');
+    const btnDone         = document.getElementById('btnDone');
+    const cbSaveTemplate  = document.getElementById('cbSaveTemplate');
+    const templateNameWrap = document.getElementById('templateNameWrap');
+    const templateNameInput = document.getElementById('templateName');
+    const alertZone       = document.getElementById('alert-zone');
+    const step1           = document.getElementById('step1');
+    const step2           = document.getElementById('step2');
+    const step3           = document.getElementById('step3');
+
+    // ── Canonical fields (fetched from /schema) ───────────────────────────────
+    let canonicalFields   = {};
+    fetch('/api/tms-import/schema')
+      .then(r => r.json())
+      .then(d => { canonicalFields = d.fields || {}; })
+      .catch(() => {});
+
+    // ── Tab switching ─────────────────────────────────────────────────────────
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        const panelId = 'tab-' + btn.dataset.tab;
+        document.getElementById(panelId).classList.add('active');
+        if (btn.dataset.tab === 'history') loadHistory();
+        if (btn.dataset.tab === 'templates') loadTemplates();
+      });
+    });
+
+    // ── TMS chips ─────────────────────────────────────────────────────────────
+    document.querySelectorAll('.tms-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('.tms-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        selectedTms = chip.dataset.tms;
+      });
+    });
+
+    // ── Step indicator ────────────────────────────────────────────────────────
+    function setStep(n) {
+      document.querySelectorAll('.step').forEach(s => {
+        const num = parseInt(s.dataset.step, 10);
+        s.classList.remove('active', 'done');
+        if (num < n)  s.classList.add('done'), s.querySelector('.step-num').textContent = '✓';
+        if (num === n) s.classList.add('active'), s.querySelector('.step-num').textContent = num;
+        if (num > n)  s.querySelector('.step-num').textContent = num;
+      });
+      step1.classList.toggle('hidden', n !== 1);
+      step2.classList.toggle('hidden', n !== 2);
+      step3.classList.toggle('hidden', n !== 3);
+    }
+
+    // ── Alerts ────────────────────────────────────────────────────────────────
+    function showAlert(msg, type = 'error') {
+      alertZone.innerHTML = `<div class="alert alert-${type}">${msg}</div>`;
+    }
+    function clearAlert() { alertZone.innerHTML = ''; }
+
+    // ── Upload zone drag/drop ─────────────────────────────────────────────────
+    uploadZone.addEventListener('click', () => fileInput.click());
+    uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('drag-over'); });
+    uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
+    uploadZone.addEventListener('drop', e => {
+      e.preventDefault();
+      uploadZone.classList.remove('drag-over');
+      const f = e.dataTransfer.files[0];
+      if (f) setFile(f);
+    });
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files[0]) setFile(fileInput.files[0]);
+    });
+
+    function setFile(f) {
+      selectedFile = f;
+      uploadZone.querySelector('h3').textContent = f.name;
+      uploadZone.querySelector('p').textContent = `${(f.size / 1024).toFixed(1)} KB — ready to upload`;
+      btnUpload.disabled = false;
+    }
+
+    // ── Upload ────────────────────────────────────────────────────────────────
+    btnUpload.addEventListener('click', async () => {
+      if (!selectedFile) return;
+      clearAlert();
+      btnUpload.disabled = true;
+      uploadSpinner.classList.remove('hidden');
+
+      const fd = new FormData();
+      fd.append('file', selectedFile);
+      if (selectedTms) fd.append('tms_provider', selectedTms);
+
+      try {
+        const resp = await fetch('/api/tms-import/upload', {
+          method: 'POST',
+          body: fd,
+          credentials: 'include',
+        });
+        const data = await resp.json();
+
+        if (!data.success) {
+          showAlert(data.message || 'Upload failed. Please try again.');
+          return;
+        }
+
+        currentJobId   = data.job_id;
+        rawRowsToken   = data.raw_rows_token;
+        fileHeaders    = data.headers;
+        rawRowPreview  = null; // cleared; we decode token client-side if needed for preview
+
+        buildMappingTable(data.headers, data.suggested_mapping);
+        setStep(2);
+      } catch (err) {
+        showAlert('Network error — check your connection and try again.');
+      } finally {
+        btnUpload.disabled = false;
+        uploadSpinner.classList.add('hidden');
+      }
+    });
+
+    // ── Build mapping table ───────────────────────────────────────────────────
+    function buildMappingTable(headers, suggestedMapping) {
+      // Build canonical field options
+      const fieldOptions = Object.entries(canonicalFields)
+        .sort((a, b) => a[1].label.localeCompare(b[1].label))
+        .map(([k, v]) => `<option value="${k}">${v.label}</option>`)
+        .join('');
+
+      mappingTableBody.innerHTML = headers.map(header => {
+        const suggested = suggestedMapping[header];
+        const isAuto    = !!suggested;
+        const selectVal = suggested || '';
+        return `<tr>
+          <td>
+            <div class="src-col">${escHtml(header)}</div>
+            ${isAuto ? '<span class="auto-badge">AUTO</span>' : ''}
+          </td>
+          <td><div class="preview-val text-muted">—</div></td>
+          <td>
+            <select class="mapping-select" data-header="${escHtml(header)}">
+              <option value="">— skip this column —</option>
+              ${fieldOptions}
+            </select>
+          </td>
+        </tr>`;
+      }).join('');
+
+      // Set pre-selected values
+      headers.forEach(header => {
+        const sel = mappingTableBody.querySelector(`select[data-header="${CSS.escape(header)}"]`);
+        const suggested = suggestedMapping[header];
+        if (sel && suggested) sel.value = suggested;
+      });
+    }
+
+    // ── Save template toggle ──────────────────────────────────────────────────
+    cbSaveTemplate.addEventListener('change', () => {
+      templateNameWrap.classList.toggle('hidden', !cbSaveTemplate.checked);
+    });
+
+    // ── Back to upload ────────────────────────────────────────────────────────
+    btnBackToUpload.addEventListener('click', () => {
+      setStep(1);
+      clearAlert();
+      selectedFile = null;
+      btnUpload.disabled = true;
+      uploadZone.querySelector('h3').textContent = 'Drop your file here or click to browse';
+      uploadZone.querySelector('p').textContent = 'Supports CSV, Excel (.xlsx), and JSON exports. Up to 500 vessels per file.';
+      fileInput.value = '';
+    });
+
+    // ── Validate ──────────────────────────────────────────────────────────────
+    btnValidate.addEventListener('click', async () => {
+      clearAlert();
+      const fieldMapping = collectMapping();
+
+      if (!currentJobId || !rawRowsToken) {
+        showAlert('Session expired — please re-upload your file.');
+        setStep(1);
+        return;
+      }
+
+      btnValidate.disabled = true;
+      validateSpinner.classList.remove('hidden');
+
+      const payload = {
+        job_id:         currentJobId,
+        field_mapping:  fieldMapping,
+        raw_rows_token: rawRowsToken,
+      };
+
+      if (cbSaveTemplate.checked && templateNameInput.value.trim()) {
+        payload.save_template   = true;
+        payload.template_name   = templateNameInput.value.trim();
+        payload.tms_provider    = selectedTms || null;
+      }
+
+      try {
+        const resp = await fetch('/api/tms-import/validate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify(payload),
+        });
+        const data = await resp.json();
+
+        if (!data.success) {
+          showAlert(data.message || 'Validation failed. Please try again.');
+          return;
+        }
+
+        renderResults(data);
+        setStep(3);
+      } catch {
+        showAlert('Network error — check your connection and try again.');
+      } finally {
+        btnValidate.disabled = false;
+        validateSpinner.classList.add('hidden');
+      }
+    });
+
+    function collectMapping() {
+      const map = {};
+      mappingTableBody.querySelectorAll('select.mapping-select').forEach(sel => {
+        const header = sel.dataset.header;
+        map[header]  = sel.value || null;
+      });
+      return map;
+    }
+
+    // ── Render validation results ─────────────────────────────────────────────
+    function renderResults(data) {
+      const valid   = data.valid_count;
+      const errors  = data.error_count;
+      const warns   = data.vessels.filter(v => v.validation_status === 'warning').length;
+      const total   = data.row_count;
+
+      document.getElementById('summaryBar').innerHTML = `
+        <div class="stat-card stat-total"><div class="stat-num">${total}</div><div class="stat-label">Total Vessels</div></div>
+        <div class="stat-card stat-valid"><div class="stat-num">${valid}</div><div class="stat-label">Ready to File</div></div>
+        <div class="stat-card stat-warn"><div class="stat-num">${warns}</div><div class="stat-label">Warnings</div></div>
+        <div class="stat-card stat-error"><div class="stat-num">${errors}</div><div class="stat-label">Errors</div></div>
+      `;
+
+      document.getElementById('vesselRows').innerHTML = data.vessels.map((v, i) => {
+        const status  = v.validation_status;
+        const name    = escHtml(v.vessel_name || `Row ${v.row_number}`);
+        const imo     = v.imo_number ? `IMO ${escHtml(v.imo_number)}` : '';
+        const issues  = [...(v.validation_errors || []).map(e => ({ ...e, kind: 'error' })),
+                         ...(v.validation_warnings || []).map(w => ({ ...w, kind: 'warning' }))];
+        const issueHtml = issues.length
+          ? `<div class="issue-list">${issues.map(is => `
+              <div class="issue-item ${is.kind}">
+                <span class="issue-field">${escHtml(is.field)}</span>
+                <span>${escHtml(is.message)}</span>
+              </div>`).join('')}</div>`
+          : `<div style="color:var(--green);font-size:13px;">✓ No issues — ready to use in filing wizards</div>`;
+
+        return `<div class="vessel-row" id="vrow-${i}">
+          <div class="vessel-row-header" onclick="toggleRow(${i})">
+            <div class="vrow-status ${status}"></div>
+            <div class="vrow-name">${name}</div>
+            <div class="vrow-imo">${imo}</div>
+            <span class="vrow-tag ${status}">${status}</span>
+            <span class="vrow-chevron">▼</span>
+          </div>
+          <div class="vessel-row-detail">${issueHtml}</div>
+        </div>`;
+      }).join('');
+
+      // Auto-open error rows
+      data.vessels.forEach((v, i) => {
+        if (v.validation_status === 'error') {
+          document.getElementById(`vrow-${i}`).classList.add('open');
+        }
+      });
+    }
+
+    window.toggleRow = (i) => {
+      document.getElementById(`vrow-${i}`).classList.toggle('open');
+    };
+
+    // ── Start Over / Done ─────────────────────────────────────────────────────
+    btnStartOver.addEventListener('click', () => {
+      currentJobId = null; rawRowsToken = null; selectedFile = null; selectedTms = null;
+      document.querySelectorAll('.tms-chip').forEach(c => c.classList.remove('active'));
+      fileInput.value = '';
+      uploadZone.querySelector('h3').textContent = 'Drop your file here or click to browse';
+      uploadZone.querySelector('p').textContent = 'Supports CSV, Excel (.xlsx), and JSON exports. Up to 500 vessels per file.';
+      btnUpload.disabled = true;
+      cbSaveTemplate.checked = false;
+      templateNameWrap.classList.add('hidden');
+      clearAlert();
+      setStep(1);
+    });
+
+    btnDone.addEventListener('click', () => {
+      // Switch to history tab so user can see the saved import
+      document.querySelector('[data-tab="history"]').click();
+    });
+
+    // ── History tab ───────────────────────────────────────────────────────────
+    async function loadHistory() {
+      document.getElementById('historyLoading').classList.remove('hidden');
+      document.getElementById('historyContent').classList.add('hidden');
+      try {
+        const resp = await fetch('/api/tms-import/jobs?limit=50', { credentials: 'include' });
+        const data = await resp.json();
+        renderHistory(data.jobs || []);
+      } catch {
+        document.getElementById('historyLoading').innerHTML = '<p style="color:var(--red)">Failed to load history.</p>';
+      }
+    }
+
+    function renderHistory(jobs) {
+      document.getElementById('historyLoading').classList.add('hidden');
+      document.getElementById('historyContent').classList.remove('hidden');
+      if (!jobs.length) {
+        document.getElementById('historyEmpty').classList.remove('hidden');
+        document.getElementById('historyTableWrap').classList.add('hidden');
+        return;
+      }
+      document.getElementById('historyEmpty').classList.add('hidden');
+      document.getElementById('historyTableWrap').classList.remove('hidden');
+      document.getElementById('historyTableBody').innerHTML = jobs.map(j => `
+        <tr>
+          <td><span class="mono" style="font-size:12px">${escHtml(j.file_name)}</span></td>
+          <td>${j.tms_provider ? `<span class="text-muted">${escHtml(j.tms_provider)}</span>` : '<span class="text-muted">—</span>'}</td>
+          <td>${j.row_count}</td>
+          <td style="color:var(--green)">${j.valid_count}</td>
+          <td style="color:var(--red)">${j.error_count}</td>
+          <td><span class="status-pill ${j.status}">${j.status}</span></td>
+          <td class="text-muted text-sm">${new Date(j.created_at).toLocaleDateString()}</td>
+          <td><a href="/fleet" class="btn btn-secondary btn-sm">Use in Filings</a></td>
+        </tr>`).join('');
+    }
+
+    // ── Templates tab ─────────────────────────────────────────────────────────
+    async function loadTemplates() {
+      document.getElementById('tplLoading').classList.remove('hidden');
+      document.getElementById('tplContent').classList.add('hidden');
+      try {
+        const resp = await fetch('/api/tms-import/templates', { credentials: 'include' });
+        const data = await resp.json();
+        renderTemplates(data.templates || []);
+      } catch {
+        document.getElementById('tplLoading').innerHTML = '<p style="color:var(--red)">Failed to load templates.</p>';
+      }
+    }
+
+    function renderTemplates(templates) {
+      document.getElementById('tplLoading').classList.add('hidden');
+      document.getElementById('tplContent').classList.remove('hidden');
+      if (!templates.length) {
+        document.getElementById('tplEmpty').classList.remove('hidden');
+        document.getElementById('tplList').classList.add('hidden');
+        return;
+      }
+      document.getElementById('tplEmpty').classList.add('hidden');
+      const list = document.getElementById('tplList');
+      list.classList.remove('hidden');
+      list.style.display = 'grid';
+      list.innerHTML = templates.map(t => {
+        const mappedCount = Object.values(t.field_mapping || {}).filter(v => v).length;
+        return `<div class="panel" style="margin-bottom:0">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+            <div>
+              <div style="font-weight:600;font-size:14px;margin-bottom:4px;">${escHtml(t.template_name)}</div>
+              ${t.tms_provider ? `<div class="text-muted text-sm">${escHtml(t.tms_provider)}</div>` : ''}
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="deleteTemplate(${t.id}, this)">Delete</button>
+          </div>
+          <div class="text-muted text-sm">${mappedCount} field${mappedCount !== 1 ? 's' : ''} mapped</div>
+          <div class="text-muted text-sm" style="margin-top:4px">Updated ${new Date(t.updated_at).toLocaleDateString()}</div>
+        </div>`;
+      }).join('');
+    }
+
+    window.deleteTemplate = async (id, btn) => {
+      if (!confirm('Delete this mapping template?')) return;
+      btn.disabled = true;
+      btn.textContent = '…';
+      try {
+        await fetch(`/api/tms-import/templates/${id}`, { method: 'DELETE', credentials: 'include' });
+        loadTemplates();
+      } catch {
+        btn.disabled = false;
+        btn.textContent = 'Delete';
+      }
+    };
+
+    // ── Utility ───────────────────────────────────────────────────────────────
+    function escHtml(s) {
+      if (!s) return '';
+      return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    // Init: render step 1
+    setStep(1);
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In — Panama Canal Compliance Platform | CanalClear</title>
+    <meta name="description" content="Log in to CanalClear to access your VUMPA filing validator, PCSOPEP compliance tools, and ACP submission dashboard for Panama Canal transit.">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="canonical" href="https://canalclear.org/login">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="/css/visual-polish.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --navy: #1a2d4a;
+            --deep: #142238;
+            --slate: #243350;
+            --teal: #E85A00;
+            --teal-dim: rgba(232, 90, 0, 0.12);
+            --white: #ffffff;
+            --gray: #6b7c93;
+            --light: #8fa3b8;
+            --red: #FF6B6B;
+            --red-dim: rgba(255, 107, 107, 0.12);
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: var(--navy);
+            color: var(--white);
+            min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .auth-card {
+            width: 100%; max-width: 440px;
+            background: var(--deep);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin: 1rem;
+        }
+        .auth-logo { text-align: center; margin-bottom: 2rem; }
+        .auth-logo a { text-decoration: none; }
+        .logo-text { font-family: 'IBM Plex Sans', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--white); }
+        .logo-dot { color: var(--teal); }
+
+        h1 { font-family: 'IBM Plex Sans', sans-serif; font-size: 1.5rem; font-weight: 600; text-align: center; margin-bottom: 0.5rem; }
+        .subtitle { color: var(--gray); font-size: 0.9rem; text-align: center; margin-bottom: 2rem; }
+
+        .form-group { margin-bottom: 1.25rem; }
+        label { display: block; font-size: 0.85rem; font-weight: 500; color: var(--light); margin-bottom: 0.5rem; }
+        input {
+            width: 100%;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
+            padding: 0.85rem 1rem;
+            color: var(--white);
+            font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem;
+            outline: none; transition: border-color 0.2s;
+        }
+        input:focus { border-color: var(--teal); background: rgba(232, 90, 0, 0.04); }
+        input::placeholder { color: var(--gray); }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--teal); color: var(--navy);
+            border: none; border-radius: 10px;
+            padding: 0.9rem;
+            font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; font-weight: 600;
+            cursor: pointer; transition: all 0.2s;
+            margin-top: 0.5rem;
+        }
+        .btn-submit:hover { background: #FF8533; transform: translateY(-1px); }
+        .btn-submit:disabled { background: rgba(232, 90, 0, 0.4); cursor: not-allowed; transform: none; }
+
+        .error-msg {
+            background: var(--red-dim);
+            border: 1px solid rgba(255, 107, 107, 0.2);
+            color: var(--red);
+            border-radius: 8px; padding: 0.75rem 1rem;
+            font-size: 0.875rem; margin-bottom: 1rem; display: none;
+        }
+        .error-msg.visible { display: block; }
+        .success-msg {
+            background: var(--teal-dim);
+            border: 1px solid rgba(232, 90, 0, 0.2);
+            color: var(--teal);
+            border-radius: 8px; padding: 0.75rem 1rem;
+            font-size: 0.875rem; margin-bottom: 1rem; display: none;
+        }
+        .success-msg.visible { display: block; }
+
+        .divider { display: flex; align-items: center; gap: 1rem; margin: 1.5rem 0; }
+        .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.06); }
+        .divider span { color: var(--gray); font-size: 0.8rem; }
+
+        .bottom-links { text-align: center; font-size: 0.875rem; color: var(--gray); }
+        .bottom-links a { color: var(--teal); text-decoration: none; font-weight: 600; }
+        .bottom-links a:hover { text-decoration: underline; }
+
+        .forgot-link {
+            display: block; text-align: right; margin-top: 0.4rem;
+            font-size: 0.8rem; color: var(--gray); text-decoration: none;
+        }
+        .forgot-link:hover { color: var(--teal); }
+
+        .pricing-link {
+            display: block; text-align: center; margin-top: 1.5rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 10px; padding: 1rem;
+            font-size: 0.875rem; color: var(--gray);
+            text-decoration: none; transition: all 0.2s;
+        }
+        .pricing-link:hover { border-color: rgba(232, 90, 0, 0.2); color: var(--white); }
+        .pricing-link strong { color: var(--teal); }
+
+        /* DEMO CODE SECTION */
+        .demo-section {
+            margin-top: 1.5rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px;
+            padding: 1.1rem 1.25rem;
+        }
+        .demo-section-label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 0.65rem;
+        }
+        .demo-input-row {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .demo-input-row input {
+            flex: 1;
+            font-family: monospace;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .demo-input-row input:focus { border-color: var(--teal); }
+        .btn-demo {
+            background: rgba(232, 90, 0, 0.15);
+            border: 1px solid rgba(232, 90, 0, 0.35);
+            color: var(--teal);
+            border-radius: 10px;
+            padding: 0.7rem 1rem;
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .btn-demo:hover { background: rgba(232, 90, 0, 0.25); }
+        .btn-demo:disabled { opacity: 0.5; cursor: not-allowed; }
+        .demo-error {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--red);
+            display: none;
+        }
+        .demo-error.visible { display: block; }
+
+        /* POST-PAYMENT SIGNUP */
+        .payment-banner {
+            background: linear-gradient(135deg, rgba(232, 90, 0,0.12), rgba(0,180,216,0.08));
+            border: 1px solid rgba(232, 90, 0,0.3);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.5rem;
+            display: flex; align-items: flex-start; gap: 0.75rem;
+        }
+        .payment-banner-icon { font-size: 1.4rem; flex-shrink: 0; }
+        .payment-banner-text h3 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 1rem; font-weight: 700; color: var(--teal);
+            margin-bottom: 0.2rem;
+        }
+        .payment-banner-text p {
+            font-size: 0.84rem; color: var(--light); margin: 0; line-height: 1.4;
+        }
+        .plan-badge-display {
+            display: inline-block;
+            background: rgba(232, 90, 0,0.12);
+            border: 1px solid rgba(232, 90, 0,0.25);
+            color: var(--teal);
+            font-size: 0.75rem; font-weight: 600;
+            padding: 0.2rem 0.65rem; border-radius: 100px;
+            margin-bottom: 1.25rem;
+            text-align: center; width: 100%;
+        }
+        .tab-switcher {
+            display: flex; gap: 0; margin-bottom: 1.5rem;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px; padding: 0.25rem;
+        }
+        .tab-btn {
+            flex: 1; padding: 0.55rem 0.5rem;
+            background: none; border: none;
+            border-radius: 8px;
+            color: var(--gray); font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 0.875rem; font-weight: 600;
+            cursor: pointer; transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--teal); color: var(--navy);
+        }
+        .tab-btn:not(.active):hover { color: var(--white); }
+    </style>
+
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '972550615207303');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=972550615207303&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+    <link rel="stylesheet" href="/css/mobile.css">
+
+    <!-- PWA / Add to Home Screen -->
+    <meta name="theme-color" content="#1a2d4a">
+    <link rel="manifest" href="/manifest.json">
+    <!-- iOS PWA -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="CanalClear">
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512.png">
+
+    <!-- Schema: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://canalclear.org/" },
+        { "@type": "ListItem", "position": 2, "name": "Login", "item": "https://canalclear.org/login" }
+      ]
+    }
+    </script>
+  </head>
+<body>
+    <div class="auth-card">
+        <div class="auth-logo">
+            <a href="/"><span class="logo-text">Canal<span class="logo-dot">Clear</span></span></a>
+        </div>
+
+        <!-- Payment success banner — shown when ?payment=success -->
+        <div id="payment-banner" class="payment-banner" style="display:none">
+            <div class="payment-banner-icon">✅</div>
+            <div class="payment-banner-text">
+                <h3>Payment confirmed!</h3>
+                <p>Create your account below to access your subscription and dashboard.</p>
+            </div>
+        </div>
+
+        <h1 id="page-title">Welcome back</h1>
+        <p class="subtitle" id="page-subtitle">Sign in to access your VUMPA validator</p>
+
+        <!-- Tab switcher — only shown in post-payment mode -->
+        <div id="tab-switcher" class="tab-switcher" style="display:none">
+            <button class="tab-btn" id="tab-login" onclick="switchTab('login')">Sign In</button>
+            <button class="tab-btn active" id="tab-signup" onclick="switchTab('signup')">Create Account</button>
+        </div>
+
+        <!-- Plan badge — shown when plan is known -->
+        <div id="plan-badge" class="plan-badge-display" style="display:none"></div>
+
+        <div id="error-msg" class="error-msg"></div>
+        <div id="success-msg" class="success-msg"></div>
+
+        <!-- LOGIN FORM -->
+        <form id="login-form">
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" id="email" name="email" placeholder="captain@vesselcorp.com" required autocomplete="email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" required autocomplete="current-password">
+                <a href="/forgot-password" class="forgot-link" id="forgot-link-el">Forgot password?</a>
+            </div>
+            <button type="submit" class="btn-submit" id="submit-btn">Sign In →</button>
+        </form>
+
+        <!-- SIGNUP FORM — shown post-payment -->
+        <form id="signup-form" style="display:none">
+            <div class="form-group">
+                <label for="signup-name">Your Name <span style="color:var(--gray);font-weight:400;font-size:0.8rem;">(optional)</span></label>
+                <input type="text" id="signup-name" name="name" placeholder="Captain Jane Smith" autocomplete="name">
+            </div>
+            <div class="form-group">
+                <label for="signup-email">Work Email <span style="color:var(--red)">*</span></label>
+                <input type="email" id="signup-email" name="email" placeholder="you@vesselcorp.com" required autocomplete="email">
+            </div>
+            <div class="form-group">
+                <label for="signup-password">Create Password <span style="color:var(--red)">*</span></label>
+                <input type="password" id="signup-password" name="password" placeholder="Min 8 characters" required autocomplete="new-password" minlength="8">
+            </div>
+            <button type="submit" class="btn-submit" id="signup-btn">Create Account & Go to Dashboard →</button>
+            <p style="text-align:center;font-size:0.78rem;color:var(--gray);margin-top:0.75rem;">Your subscription is already active — this just sets your password.</p>
+        </form>
+
+        <!-- SSO button — shown dynamically when email domain has SSO configured -->
+        <div id="sso-section" style="display:none;margin-top:0.5rem;">
+            <div class="divider" style="margin:0.75rem 0"><span>or</span></div>
+            <button type="button" id="sso-btn" class="btn-submit" style="background:transparent;border:1.5px solid var(--teal);color:var(--teal);margin-top:0;"></button>
+            <p id="sso-enforce-msg" style="display:none;font-size:0.78rem;color:var(--gray);text-align:center;margin-top:0.5rem;">
+                Your organization requires SSO login. Password login is not available.
+            </p>
+        </div>
+
+        <div class="divider"><span>or</span></div>
+
+        <div class="bottom-links" id="bottom-links-el">
+            New to CanalClear? <a href="/pricing">View pricing →</a>
+        </div>
+
+        <a href="/pricing" class="pricing-link" id="pricing-link-el">
+            Don't have an account yet? <strong>Agent Pro from $599/mo →</strong>
+        </a>
+
+        <!-- DEMO CODE -->
+        <div class="demo-section" id="demo-section">
+            <div class="demo-section-label">Have a demo code?</div>
+            <div class="demo-input-row">
+                <input type="text" id="demo-code-input" placeholder="DEMO-XXXXXX" maxlength="12" autocomplete="off" spellcheck="false">
+                <button type="button" class="btn-demo" id="demo-access-btn" onclick="redeemDemoCode()">Access Demo</button>
+            </div>
+            <div class="demo-error" id="demo-error"></div>
+        </div>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const isPostPayment = params.get('payment') === 'success';
+        const sessionId = params.get('session_id') || '';
+        const planId = params.get('plan') || '';
+
+        // Plan display names
+        const PLAN_NAMES = {
+            panama_filing: 'Agent Pro — Panama Canal',
+            panama_compliance: 'Ops Manager — Panama Canal',
+            suez_filing: 'Agent Pro — Suez Canal',
+            suez_compliance: 'Ops Manager — Suez Canal',
+            bundle_filing: 'Agent Pro — Both Canals',
+            bundle_compliance: 'Ops Manager — Both Canals',
+        };
+
+        // ── Post-payment mode setup ─────────────────────────────────────────────
+        if (isPostPayment) {
+            // Show payment banner
+            document.getElementById('payment-banner').style.display = 'flex';
+            // Update title/subtitle
+            document.getElementById('page-title').textContent = 'Create Your Account';
+            document.getElementById('page-subtitle').textContent = 'Your subscription is active — set a password to get started.';
+            // Show tab switcher
+            document.getElementById('tab-switcher').style.display = 'flex';
+            // Show plan badge if known
+            if (planId && PLAN_NAMES[planId]) {
+                const badge = document.getElementById('plan-badge');
+                badge.textContent = '✓ ' + PLAN_NAMES[planId] + ' — Active';
+                badge.style.display = 'block';
+            }
+            // Switch to signup mode by default
+            switchTab('signup');
+            // Hide pricing link in post-payment mode
+            const pricingLink = document.getElementById('pricing-link-el');
+            if (pricingLink) pricingLink.style.display = 'none';
+            // Update bottom links
+            const bottomLinks = document.getElementById('bottom-links-el');
+            if (bottomLinks) bottomLinks.innerHTML = 'Already have an account? <a href="/login">Sign in →</a>';
+        }
+
+        // Pre-fill email if passed in query
+        if (params.get('email')) {
+            document.getElementById('email').value = params.get('email');
+            document.getElementById('signup-email').value = params.get('email');
+        }
+
+        // Show success message after password reset
+        if (params.get('reset') === 'success') {
+            document.getElementById('success-msg').textContent = 'Password updated successfully. Please sign in with your new password.';
+            document.getElementById('success-msg').classList.add('visible');
+        }
+
+        // ── Tab switching ───────────────────────────────────────────────────────
+        function switchTab(tab) {
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            const tabLogin = document.getElementById('tab-login');
+            const tabSignup = document.getElementById('tab-signup');
+            const forgotLink = document.getElementById('forgot-link-el');
+
+            if (tab === 'signup') {
+                loginForm.style.display = 'none';
+                signupForm.style.display = 'block';
+                tabLogin.classList.remove('active');
+                tabSignup.classList.add('active');
+                document.getElementById('signup-email').focus();
+            } else {
+                signupForm.style.display = 'none';
+                loginForm.style.display = 'block';
+                tabLogin.classList.add('active');
+                tabSignup.classList.remove('active');
+                document.getElementById('email').focus();
+            }
+            document.getElementById('error-msg').classList.remove('visible');
+            document.getElementById('success-msg').classList.remove('visible');
+        }
+
+        const errorMsg = document.getElementById('error-msg');
+        const successMsg = document.getElementById('success-msg');
+
+        function showError(msg) {
+            errorMsg.textContent = msg;
+            errorMsg.classList.add('visible');
+            successMsg.classList.remove('visible');
+        }
+        function showSuccess(msg) {
+            successMsg.textContent = msg;
+            successMsg.classList.add('visible');
+            errorMsg.classList.remove('visible');
+        }
+
+        // ── Login form ──────────────────────────────────────────────────────────
+        const loginForm = document.getElementById('login-form');
+        const submitBtn = document.getElementById('submit-btn');
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+
+            // SSO-enforced orgs cannot use password login
+            if (_ssoConfig && _ssoConfig.enforce_sso) {
+                showError('Your organization requires SSO login. Use the "Sign in with SSO" button above.');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Signing in…';
+            errorMsg.classList.remove('visible');
+
+            try {
+                const res = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    showSuccess('Logged in! Redirecting…');
+                    const nextParam = params.get('next') || '';
+                    const isSystemRedirect = nextParam.startsWith('/admin') || nextParam.startsWith('/pricing');
+                    let next;
+                    if (!data.user?.onboarding_completed && !isSystemRedirect) {
+                        next = data.redirect || '/onboarding';
+                    } else {
+                        next = nextParam || data.redirect || '/app';
+                    }
+                    setTimeout(() => { window.location.href = next; }, 800);
+                } else {
+                    if (data.redirect) {
+                        setTimeout(() => { window.location.href = data.redirect; }, 1500);
+                    }
+                    showError(data.message || 'Login failed. Please try again.');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Sign In →';
+                }
+            } catch (err) {
+                showError('Network error. Please try again.');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Sign In →';
+            }
+        });
+
+        // ── SSO domain detection ────────────────────────────────────────────────
+        let _ssoLookupTimer = null;
+        let _ssoConfig = null;
+
+        const emailInput = document.getElementById('email');
+        const ssoSection = document.getElementById('sso-section');
+        const ssoBtn = document.getElementById('sso-btn');
+        const ssoEnforceMsg = document.getElementById('sso-enforce-msg');
+
+        emailInput.addEventListener('blur', () => lookupSSOForEmail(emailInput.value.trim()));
+
+        async function lookupSSOForEmail(email) {
+            if (!email || !email.includes('@')) {
+                ssoSection.style.display = 'none';
+                _ssoConfig = null;
+                return;
+            }
+            try {
+                const res = await fetch(`/api/sso/lookup?email=${encodeURIComponent(email)}`);
+                const data = await res.json();
+                if (data.sso_available) {
+                    _ssoConfig = data;
+                    const idpLabel = data.idp_name || (data.provider_type === 'saml' ? 'SSO' : 'SSO');
+                    ssoBtn.textContent = `Sign in with ${idpLabel} →`;
+                    ssoSection.style.display = 'block';
+                    // If org enforces SSO, hide password field
+                    if (data.enforce_sso) {
+                        document.getElementById('password').closest('.form-group').style.display = 'none';
+                        document.getElementById('forgot-link-el').style.display = 'none';
+                        ssoEnforceMsg.style.display = 'block';
+                        document.getElementById('submit-btn').style.display = 'none';
+                    }
+                } else {
+                    ssoSection.style.display = 'none';
+                    _ssoConfig = null;
+                }
+            } catch (e) {
+                ssoSection.style.display = 'none';
+            }
+        }
+
+        ssoBtn.addEventListener('click', () => {
+            if (!_ssoConfig) return;
+            const nextParam = params.get('next') || '/app';
+            const url = `${_ssoConfig.initiate_url}&next=${encodeURIComponent(nextParam)}`;
+            window.location.href = url;
+        });
+
+        // Show error from SSO redirect
+        if (params.get('error')) {
+            const SSO_ERRORS = {
+                sso_no_org: 'No organization found for this email.',
+                sso_not_configured: 'SSO is not configured for your organization.',
+                sso_expired: 'SSO session expired. Please try again.',
+                sso_validation_failed: 'SSO login failed. Please contact your IT admin.',
+                sso_idp_error: 'Your identity provider returned an error.',
+                sso_error: 'SSO error. Please try again.',
+            };
+            const errMsg = SSO_ERRORS[params.get('error')];
+            if (errMsg) showError(errMsg);
+        }
+
+        // Pre-run SSO lookup if email is pre-filled
+        if (params.get('email') && params.get('email').includes('@')) {
+            lookupSSOForEmail(params.get('email'));
+        }
+
+        // ── Demo code redemption ────────────────────────────────────────────────
+        async function redeemDemoCode() {
+            const input = document.getElementById('demo-code-input');
+            const btn = document.getElementById('demo-access-btn');
+            const demoError = document.getElementById('demo-error');
+            const code = input.value.trim().toUpperCase();
+
+            if (!code) {
+                demoError.textContent = 'Please enter a demo code.';
+                demoError.classList.add('visible');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = 'Checking…';
+            demoError.classList.remove('visible');
+
+            try {
+                const res = await fetch('/api/demo/redeem', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({ code })
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    showSuccess('Demo access granted! Redirecting…');
+                    setTimeout(() => { window.location.href = data.redirect || '/app'; }, 800);
+                } else {
+                    demoError.textContent = data.message || 'Invalid or expired code.';
+                    demoError.classList.add('visible');
+                    btn.disabled = false;
+                    btn.textContent = 'Access Demo';
+                }
+            } catch (err) {
+                demoError.textContent = 'Network error. Please try again.';
+                demoError.classList.add('visible');
+                btn.disabled = false;
+                btn.textContent = 'Access Demo';
+            }
+        }
+
+        // Allow pressing Enter in demo code input
+        document.getElementById('demo-code-input').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') { e.preventDefault(); redeemDemoCode(); }
+        });
+
+        // ── Signup form (post-payment) ──────────────────────────────────────────
+        const signupForm = document.getElementById('signup-form');
+        const signupBtn = document.getElementById('signup-btn');
+
+        signupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('signup-name').value.trim();
+            const email = document.getElementById('signup-email').value.trim();
+            const password = document.getElementById('signup-password').value;
+
+            if (!email || !password) {
+                showError('Email and password are required.');
+                return;
+            }
+            if (password.length < 8) {
+                showError('Password must be at least 8 characters.');
+                return;
+            }
+
+            signupBtn.disabled = true;
+            signupBtn.textContent = 'Creating account…';
+            errorMsg.classList.remove('visible');
+
+            try {
+                // First: verify payment with Polsia and provision account
+                const res = await fetch('/api/auth/post-payment-register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({ email, password, name: name || null, session_id: sessionId, plan_id: planId })
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    showSuccess('Account created! Taking you to your dashboard…');
+                    if (typeof fbq !== 'undefined') {
+                        fbq('track', 'CompleteRegistration', { content_name: planId || 'subscription', status: 'success' });
+                    }
+                    setTimeout(() => { window.location.href = data.redirect || '/app'; }, 1200);
+                } else {
+                    showError(data.message || 'Account creation failed. Please try again.');
+                    signupBtn.disabled = false;
+                    signupBtn.textContent = 'Create Account & Go to Dashboard →';
+                }
+            } catch (err) {
+                showError('Network error. Please try again.');
+                signupBtn.disabled = false;
+                signupBtn.textContent = 'Create Account & Go to Dashboard →';
+            }
+        });
+    </script>
+
+    <!-- CanalClear Analytics (shared module) -->
+    <script src="/js/analytics.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var ccTrack = window._ccTrack || function(){};
+
+        var form = document.getElementById('login-form');
+        if (form) {
+            form.addEventListener('submit', function() {
+                ccTrack('login_attempt', { next: new URLSearchParams(location.search).get('next') || '' });
+            });
+        }
+
+        // Track register link click
+        var registerLink = document.querySelector('a[href*="register"], a[href*="signup"]');
+        if (registerLink) {
+            registerLink.addEventListener('click', function() {
+                ccTrack('login_register_click', {});
+            });
+        }
+    });
+    </script>
+    <script src="/js/mobile-nav.js"></script>
+<script src="/js/pwa-manager.js"></script>
+<script src="/js/whatsapp-button.js"></script>
+</body>
+</html>

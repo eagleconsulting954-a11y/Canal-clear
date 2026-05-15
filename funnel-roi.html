@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROI Calculator — How Much CanalClear Saves You</title>
+    <meta name="description" content="Calculate your savings: 5 transits/year = $17,812 saved vs ship agent fees. Enter your fleet size and see your ROI.">
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Meta Pixel -->
+    <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '972550615207303');
+    fbq('track', 'PageView');
+    fbq('trackCustom', 'funnel_step_3_view');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=972550615207303&ev=PageView&noscript=1"/></noscript>
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --navy: #1a2d4a; --deep: #142238; --slate: #243350;
+            --teal: #E85A00; --teal-dim: rgba(232, 90, 0, 0.12);
+            --white: #ffffff; --gray: #6b7c93; --light: #8fa3b8;
+            --red: #FF6B6B; --yellow: #FFD93D; --gold: #F59E0B;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'IBM Plex Sans', sans-serif; background: var(--navy); color: var(--white); min-height: 100vh; }
+
+        /* NAV */
+        .funnel-nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1rem 2rem; background: rgba(10,22,40,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(232, 90, 0,0.08); display: flex; align-items: center; justify-content: space-between; }
+        .logo { display: flex; align-items: center; text-decoration: none; }
+        .logo-text { font-family: 'IBM Plex Sans', sans-serif; font-size: 1.15rem; font-weight: 700; color: var(--white); }
+        .logo-dot { color: var(--teal); }
+        .nav-exit { color: var(--gray); text-decoration: none; font-size: 0.85rem; padding: 0.4rem 0.75rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.08); transition: all 0.2s; }
+        .nav-exit:hover { color: var(--white); border-color: rgba(255,255,255,0.2); }
+
+        /* PROGRESS */
+        .progress-bar { position: fixed; top: 62px; left: 0; right: 0; z-index: 99; background: rgba(10,22,40,0.95); border-bottom: 1px solid rgba(255,255,255,0.04); padding: 0.6rem 2rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+        .step-dot { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; }
+        .step-dot.active { background: var(--teal); color: var(--navy); }
+        .step-dot.done { background: rgba(232, 90, 0,0.25); color: var(--teal); }
+        .step-dot.future { background: rgba(255,255,255,0.06); color: var(--gray); }
+        .step-line { flex: 1; max-width: 60px; height: 2px; border-radius: 1px; }
+        .step-line.done { background: var(--teal); }
+        .step-line.future { background: rgba(255,255,255,0.08); }
+
+        /* MAIN */
+        main { max-width: 900px; margin: 0 auto; padding: 9rem 1.5rem 5rem; }
+
+        /* LANG */
+        .lang-switcher { display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 3rem; }
+        .lang-btn { background: none; border: 1px solid rgba(255,255,255,0.1); color: var(--gray); font-size: 0.8rem; padding: 0.3rem 0.7rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; font-family: 'IBM Plex Sans', sans-serif; }
+        .lang-btn:hover, .lang-btn.active { border-color: var(--teal); color: var(--teal); }
+
+        /* HERO */
+        .hero { text-align: center; margin-bottom: 3rem; }
+        .hero-tag { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--teal-dim); border: 1px solid rgba(232, 90, 0,0.25); color: var(--teal); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; padding: 0.35rem 1rem; border-radius: 100px; margin-bottom: 1.5rem; }
+        .hero h1 { font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(1.9rem, 4.5vw, 3rem); font-weight: 700; line-height: 1.2; margin-bottom: 1rem; }
+        .hero h1 em { font-style: normal; color: var(--teal); }
+        .hero-sub { font-size: 1.05rem; color: var(--gray); max-width: 520px; margin: 0 auto; line-height: 1.6; }
+
+        /* CALCULATOR */
+        .calc-section { margin-bottom: 3.5rem; }
+        .calc-card {
+            background: var(--deep); border: 1px solid rgba(232, 90, 0,0.15);
+            border-radius: 20px; padding: 2.5rem;
+        }
+        .calc-card h2 { font-family: 'IBM Plex Sans', sans-serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 2rem; }
+        .calc-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+        @media (max-width: 560px) { .calc-inputs { grid-template-columns: 1fr; } }
+        .input-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .input-group label { font-size: 0.85rem; color: var(--light); font-weight: 600; }
+        .input-group .input-hint { font-size: 0.78rem; color: var(--gray); }
+        .calc-input {
+            width: 100%; padding: 0.85rem 1rem;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px; color: var(--white); font-size: 1rem;
+            font-family: 'IBM Plex Sans', sans-serif; font-weight: 700;
+            outline: none; transition: border-color 0.2s;
+            -moz-appearance: textfield;
+        }
+        .calc-input::-webkit-outer-spin-button,
+        .calc-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+        .calc-input:focus { border-color: rgba(232, 90, 0,0.4); }
+        .input-range { margin-top: 0.5rem; }
+        .input-range input[type=range] { width: 100%; accent-color: var(--teal); }
+        .range-labels { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--gray); margin-top: 0.2rem; }
+
+        /* RESULTS */
+        .results-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+        @media (max-width: 560px) { .results-grid { grid-template-columns: 1fr; } }
+        .result-card {
+            border-radius: 14px; padding: 1.25rem; text-align: center;
+        }
+        .result-card.savings { background: rgba(232, 90, 0,0.08); border: 1px solid rgba(232, 90, 0,0.2); }
+        .result-card.agent-cost { background: rgba(255,107,107,0.07); border: 1px solid rgba(255,107,107,0.18); }
+        .result-card.cc-cost { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); }
+        .result-card .result-label { font-size: 0.78rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem; }
+        .result-card .result-value { font-family: 'IBM Plex Sans', sans-serif; font-size: 1.8rem; font-weight: 700; }
+        .result-card.savings .result-value { color: var(--teal); }
+        .result-card.agent-cost .result-value { color: var(--red); text-decoration: line-through; opacity: 0.7; }
+        .result-card.cc-cost .result-value { color: var(--white); }
+        .result-card .result-sub { font-size: 0.78rem; color: var(--gray); margin-top: 0.25rem; }
+
+        .roi-highlight {
+            margin-top: 1.5rem; padding: 1rem 1.25rem;
+            background: rgba(245,158,11,0.07); border: 1px solid rgba(245,158,11,0.2);
+            border-radius: 12px; font-size: 0.9rem; color: var(--light); line-height: 1.5;
+        }
+        .roi-highlight strong { color: var(--yellow); }
+
+        /* COMPARISON TABLE */
+        .compare-section { margin-bottom: 3.5rem; }
+        .compare-section h2 { font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(1.3rem, 3vw, 1.8rem); font-weight: 700; margin-bottom: 0.5rem; }
+        .compare-sub { font-size: 0.9rem; color: var(--gray); margin-bottom: 1.5rem; }
+        .compare-table { width: 100%; border-collapse: collapse; border-radius: 12px; overflow: hidden; }
+        .compare-table th, .compare-table td { padding: 0.9rem 1.25rem; text-align: left; font-size: 0.9rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .compare-table thead th { background: var(--slate); font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--light); }
+        .compare-table thead th:first-child { border-radius: 12px 0 0 0; }
+        .compare-table thead th:last-child { border-radius: 0 12px 0 0; }
+        .compare-table tbody tr { background: var(--deep); }
+        .compare-table tbody tr:last-child td { border-bottom: none; }
+        .compare-table tbody tr:last-child td:first-child { border-radius: 0 0 0 12px; }
+        .compare-table tbody tr:last-child td:last-child { border-radius: 0 0 12px 0; }
+        .compare-table .feature-col { color: var(--light); font-weight: 500; }
+        .compare-table .agent-col { color: var(--red); }
+        .compare-table .cc-col { color: var(--teal); font-weight: 600; }
+        .compare-table .highlight-row td { background: rgba(232, 90, 0,0.05); }
+        @media (max-width: 600px) {
+            .compare-section { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            .compare-table { min-width: 480px; }
+            .compare-table th, .compare-table td { padding: 0.7rem 0.85rem; font-size: 0.8rem; }
+        }
+
+        /* CTA */
+        .cta-block { text-align: center; }
+        .cta-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--teal); color: var(--navy); padding: 1rem 2.5rem; border-radius: 12px; text-decoration: none; font-size: 1.05rem; font-weight: 700; transition: all 0.2s; box-shadow: 0 0 30px rgba(232, 90, 0,0.25); }
+        .cta-btn:hover { background: #FF8533; transform: translateY(-2px); box-shadow: 0 0 40px rgba(232, 90, 0,0.35); }
+        .cta-sub { margin-top: 0.75rem; font-size: 0.82rem; color: var(--gray); }
+        .cta-back { display: block; margin-top: 1rem; font-size: 0.82rem; color: var(--gray); text-decoration: none; }
+        .cta-back:hover { color: var(--teal); }
+
+        .funnel-footer { text-align: center; padding: 2rem; color: var(--gray); font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 4rem; }
+        .funnel-footer a { color: var(--teal); text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .funnel-nav { padding: 0.85rem 1.25rem; }
+            .progress-bar { padding: 0.6rem 1.25rem; }
+            main { padding: 8.5rem 1.25rem 4rem; }
+            .calc-card { padding: 1.5rem; }
+        }
+    </style>
+    <link rel="stylesheet" href="/css/mobile.css">
+</head>
+<body>
+
+    <nav class="funnel-nav">
+        <a href="/" class="logo"><span class="logo-text">Canal<span class="logo-dot">Clear</span></span></a>
+        <a href="/" class="nav-exit">✕ Exit</a>
+    </nav>
+
+    <div class="progress-bar">
+        <div class="step-dot done" title="Step 1">✓</div>
+        <div class="step-line done"></div>
+        <div class="step-dot done" title="Step 2">✓</div>
+        <div class="step-line done"></div>
+        <div class="step-dot active" title="Step 3">3</div>
+        <div class="step-line future"></div>
+        <div class="step-dot future" title="Step 4">4</div>
+        <span style="margin-left:0.75rem;font-size:0.72rem;color:var(--gray);">Step 3 of 4</span>
+    </div>
+
+    <main>
+
+        <div class="lang-switcher">
+            <button class="lang-btn active" onclick="setLang('en', this)">EN</button>
+            <button class="lang-btn" onclick="setLang('es', this)">ES</button>
+            <button class="lang-btn" onclick="setLang('zh', this)">中文</button>
+            <button class="lang-btn" onclick="setLang('el', this)">ΕΛ</button>
+            <button class="lang-btn" onclick="setLang('ja', this)">日本語</button>
+        </div>
+
+        <!-- HERO -->
+        <div class="hero">
+            <div class="hero-tag" id="t-hero-tag">💰 ROI Calculator</div>
+            <h1 id="t-hero-h1">How Much Are You <em>Overpaying</em><br>in Ship Agent Fees?</h1>
+            <p class="hero-sub" id="t-hero-sub">Enter your annual transit volume below and see your exact savings with CanalClear vs. traditional ship agents.</p>
+        </div>
+
+        <!-- CALCULATOR -->
+        <div class="calc-section">
+            <div class="calc-card">
+                <h2 id="t-calc-h2">Your Savings Calculator</h2>
+                <div class="calc-inputs">
+                    <div class="input-group">
+                        <label id="t-label-transits">Annual Transits</label>
+                        <input type="number" class="calc-input" id="input-transits" min="1" max="200" value="5" oninput="updateCalc()">
+                        <div class="input-range">
+                            <input type="range" id="range-transits" min="1" max="100" value="5" oninput="syncRange('transits')">
+                            <div class="range-labels"><span>1</span><span>100+</span></div>
+                        </div>
+                        <span class="input-hint" id="t-hint-transits">Total canal transits per year across your fleet</span>
+                    </div>
+                    <div class="input-group">
+                        <label id="t-label-agent">Avg. Agent Fee / Transit</label>
+                        <input type="number" class="calc-input" id="input-agent" min="100" max="20000" value="5000" oninput="updateCalc()">
+                        <div class="input-range">
+                            <input type="range" id="range-agent" min="2000" max="10000" step="100" value="5000" oninput="syncRange('agent')">
+                            <div class="range-labels"><span>$2K</span><span>$6K</span><span>$10K</span></div>
+                        </div>
+                        <span class="input-hint" id="t-hint-agent">Typical range: $2,000–$5,000+ per transit</span>
+                    </div>
+                </div>
+
+                <div class="results-grid">
+                    <div class="result-card agent-cost">
+                        <div class="result-label" id="t-label-agent-cost">Ship Agent Cost</div>
+                        <div class="result-value" id="result-agent-cost">$25,000</div>
+                        <div class="result-sub" id="t-sub-agent-cost">Per year with agents</div>
+                    </div>
+                    <div class="result-card cc-cost">
+                        <div class="result-label" id="t-label-cc-cost">CanalClear Cost</div>
+                        <div class="result-value" id="result-cc-cost">$7,188</div>
+                        <div class="result-sub" id="t-sub-cc-cost">Per year with CanalClear</div>
+                    </div>
+                    <div class="result-card savings">
+                        <div class="result-label" id="t-label-savings">Your Annual Savings</div>
+                        <div class="result-value" id="result-savings">$17,812</div>
+                        <div class="result-sub" id="t-sub-savings">Straight to your bottom line</div>
+                    </div>
+                </div>
+
+                <div class="roi-highlight" id="roi-highlight">
+                    With <strong id="rh-transits">5 transits/year</strong>, CanalClear saves you <strong id="rh-savings">$17,812</strong> annually — that's <strong id="rh-months">30 months</strong> of the Agent Pro plan paid for by savings alone.
+                </div>
+            </div>
+        </div>
+
+        <!-- COMPARISON TABLE -->
+        <div class="compare-section">
+            <h2 id="t-compare-h2">CanalClear vs. Traditional Ship Agents</h2>
+            <p class="compare-sub" id="t-compare-sub">The same ACP-validated outcome — under 60 seconds vs. 24–72 hours, at a fraction of the cost.</p>
+            <table class="compare-table">
+                <thead>
+                    <tr>
+                        <th class="feature-col" id="t-th-feature">What you need</th>
+                        <th class="agent-col" id="t-th-agent">Traditional Ship Agent</th>
+                        <th class="cc-col" id="t-th-cc">CanalClear</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="highlight-row">
+                        <td class="feature-col" id="t-row1-f">Cost per transit</td>
+                        <td class="agent-col">$2,000 – $5,000+</td>
+                        <td class="cc-col">Agent Pro $599/mo · Ops Manager $399/vessel/mo</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-col" id="t-row2-f">VUMPA validation time</td>
+                        <td class="agent-col" id="t-row2-a">24 – 72 hours</td>
+                        <td class="cc-col" id="t-row2-c">Under 60 seconds</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-col" id="t-row3-f">Compliance error detection</td>
+                        <td class="agent-col" id="t-row3-a">Manual, error-prone</td>
+                        <td class="cc-col" id="t-row3-c">94% pre-submission catch rate</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-col" id="t-row4-f">23-point validation engine</td>
+                        <td class="agent-col" id="t-row4-a">✗ Not itemised</td>
+                        <td class="cc-col" id="t-row4-c">✓ Every check, every time</td>
+                    </tr>
+                    <tr class="highlight-row">
+                        <td class="feature-col" id="t-row5-f">Audit-ready export</td>
+                        <td class="agent-col" id="t-row5-a">✗ Paper / email trail only</td>
+                        <td class="cc-col" id="t-row5-c">✓ Instant PDF report</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-col" id="t-row6-f">Cancel anytime</td>
+                        <td class="agent-col" id="t-row6-a">✗ Contract / retainer</td>
+                        <td class="cc-col" id="t-row6-c">✓ No lock-in</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-block">
+            <a href="/funnel/pricing" class="cta-btn" onclick="trackCta()">
+                <span id="t-cta-text">View Plans & Pricing</span>
+                <span>→</span>
+            </a>
+            <p class="cta-sub" id="t-cta-sub">Start saving on your next transit</p>
+            <a href="/funnel/solution" class="cta-back" id="t-cta-back">← Back to solution</a>
+        </div>
+
+    </main>
+
+    <div class="funnel-footer">
+        <p>&copy; 2026 CanalClear · <a href="/">Home</a> · <a href="/pricing">Pricing</a> · <a href="mailto:support@canalclear.org">support@canalclear.org</a></p>
+    </div>
+
+    <script>
+    // ── Canal param forwarding ───────────────────────────────────────────────
+    (function() {
+        var canal = new URLSearchParams(window.location.search).get('canal');
+        if (canal === 'suez' || canal === 'panama' || canal === 'both') {
+            var fwd = document.querySelector('a[href="/funnel/pricing"]');
+            if (fwd) fwd.href = '/funnel/pricing?canal=' + canal;
+            var back = document.querySelector('a[href="/funnel/solution"]');
+            if (back) back.href = '/funnel/solution?canal=' + canal;
+        }
+    })();
+
+    // ── ROI Calculator ───────────────────────────────────────────────────────
+    var calcFired = false;
+
+    function getCCCost(transits) {
+        // CanalClear pricing: Agent Pro $599/mo (Panama) / $899/mo (Suez), Ops Manager $399/vessel/mo
+        var canal = new URLSearchParams(window.location.search).get('canal');
+        var proMonthly = (canal === 'suez') ? 899 : 599;
+        return proMonthly * 12;
+    }
+
+    function fmt(n) {
+        return '$' + Math.round(n).toLocaleString('en-US');
+    }
+
+    function updateCalc() {
+        var transits = parseInt(document.getElementById('input-transits').value) || 5;
+        var agentFee = parseInt(document.getElementById('input-agent').value) || 5000;
+        transits = Math.max(1, Math.min(500, transits));
+        agentFee = Math.max(100, Math.min(50000, agentFee));
+
+        var agentCost = transits * agentFee;
+        var ccCost = getCCCost(transits);
+        var savings = Math.max(0, agentCost - ccCost);
+
+        document.getElementById('result-agent-cost').textContent = fmt(agentCost);
+        document.getElementById('result-cc-cost').textContent = fmt(ccCost);
+        document.getElementById('result-savings').textContent = fmt(savings);
+
+        // Update range sliders
+        document.getElementById('range-transits').value = Math.min(100, transits);
+        document.getElementById('range-agent').value = Math.min(10000, Math.max(2000, agentFee));
+
+        // ROI highlight
+        var proMonthly = 599; // Agent Pro Panama monthly price
+        var monthsPaid = savings > 0 ? Math.round(savings / proMonthly) : 0;
+        document.getElementById('rh-transits').textContent = transits + ' transit' + (transits !== 1 ? 's' : '') + '/year';
+        document.getElementById('rh-savings').textContent = fmt(savings);
+        document.getElementById('rh-months').textContent = monthsPaid + ' month' + (monthsPaid !== 1 ? 's' : '');
+
+        // Fire Pixel event once per session when user adjusts
+        if (!calcFired) {
+            calcFired = true;
+            if (typeof fbq !== 'undefined') fbq('trackCustom', 'funnel_roi_calculated', { transits: transits, savings: savings });
+        }
+    }
+
+    function syncRange(type) {
+        if (type === 'transits') {
+            var v = document.getElementById('range-transits').value;
+            document.getElementById('input-transits').value = v;
+        } else {
+            var v = document.getElementById('range-agent').value;
+            document.getElementById('input-agent').value = v;
+        }
+        updateCalc();
+    }
+
+    function trackCta() { if (typeof fbq !== 'undefined') fbq('trackCustom', 'funnel_cta_click', { step: 3 }); }
+
+    // Init
+    updateCalc();
+
+    // ── i18n ────────────────────────────────────────────────────────────────
+    var T = {
+        en: {
+            'hero-tag': '💰 ROI Calculator',
+            'hero-h1': 'How Much Are You <em>Overpaying</em><br>in Ship Agent Fees?',
+            'hero-sub': 'Enter your annual transit volume below and see your exact savings with CanalClear vs. traditional ship agents.',
+            'calc-h2': 'Your Savings Calculator',
+            'label-transits': 'Annual Transits',
+            'hint-transits': 'Total canal transits per year across your fleet',
+            'label-agent': 'Avg. Agent Fee / Transit',
+            'hint-agent': 'Typical range: $2,000–$5,000+ per transit',
+            'label-agent-cost': 'Ship Agent Cost',
+            'sub-agent-cost': 'Per year with agents',
+            'label-cc-cost': 'CanalClear Cost',
+            'sub-cc-cost': 'Per year with CanalClear',
+            'label-savings': 'Your Annual Savings',
+            'sub-savings': 'Straight to your bottom line',
+            'compare-h2': 'CanalClear vs. Traditional Ship Agents',
+            'compare-sub': 'The same ACP-validated outcome — under 60 seconds vs. 24–72 hours, at a fraction of the cost.',
+            'th-feature': 'What you need', 'th-agent': 'Traditional Ship Agent', 'th-cc': 'CanalClear',
+            'row1-f': 'Cost per transit',
+            'row2-f': 'VUMPA validation time', 'row2-a': '24 – 72 hours', 'row2-c': 'Under 60 seconds',
+            'row3-f': 'Compliance error detection', 'row3-a': 'Manual, error-prone', 'row3-c': '94% pre-submission catch rate',
+            'row4-f': '23-point validation engine', 'row4-a': '✗ Not itemised', 'row4-c': '✓ Every check, every time',
+            'row5-f': 'Audit-ready export', 'row5-a': '✗ Paper / email trail only', 'row5-c': '✓ Instant PDF report',
+            'row6-f': 'Cancel anytime', 'row6-a': '✗ Contract / retainer', 'row6-c': '✓ No lock-in',
+            'cta-text': 'View Plans & Pricing',
+            'cta-sub': 'Start saving on your next transit',
+            'cta-back': '← Back to solution',
+        },
+        es: {
+            'hero-tag': '💰 Calculadora ROI',
+            'hero-h1': '¿Cuánto Está <em>Pagando de Más</em><br>en Honorarios de Agentes Marítimos?',
+            'hero-sub': 'Ingrese su volumen anual de tránsitos y vea sus ahorros exactos con CanalClear.',
+            'calc-h2': 'Su Calculadora de Ahorros',
+            'label-transits': 'Tránsitos Anuales',
+            'hint-transits': 'Total de tránsitos del canal por año en su flota',
+            'label-agent': 'Tarifa Promedio del Agente / Tránsito',
+            'hint-agent': 'Rango típico: $2,000–$5,000+ por tránsito',
+            'label-agent-cost': 'Costo del Agente Marítimo',
+            'sub-agent-cost': 'Por año con agentes',
+            'label-cc-cost': 'Costo de CanalClear',
+            'sub-cc-cost': 'Por año con CanalClear',
+            'label-savings': 'Sus Ahorros Anuales',
+            'sub-savings': 'Directo a su resultado final',
+            'compare-h2': 'CanalClear vs. Agentes Marítimos Tradicionales',
+            'compare-sub': 'El mismo resultado validado por ACP — menos de 60 segundos vs. 24–72 horas, a una fracción del costo.',
+            'th-feature': 'Lo que necesita', 'th-agent': 'Agente Marítimo Tradicional', 'th-cc': 'CanalClear',
+            'row1-f': 'Costo por tránsito',
+            'row2-f': 'Tiempo de validación VUMPA', 'row2-a': '24 – 72 horas', 'row2-c': 'Menos de 60 segundos',
+            'row3-f': 'Detección de errores de cumplimiento', 'row3-a': 'Manual, propenso a errores', 'row3-c': '94% tasa de captura antes del envío',
+            'row4-f': 'Motor de validación de 23 puntos', 'row4-a': '✗ No detallado', 'row4-c': '✓ Cada verificación, siempre',
+            'row5-f': 'Exportación lista para auditoría', 'row5-a': '✗ Solo papel / rastro de correo electrónico', 'row5-c': '✓ Informe PDF instantáneo',
+            'row6-f': 'Cancelar en cualquier momento', 'row6-a': '✗ Contrato / retención', 'row6-c': '✓ Sin bloqueo',
+            'cta-text': 'Ver Planes y Precios',
+            'cta-sub': 'Comience a ahorrar en su próximo tránsito',
+            'cta-back': '← Volver a la solución',
+        },
+        zh: {
+            'hero-tag': '💰 投资回报率计算器',
+            'hero-h1': '您在船舶代理费上<em>多付了多少？</em>',
+            'hero-sub': '输入您的年度过境量，查看使用CanalClear与传统船舶代理相比的精确节省。',
+            'calc-h2': '您的节省计算器',
+            'label-transits': '年度过境次数',
+            'hint-transits': '整个船队每年的运河过境总次数',
+            'label-agent': '每次过境平均代理费',
+            'hint-agent': '典型范围：每次过境$2,000–$5,000+',
+            'label-agent-cost': '船舶代理费用',
+            'sub-agent-cost': '与代理每年的费用',
+            'label-cc-cost': 'CanalClear费用',
+            'sub-cc-cost': '每年使用CanalClear的费用',
+            'label-savings': '您的年度节省',
+            'sub-savings': '直接进入您的利润',
+            'compare-h2': 'CanalClear与传统船舶代理比较',
+            'compare-sub': '相同的ACP验证结果——60秒以内 vs. 24–72小时，成本仅为一小部分。',
+            'th-feature': '您需要什么', 'th-agent': '传统船舶代理', 'th-cc': 'CanalClear',
+            'row1-f': '每次过境费用',
+            'row2-f': 'VUMPA验证时间', 'row2-a': '24–72小时', 'row2-c': '60秒以内',
+            'row3-f': '合规错误检测', 'row3-a': '手动，易出错', 'row3-c': '提交前94%错误捕获率',
+            'row4-f': '23点验证引擎', 'row4-a': '✗ 未逐项', 'row4-c': '✓ 每次检查，每次',
+            'row5-f': '审计就绪导出', 'row5-a': '✗ 仅纸质/电子邮件记录', 'row5-c': '✓ 即时PDF报告',
+            'row6-f': '随时取消', 'row6-a': '✗ 合同/保留费', 'row6-c': '✓ 无锁定',
+            'cta-text': '查看方案和价格',
+            'cta-sub': '在下次过境中开始节省',
+            'cta-back': '← 返回解决方案',
+        },
+        el: {
+            'hero-tag': '💰 Αριθμομηχανή ROI',
+            'hero-h1': 'Πόσο <em>Πληρώνετε Παραπάνω</em><br>σε Αμοιβές Ναυτικών Πρακτόρων;',
+            'hero-sub': 'Εισάγετε τον ετήσιο αριθμό διελεύσεών σας και δείτε τις ακριβείς εξοικονομήσεις σας με το CanalClear.',
+            'calc-h2': 'Η Αριθμομηχανή Εξοικονομήσεών Σας',
+            'label-transits': 'Ετήσιες Διελεύσεις',
+            'hint-transits': 'Συνολικές διελεύσεις καναλιού ανά έτος για τον στόλο σας',
+            'label-agent': 'Μέση Αμοιβή Πράκτορα / Διέλευση',
+            'hint-agent': 'Τυπικό εύρος: $3.500–$6.500 ανά διέλευση',
+            'label-agent-cost': 'Κόστος Ναυτικού Πράκτορα',
+            'sub-agent-cost': 'Ανά έτος με πράκτορες',
+            'label-cc-cost': 'Κόστος CanalClear',
+            'sub-cc-cost': 'Ανά έτος με CanalClear',
+            'label-savings': 'Ετήσιες Εξοικονομήσεις Σας',
+            'sub-savings': 'Απευθείας στο αποτέλεσμα σας',
+            'compare-h2': 'CanalClear έναντι Παραδοσιακών Ναυτικών Πρακτόρων',
+            'compare-sub': 'Το ίδιο αποτέλεσμα επικυρωμένο από ACP — κάτω από 60 δευτερόλεπτα vs. 24–72 ώρες, στο ένα κλάσμα του κόστους.',
+            'th-feature': 'Τι χρειάζεστε', 'th-agent': 'Παραδοσιακός Ναυτικός Πράκτορας', 'th-cc': 'CanalClear',
+            'row1-f': 'Κόστος ανά διέλευση',
+            'row2-f': 'Χρόνος επικύρωσης VUMPA', 'row2-a': '24 – 72 ώρες', 'row2-c': 'Κάτω από 60 δευτερόλεπτα',
+            'row3-f': 'Ανίχνευση σφαλμάτων συμμόρφωσης', 'row3-a': 'Χειροκίνητο, επιρρεπές σε σφάλματα', 'row3-c': '94% ποσοστό εντοπισμού πριν την υποβολή',
+            'row4-f': 'Μηχανισμός επικύρωσης 23 σημείων', 'row4-a': '✗ Δεν αναλύεται', 'row4-c': '✓ Κάθε έλεγχος, κάθε φορά',
+            'row5-f': 'Εξαγωγή έτοιμη για έλεγχο', 'row5-a': '✗ Μόνο χαρτί / ίχνος email', 'row5-c': '✓ Άμεση αναφορά PDF',
+            'row6-f': 'Ακύρωση οποτεδήποτε', 'row6-a': '✗ Συμβόλαιο / παρακράτηση', 'row6-c': '✓ Χωρίς δέσμευση',
+            'cta-text': 'Προβολή Σχεδίων & Τιμών',
+            'cta-sub': 'Ξεκινήστε να εξοικονομείτε στην επόμενη διέλευσή σας',
+            'cta-back': '← Πίσω στη λύση',
+        },
+        ja: {
+            'hero-tag': '💰 ROI計算機',
+            'hero-h1': '船舶代理店費用を<em>払いすぎていませんか？</em>',
+            'hero-sub': '年間過境量を入力し、CanalClearと従来の船舶代理店との正確な節約額を確認してください。',
+            'calc-h2': '節約計算機',
+            'label-transits': '年間過境回数',
+            'hint-transits': '船隊全体の年間運河過境総数',
+            'label-agent': '過境あたりの平均代理店費用',
+            'hint-agent': '典型的な範囲：過境あたり$2,000〜$5,000+',
+            'label-agent-cost': '船舶代理店費用',
+            'sub-agent-cost': '代理店を使った年間費用',
+            'label-cc-cost': 'CanalClear費用',
+            'sub-cc-cost': 'CanalClearを使った年間費用',
+            'label-savings': '年間節約額',
+            'sub-savings': '直接利益に還元',
+            'compare-h2': 'CanalClearと従来の船舶代理店の比較',
+            'compare-sub': '同じACP検証済みの結果 — 60秒以内 vs. 24〜72時間、コストはわずか。',
+            'th-feature': '必要なもの', 'th-agent': '従来の船舶代理店', 'th-cc': 'CanalClear',
+            'row1-f': '過境あたりのコスト',
+            'row2-f': 'VUMPA検証時間', 'row2-a': '24〜72時間', 'row2-c': '60秒以内',
+            'row3-f': 'コンプライアンスエラー検出', 'row3-a': '手動、エラーが発生しやすい', 'row3-c': '提出前94%エラー検出率',
+            'row4-f': '23ポイント検証エンジン', 'row4-a': '✗ 項目化なし', 'row4-c': '✓ 毎回すべてのチェック',
+            'row5-f': '監査対応エクスポート', 'row5-a': '✗ 紙/メール記録のみ', 'row5-c': '✓ 即時PDFレポート',
+            'row6-f': 'いつでもキャンセル', 'row6-a': '✗ 契約/保留', 'row6-c': '✓ 拘束なし',
+            'cta-text': 'プランと価格を見る',
+            'cta-sub': '次の過境から節約を開始',
+            'cta-back': '← 解決策に戻る',
+        }
+    };
+
+    var lang = (navigator.language || 'en').slice(0, 2);
+    if (!T[lang]) lang = 'en';
+
+    function setLang(l, btn) {
+        if (!T[l]) return;
+        lang = l;
+        Object.keys(T[l]).forEach(function(id) {
+            var el = document.getElementById('t-' + id);
+            if (el) el.innerHTML = T[l][id];
+        });
+        document.querySelectorAll('.lang-btn').forEach(function(b) { b.classList.remove('active'); });
+        if (btn) btn.classList.add('active');
+    }
+    setLang(lang);
+    </script>
+<script src="/js/whatsapp-button.js"></script>
+</body>
+</html>

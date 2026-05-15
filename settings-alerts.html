@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alert Settings — CanalClear</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --navy: #1a2d4a;
+            --deep: #142238;
+            --slate: #243350;
+            --teal: #E85A00;
+            --teal-dim: rgba(232, 90, 0, 0.15);
+            --cyan: #00B4D8;
+            --white: #ffffff;
+            --gray: #6b7c93;
+            --light-gray: #8fa3b8;
+            --red: #FF6B6B;
+            --red-dim: rgba(255, 107, 107, 0.15);
+            --yellow: #FFD93D;
+            --yellow-dim: rgba(255, 217, 61, 0.15);
+            --green: #E85A00;
+            --green-dim: rgba(232, 90, 0, 0.15);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: var(--navy);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 1rem 2rem;
+            background: rgba(10, 22, 40, 0.92);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(232, 90, 0, 0.08);
+        }
+        nav .nav-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo { display: flex; align-items: center; text-decoration: none; }
+        .logo img { height: 34px; width: auto; object-fit: contain; }
+        .nav-links { display: flex; gap: 0.5rem; align-items: center; }
+        .nav-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .nav-links a:hover { color: var(--white); background: rgba(232, 90, 0, 0.08); }
+        .nav-links a.active { color: var(--teal); background: rgba(232, 90, 0, 0.08); }
+
+        /* LAYOUT */
+        .app-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 5.5rem 2rem 3rem;
+            min-height: 100vh;
+        }
+
+        /* PAGE HEADER */
+        .page-header { margin-bottom: 2rem; }
+        .page-header h1 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.25rem;
+        }
+        .page-header p { color: var(--gray); font-size: 0.95rem; }
+
+        /* BREADCRUMB */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.82rem;
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+        .breadcrumb a { color: var(--gray); text-decoration: none; }
+        .breadcrumb a:hover { color: var(--teal); }
+        .breadcrumb .sep { opacity: 0.4; }
+        .breadcrumb .current { color: var(--white); }
+
+        /* CARDS */
+        .card {
+            background: var(--deep);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.25rem;
+        }
+        .card-title {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+        .card-subtitle {
+            font-size: 0.82rem;
+            color: var(--gray);
+            margin-top: 0.2rem;
+        }
+
+        /* TOGGLE */
+        .toggle-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.9rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .toggle-row:last-child { border-bottom: none; }
+        .toggle-info .toggle-label {
+            font-size: 0.92rem;
+            font-weight: 500;
+            color: var(--white);
+            display: block;
+        }
+        .toggle-info .toggle-desc {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 0.15rem;
+        }
+        .toggle {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+        .toggle input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider {
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            cursor: pointer;
+            transition: background 0.25s;
+        }
+        .toggle-slider::before {
+            content: '';
+            position: absolute;
+            left: 3px;
+            top: 3px;
+            width: 18px;
+            height: 18px;
+            background: var(--gray);
+            border-radius: 50%;
+            transition: all 0.25s;
+        }
+        .toggle input:checked + .toggle-slider { background: rgba(232, 90, 0, 0.3); }
+        .toggle input:checked + .toggle-slider::before {
+            transform: translateX(20px);
+            background: var(--teal);
+        }
+
+        /* LEAD TIMES */
+        .lead-times-grid {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-top: 0.75rem;
+        }
+        .lead-time-chip {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--slate);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 0.4rem 0.75rem;
+            font-size: 0.82rem;
+            color: var(--white);
+        }
+        .lead-time-chip.active {
+            border-color: rgba(232, 90, 0, 0.4);
+            background: rgba(232, 90, 0, 0.08);
+        }
+        .lead-time-chip input[type=checkbox] { display: none; }
+        .lead-time-chip label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            user-select: none;
+        }
+        .lead-time-chip .check-icon {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            color: transparent;
+            transition: all 0.15s;
+        }
+        .lead-time-chip.active .check-icon {
+            background: var(--teal);
+            border-color: var(--teal);
+            color: #1a2d4a;
+        }
+
+        /* FREQUENCY SELECT */
+        select {
+            background: var(--slate);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--white);
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 0.88rem;
+            padding: 0.5rem 2rem 0.5rem 0.85rem;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='%238899AA' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            cursor: pointer;
+        }
+        select:focus { outline: 1px solid var(--teal); border-color: var(--teal); }
+
+        /* EMAIL TAGS */
+        .email-tag-wrap {
+            background: var(--slate);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 0.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            min-height: 42px;
+            cursor: text;
+        }
+        .email-tag-wrap:focus-within { border-color: var(--teal); }
+        .email-tag {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(232, 90, 0, 0.12);
+            border: 1px solid rgba(232, 90, 0, 0.25);
+            border-radius: 5px;
+            padding: 0.15rem 0.6rem;
+            font-size: 0.8rem;
+            color: var(--teal);
+        }
+        .email-tag button {
+            background: none;
+            border: none;
+            color: var(--teal);
+            cursor: pointer;
+            font-size: 14px;
+            line-height: 1;
+            padding: 0;
+            opacity: 0.7;
+        }
+        .email-tag button:hover { opacity: 1; }
+        .email-tag-input {
+            background: none;
+            border: none;
+            outline: none;
+            color: var(--white);
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 0.88rem;
+            flex: 1;
+            min-width: 180px;
+            padding: 0.1rem 0.4rem;
+        }
+        .email-hint { font-size: 0.78rem; color: var(--gray); margin-top: 0.4rem; }
+
+        /* VESSELS */
+        .vessel-list { display: flex; flex-direction: column; gap: 0.75rem; }
+        .vessel-row {
+            background: var(--slate);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        .vessel-row:hover { border-color: rgba(232, 90, 0, 0.15); }
+        .vessel-meta { flex: 1; min-width: 0; }
+        .vessel-name { font-weight: 600; font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .vessel-tags {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            margin-top: 0.3rem;
+        }
+        .vessel-tag {
+            font-size: 0.72rem;
+            color: var(--gray);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            padding: 0.1rem 0.5rem;
+        }
+        .vessel-cert-count {
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+        .vessel-cert-count.ok { color: var(--teal); }
+        .vessel-cert-count.warn { color: var(--yellow); }
+        .vessel-cert-count.danger { color: var(--red); }
+        .btn-icon {
+            background: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray);
+            border-radius: 7px;
+            padding: 0.35rem 0.7rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            font-family: 'IBM Plex Sans', sans-serif;
+            transition: all 0.2s;
+        }
+        .btn-icon:hover { border-color: var(--teal); color: var(--teal); }
+        .btn-danger { border-color: rgba(255, 107, 107, 0.3); }
+        .btn-danger:hover { border-color: var(--red); color: var(--red); }
+
+        /* CERT TABLE */
+        .cert-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        .cert-table th {
+            text-align: left;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .cert-table td {
+            padding: 0.65rem 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            color: var(--white);
+        }
+        .cert-table tr:last-child td { border-bottom: none; }
+        .cert-table tr:hover td { background: rgba(255,255,255,0.02); }
+        .cert-badge {
+            display: inline-block;
+            padding: 0.15rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .cert-badge.ok { background: var(--green-dim); color: var(--green); }
+        .cert-badge.warn { background: var(--yellow-dim); color: var(--yellow); }
+        .cert-badge.danger { background: var(--red-dim); color: var(--red); }
+        .cert-badge.expired { background: rgba(239,68,68,0.2); color: #ef4444; }
+
+        /* BUTTONS */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 600;
+            padding: 0.6rem 1.25rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: var(--teal);
+            color: #1a2d4a;
+        }
+        .btn-primary:hover { background: #00e8bc; }
+        .btn-secondary {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--white);
+        }
+        .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+
+        /* FORM INPUTS */
+        input[type=text], input[type=date], input[type=email] {
+            width: 100%;
+            background: var(--slate);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--white);
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 0.88rem;
+            padding: 0.55rem 0.85rem;
+        }
+        input[type=text]:focus, input[type=date]:focus, input[type=email]:focus {
+            outline: none;
+            border-color: var(--teal);
+        }
+        input[type=text]::placeholder, input[type=email]::placeholder { color: var(--gray); }
+        label { font-size: 0.82rem; color: var(--gray); display: block; margin-bottom: 0.35rem; }
+
+        /* MODAL */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-overlay.open { display: flex; }
+        .modal {
+            background: #243350;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 14px;
+            padding: 1.75rem;
+            width: 100%;
+            max-width: 480px;
+            margin: 1rem;
+        }
+        .modal h3 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+        }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+        .form-group { display: flex; flex-direction: column; }
+        .form-group.full { grid-column: 1 / -1; }
+        .modal-actions { display: flex; gap: 0.75rem; margin-top: 1.5rem; justify-content: flex-end; }
+
+        /* SAVE BAR */
+        .save-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 22, 40, 0.96);
+            border-top: 1px solid rgba(232, 90, 0, 0.15);
+            padding: 0.9rem 2rem;
+            z-index: 90;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            backdrop-filter: blur(12px);
+            transform: translateY(100%);
+            transition: transform 0.25s ease;
+        }
+        .save-bar.visible { transform: translateY(0); }
+        .save-bar-msg { font-size: 0.85rem; color: var(--gray); }
+        .save-bar-msg span { color: var(--yellow); }
+
+        /* ALERTS */
+        .alert-banner {
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+        }
+        .alert-banner.success { background: var(--green-dim); border: 1px solid rgba(232, 90, 0,0.25); color: var(--teal); }
+        .alert-banner.error { background: var(--red-dim); border: 1px solid rgba(255,107,107,0.25); color: var(--red); }
+        .alert-banner.info { background: rgba(0,180,216,0.1); border: 1px solid rgba(0,180,216,0.25); color: var(--cyan); }
+
+        /* HISTORY TABLE */
+        .history-list { display: flex; flex-direction: column; gap: 0; }
+        .history-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .history-row:last-child { border-bottom: none; }
+        .history-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-top: 0.45rem;
+            flex-shrink: 0;
+        }
+        .history-dot.certificate { background: var(--yellow); }
+        .history-dot.filing { background: var(--cyan); }
+        .history-subject { font-size: 0.85rem; color: var(--white); line-height: 1.4; }
+        .history-meta { font-size: 0.77rem; color: var(--gray); margin-top: 0.15rem; }
+
+        /* EMPTY STATE */
+        .empty-state {
+            text-align: center;
+            padding: 2.5rem 1rem;
+            color: var(--gray);
+        }
+        .empty-state .icon { font-size: 2.5rem; margin-bottom: 0.75rem; opacity: 0.5; }
+        .empty-state p { font-size: 0.9rem; }
+
+        /* SECTION DIVIDER */
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.75rem;
+            margin-top: 1.5rem;
+        }
+        .section-label:first-child { margin-top: 0; }
+
+        /* RESPONSIVE */
+        @media (max-width: 640px) {
+            nav { padding: 0.85rem 1rem; }
+            .app-container { padding: 5rem 1rem 5rem; }
+            .form-grid { grid-template-columns: 1fr; }
+            .page-header h1 { font-size: 1.4rem; }
+        }
+    </style>
+
+    <!-- PWA / Add to Home Screen -->
+    <meta name="theme-color" content="#1a2d4a">
+    <link rel="manifest" href="/manifest.json">
+    <!-- iOS PWA -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="CanalClear">
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512.png">
+  </head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="logo">
+            <img src="https://pub-629428d185ca4960a0a73c850d32294b.r2.dev/company_47541/images/9d5d2ef6-d9e0-40eb-ad15-df5e737cefc1.png" alt="CanalClear">
+        </a>
+        <div class="nav-links">
+            <a href="/app">Validator</a>
+            <a href="/filing">Filing</a>
+            <a href="/acp" id="acp-nav-link" style="display:flex;align-items:center;gap:0.35rem;">
+                <span id="acpNavDot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gray);flex-shrink:0;"></span>
+                ACP Auto-Filing
+            </a>
+            <a href="/dashboard">⚓ Fleet</a>
+            <a href="/settings/alerts" class="active">⚙️ Alerts</a>
+            <a href="/" data-i18n="appnav.home">Home</a>
+            <a href="/admin" id="admin-nav-link" style="display:none;color:#E85A00;background:rgba(232, 90, 0,0.1);border-radius:8px;padding:0.4rem 0.9rem;font-size:0.85rem;text-decoration:none;font-weight:600;">Admin</a>
+            <button id="logout-btn" onclick="logout()" style="background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.2);color:#FF6B6B;border-radius:8px;padding:0.4rem 0.9rem;font-size:0.85rem;font-family:inherit;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,107,107,0.2)'" onmouseout="this.style.background='rgba(255,107,107,0.1)'">Log out</button>
+        </div>
+    </div>
+</nav>
+
+<div class="app-container">
+
+    <div class="breadcrumb">
+        <a href="/app">Dashboard</a>
+        <span class="sep">›</span>
+        <span class="current">Alert Settings</span>
+    </div>
+
+    <div class="page-header">
+        <h1>🔔 Alert Settings</h1>
+        <p>Configure automated email notifications for certificate expiry and filing deadlines</p>
+    </div>
+
+    <div id="flash-msg"></div>
+
+    <!-- ── Notification toggles ── -->
+    <div class="card">
+        <div class="card-header">
+            <div>
+                <div class="card-title">Notification Categories</div>
+                <div class="card-subtitle">Choose which types of alerts to receive</div>
+            </div>
+            <label class="toggle" title="Master on/off switch">
+                <input type="checkbox" id="toggle-enabled" onchange="markDirty()">
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+
+        <div id="prefs-body">
+            <div class="toggle-row">
+                <div class="toggle-info">
+                    <span class="toggle-label">📋 Certificate Expiry Alerts</span>
+                    <span class="toggle-desc">IOPP, PCSOPEP, SMC, class certificates, and more</span>
+                </div>
+                <label class="toggle">
+                    <input type="checkbox" id="toggle-cert" onchange="markDirty()">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="toggle-row">
+                <div class="toggle-info">
+                    <span class="toggle-label">📅 Filing Deadline Reminders</span>
+                    <span class="toggle-desc">96h / 48h / 24h VUMPA filing window reminders</span>
+                </div>
+                <label class="toggle">
+                    <input type="checkbox" id="toggle-filing" onchange="markDirty()">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="toggle-row">
+                <div class="toggle-info">
+                    <span class="toggle-label">📡 Regulatory Update Alerts</span>
+                    <span class="toggle-desc">ACP Notices to Shipping relevant to your fleet</span>
+                </div>
+                <label class="toggle">
+                    <input type="checkbox" id="toggle-regulatory" onchange="markDirty()">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Lead times ── -->
+    <div class="card">
+        <div class="card-header">
+            <div>
+                <div class="card-title">Certificate Alert Lead Times</div>
+                <div class="card-subtitle">Get notified this many days before a certificate expires</div>
+            </div>
+        </div>
+        <div class="lead-times-grid" id="lead-times-grid">
+            <!-- populated by JS -->
+        </div>
+    </div>
+
+    <!-- ── Frequency ── -->
+    <div class="card">
+        <div class="card-header" style="margin-bottom:0.75rem;">
+            <div>
+                <div class="card-title">Alert Delivery</div>
+                <div class="card-subtitle">How often to bundle and send notifications</div>
+            </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+            <select id="freq-select" onchange="markDirty()" style="width:auto;">
+                <option value="immediate">Immediate (send as soon as detected)</option>
+                <option value="daily_digest">Daily Digest (one email per day)</option>
+                <option value="weekly_digest">Weekly Digest (one email per week)</option>
+            </select>
+            <span style="font-size:0.8rem;color:var(--gray);">Alerts run daily at 06:00 UTC</span>
+        </div>
+    </div>
+
+    <!-- ── Additional recipients ── -->
+    <div class="card">
+        <div class="card-header" style="margin-bottom:0.75rem;">
+            <div>
+                <div class="card-title">Additional Recipients</div>
+                <div class="card-subtitle">CC your operations team on all alerts</div>
+            </div>
+        </div>
+        <div class="email-tag-wrap" id="email-tag-wrap" onclick="document.getElementById('email-tag-input').focus()">
+            <input
+                type="text"
+                id="email-tag-input"
+                class="email-tag-input"
+                placeholder="Type email and press Enter..."
+                onkeydown="handleEmailInput(event)"
+                onblur="handleEmailBlur(event)"
+            >
+        </div>
+        <p class="email-hint">Press Enter or comma to add each email. Alerts will be sent to your account email + these addresses.</p>
+    </div>
+
+    <!-- ── Test alert ── -->
+    <div class="card" style="border-color:rgba(232, 90, 0,0.15);">
+        <div class="card-header" style="margin-bottom:0.5rem;">
+            <div>
+                <div class="card-title">🧪 Test Your Alerts</div>
+                <div class="card-subtitle">Sends a sample certificate expiry email to your account email</div>
+            </div>
+            <button class="btn btn-secondary" onclick="sendTestAlert()" id="test-btn">Send Test Email</button>
+        </div>
+    </div>
+
+    <!-- ── Vessels & Certificates ── -->
+    <div class="card">
+        <div class="card-header">
+            <div>
+                <div class="card-title">🚢 Fleet & Certificates</div>
+                <div class="card-subtitle">Track certificate expiry dates for each vessel</div>
+            </div>
+            <button class="btn btn-primary" onclick="openAddVessel()" style="font-size:0.82rem;padding:0.5rem 1rem;">+ Add Vessel</button>
+        </div>
+        <div id="vessel-list-wrap">
+            <div class="empty-state">
+                <div class="icon">🚢</div>
+                <p>Loading your fleet...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Alert History ── -->
+    <div class="card" style="margin-bottom:5rem;">
+        <div class="card-header">
+            <div>
+                <div class="card-title">📬 Alert History</div>
+                <div class="card-subtitle">Recent notifications sent to your team</div>
+            </div>
+            <button class="btn btn-secondary" onclick="loadHistory()" style="font-size:0.78rem;padding:0.4rem 0.85rem;">Refresh</button>
+        </div>
+        <div id="history-wrap">
+            <div class="empty-state">
+                <div class="icon">📬</div>
+                <p>No alerts sent yet. Alerts run daily — add vessels and certificates to get started.</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Save Bar -->
+<div class="save-bar" id="save-bar">
+    <span class="save-bar-msg">You have <span>unsaved changes</span></span>
+    <div style="display:flex;gap:0.75rem;">
+        <button class="btn btn-secondary" onclick="discardChanges()" style="font-size:0.82rem;">Discard</button>
+        <button class="btn btn-primary" onclick="savePreferences()" id="save-btn">Save Changes</button>
+    </div>
+</div>
+
+<!-- Add / Edit Vessel Modal -->
+<div class="modal-overlay" id="vessel-modal">
+    <div class="modal">
+        <h3 id="vessel-modal-title">Add Vessel</h3>
+        <div class="form-grid">
+            <div class="form-group full">
+                <label>Vessel Name *</label>
+                <input type="text" id="v-name" placeholder="e.g., MV Pacific Star">
+            </div>
+            <div class="form-group">
+                <label>IMO Number</label>
+                <input type="text" id="v-imo" placeholder="e.g., 9876543">
+            </div>
+            <div class="form-group">
+                <label>Flag State</label>
+                <input type="text" id="v-flag" placeholder="e.g., Panama">
+            </div>
+            <div class="form-group">
+                <label>Vessel Type</label>
+                <input type="text" id="v-type" placeholder="e.g., Bulk Carrier">
+            </div>
+            <div class="form-group">
+                <label>Classification Society</label>
+                <input type="text" id="v-class" placeholder="e.g., Lloyd's Register">
+            </div>
+        </div>
+        <div class="modal-actions">
+            <button class="btn btn-secondary" onclick="closeVesselModal()">Cancel</button>
+            <button class="btn btn-primary" onclick="saveVessel()">Save Vessel</button>
+        </div>
+    </div>
+</div>
+
+<!-- Add Certificate Modal -->
+<div class="modal-overlay" id="cert-modal">
+    <div class="modal">
+        <h3>Add Certificate</h3>
+        <div class="form-grid">
+            <div class="form-group full">
+                <label>Certificate Type *</label>
+                <select id="cert-type" style="width:100%;">
+                    <option value="iopp">IOPP Certificate</option>
+                    <option value="issc">ISSC (International Ship Security Certificate)</option>
+                    <option value="class_cert">Class Certificate</option>
+                    <option value="smc">Safety Management Certificate (SMC)</option>
+                    <option value="pcsopep">SOPEP / PCSOPEP</option>
+                    <option value="pi_insurance">P&amp;I Insurance Certificate</option>
+                    <option value="load_line">Loadline Certificate</option>
+                    <option value="tonnage">International Tonnage Certificate</option>
+                    <option value="registry">Certificate of Registry</option>
+                    <option value="doc">Document of Compliance (DOC)</option>
+                    <option value="solas_safety">SOLAS Safety Certificate</option>
+                    <option value="marpol_annex_v">MARPOL Annex V Plan</option>
+                    <option value="marpol_annex_vi">MARPOL Annex VI (IAPP)</option>
+                    <option value="flag_state">Flag State Certificate</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Certificate Number</label>
+                <input type="text" id="cert-number" placeholder="Optional">
+            </div>
+            <div class="form-group">
+                <label>Issuing Body</label>
+                <input type="text" id="cert-issuer" placeholder="e.g., Lloyd's Register">
+            </div>
+            <div class="form-group">
+                <label>Issue Date</label>
+                <input type="date" id="cert-issued">
+            </div>
+            <div class="form-group">
+                <label>Expiry Date *</label>
+                <input type="date" id="cert-expiry">
+            </div>
+            <div class="form-group full">
+                <label>Notes</label>
+                <input type="text" id="cert-notes" placeholder="Optional notes">
+            </div>
+        </div>
+        <div class="modal-actions">
+            <button class="btn btn-secondary" onclick="closeCertModal()">Cancel</button>
+            <button class="btn btn-primary" onclick="saveCertificate()">Add Certificate</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const CERT_LABELS = {
+    iopp: 'IOPP Certificate',
+    issc: 'ISSC',
+    class_cert: 'Class Certificate',
+    smc: 'Safety Mgmt Certificate',
+    pcsopep: 'SOPEP / PCSOPEP',
+    pi_insurance: 'P&I Insurance',
+    load_line: 'Loadline',
+    tonnage: 'Tonnage Certificate',
+    registry: 'Certificate of Registry',
+    doc: 'DOC',
+    solas_safety: 'SOLAS Safety',
+    marpol_annex_v: 'MARPOL V',
+    marpol_annex_vi: 'MARPOL VI (IAPP)',
+    flag_state: 'Flag State',
+    other: 'Certificate',
+};
+
+const AVAILABLE_LEAD_TIMES = [
+    { days: 120, label: '120 days' },
+    { days: 90,  label: '90 days' },
+    { days: 60,  label: '60 days' },
+    { days: 30,  label: '30 days' },
+    { days: 14,  label: '14 days' },
+    { days: 7,   label: '7 days' },
+    { days: 3,   label: '3 days' },
+    { days: 1,   label: '1 day' },
+    { days: 0,   label: 'On expiry' },
+];
+
+let state = {
+    prefs: null,
+    vessels: [],
+    additionalEmails: [],
+    selectedLeadTimes: [30, 14, 7, 0],
+    dirty: false,
+    editingVesselId: null,
+    certForVesselId: null,
+};
+
+// ── Auth ──────────────────────────────────────────────────────────────────────
+// Server-side requireAuth + requireSubscription already validated this user
+// before serving this page. This client-side check is secondary.
+async function checkAuth() {
+    try {
+        const r = await fetch('/api/auth/me', { credentials: 'include' });
+        if (!r.ok) {
+            if (r.status === 401) { window.location.href = '/login'; return null; }
+            console.warn('[Alerts] Auth check returned', r.status, '— server-side auth already passed.');
+            return {};
+        }
+        const d = await r.json();
+        if (!d.success) { window.location.href = '/login'; return null; }
+        if (!d.is_active) { window.location.href = '/pricing?reason=expired'; return null; }
+        if (d.user && d.user.is_admin) {
+            document.getElementById('admin-nav-link').style.display = 'inline-block';
+        }
+        return d.user;
+    } catch (e) {
+        console.warn('[Alerts] Auth check failed (network error); server-side auth already passed.');
+        return {};
+    }
+}
+
+function logout() {
+    fetch('/api/auth/logout', { method: 'POST', credentials: 'include' })
+        .finally(() => { document.cookie = 'cc_token=; Max-Age=0; path=/'; window.location.href = '/login'; });
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+async function init() {
+    const user = await checkAuth();
+    if (!user) return;
+
+    renderLeadTimePicker([30, 14, 7, 0]);
+    await Promise.all([loadPreferences(), loadVessels(), loadHistory()]);
+}
+
+// ── Preferences ───────────────────────────────────────────────────────────────
+async function loadPreferences() {
+    try {
+        const r = await fetch('/api/alerts/preferences', { credentials: 'include' });
+        const d = await r.json();
+        if (!d.success) throw new Error(d.message);
+        applyPrefs(d.preferences);
+    } catch (err) {
+        showFlash('error', 'Failed to load preferences: ' + err.message);
+    }
+}
+
+function applyPrefs(prefs) {
+    state.prefs = prefs;
+    document.getElementById('toggle-enabled').checked = prefs.enabled !== false;
+    document.getElementById('toggle-cert').checked = prefs.cert_alerts !== false;
+    document.getElementById('toggle-filing').checked = prefs.filing_alerts !== false;
+    document.getElementById('toggle-regulatory').checked = prefs.regulatory_alerts !== false;
+    document.getElementById('freq-select').value = prefs.frequency || 'immediate';
+
+    const lt = Array.isArray(prefs.lead_times) ? prefs.lead_times : [30, 14, 7, 0];
+    state.selectedLeadTimes = lt;
+    renderLeadTimePicker(lt);
+
+    state.additionalEmails = Array.isArray(prefs.additional_emails) ? prefs.additional_emails : [];
+    renderEmailTags();
+    state.dirty = false;
+}
+
+async function savePreferences() {
+    const btn = document.getElementById('save-btn');
+    btn.textContent = 'Saving…';
+    btn.disabled = true;
+    try {
+        const body = {
+            enabled:           document.getElementById('toggle-enabled').checked,
+            cert_alerts:       document.getElementById('toggle-cert').checked,
+            filing_alerts:     document.getElementById('toggle-filing').checked,
+            regulatory_alerts: document.getElementById('toggle-regulatory').checked,
+            frequency:         document.getElementById('freq-select').value,
+            lead_times:        state.selectedLeadTimes,
+            additional_emails: state.additionalEmails,
+        };
+        const r = await fetch('/api/alerts/preferences', {
+            method: 'PUT',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body),
+        });
+        const d = await r.json();
+        if (!d.success) throw new Error(d.message);
+        state.dirty = false;
+        hideSaveBar();
+        showFlash('success', '✅ Alert preferences saved.');
+    } catch (err) {
+        showFlash('error', 'Save failed: ' + err.message);
+    } finally {
+        btn.textContent = 'Save Changes';
+        btn.disabled = false;
+    }
+}
+
+function discardChanges() {
+    if (state.prefs) applyPrefs(state.prefs);
+    state.dirty = false;
+    hideSaveBar();
+}
+
+// ── Lead times ────────────────────────────────────────────────────────────────
+function renderLeadTimePicker(activeTimes) {
+    const grid = document.getElementById('lead-times-grid');
+    grid.innerHTML = AVAILABLE_LEAD_TIMES.map(lt => {
+        const active = activeTimes.includes(lt.days);
+        return `
+        <div class="lead-time-chip ${active ? 'active' : ''}" id="lt-chip-${lt.days}" onclick="toggleLeadTime(${lt.days})">
+            <label style="cursor:pointer;display:flex;align-items:center;gap:0.4rem;">
+                <span class="check-icon">${active ? '✓' : ''}</span>
+                ${lt.label}
+            </label>
+        </div>`;
+    }).join('');
+}
+
+function toggleLeadTime(days) {
+    const idx = state.selectedLeadTimes.indexOf(days);
+    if (idx >= 0) {
+        state.selectedLeadTimes.splice(idx, 1);
+    } else {
+        state.selectedLeadTimes.push(days);
+    }
+    renderLeadTimePicker(state.selectedLeadTimes);
+    markDirty();
+}
+
+// ── Email tags ────────────────────────────────────────────────────────────────
+function renderEmailTags() {
+    const wrap = document.getElementById('email-tag-wrap');
+    const input = document.getElementById('email-tag-input');
+    // Remove old tags
+    wrap.querySelectorAll('.email-tag').forEach(el => el.remove());
+    // Add tags before input
+    state.additionalEmails.forEach(email => {
+        const tag = document.createElement('div');
+        tag.className = 'email-tag';
+        tag.innerHTML = `<span>${email}</span><button type="button" onclick="removeEmail('${email.replace(/'/g, '')}')">&times;</button>`;
+        wrap.insertBefore(tag, input);
+    });
+}
+
+function handleEmailInput(e) {
+    if (e.key === 'Enter' || e.key === ',') {
+        e.preventDefault();
+        addEmail(e.target.value.trim().replace(/,$/, ''));
+        e.target.value = '';
+    }
+}
+
+function handleEmailBlur(e) {
+    const v = e.target.value.trim();
+    if (v) { addEmail(v); e.target.value = ''; }
+}
+
+function addEmail(email) {
+    if (!email) return;
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!re.test(email)) { showFlash('error', `Invalid email: ${email}`); return; }
+    if (state.additionalEmails.includes(email)) return;
+    state.additionalEmails.push(email);
+    renderEmailTags();
+    markDirty();
+}
+
+function removeEmail(email) {
+    state.additionalEmails = state.additionalEmails.filter(e => e !== email);
+    renderEmailTags();
+    markDirty();
+}
+
+// ── Dirty state ───────────────────────────────────────────────────────────────
+function markDirty() {
+    state.dirty = true;
+    document.getElementById('save-bar').classList.add('visible');
+}
+
+function hideSaveBar() {
+    document.getElementById('save-bar').classList.remove('visible');
+}
+
+// ── Flash message ─────────────────────────────────────────────────────────────
+function showFlash(type, msg, duration = 4000) {
+    const el = document.getElementById('flash-msg');
+    el.innerHTML = `<div class="alert-banner ${type}">${msg}</div>`;
+    if (duration) setTimeout(() => { el.innerHTML = ''; }, duration);
+}
+
+// ── Test alert ────────────────────────────────────────────────────────────────
+async function sendTestAlert() {
+    const btn = document.getElementById('test-btn');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    try {
+        const r = await fetch('/api/alerts/test', { method: 'POST', credentials: 'include' });
+        const d = await r.json();
+        if (d.sent) {
+            showFlash('success', `✅ Test email sent! Check your inbox.`);
+        } else {
+            showFlash('info', `ℹ️ ${d.message}`);
+        }
+    } catch (err) {
+        showFlash('error', 'Test failed: ' + err.message);
+    } finally {
+        btn.textContent = 'Send Test Email';
+        btn.disabled = false;
+    }
+}
+
+// ── Vessels ───────────────────────────────────────────────────────────────────
+async function loadVessels() {
+    try {
+        const r = await fetch('/api/vessels', { credentials: 'include' });
+        const d = await r.json();
+        if (!d.success) throw new Error(d.message);
+        state.vessels = d.vessels;
+        renderVessels();
+    } catch (err) {
+        document.getElementById('vessel-list-wrap').innerHTML =
+            `<div class="alert-banner error">Failed to load vessels: ${err.message}</div>`;
+    }
+}
+
+function renderVessels() {
+    const wrap = document.getElementById('vessel-list-wrap');
+    if (!state.vessels.length) {
+        wrap.innerHTML = `<div class="empty-state">
+            <div class="icon">🚢</div>
+            <p>No vessels yet. Add your first vessel to start tracking certificate expiry.</p>
+        </div>`;
+        return;
+    }
+
+    const rows = state.vessels.map(v => {
+        const certCount = parseInt(v.cert_count) || 0;
+        const nextExpiry = v.next_expiry ? new Date(v.next_expiry) : null;
+        const today = new Date();
+        today.setHours(0,0,0,0);
+        const daysLeft = nextExpiry ? Math.round((nextExpiry - today) / 86400000) : null;
+
+        let certStatus = 'ok';
+        let certLabel = certCount ? `${certCount} cert${certCount === 1 ? '' : 's'}` : 'No certs';
+        if (daysLeft !== null) {
+            if (daysLeft < 0) { certStatus = 'danger'; certLabel += ' · ⚠️ Expired'; }
+            else if (daysLeft <= 30) { certStatus = 'danger'; certLabel += ` · ${daysLeft}d to expiry`; }
+            else if (daysLeft <= 90) { certStatus = 'warn'; certLabel += ` · ${daysLeft}d to expiry`; }
+        }
+
+        const tags = [v.imo && `IMO ${v.imo}`, v.flag, v.type].filter(Boolean);
+
+        return `<div class="vessel-row" id="vessel-row-${v.id}">
+            <div class="vessel-meta">
+                <div class="vessel-name">${escHtml(v.name)}</div>
+                <div class="vessel-tags">${tags.map(t => `<span class="vessel-tag">${escHtml(t)}</span>`).join('')}</div>
+            </div>
+            <div class="vessel-cert-count ${certStatus}">${certLabel}</div>
+            <div style="display:flex;gap:0.5rem;flex-shrink:0;">
+                <button class="btn-icon" onclick="toggleCerts(${v.id})">📋 Certs</button>
+                <button class="btn-icon" onclick="openEditVessel(${v.id})">Edit</button>
+                <button class="btn-icon btn-danger" onclick="deleteVessel(${v.id})">✕</button>
+            </div>
+        </div>
+        <div class="vessel-certs-panel" id="certs-panel-${v.id}" style="display:none;background:#1a2d4a;border:1px solid rgba(255,255,255,0.06);border-radius:0 0 10px 10px;margin-top:-0.75rem;margin-bottom:0.75rem;padding:0.75rem;"></div>`;
+    }).join('');
+
+    wrap.innerHTML = `<div class="vessel-list">${rows}</div>`;
+}
+
+async function toggleCerts(vesselId) {
+    const panel = document.getElementById(`certs-panel-${vesselId}`);
+    if (panel.style.display === 'block') {
+        panel.style.display = 'none';
+        return;
+    }
+    panel.style.display = 'block';
+    panel.innerHTML = '<p style="color:var(--gray);font-size:0.83rem;padding:0.5rem;">Loading...</p>';
+    try {
+        const r = await fetch(`/api/vessels/${vesselId}/certificates`, { credentials: 'include' });
+        const d = await r.json();
+        if (!d.success) throw new Error(d.message);
+        renderCertsPanel(vesselId, d.certificates);
+    } catch (err) {
+        panel.innerHTML = `<p style="color:var(--red);font-size:0.83rem;">${err.message}</p>`;
+    }
+}
+
+function renderCertsPanel(vesselId, certs) {
+    const panel = document.getElementById(`certs-panel-${vesselId}`);
+    const tableRows = certs.map(c => {
+        const days = parseInt(c.days_until_expiry);
+        let badgeClass = 'ok', badgeText = `${days}d`;
+        if (days < 0) { badgeClass = 'expired'; badgeText = 'Expired'; }
+        else if (days <= 7) { badgeClass = 'danger'; }
+        else if (days <= 30) { badgeClass = 'warn'; }
+        else if (days <= 90) { badgeClass = 'warn'; }
+        const expiryFmt = new Date(c.expiry_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        return `<tr>
+            <td>${CERT_LABELS[c.cert_type] || c.cert_type}</td>
+            <td style="color:var(--gray);">${c.cert_number || '—'}</td>
+            <td>${expiryFmt}</td>
+            <td><span class="cert-badge ${badgeClass}">${badgeText}</span></td>
+            <td>
+                <button class="btn-icon btn-danger" onclick="deleteCert(${vesselId}, ${c.id})" style="padding:0.2rem 0.5rem;font-size:0.75rem;">✕</button>
+            </td>
+        </tr>`;
+    }).join('');
+
+    panel.innerHTML = `
+        ${certs.length ? `
+        <table class="cert-table">
+            <thead><tr><th>Type</th><th>Number</th><th>Expires</th><th>Status</th><th></th></tr></thead>
+            <tbody>${tableRows}</tbody>
+        </table>` : '<p style="color:var(--gray);font-size:0.83rem;padding:0.25rem 0;">No certificates tracked yet.</p>'}
+        <button class="btn btn-secondary" onclick="openAddCert(${vesselId})" style="margin-top:0.75rem;font-size:0.8rem;padding:0.4rem 0.9rem;">+ Add Certificate</button>
+    `;
+}
+
+// ── Vessel CRUD ───────────────────────────────────────────────────────────────
+function openAddVessel() {
+    state.editingVesselId = null;
+    document.getElementById('vessel-modal-title').textContent = 'Add Vessel';
+    ['v-name','v-imo','v-flag','v-type','v-class'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('vessel-modal').classList.add('open');
+}
+
+function openEditVessel(id) {
+    const v = state.vessels.find(x => x.id === id);
+    if (!v) return;
+    state.editingVesselId = id;
+    document.getElementById('vessel-modal-title').textContent = 'Edit Vessel';
+    document.getElementById('v-name').value = v.name || '';
+    document.getElementById('v-imo').value = v.imo || '';
+    document.getElementById('v-flag').value = v.flag || '';
+    document.getElementById('v-type').value = v.type || '';
+    document.getElementById('v-class').value = v.class_society || '';
+    document.getElementById('vessel-modal').classList.add('open');
+}
+
+function closeVesselModal() {
+    document.getElementById('vessel-modal').classList.remove('open');
+}
+
+async function saveVessel() {
+    const name = document.getElementById('v-name').value.trim();
+    if (!name) { showFlash('error', 'Vessel name is required.'); return; }
+    const body = {
+        name,
+        imo:           document.getElementById('v-imo').value.trim() || undefined,
+        flag:          document.getElementById('v-flag').value.trim() || undefined,
+        type:          document.getElementById('v-type').value.trim() || undefined,
+        class_society: document.getElementById('v-class').value.trim() || undefined,
+    };
+    try {
+        let r, d;
+        if (state.editingVesselId) {
+            r = await fetch(`/api/vessels/${state.editingVesselId}`, {
+                method: 'PATCH', credentials: 'include',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body),
+            });
+        } else {
+            r = await fetch('/api/vessels', {
+                method: 'POST', credentials: 'include',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body),
+            });
+        }
+        d = await r.json();
+        if (!d.success) throw new Error(d.message);
+        closeVesselModal();
+        await loadVessels();
+        showFlash('success', state.editingVesselId ? '✅ Vessel updated.' : '✅ Vessel added.');
+    } catch (err) {
+        showFlash('error', 'Error: ' + err.message);
+    }
+}
+
+async function deleteVessel(id) {
+    const v = state.vessels.find(x => x.id === id);
+    if (!confirm(`Delete ${v ? v.name : 'vessel'}? This will also remove all its certificates.`)) return;
+    try {
+        const r = await fetch(`/api/vessels/${id}`, { method: 'DELETE', credentials: 'include' });
+        const d = await r.json();
+        if (!d.success) throw new Error(d.message);
+        await loadVessels();
+        showFlash('success', '✅ Vessel removed.');
+    } catch (err) {
+        showFlash('error', 'Delete failed: ' + err.message);
+    }
+}
+
+// ── Certificate CRUD ──────────────────────────────────────────────────────────
+function openAddCert(vesselId) {
+    state.certForVesselId = vesselId;
+    document.getElementById('cert-type').value = 'iopp';
+    ['cert-number','cert-issuer','cert-issued','cert-expiry','cert-notes'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('cert-modal').classList.add('open');
+}
+
+function closeCertModal() {
+    document.getElementById('cert-modal').classList.remove('open');
+}
+
+async function saveCertificate() {
+    const expiry = document.getElementById('cert-expiry').value;
+    if (!expiry) { showFlash('error', 'Expiry date is required.'); return; }
+    const body = {
+        cert_type:   document.getElementById('cert-type').value,
+        cert_number: document.getElementById('cert-number').value.trim() || undefined,
+        issuing_body:document.getElementById('cert-issuer').value.trim() || undefined,
+        issued_date: document.getElementById('cert-issued').value || undefined,
+        expiry_date: expiry,
+        notes:       document.getElementById('cert-notes').value.trim() || undefined,
+    };
+    try {
+        const r = await fetch(`/api/vessels/${state.certForVesselId}/certificates`, {
+            method: 'POST', credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body),
+        });
+        const d = await r.json();
+        if (!d.success) throw new Error(d.message);
+        closeCertModal();
+        await loadVessels();
+        // Refresh certs panel if open
+        toggleCerts(state.certForVesselId);
+        setTimeout(() => toggleCerts(state.certForVesselId), 100);
+        showFlash('success', '✅ Certificate added.');
+    } catch (err) {
+        showFlash('error', 'Error: ' + err.message);
+    }
+}
+
+async function deleteCert(vesselId, certId) {
+    if (!confirm('Remove this certificate?')) return;
+    try {
+        const r = await fetch(`/api/vessels/${vesselId}/certificates/${certId}`, {
+            method: 'DELETE', credentials: 'include',
+        });
+        const d = await r.json();
+        if (!d.success) throw new Error(d.message);
+        await loadVessels();
+        // Refresh panel
+        const panel = document.getElementById(`certs-panel-${vesselId}`);
+        if (panel && panel.style.display === 'block') {
+            const cr = await fetch(`/api/vessels/${vesselId}/certificates`, { credentials: 'include' });
+            const cd = await cr.json();
+            if (cd.success) renderCertsPanel(vesselId, cd.certificates);
+        }
+        showFlash('success', '✅ Certificate removed.');
+    } catch (err) {
+        showFlash('error', 'Delete failed: ' + err.message);
+    }
+}
+
+// ── History ───────────────────────────────────────────────────────────────────
+async function loadHistory() {
+    try {
+        const r = await fetch('/api/alerts/history', { credentials: 'include' });
+        const d = await r.json();
+        if (!d.success) throw new Error(d.message);
+        renderHistory(d.history);
+    } catch (err) {
+        document.getElementById('history-wrap').innerHTML =
+            `<div class="alert-banner error">Failed: ${err.message}</div>`;
+    }
+}
+
+function renderHistory(items) {
+    const wrap = document.getElementById('history-wrap');
+    if (!items.length) {
+        wrap.innerHTML = `<div class="empty-state">
+            <div class="icon">📬</div>
+            <p>No alerts sent yet. Alerts run daily — add vessels and certificates to get started.</p>
+        </div>`;
+        return;
+    }
+    const rows = items.slice(0, 25).map(item => {
+        const ts = new Date(item.sent_at).toLocaleString('en-US', {
+            month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit',
+        });
+        return `<div class="history-row">
+            <div class="history-dot ${item.alert_category}"></div>
+            <div>
+                <div class="history-subject">${escHtml(item.subject || item.alert_category)}</div>
+                <div class="history-meta">Sent to ${escHtml(item.recipient_email)} · ${ts}</div>
+            </div>
+        </div>`;
+    }).join('');
+    wrap.innerHTML = `<div class="history-list">${rows}</div>`;
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function escHtml(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// Close modals on overlay click
+document.getElementById('vessel-modal').addEventListener('click', e => {
+    if (e.target === document.getElementById('vessel-modal')) closeVesselModal();
+});
+document.getElementById('cert-modal').addEventListener('click', e => {
+    if (e.target === document.getElementById('cert-modal')) closeCertModal();
+});
+
+// ── Kickoff ───────────────────────────────────────────────────────────────────
+init();
+</script>
+
+<script src="/js/pwa-manager.js"></script>
+<script src="/js/whatsapp-button.js"></script>
+</body>
+</html>

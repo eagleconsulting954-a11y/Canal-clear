@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Batch Filing — CanalClear</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --navy:       #1a2d4a;
+      --deep:       #142238;
+      --slate:      #243350;
+      --teal:       #E85A00;
+      --teal-dim:   rgba(232, 90, 0, 0.15);
+      --cyan:       #00B4D8;
+      --white:      #ffffff;
+      --gray:       #6b7c93;
+      --light-gray: #8fa3b8;
+      --red:        #FF6B6B;
+      --red-dim:    rgba(255, 107, 107, 0.15);
+      --yellow:     #FFD93D;
+      --yellow-dim: rgba(255, 217, 61, 0.15);
+      --green:      #4CAF82;
+      --green-dim:  rgba(76, 175, 130, 0.15);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'IBM Plex Sans', sans-serif; background: var(--navy); color: var(--white); line-height: 1.6; overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      padding: 1rem 2rem;
+      background: rgba(10, 22, 40, 0.92);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(232, 90, 0, 0.08);
+    }
+    nav .nav-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .logo { display: flex; align-items: center; text-decoration: none; }
+    .logo img { height: 34px; width: auto; object-fit: contain; }
+    .nav-links { display: flex; gap: 0.5rem; align-items: center; }
+    .nav-links a {
+      color: var(--gray); text-decoration: none; font-size: 0.9rem;
+      padding: 0.5rem 1rem; border-radius: 8px; transition: all 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); background: rgba(232, 90, 0, 0.08); }
+    .nav-links a.active { color: var(--teal); background: rgba(232, 90, 0, 0.08); }
+
+    /* LAYOUT */
+    .app-container { max-width: 1200px; margin: 0 auto; padding: 5.5rem 2rem 3rem; min-height: 100vh; }
+
+    /* PAGE HEADER */
+    .page-header { margin-bottom: 2rem; }
+    .page-header h1 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.25rem; }
+    .page-header p { color: var(--gray); font-size: 0.95rem; }
+
+    /* STEP CARDS */
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; margin-bottom: 2rem; }
+    .step-card {
+      background: var(--deep); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px; padding: 1.5rem;
+    }
+    .step-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--teal-dim); color: var(--teal); font-weight: 700; font-size: 0.85rem;
+      margin-bottom: 0.75rem;
+    }
+    .step-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .step-card p { font-size: 0.875rem; color: var(--gray); }
+
+    /* UPLOAD PANEL */
+    .upload-panel {
+      background: var(--deep); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px; padding: 2rem; margin-bottom: 2rem;
+    }
+    .panel-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem; }
+    .panel-title span { font-size: 1.25rem; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+
+    label { display: block; font-size: 0.85rem; color: var(--light-gray); margin-bottom: 0.4rem; }
+    select, input[type="text"] {
+      width: 100%; background: var(--slate); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; color: var(--white); font-family: inherit; font-size: 0.9rem;
+      padding: 0.65rem 0.9rem; appearance: none; outline: none; transition: border 0.2s;
+    }
+    select:focus, input[type="text"]:focus { border-color: var(--teal); }
+
+    /* DROP ZONE */
+    .drop-zone {
+      border: 2px dashed rgba(255,255,255,0.12); border-radius: 10px;
+      padding: 2.5rem; text-align: center; cursor: pointer;
+      transition: all 0.2s; position: relative; background: rgba(255,255,255,0.02);
+    }
+    .drop-zone:hover, .drop-zone.dragover { border-color: var(--teal); background: var(--teal-dim); }
+    .drop-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+    .drop-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .drop-text { font-size: 0.95rem; color: var(--light-gray); }
+    .drop-text strong { color: var(--white); }
+    .drop-text small { display: block; margin-top: 0.25rem; font-size: 0.8rem; color: var(--gray); }
+    .file-chosen { margin-top: 0.75rem; font-size: 0.875rem; color: var(--teal); font-weight: 500; }
+
+    /* TEMPLATE LINKS */
+    .template-links { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.25rem; }
+    .template-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.4rem 0.85rem; border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.12); background: var(--slate);
+      color: var(--light-gray); font-size: 0.8rem; text-decoration: none;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .template-link:hover { border-color: var(--teal); color: var(--teal); background: var(--teal-dim); }
+
+    /* BUTTONS */
+    .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.7rem 1.5rem; border-radius: 8px; border: none; font-family: inherit; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+    .btn-primary { background: var(--teal); color: var(--white); }
+    .btn-primary:hover { background: #d45200; }
+    .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-ghost { background: transparent; border: 1px solid rgba(255,255,255,0.15); color: var(--light-gray); }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.3); color: var(--white); }
+    .btn-sm { padding: 0.4rem 0.85rem; font-size: 0.8rem; }
+
+    /* STATUS BANNER */
+    .status-banner {
+      border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 1.5rem;
+      display: none; align-items: center; gap: 0.75rem; font-size: 0.9rem;
+    }
+    .status-banner.show { display: flex; }
+    .status-banner.loading { background: rgba(0,180,216,0.12); border: 1px solid rgba(0,180,216,0.25); color: var(--cyan); }
+    .status-banner.error   { background: var(--red-dim);    border: 1px solid rgba(255,107,107,0.3); color: var(--red); }
+    .status-banner.success { background: var(--green-dim);  border: 1px solid rgba(76,175,130,0.3); color: var(--green); }
+    .spinner { width: 18px; height: 18px; border: 2px solid rgba(0,180,216,0.3); border-top-color: var(--cyan); border-radius: 50%; animation: spin 0.8s linear infinite; flex-shrink: 0; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* SUMMARY STATS */
+    .summary-bar { display: none; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+    .summary-bar.show { display: grid; }
+    .stat-card { background: var(--deep); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 1rem 1.25rem; }
+    .stat-label { font-size: 0.75rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem; }
+    .stat-val { font-size: 1.6rem; font-weight: 700; }
+    .stat-val.green { color: var(--green); }
+    .stat-val.red   { color: var(--red); }
+    .stat-val.yellow{ color: var(--yellow); }
+    .stat-val.cyan  { color: var(--cyan); }
+
+    /* RESULTS TABLE */
+    .results-section { display: none; background: var(--deep); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; margin-bottom: 2rem; overflow: hidden; }
+    .results-section.show { display: block; }
+    .results-header { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.06); flex-wrap: wrap; gap: 1rem; }
+    .results-header h2 { font-size: 1rem; font-weight: 600; }
+    .export-actions { display: flex; gap: 0.5rem; }
+
+    .results-table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    thead th {
+      background: rgba(255,255,255,0.03); color: var(--gray);
+      font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+      padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.06);
+      white-space: nowrap;
+    }
+    tbody tr { border-bottom: 1px solid rgba(255,255,255,0.04); transition: background 0.15s; }
+    tbody tr:hover { background: rgba(255,255,255,0.03); }
+    tbody td { padding: 0.75rem 1rem; vertical-align: middle; }
+
+    /* Status badges */
+    .badge { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.25rem 0.6rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; white-space: nowrap; }
+    .badge-pass   { background: var(--green-dim); color: var(--green); }
+    .badge-warn   { background: var(--yellow-dim); color: var(--yellow); }
+    .badge-fail   { background: var(--red-dim); color: var(--red); }
+    .badge-error  { background: rgba(150,150,150,0.15); color: var(--gray); }
+
+    /* Score bar */
+    .score-bar { width: 80px; height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; display: inline-block; vertical-align: middle; position: relative; overflow: hidden; }
+    .score-fill { height: 100%; border-radius: 3px; transition: width 0.3s; }
+    .score-num { font-weight: 700; font-size: 0.875rem; min-width: 2rem; display: inline-block; }
+
+    /* Issue tags */
+    .issues-cell { max-width: 300px; }
+    .issue-tag { display: inline-block; padding: 0.15rem 0.45rem; border-radius: 4px; font-size: 0.72rem; margin: 1px; background: var(--red-dim); color: var(--red); }
+    .warn-tag  { background: var(--yellow-dim); color: var(--yellow); }
+
+    /* Detail drawer */
+    .detail-row { display: none; }
+    .detail-row.open { display: table-row; }
+    .detail-cell { padding: 0; background: rgba(255,255,255,0.02); }
+    .detail-inner { padding: 1rem 1.5rem; }
+    .checklist-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0.5rem; }
+    .check-item { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.5rem 0.75rem; border-radius: 6px; font-size: 0.8rem; }
+    .check-item.pass   { background: var(--green-dim); }
+    .check-item.warn   { background: var(--yellow-dim); }
+    .check-item.fail   { background: var(--red-dim); }
+    .check-icon { font-size: 0.9rem; flex-shrink: 0; margin-top: 1px; }
+    .check-name { font-weight: 600; margin-bottom: 0.1rem; }
+    .check-msg  { opacity: 0.8; font-size: 0.75rem; }
+
+    /* Save all button area */
+    .save-area { padding: 1rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .save-area p { font-size: 0.875rem; color: var(--gray); }
+    .save-notice { font-size: 0.8rem; color: var(--green); margin-top: 0.35rem; display: none; }
+
+    /* Past jobs */
+    .past-jobs-section { background: var(--deep); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; overflow: hidden; }
+    .past-jobs-section.empty { display: none; }
+    .past-jobs-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 1rem; font-weight: 600; }
+    .job-row { display: flex; align-items: center; gap: 1rem; padding: 0.875rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.04); flex-wrap: wrap; }
+    .job-row:last-child { border-bottom: none; }
+    .job-waterway { font-size: 0.8rem; padding: 0.2rem 0.6rem; border-radius: 12px; background: var(--teal-dim); color: var(--teal); font-weight: 600; white-space: nowrap; }
+    .job-meta { flex: 1; min-width: 0; }
+    .job-name { font-size: 0.9rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .job-stats { font-size: 0.78rem; color: var(--gray); margin-top: 0.15rem; }
+    .job-actions { display: flex; gap: 0.4rem; flex-shrink: 0; }
+  </style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo"><img src="/CanalClear_Logo.png" alt="CanalClear"></a>
+    <div class="nav-links">
+      <a href="/dashboard.html">Dashboard</a>
+      <a href="/batch.html" class="active">Batch Filing</a>
+      <a href="/app.html">New Filing</a>
+      <a href="/logout" style="color:var(--gray);">Sign out</a>
+    </div>
+  </div>
+</nav>
+
+<div class="app-container">
+  <div class="page-header">
+    <h1>⚡ Batch Filing</h1>
+    <p>Validate up to 500 vessels at once. Upload a CSV or Excel file — we run each vessel through the correct waterway validator.</p>
+  </div>
+
+  <!-- Authority Portals -->
+  <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.5rem;align-items:center;">
+    <span style="font-size:0.78rem;color:var(--gray);font-weight:600;text-transform:uppercase;letter-spacing:0.1em;margin-right:0.25rem;">Authority Portals:</span>
+    <a href="https://serviceportal.pancanal.com/sp/faces/oracle/webcenter/portalapp/pages/public/login.jspx" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:0.35rem;padding:0.4rem 0.8rem;background:var(--slate);border:1px solid rgba(136,153,170,0.12);border-radius:6px;color:var(--gray);text-decoration:none;font-size:0.78rem;font-weight:500;white-space:nowrap;" onclick="gtag('event','portal_link_click',{waterway:'panama',destination:'acp_portal'})">🇵🇦 Panama Canal</a>
+    <a href="https://www.suezcanal.gov.eg/English/Services/Pages/ETransitRequest.aspx" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:0.35rem;padding:0.4rem 0.8rem;background:var(--slate);border:1px solid rgba(136,153,170,0.12);border-radius:6px;color:var(--gray);text-decoration:none;font-size:0.78rem;font-weight:500;white-space:nowrap;" onclick="gtag('event','portal_link_click',{waterway:'suez',destination:'sca_portal'})">🇪🇬 Suez Canal</a>
+    <a href="https://www.kiyiemniyeti.gov.tr/vessel_traffic_information_systems" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:0.35rem;padding:0.4rem 0.8rem;background:var(--slate);border:1px solid rgba(136,153,170,0.12);border-radius:6px;color:var(--gray);text-decoration:none;font-size:0.78rem;font-weight:500;white-space:nowrap;" onclick="gtag('event','portal_link_click',{waterway:'bosporus',destination:'kdgm_portal'})">🇹🇷 Bosporus</a>
+    <a href="https://digitalport.mpa.gov.sg/" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:0.35rem;padding:0.4rem 0.8rem;background:var(--slate);border:1px solid rgba(136,153,170,0.12);border-radius:6px;color:var(--gray);text-decoration:none;font-size:0.78rem;font-weight:500;white-space:nowrap;" onclick="gtag('event','portal_link_click',{waterway:'malacca',destination:'mpa_portal'})">🇸🇬 Malacca</a>
+    <a href="https://portal.samsa.com/login" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:0.35rem;padding:0.4rem 0.8rem;background:var(--slate);border:1px solid rgba(136,153,170,0.12);border-radius:6px;color:var(--gray);text-decoration:none;font-size:0.78rem;font-weight:500;white-space:nowrap;" onclick="gtag('event','portal_link_click',{waterway:'cape',destination:'samsa_portal'})">🇿🇦 Cape of Good Hope</a>
+  </div>
+
+  <!-- HOW IT WORKS STEPS -->
+  <div class="steps">
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <h3>Download template</h3>
+      <p>Pick your waterway and download the CSV template with the correct column headers and a sample row.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <h3>Fill in your fleet</h3>
+      <p>Add one vessel per row. Required fields: IMO, vessel name, estimated arrival, transit direction.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <h3>Upload &amp; validate</h3>
+      <p>Upload your file. Every row is validated against the real regulatory checks for your waterway.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <h3>Review &amp; export</h3>
+      <p>See compliance scores, issues, and warnings per vessel. Export results or save as individual filings.</p>
+    </div>
+  </div>
+
+  <!-- UPLOAD PANEL -->
+  <div class="upload-panel">
+    <div class="panel-title"><span>📁</span> Upload Fleet CSV</div>
+
+    <div class="form-row">
+      <div>
+        <label>Waterway</label>
+        <select id="waterway-select">
+          <option value="">— Select waterway —</option>
+          <option value="panama">Panama Canal (VUMPA)</option>
+          <option value="suez">Suez Canal (SCA)</option>
+          <option value="bosporus">Bosporus / Turkish Straits (SP-1)</option>
+          <option value="malacca">Strait of Malacca (STRAITREP)</option>
+          <option value="cape">Cape of Good Hope (ISPS / SAMSA)</option>
+        </select>
+      </div>
+      <div style="display:flex;align-items:flex-end;">
+        <div style="width:100%;">
+          <label>Template download</label>
+          <div class="template-links">
+            <span class="template-link" onclick="downloadTemplate('panama')">⬇ Panama</span>
+            <span class="template-link" onclick="downloadTemplate('suez')">⬇ Suez</span>
+            <span class="template-link" onclick="downloadTemplate('bosporus')">⬇ Bosporus</span>
+            <span class="template-link" onclick="downloadTemplate('malacca')">⬇ Malacca</span>
+            <span class="template-link" onclick="downloadTemplate('cape')">⬇ Cape</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DROP ZONE -->
+    <div class="drop-zone" id="drop-zone" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+      <input type="file" id="file-input" accept=".csv,.xlsx" onchange="handleFileSelect(event)">
+      <div class="drop-icon">📂</div>
+      <div class="drop-text">
+        <strong>Click to select</strong> or drag &amp; drop your CSV / Excel file here
+        <small>Max 500 vessels · 5 MB limit · CSV or .xlsx</small>
+      </div>
+      <div class="file-chosen" id="file-chosen"></div>
+    </div>
+
+    <div style="margin-top:1.25rem; display:flex; gap:1rem; align-items:center; flex-wrap:wrap;">
+      <button class="btn btn-primary" id="upload-btn" onclick="uploadBatch()" disabled>
+        ⚡ Validate Fleet
+      </button>
+      <span style="font-size:0.8rem;color:var(--gray);">Auth required — <a href="/login" style="color:var(--teal);">sign in</a> if not logged in</span>
+    </div>
+  </div>
+
+  <!-- STATUS BANNER -->
+  <div class="status-banner" id="status-banner">
+    <div class="spinner" id="banner-spinner"></div>
+    <span id="banner-msg"></span>
+  </div>
+
+  <!-- SUMMARY STATS -->
+  <div class="summary-bar" id="summary-bar">
+    <div class="stat-card"><div class="stat-label">Total Vessels</div><div class="stat-val cyan" id="stat-total">0</div></div>
+    <div class="stat-card"><div class="stat-label">Passed</div><div class="stat-val green" id="stat-pass">0</div></div>
+    <div class="stat-card"><div class="stat-label">Warnings</div><div class="stat-val yellow" id="stat-warn">0</div></div>
+    <div class="stat-card"><div class="stat-label">Failed</div><div class="stat-val red" id="stat-fail">0</div></div>
+    <div class="stat-card"><div class="stat-label">Avg Score</div><div class="stat-val cyan" id="stat-avg">—</div></div>
+  </div>
+
+  <!-- RESULTS TABLE -->
+  <div class="results-section" id="results-section">
+    <div class="results-header">
+      <h2 id="results-title">Validation Results</h2>
+      <div class="export-actions">
+        <button class="btn btn-ghost btn-sm" onclick="exportResults('csv')">⬇ CSV</button>
+        <button class="btn btn-ghost btn-sm" onclick="exportResults('xlsx')">⬇ Excel</button>
+      </div>
+    </div>
+    <div class="results-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Row</th>
+            <th>Vessel</th>
+            <th>IMO</th>
+            <th>Score</th>
+            <th>Status</th>
+            <th>Issues</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="results-tbody"></tbody>
+      </table>
+    </div>
+    <div class="save-area">
+      <div>
+        <p>Save validated vessels as individual draft filings in your dashboard.</p>
+        <p class="save-notice" id="save-notice"></p>
+      </div>
+      <button class="btn btn-primary" onclick="saveAllFilings()">💾 Save All as Drafts</button>
+    </div>
+  </div>
+
+  <!-- PAST BATCH JOBS -->
+  <div class="past-jobs-section" id="past-jobs-section">
+    <div class="past-jobs-header">📋 Recent Batch Jobs</div>
+    <div id="past-jobs-list"></div>
+  </div>
+</div>
+
+<script>
+  /* ── State ─────────────────────────────────────────────────────────────────── */
+  let currentJobId   = null;
+  let currentResults = [];
+  let selectedFile   = null;
+
+  /* ── Drag & drop ────────────────────────────────────────────────────────────── */
+  function handleDragOver(e) {
+    e.preventDefault();
+    document.getElementById('drop-zone').classList.add('dragover');
+  }
+  function handleDragLeave(e) {
+    document.getElementById('drop-zone').classList.remove('dragover');
+  }
+  function handleDrop(e) {
+    e.preventDefault();
+    document.getElementById('drop-zone').classList.remove('dragover');
+    const file = e.dataTransfer.files[0];
+    if (file) setFile(file);
+  }
+  function handleFileSelect(e) {
+    const file = e.target.files[0];
+    if (file) setFile(file);
+  }
+  function setFile(file) {
+    selectedFile = file;
+    document.getElementById('file-chosen').textContent = '📄 ' + file.name + ' (' + (file.size / 1024).toFixed(0) + ' KB)';
+    updateUploadBtn();
+  }
+
+  document.getElementById('waterway-select').addEventListener('change', updateUploadBtn);
+
+  function updateUploadBtn() {
+    const hasCanalSelection = !!document.getElementById('waterway-select').value;
+    const hasFile = !!selectedFile;
+    document.getElementById('upload-btn').disabled = !(hasCanalSelection && hasFile);
+  }
+
+  /* ── Template download ──────────────────────────────────────────────────────── */
+  function downloadTemplate(waterway) {
+    const link = document.createElement('a');
+    link.href = `/api/batch/template/${waterway}`;
+    link.download = `canalclear-batch-template-${waterway}.csv`;
+    link.click();
+    gtag('event', 'batch_template_download', { waterway });
+  }
+
+  /* ── Status banner ──────────────────────────────────────────────────────────── */
+  function showBanner(type, msg) {
+    const el = document.getElementById('status-banner');
+    el.className = 'status-banner show ' + type;
+    document.getElementById('banner-msg').textContent = msg;
+    document.getElementById('banner-spinner').style.display = type === 'loading' ? 'block' : 'none';
+  }
+  function hideBanner() {
+    document.getElementById('status-banner').className = 'status-banner';
+  }
+
+  /* ── Upload & validate ──────────────────────────────────────────────────────── */
+  async function uploadBatch() {
+    if (!selectedFile) return;
+    const waterway = document.getElementById('waterway-select').value;
+    if (!waterway) return;
+
+    const btn = document.getElementById('upload-btn');
+    btn.disabled = true;
+
+    showBanner('loading', `Validating fleet against ${waterwayLabel(waterway)} regulations…`);
+    document.getElementById('results-section').classList.remove('show');
+    document.getElementById('summary-bar').classList.remove('show');
+
+    try {
+      const fd = new FormData();
+      fd.append('file', selectedFile);
+      fd.append('waterway', waterway);
+
+      const resp = await fetch('/api/batch/validate', { method: 'POST', body: fd, credentials: 'include' });
+
+      if (resp.status === 401) {
+        showBanner('error', 'Please sign in to use batch filing.');
+        btn.disabled = false;
+        return;
+      }
+      if (resp.status === 403) {
+        showBanner('error', 'Active subscription required. Upgrade to use batch filing.');
+        btn.disabled = false;
+        return;
+      }
+
+      const data = await resp.json();
+      if (!data.success) {
+        showBanner('error', data.message || 'Validation failed.');
+        btn.disabled = false;
+        return;
+      }
+
+      currentJobId   = data.job_id;
+      currentResults = data.results || [];
+
+      renderSummary(data);
+      renderResultsTable(data.results);
+
+      hideBanner();
+      gtag('event', 'batch_validate', {
+        waterway,
+        row_count:  data.row_count,
+        pass_count: data.pass_count,
+        fail_count: data.fail_count,
+        avg_score:  data.avg_score,
+      });
+
+      loadPastJobs();
+    } catch (err) {
+      showBanner('error', 'Network error: ' + err.message);
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  /* ── Summary stats ──────────────────────────────────────────────────────────── */
+  function renderSummary(data) {
+    document.getElementById('stat-total').textContent = data.row_count;
+    document.getElementById('stat-pass').textContent  = data.pass_count;
+    document.getElementById('stat-warn').textContent  = data.warn_count;
+    document.getElementById('stat-fail').textContent  = data.fail_count;
+    document.getElementById('stat-avg').textContent   = data.avg_score + '/100';
+    document.getElementById('summary-bar').classList.add('show');
+  }
+
+  /* ── Results table ──────────────────────────────────────────────────────────── */
+  function scoreColor(score) {
+    if (score >= 80) return '#4CAF82';
+    if (score >= 50) return '#FFD93D';
+    return '#FF6B6B';
+  }
+
+  function renderResultsTable(results) {
+    const tbody = document.getElementById('results-tbody');
+    tbody.innerHTML = '';
+
+    results.forEach((r, idx) => {
+      const statusClass  = r.overall_status === 'passed' ? 'badge-pass'
+        : r.overall_status === 'warning' ? 'badge-warn'
+        : r.overall_status === 'error'   ? 'badge-error'
+        : 'badge-fail';
+      const statusLabel  = r.overall_status === 'passed' ? '✓ Passed'
+        : r.overall_status === 'warning' ? '⚠ Warning'
+        : r.overall_status === 'error'   ? '✕ Error'
+        : '✕ Failed';
+
+      const issues = (r.critical_errors || []).slice(0, 3).map(e =>
+        `<span class="issue-tag">${escHtml(e)}</span>`).join('');
+      const warns  = (r.warnings || []).slice(0, 2).map(w =>
+        `<span class="issue-tag warn-tag">${escHtml(w)}</span>`).join('');
+
+      const score = r.compliance_score || 0;
+      const color = scoreColor(score);
+
+      const row = document.createElement('tr');
+      row.id = `row-${idx}`;
+      row.innerHTML = `
+        <td style="color:var(--gray);font-size:0.8rem;">${r.row}</td>
+        <td><span style="font-weight:600;">${escHtml(r.vessel_name)}</span></td>
+        <td style="font-family:monospace;font-size:0.82rem;color:var(--light-gray);">${escHtml(r.imo_number)}</td>
+        <td>
+          <span class="score-num" style="color:${color};">${score}</span>
+          <span class="score-bar"><span class="score-fill" style="width:${score}%;background:${color};"></span></span>
+        </td>
+        <td><span class="badge ${statusClass}">${statusLabel}</span></td>
+        <td class="issues-cell">${issues}${warns}</td>
+        <td><button class="btn btn-ghost btn-sm" onclick="toggleDetail(${idx})">Details</button></td>
+      `;
+      tbody.appendChild(row);
+
+      // Detail drawer row
+      const detail = document.createElement('tr');
+      detail.id        = `detail-${idx}`;
+      detail.className = 'detail-row';
+      detail.innerHTML = `
+        <td colspan="7" class="detail-cell">
+          <div class="detail-inner" id="detail-inner-${idx}">
+            ${renderChecklist(r.checklist || [])}
+          </div>
+        </td>
+      `;
+      tbody.appendChild(detail);
+    });
+
+    document.getElementById('results-title').textContent = `Validation Results — ${results.length} vessel${results.length !== 1 ? 's' : ''}`;
+    document.getElementById('results-section').classList.add('show');
+  }
+
+  function renderChecklist(checklist) {
+    if (!checklist.length) return '<p style="color:var(--gray);font-size:0.85rem;">No checklist data available.</p>';
+    return `<div class="checklist-grid">${
+      checklist.map(c => `
+        <div class="check-item ${c.status}">
+          <span class="check-icon">${c.status === 'pass' ? '✓' : c.status === 'warning' ? '⚠' : '✕'}</span>
+          <div>
+            <div class="check-name">${escHtml(c.name || c.id)}</div>
+            <div class="check-msg">${escHtml(c.message || '')}</div>
+          </div>
+        </div>`).join('')
+    }</div>`;
+  }
+
+  function toggleDetail(idx) {
+    const row = document.getElementById(`detail-${idx}`);
+    row.classList.toggle('open');
+  }
+
+  /* ── Export results ──────────────────────────────────────────────────────────── */
+  function exportResults(format) {
+    if (!currentJobId) return;
+    window.open(`/api/batch/jobs/${currentJobId}/export?format=${format}`, '_blank');
+    gtag('event', 'batch_export', { format, job_id: currentJobId });
+  }
+
+  /* ── Save all as filings ─────────────────────────────────────────────────────── */
+  async function saveAllFilings() {
+    if (!currentJobId) return;
+    try {
+      showBanner('loading', 'Saving filings…');
+      const resp = await fetch(`/api/batch/jobs/${currentJobId}/save`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({}), credentials: 'include',
+      });
+      const data = await resp.json();
+      hideBanner();
+      if (data.success) {
+        const notice = document.getElementById('save-notice');
+        notice.textContent = `✓ ${data.saved_count} filing(s) saved as drafts.`;
+        notice.style.display = 'block';
+        gtag('event', 'batch_save', { saved_count: data.saved_count, job_id: currentJobId });
+      } else {
+        showBanner('error', data.message || 'Save failed.');
+      }
+    } catch (err) {
+      showBanner('error', 'Network error: ' + err.message);
+    }
+  }
+
+  /* ── Past jobs ──────────────────────────────────────────────────────────────── */
+  async function loadPastJobs() {
+    try {
+      const resp = await fetch('/api/batch/jobs?limit=10', { credentials: 'include' });
+      if (!resp.ok) return;
+      const data = await resp.json();
+      if (!data.success || !data.jobs.length) {
+        document.getElementById('past-jobs-section').classList.add('empty');
+        return;
+      }
+
+      const list = document.getElementById('past-jobs-list');
+      list.innerHTML = data.jobs.map(j => `
+        <div class="job-row">
+          <span class="job-waterway">${waterwayLabel(j.waterway)}</span>
+          <div class="job-meta">
+            <div class="job-name">${escHtml(j.filename || 'Batch job')}</div>
+            <div class="job-stats">${j.row_count} vessels · ${j.pass_count} passed · ${j.fail_count} failed · avg ${j.avg_score}/100 · ${formatDate(j.created_at)}</div>
+          </div>
+          <div class="job-actions">
+            <button class="btn btn-ghost btn-sm" onclick="window.open('/api/batch/jobs/${j.id}/export?format=csv','_blank')">⬇ CSV</button>
+            <button class="btn btn-ghost btn-sm" onclick="window.open('/api/batch/jobs/${j.id}/export?format=xlsx','_blank')">⬇ XLSX</button>
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById('past-jobs-section').classList.remove('empty');
+    } catch (_) {
+      // not critical — ignore silently
+    }
+  }
+
+  /* ── Utilities ──────────────────────────────────────────────────────────────── */
+  function waterwayLabel(w) {
+    const m = { panama:'Panama', suez:'Suez', bosporus:'Bosporus', malacca:'Malacca', cape:'Cape' };
+    return m[w] || w;
+  }
+  function escHtml(str) {
+    return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function formatDate(iso) {
+    if (!iso) return '';
+    const d = new Date(iso);
+    return d.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
+  }
+
+  /* ── Init ──────────────────────────────────────────────────────────────────── */
+  loadPastJobs();
+</script>
+</body>
+</html>

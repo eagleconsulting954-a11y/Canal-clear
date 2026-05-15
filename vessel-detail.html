@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vessel Detail — CanalClear</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --navy: #1a2d4a; --deep: #142238; --slate: #243350;
+      --teal: #E85A00; --teal-dim: rgba(232,90,0,0.15);
+      --cyan: #00B4D8; --white: #ffffff; --gray: #6b7c93;
+      --light-gray: #8fa3b8; --red: #FF6B6B; --red-dim: rgba(255,107,107,0.15);
+      --yellow: #FFD93D; --yellow-dim: rgba(255,217,61,0.15);
+      --green: #4ADE80; --green-dim: rgba(74,222,128,0.15);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'IBM Plex Sans', sans-serif; background: var(--navy); color: var(--white); line-height: 1.6; }
+
+    nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1rem 2rem; background: rgba(10,22,40,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(232,90,0,0.08); }
+    nav .nav-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .logo { display: flex; align-items: center; text-decoration: none; }
+    .logo img { height: 34px; width: auto; }
+    .nav-links { display: flex; gap: 0.5rem; align-items: center; }
+    .nav-links a { color: var(--gray); text-decoration: none; font-size: 0.9rem; padding: 0.5rem 1rem; border-radius: 8px; transition: all 0.2s; }
+    .nav-links a:hover { color: var(--white); background: rgba(232,90,0,0.08); }
+    .nav-links a.active { color: var(--teal); background: rgba(232,90,0,0.08); }
+
+    .app-container { max-width: 1200px; margin: 0 auto; padding: 5.5rem 2rem 3rem; min-height: 100vh; }
+
+    /* BACK NAV */
+    .breadcrumb { display: flex; align-items: center; gap: 0.5rem; color: var(--gray); font-size: 0.88rem; margin-bottom: 1.5rem; }
+    .breadcrumb a { color: var(--gray); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--white); }
+    .breadcrumb .sep { opacity: 0.4; }
+
+    /* VESSEL HEADER */
+    .vessel-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5rem; margin-bottom: 2rem; }
+    .vessel-title { display: flex; align-items: center; gap: 1rem; }
+    .vessel-title h1 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; }
+    .vessel-title .imo-badge { background: var(--slate); border: 1px solid rgba(136,153,170,0.15); padding: 0.3rem 0.75rem; border-radius: 6px; font-size: 0.82rem; font-family: monospace; color: var(--light-gray); }
+    .sample-badge { background: rgba(0,180,216,0.15); color: var(--cyan); padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; }
+    .header-actions { display: flex; gap: 0.75rem; flex-shrink: 0; }
+
+    /* GRID LAYOUT */
+    .detail-grid { display: grid; grid-template-columns: 1fr 340px; gap: 1.5rem; }
+    .detail-main { display: flex; flex-direction: column; gap: 1.5rem; }
+    .detail-sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    /* PANELS */
+    .panel { background: var(--deep); border: 1px solid rgba(136,153,170,0.08); border-radius: 16px; padding: 1.5rem; }
+    .panel-title { font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray); margin-bottom: 1.25rem; }
+    .panel-title.accent { color: var(--teal); }
+
+    /* PARTICULARS GRID */
+    .particulars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .particular { display: flex; flex-direction: column; gap: 0.2rem; }
+    .particular .p-label { font-size: 0.77rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray); }
+    .particular .p-value { font-size: 1rem; font-weight: 600; color: var(--white); }
+    .particular .p-value.empty { color: rgba(136,153,170,0.4); font-weight: 400; font-style: italic; font-size: 0.88rem; }
+
+    /* COMPLIANCE SECTION */
+    .compliance-grid { display: flex; flex-direction: column; gap: 0.75rem; }
+    .compliance-row { display: flex; align-items: center; gap: 1rem; padding: 0.85rem 1rem; border-radius: 10px; background: rgba(136,153,170,0.03); border: 1px solid rgba(136,153,170,0.06); transition: background 0.15s; }
+    .compliance-row:hover { background: rgba(136,153,170,0.06); }
+    .ww-name { font-size: 0.9rem; font-weight: 600; min-width: 130px; }
+    .ww-score { font-family: monospace; font-size: 0.88rem; color: var(--light-gray); min-width: 60px; }
+    .compliance-badge { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; flex-shrink: 0; }
+    .compliance-badge.green  { background: var(--green-dim);  color: var(--green); }
+    .compliance-badge.yellow { background: var(--yellow-dim); color: var(--yellow); }
+    .compliance-badge.red    { background: var(--red-dim);    color: var(--red); }
+    .compliance-badge.unknown{ background: rgba(136,153,170,0.1); color: var(--gray); }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+    .validate-btn { margin-left: auto; flex-shrink: 0; }
+    .ww-issues { font-size: 0.8rem; color: var(--yellow); margin-left: auto; flex: 1; text-align: right; }
+
+    /* VALIDATE ALL CTA */
+    .validate-all-cta { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; background: var(--teal-dim); border: 1px solid rgba(232,90,0,0.2); border-radius: 12px; }
+    .validate-all-cta p { font-size: 0.9rem; color: var(--light-gray); }
+    .validate-all-cta strong { color: var(--white); }
+
+    /* FILINGS TABLE */
+    .filings-table { width: 100%; border-collapse: collapse; }
+    .filings-table th { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray); text-align: left; padding: 0.6rem 0.75rem; border-bottom: 1px solid rgba(136,153,170,0.08); }
+    .filings-table td { padding: 0.75rem; font-size: 0.88rem; border-bottom: 1px solid rgba(136,153,170,0.04); color: var(--light-gray); }
+    .filings-table tr:last-child td { border-bottom: none; }
+    .filing-status { display: inline-block; padding: 0.15rem 0.6rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+    .filing-status.approved  { background: var(--green-dim);  color: var(--green); }
+    .filing-status.submitted { background: var(--yellow-dim); color: var(--yellow); }
+    .filing-status.rejected  { background: var(--red-dim);    color: var(--red); }
+    .filing-status.draft     { background: rgba(136,153,170,0.1); color: var(--gray); }
+
+    /* BUTTONS */
+    .btn { padding: 0.65rem 1.25rem; border-radius: 8px; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: all 0.2s; border: none; display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+    .btn-primary { background: var(--teal); color: var(--navy); }
+    .btn-primary:hover { background: #ff7a1a; }
+    .btn-secondary { background: var(--slate); color: var(--white); border: 1px solid rgba(136,153,170,0.15); }
+    .btn-secondary:hover { border-color: var(--teal); }
+    .btn-sm { padding: 0.35rem 0.8rem; font-size: 0.78rem; }
+
+    /* VALIDATE-NOW BUTTON SPINNER */
+    .spinner { display: inline-block; width: 12px; height: 12px; border: 2px solid rgba(26,45,74,0.4); border-top-color: var(--navy); border-radius: 50%; animation: spin 0.6s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* TOAST */
+    .toast { position: fixed; bottom: 2rem; right: 2rem; padding: 0.85rem 1.5rem; border-radius: 10px; font-size: 0.9rem; font-weight: 500; z-index: 999; transform: translateY(120%); transition: transform 0.3s; }
+    .toast.show { transform: translateY(0); }
+    .toast.success { background: var(--green-dim); border: 1px solid rgba(74,222,128,0.25); color: var(--green); }
+    .toast.error   { background: var(--red-dim);   border: 1px solid rgba(255,107,107,0.25); color: var(--red); }
+
+    /* LOADING PLACEHOLDER */
+    .loading-placeholder { text-align: center; padding: 3rem; color: var(--gray); }
+
+    @media (max-width: 900px) {
+      .detail-grid { grid-template-columns: 1fr; }
+      .vessel-header { flex-direction: column; }
+      .particulars-grid { grid-template-columns: 1fr 1fr; }
+      .validate-btn .btn-sm { display: none; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 0.75rem 1rem; }
+      .app-container { padding: 5rem 1rem 2rem; }
+      .particulars-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="/app" class="logo"><img src="/images/logo.png" alt="CanalClear" onerror="this.style.display='none';this.nextSibling.style.display='block'"><span style="display:none;font-size:1.1rem;font-weight:700;color:var(--teal);">⚓ CanalClear</span></a>
+    <div class="nav-links">
+      <a href="/app">Validator</a>
+      <a href="/filing">Filing</a>
+      <a href="/app/portals">🔗 Portals</a>
+      <a href="/app/fleet" class="active">🚢 Fleet</a>
+      <a href="/suez-calculator">Suez Fees</a>
+      <a href="/settings/alerts">⚙️ Alerts</a>
+      <a href="/">Home</a>
+      <a href="/admin" id="admin-nav-link" style="display:none;">Admin</a>
+      <button onclick="logout()" style="background:none;border:1px solid rgba(136,153,170,0.2);color:var(--gray);padding:0.4rem 1rem;border-radius:8px;cursor:pointer;font-size:0.85rem;font-family:inherit;">Log out</button>
+    </div>
+  </div>
+</nav>
+
+<div class="app-container">
+  <div id="loadingView" class="loading-placeholder">
+    <div style="font-size:2rem;margin-bottom:1rem;">⏳</div>
+    <p>Loading vessel…</p>
+  </div>
+
+  <div id="vesselView" style="display:none;">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="/app/fleet">Fleet</a>
+      <span class="sep">/</span>
+      <span id="crumbName">Vessel</span>
+    </div>
+
+    <!-- Vessel header -->
+    <div class="vessel-header">
+      <div class="vessel-title">
+        <div>
+          <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.4rem;">
+            <h1 id="vesselName">—</h1>
+            <span id="sampleBadge" class="sample-badge" style="display:none;">DEMO</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.75rem;">
+            <span id="imoDisplay" class="imo-badge">IMO —</span>
+            <span id="typeFlag" style="color:var(--light-gray);font-size:0.9rem;">—</span>
+          </div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <a id="validatorLink" href="/app" class="btn btn-secondary">🔍 Pre-Transit Validator</a>
+        <button onclick="runAllValidations()" class="btn btn-primary" id="validateAllBtn">▶ Validate All Waterways</button>
+      </div>
+    </div>
+
+    <!-- Validate all CTA -->
+    <div class="validate-all-cta" style="margin-bottom:1.5rem;" id="validateCTA">
+      <p><strong>Run pre-transit validation</strong> to see compliance status per waterway based on this vessel's particulars.</p>
+      <button onclick="runAllValidations()" class="btn btn-secondary" id="validateCTABtn">Run Validation</button>
+    </div>
+
+    <div class="detail-grid">
+      <!-- MAIN COLUMN -->
+      <div class="detail-main">
+        <!-- Vessel Particulars -->
+        <div class="panel">
+          <div class="panel-title accent">Vessel Particulars</div>
+          <div class="particulars-grid" id="particularsGrid"></div>
+        </div>
+
+        <!-- Waterway Compliance -->
+        <div class="panel">
+          <div class="panel-title accent">Waterway Compliance Status</div>
+          <div class="compliance-grid" id="complianceGrid"></div>
+        </div>
+
+        <!-- Recent Filings -->
+        <div class="panel">
+          <div class="panel-title">Recent Filings</div>
+          <div id="filingsSection">
+            <p style="color:var(--gray);font-size:0.9rem;">No filings on record for this vessel.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="detail-sidebar">
+        <!-- Quick Actions -->
+        <div class="panel">
+          <div class="panel-title">Quick Actions</div>
+          <div style="display:flex;flex-direction:column;gap:0.75rem;">
+            <a id="panamaFilingLink" href="/filing" class="btn btn-secondary" style="width:100%;justify-content:center;">📄 Panama Filing</a>
+            <a id="suezFilingLink"   href="/filing" class="btn btn-secondary" style="width:100%;justify-content:center;">📄 Suez Filing</a>
+            <a id="bosporusFilingLink" href="/filing" class="btn btn-secondary" style="width:100%;justify-content:center;">📄 Bosporus SP-1</a>
+            <a id="malaccaFilingLink"  href="/filing" class="btn btn-secondary" style="width:100%;justify-content:center;">📄 Malacca STRAITREP</a>
+            <a id="capeFilingLink"     href="/filing" class="btn btn-secondary" style="width:100%;justify-content:center;">📄 Cape ISPS Pre-Arrival</a>
+          </div>
+        </div>
+
+        <!-- Vessel Stats -->
+        <div class="panel" id="statsPanel">
+          <div class="panel-title">Vessel Stats</div>
+          <div id="vesselStats" style="display:flex;flex-direction:column;gap:0.75rem;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="errorView" style="display:none;text-align:center;padding:4rem 2rem;">
+    <div style="font-size:3rem;margin-bottom:1rem;">⚠️</div>
+    <h2 style="color:var(--light-gray);margin-bottom:0.5rem;">Vessel not found</h2>
+    <p style="color:var(--gray);margin-bottom:2rem;">This vessel may have been removed from your fleet.</p>
+    <a href="/app/fleet" class="btn btn-secondary">← Back to Fleet</a>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const WATERWAYS = ['panama','suez','bosporus','malacca','cape'];
+const WW_NAMES  = { panama:'Panama Canal', suez:'Suez Canal', bosporus:'Bosporus / Turkish Straits', malacca:'Strait of Malacca', cape:'Cape of Good Hope' };
+const WW_DOCS   = {
+  panama:   ['VUMPA Filing','PCSOPEP Certificate'],
+  suez:     ['SCA Pre-Transit Notice','ISPS Declaration'],
+  bosporus: ['SP-1 Notification','DG Cargo Declaration'],
+  malacca:  ['STRAITREP Message','ISPS Form'],
+  cape:     ['ISPS Pre-Arrival Notification','SSO Details'],
+};
+
+// Extract vessel ID from URL: /app/fleet/123
+const vesselId = window.location.pathname.split('/').pop();
+
+(async function init() {
+  try {
+    const [meR, vR] = await Promise.all([
+      fetch('/api/me'),
+      fetch(`/api/vessels/${vesselId}`),
+    ]);
+    if (!meR.ok) { window.location.href = '/login'; return; }
+    const me = await meR.json();
+    if (me.user?.is_admin) document.getElementById('admin-nav-link').style.display = '';
+
+    const vData = await vR.json();
+    if (!vData.success) { showError(); return; }
+    renderVessel(vData.vessel);
+  } catch { showError(); }
+})();
+
+function showError() {
+  document.getElementById('loadingView').style.display = 'none';
+  document.getElementById('errorView').style.display = '';
+}
+
+function renderVessel(v) {
+  document.getElementById('loadingView').style.display  = 'none';
+  document.getElementById('vesselView').style.display   = '';
+  document.title = `${v.name} — CanalClear`;
+
+  document.getElementById('crumbName').textContent = v.name;
+  document.getElementById('vesselName').textContent = v.name;
+  if (v.is_sample) document.getElementById('sampleBadge').style.display = '';
+  document.getElementById('imoDisplay').textContent = v.imo ? `IMO ${v.imo}` : 'No IMO';
+  document.getElementById('typeFlag').textContent = [v.flag, v.type].filter(Boolean).join(' · ') || '—';
+
+  // Validator link with pre-fill
+  const params = new URLSearchParams({ vessel_name: v.name });
+  if (v.imo) params.set('imo', v.imo);
+  document.getElementById('validatorLink').href = `/app?${params}`;
+
+  // Filing quick links
+  ['panama','suez','bosporus','malacca','cape'].forEach(w => {
+    const fp = new URLSearchParams({ vessel_name: v.name, canal: w });
+    if (v.imo) fp.set('imo', v.imo);
+    document.getElementById(`${w}FilingLink`).href = `/filing?${fp}`;
+  });
+
+  // Particulars
+  const parts = [
+    { label:'Vessel Type',   value: v.type    },
+    { label:'Flag State',    value: v.flag    },
+    { label:'Class Society', value: v.class_society },
+    { label:'Gross Tonnage', value: v.gt  ? Number(v.gt).toLocaleString() + ' GT' : null },
+    { label:'Net Tonnage',   value: v.nt  ? Number(v.nt).toLocaleString() + ' NT' : null },
+    { label:'LOA',           value: v.loa ? `${v.loa} m` : null },
+    { label:'Beam',          value: v.beam ? `${v.beam} m` : null },
+    { label:'Max Draft',     value: v.max_draft ? `${v.max_draft} m` : null },
+    { label:'Added',         value: v.created_at ? new Date(v.created_at).toLocaleDateString() : null },
+  ];
+  document.getElementById('particularsGrid').innerHTML = parts.map(p => `
+    <div class="particular">
+      <span class="p-label">${p.label}</span>
+      <span class="p-value${!p.value ? ' empty' : ''}">${p.value || 'Not specified'}</span>
+    </div>
+  `).join('');
+
+  // Compliance grid
+  const comp = v.compliance || {};
+  document.getElementById('complianceGrid').innerHTML = WATERWAYS.map(w => {
+    const c = comp[w] || {};
+    const status = c.status || 'unknown';
+    const label  = { green:'Compliant', yellow:'Needs Review', red:'Non-Compliant', unknown:'Not Validated' }[status];
+    const score  = c.score != null ? `${c.score}/100` : '';
+    const when   = c.validated_at ? `Last checked ${timeAgo(c.validated_at)}` : '';
+
+    return `<div class="compliance-row" id="cr-${w}">
+      <span class="ww-name">${WW_NAMES[w]}</span>
+      <span class="compliance-badge ${status}"><span class="dot"></span>${label}</span>
+      <span class="ww-score">${score}</span>
+      <span style="color:var(--gray);font-size:0.78rem;flex:1;text-align:right;">${when}</span>
+      <div class="validate-btn">
+        <button class="btn btn-sm btn-secondary" onclick="validateWaterway('${w}')" id="vbtn-${w}">Run</button>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Hide "validate all" CTA if all have been validated
+  const validated = WATERWAYS.filter(w => (comp[w]||{}).status && comp[w].status !== 'unknown').length;
+  if (validated === WATERWAYS.length) {
+    document.getElementById('validateCTA').style.display = 'none';
+  }
+
+  // Filings
+  if (v.recent_filings && v.recent_filings.length > 0) {
+    document.getElementById('filingsSection').innerHTML = `
+      <table class="filings-table">
+        <thead><tr>
+          <th>Canal</th><th>Reference</th><th>Status</th><th>Date</th>
+        </tr></thead>
+        <tbody>
+          ${v.recent_filings.map(f => `<tr>
+            <td style="text-transform:capitalize;font-weight:600;color:var(--white);">${f.canal || '—'}</td>
+            <td style="font-family:monospace;">${f.reference_number || '—'}</td>
+            <td><span class="filing-status ${f.status || 'draft'}">${f.status || 'draft'}</span></td>
+            <td>${new Date(f.created_at).toLocaleDateString()}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    `;
+  }
+
+  // Stats sidebar
+  document.getElementById('vesselStats').innerHTML = [
+    { label: 'Total Filings', value: v.recent_filings?.length || 0 },
+    { label: 'Waterways Validated', value: `${validated} / ${WATERWAYS.length}` },
+    { label: 'Compliant Waterways', value: WATERWAYS.filter(w => (comp[w]||{}).status === 'green').length },
+  ].map(s => `
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:0.5rem 0;border-bottom:1px solid rgba(136,153,170,0.06);">
+      <span style="font-size:0.85rem;color:var(--gray);">${s.label}</span>
+      <span style="font-size:1rem;font-weight:700;color:var(--white);">${s.value}</span>
+    </div>
+  `).join('');
+}
+
+// ── Validate single waterway ─────────────────────────────────────────────────
+async function validateWaterway(waterway) {
+  const btn = document.getElementById(`vbtn-${waterway}`);
+  btn.disabled = true;
+  btn.innerHTML = `<span class="spinner"></span>`;
+
+  try {
+    const r    = await fetch(`/api/vessels/${vesselId}/validate/${waterway}`, { method: 'POST' });
+    const data = await r.json();
+    if (!data.success) throw new Error(data.message);
+
+    // Update row in place
+    const row   = document.getElementById(`cr-${waterway}`);
+    const label = { green:'Compliant', yellow:'Needs Review', red:'Non-Compliant' }[data.status] || 'Not Validated';
+    row.querySelector('.compliance-badge').className = `compliance-badge ${data.status}`;
+    row.querySelector('.compliance-badge').innerHTML = `<span class="dot"></span>${label}`;
+    row.querySelector('.ww-score').textContent = `${data.score}/100`;
+    row.querySelector('[style*="text-align:right"]').textContent = 'Just now';
+
+    if (data.issues?.length > 0) {
+      showToast(`${WW_NAMES[waterway]}: ${data.issues.length} issue(s) found`, 'error');
+    } else {
+      showToast(`${WW_NAMES[waterway]}: Compliant ✓`, 'success');
+    }
+  } catch (err) {
+    showToast(err.message, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Run';
+  }
+}
+
+// ── Validate all waterways sequentially ──────────────────────────────────────
+async function runAllValidations() {
+  const btn = document.getElementById('validateAllBtn');
+  btn.disabled = true;
+  btn.innerHTML = `<span class="spinner"></span> Validating…`;
+  const ctaBtn = document.getElementById('validateCTABtn');
+  if (ctaBtn) { ctaBtn.disabled = true; ctaBtn.innerHTML = `<span class="spinner"></span>`; }
+
+  for (const w of WATERWAYS) {
+    await validateWaterway(w);
+  }
+
+  btn.disabled = false;
+  btn.textContent = '▶ Validate All Waterways';
+  if (ctaBtn) { ctaBtn.disabled = false; ctaBtn.textContent = 'Run Validation'; }
+  document.getElementById('validateCTA').style.display = 'none';
+  showToast('All waterway validations complete', 'success');
+}
+
+// ── Utilities ─────────────────────────────────────────────────────────────────
+function logout() {
+  fetch('/api/logout', { method: 'POST' }).finally(() => { window.location.href = '/login'; });
+}
+function timeAgo(iso) {
+  const s = Math.floor((Date.now() - new Date(iso)) / 1000);
+  if (s < 60)   return `${s}s ago`;
+  if (s < 3600)  return `${Math.floor(s/60)}m ago`;
+  if (s < 86400) return `${Math.floor(s/3600)}h ago`;
+  return new Date(iso).toLocaleDateString();
+}
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast ${type} show`;
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+</script>
+</body>
+</html>

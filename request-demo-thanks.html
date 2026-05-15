@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Check Your Inbox — CanalClear Demo Access</title>
+  <meta name="robots" content="noindex">
+
+  <!-- Google tag -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+  <!-- Meta Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '972550615207303');
+    fbq('track', 'PageView');
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #1a2d4a;
+      --deep: #0f1e30;
+      --slate: #243350;
+      --teal: #E85A00;
+      --teal-dim: rgba(232,90,0,0.1);
+      --teal-border: rgba(232,90,0,0.25);
+      --white: #ffffff;
+      --gray: #6b7c93;
+      --light: #8fa3b8;
+      --green: #22c55e;
+      --green-dim: rgba(34,197,94,0.1);
+    }
+
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* NAV */
+    nav {
+      background: rgba(26,45,74,0.97);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--teal-border);
+      padding: 1rem 2rem;
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo { text-decoration: none; }
+    .logo img { height: 30px; }
+
+    /* MAIN */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1.5rem;
+    }
+
+    .card {
+      background: var(--deep);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 3rem 2.5rem;
+      max-width: 540px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .icon-ring {
+      width: 72px;
+      height: 72px;
+      background: var(--green-dim);
+      border: 2px solid rgba(34,197,94,0.25);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin: 0 auto 1.5rem;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.3px;
+    }
+
+    .sub {
+      font-size: 1rem;
+      color: var(--light);
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+    }
+
+    .email-highlight {
+      display: inline-block;
+      background: var(--slate);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 0.3rem 0.85rem;
+      font-family: monospace;
+      font-size: 0.9rem;
+      color: var(--white);
+      margin: 0.5rem 0 1.75rem;
+    }
+
+    /* Countdown */
+    .countdown-wrap {
+      background: var(--teal-dim);
+      border: 1px solid var(--teal-border);
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .countdown-label {
+      font-size: 0.8rem;
+      color: var(--teal);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 0.35rem;
+    }
+    .countdown-timer {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--white);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 2px;
+    }
+    .countdown-sub { font-size: 0.82rem; color: var(--gray); margin-top: 0.35rem; }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: rgba(255,255,255,0.07);
+      margin: 1.75rem 0;
+    }
+
+    /* Steps */
+    .steps {
+      text-align: left;
+      margin-bottom: 2rem;
+    }
+    .steps-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      margin-bottom: 0.85rem;
+      font-size: 0.9rem;
+      color: var(--light);
+      line-height: 1.5;
+    }
+    .step-num {
+      width: 24px;
+      height: 24px;
+      background: var(--teal-dim);
+      border: 1px solid var(--teal-border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--teal);
+      flex-shrink: 0;
+    }
+
+    /* CTA buttons */
+    .btn-primary {
+      display: inline-block;
+      width: 100%;
+      background: var(--teal);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 0.9rem;
+      border-radius: 10px;
+      text-decoration: none;
+      border: none;
+      font-family: inherit;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      margin-bottom: 0.75rem;
+    }
+    .btn-primary:hover { opacity: 0.88; }
+    .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    .resend-section { margin-top: 0.25rem; }
+    .resend-msg {
+      font-size: 0.82rem;
+      color: var(--gray);
+      margin-bottom: 0.75rem;
+    }
+    .resend-btn {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--light);
+      font-family: inherit;
+      font-size: 0.875rem;
+      padding: 0.55rem 1.25rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      width: 100%;
+    }
+    .resend-btn:hover:not(:disabled) { border-color: rgba(255,255,255,0.25); color: var(--white); }
+    .resend-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .status-msg {
+      font-size: 0.83rem;
+      margin-top: 0.6rem;
+      min-height: 1.2em;
+      color: var(--gray);
+    }
+    .status-msg.success { color: var(--green); }
+    .status-msg.error { color: #fca5a5; }
+
+    /* Spam note */
+    .spam-note {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--slate);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      font-size: 0.8rem;
+      color: var(--gray);
+      text-align: left;
+      margin-top: 1.5rem;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="logo">
+        <img src="https://pub-629428d185ca4960a0a73c850d32294b.r2.dev/company_47541/images/9d5d2ef6-d9e0-40eb-ad15-df5e737cefc1.png" alt="CanalClear">
+      </a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="card">
+      <div class="icon-ring">📬</div>
+      <h1>Check your inbox</h1>
+      <p class="sub">Your demo access code is on its way to:</p>
+      <span class="email-highlight" id="email-display">your email</span>
+
+      <!-- Countdown -->
+      <div class="countdown-wrap">
+        <div class="countdown-label">Code arriving in</div>
+        <div class="countdown-timer" id="timer">0:60</div>
+        <div class="countdown-sub">Usually arrives in under 30 seconds</div>
+      </div>
+
+      <!-- Open Login -->
+      <a href="/login" class="btn-primary">Go to Login Page →</a>
+
+      <div class="divider"></div>
+
+      <!-- Steps -->
+      <div class="steps">
+        <div class="steps-title">What to do next</div>
+        <div class="step">
+          <div class="step-num">1</div>
+          <div>Open the email from CanalClear and copy your <strong>DEMO-XXXXXX</strong> code</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div>Go to <a href="/login" style="color:var(--teal);text-decoration:none;">canal-clear.polsia.app/login</a> and look for "Have a demo code?"</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div>Enter your code to unlock full access for 14 days — all 5 waterways included</div>
+        </div>
+      </div>
+
+      <!-- Resend -->
+      <div class="resend-section">
+        <div class="resend-msg">Didn't receive it? Check spam first, then:</div>
+        <button class="resend-btn" id="resend-btn" disabled>Resend code (wait <span id="resend-countdown">60</span>s)</button>
+        <div class="status-msg" id="status-msg"></div>
+      </div>
+
+      <!-- Spam note -->
+      <div class="spam-note">
+        <span>⚠️</span>
+        <span>Check your spam or junk folder if the email doesn't appear. Add <strong>canalclear@polsia.app</strong> to your safe senders list.</span>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Read params from URL
+    const params = new URLSearchParams(window.location.search);
+    const email = params.get('email') || '';
+    const rid = params.get('rid') || '';
+
+    if (email) {
+      document.getElementById('email-display').textContent = email;
+    }
+
+    // Countdown timer (60s visual only)
+    let seconds = 60;
+    const timerEl = document.getElementById('timer');
+    const resendCountdownEl = document.getElementById('resend-countdown');
+    const resendBtn = document.getElementById('resend-btn');
+
+    const tick = setInterval(() => {
+      seconds--;
+      timerEl.textContent = '0:' + String(seconds).padStart(2, '0');
+      resendCountdownEl.textContent = seconds;
+      if (seconds <= 0) {
+        clearInterval(tick);
+        timerEl.textContent = '✓ Delivered';
+        timerEl.style.color = '#22c55e';
+        timerEl.style.fontSize = '1.5rem';
+        resendBtn.disabled = false;
+        resendBtn.textContent = 'Resend demo code';
+      }
+    }, 1000);
+
+    // Resend handler
+    resendBtn.addEventListener('click', async () => {
+      if (!email || !rid) {
+        document.getElementById('status-msg').textContent = 'Unable to resend — missing request info.';
+        document.getElementById('status-msg').className = 'status-msg error';
+        return;
+      }
+
+      resendBtn.disabled = true;
+      resendBtn.innerHTML = '<span class="spinner"></span> Resending…';
+      document.getElementById('status-msg').textContent = '';
+
+      try {
+        const res = await fetch('/api/demo-request/resend', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ request_id: parseInt(rid), email }),
+        });
+        const data = await res.json();
+        const msgEl = document.getElementById('status-msg');
+
+        if (data.success) {
+          msgEl.textContent = '✓ Resent! Check your inbox.';
+          msgEl.className = 'status-msg success';
+          resendBtn.textContent = 'Resend again';
+          // Re-disable for 60s
+          resendBtn.disabled = true;
+          let cooldown = 60;
+          resendBtn.textContent = `Resend again (wait ${cooldown}s)`;
+          const cd = setInterval(() => {
+            cooldown--;
+            resendBtn.textContent = `Resend again (wait ${cooldown}s)`;
+            if (cooldown <= 0) {
+              clearInterval(cd);
+              resendBtn.textContent = 'Resend again';
+              resendBtn.disabled = false;
+            }
+          }, 1000);
+        } else {
+          msgEl.textContent = data.message || 'Failed to resend. Please try again.';
+          msgEl.className = 'status-msg error';
+          resendBtn.disabled = false;
+          resendBtn.textContent = 'Resend demo code';
+        }
+      } catch {
+        document.getElementById('status-msg').textContent = 'Network error. Please try again.';
+        document.getElementById('status-msg').className = 'status-msg error';
+        resendBtn.disabled = false;
+        resendBtn.textContent = 'Resend demo code';
+      }
+    });
+  </script>
+</body>
+</html>

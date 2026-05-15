@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Status | CanalClear — Maritime Compliance Platform</title>
+  <meta name="description" content="Real-time service health for CanalClear. Filing wizards, deadline alerts, OCR upload, batch filing, fleet dashboard, and API — all operational.">
+  <meta name="robots" content="index, nofollow">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://canalclear.org/status">
+  <meta property="og:title" content="System Status | CanalClear">
+  <meta property="og:description" content="All systems operational. Real-time health for maritime compliance services.">
+  <meta property="og:site_name" content="CanalClear">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/nav.css">
+  <link rel="stylesheet" href="/css/mobile.css">
+  <link rel="stylesheet" href="/css/visual-polish.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "CanalClear System Status",
+    "description": "Real-time service health and uptime status for the CanalClear maritime compliance platform.",
+    "url": "https://canalclear.org/status",
+    "datePublished": "2026-05-13",
+    "about": {
+      "@type": "SoftwareApplication",
+      "name": "CanalClear",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "29",
+        "priceCurrency": "USD"
+      },
+      "provider": {
+        "@type": "Organization",
+        "name": "CanalClear",
+        "url": "https://canalclear.org"
+      }
+    }
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --deep:       #0a1628;
+      --navy:       #1a2d4a;
+      --slate:      #243350;
+      --teal:       #00C9A7;
+      --teal-dim:   rgba(0, 201, 167, 0.1);
+      --orange:     #E85A00;
+      --white:      #ffffff;
+      --gray:       #6b7c93;
+      --light:      #8fa3b8;
+      --green:      #10b981;
+      --green-dim:  rgba(16, 185, 129, 0.12);
+      --card-bg:    rgba(255, 255, 255, 0.04);
+      --card-border:rgba(255, 255, 255, 0.08);
+      --amber:      #f59e0b;
+      --amber-dim:  rgba(245, 158, 11, 0.12);
+      --red:        #ef4444;
+      --red-dim:    rgba(239, 68, 68, 0.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--deep);
+      color: var(--white);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── TOP NAV ──────────────────────────────────────────────────────── */
+    .top-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: sticky;
+      top: 0;
+      background: rgba(10, 22, 40, 0.95);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+    .top-nav .logo {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .top-nav .logo span { color: var(--orange); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.15rem;
+    }
+    .nav-links a {
+      color: #8899aa;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.06); }
+    .nav-links a.nav-cta {
+      background: var(--orange);
+      color: #fff;
+      font-weight: 700;
+      padding: 0.45rem 1.1rem;
+      border-radius: 8px;
+      margin-left: 0.5rem;
+    }
+    .nav-links a.nav-cta:hover { background: #CC4F00; }
+    .nav-links a.active { color: #fff; }
+
+    /* ── PAGE WRAPPER ─────────────────────────────────────────────────── */
+    .page-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    /* ── HERO STATUS BANNER ──────────────────────────────────────────── */
+    .status-hero {
+      text-align: center;
+      padding: 3.5rem 2rem;
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      background: var(--card-bg);
+      margin-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .status-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% -10%, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .status-dot {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--green);
+      margin-bottom: 0;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
+      animation: pulse 2.5s ease-in-out infinite;
+      vertical-align: middle;
+      margin-right: 0.5rem;
+      position: relative;
+      top: -1px;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25); }
+      50%       { box-shadow: 0 0 0 7px rgba(16, 185, 129, 0.1); }
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      background: var(--green-dim);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: var(--green);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+    }
+    .status-badge.degraded {
+      background: var(--amber-dim);
+      border-color: rgba(245, 158, 11, 0.3);
+      color: var(--amber);
+    }
+    .status-badge.down {
+      background: var(--red-dim);
+      border-color: rgba(239, 68, 68, 0.3);
+      color: var(--red);
+    }
+    .hero-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+    }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--light);
+      margin-bottom: 2rem;
+    }
+    .uptime-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 0.5rem 1.25rem;
+      border-radius: 100px;
+      font-size: 0.875rem;
+      color: var(--light);
+    }
+    .uptime-chip strong { color: var(--white); }
+
+    /* ── SECTION HEADER ───────────────────────────────────────────────── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .section-header h2 {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+    .section-rule {
+      flex: 1;
+      height: 1px;
+      background: var(--card-border);
+    }
+
+    /* ── SERVICES GRID ────────────────────────────────────────────────── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+    .service-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 1.5rem 1.5rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .service-card:hover {
+      border-color: rgba(16, 185, 129, 0.3);
+      transform: translateY(-2px);
+    }
+    .service-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .service-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+    .service-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .indicator-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0;
+    }
+    .indicator-dot.degraded { background: var(--amber); }
+    .indicator-dot.down    { background: var(--red); }
+    .indicator-label.operational { color: var(--green); }
+    .indicator-label.degraded     { color: var(--amber); }
+    .indicator-label.down         { color: var(--red); }
+    .service-desc {
+      font-size: 0.8rem;
+      color: var(--gray);
+      line-height: 1.4;
+    }
+    .service-meta {
+      margin-top: auto;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--card-border);
+      font-size: 0.72rem;
+      color: var(--gray);
+    }
+    .service-meta span { opacity: 0.7; }
+
+    /* ── WATERWAY BREAKDOWN ───────────────────────────────────────────── */
+    .waterway-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--card-border);
+      font-size: 0.875rem;
+    }
+    .waterway-row:last-child { border-bottom: none; }
+    .waterway-label { color: var(--light); font-weight: 500; }
+    .waterway-flag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .waterway-status {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .waterway-status.operational { color: var(--green); }
+    .waterway-status.degraded    { color: var(--amber); }
+    .waterway-status.down        { color: var(--red); }
+
+    /* ── FOOTER ───────────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--card-border);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-top: 2rem;
+    }
+    footer a { color: var(--gray); text-decoration: none; }
+    footer a:hover { color: var(--teal); }
+    footer a.status-link { color: var(--green); font-weight: 600; }
+
+    /* ── LOADING STATE ────────────────────────────────────────────────── */
+    .loading-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 5rem 2rem;
+      color: var(--gray);
+      gap: 1rem;
+    }
+    .spinner {
+      width: 28px;
+      height: 28px;
+      border: 2px solid rgba(255,255,255,0.1);
+      border-top-color: var(--teal);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── RESPONSIVE ───────────────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .page-wrap { padding: 2.5rem 1.25rem 4rem; }
+      .status-hero { padding: 2.5rem 1.25rem; }
+      .hero-title { font-size: 1.7rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .top-nav { padding: 1rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="/" class="logo">Canal<span>Clear</span></a>
+    <div class="nav-links">
+      <a href="/panama">Panama</a>
+      <a href="/suez">Suez</a>
+      <a href="/bosporus">Bosporus</a>
+      <a href="/malacca">Malacca</a>
+      <a href="/cape-of-good-hope">Cape</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/demo">Demo</a>
+      <a href="/integrations">Integrations</a>
+      <a href="/status" class="active" style="color: var(--green);">Status</a>
+      <a href="/security" style="color: var(--orange);">Security</a>
+      <a href="/app" class="nav-cta">Open Validator</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="page-wrap">
+
+    <!-- Hero Status Banner -->
+    <div class="status-hero">
+      <div class="status-badge" id="statusBadge">
+        <span class="status-dot"></span>
+        <span id="statusLabel">All Systems Operational</span>
+      </div>
+      <h1 class="hero-title">Maritime Compliance Platform</h1>
+      <p class="hero-sub">Real-time service health across all CanalClear features.</p>
+      <div class="uptime-chip">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.6">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+        </svg>
+        Current session uptime: <strong id="uptime">Loading…</strong>
+      </div>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="section-header">
+      <h2>Service Components</h2>
+      <div class="section-rule"></div>
+      <span id="checkedAt" style="font-size:0.72rem;color:var(--gray);font-weight:400;"></span>
+    </div>
+
+    <div class="services-grid" id="servicesGrid">
+      <!-- Populated by JS -->
+    </div>
+
+    <!-- Waterway Breakdown -->
+    <div class="section-header" style="margin-top: 1rem;">
+      <h2>Waterway Coverage</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:14px;padding:1rem 1.5rem;margin-bottom:3rem;">
+      <div class="waterway-row">
+        <span class="waterway-label">Panama Canal <span style="opacity:0.5;font-size:0.75rem;">— VUMPA / PCSOPEP</span></span>
+        <span class="waterway-status operational"><span class="indicator-dot"></span> Operational</span>
+      </div>
+      <div class="waterway-row">
+        <span class="waterway-label">Suez Canal <span style="opacity:0.5;font-size:0.75rem;">— SCNT / SCA</span></span>
+        <span class="waterway-status operational"><span class="indicator-dot"></span> Operational</span>
+      </div>
+      <div class="waterway-row">
+        <span class="waterway-label">Bosporus &amp; Dardanelles <span style="opacity:0.5;font-size:0.75rem;">— SP-1 / Montreux</span></span>
+        <span class="waterway-status operational"><span class="indicator-dot"></span> Operational</span>
+      </div>
+      <div class="waterway-row">
+        <span class="waterway-label">Strait of Malacca <span style="opacity:0.5;font-size:0.75rem;">— STRAITREP / TSS</span></span>
+        <span class="waterway-status operational"><span class="indicator-dot"></span> Operational</span>
+      </div>
+      <div class="waterway-row">
+        <span class="waterway-label">Cape of Good Hope <span style="opacity:0.5;font-size:0.75rem;">— ISPS / SAMSA</span></span>
+        <span class="waterway-status operational"><span class="indicator-dot"></span> Operational</span>
+      </div>
+    </div>
+
+    <!-- Incident History Placeholder -->
+    <div class="section-header">
+      <h2>Incident History</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:14px;padding:2rem;text-align:center;color:var(--gray);font-size:0.9rem;margin-bottom:3rem;">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 0.75rem;opacity:0.4;color:var(--green)">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+      </svg>
+      <p style="font-size:0.9rem;color:var(--light);font-weight:500;">No incidents in the past 90 days</p>
+      <p style="font-size:0.8rem;margin-top:0.4rem;opacity:0.7;">All systems running normally.</p>
+    </div>
+
+    <!-- Subscribe for Updates -->
+    <div style="text-align:center;padding:2rem 1.5rem;background:var(--card-bg);border:1px solid var(--card-border);border-radius:14px;">
+      <p style="font-size:0.8rem;color:var(--gray);margin-bottom:0.75rem;letter-spacing:0.04em;text-transform:uppercase;font-weight:600;">Stay Notified</p>
+      <h3 style="font-size:1.25rem;font-weight:700;color:var(--white);margin-bottom:0.5rem;">Get incident alerts via email</h3>
+      <p style="font-size:0.9rem;color:var(--gray);margin-bottom:1.5rem;">Subscribe to receive notifications for any service disruptions.</p>
+      <form id="subscribeForm" style="display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center;max-width:440px;margin:0 auto;">
+        <input type="email" id="subEmail" placeholder="your@shipping-company.com" required
+          style="flex:1;min-width:220px;padding:0.65rem 1rem;border:1px solid var(--card-border);border-radius:8px;background:rgba(255,255,255,0.06);color:var(--white);font-size:0.9rem;font-family:'IBM Plex Sans',sans-serif;outline:none;transition:border-color 0.2s;"
+          onfocus="this.style.borderColor='var(--teal)'"
+          onblur="this.style.borderColor='var(--card-border)'">
+        <button type="submit" style="padding:0.65rem 1.5rem;background:var(--orange);color:#fff;font-size:0.875rem;font-weight:700;border:none;border-radius:8px;cursor:pointer;font-family:'IBM Plex Sans',sans-serif;transition:background 0.15s;white-space:nowrap;"
+          onmouseover="this.style.background='#CC4F00'"
+          onmouseout="this.style.background='var(--orange)'">
+          Subscribe
+        </button>
+      </form>
+      <p id="subMsg" style="font-size:0.8rem;margin-top:0.75rem;color:var(--teal);display:none;"></p>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 CanalClear &nbsp;·&nbsp;
+      <a href="/panama">Panama</a> &nbsp;·&nbsp;
+      <a href="/suez">Suez</a> &nbsp;·&nbsp;
+      <a href="/bosporus">Bosporus</a> &nbsp;·&nbsp;
+      <a href="/pricing">Pricing</a> &nbsp;·&nbsp;
+      <a href="/demo">Demo</a> &nbsp;·&nbsp;
+      <a href="/security">Security</a> &nbsp;·&nbsp;
+      <a href="/status" class="status-link">Status</a> &nbsp;·&nbsp;
+      <a href="/privacy">Privacy</a> &nbsp;·&nbsp;
+      <a href="/terms">Terms</a>
+    </p>
+  </footer>
+
+  <script>
+    // Fetch service status and render
+    async function loadStatus() {
+      try {
+        const res = await fetch('/api/status');
+        if (!res.ok) throw new Error('Failed to load status');
+        const data = await res.json();
+
+        // Update uptime display
+        document.getElementById('uptime').textContent = data.uptime;
+
+        // Update badge
+        const badge = document.getElementById('statusBadge');
+        const label  = document.getElementById('statusLabel');
+        if (data.status === 'operational') {
+          badge.className = 'status-badge';
+          label.textContent = 'All Systems Operational';
+        } else if (data.status === 'degraded') {
+          badge.className = 'status-badge degraded';
+          label.textContent = 'Partial Degradation';
+        } else {
+          badge.className = 'status-badge down';
+          label.textContent = 'Service Disruption';
+        }
+
+        // Last checked
+        const checked = new Date(data.checked_at);
+        document.getElementById('checkedAt').textContent =
+          'Updated ' + checked.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+        // Render service cards
+        const grid = document.getElementById('servicesGrid');
+        grid.innerHTML = data.services.map(svc => `
+          <div class="service-card">
+            <div class="service-card-header">
+              <span class="service-name">${svc.name}</span>
+              <div class="service-indicator">
+                <span class="indicator-dot ${svc.status !== 'operational' ? svc.status : ''}"></span>
+                <span class="indicator-label ${svc.status}">${svc.status}</span>
+              </div>
+            </div>
+            <p class="service-desc">${svc.description}</p>
+            <div class="service-meta">
+              <span>Last checked: ${checked.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })} UTC</span>
+            </div>
+          </div>
+        `).join('');
+      } catch (err) {
+        document.getElementById('servicesGrid').innerHTML =
+          '<p style="color:var(--red);grid-column:1/-1;text-align:center;padding:2rem;">Unable to load service status. Please refresh.</p>';
+        console.error('Status load error:', err);
+      }
+    }
+
+    // Subscribe form
+    document.getElementById('subscribeForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('subEmail').value;
+      const msg   = document.getElementById('subMsg');
+      try {
+        const res = await fetch('/api/status/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        if (res.ok) {
+          msg.textContent = '✓ You will receive incident alerts at ' + email;
+          msg.style.display = 'block';
+        } else {
+          msg.textContent = 'Unable to subscribe. Please try again.';
+          msg.style.display = 'block';
+          msg.style.color = 'var(--red)';
+        }
+      } catch {
+        msg.textContent = 'Network error. Please try again.';
+        msg.style.display = 'block';
+        msg.style.color = 'var(--red)';
+      }
+    });
+
+    loadStatus();
+    // Refresh status every 60 seconds
+    setInterval(loadStatus, 60000);
+  </script>
+</body>
+</html>

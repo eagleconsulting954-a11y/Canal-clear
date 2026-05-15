@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-HYJXEY6H3G');</script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CanalClear — Submission Audit Log</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --navy:#1a2d4a; --deep:#142238; --slate:#243350;
+      --teal:#E85A00; --teal-dim:rgba(232,90,0,.12); --teal-border:rgba(232,90,0,.2);
+      --cyan:#00B4D8; --white:#fff; --gray:#6b7c93; --light-gray:#8fa3b8;
+      --red:#FF6B6B; --red-dim:rgba(255,107,107,.12);
+      --yellow:#FFD93D; --yellow-dim:rgba(255,217,61,.12);
+      --green:#22c55e; --green-dim:rgba(34,197,94,.12);
+      --purple:#A78BFA; --purple-dim:rgba(167,139,250,.12);
+    }
+    body{font-family:'IBM Plex Sans',sans-serif;background:var(--navy);color:var(--white);line-height:1.6;min-height:100vh}
+    nav{position:fixed;top:0;width:100%;z-index:100;padding:1rem 2rem;background:rgba(10,22,40,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--teal-border)}
+    .nav-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+    .logo{display:flex;align-items:center;text-decoration:none}
+    .logo img{height:34px}
+    .nav-links a{color:var(--gray);text-decoration:none;font-size:.875rem;padding:.45rem .9rem;border-radius:8px;transition:all .2s}
+    .nav-links a:hover{color:var(--white)}
+    .main{max-width:1400px;margin:0 auto;padding:6rem 2rem 3rem}
+
+    /* Header + summary cards */
+    .page-header{margin-bottom:1.5rem}
+    .page-header h1{font-size:1.6rem;font-weight:700;color:var(--white)}
+    .page-header p{color:var(--light-gray);font-size:.9rem;margin-top:.25rem}
+    .stats-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1rem;margin-bottom:1.5rem}
+    .stat-card{background:var(--slate);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:1rem 1.25rem}
+    .stat-card .label{font-size:.78rem;color:var(--light-gray);text-transform:uppercase;letter-spacing:.04em}
+    .stat-card .value{font-size:1.6rem;font-weight:700;color:var(--white);margin-top:.2rem}
+    .stat-card.green .value{color:var(--green)}
+    .stat-card.red   .value{color:var(--red)}
+    .stat-card.yellow .value{color:var(--yellow)}
+
+    /* Filters */
+    .filters{background:var(--deep);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:1.25rem;margin-bottom:1.5rem;display:flex;flex-wrap:wrap;gap:.75rem;align-items:flex-end}
+    .filter-group{display:flex;flex-direction:column;gap:.3rem}
+    .filter-group label{font-size:.78rem;color:var(--light-gray);text-transform:uppercase;letter-spacing:.04em}
+    .filter-group select,.filter-group input{background:var(--slate);border:1px solid rgba(255,255,255,.1);border-radius:6px;color:var(--white);padding:.45rem .75rem;font-size:.875rem;font-family:inherit}
+    .filter-group select:focus,.filter-group input:focus{outline:none;border-color:var(--teal)}
+    .btn{padding:.5rem 1.1rem;border-radius:8px;font-size:.875rem;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .2s}
+    .btn-primary{background:var(--teal);color:#fff}
+    .btn-primary:hover{filter:brightness(1.1)}
+    .btn-ghost{background:transparent;color:var(--light-gray);border:1px solid rgba(255,255,255,.12)}
+    .btn-ghost:hover{color:var(--white);border-color:rgba(255,255,255,.25)}
+    .btn-sm{padding:.35rem .75rem;font-size:.8rem}
+    .filter-actions{display:flex;gap:.5rem;align-items:flex-end;padding-bottom:1px}
+
+    /* Table */
+    .panel{background:var(--deep);border:1px solid rgba(255,255,255,.06);border-radius:12px;overflow:hidden}
+    .panel-header{padding:1rem 1.5rem;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between}
+    .panel-title{font-weight:600;font-size:1rem}
+    .panel-meta{font-size:.82rem;color:var(--light-gray)}
+    .table-wrap{overflow-x:auto}
+    table{width:100%;border-collapse:collapse;font-size:.875rem}
+    th{text-align:left;padding:.75rem 1rem;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--light-gray);border-bottom:1px solid rgba(255,255,255,.06);white-space:nowrap}
+    td{padding:.75rem 1rem;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:middle}
+    tr:hover td{background:rgba(255,255,255,.02);cursor:pointer}
+    .empty{text-align:center;padding:3rem;color:var(--gray)}
+
+    /* Status badges */
+    .badge{display:inline-block;padding:.2rem .6rem;border-radius:20px;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.03em;white-space:nowrap}
+    .badge-queued     {background:rgba(107,124,147,.15);color:#8fa3b8}
+    .badge-sent       {background:var(--yellow-dim);color:var(--yellow)}
+    .badge-delivered  {background:var(--green-dim);color:var(--green)}
+    .badge-acknowledged{background:var(--green-dim);color:var(--green)}
+    .badge-failed     {background:var(--red-dim);color:var(--red)}
+    .badge-manual_required{background:var(--purple-dim);color:var(--purple)}
+
+    /* Authority + waterway badges */
+    .badge-authority{background:var(--teal-dim);color:var(--teal)}
+    .badge-waterway{background:rgba(0,180,216,.12);color:var(--cyan)}
+    .badge-channel-email{background:rgba(255,217,61,.08);color:var(--yellow)}
+    .badge-channel-api{background:rgba(34,197,94,.08);color:var(--green)}
+    .badge-channel-portal{background:var(--purple-dim);color:var(--purple)}
+
+    /* Pagination */
+    .pagination{display:flex;align-items:center;gap:.75rem;padding:1rem 1.5rem;border-top:1px solid rgba(255,255,255,.06)}
+    .page-info{font-size:.82rem;color:var(--light-gray);flex:1}
+
+    /* Detail modal */
+    .modal-overlay{position:fixed;inset:0;background:rgba(10,22,40,.85);z-index:200;display:none;align-items:center;justify-content:center;padding:1rem}
+    .modal-overlay.open{display:flex}
+    .modal{background:var(--slate);border:1px solid rgba(255,255,255,.08);border-radius:14px;max-width:700px;width:100%;max-height:90vh;overflow-y:auto;padding:1.5rem}
+    .modal h3{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between}
+    .modal-close{background:none;border:none;color:var(--gray);font-size:1.3rem;cursor:pointer;padding:.25rem}
+    .modal-close:hover{color:var(--white)}
+    .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem .5rem;margin-bottom:1rem}
+    .detail-item{display:flex;flex-direction:column;gap:.2rem}
+    .detail-item .key{font-size:.75rem;color:var(--light-gray);text-transform:uppercase;letter-spacing:.04em}
+    .detail-item .val{font-size:.875rem}
+    .json-block{background:var(--deep);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:.75rem 1rem;font-size:.8rem;font-family:monospace;color:#9ae6b4;overflow-x:auto;white-space:pre-wrap;max-height:300px;overflow-y:auto}
+    .detail-section-title{font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;color:var(--light-gray);margin:1rem 0 .5rem}
+    .status-update-row{display:flex;gap:.5rem;align-items:center;margin-top:1rem;flex-wrap:wrap}
+    .status-update-row select{background:var(--deep);border:1px solid rgba(255,255,255,.1);border-radius:6px;color:var(--white);padding:.4rem .75rem;font-size:.875rem;font-family:inherit}
+    .status-update-row input{background:var(--deep);border:1px solid rgba(255,255,255,.1);border-radius:6px;color:var(--white);padding:.4rem .75rem;font-size:.875rem;font-family:inherit;flex:1;min-width:0}
+    #update-msg{font-size:.8rem;margin-top:.5rem}
+
+    /* 7-day trend mini chart */
+    .trend-row{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:1.5rem}
+    .trend-day{background:var(--deep);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:.6rem .5rem;text-align:center}
+    .trend-day .d-label{font-size:.7rem;color:var(--gray)}
+    .trend-day .d-count{font-size:1.1rem;font-weight:700;color:var(--white)}
+    .trend-day .d-ok{font-size:.72rem;color:var(--green)}
+    .trend-day .d-fail{font-size:.72rem;color:var(--red)}
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="/"><img src="/images/canalclear-logo.png" alt="CanalClear"></a>
+    <div class="nav-links">
+      <a href="/admin">← Admin</a>
+      <a href="/app">Dashboard</a>
+    </div>
+  </div>
+</nav>
+
+<main class="main">
+  <div class="page-header">
+    <h1>📋 Submission Audit Log</h1>
+    <p>Every automated filing submission attempt across all 5 authorities.</p>
+  </div>
+
+  <!-- Summary cards -->
+  <div class="stats-row" id="stats-row">
+    <div class="stat-card"><div class="label">Total</div><div class="value" id="stat-total">—</div></div>
+    <div class="stat-card green"><div class="label">Delivered / Ack</div><div class="value" id="stat-success">—</div></div>
+    <div class="stat-card yellow"><div class="label">Sent / Pending</div><div class="value" id="stat-pending">—</div></div>
+    <div class="stat-card red"><div class="label">Failed</div><div class="value" id="stat-failed">—</div></div>
+    <div class="stat-card"><div class="label">Manual Required</div><div class="value" id="stat-manual">—</div></div>
+  </div>
+
+  <!-- 7-day trend -->
+  <div class="trend-row" id="trend-row"></div>
+
+  <!-- Filters -->
+  <div class="filters">
+    <div class="filter-group">
+      <label>Waterway</label>
+      <select id="f-waterway">
+        <option value="">All</option>
+        <option value="panama">Panama</option>
+        <option value="suez">Suez</option>
+        <option value="bosporus">Bosporus</option>
+        <option value="malacca">Malacca</option>
+        <option value="cape">Cape</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Authority</label>
+      <select id="f-authority">
+        <option value="">All</option>
+        <option value="acp_vumpa">ACP VUMPA</option>
+        <option value="sca">SCA</option>
+        <option value="samsa">SAMSA</option>
+        <option value="turkish_vtsc">Turkish VTSC</option>
+        <option value="mpa_singapore">MPA Singapore</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Status</label>
+      <select id="f-status">
+        <option value="">All</option>
+        <option value="queued">Queued</option>
+        <option value="sent">Sent</option>
+        <option value="delivered">Delivered</option>
+        <option value="acknowledged">Acknowledged</option>
+        <option value="failed">Failed</option>
+        <option value="manual_required">Manual Required</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Vessel ID</label>
+      <input type="number" id="f-vessel" placeholder="vessel id" style="width:110px">
+    </div>
+    <div class="filter-group">
+      <label>From</label>
+      <input type="date" id="f-from">
+    </div>
+    <div class="filter-group">
+      <label>To</label>
+      <input type="date" id="f-to">
+    </div>
+    <div class="filter-actions">
+      <button class="btn btn-primary" onclick="loadAttempts(0)">Apply</button>
+      <button class="btn btn-ghost" onclick="clearFilters()">Clear</button>
+      <a id="csv-link" href="#" class="btn btn-ghost" onclick="exportCsv(event)">Export CSV</a>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="panel">
+    <div class="panel-header">
+      <span class="panel-title">Submission Attempts</span>
+      <span class="panel-meta" id="count-meta">—</span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Created</th>
+            <th>Waterway</th>
+            <th>Authority</th>
+            <th>Channel</th>
+            <th>Status</th>
+            <th>Authority Ref</th>
+            <th>Vessel</th>
+            <th>User</th>
+            <th>Sent</th>
+            <th>Ack</th>
+          </tr>
+        </thead>
+        <tbody id="attempts-tbody">
+          <tr><td colspan="11" class="empty">Loading…</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pagination">
+      <span class="page-info" id="page-info">—</span>
+      <button class="btn btn-ghost btn-sm" id="btn-prev" onclick="changePage(-1)" disabled>← Prev</button>
+      <button class="btn btn-ghost btn-sm" id="btn-next" onclick="changePage(1)" disabled>Next →</button>
+    </div>
+  </div>
+</main>
+
+<!-- Detail modal -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+  <div class="modal" id="modal-box">
+    <h3>
+      <span>Submission #<span id="m-id"></span></span>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </h3>
+    <div class="detail-grid" id="m-detail-grid"></div>
+
+    <div class="detail-section-title">Payload Sent</div>
+    <div class="json-block" id="m-payload">—</div>
+
+    <div class="detail-section-title">Authority Response</div>
+    <div class="json-block" id="m-response">—</div>
+
+    <div class="detail-section-title">Update Status</div>
+    <div class="status-update-row">
+      <select id="m-new-status">
+        <option value="queued">queued</option>
+        <option value="sent">sent</option>
+        <option value="delivered">delivered</option>
+        <option value="acknowledged">acknowledged</option>
+        <option value="failed">failed</option>
+        <option value="manual_required">manual_required</option>
+      </select>
+      <input type="text" id="m-auth-ref" placeholder="Authority reference (optional)">
+      <button class="btn btn-primary btn-sm" onclick="updateStatus()">Save</button>
+    </div>
+    <div id="update-msg"></div>
+  </div>
+</div>
+
+<script>
+  const PAGE_SIZE = 50;
+  let currentOffset = 0;
+  let totalRows = 0;
+  let currentId = null;
+
+  // Auth guard
+  (async () => {
+    const r = await fetch('/api/auth/me').catch(() => null);
+    if (!r || !r.ok) { window.location.href = '/login'; return; }
+    const d = await r.json();
+    if (!d.user || !d.user.is_admin) { window.location.href = '/login'; return; }
+    loadStats();
+    loadAttempts(0);
+  })();
+
+  function esc(s) {
+    return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function fmtDate(iso) {
+    if (!iso) return '—';
+    const d = new Date(iso);
+    return d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'}) + ' ' +
+           d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+  }
+
+  function statusBadge(s) {
+    return `<span class="badge badge-${esc(s)}">${esc(s)}</span>`;
+  }
+
+  function waterwayBadge(w) {
+    const labels = {panama:'🇵🇦 Panama',suez:'🇪🇬 Suez',bosporus:'🇹🇷 Bosporus',malacca:'🇲🇾 Malacca',cape:'🇿🇦 Cape'};
+    return `<span class="badge badge-waterway">${esc(labels[w] || w)}</span>`;
+  }
+
+  function authorityBadge(a) {
+    const labels = {acp_vumpa:'ACP VUMPA',sca:'SCA',samsa:'SAMSA',turkish_vtsc:'Turkish VTSC',mpa_singapore:'MPA SG'};
+    return `<span class="badge badge-authority">${esc(labels[a] || a)}</span>`;
+  }
+
+  function channelBadge(c) {
+    const cls = c === 'email' ? 'email' : c === 'api' ? 'api' : 'portal';
+    return `<span class="badge badge-channel-${cls}">${esc(c)}</span>`;
+  }
+
+  async function loadStats() {
+    const r = await fetch('/api/admin/submissions/stats').catch(() => null);
+    if (!r || !r.ok) return;
+    const d = await r.json();
+
+    // Totals
+    let total=0, success=0, pending=0, failed=0, manual=0;
+    for (const row of (d.totals || [])) {
+      const n = parseInt(row.count, 10);
+      total += n;
+      if (['delivered','acknowledged'].includes(row.status)) success += n;
+      else if (['queued','sent'].includes(row.status)) pending += n;
+      else if (row.status === 'failed') failed += n;
+      else if (row.status === 'manual_required') manual += n;
+    }
+    document.getElementById('stat-total').textContent   = total;
+    document.getElementById('stat-success').textContent = success;
+    document.getElementById('stat-pending').textContent = pending;
+    document.getElementById('stat-failed').textContent  = failed;
+    document.getElementById('stat-manual').textContent  = manual;
+
+    // 7-day trend
+    const trendEl = document.getElementById('trend-row');
+    const trend = d.trend || [];
+    // Fill any missing days in last 7 with 0
+    const trendMap = {};
+    for (const t of trend) trendMap[t.day.split('T')[0]] = t;
+    const days = [];
+    for (let i=6; i>=0; i--) {
+      const dt = new Date(); dt.setDate(dt.getDate()-i);
+      const key = dt.toISOString().split('T')[0];
+      days.push({ key, label: dt.toLocaleDateString('en-GB',{weekday:'short'}), ...trendMap[key] });
+    }
+    trendEl.innerHTML = days.map(d => `
+      <div class="trend-day">
+        <div class="d-label">${esc(d.label)}</div>
+        <div class="d-count">${d.total ? parseInt(d.total,10) : 0}</div>
+        <div class="d-ok">✓ ${d.succeeded ? parseInt(d.succeeded,10) : 0}</div>
+        <div class="d-fail">✗ ${d.failed ? parseInt(d.failed,10) : 0}</div>
+      </div>`).join('');
+  }
+
+  function filtersQuery() {
+    const p = new URLSearchParams();
+    const w = document.getElementById('f-waterway').value;
+    const a = document.getElementById('f-authority').value;
+    const s = document.getElementById('f-status').value;
+    const v = document.getElementById('f-vessel').value;
+    const from = document.getElementById('f-from').value;
+    const to   = document.getElementById('f-to').value;
+    if (w) p.set('waterway', w);
+    if (a) p.set('authority', a);
+    if (s) p.set('status', s);
+    if (v) p.set('vessel_id', v);
+    if (from) p.set('date_from', from);
+    if (to)   p.set('date_to', to);
+    return p;
+  }
+
+  async function loadAttempts(offset) {
+    currentOffset = offset;
+    const tbody = document.getElementById('attempts-tbody');
+    tbody.innerHTML = '<tr><td colspan="11" class="empty">Loading…</td></tr>';
+
+    const params = filtersQuery();
+    params.set('offset', offset);
+    params.set('limit', PAGE_SIZE);
+
+    const r = await fetch(`/api/admin/submissions?${params}`).catch(() => null);
+    if (!r || !r.ok) {
+      tbody.innerHTML = '<tr><td colspan="11" class="empty" style="color:var(--red)">Failed to load data.</td></tr>';
+      return;
+    }
+    const d = await r.json();
+    totalRows = d.total || 0;
+
+    // Pagination
+    const start = totalRows === 0 ? 0 : offset + 1;
+    const end   = Math.min(offset + PAGE_SIZE, totalRows);
+    document.getElementById('page-info').textContent = `Showing ${start}–${end} of ${totalRows}`;
+    document.getElementById('count-meta').textContent = `${totalRows} total`;
+    document.getElementById('btn-prev').disabled = offset === 0;
+    document.getElementById('btn-next').disabled = end >= totalRows;
+
+    if (!d.rows || d.rows.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="11" class="empty">No submissions found.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = d.rows.map(row => `
+      <tr onclick="openDetail(${row.id})">
+        <td style="font-family:monospace;color:var(--light-gray)">#${row.id}</td>
+        <td style="white-space:nowrap;font-size:.82rem">${fmtDate(row.created_at)}</td>
+        <td>${waterwayBadge(row.waterway)}</td>
+        <td>${authorityBadge(row.authority)}</td>
+        <td>${channelBadge(row.channel)}</td>
+        <td>${statusBadge(row.status)}</td>
+        <td style="font-size:.82rem;font-family:monospace;color:var(--cyan)">${esc(row.authority_reference || '—')}</td>
+        <td style="font-size:.82rem">${esc(row.vessel_name || '—')}${row.vessel_imo ? `<br><span style="color:var(--gray);font-size:.75rem">${esc(row.vessel_imo)}</span>` : ''}</td>
+        <td style="font-size:.8rem;color:var(--light-gray)">${esc(row.user_email || '—')}</td>
+        <td style="font-size:.8rem;white-space:nowrap">${fmtDate(row.sent_at)}</td>
+        <td style="font-size:.8rem;white-space:nowrap">${fmtDate(row.acknowledged_at)}</td>
+      </tr>`).join('');
+  }
+
+  function changePage(dir) {
+    const newOffset = currentOffset + dir * PAGE_SIZE;
+    if (newOffset < 0 || newOffset >= totalRows) return;
+    loadAttempts(newOffset);
+  }
+
+  function clearFilters() {
+    ['f-waterway','f-authority','f-status'].forEach(id => document.getElementById(id).value = '');
+    ['f-vessel','f-from','f-to'].forEach(id => document.getElementById(id).value = '');
+    loadAttempts(0);
+  }
+
+  async function openDetail(id) {
+    currentId = id;
+    const r = await fetch(`/api/admin/submissions/${id}`).catch(() => null);
+    if (!r || !r.ok) return;
+    const d = await r.json();
+    const a = d.attempt;
+
+    document.getElementById('m-id').textContent = a.id;
+    document.getElementById('m-new-status').value = a.status;
+    document.getElementById('m-auth-ref').value = a.authority_reference || '';
+    document.getElementById('update-msg').textContent = '';
+
+    const grid = document.getElementById('m-detail-grid');
+    const pairs = [
+      ['Waterway', waterwayBadge(a.waterway)],
+      ['Authority', authorityBadge(a.authority)],
+      ['Channel', channelBadge(a.channel)],
+      ['Direction', esc(a.direction)],
+      ['Status', statusBadge(a.status)],
+      ['Response Status', esc(a.response_status || '—')],
+      ['Authority Ref', `<span style="font-family:monospace;color:var(--cyan)">${esc(a.authority_reference || '—')}</span>`],
+      ['Vessel', esc(a.vessel_name || '—')],
+      ['IMO', esc(a.vessel_imo || '—')],
+      ['User', esc(a.user_email || '—')],
+      ['Created', fmtDate(a.created_at)],
+      ['Sent', fmtDate(a.sent_at)],
+      ['Acknowledged', fmtDate(a.acknowledged_at)],
+      ['Error', a.error_message ? `<span style="color:var(--red);font-size:.82rem">${esc(a.error_message)}</span>` : '—'],
+    ];
+    grid.innerHTML = pairs.map(([k,v]) => `
+      <div class="detail-item"><div class="key">${esc(k)}</div><div class="val">${v}</div></div>
+    `).join('');
+
+    try {
+      document.getElementById('m-payload').textContent =
+        a.payload ? JSON.stringify(JSON.parse(typeof a.payload === 'string' ? a.payload : JSON.stringify(a.payload)), null, 2) : '—';
+    } catch { document.getElementById('m-payload').textContent = String(a.payload || '—'); }
+
+    document.getElementById('m-response').textContent = a.response_body || '—';
+
+    document.getElementById('modal-overlay').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('modal-overlay').classList.remove('open');
+  }
+
+  function closeModalOutside(e) {
+    if (e.target === document.getElementById('modal-overlay')) closeModal();
+  }
+
+  async function updateStatus() {
+    const status = document.getElementById('m-new-status').value;
+    const ref    = document.getElementById('m-auth-ref').value.trim();
+    const msg    = document.getElementById('update-msg');
+    msg.style.color = 'var(--light-gray)';
+    msg.textContent = 'Saving…';
+
+    const r = await fetch(`/api/admin/submissions/${currentId}/status`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status, authority_reference: ref || undefined }),
+    }).catch(() => null);
+
+    if (!r || !r.ok) {
+      msg.style.color = 'var(--red)';
+      msg.textContent = 'Save failed.';
+      return;
+    }
+    msg.style.color = 'var(--green)';
+    msg.textContent = 'Saved ✓';
+    loadAttempts(currentOffset);
+    setTimeout(() => { msg.textContent = ''; }, 2000);
+  }
+
+  function exportCsv(e) {
+    e.preventDefault();
+    const params = filtersQuery();
+    window.open(`/api/admin/submissions/export/csv?${params}`, '_blank');
+  }
+</script>
+</body>
+</html>

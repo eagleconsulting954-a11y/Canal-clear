@@ -1,0 +1,1840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Demo — Cape of Good Hope ISPS Pre-Arrival Filing | CanalClear</title>
+  <meta name="description" content="Try CanalClear's Cape of Good Hope ISPS pre-arrival notification demo live. AI auto-fill, SAMSA Marine Notice 12/2008 compliance validation, 96-hour window tracking, and multi-format export — no account required.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://canalclear.org/demo/cape">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://canalclear.org/demo/cape">
+  <meta property="og:title" content="Live Demo — CanalClear Cape of Good Hope ISPS Pre-Arrival Filing">
+  <meta property="og:description" content="AI auto-fill, SAMSA ISPS compliance validation, 96-hour pre-arrival window tracker — no account required.">
+  <meta property="og:image" content="https://pub-629428d185ca4960a0a73c850d32294b.r2.dev/company_47541/images/9d5d2ef6-d9e0-40eb-ad15-df5e737cefc1.png">
+  <meta property="og:site_name" content="CanalClear">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/visual-polish.css">
+  <link rel="icon" type="image/png" href="/icons/icon-192.png">
+
+  <!-- Schema: BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://canalclear.org/" },
+      { "@type": "ListItem", "position": 2, "name": "Demo", "item": "https://canalclear.org/demo" },
+      { "@type": "ListItem", "position": 3, "name": "Cape Filing", "item": "https://canalclear.org/demo/cape" }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #1a2d4a;
+      --deep: #07111F;
+      --slate: #142238;
+      --slate-2: #1e2f4a;
+      --blue: #2563EB;
+      --blue-dim: rgba(37, 99, 235, 0.1);
+      --blue-border: rgba(37, 99, 235, 0.25);
+      /* Cape accent: burnt orange — rugged South African coastline */
+      --teal: #E85A00;
+      --teal-dim: rgba(232, 90, 0, 0.1);
+      --teal-border: rgba(232, 90, 0, 0.22);
+      --accent: #E85A00;
+      --accent-dim: rgba(232, 90, 0, 0.1);
+      --accent-border: rgba(232, 90, 0, 0.25);
+      --white: #ffffff;
+      --gray: #6b7c93;
+      --light: #8fa3b8;
+      --red: #FF6B6B;
+      --red-dim: rgba(255, 107, 107, 0.12);
+      --yellow: #FFD93D;
+      --yellow-dim: rgba(255, 217, 61, 0.12);
+      --green: #00C49A;
+      --green-dim: rgba(0, 196, 154, 0.12);
+      --gold: #FFD23F;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 0.9rem 2rem;
+      background: rgba(10, 22, 40, 0.94);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(232, 90, 0, 0.12);
+    }
+    .nav-inner {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo img { height: 32px; width: auto; display: block; }
+    .nav-links { display: flex; gap: 0.25rem; align-items: center; }
+    .nav-links a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.875rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      transition: all 0.2s;
+      font-weight: 500;
+    }
+    .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+    .nav-links a.active { color: var(--accent); background: var(--accent-dim); }
+    .nav-links .nav-cta {
+      background: var(--teal);
+      color: var(--white);
+      font-weight: 700;
+      margin-left: 0.5rem;
+    }
+    .nav-links .nav-cta:hover { background: #CC4F00; color: var(--white); }
+    .hamburger-btn {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger-btn span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+    }
+
+    /* HERO BANNER */
+    .demo-hero {
+      padding: 6rem 2rem 3rem;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(232,90,0,0.06) 0%, transparent 100%);
+      border-bottom: 1px solid var(--accent-border);
+    }
+    .demo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.9rem;
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+    }
+    .demo-hero h1 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .demo-hero h1 span { color: var(--accent); }
+    .demo-hero p {
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      color: var(--gray);
+      max-width: 620px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+
+    /* MODE TOGGLE */
+    .mode-toggle-wrap {
+      max-width: 520px;
+      margin: 0 auto 0.5rem;
+      display: flex;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 4px;
+      gap: 4px;
+    }
+    .mode-btn {
+      flex: 1;
+      padding: 0.65rem 1rem;
+      border: none;
+      border-radius: 9px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--gray);
+      background: transparent;
+    }
+    .mode-btn.active { background: var(--accent); color: var(--white); }
+    .mode-hint { font-size: 0.8rem; color: var(--gray); text-align: center; margin-bottom: 0; }
+
+    /* MAIN DEMO CONTAINER */
+    .demo-main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 6rem;
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    /* FORM PANEL */
+    .form-panel {
+      background: var(--slate-2);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .form-panel-header {
+      padding: 1.25rem 1.75rem;
+      background: rgba(232,90,0,0.05);
+      border-bottom: 1px solid var(--accent-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .form-panel-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; font-weight: 700; color: var(--white); }
+    .form-panel-subtitle { font-size: 0.78rem; color: var(--gray); margin-top: 0.15rem; }
+    .autofill-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+      color: var(--accent);
+      border-radius: 8px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .autofill-btn:hover { background: var(--accent); color: var(--white); }
+    .autofill-btn .ai-icon { font-size: 1rem; }
+    .form-body { padding: 1.75rem; }
+
+    /* TABS */
+    .form-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 1.75rem;
+      background: rgba(255,255,255,0.03);
+      border-radius: 10px;
+      padding: 3px;
+      border: 1px solid rgba(255,255,255,0.07);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .form-tabs::-webkit-scrollbar { display: none; }
+    .form-tab {
+      flex-shrink: 0;
+      padding: 0.5rem 0.75rem;
+      border: none;
+      background: transparent;
+      color: var(--gray);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .form-tab.active { background: var(--slate); color: var(--white); }
+    .form-tab.has-warn { color: var(--yellow); }
+    .form-tab.has-error { color: var(--red); }
+    .form-tab-content { display: none; }
+    .form-tab-content.active { display: block; }
+
+    /* FORM GROUPS */
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-row.thirds { grid-template-columns: 1fr 1fr 1fr; }
+    .form-row.full { grid-template-columns: 1fr; }
+    .form-row.quad { grid-template-columns: 1fr 1fr 1fr 1fr; }
+    .form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+    .form-group label { font-size: 0.78rem; font-weight: 600; color: var(--light); letter-spacing: 0.02em; }
+    .form-group label .req { color: var(--red); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 0.65rem 0.9rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      color: var(--white);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: all 0.2s;
+      width: 100%;
+    }
+    .form-group textarea { min-height: 80px; resize: vertical; }
+    .form-group input::placeholder { color: var(--gray); }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--accent); background: rgba(232,90,0,0.04); }
+    .form-group input.has-value { border-color: rgba(232,90,0,0.35); }
+    .form-group select option { background: var(--deep); color: var(--white); }
+    .form-group .hint { font-size: 0.75rem; color: var(--gray); }
+    .form-section-title {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(232,90,0,0.2);
+      margin-bottom: 1rem;
+    }
+
+    /* Autofill animation */
+    @keyframes autofillFlash {
+      0% { background: rgba(232,90,0,0.2); border-color: var(--accent); }
+      100% { background: rgba(255,255,255,0.04); border-color: rgba(232,90,0,0.35); }
+    }
+    .field-autofilled { animation: autofillFlash 0.6s ease-out forwards; }
+
+    /* Validation feedback */
+    .field-error { border-color: var(--red) !important; }
+    .field-warning { border-color: var(--yellow) !important; }
+    .field-ok { border-color: rgba(232,90,0,0.45) !important; }
+    .field-hint { font-size: 0.73rem; margin-top: 0.2rem; }
+    .field-hint.err { color: var(--red); }
+    .field-hint.warn { color: var(--yellow); }
+    .field-hint.ok { color: var(--accent); }
+
+    /* Checkbox row */
+    .check-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 8px;
+      margin-bottom: 0.75rem;
+      cursor: pointer;
+    }
+    .check-row input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--accent); cursor: pointer; flex-shrink: 0; }
+    .check-row label { font-size: 0.875rem; color: var(--white); cursor: pointer; }
+
+    /* Authority badge */
+    .authority-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.9rem 1rem;
+      border-radius: 9px;
+      margin-bottom: 1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+    .authority-badge.ok { background: var(--accent-dim); border: 1px solid var(--accent-border); color: var(--accent); }
+    .authority-badge.warn { background: var(--yellow-dim); border: 1px solid rgba(255,217,61,0.3); color: var(--yellow); }
+    .authority-badge.err { background: var(--red-dim); border: 1px solid rgba(255,107,107,0.3); color: var(--red); }
+    .authority-badge .ab-icon { font-size: 1.1rem; flex-shrink: 0; }
+
+    /* Action bar */
+    .form-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      padding: 1.25rem 1.75rem;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .btn-validate {
+      display: flex; align-items: center; gap: 0.4rem;
+      padding: 0.7rem 1.5rem;
+      background: var(--accent); color: var(--white);
+      border: none; border-radius: 9px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: all 0.2s;
+    }
+    .btn-validate:hover { background: #CC4F00; }
+    .btn-submit {
+      display: flex; align-items: center; gap: 0.4rem;
+      padding: 0.7rem 1.5rem;
+      background: transparent; color: var(--accent);
+      border: 1px solid var(--accent-border); border-radius: 9px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: all 0.2s;
+    }
+    .btn-submit:hover { background: var(--accent-dim); }
+    .btn-submit:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* SUCCESS STATE */
+    .submit-success {
+      display: none;
+      background: rgba(232,90,0,0.07);
+      border: 1px solid var(--accent-border);
+      border-radius: 14px;
+      padding: 2rem;
+      text-align: center;
+      margin: 1.75rem;
+    }
+    .submit-success.show { display: block; }
+    .submit-success .ss-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .submit-success h3 { font-family: 'IBM Plex Sans', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--accent); }
+    .submit-success p { font-size: 0.875rem; color: var(--gray); margin-bottom: 1rem; }
+    .conf-number {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.15rem; font-weight: 700; color: var(--white);
+      background: rgba(255,255,255,0.05); border-radius: 8px;
+      padding: 0.6rem 1.25rem; display: inline-block;
+      margin-bottom: 1rem; letter-spacing: 0.06em;
+    }
+    .countdown-row {
+      display: flex; gap: 1rem; justify-content: center;
+      flex-wrap: wrap; margin-bottom: 1.25rem;
+    }
+    .countdown-item {
+      text-align: center; background: rgba(255,255,255,0.04);
+      border-radius: 8px; padding: 0.6rem 0.85rem; min-width: 70px;
+    }
+    .countdown-item .ci-val { font-family: 'Space Mono', monospace; font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+    .countdown-item .ci-label { font-size: 0.7rem; color: var(--gray); }
+    .ss-cta {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.65rem 1.5rem;
+      background: var(--accent); color: var(--white);
+      font-weight: 700; font-size: 0.9rem; border-radius: 9px;
+      text-decoration: none; transition: all 0.2s;
+    }
+    .ss-cta:hover { background: #CC4F00; }
+
+    /* Export buttons */
+    .export-row {
+      display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem; justify-content: center;
+    }
+    .export-btn {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.5rem 1rem;
+      background: rgba(255,255,255,0.05); color: var(--light);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 7px;
+      font-family: 'IBM Plex Sans', sans-serif; font-size: 0.8rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s; text-decoration: none;
+    }
+    .export-btn:hover { background: rgba(232,90,0,0.15); border-color: var(--accent-border); color: var(--accent); }
+
+    /* RESULTS PANEL */
+    .results-panel { position: sticky; top: 5rem; display: flex; flex-direction: column; gap: 1rem; }
+
+    /* COMPLIANCE SCORE CARD */
+    .score-card {
+      background: var(--slate-2);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .score-header {
+      padding: 1rem 1.25rem;
+      background: rgba(232,90,0,0.05);
+      border-bottom: 1px solid var(--accent-border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .score-header h3 { font-family: 'IBM Plex Sans', sans-serif; font-size: 0.875rem; font-weight: 700; }
+    .score-header .live-badge { display: flex; align-items: center; gap: 0.35rem; font-size: 0.72rem; font-weight: 700; color: var(--accent); }
+    .live-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--accent);
+      animation: livePulse 1.5s ease infinite;
+    }
+    @keyframes livePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+    .score-body { padding: 1.25rem; }
+    .score-ring-wrap { display: flex; align-items: center; gap: 1.25rem; margin-bottom: 1.25rem; }
+    .score-ring { position: relative; width: 90px; height: 90px; flex-shrink: 0; }
+    .score-ring svg { transform: rotate(-90deg); }
+    .score-ring-track { fill: none; stroke: rgba(255,255,255,0.07); stroke-width: 8; }
+    .score-ring-fill {
+      fill: none; stroke: var(--accent); stroke-width: 8;
+      stroke-linecap: round; stroke-dasharray: 226;
+      stroke-dashoffset: 14;
+      transition: stroke-dashoffset 0.8s ease;
+    }
+    .score-ring-fill.warn { stroke: var(--yellow); }
+    .score-ring-fill.err { stroke: var(--red); }
+    .score-num { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .score-num span:first-child { font-family: 'Space Mono', monospace; font-size: 1.4rem; font-weight: 700; color: var(--accent); line-height: 1; }
+    .score-num span:last-child { font-size: 0.65rem; color: var(--gray); }
+    .score-details h4 { font-size: 0.875rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .score-details .score-label { font-size: 0.8rem; color: var(--gray); display: flex; align-items: center; gap: 0.3rem; }
+
+    /* CHECK ITEMS */
+    .check-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .check-item {
+      display: flex; align-items: flex-start; gap: 0.6rem;
+      padding: 0.65rem 0.75rem; border-radius: 8px;
+      font-size: 0.82rem;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .check-item.pass { border-color: rgba(232,90,0,0.2); }
+    .check-item.warn { border-color: rgba(255,217,61,0.2); background: var(--yellow-dim); }
+    .check-item.err { border-color: rgba(255,107,107,0.2); background: var(--red-dim); }
+    .check-icon { font-size: 0.9rem; flex-shrink: 0; margin-top: 0.05rem; }
+    .check-text { flex: 1; color: var(--light); line-height: 1.4; }
+    .check-text strong { color: var(--white); }
+
+    /* DEADLINE TRACKER */
+    .deadline-card {
+      background: var(--slate-2);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .deadline-header { padding: 1rem 1.25rem; background: rgba(232,90,0,0.05); border-bottom: 1px solid var(--accent-border); }
+    .deadline-header h3 { font-family: 'IBM Plex Sans', sans-serif; font-size: 0.875rem; font-weight: 700; }
+    .deadline-list { padding: 1rem 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; }
+    .deadline-item {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 0.75rem; padding: 0.65rem 0.75rem;
+      background: rgba(255,255,255,0.02); border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .deadline-item .dl-name { font-size: 0.82rem; color: var(--light); flex: 1; }
+    .deadline-item .dl-time {
+      font-family: 'Space Mono', monospace; font-size: 0.8rem; font-weight: 700;
+      padding: 0.2rem 0.55rem; border-radius: 6px; white-space: nowrap;
+    }
+    .dl-time.ok { background: var(--accent-dim); color: var(--accent); }
+    .dl-time.warn { background: var(--yellow-dim); color: var(--yellow); }
+    .dl-time.alert { background: var(--red-dim); color: var(--red); }
+    .dl-time.filed { background: rgba(255,255,255,0.06); color: var(--gray); }
+
+    /* CTA CARD */
+    .cta-card {
+      background: var(--slate-2);
+      border: 1px solid var(--accent-border);
+      border-radius: 14px;
+      padding: 1.25rem;
+    }
+    .cta-card h4 { font-family: 'IBM Plex Sans', sans-serif; font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .cta-card p { font-size: 0.8rem; color: var(--gray); margin-bottom: 1rem; }
+    .cta-card a.cta-primary {
+      display: flex; justify-content: center; align-items: center; gap: 0.4rem;
+      padding: 0.7rem 1.25rem;
+      background: var(--teal); color: var(--white);
+      font-weight: 700; font-size: 0.9rem; border-radius: 9px;
+      text-decoration: none; transition: all 0.2s; margin-bottom: 0.75rem;
+    }
+    .cta-card a.cta-primary:hover { background: #CC4F00; }
+    .cta-trust { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 0.5rem; }
+    .cta-trust span { font-size: 0.72rem; color: var(--gray); display: flex; align-items: center; gap: 0.3rem; }
+    .cta-trust span::before { content: '✓'; color: var(--accent); font-weight: 700; }
+
+    /* Lead capture card */
+    .lead-card {
+      background: var(--slate-2);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 1.25rem;
+    }
+    .lead-card h4 { font-family: 'IBM Plex Sans', sans-serif; font-size: 0.875rem; font-weight: 700; margin-bottom: 0.35rem; color: var(--white); }
+    .lead-card p { font-size: 0.78rem; color: var(--gray); margin-bottom: 0.85rem; }
+    .lead-card input {
+      width: 100%; padding: 0.6rem 0.85rem;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; color: var(--white); font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.875rem; outline: none; margin-bottom: 0.6rem; transition: border-color 0.2s;
+    }
+    .lead-card input:focus { border-color: var(--accent); }
+    .lead-card button {
+      width: 100%; padding: 0.6rem;
+      background: var(--accent-dim); color: var(--accent);
+      border: 1px solid var(--accent-border); border-radius: 8px;
+      font-family: 'IBM Plex Sans', sans-serif; font-size: 0.85rem; font-weight: 700;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .lead-card button:hover { background: var(--accent); color: var(--white); }
+    .lead-success { font-size: 0.82rem; color: var(--accent); text-align: center; padding: 0.5rem 0; display: none; }
+
+    /* STICKY BOTTOM CTA */
+    .sticky-cta {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      z-index: 90;
+      background: rgba(10,22,40,0.96); backdrop-filter: blur(20px);
+      border-top: 1px solid var(--accent-border);
+      padding: 0.9rem 2rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .sticky-cta-text { font-size: 0.875rem; color: var(--light); }
+    .sticky-cta-text strong { color: var(--white); }
+    .sticky-cta a {
+      display: flex; align-items: center; gap: 0.4rem;
+      padding: 0.65rem 1.5rem;
+      background: var(--teal); color: var(--white);
+      font-weight: 700; font-size: 0.9rem; border-radius: 9px;
+      text-decoration: none; white-space: nowrap; transition: all 0.2s;
+    }
+    .sticky-cta a:hover { background: #CC4F00; }
+    .sticky-cta-close { background: none; border: none; color: var(--gray); font-size: 1.1rem; cursor: pointer; padding: 0.3rem; }
+
+    /* MOBILE */
+    @media (max-width: 900px) {
+      .demo-main { grid-template-columns: 1fr; padding: 1.5rem 1rem 6rem; }
+      .results-panel { position: static; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-row.thirds { grid-template-columns: 1fr 1fr; }
+      .form-row.quad { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+      .hamburger-btn { display: flex; }
+      .sticky-cta { flex-direction: column; text-align: center; padding: 1rem; }
+      .sticky-cta a { width: 100%; justify-content: center; }
+    }
+    .mobile-nav-overlay {
+      display: none; position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 99;
+      background: rgba(10,22,40,0.97); backdrop-filter: blur(20px);
+      flex-direction: column; padding: 5rem 2rem 2rem; gap: 0.25rem;
+    }
+    .mobile-nav-overlay.open { display: flex; }
+    .mobile-nav-overlay a { color: var(--white); text-decoration: none; font-size: 1.1rem; font-weight: 600; padding: 0.85rem 1rem; border-radius: 10px; transition: background 0.15s; }
+    .mobile-nav-overlay a:hover { background: rgba(255,255,255,0.05); }
+    .mobile-nav-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--gray); font-size: 1.6rem; cursor: pointer; }
+
+    .demo-watermark {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%) rotate(-35deg);
+      font-family: 'Space Mono', monospace; font-size: 3.5rem; font-weight: 700;
+      color: rgba(232, 90, 0, 0.06); letter-spacing: 0.15em;
+      pointer-events: none; user-select: none; white-space: nowrap;
+    }
+
+    .demo-nav-strip {
+      background: rgba(0,0,0,0.2);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      padding: 0.5rem 2rem;
+    }
+    .demo-nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; gap: 0.5rem;
+      overflow-x: auto; scrollbar-width: none;
+    }
+    .demo-nav-inner::-webkit-scrollbar { display: none; }
+    .demo-nav-inner span { font-size: 0.75rem; color: var(--gray); font-weight: 600; white-space: nowrap; margin-right: 0.25rem; }
+    .demo-nav-inner a { font-size: 0.78rem; color: var(--gray); text-decoration: none; padding: 0.3rem 0.75rem; border-radius: 20px; border: 1px solid rgba(255,255,255,0.07); white-space: nowrap; transition: all 0.15s; font-weight: 500; }
+    .demo-nav-inner a:hover { color: var(--white); border-color: rgba(255,255,255,0.15); }
+    .demo-nav-inner a.active { color: var(--accent); border-color: var(--accent-border); background: var(--accent-dim); }
+
+    /* Ports table */
+    .ports-table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; font-size: 0.82rem; }
+    .ports-table th { padding: 0.4rem 0.5rem; background: rgba(255,255,255,0.05); color: var(--light); font-weight: 600; text-align: left; font-size: 0.75rem; }
+    .ports-table td { padding: 0.4rem 0.5rem; border-top: 1px solid rgba(255,255,255,0.05); color: var(--white); }
+    .ports-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+    .port-add-row { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+    .port-add-row input { flex: 1; padding: 0.5rem 0.75rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 7px; color: var(--white); font-family: 'IBM Plex Sans', sans-serif; font-size: 0.82rem; outline: none; }
+    .port-add-row input:focus { border-color: var(--accent); }
+    .port-add-btn { padding: 0.5rem 0.85rem; background: var(--accent-dim); border: 1px solid var(--accent-border); color: var(--accent); border-radius: 7px; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.82rem; font-weight: 700; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+    .port-add-btn:hover { background: var(--accent); color: var(--white); }
+    .port-remove-btn { background: none; border: none; color: var(--gray); cursor: pointer; font-size: 0.9rem; padding: 0.1rem 0.3rem; }
+    .port-remove-btn:hover { color: var(--red); }
+  </style>
+  <link rel="stylesheet" href="/css/mobile.css">
+  <style>
+    .mobile-nav-overlay { top: 0 !important; background: rgba(10,22,40,0.97) !important; border-top: none !important; }
+    @media (max-width: 900px) { .hamburger-btn { display: flex !important; } }
+    @media (min-width: 901px) { .hamburger-btn { display: none !important; } }
+  </style>
+  <link rel="stylesheet" href="/css/nav.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <img src="https://pub-629428d185ca4960a0a73c850d32294b.r2.dev/company_47541/images/9d5d2ef6-d9e0-40eb-ad15-df5e737cefc1.png" alt="CanalClear" width="140" height="35">
+    </a>
+    <div class="nav-links">
+      <a href="/panama">🇵🇦 Panama</a>
+      <a href="/suez">🇪🇬 Suez</a>
+      <a href="/bosporus">🇹🇷 Bosporus</a>
+      <a href="/malacca">🇸🇬 Malacca</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/demo" class="active">Demo</a>
+      <a href="/blog">Blog</a>
+      <a href="/app" class="nav-cta">Open Validator <span style="font-size:0.72rem;font-weight:500;opacity:0.75;">(Paid Plans)</span></a>
+    </div>
+    <button class="hamburger-btn" onclick="toggleMobileNav()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile nav overlay -->
+<div class="mobile-nav-overlay" id="mobile-nav">
+  <button class="mobile-nav-close" onclick="toggleMobileNav()">&times;</button>
+  <a href="/">Home</a>
+  <a href="/panama">🇵🇦 Panama Canal</a>
+  <a href="/suez">🇪🇬 Suez Canal</a>
+  <a href="/bosporus">🇹🇷 Bosporus</a>
+  <a href="/malacca">🇸🇬 Malacca</a>
+  <a href="/pricing">Pricing</a>
+  <a href="/demo/panama">🎬 Panama Demo</a>
+  <a href="/demo/suez">🎬 Suez Demo</a>
+  <a href="/demo/bosporus">🎬 Bosporus Demo</a>
+  <a href="/demo/malacca">🎬 Malacca Demo</a>
+  <a href="/demo/cape">🎬 Cape Demo</a>
+  <a href="/demo/dashboard">📊 Fleet Dashboard</a>
+  <a href="/filing">Start Filing →</a>
+</div>
+
+<!-- DEMO NAV STRIP -->
+<div class="demo-nav-strip" style="margin-top: 56px;">
+  <div class="demo-nav-inner">
+    <span>Demos:</span>
+    <a href="/demo/panama">🇵🇦 Panama</a>
+    <a href="/demo/suez">🇪🇬 Suez</a>
+    <a href="/demo/bosporus">🇹🇷 Bosporus</a>
+    <a href="/demo/malacca">🌊 Malacca</a>
+    <a href="/demo/cape" class="active">🇿🇦 Cape</a>
+    <a href="/demo/dashboard">📊 Fleet Dashboard</a>
+  </div>
+</div>
+
+<!-- HERO BANNER -->
+<div class="demo-hero" style="padding-top: 3rem;">
+  <div class="demo-badge">🎬 Live Interactive Demo</div>
+  <h1>See CanalClear in Action —<br><span>Cape of Good Hope ISPS Pre-Arrival Demo</span></h1>
+  <p>AI auto-fills the SAMSA ISPS pre-arrival notification, validates against Marine Notice 12 of 2008 requirements, checks the 96-hour advance filing window, and flags ship security officer requirements. Try it now — no account required.</p>
+
+  <div class="mode-toggle-wrap">
+    <button class="mode-btn active" id="btn-sample" onclick="setMode('sample')">
+      🚢 Explore Sample Data
+    </button>
+    <button class="mode-btn" id="btn-own" onclick="setMode('own')">
+      ✏️ Try With Your Data →
+    </button>
+  </div>
+  <p class="mode-hint" id="mode-hint">Pre-filled with M/V Cape Agulhas — click any field to edit</p>
+</div>
+
+<!-- MAIN DEMO AREA -->
+<div class="demo-main">
+
+  <!-- LEFT: FORM PANEL -->
+  <div class="form-panel" style="position:relative; overflow:hidden;">
+    <div class="demo-watermark">DEMO</div>
+    <div class="form-panel-header">
+      <div>
+        <div class="form-panel-title" id="form-panel-title">ISPS Pre-Arrival Notification</div>
+        <div class="form-panel-subtitle" id="form-panel-subtitle">SAMSA Marine Notice 12 of 2008 — Cape of Good Hope / South African Ports</div>
+      </div>
+      <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+        <button class="autofill-btn" id="autofill-btn" onclick="triggerAutoFill()">
+          <span class="ai-icon">✨</span>
+          <span id="autofill-label">AI Auto-Fill</span>
+        </button>
+        <button id="ocr-upload-btn" onclick="window.openOCRModal()" title="Upload a certificate or manifest to auto-fill this form">
+          📄 Upload Document
+        </button>
+      </div>
+    </div>
+
+    <!-- SUCCESS STATE -->
+    <div class="submit-success" id="submit-success">
+      <div class="ss-icon">✅</div>
+      <h3>ISPS Notification Filed — SAMSA Acknowledged</h3>
+      <p>South African Maritime Safety Authority confirmation received. Port entry authorization in progress.</p>
+      <div class="conf-number" id="conf-number">SAMSA-CPT-2024-C391847</div>
+      <p style="font-size:0.8rem;color:var(--gray);margin-bottom:0.75rem;">96-hour filing window countdown:</p>
+      <div class="countdown-row" id="countdown-row">
+        <div class="countdown-item"><div class="ci-val" id="cd-hours">89</div><div class="ci-label">Hours</div></div>
+        <div class="countdown-item"><div class="ci-val" id="cd-mins">47</div><div class="ci-label">Mins</div></div>
+        <div class="countdown-item"><div class="ci-val" id="cd-secs">12</div><div class="ci-label">Secs</div></div>
+      </div>
+      <div class="export-row">
+        <button class="export-btn" onclick="downloadPDF()">📄 Download PDF</button>
+        <button class="export-btn" onclick="downloadCSV()">📊 Export CSV</button>
+        <button class="export-btn" onclick="downloadXLSX()">📋 Export Excel</button>
+      </div>
+      <a href="/pricing" class="ss-cta" style="margin-top:1rem;">Try with your vessel →</a>
+    </div>
+
+    <div class="form-body" id="form-body">
+      <!-- TABS -->
+      <div class="form-tabs" id="form-tabs">
+        <button class="form-tab active" onclick="showTab('vessel')" id="tab-vessel">Vessel</button>
+        <button class="form-tab" onclick="showTab('voyage')" id="tab-voyage">Voyage</button>
+        <button class="form-tab" onclick="showTab('security')" id="tab-security">ISPS Security</button>
+        <button class="form-tab" onclick="showTab('ports')" id="tab-ports">Last 10 Ports</button>
+        <button class="form-tab" onclick="showTab('cargo')" id="tab-cargo">Cargo / DG</button>
+        <button class="form-tab" onclick="showTab('sso')" id="tab-sso">SSO Details</button>
+      </div>
+
+      <!-- ══ TAB 1: VESSEL IDENTITY ══ -->
+      <div class="form-tab-content active" id="tab-content-vessel">
+        <div class="form-section-title">Vessel Identification</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Vessel Name <span class="req">*</span></label>
+            <input type="text" id="f-vessel-name" value="M/V Cape Agulhas" oninput="onFieldChange(event)" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label>IMO Number <span class="req">*</span></label>
+            <input type="text" id="f-imo" value="9743105" oninput="onImoChange(event)" autocomplete="off">
+            <span class="hint">7-digit IMO number</span>
+          </div>
+        </div>
+        <div class="form-row thirds">
+          <div class="form-group">
+            <label>Flag State <span class="req">*</span></label>
+            <select id="f-flag" onchange="onFieldChange(event)">
+              <option value="">Select flag…</option>
+              <option value="Panama" selected>Panama</option>
+              <option value="Liberia">Liberia</option>
+              <option value="Marshall Islands">Marshall Islands</option>
+              <option value="Bahamas">Bahamas</option>
+              <option value="Malta">Malta</option>
+              <option value="Cyprus">Cyprus</option>
+              <option value="Singapore">Singapore</option>
+              <option value="Hong Kong">Hong Kong</option>
+              <option value="Greece">Greece</option>
+              <option value="United Kingdom">United Kingdom</option>
+              <option value="China">China</option>
+              <option value="Norway">Norway</option>
+              <option value="Japan">Japan</option>
+              <option value="United States">United States</option>
+              <option value="Italy">Italy</option>
+              <option value="South Africa">South Africa</option>
+              <option value="Germany">Germany</option>
+              <option value="Bermuda">Bermuda</option>
+              <option value="Denmark">Denmark</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Call Sign</label>
+            <input type="text" id="f-call-sign" value="ZCRU7" oninput="onFieldChange(event)" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label>MMSI</label>
+            <input type="text" id="f-mmsi" value="319122400" oninput="onFieldChange(event)" autocomplete="off">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Vessel Type <span class="req">*</span></label>
+            <select id="f-vessel-type" onchange="onFieldChange(event)">
+              <option value="">Select type…</option>
+              <option value="bulk_carrier" selected>Bulk Carrier</option>
+              <option value="container">Container Ship</option>
+              <option value="tanker">Tanker</option>
+              <option value="lng_carrier">LNG Carrier</option>
+              <option value="lpg_carrier">LPG Carrier</option>
+              <option value="chemical_tanker">Chemical Tanker</option>
+              <option value="vehicle_carrier">Vehicle Carrier (RORO)</option>
+              <option value="general_cargo">General Cargo</option>
+              <option value="reefer">Reefer</option>
+              <option value="cruise">Cruise Vessel</option>
+              <option value="offshore">Offshore Supply</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Gross Tonnage <span class="req">*</span></label>
+            <input type="number" id="f-gt" value="45230" min="0" oninput="onFieldChange(event)" autocomplete="off">
+          </div>
+        </div>
+        <div class="form-row quad">
+          <div class="form-group">
+            <label>Net Tonnage</label>
+            <input type="number" id="f-nt" value="28410" min="0" oninput="onFieldChange(event)" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label>LOA (m)</label>
+            <input type="number" id="f-loa" value="229.5" min="0" step="0.1" oninput="onFieldChange(event)" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label>Beam (m)</label>
+            <input type="number" id="f-beam" value="32.2" min="0" step="0.1" oninput="onFieldChange(event)" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label>Draft (m)</label>
+            <input type="number" id="f-draft" value="12.4" min="0" step="0.1" oninput="onFieldChange(event)" autocomplete="off">
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ TAB 2: VOYAGE ══ -->
+      <div class="form-tab-content" id="tab-content-voyage">
+        <div class="form-section-title">Voyage Details</div>
+        <div class="authority-badge ok">
+          <span class="ab-icon">🇿🇦</span>
+          <span>Filing recipient: SAMSA — South African Maritime Safety Authority (Marine Notice 12/2008)</span>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Port of Origin / Last Port <span class="req">*</span></label>
+            <input type="text" id="f-port-origin" value="Santos, Brazil" oninput="onFieldChange(event)" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label>Next Port (After Cape)</label>
+            <input type="text" id="f-next-port" value="Cape Town, South Africa" oninput="onFieldChange(event)" autocomplete="off">
+          </div>
+        </div>
+        <div class="form-row full">
+          <div class="form-group">
+            <label>Estimated Time of Arrival (ETA) <span class="req">*</span></label>
+            <input type="datetime-local" id="f-eta" oninput="onFieldChange(event)">
+            <span class="hint" id="eta-hint" style="color:var(--accent);">⚠ Must be at least 96 hours from now (SAMSA requirement)</span>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Total Crew Count <span class="req">*</span></label>
+            <input type="number" id="f-crew" value="23" min="1" oninput="onFieldChange(event)" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label style="color:transparent;">—</label>
+            <div style="padding: 0.65rem 0.9rem; background: rgba(232,90,0,0.06); border: 1px solid var(--accent-border); border-radius: 8px; font-size: 0.82rem; color: var(--light);">
+              96h window: <span id="deadline-96h-display" style="color:var(--accent);font-weight:700;">Set ETA above</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ TAB 3: ISPS SECURITY ══ -->
+      <div class="form-tab-content" id="tab-content-security">
+        <div class="form-section-title">ISPS Security Declaration</div>
+        <div class="authority-badge warn">
+          <span class="ab-icon">🔒</span>
+          <span>South African ports operate at ISPS MARSEC Level 1 minimum. Level 2/3 requires advance SAMSA notification.</span>
+        </div>
+        <div class="form-row full">
+          <div class="form-group">
+            <label>ISPS Security Level <span class="req">*</span></label>
+            <select id="f-isps-level" onchange="onFieldChange(event)">
+              <option value="">Select security level…</option>
+              <option value="1" selected>Level 1 — MARSEC 1 (Normal operations)</option>
+              <option value="2">Level 2 — MARSEC 2 (Heightened threat — notify SAMSA)</option>
+              <option value="3">Level 3 — MARSEC 3 (Exceptional — full authority coordination)</option>
+            </select>
+          </div>
+        </div>
+        <div id="isps-level-info" style="padding: 0.75rem 1rem; background: rgba(0,196,154,0.07); border: 1px solid rgba(0,196,154,0.2); border-radius: 9px; font-size: 0.82rem; color: #8fa3b8; margin-bottom: 1rem;">
+          <strong style="color:var(--green);">MARSEC Level 1:</strong> Standard security measures. All cargo inspection, access control, and monitoring procedures in effect. Normal ISPS pre-arrival notification applies.
+        </div>
+        <div class="form-section-title" style="margin-top:1rem;">Compliance Confirmation</div>
+        <div class="check-row">
+          <input type="checkbox" id="f-isps-confirm" checked onchange="onFieldChange(event)">
+          <label for="f-isps-confirm">I confirm this vessel holds a valid International Ship Security Certificate (ISSC) and all ISPS Code Part A requirements are met.</label>
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="f-solas-xi2" checked onchange="onFieldChange(event)">
+          <label for="f-solas-xi2">SOLAS Chapter XI-2 requirements are in compliance. Ship Security Plan is current and approved.</label>
+        </div>
+      </div>
+
+      <!-- ══ TAB 4: LAST 10 PORTS ══ -->
+      <div class="form-tab-content" id="tab-content-ports">
+        <div class="form-section-title">Last 10 Ports of Call</div>
+        <div class="authority-badge warn">
+          <span class="ab-icon">⚓</span>
+          <span>ISPS Code Part B §9.38 requires full 10-port history. Include all ports visited in the last 10 calls.</span>
+        </div>
+        <div id="ports-table-wrap">
+          <table class="ports-table" id="ports-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Port Name</th>
+                <th>Country</th>
+                <th>Arrived</th>
+                <th>Departed</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="ports-tbody">
+              <!-- populated by JS -->
+            </tbody>
+          </table>
+        </div>
+        <div class="port-add-row" style="margin-top: 1rem;">
+          <input type="text" id="port-add-name" placeholder="Port name…" autocomplete="off">
+          <input type="text" id="port-add-country" placeholder="Country…" style="flex: 0.6;" autocomplete="off">
+          <input type="date" id="port-add-arrived" style="flex: 0.7;">
+          <input type="date" id="port-add-departed" style="flex: 0.7;">
+          <button class="port-add-btn" onclick="addPort()">+ Add</button>
+        </div>
+        <p style="font-size:0.75rem;color:var(--gray);margin-top:0.75rem;">
+          <span id="ports-count-label" style="color:var(--accent);font-weight:700;">7 of 10</span> ports entered. SAMSA requires last 10 for full ISPS compliance.
+        </p>
+      </div>
+
+      <!-- ══ TAB 5: CARGO / DG ══ -->
+      <div class="form-tab-content" id="tab-content-cargo">
+        <div class="form-section-title">Cargo Declaration</div>
+        <div class="form-row full">
+          <div class="form-group">
+            <label>Cargo Summary <span class="req">*</span></label>
+            <textarea id="f-cargo" oninput="onFieldChange(event)" placeholder="Describe cargo type, quantity, and any special considerations…">Iron ore concentrate, 42,500 MT — bulk, non-hazardous</textarea>
+          </div>
+        </div>
+        <div class="form-section-title" style="margin-top:1rem;">Dangerous Goods (IMDG)</div>
+        <div class="check-row">
+          <input type="checkbox" id="f-has-dg" onchange="onDGChange(event)">
+          <label for="f-has-dg">This vessel is carrying dangerous goods (IMDG Code cargo)</label>
+        </div>
+        <div id="dg-fields" style="display:none;">
+          <div class="authority-badge err" style="margin-top:0.75rem;">
+            <span class="ab-icon">⚠️</span>
+            <span>IMDG Class 1 (Explosives) and Class 7 (Radioactives) require SAMSA pre-approval before port entry.</span>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>IMDG Class <span class="req">*</span></label>
+              <select id="f-dg-class" onchange="onFieldChange(event)">
+                <option value="">Select IMDG class…</option>
+                <option value="1">Class 1 — Explosives (SAMSA pre-approval required)</option>
+                <option value="2">Class 2 — Gases</option>
+                <option value="3">Class 3 — Flammable Liquids</option>
+                <option value="4">Class 4 — Flammable Solids</option>
+                <option value="5.1">Class 5.1 — Oxidizing Substances</option>
+                <option value="5.2">Class 5.2 — Organic Peroxides</option>
+                <option value="6.1">Class 6.1 — Toxic Substances</option>
+                <option value="6.2">Class 6.2 — Infectious Substances</option>
+                <option value="7">Class 7 — Radioactive (SAMSA pre-approval required)</option>
+                <option value="8">Class 8 — Corrosives</option>
+                <option value="9">Class 9 — Miscellaneous</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>DG Detail / UN Number</label>
+              <input type="text" id="f-dg-detail" placeholder="e.g. UN1202 Gas Oil" oninput="onFieldChange(event)" autocomplete="off">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ TAB 6: SSO DETAILS ══ -->
+      <div class="form-tab-content" id="tab-content-sso">
+        <div class="form-section-title">Ship Security Officer (SSO)</div>
+        <div class="authority-badge ok">
+          <span class="ab-icon">🛡️</span>
+          <span>ISPS Code Part A §12 — SSO must be designated and on record for all SAMSA filings.</span>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>SSO Full Name <span class="req">*</span></label>
+            <input type="text" id="f-sso-name" value="Capt. James van der Berg" oninput="onFieldChange(event)" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label>SSO Contact (Phone/VHF) <span class="req">*</span></label>
+            <input type="text" id="f-sso-contact" value="+27 82 441 7238 / VHF Ch. 16" oninput="onFieldChange(event)" autocomplete="off">
+          </div>
+        </div>
+        <div class="form-row full">
+          <div class="form-group">
+            <label>SSO Email</label>
+            <input type="email" id="f-sso-email" value="j.vanderberg@shipping.co.za" oninput="onFieldChange(event)" autocomplete="off">
+          </div>
+        </div>
+        <div class="form-section-title" style="margin-top:1rem;">Master's Declaration</div>
+        <div class="check-row">
+          <input type="checkbox" id="f-master-confirm" checked onchange="onFieldChange(event)">
+          <label for="f-master-confirm">I, as Master of this vessel, certify that all information provided in this ISPS pre-arrival notification is accurate and complete to the best of my knowledge.</label>
+        </div>
+      </div>
+
+    </div><!-- /form-body -->
+
+    <!-- ACTION BAR -->
+    <div class="form-actions">
+      <button class="btn-validate" onclick="validateFiling()">
+        ✓ Run SAMSA Compliance Check
+      </button>
+      <button class="btn-submit" id="btn-submit" onclick="submitFiling()" disabled>
+        📤 Submit ISPS Notification
+      </button>
+    </div>
+  </div><!-- /form-panel -->
+
+  <!-- RIGHT: RESULTS PANEL -->
+  <div class="results-panel">
+
+    <!-- SCORE CARD -->
+    <div class="score-card">
+      <div class="score-header">
+        <h3>SAMSA Compliance Score</h3>
+        <div class="live-badge">
+          <div class="live-dot"></div>
+          Live validation
+        </div>
+      </div>
+      <div class="score-body">
+        <div class="score-ring-wrap">
+          <div class="score-ring">
+            <svg viewBox="0 0 90 90" width="90" height="90">
+              <circle class="score-ring-track" cx="45" cy="45" r="36"/>
+              <circle class="score-ring-fill" id="score-ring-fill" cx="45" cy="45" r="36"/>
+            </svg>
+            <div class="score-num">
+              <span id="score-display">85</span>
+              <span>/100</span>
+            </div>
+          </div>
+          <div class="score-details">
+            <h4 id="score-label">Good Standing</h4>
+            <div class="score-label" id="score-sub">2 warnings · 0 critical</div>
+            <div style="margin-top:0.5rem;font-size:0.78rem;color:var(--gray);">SAMSA Marine Notice 12/2008</div>
+          </div>
+        </div>
+
+        <!-- CHECK LIST -->
+        <div class="check-list" id="check-list">
+          <div class="check-item pass">
+            <span class="check-icon">✅</span>
+            <div class="check-text"><strong>IMO Number</strong> — Checksum valid</div>
+          </div>
+          <div class="check-item pass">
+            <span class="check-icon">✅</span>
+            <div class="check-text"><strong>Vessel Name</strong> — M/V Cape Agulhas confirmed</div>
+          </div>
+          <div class="check-item pass">
+            <span class="check-icon">✅</span>
+            <div class="check-text"><strong>Flag State</strong> — Panama recognized</div>
+          </div>
+          <div class="check-item warn">
+            <span class="check-icon">⚠️</span>
+            <div class="check-text"><strong>ETA Window</strong> — Set ETA ≥96h ahead for SAMSA compliance</div>
+          </div>
+          <div class="check-item pass">
+            <span class="check-icon">✅</span>
+            <div class="check-text"><strong>ISPS Level</strong> — MARSEC 1 standard operations</div>
+          </div>
+          <div class="check-item warn">
+            <span class="check-icon">⚠️</span>
+            <div class="check-text"><strong>Last 10 Ports</strong> — Add remaining ports for full ISPS history</div>
+          </div>
+          <div class="check-item pass">
+            <span class="check-icon">✅</span>
+            <div class="check-text"><strong>SSO Details</strong> — Capt. van der Berg on record</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEADLINE TRACKER -->
+    <div class="deadline-card">
+      <div class="deadline-header">
+        <h3>⏱ 96-Hour Filing Window</h3>
+      </div>
+      <div class="deadline-list" id="deadline-list">
+        <div class="deadline-item">
+          <div class="dl-name">96h pre-arrival window opens</div>
+          <div class="dl-time ok" id="dl-96h">Set ETA</div>
+        </div>
+        <div class="deadline-item">
+          <div class="dl-name">SAMSA filing deadline</div>
+          <div class="dl-time warn" id="dl-samsa">Set ETA</div>
+        </div>
+        <div class="deadline-item">
+          <div class="dl-name">Port authority clearance</div>
+          <div class="dl-time filed" id="dl-port">48h before ETA</div>
+        </div>
+        <div class="deadline-item">
+          <div class="dl-name">Vessel ETA</div>
+          <div class="dl-time filed" id="dl-eta-display">Set ETA above</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUBMIT TO SAMSA / CAPE TOWN RADIO CARD -->
+    <div class="lead-card" id="samsa-submit-card" style="background:linear-gradient(135deg,rgba(0,160,73,0.08),rgba(20,34,56,0.95));border-color:rgba(0,160,73,0.25);">
+      <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem;">
+        <span style="font-size:1.1rem;">🇿🇦</span>
+        <h4 style="font-size:1rem;font-weight:700;color:#00a049;">Submit to Cape Town Radio</h4>
+        <span style="margin-left:auto;padding:0.2rem 0.55rem;background:rgba(0,160,73,0.12);border:1px solid rgba(0,160,73,0.25);border-radius:12px;font-size:0.7rem;font-weight:700;color:#00a049;white-space:nowrap;">✉ Auto-file Email</span>
+      </div>
+      <p style="font-size:0.83rem;color:var(--gray);margin-bottom:1rem;line-height:1.5;">Send your ISPS pre-arrival notification directly to Cape Town Radio (ZSC) per SAMSA Marine Notice 12/2008. CanalClear formats the complete structured message — no attachments, plain text, exactly as the regulation requires.</p>
+      <div id="samsaSubmitResult" style="margin-bottom:0.75rem;min-height:0;"></div>
+      <button onclick="submitToSAMSA()" id="samsaSubmitBtn"
+        style="width:100%;padding:0.75rem;background:rgba(0,160,73,0.15);border:1px solid rgba(0,160,73,0.35);border-radius:10px;color:#00a049;font-size:0.88rem;font-weight:700;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:0.5rem;"
+        onmouseover="this.style.background='rgba(0,160,73,0.25)'" onmouseout="this.style.background='rgba(0,160,73,0.15)'">
+        🇿🇦 Send ISPS to Cape Town Radio
+      </button>
+      <p style="font-size:0.72rem;color:rgba(143,163,184,0.6);margin-top:0.55rem;margin-bottom:0;text-align:center;">Any change in ETA, cargo, crew, or ISPS level must be reported immediately via the same channel.</p>
+    </div>
+
+    <!-- LEAD CAPTURE CARD -->
+    <div class="lead-card" id="lead-card">
+      <h4>📥 Download Cape Compliance Guide</h4>
+      <p>Full SAMSA Marine Notice 12/2008 compliance checklist — ISPS filing requirements, SSO obligations, dangerous goods pre-approval process.</p>
+      <input type="email" id="lead-email" placeholder="Your work email" autocomplete="email">
+      <button onclick="submitLead()">Get Free Cape Compliance Guide →</button>
+      <div class="lead-success" id="lead-success">✅ Guide sent! Check your inbox.</div>
+    </div>
+
+    <!-- CTA CARD -->
+    <div class="cta-card">
+      <h4>🛡️ Automate Cape of Good Hope Filings</h4>
+      <p>Replace $2,000+ ship agent fees with automated SAMSA ISPS pre-arrival notifications, compliance validation, and audit-ready PDFs.</p>
+      <a href="/pricing" class="cta-primary">See Pricing →</a>
+      <div class="cta-trust">
+        <span>No agent needed</span>
+        <span>96h window automated</span>
+        <span>PDF ready</span>
+      </div>
+    </div>
+
+  </div><!-- /results-panel -->
+
+</div><!-- /demo-main -->
+
+<!-- STICKY BOTTOM CTA -->
+<div class="sticky-cta" id="sticky-cta">
+  <div class="sticky-cta-text">
+    <strong>Ready to automate Cape filings?</strong> Replace ship agents with automated SAMSA ISPS compliance.
+  </div>
+  <a href="/pricing">Start Filing — No Agent Needed →</a>
+  <button class="sticky-cta-close" onclick="document.getElementById('sticky-cta').style.display='none'">×</button>
+</div>
+
+<script>
+// ── State ────────────────────────────────────────────────────────────────────
+
+let currentMode = 'sample';
+let lastValidation = null;
+let portsData = [
+  { port: 'Itaqui', country: 'Brazil', arrived_at: '2024-11-01', departed_at: '2024-11-06' },
+  { port: 'Santos', country: 'Brazil', arrived_at: '2024-11-08', departed_at: '2024-11-14' },
+  { port: 'Montevideo', country: 'Uruguay', arrived_at: '2024-11-17', departed_at: '2024-11-18' },
+  { port: 'Buenos Aires', country: 'Argentina', arrived_at: '2024-11-20', departed_at: '2024-11-23' },
+  { port: 'Port Stanley', country: 'Falkland Islands', arrived_at: '2024-11-28', departed_at: '2024-11-29' },
+  { port: 'Punta Arenas', country: 'Chile', arrived_at: '2024-12-02', departed_at: '2024-12-03' },
+  { port: 'Ushuaia', country: 'Argentina', arrived_at: '2024-12-05', departed_at: '2024-12-06' },
+];
+
+// ── Initialization ────────────────────────────────────────────────────────────
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Set default ETA 120 hours from now
+  const eta = new Date(Date.now() + 120 * 60 * 60 * 1000);
+  const pad = n => String(n).padStart(2, '0');
+  const etaStr = `${eta.getFullYear()}-${pad(eta.getMonth()+1)}-${pad(eta.getDate())}T${pad(eta.getHours())}:${pad(eta.getMinutes())}`;
+  document.getElementById('f-eta').value = etaStr;
+
+  renderPortsTable();
+  updateDeadlines();
+  setTimeout(() => validateFiling(), 600);
+});
+
+// ── Tab Navigation ────────────────────────────────────────────────────────────
+
+function showTab(name) {
+  document.querySelectorAll('.form-tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.form-tab').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-content-' + name).classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+}
+
+// ── Mode Toggle ────────────────────────────────────────────────────────────────
+
+function setMode(mode) {
+  currentMode = mode;
+  document.getElementById('btn-sample').classList.toggle('active', mode === 'sample');
+  document.getElementById('btn-own').classList.toggle('active', mode === 'own');
+  if (mode === 'own') {
+    document.getElementById('mode-hint').textContent = 'Enter your vessel IMO number and click AI Auto-Fill';
+    clearForm();
+  } else {
+    document.getElementById('mode-hint').textContent = 'Pre-filled with M/V Cape Agulhas — click any field to edit';
+    loadSampleData();
+  }
+}
+
+function clearForm() {
+  ['f-vessel-name','f-imo','f-call-sign','f-mmsi','f-gt','f-nt','f-loa','f-beam','f-draft',
+   'f-port-origin','f-next-port','f-crew','f-cargo','f-dg-detail','f-sso-name','f-sso-contact','f-sso-email'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  ['f-flag','f-vessel-type','f-isps-level','f-dg-class'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.selectedIndex = 0;
+  });
+  document.getElementById('f-has-dg').checked = false;
+  document.getElementById('dg-fields').style.display = 'none';
+  portsData = [];
+  renderPortsTable();
+  updatePortsCount();
+}
+
+function loadSampleData() {
+  document.getElementById('f-vessel-name').value = 'M/V Cape Agulhas';
+  document.getElementById('f-imo').value = '9743105';
+  document.getElementById('f-flag').value = 'Panama';
+  document.getElementById('f-call-sign').value = 'ZCRU7';
+  document.getElementById('f-mmsi').value = '319122400';
+  document.getElementById('f-vessel-type').value = 'bulk_carrier';
+  document.getElementById('f-gt').value = '45230';
+  document.getElementById('f-nt').value = '28410';
+  document.getElementById('f-loa').value = '229.5';
+  document.getElementById('f-beam').value = '32.2';
+  document.getElementById('f-draft').value = '12.4';
+  document.getElementById('f-port-origin').value = 'Santos, Brazil';
+  document.getElementById('f-next-port').value = 'Cape Town, South Africa';
+  document.getElementById('f-crew').value = '23';
+  document.getElementById('f-cargo').value = 'Iron ore concentrate, 42,500 MT — bulk, non-hazardous';
+  document.getElementById('f-isps-level').value = '1';
+  document.getElementById('f-sso-name').value = 'Capt. James van der Berg';
+  document.getElementById('f-sso-contact').value = '+27 82 441 7238 / VHF Ch. 16';
+  document.getElementById('f-sso-email').value = 'j.vanderberg@shipping.co.za';
+  portsData = [
+    { port: 'Itaqui', country: 'Brazil', arrived_at: '2024-11-01', departed_at: '2024-11-06' },
+    { port: 'Santos', country: 'Brazil', arrived_at: '2024-11-08', departed_at: '2024-11-14' },
+    { port: 'Montevideo', country: 'Uruguay', arrived_at: '2024-11-17', departed_at: '2024-11-18' },
+    { port: 'Buenos Aires', country: 'Argentina', arrived_at: '2024-11-20', departed_at: '2024-11-23' },
+    { port: 'Port Stanley', country: 'Falkland Islands', arrived_at: '2024-11-28', departed_at: '2024-11-29' },
+    { port: 'Punta Arenas', country: 'Chile', arrived_at: '2024-12-02', departed_at: '2024-12-03' },
+    { port: 'Ushuaia', country: 'Argentina', arrived_at: '2024-12-05', departed_at: '2024-12-06' },
+  ];
+  renderPortsTable();
+  updatePortsCount();
+  setTimeout(() => validateFiling(), 400);
+}
+
+// ── IMO Autofill ──────────────────────────────────────────────────────────────
+
+let imoDebounce = null;
+function onImoChange(event) {
+  onFieldChange(event);
+  clearTimeout(imoDebounce);
+  imoDebounce = setTimeout(() => {
+    const imo = event.target.value.replace(/^IMO\s*/i, '').trim();
+    if (imo.length === 7) triggerAutoFill();
+  }, 400);
+}
+
+async function triggerAutoFill() {
+  const imo = document.getElementById('f-imo').value.trim();
+  if (!imo) return;
+  const btn = document.getElementById('autofill-btn');
+  const label = document.getElementById('autofill-label');
+  btn.disabled = true;
+  label.textContent = 'Looking up…';
+
+  try {
+    const res = await fetch('/api/cape/autofill', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ imo }),
+    });
+    const data = await res.json();
+
+    if (data.success && data.found && data.data) {
+      const d = data.data;
+      const fields = {
+        'f-vessel-name': d.vessel_name, 'f-flag': d.flag_state,
+        'f-call-sign': d.call_sign,    'f-mmsi': d.mmsi,
+        'f-gt': d.gross_tonnage,       'f-nt': d.net_tonnage,
+        'f-loa': d.loa,               'f-beam': d.beam,
+        'f-draft': d.draft,
+      };
+      if (d.vessel_type) document.getElementById('f-vessel-type').value = d.vessel_type;
+      Object.entries(fields).forEach(([id, val]) => {
+        const el = document.getElementById(id);
+        if (el && val !== null && val !== undefined) {
+          el.value = val;
+          el.classList.add('field-autofilled', 'has-value');
+          setTimeout(() => el.classList.remove('field-autofilled'), 700);
+        }
+      });
+      label.textContent = '✓ Filled';
+      setTimeout(() => validateFiling(), 500);
+    } else {
+      label.textContent = 'Not found';
+    }
+  } catch (_) {
+    label.textContent = 'Error';
+  } finally {
+    btn.disabled = false;
+    setTimeout(() => { label.textContent = 'AI Auto-Fill'; }, 2500);
+  }
+}
+
+// ── Field change handlers ─────────────────────────────────────────────────────
+
+function onFieldChange(event) {
+  const el = event.target;
+  if (el.value) el.classList.add('has-value');
+  else el.classList.remove('has-value');
+  if (el.id === 'f-eta') updateDeadlines();
+  clearTimeout(window._validateTimer);
+  window._validateTimer = setTimeout(validateFiling, 600);
+}
+
+function onDGChange(event) {
+  const hasDG = event.target.checked;
+  document.getElementById('dg-fields').style.display = hasDG ? 'block' : 'none';
+  validateFiling();
+}
+
+function updateDeadlines() {
+  const etaVal = document.getElementById('f-eta').value;
+  if (!etaVal) return;
+  const eta = new Date(etaVal);
+  const now = new Date();
+  const hoursAhead = (eta - now) / (1000 * 60 * 60);
+
+  const d96 = new Date(eta.getTime() - 96 * 60 * 60 * 1000);
+  const d48 = new Date(eta.getTime() - 48 * 60 * 60 * 1000);
+
+  const fmt = d => d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+
+  document.getElementById('dl-96h').textContent = fmt(d96);
+  document.getElementById('dl-samsa').textContent = fmt(d96) + ' (latest)';
+  document.getElementById('dl-port').textContent = fmt(d48);
+  document.getElementById('dl-eta-display').textContent = fmt(eta);
+
+  const el96 = document.getElementById('dl-96h');
+  const elSamsa = document.getElementById('dl-samsa');
+
+  if (hoursAhead >= 120) {
+    el96.className = 'dl-time ok'; elSamsa.className = 'dl-time ok';
+  } else if (hoursAhead >= 96) {
+    el96.className = 'dl-time warn'; elSamsa.className = 'dl-time warn';
+  } else {
+    el96.className = 'dl-time alert'; elSamsa.className = 'dl-time alert';
+  }
+
+  // Update the 96h deadline display in voyage tab
+  const deadline96hDisplay = document.getElementById('deadline-96h-display');
+  if (deadline96hDisplay) {
+    deadline96hDisplay.textContent = fmt(d96) + ' UTC';
+    deadline96hDisplay.style.color = hoursAhead >= 96 ? 'var(--accent)' : 'var(--red)';
+  }
+
+  // Update ETA hint
+  const hint = document.getElementById('eta-hint');
+  if (hint) {
+    if (hoursAhead >= 96) {
+      hint.textContent = `✓ ${Math.round(hoursAhead)}h ahead — exceeds 96h SAMSA requirement`;
+      hint.style.color = 'var(--green)';
+    } else {
+      hint.textContent = `⚠ Only ${Math.round(hoursAhead)}h ahead — SAMSA requires 96h minimum`;
+      hint.style.color = 'var(--red)';
+    }
+  }
+}
+
+// ── Ports Table ───────────────────────────────────────────────────────────────
+
+function renderPortsTable() {
+  const tbody = document.getElementById('ports-tbody');
+  if (!tbody) return;
+  tbody.innerHTML = portsData.map((p, i) => `
+    <tr>
+      <td>${i+1}</td>
+      <td>${p.port || '—'}</td>
+      <td>${p.country || '—'}</td>
+      <td>${p.arrived_at || '—'}</td>
+      <td>${p.departed_at || '—'}</td>
+      <td><button class="port-remove-btn" onclick="removePort(${i})">×</button></td>
+    </tr>
+  `).join('');
+  updatePortsCount();
+}
+
+function addPort() {
+  const name    = document.getElementById('port-add-name').value.trim();
+  const country = document.getElementById('port-add-country').value.trim();
+  const arrived = document.getElementById('port-add-arrived').value;
+  const departed= document.getElementById('port-add-departed').value;
+  if (!name) return;
+  if (portsData.length >= 10) { alert('Maximum 10 ports of call allowed.'); return; }
+  portsData.push({ port: name, country, arrived_at: arrived, departed_at: departed });
+  document.getElementById('port-add-name').value = '';
+  document.getElementById('port-add-country').value = '';
+  document.getElementById('port-add-arrived').value = '';
+  document.getElementById('port-add-departed').value = '';
+  renderPortsTable();
+  validateFiling();
+}
+
+function removePort(idx) {
+  portsData.splice(idx, 1);
+  renderPortsTable();
+  validateFiling();
+}
+
+function updatePortsCount() {
+  const label = document.getElementById('ports-count-label');
+  if (label) {
+    label.textContent = `${portsData.length} of 10`;
+    label.style.color = portsData.length >= 10 ? 'var(--green)' : portsData.length >= 7 ? 'var(--accent)' : 'var(--red)';
+  }
+}
+
+// ── Validation ─────────────────────────────────────────────────────────────────
+
+function buildPayload() {
+  return {
+    vessel_name:          document.getElementById('f-vessel-name').value,
+    imo_number:           document.getElementById('f-imo').value,
+    flag_state:           document.getElementById('f-flag').value,
+    call_sign:            document.getElementById('f-call-sign').value,
+    mmsi:                 document.getElementById('f-mmsi').value,
+    vessel_type:          document.getElementById('f-vessel-type').value,
+    gross_tonnage:        parseFloat(document.getElementById('f-gt').value) || null,
+    net_tonnage:          parseFloat(document.getElementById('f-nt').value) || null,
+    loa:                  parseFloat(document.getElementById('f-loa').value) || null,
+    beam:                 parseFloat(document.getElementById('f-beam').value) || null,
+    draft:                parseFloat(document.getElementById('f-draft').value) || null,
+    port_of_origin:       document.getElementById('f-port-origin').value,
+    next_port:            document.getElementById('f-next-port').value,
+    estimated_arrival:    document.getElementById('f-eta').value ? new Date(document.getElementById('f-eta').value).toISOString() : null,
+    cargo_summary:        document.getElementById('f-cargo').value,
+    crew_count:           parseInt(document.getElementById('f-crew').value) || null,
+    isps_security_level:  parseInt(document.getElementById('f-isps-level').value) || null,
+    last_10_ports:        portsData,
+    has_dangerous_goods:  document.getElementById('f-has-dg').checked,
+    dangerous_goods_class:document.getElementById('f-dg-class').value || null,
+    dangerous_goods_detail:document.getElementById('f-dg-detail').value || null,
+    sso_name:             document.getElementById('f-sso-name').value,
+    sso_contact:          document.getElementById('f-sso-contact').value,
+    sso_email:            document.getElementById('f-sso-email').value,
+  };
+}
+
+async function validateFiling() {
+  const payload = buildPayload();
+  try {
+    const res = await fetch('/api/cape/validate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) return;
+    const data = await res.json();
+    if (!data.success) return;
+    lastValidation = data.validation;
+    renderValidation(data.validation);
+  } catch (_) {
+    // Demo mode — render client-side fallback
+    renderClientSideValidation(payload);
+  }
+}
+
+function renderValidation(v) {
+  const score = v.compliance_score;
+  updateScoreRing(score);
+
+  const label = score >= 80 ? 'Good Standing' : score >= 60 ? 'Needs Review' : 'Non-Compliant';
+  document.getElementById('score-label').textContent = label;
+  document.getElementById('score-sub').textContent = `${v.failed_checks} critical · ${v.warning_checks} warnings`;
+
+  const list = document.getElementById('check-list');
+  list.innerHTML = '';
+  const maxShow = 8;
+  const items = [...(v.critical_errors || []), ...(v.warnings_list || []), ...(v.passed_list || [])].slice(0, maxShow);
+  items.forEach(item => {
+    const cls = item.status === 'pass' ? 'pass' : item.status === 'warning' ? 'warn' : 'err';
+    const icon = item.status === 'pass' ? '✅' : item.status === 'warning' ? '⚠️' : '❌';
+    list.innerHTML += `
+      <div class="check-item ${cls}">
+        <span class="check-icon">${icon}</span>
+        <div class="check-text"><strong>${item.name}</strong> — ${item.message}</div>
+      </div>`;
+  });
+  if (v.checklist && v.checklist.length > maxShow) {
+    list.innerHTML += `<div style="text-align:center;font-size:0.75rem;color:var(--gray);padding:0.4rem;">${v.checklist.length - maxShow} more checks…</div>`;
+  }
+
+  document.getElementById('btn-submit').disabled = v.failed_checks > 0;
+
+  // ISPS level info update
+  updateIspsInfo(document.getElementById('f-isps-level').value);
+}
+
+function renderClientSideValidation(p) {
+  let score = 100;
+  const issues = [];
+  if (!p.imo_number) { score -= 15; issues.push({ cls:'err', name:'IMO Number', msg:'Required' }); }
+  if (!p.vessel_name) { score -= 15; issues.push({ cls:'err', name:'Vessel Name', msg:'Required' }); }
+  if (!p.flag_state) { score -= 15; issues.push({ cls:'err', name:'Flag State', msg:'Required' }); }
+  if (!p.estimated_arrival) { score -= 15; issues.push({ cls:'err', name:'ETA', msg:'Set ETA ≥96h ahead (SAMSA)' }); }
+  else {
+    const h = (new Date(p.estimated_arrival) - Date.now()) / 3600000;
+    if (h < 96) { score -= 15; issues.push({ cls:'err', name:'96h Window', msg: `Only ${Math.round(h)}h ahead — need 96h` }); }
+    else if (h < 120) { score -= 5; issues.push({ cls:'warn', name:'96h Window', msg:`${Math.round(h)}h — ok but 120h recommended` }); }
+  }
+  if (!p.sso_name) { score -= 15; issues.push({ cls:'err', name:'SSO Name', msg:'Ship Security Officer required' }); }
+  if (!p.sso_contact) { score -= 15; issues.push({ cls:'err', name:'SSO Contact', msg:'SSO contact required' }); }
+  if (portsData.length < 10) { score -= 5; issues.push({ cls:'warn', name:'Last 10 Ports', msg:`${portsData.length}/10 ports entered` }); }
+  if (!p.isps_security_level) { score -= 15; issues.push({ cls:'err', name:'ISPS Level', msg:'Security level required' }); }
+  if (!p.cargo_summary) { score -= 15; issues.push({ cls:'err', name:'Cargo Summary', msg:'Required' }); }
+
+  score = Math.max(0, score);
+  updateScoreRing(score);
+  const label = score >= 80 ? 'Good Standing' : score >= 60 ? 'Needs Review' : 'Non-Compliant';
+  document.getElementById('score-label').textContent = label;
+  const fails = issues.filter(i => i.cls === 'err').length;
+  const warns = issues.filter(i => i.cls === 'warn').length;
+  document.getElementById('score-sub').textContent = `${fails} critical · ${warns} warnings`;
+
+  const list = document.getElementById('check-list');
+  list.innerHTML = issues.map(i => `
+    <div class="check-item ${i.cls}">
+      <span class="check-icon">${i.cls==='pass'?'✅':i.cls==='warn'?'⚠️':'❌'}</span>
+      <div class="check-text"><strong>${i.name}</strong> — ${i.msg}</div>
+    </div>`).join('');
+
+  document.getElementById('btn-submit').disabled = fails > 0;
+}
+
+function updateScoreRing(score) {
+  document.getElementById('score-display').textContent = score;
+  const circumference = 226;
+  const offset = circumference - (score / 100) * circumference;
+  const fill = document.getElementById('score-ring-fill');
+  fill.style.strokeDashoffset = offset;
+  fill.className = 'score-ring-fill' + (score >= 70 ? '' : score >= 45 ? ' warn' : ' err');
+  const scoreEl = document.getElementById('score-display');
+  scoreEl.style.color = score >= 70 ? 'var(--accent)' : score >= 45 ? 'var(--yellow)' : 'var(--red)';
+}
+
+function updateIspsInfo(level) {
+  const info = document.getElementById('isps-level-info');
+  if (!info) return;
+  const descriptions = {
+    '1': '<strong style="color:var(--green);">MARSEC Level 1:</strong> Standard security measures. Normal ISPS pre-arrival notification applies.',
+    '2': '<strong style="color:var(--yellow);">MARSEC Level 2:</strong> Heightened security threat. Additional measures apply. Advance SAMSA notification required.',
+    '3': '<strong style="color:var(--red);">MARSEC Level 3:</strong> Exceptional security threat. Full SAMSA and Transnet National Ports Authority coordination required before port entry.',
+  };
+  info.innerHTML = descriptions[level] || descriptions['1'];
+}
+
+document.getElementById('f-isps-level').addEventListener('change', e => updateIspsInfo(e.target.value));
+
+// ── Submit (demo only — shows success state) ─────────────────────────────────
+
+function submitFiling() {
+  // Show success state for demo
+  document.getElementById('form-body').style.display = 'none';
+  document.querySelector('.form-actions').style.display = 'none';
+  document.getElementById('submit-success').classList.add('show');
+
+  const refNum = 'SAMSA-CPT-' + new Date().getFullYear() + '-C' + Math.floor(Math.random() * 900000 + 100000);
+  document.getElementById('conf-number').textContent = refNum;
+
+  // Countdown timer
+  startCountdown();
+}
+
+function startCountdown() {
+  const eta = document.getElementById('f-eta').value;
+  if (!eta) return;
+  const etaMs = new Date(eta).getTime();
+
+  function tick() {
+    const diff = etaMs - Date.now();
+    if (diff <= 0) return;
+    const h = Math.floor(diff / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
+    document.getElementById('cd-mins').textContent = String(m).padStart(2, '0');
+    document.getElementById('cd-secs').textContent = String(s).padStart(2, '0');
+  }
+  tick();
+  setInterval(tick, 1000);
+}
+
+// ── Export (demo — triggers lead capture gate) ─────────────────────────────────
+
+function downloadPDF() {
+  const email = document.getElementById('lead-email').value;
+  if (!email) {
+    document.getElementById('lead-email').focus();
+    document.getElementById('lead-card').scrollIntoView({ behavior: 'smooth' });
+    alert('Enter your email above to download the compliance PDF.');
+    return;
+  }
+  const payload = buildPayload();
+  if (typeof gtag !== 'undefined') gtag('event', 'cape_export', {
+    export_format: 'pdf',
+    vessel_imo: payload.imo_number || '',
+    filing_type: 'ISPS',
+  });
+  // In a real filing, fetch from /api/cape/filings/:id/pdf
+  alert('PDF downloaded! In production this would generate a branded SAMSA ISPS pre-arrival PDF.');
+}
+
+function downloadCSV() {
+  const payload = buildPayload();
+  if (typeof gtag !== 'undefined') gtag('event', 'cape_export', {
+    export_format: 'csv',
+    vessel_imo: payload.imo_number || '',
+    filing_type: 'ISPS',
+  });
+  const rows = [
+    ['Field', 'Value'],
+    ['Vessel Name', payload.vessel_name],
+    ['IMO Number', payload.imo_number],
+    ['Flag State', payload.flag_state],
+    ['Call Sign', payload.call_sign],
+    ['Gross Tonnage', payload.gross_tonnage],
+    ['Port of Origin', payload.port_of_origin],
+    ['Next Port', payload.next_port],
+    ['ETA', payload.estimated_arrival],
+    ['Crew Count', payload.crew_count],
+    ['ISPS Security Level', payload.isps_security_level],
+    ['Cargo Summary', payload.cargo_summary],
+    ['SSO Name', payload.sso_name],
+    ['SSO Contact', payload.sso_contact],
+    ['Compliance Score', lastValidation ? lastValidation.compliance_score : 'Run validation'],
+  ];
+  const csv = rows.map(r => r.map(c => `"${String(c||'').replace(/"/g,'""')}"`).join(',')).join('\r\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `cape-isps-${payload.vessel_name || 'vessel'}-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function downloadXLSX() {
+  const payload = buildPayload();
+  if (typeof gtag !== 'undefined') gtag('event', 'cape_export', {
+    export_format: 'excel',
+    vessel_imo: payload.imo_number || '',
+    filing_type: 'ISPS',
+  });
+  alert('Excel export available in production for full SAMSA ISPS filing records.');
+}
+
+// ── Submit to SAMSA / Cape Town Radio ────────────────────────────────────────
+
+async function submitToSAMSA() {
+  const payload = buildPayload();
+  const btn = document.getElementById('samsaSubmitBtn');
+  const result = document.getElementById('samsaSubmitResult');
+
+  btn.disabled = true;
+  btn.innerHTML = '<span style="display:inline-block;width:14px;height:14px;border:2px solid rgba(0,160,73,0.3);border-top-color:#00a049;border-radius:50%;animation:spin 0.7s linear infinite;"></span>&nbsp;Sending to Cape Town Radio...';
+  result.innerHTML = '';
+
+  try {
+    const res = await fetch('/api/cape/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (data.success) {
+      result.innerHTML = `<div style="padding:0.6rem 0.85rem;background:rgba(46,213,115,0.1);border:1px solid rgba(46,213,115,0.25);border-radius:8px;font-size:0.82rem;color:#2ED573;margin-bottom:0.5rem;">✓ ISPS sent — Ref: <strong>${data.samsa_reference}</strong> · <span style="opacity:0.7">${data.recipient_email}</span></div>`;
+      if (typeof gtag !== 'undefined') gtag('event', 'samsa_submit', { waterway: 'cape', vessel_imo: payload.imo_number });
+    } else if (res.status === 401) {
+      result.innerHTML = `<div style="padding:0.6rem 0.85rem;background:rgba(255,107,107,0.08);border:1px solid rgba(255,107,107,0.2);border-radius:8px;font-size:0.82rem;color:#FF6B6B;">Sign in to submit to Cape Town Radio. <a href="/login" style="color:#00a049;text-decoration:underline;">Login →</a></div>`;
+    } else {
+      result.innerHTML = `<div style="padding:0.6rem 0.85rem;background:rgba(255,107,107,0.08);border:1px solid rgba(255,107,107,0.2);border-radius:8px;font-size:0.82rem;color:#FF6B6B;">✕ ${data.message || 'Submission failed — please try again'}</div>`;
+    }
+  } catch (e) {
+    result.innerHTML = `<div style="padding:0.6rem 0.85rem;background:rgba(255,107,107,0.08);border:1px solid rgba(255,107,107,0.2);border-radius:8px;font-size:0.82rem;color:#FF6B6B;">✕ Network error — please try again</div>`;
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '🇿🇦 Send ISPS to Cape Town Radio';
+  }
+}
+
+// ── Lead Capture ──────────────────────────────────────────────────────────────
+
+async function submitLead() {
+  const email = document.getElementById('lead-email').value.trim();
+  if (!email || !email.includes('@')) {
+    document.getElementById('lead-email').focus();
+    return;
+  }
+  try {
+    await fetch('/api/cc/demo-contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, canal: 'cape', source: 'demo-cape-lead' }),
+    });
+  } catch (_) {}
+  document.getElementById('lead-success').style.display = 'block';
+  document.getElementById('lead-card').querySelector('button').style.display = 'none';
+  document.getElementById('lead-email').style.display = 'none';
+}
+
+// ── Mobile Nav ────────────────────────────────────────────────────────────────
+
+function toggleMobileNav() {
+  document.getElementById('mobile-nav').classList.toggle('open');
+}
+</script>
+<script src="/js/ocr-upload.js"></script>
+<script>
+  window.initOCRUpload({
+    waterway: 'cape',
+    onFieldsExtracted: function(data) {
+      var fields = data.fields || {};
+      Object.keys(fields).forEach(function(formId) {
+        var el = document.getElementById(formId);
+        if (!el) return;
+        var val = fields[formId].value;
+        if (el.tagName === 'SELECT') {
+          for (var i = 0; i < el.options.length; i++) {
+            if (el.options[i].value.toLowerCase() === String(val).toLowerCase() ||
+                el.options[i].text.toLowerCase().indexOf(String(val).toLowerCase()) !== -1) {
+              el.selectedIndex = i; break;
+            }
+          }
+        } else { el.value = val; }
+        el.classList.add('has-value');
+        el.dispatchEvent(new Event('input', { bubbles: true }));
+        el.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+      if (typeof onFieldChange === 'function') onFieldChange();
+    }
+  });
+</script>
+
+</body>
+</html>

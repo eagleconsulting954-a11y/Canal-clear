@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fleet Management Integrations | CanalClear — Connect Your Maritime Stack</title>
+  <meta name="description" content="CanalClear integrates with Veson Nautical IMOS, Q88, Dataloy, ShipNet, OneOcean, MarineTraffic AIS, Slack, Microsoft Teams, and more. Join the waitlist for your fleet management system.">
+  <meta name="keywords" content="CanalClear integrations, Veson IMOS integration, Q88 maritime software, Dataloy integration, ShipNet compliance, OneOcean canal filing, MarineTraffic AIS, fleet management software integration, maritime compliance API">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://canalclear.org/integrations">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://canalclear.org/integrations">
+  <meta property="og:title" content="Fleet Management Integrations | CanalClear">
+  <meta property="og:description" content="Connect CanalClear to your fleet management stack. Integrations with Veson IMOS, Q88, Dataloy, ShipNet, AIS providers, and team communication tools — coming soon.">
+  <meta property="og:image" content="https://pub-629428d185ca4960a0a73c850d32294b.r2.dev/company_47541/images/2a918730-9e2c-4a5c-a695-98cfd6d6efbe.png">
+  <meta property="og:site_name" content="CanalClear">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://canalclear.org/integrations">
+  <meta name="twitter:title" content="Fleet Management Integrations | CanalClear">
+  <meta name="twitter:description" content="CanalClear integrations with Veson IMOS, Q88, Dataloy, ShipNet, OneOcean, MarineTraffic, Slack, Teams — join the waitlist.">
+  <meta name="twitter:image" content="https://pub-629428d185ca4960a0a73c850d32294b.r2.dev/company_47541/images/2a918730-9e2c-4a5c-a695-98cfd6d6efbe.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/nav.css">
+  <link rel="stylesheet" href="/css/mobile.css">
+  <link rel="stylesheet" href="/css/visual-polish.css">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy:     #1a2d4a;
+      --deep:     #0f1e33;
+      --slate:    #243350;
+      --orange:   #E85A00;
+      --orange-dim: rgba(232, 90, 0, 0.12);
+      --orange-border: rgba(232, 90, 0, 0.25);
+      --white:    #ffffff;
+      --gray:     #6b7c93;
+      --light:    #8fa3b8;
+      --muted:    rgba(255,255,255,0.55);
+      --card-bg:  rgba(255,255,255,0.04);
+      --card-border: rgba(255,255,255,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--deep);
+      color: var(--white);
+      min-height: 100vh;
+    }
+
+    /* ── HERO ─────────────────────────────────────────────────────── */
+    .hero {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 6rem 2rem 3rem;
+      text-align: center;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--orange-dim);
+      border: 1px solid var(--orange-border);
+      color: var(--orange);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 100px;
+      margin-bottom: 1.75rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--orange);
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--light);
+      line-height: 1.65;
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+    }
+
+    /* ── INTEGRATION GRID ─────────────────────────────────────────── */
+    .section {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 2rem 5rem;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 1.25rem;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-sub {
+      font-size: 0.95rem;
+      color: var(--light);
+      margin-bottom: 2.5rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    /* Integration card */
+    .int-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .int-card:hover {
+      border-color: rgba(232, 90, 0, 0.35);
+      background: rgba(232, 90, 0, 0.04);
+    }
+
+    .int-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .int-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      background: rgba(255,255,255,0.06);
+      flex-shrink: 0;
+    }
+
+    .int-badge {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 100px;
+      background: rgba(255, 193, 7, 0.12);
+      border: 1px solid rgba(255, 193, 7, 0.25);
+      color: #fbbf24;
+      white-space: nowrap;
+    }
+
+    .int-badge.available {
+      background: rgba(34, 197, 94, 0.12);
+      border-color: rgba(34, 197, 94, 0.3);
+      color: #4ade80;
+    }
+
+    /* Dual-link CTA for TMS cards */
+    .int-connect {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .int-connect-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      width: 100%;
+      padding: 0.55rem 1rem;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      background: var(--orange);
+      color: var(--white);
+      border: 1px solid var(--orange);
+      text-decoration: none;
+      transition: background 0.18s;
+    }
+
+    .int-connect-primary:hover {
+      background: #cc4f00;
+      border-color: #cc4f00;
+    }
+
+    .int-connect-links {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .int-connect-link {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.5rem;
+      border-radius: 7px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      border: 1px solid rgba(232, 90, 0, 0.4);
+      background: transparent;
+      color: var(--orange);
+      text-decoration: none;
+      transition: background 0.18s, border-color 0.18s, color 0.18s;
+      text-align: center;
+    }
+
+    .int-connect-link:hover {
+      background: var(--orange-dim);
+      border-color: var(--orange);
+    }
+
+    /* AIS tracking CTA */
+    .int-track-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      width: 100%;
+      padding: 0.55rem 1rem;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      background: var(--orange);
+      color: var(--white);
+      border: 1px solid var(--orange);
+      text-decoration: none;
+      transition: background 0.18s;
+    }
+
+    .int-track-btn:hover {
+      background: #cc4f00;
+    }
+
+    .int-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .int-category {
+      font-size: 0.78rem;
+      color: var(--gray);
+      margin-top: 0.1rem;
+    }
+
+    .int-desc {
+      font-size: 0.85rem;
+      color: var(--light);
+      line-height: 1.55;
+      flex: 1;
+    }
+
+    .int-waitlist-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      width: 100%;
+      padding: 0.55rem 1rem;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      border: 1px solid rgba(232, 90, 0, 0.4);
+      background: transparent;
+      color: var(--orange);
+      transition: background 0.18s, border-color 0.18s, color 0.18s;
+    }
+
+    .int-waitlist-btn:hover {
+      background: var(--orange);
+      color: var(--white);
+      border-color: var(--orange);
+    }
+
+    .int-waitlist-btn.joined {
+      background: rgba(34, 197, 94, 0.12);
+      border-color: rgba(34, 197, 94, 0.3);
+      color: #4ade80;
+      cursor: default;
+    }
+
+    /* ── DIVIDER ──────────────────────────────────────────────────── */
+    .divider {
+      max-width: 1160px;
+      margin: 0 auto 4rem;
+      padding: 0 2rem;
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    /* ── MODAL ────────────────────────────────────────────────────── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.72);
+      backdrop-filter: blur(4px);
+      z-index: 9000;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal {
+      background: #152031;
+      border: 1px solid rgba(232, 90, 0, 0.2);
+      border-radius: 18px;
+      padding: 2.25rem;
+      max-width: 460px;
+      width: 100%;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1.1rem;
+      background: none;
+      border: none;
+      color: var(--gray);
+      font-size: 1.4rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0.2rem;
+    }
+
+    .modal-close:hover { color: var(--white); }
+
+    .modal h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .modal-int-name {
+      font-size: 0.85rem;
+      color: var(--orange);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--light);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 0.65rem 0.9rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      color: var(--white);
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: var(--orange);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 80px; }
+
+    .form-submit {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 8px;
+      background: var(--orange);
+      color: var(--white);
+      font-size: 0.95rem;
+      font-weight: 700;
+      font-family: inherit;
+      border: none;
+      cursor: pointer;
+      transition: background 0.18s;
+      margin-top: 0.5rem;
+    }
+
+    .form-submit:hover { background: #cc4f00; }
+    .form-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .form-msg {
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      text-align: center;
+    }
+
+    .form-msg.ok   { color: #4ade80; }
+    .form-msg.err  { color: #f87171; }
+
+    /* ── REQUEST FORM (bottom of page) ────────────────────────────── */
+    .request-section {
+      max-width: 600px;
+      margin: 0 auto 6rem;
+      padding: 0 2rem;
+      text-align: center;
+    }
+
+    .request-box {
+      background: rgba(232, 90, 0, 0.06);
+      border: 1px solid rgba(232, 90, 0, 0.2);
+      border-radius: 18px;
+      padding: 2.25rem;
+      text-align: left;
+    }
+
+    .request-box h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .request-box p {
+      font-size: 0.9rem;
+      color: var(--light);
+      margin-bottom: 1.75rem;
+    }
+
+    /* ── FOOTER ───────────────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 2.5rem 2rem;
+      font-size: 0.82rem;
+      color: var(--gray);
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    footer a { color: var(--gray); text-decoration: none; }
+    footer a:hover { color: var(--light); }
+
+    /* ── RESPONSIVE ───────────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .hero { padding: 5rem 1.25rem 2rem; }
+      .hero h1 { font-size: 1.75rem; }
+      .section { padding: 0 1.25rem 3rem; }
+      .request-section { padding: 0 1.25rem; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ───────────────────────────────────────────────────────────── -->
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <img src="https://pub-629428d185ca4960a0a73c850d32294b.r2.dev/company_47541/images/9d5d2ef6-d9e0-40eb-ad15-df5e737cefc1.png" alt="CanalClear" width="140" height="35">
+    </a>
+    <div class="nav-links">
+      <a href="/panama">🇵🇦 Panama</a>
+      <a href="/suez">🇪🇬 Suez</a>
+      <a href="/bosporus">🇹🇷 Bosporus</a>
+      <a href="/malacca">🇸🇬 Malacca</a>
+      <a href="/cape-of-good-hope">🌍 Cape</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/integrations" class="active">Integrations</a>
+      <a href="/blog">Blog</a>
+      <a href="/app" class="nav-cta">Open Validator <span class="nav-cta-sub">(Paid Plans)</span></a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ──────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-tag">🔌 Integrations</div>
+  <h1>Integrate CanalClear With Your <em>Fleet Management Stack</em></h1>
+  <p>Connect your existing tools to CanalClear. Compliance data flows in both directions — no manual re-entry, no switching tabs, no missed deadlines.</p>
+</section>
+
+<!-- ── FLEET MANAGEMENT SYSTEMS ──────────────────────────────────────── -->
+<div class="section">
+  <div class="section-label">Fleet Management Systems</div>
+  <div class="section-title">VMS &amp; Voyage Platforms</div>
+  <div class="section-sub">Push canal filings directly from the systems your operations teams already live in.</div>
+
+  <div class="grid">
+
+    <div class="int-card">
+      <div class="int-card-header">
+        <div class="int-icon">⚓</div>
+        <span class="int-badge available">Available</span>
+      </div>
+      <div>
+        <div class="int-name">Veson Nautical IMOS</div>
+        <div class="int-category">Voyage Management System</div>
+      </div>
+      <p class="int-desc">Sync vessel schedules and voyage orders from IMOS. Auto-populate canal filing forms with voyage data and push compliance scores back to IMOS records.</p>
+      <div class="int-connect">
+        <div class="int-connect-links">
+          <a href="/import" class="int-connect-link">📂 Upload CSV/Excel</a>
+          <a href="/developers" class="int-connect-link">⚡ API Docs</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="int-card">
+      <div class="int-card-header">
+        <div class="int-icon">📋</div>
+        <span class="int-badge available">Available</span>
+      </div>
+      <div>
+        <div class="int-name">Q88</div>
+        <div class="int-category">Tanker &amp; Dry Cargo Platform</div>
+      </div>
+      <p class="int-desc">Pull vessel particulars and port call data from Q88 questionnaires. Eliminate duplicate data entry across compliance filings and charter party documentation.</p>
+      <div class="int-connect">
+        <div class="int-connect-links">
+          <a href="/import" class="int-connect-link">📂 Upload CSV/Excel</a>
+          <a href="/developers" class="int-connect-link">⚡ API Docs</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="int-card">
+      <div class="int-card-header">
+        <div class="int-icon">🗺️</div>
+        <span class="int-badge available">Available</span>
+      </div>
+      <div>
+        <div class="int-name">Dataloy</div>
+        <div class="int-category">Voyage Management System</div>
+      </div>
+      <p class="int-desc">Import voyage legs and port itineraries from Dataloy. Automatically identify canal transits requiring compliance filings before the deadline window opens.</p>
+      <div class="int-connect">
+        <div class="int-connect-links">
+          <a href="/import" class="int-connect-link">📂 Upload CSV/Excel</a>
+          <a href="/developers" class="int-connect-link">⚡ API Docs</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="int-card">
+      <div class="int-card-header">
+        <div class="int-icon">🚢</div>
+        <span class="int-badge available">Available</span>
+      </div>
+      <div>
+        <div class="int-name">ShipNet</div>
+        <div class="int-category">Fleet Management ERP</div>
+      </div>
+      <p class="int-desc">Connect CanalClear to ShipNet's fleet operations module. Vessel certificates, crew data, and voyage plans flow directly into canal filing workflows.</p>
+      <div class="int-connect">
+        <div class="int-connect-links">
+          <a href="/import" class="int-connect-link">📂 Upload CSV/Excel</a>
+          <a href="/developers" class="int-connect-link">⚡ API Docs</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="int-card">
+      <div class="int-card-header">
+        <div class="int-icon">🌐</div>
+        <span class="int-badge">Coming Soon</span>
+      </div>
+      <div>
+        <div class="int-name">OneOcean</div>
+        <div class="int-category">Navigation &amp; Compliance Platform</div>
+      </div>
+      <p class="int-desc">Combine OneOcean's route planning data with CanalClear's compliance validation. Know your compliance status before you commit to a transit route.</p>
+      <button class="int-waitlist-btn" data-slug="oneocean" data-name="OneOcean" onclick="openWaitlist(this)">Join Waitlist →</button>
+    </div>
+
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ── AIS / DATA PROVIDERS ──────────────────────────────────────────── -->
+<div class="section">
+  <div class="section-label">AIS &amp; Vessel Tracking</div>
+  <div class="section-title">Real-Time Vessel Data</div>
+  <div class="section-sub">Live AIS feeds to auto-detect upcoming canal transits and trigger compliance filing reminders before the deadline window.</div>
+
+  <div class="grid">
+
+    <div class="int-card">
+      <div class="int-card-header">
+        <div class="int-icon">📡</div>
+        <span class="int-badge available">Available</span>
+      </div>
+      <div>
+        <div class="int-name">MarineTraffic</div>
+        <div class="int-category">AIS Vessel Tracking</div>
+      </div>
+      <p class="int-desc">Monitor vessel positions via MarineTraffic AIS. When a vessel enters a canal approach zone, CanalClear automatically surfaces the relevant filing checklist and deadline countdown.</p>
+      <a href="/demo/dashboard" class="int-track-btn">Connect via Fleet Tracking →</a>
+    </div>
+
+    <div class="int-card">
+      <div class="int-card-header">
+        <div class="int-icon">🛰️</div>
+        <span class="int-badge available">Available</span>
+      </div>
+      <div>
+        <div class="int-name">VesselFinder</div>
+        <div class="int-category">AIS Vessel Tracking</div>
+      </div>
+      <p class="int-desc">Track your fleet positions with VesselFinder data. CanalClear watches for canal approach patterns and sends deadline alerts 96h and 48h before the filing window closes.</p>
+      <a href="/demo/dashboard" class="int-track-btn">Connect via Fleet Tracking →</a>
+    </div>
+
+    <div class="int-card">
+      <div class="int-card-header">
+        <div class="int-icon">📶</div>
+        <span class="int-badge available">Available</span>
+      </div>
+      <div>
+        <div class="int-name">Spire Maritime</div>
+        <div class="int-category">Satellite AIS &amp; Analytics</div>
+      </div>
+      <p class="int-desc">Use Spire's satellite AIS coverage in areas beyond terrestrial range. Accurate position data for vessels approaching remote canal entry points, with no gap in compliance alerting.</p>
+      <a href="/demo/dashboard" class="int-track-btn">Connect via Fleet Tracking →</a>
+    </div>
+
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ── TEAM COMMUNICATION ─────────────────────────────────────────────── -->
+<div class="section">
+  <div class="section-label">Team Communication</div>
+  <div class="section-title">Alerts Where Your Team Works</div>
+  <div class="section-sub">Push compliance alerts, deadline notifications, and filing status updates to the tools your operations teams already monitor.</div>
+
+  <div class="grid">
+
+    <div class="int-card">
+      <div class="int-card-header">
+        <div class="int-icon">💬</div>
+        <span class="int-badge">Coming Soon</span>
+      </div>
+      <div>
+        <div class="int-name">Slack</div>
+        <div class="int-category">Team Messaging</div>
+      </div>
+      <p class="int-desc">Receive canal compliance alerts in your Slack channels. Configurable per-waterway, per-vessel notifications — filing deadlines, compliance issues, and transit confirmations.</p>
+      <button class="int-waitlist-btn" data-slug="slack" data-name="Slack" onclick="openWaitlist(this)">Join Waitlist →</button>
+    </div>
+
+    <div class="int-card">
+      <div class="int-card-header">
+        <div class="int-icon">🟦</div>
+        <span class="int-badge">Coming Soon</span>
+      </div>
+      <div>
+        <div class="int-name">Microsoft Teams</div>
+        <div class="int-category">Enterprise Collaboration</div>
+      </div>
+      <p class="int-desc">Compliance notifications delivered to Microsoft Teams channels. Integrate with existing fleet operations workflows inside your enterprise Microsoft 365 environment.</p>
+      <button class="int-waitlist-btn" data-slug="microsoft-teams" data-name="Microsoft Teams" onclick="openWaitlist(this)">Join Waitlist →</button>
+    </div>
+
+    <div class="int-card">
+      <div class="int-card-header">
+        <div class="int-icon">📱</div>
+        <span class="int-badge">Coming Soon</span>
+      </div>
+      <div>
+        <div class="int-name">WhatsApp</div>
+        <div class="int-category">Mobile Messaging</div>
+      </div>
+      <p class="int-desc">Send filing deadline alerts and compliance summaries via WhatsApp. Reach operations managers and officers directly on mobile, wherever they are in the world.</p>
+      <button class="int-waitlist-btn" data-slug="whatsapp" data-name="WhatsApp" onclick="openWaitlist(this)">Join Waitlist →</button>
+    </div>
+
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ── REQUEST AN INTEGRATION ─────────────────────────────────────────── -->
+<div class="request-section">
+  <div class="request-box">
+    <h2>Don't see your system?</h2>
+    <p>Tell us what fleet management software you use. We prioritise integrations by demand — the more requests we get for a system, the sooner it ships.</p>
+
+    <form id="requestForm">
+      <div class="form-group">
+        <label for="req-email">Work email *</label>
+        <input type="email" id="req-email" placeholder="captain@shipowner.com" required>
+      </div>
+      <div class="form-group">
+        <label for="req-company">Company name</label>
+        <input type="text" id="req-company" placeholder="Your shipping company">
+      </div>
+      <div class="form-group">
+        <label for="req-system">System name *</label>
+        <input type="text" id="req-system" placeholder="e.g. Mastex, K-Fleet, Helm Operations" required>
+      </div>
+      <div class="form-group">
+        <label for="req-notes">How would you use the integration? (optional)</label>
+        <textarea id="req-notes" placeholder="e.g. Auto-populate canal filings from voyage plans, send alerts to our Ops team..."></textarea>
+      </div>
+      <button type="submit" class="form-submit" id="reqSubmitBtn">Request This Integration →</button>
+      <div class="form-msg" id="reqMsg"></div>
+    </form>
+  </div>
+</div>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
+<footer>
+  <p>© 2026 CanalClear · <a href="/privacy">Privacy</a> · <a href="/security" style="color:#E85A00;font-weight:600;">Security</a> · <a href="/status">Status</a> · <a href="/terms">Terms</a> · <a href="/pricing">Pricing</a></p>
+</footer>
+
+<!-- ── WAITLIST MODAL ─────────────────────────────────────────────────── -->
+<div class="modal-overlay" id="waitlistModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">&times;</button>
+    <h2 id="modalTitle">Join the Waitlist</h2>
+    <div class="modal-int-name" id="modalIntName"></div>
+    <form id="waitlistForm">
+      <input type="hidden" id="wl-slug">
+      <div class="form-group">
+        <label for="wl-email">Work email *</label>
+        <input type="email" id="wl-email" placeholder="you@company.com" required>
+      </div>
+      <div class="form-group">
+        <label for="wl-company">Company name</label>
+        <input type="text" id="wl-company" placeholder="Your shipping company">
+      </div>
+      <button type="submit" class="form-submit" id="wlSubmitBtn">Notify Me When It's Ready →</button>
+      <div class="form-msg" id="wlMsg"></div>
+    </form>
+  </div>
+</div>
+
+<script src="/js/mobile-nav.js"></script>
+<script>
+(function() {
+  'use strict';
+
+  // Track which buttons have been joined (persist across modal close)
+  var joinedSlugs = {};
+
+  // ── Modal open/close ────────────────────────────────────────────────
+  window.openWaitlist = function(btn) {
+    var slug = btn.getAttribute('data-slug');
+    var name = btn.getAttribute('data-name');
+    document.getElementById('wl-slug').value = slug;
+    document.getElementById('modalIntName').textContent = name;
+    document.getElementById('wlMsg').textContent = '';
+    document.getElementById('wlMsg').className = 'form-msg';
+    document.getElementById('wlSubmitBtn').disabled = false;
+    document.getElementById('wlSubmitBtn').textContent = 'Notify Me When It\'s Ready \u2192';
+    document.getElementById('waitlistModal').classList.add('open');
+    document.getElementById('wl-email').focus();
+  };
+
+  window.closeModal = function() {
+    document.getElementById('waitlistModal').classList.remove('open');
+  };
+
+  // Close on overlay click
+  document.getElementById('waitlistModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  // Close on ESC
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // ── Waitlist form submit ────────────────────────────────────────────
+  document.getElementById('waitlistForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var email = document.getElementById('wl-email').value.trim();
+    var company = document.getElementById('wl-company').value.trim();
+    var slug = document.getElementById('wl-slug').value;
+    var btn = document.getElementById('wlSubmitBtn');
+    var msg = document.getElementById('wlMsg');
+
+    btn.disabled = true;
+    btn.textContent = 'Joining\u2026';
+    msg.textContent = '';
+    msg.className = 'form-msg';
+
+    try {
+      var res = await fetch('/api/integrations/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, company_name: company || null, integration_slug: slug })
+      });
+      var data = await res.json();
+      if (res.ok) {
+        msg.textContent = "\u2713 You're on the list. We'll email you when it's ready.";
+        msg.className = 'form-msg ok';
+        btn.textContent = '\u2713 You\'re on the list!';
+        // Mark the card button as joined
+        joinedSlugs[slug] = true;
+        var cardBtn = document.querySelector('[data-slug="' + slug + '"]');
+        if (cardBtn) {
+          cardBtn.textContent = '\u2713 On the waitlist';
+          cardBtn.classList.add('joined');
+          cardBtn.onclick = null;
+        }
+        // Auto-close after 2s
+        setTimeout(closeModal, 2000);
+        // GA4 event
+        if (window.gtag) {
+          gtag('event', 'integration_waitlist_join', { integration: slug });
+        }
+      } else {
+        msg.textContent = data.error || 'Something went wrong. Please try again.';
+        msg.className = 'form-msg err';
+        btn.disabled = false;
+        btn.textContent = 'Notify Me When It\'s Ready \u2192';
+      }
+    } catch (err) {
+      msg.textContent = 'Network error. Please try again.';
+      msg.className = 'form-msg err';
+      btn.disabled = false;
+      btn.textContent = 'Notify Me When It\'s Ready \u2192';
+    }
+  });
+
+  // ── Integration request form ────────────────────────────────────────
+  document.getElementById('requestForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var email = document.getElementById('req-email').value.trim();
+    var company = document.getElementById('req-company').value.trim();
+    var system = document.getElementById('req-system').value.trim();
+    var notes = document.getElementById('req-notes').value.trim();
+    var btn = document.getElementById('reqSubmitBtn');
+    var msg = document.getElementById('reqMsg');
+
+    btn.disabled = true;
+    btn.textContent = 'Sending\u2026';
+    msg.textContent = '';
+    msg.className = 'form-msg';
+
+    try {
+      var res = await fetch('/api/integrations/request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          company_name: company || null,
+          system_name: system,
+          notes: notes || null
+        })
+      });
+      var data = await res.json();
+      if (res.ok) {
+        msg.textContent = "\u2713 Request received. We'll be in touch if we build it.";
+        msg.className = 'form-msg ok';
+        btn.textContent = '\u2713 Sent!';
+        document.getElementById('requestForm').reset();
+        if (window.gtag) {
+          gtag('event', 'integration_request', { system: system });
+        }
+      } else {
+        msg.textContent = data.error || 'Something went wrong. Please try again.';
+        msg.className = 'form-msg err';
+        btn.disabled = false;
+        btn.textContent = 'Request This Integration \u2192';
+      }
+    } catch (err) {
+      msg.textContent = 'Network error. Please try again.';
+      msg.className = 'form-msg err';
+      btn.disabled = false;
+      btn.textContent = 'Request This Integration \u2192';
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

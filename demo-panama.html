@@ -1,0 +1,2246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Demo — Panama Canal VUMPA & PCSOPEP Filing | CanalClear</title>
+  <meta name="description" content="Try CanalClear's Panama Canal VUMPA and PCSOPEP filing automation live. AI auto-fill, real-time ACP validation, and watermarked PDF preview — no account required.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://canalclear.org/demo/panama">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://canalclear.org/demo/panama">
+  <meta property="og:title" content="Live Demo — CanalClear Panama Canal Filing">
+  <meta property="og:description" content="AI auto-fill, real-time ACP validation, and watermarked PDF preview — no account required.">
+  <meta property="og:image" content="https://pub-629428d185ca4960a0a73c850d32294b.r2.dev/company_47541/images/7468770b-1ead-4654-b420-c985f9c28bf2.png">
+  <meta property="og:site_name" content="CanalClear">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/visual-polish.css">
+  <link rel="icon" type="image/png" href="/icons/icon-192.png">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #1a2d4a;
+      --deep: #142238;
+      --slate: #243350;
+      --slate-2: #1e2f4a;
+      --teal: #E85A00;
+      --teal-dim: rgba(232, 90, 0, 0.1);
+      --teal-border: rgba(232, 90, 0, 0.22);
+      --white: #ffffff;
+      --gray: #6b7c93;
+      --light: #8fa3b8;
+      --red: #FF6B6B;
+      --red-dim: rgba(255, 107, 107, 0.12);
+      --yellow: #FFD93D;
+      --yellow-dim: rgba(255, 217, 61, 0.12);
+      --green: #E85A00;
+      --green-dim: rgba(232, 90, 0, 0.12);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 0.9rem 2rem;
+      background: rgba(10, 22, 40, 0.94);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(232, 90, 0, 0.1);
+    }
+    .nav-inner {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo img { height: 32px; width: auto; display: block; }
+    .nav-links { display: flex; gap: 0.25rem; align-items: center; }
+    .nav-links a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.875rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      transition: all 0.2s;
+      font-weight: 500;
+    }
+    .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+    .nav-links a.active { color: var(--teal); background: var(--teal-dim); }
+    .nav-links .nav-cta {
+      background: var(--teal);
+      color: var(--navy);
+      font-weight: 700;
+      margin-left: 0.5rem;
+    }
+    .nav-links .nav-cta:hover { background: #CC4F00; color: var(--navy); }
+    .hamburger-btn {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger-btn span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+    }
+
+    /* HERO BANNER */
+    .demo-hero {
+      padding: 6rem 2rem 3rem;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(232, 90, 0,0.05) 0%, transparent 100%);
+      border-bottom: 1px solid var(--teal-border);
+    }
+    .demo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--teal-dim);
+      border: 1px solid var(--teal-border);
+      color: var(--teal);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.9rem;
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+    }
+    .demo-hero h1 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .demo-hero h1 span { color: var(--teal); }
+    .demo-hero p {
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      color: var(--gray);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+
+    /* MODE TOGGLE */
+    .mode-toggle-wrap {
+      max-width: 520px;
+      margin: 0 auto 0.5rem;
+      display: flex;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 4px;
+      gap: 4px;
+    }
+    .mode-btn {
+      flex: 1;
+      padding: 0.65rem 1rem;
+      border: none;
+      border-radius: 9px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--gray);
+      background: transparent;
+    }
+    .mode-btn.active {
+      background: var(--teal);
+      color: var(--navy);
+    }
+    .mode-hint {
+      font-size: 0.8rem;
+      color: var(--gray);
+      text-align: center;
+      margin-bottom: 0;
+    }
+
+    /* MAIN DEMO CONTAINER */
+    .demo-main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 6rem;
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    /* FORM PANEL */
+    .form-panel {
+      background: var(--slate-2);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .form-panel-header {
+      padding: 1.25rem 1.75rem;
+      background: rgba(232, 90, 0,0.05);
+      border-bottom: 1px solid var(--teal-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .form-panel-title {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .form-panel-subtitle {
+      font-size: 0.78rem;
+      color: var(--gray);
+      margin-top: 0.15rem;
+    }
+    .autofill-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--teal-dim);
+      border: 1px solid var(--teal-border);
+      color: var(--teal);
+      border-radius: 8px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .autofill-btn:hover { background: var(--teal); color: var(--navy); }
+    .autofill-btn .ai-icon { font-size: 1rem; }
+
+    .form-body { padding: 1.75rem; }
+
+    /* TABS */
+    .form-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 1.75rem;
+      background: rgba(255,255,255,0.03);
+      border-radius: 10px;
+      padding: 3px;
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+    .form-tab {
+      flex: 1;
+      padding: 0.55rem 0.75rem;
+      border: none;
+      background: transparent;
+      color: var(--gray);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    .form-tab.active { background: var(--slate); color: var(--white); }
+    .form-tab-content { display: none; }
+    .form-tab-content.active { display: block; }
+
+    /* FORM GROUPS */
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-row.thirds { grid-template-columns: 1fr 1fr 1fr; }
+    .form-row.full { grid-template-columns: 1fr; }
+    .form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+    .form-group label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--light);
+      letter-spacing: 0.02em;
+    }
+    .form-group label .req { color: var(--red); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 0.65rem 0.9rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      color: var(--white);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: all 0.2s;
+      width: 100%;
+    }
+    .form-group input::placeholder { color: var(--gray); }
+    .form-group input:focus,
+    .form-group select:focus { border-color: var(--teal); background: rgba(232, 90, 0,0.04); }
+    .form-group input.has-value { border-color: rgba(232, 90, 0,0.35); }
+    .form-group select option { background: var(--deep); color: var(--white); }
+    .form-group .hint { font-size: 0.75rem; color: var(--gray); }
+
+    /* Autofill animation */
+    @keyframes autofillFlash {
+      0% { background: rgba(232, 90, 0,0.2); border-color: var(--teal); }
+      100% { background: rgba(255,255,255,0.04); border-color: rgba(232, 90, 0,0.35); }
+    }
+    .field-autofilled {
+      animation: autofillFlash 0.6s ease-out forwards;
+    }
+
+    /* Validation feedback inline */
+    .field-error { border-color: var(--red) !important; }
+    .field-warning { border-color: var(--yellow) !important; }
+    .field-ok { border-color: rgba(232, 90, 0,0.45) !important; }
+    .field-hint {
+      font-size: 0.73rem;
+      margin-top: 0.2rem;
+    }
+    .field-hint.err { color: var(--red); }
+    .field-hint.warn { color: var(--yellow); }
+    .field-hint.ok { color: var(--teal); }
+
+    /* Checkbox row */
+    .check-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      cursor: pointer;
+    }
+    .check-row input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--teal); cursor: pointer; }
+    .check-row label { font-size: 0.875rem; color: var(--white); cursor: pointer; }
+
+    /* Action bar */
+    .form-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      padding: 1.25rem 1.75rem;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      background: rgba(0,0,0,0.15);
+    }
+    .btn-validate {
+      flex: 1;
+      min-width: 140px;
+      padding: 0.75rem 1.25rem;
+      background: var(--teal);
+      color: var(--navy);
+      border: none;
+      border-radius: 9px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-validate:hover { background: #CC4F00; }
+    .btn-validate:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-pdf {
+      padding: 0.75rem 1.25rem;
+      background: rgba(255,255,255,0.05);
+      color: var(--light);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 9px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .btn-pdf:hover { border-color: var(--teal); color: var(--teal); background: var(--teal-dim); }
+
+    /* RESULTS PANEL */
+    .results-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      position: sticky;
+      top: 5rem;
+    }
+
+    .status-card {
+      background: var(--slate-2);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .status-header {
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .status-title {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .status-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.65rem;
+      border-radius: 100px;
+    }
+    .badge-pass { background: rgba(232, 90, 0,0.15); color: var(--teal); border: 1px solid var(--teal-border); }
+    .badge-warn { background: var(--yellow-dim); color: var(--yellow); border: 1px solid rgba(255,217,61,0.3); }
+    .badge-fail { background: var(--red-dim); color: var(--red); border: 1px solid rgba(255,107,107,0.3); }
+    .badge-idle { background: rgba(255,255,255,0.05); color: var(--gray); border: 1px solid rgba(255,255,255,0.1); }
+
+    .status-checks {
+      padding: 0 1.25rem 1rem;
+      display: flex;
+      gap: 0.75rem;
+    }
+    .check-stat {
+      flex: 1;
+      text-align: center;
+      padding: 0.6rem 0.4rem;
+      background: rgba(255,255,255,0.03);
+      border-radius: 8px;
+    }
+    .check-stat .num {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.4rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 0.2rem;
+    }
+    .check-stat .lbl { font-size: 0.7rem; color: var(--gray); }
+    .num-pass { color: var(--teal); }
+    .num-warn { color: var(--yellow); }
+    .num-fail { color: var(--red); }
+
+    /* Checklist items */
+    .checklist-section {
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .checklist-group-title {
+      padding: 0.75rem 1.25rem 0.4rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .checklist-group-title.crit { color: var(--red); }
+    .checklist-group-title.warn { color: var(--yellow); }
+    .checklist-group-title.pass { color: var(--teal); }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.5rem 1.25rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: background 0.15s;
+    }
+    .check-item:hover { background: rgba(255,255,255,0.02); }
+    .check-item:last-child { border-bottom: none; }
+    .check-icon { font-size: 0.9rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .check-text .check-name { font-size: 0.82rem; font-weight: 600; color: var(--white); }
+    .check-text .check-msg { font-size: 0.77rem; color: var(--gray); margin-top: 0.1rem; }
+
+    .idle-state {
+      padding: 2rem 1.25rem;
+      text-align: center;
+      color: var(--gray);
+    }
+    .idle-state .idle-icon { font-size: 2.5rem; margin-bottom: 0.75rem; opacity: 0.5; }
+    .idle-state p { font-size: 0.85rem; line-height: 1.5; }
+
+    /* Loading spinner */
+    .spinner {
+      width: 20px; height: 20px;
+      border: 2px solid rgba(232, 90, 0,0.2);
+      border-top-color: var(--teal);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: inline-block;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* CTA CARD */
+    .cta-card {
+      background: linear-gradient(135deg, rgba(232, 90, 0,0.12) 0%, rgba(15,29,50,0.95) 100%);
+      border: 1px solid var(--teal-border);
+      border-radius: 14px;
+      padding: 1.5rem 1.25rem;
+      text-align: center;
+    }
+    .cta-card .cta-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.5rem;
+    }
+    .cta-card h3 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      line-height: 1.3;
+    }
+    .cta-card .cta-price {
+      font-size: 0.78rem;
+      color: var(--light);
+      margin-bottom: 0.85rem;
+    }
+    .cta-card .cta-price strong { color: var(--white); }
+    .cta-card p { font-size: 0.82rem; color: var(--gray); margin-bottom: 1rem; line-height: 1.5; }
+    .cta-card a.cta-primary {
+      display: block;
+      padding: 0.75rem 1rem;
+      background: var(--teal);
+      color: var(--navy);
+      font-weight: 700;
+      font-size: 0.9rem;
+      border-radius: 9px;
+      text-decoration: none;
+      transition: all 0.2s;
+      margin-bottom: 0.75rem;
+    }
+    .cta-card a.cta-primary:hover { background: #CC4F00; }
+    .cta-trust {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+    .cta-trust span {
+      font-size: 0.72rem;
+      color: var(--gray);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .cta-trust span::before { content: '✓'; color: var(--teal); font-weight: 700; }
+
+    /* Lead capture card */
+    .lead-card {
+      background: var(--slate-2);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 1.25rem;
+    }
+    .lead-card h4 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+      color: var(--white);
+    }
+    .lead-card p { font-size: 0.78rem; color: var(--gray); margin-bottom: 0.85rem; }
+    .lead-card input {
+      width: 100%;
+      padding: 0.6rem 0.85rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      color: var(--white);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.875rem;
+      outline: none;
+      margin-bottom: 0.6rem;
+      transition: border-color 0.2s;
+    }
+    .lead-card input:focus { border-color: var(--teal); }
+    .lead-card button {
+      width: 100%;
+      padding: 0.6rem;
+      background: rgba(232, 90, 0,0.12);
+      color: var(--teal);
+      border: 1px solid var(--teal-border);
+      border-radius: 8px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .lead-card button:hover { background: var(--teal); color: var(--navy); }
+    .lead-success { font-size: 0.82rem; color: var(--teal); text-align: center; padding: 0.5rem 0; display: none; }
+
+    /* IMO LOOKUP BANNER */
+    .imo-lookup-banner {
+      max-width: 1200px;
+      margin: 1.5rem auto 0;
+      padding: 0 2rem;
+    }
+    .imo-lookup-card {
+      background: linear-gradient(135deg, rgba(232,90,0,0.08) 0%, rgba(26,45,74,0.95) 100%);
+      border: 1px solid var(--teal-border);
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .imo-lookup-icon {
+      font-size: 1.75rem;
+      flex-shrink: 0;
+    }
+    .imo-lookup-text {
+      flex: 1;
+      min-width: 200px;
+    }
+    .imo-lookup-text strong {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+    .imo-lookup-text span {
+      font-size: 0.8rem;
+      color: var(--gray);
+    }
+    .imo-lookup-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-shrink: 0;
+    }
+    .imo-lookup-input {
+      width: 160px;
+      padding: 0.65rem 0.9rem;
+      background: rgba(255,255,255,0.06);
+      border: 1.5px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      color: var(--white);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .imo-lookup-input::placeholder { color: var(--gray); font-weight: 400; font-size: 0.875rem; letter-spacing: 0; }
+    .imo-lookup-input:focus { border-color: var(--teal); background: rgba(232,90,0,0.06); }
+    .imo-lookup-input.imo-valid { border-color: rgba(232,90,0,0.6); }
+    .imo-lookup-input.imo-error { border-color: var(--red); }
+    .imo-lookup-btn {
+      padding: 0.65rem 1.1rem;
+      background: var(--teal);
+      color: var(--navy);
+      border: none;
+      border-radius: 8px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .imo-lookup-btn:hover { background: #CC4F00; }
+    .imo-lookup-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .imo-lookup-status {
+      font-size: 0.82rem;
+      min-height: 1.2em;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+    }
+    .imo-status-loading { color: var(--gray); }
+    .imo-status-success { color: var(--teal); font-weight: 600; }
+    .imo-status-error   { color: var(--red); }
+    .imo-status-hint    { color: var(--gray); }
+
+    @media (max-width: 640px) {
+      .imo-lookup-card { flex-direction: column; align-items: flex-start; gap: 0.9rem; }
+      .imo-lookup-input-wrap { width: 100%; }
+      .imo-lookup-input { flex: 1; width: auto; }
+    }
+
+    /* STICKY BOTTOM CTA */
+    .sticky-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 90;
+      background: rgba(10,22,40,0.96);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid var(--teal-border);
+      padding: 0.9rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .sticky-cta-text { font-size: 0.875rem; color: var(--light); }
+    .sticky-cta-text strong { color: var(--white); }
+    .sticky-cta a {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.65rem 1.5rem;
+      background: var(--teal);
+      color: var(--navy);
+      font-weight: 700;
+      font-size: 0.9rem;
+      border-radius: 9px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .sticky-cta a:hover { background: #CC4F00; }
+    .sticky-cta-close {
+      background: none;
+      border: none;
+      color: var(--gray);
+      font-size: 1.1rem;
+      cursor: pointer;
+      padding: 0.3rem;
+    }
+
+    /* PDF preview modal */
+    .pdf-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+    }
+    .pdf-modal-overlay.open { display: flex; }
+    .pdf-modal {
+      background: var(--deep);
+      border: 1px solid var(--teal-border);
+      border-radius: 16px;
+      width: min(95vw, 860px);
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .pdf-modal-header {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .pdf-modal-header h3 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    .pdf-modal-header .demo-tag {
+      background: var(--red-dim);
+      color: var(--red);
+      border: 1px solid rgba(255,107,107,0.25);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .pdf-modal-close {
+      background: none;
+      border: none;
+      color: var(--gray);
+      font-size: 1.4rem;
+      cursor: pointer;
+      padding: 0.2rem 0.5rem;
+      line-height: 1;
+      border-radius: 6px;
+      transition: color 0.2s;
+    }
+    .pdf-modal-close:hover { color: var(--white); }
+    .pdf-modal-body {
+      flex: 1;
+      overflow: auto;
+      padding: 0;
+      background: #525659;
+    }
+    .pdf-modal-body iframe {
+      width: 100%;
+      height: 70vh;
+      border: none;
+      display: block;
+    }
+    .pdf-loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      height: 60vh;
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+    .pdf-modal-footer {
+      padding: 0.9rem 1.25rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .pdf-modal-footer p { font-size: 0.78rem; color: var(--gray); }
+    .pdf-modal-footer a {
+      padding: 0.6rem 1.25rem;
+      background: var(--teal);
+      color: var(--navy);
+      font-weight: 700;
+      font-size: 0.85rem;
+      border-radius: 8px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    /* MOBILE */
+    @media (max-width: 900px) {
+      .demo-main {
+        grid-template-columns: 1fr;
+        padding: 1.5rem 1rem 6rem;
+      }
+      .results-panel { position: static; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-row.thirds { grid-template-columns: 1fr 1fr; }
+      nav { padding: 0.75rem 1rem; }
+      .nav-links { display: none; }
+      .hamburger-btn { display: flex; }
+      .demo-hero { padding: 5.5rem 1.25rem 2.5rem; }
+      .mode-toggle-wrap { margin: 0 1rem 0.5rem; }
+      .sticky-cta { padding: 0.75rem 1rem; flex-wrap: wrap; }
+      .sticky-cta-text { font-size: 0.78rem; }
+      .sticky-cta-text .sticky-cta-sub { display: none; }
+      .sticky-cta a { flex: 1; text-align: center; }
+    }
+    @media (max-width: 480px) {
+      .form-row.thirds { grid-template-columns: 1fr; }
+      .form-actions { flex-direction: column; }
+      .btn-validate, .btn-pdf { width: 100%; justify-content: center; }
+      .mode-toggle-wrap { margin: 0 0.75rem 0.5rem; }
+      .sticky-cta { flex-direction: column; gap: 0.5rem; align-items: stretch; text-align: center; padding: 0.65rem 1rem; }
+      .sticky-cta-text { display: none; }
+      .sticky-cta a { padding: 0.7rem 1rem; font-size: 0.9rem; }
+    }
+
+    /* AUTOFILL TYPING ANIMATION */
+    @keyframes typeIn {
+      from { width: 0; opacity: 0; }
+      to { width: 100%; opacity: 1; }
+    }
+    .typing-effect {
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      animation: typeIn 0.4s steps(20, end) forwards;
+    }
+
+    /* Mobile nav overlay */
+    .mobile-nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 99;
+      background: rgba(10,22,40,0.97);
+      backdrop-filter: blur(20px);
+      flex-direction: column;
+      padding: 5rem 2rem 2rem;
+      gap: 0.25rem;
+    }
+    .mobile-nav-overlay.open { display: flex; }
+    .mobile-nav-overlay a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 0.85rem 1rem;
+      border-radius: 10px;
+      transition: background 0.15s;
+    }
+    .mobile-nav-overlay a:hover { background: rgba(255,255,255,0.05); }
+    .mobile-nav-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: var(--gray);
+      font-size: 1.6rem;
+      cursor: pointer;
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://canalclear.org/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Demo",
+        "item": "https://canalclear.org/demo"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Panama Canal Filing",
+        "item": "https://canalclear.org/demo/panama"
+      }
+    ]
+  }
+  </script>
+  <link rel="stylesheet" href="/css/mobile.css">
+  <style>
+    /* Override: this page has its own full-screen mobile nav overlay */
+    .mobile-nav-overlay { top: 0 !important; background: rgba(10,22,40,0.97) !important; border-top: none !important; }
+    /* Also ensure hamburger-btn from mobile.css doesn't conflict */
+    @media (max-width: 900px) { .hamburger-btn { display: flex !important; } }
+    @media (min-width: 901px) { .hamburger-btn { display: none !important; } }
+  </style>
+    <link rel="stylesheet" href="/css/nav.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="nav-logo">
+            <img src="https://pub-629428d185ca4960a0a73c850d32294b.r2.dev/company_47541/images/9d5d2ef6-d9e0-40eb-ad15-df5e737cefc1.png" alt="CanalClear" width="140" height="35">
+        </a>
+        <div class="nav-links">
+            <a href="/panama">🇵🇦 Panama</a>
+            <a href="/suez">🇪🇬 Suez</a>
+            <a href="/bosporus">🇹🇷 Bosporus</a>
+            <a href="/malacca">🇸🇬 Malacca</a>
+            <a href="/cape-of-good-hope">🌍 Cape</a>
+            <a href="/pricing">Pricing</a>
+            <a href="/demo" class="active">Demo</a>
+            <a href="/blog">Blog</a>
+            <a href="/knowledge-base">Knowledge Base</a>
+            <a href="/about">About</a>
+            <a href="/app" class="nav-cta">Open Validator <span class="nav-cta-sub">(Paid Plans)</span></a>
+        </div>
+    </div>
+</nav>
+
+<!-- Mobile nav overlay -->
+<div class="mobile-nav-overlay" id="mobile-nav">
+  <button class="mobile-nav-close" onclick="toggleMobileNav()">&times;</button>
+  <a href="/">Home</a>
+  <a href="/panama">🇵🇦 Panama Canal</a>
+  <a href="/suez">🇪🇬 Suez Canal</a>
+  <a href="/bosporus">🇹🇷 Bosporus</a>
+  <a href="/pricing">Pricing</a>
+  <a href="/demo/panama">🎬 Panama Demo</a>
+  <a href="/demo/suez">🎬 Suez Demo</a>
+  <a href="/demo/bosporus">🎬 Bosporus Demo</a>
+  <a href="/demo/malacca">🎬 Malacca Demo</a>
+  <a href="/demo/dashboard">📊 Fleet Dashboard</a>
+  <a href="/filing">Start Filing →</a>
+</div>
+
+<!-- HERO BANNER -->
+<div class="demo-hero">
+  <div class="demo-badge">🎬 Live Interactive Demo</div>
+  <h1>See CanalClear in Action —<br><span>Panama Canal Filing Demo</span></h1>
+  <p>AI auto-fills your VUMPA &amp; PCSOPEP forms, validates against ACP specs, and exports submission-ready PDFs. Try it now — no account required.</p>
+
+  <!-- Mode toggle -->
+  <div class="mode-toggle-wrap">
+    <button class="mode-btn active" id="btn-sample" onclick="setMode('sample')">
+      🚢 Explore Sample Data
+    </button>
+    <button class="mode-btn" id="btn-own" onclick="setMode('own')">
+      ✏️ Try With Your Data →
+    </button>
+  </div>
+  <p class="mode-hint" id="mode-hint">Pre-filled with realistic vessel data — click any field to edit</p>
+</div>
+
+<!-- IMO LOOKUP BANNER -->
+<div class="imo-lookup-banner" id="imo-lookup-banner">
+  <div class="imo-lookup-card">
+    <div class="imo-lookup-icon">🔍</div>
+    <div class="imo-lookup-text">
+      <strong>Know your IMO number? Auto-fill your vessel details instantly.</strong>
+      <span>Enter your vessel's 7-digit IMO number and we'll fill in name, dimensions, tonnage, flag, and more.</span>
+    </div>
+    <div>
+      <div class="imo-lookup-input-wrap">
+        <input
+          type="text"
+          class="imo-lookup-input"
+          id="imo-lookup-input"
+          placeholder="e.g. 9839923"
+          maxlength="10"
+          autocomplete="off"
+          oninput="onIMOLookupInput(this)"
+          onkeydown="if(event.key==='Enter') doIMOLookup()"
+        >
+        <button class="imo-lookup-btn" id="imo-lookup-btn" onclick="doIMOLookup()" disabled>
+          <span id="imo-lookup-btn-label">Look Up →</span>
+        </button>
+      </div>
+      <div class="imo-lookup-status imo-status-hint" id="imo-lookup-status">
+        Enter your 7-digit IMO number above
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN DEMO AREA -->
+<div class="demo-main">
+
+  <!-- LEFT: FORM PANEL -->
+  <div class="form-panel">
+    <div class="form-panel-header">
+      <div>
+        <div class="form-panel-title" id="form-panel-title">VUMPA Pre-Arrival Filing</div>
+        <div class="form-panel-subtitle" id="form-panel-subtitle">Panama Canal Authority (ACP) — ACP/VUMPA/2024</div>
+      </div>
+      <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+        <button class="autofill-btn" id="autofill-btn" onclick="triggerAutoFill()">
+          <span class="ai-icon">✨</span>
+          <span id="autofill-label">AI Auto-Fill</span>
+        </button>
+        <button id="ocr-upload-btn" onclick="window.openOCRModal()" title="Upload a certificate or manifest to auto-fill this form">
+          📄 Upload Document
+        </button>
+      </div>
+    </div>
+
+    <div class="form-body">
+      <!-- Form tabs -->
+      <div class="form-tabs">
+        <button class="form-tab active" onclick="showTab('vumpa')" id="tab-vumpa">VUMPA</button>
+        <button class="form-tab" onclick="showTab('pcsopep')" id="tab-pcsopep">PCSOPEP</button>
+        <button class="form-tab" onclick="showTab('crew')" id="tab-crew">Crew &amp; Cargo</button>
+      </div>
+
+      <!-- VUMPA TAB -->
+      <div class="form-tab-content active" id="tab-content-vumpa">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Vessel Name <span class="req">*</span></label>
+            <input type="text" id="f-vessel-name" placeholder="e.g. MV Pacific Navigator" oninput="onFieldChange()" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label>IMO Number <span class="req">*</span></label>
+            <input type="text" id="f-imo" placeholder="e.g. 9876543" oninput="onFieldChange(); validateIMOInline(); syncIMOLookupFromForm();" autocomplete="off">
+            <span class="field-hint" id="imo-hint">7-digit IMO number</span>
+          </div>
+        </div>
+
+        <div class="form-row thirds">
+          <div class="form-group">
+            <label>Flag State <span class="req">*</span></label>
+            <select id="f-flag" onchange="onFieldChange()">
+              <option value="">Select flag...</option>
+              <option value="PA">🇵🇦 Panama (PA)</option>
+              <option value="LR">🇱🇷 Liberia (LR)</option>
+              <option value="MH">🇲🇭 Marshall Islands (MH)</option>
+              <option value="BS">🇧🇸 Bahamas (BS)</option>
+              <option value="MT">🇲🇹 Malta (MT)</option>
+              <option value="SG">🇸🇬 Singapore (SG)</option>
+              <option value="GB">🇬🇧 UK (GB)</option>
+              <option value="GR">🇬🇷 Greece (GR)</option>
+              <option value="NO">🇳🇴 Norway (NO)</option>
+              <option value="JP">🇯🇵 Japan (JP)</option>
+              <option value="CN">🇨🇳 China (CN)</option>
+              <option value="KR">🇰🇷 South Korea (KR)</option>
+              <option value="US">🇺🇸 USA (US)</option>
+              <option value="HK">🇭🇰 Hong Kong (HK)</option>
+              <option value="CY">🇨🇾 Cyprus (CY)</option>
+              <option value="BM">🇧🇲 Bermuda (BM)</option>
+              <option value="IM">🇮🇲 Isle of Man (IM)</option>
+              <option value="VU">🇻🇺 Vanuatu (VU)</option>
+              <option value="MV">🇲🇻 Maldives (MV)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Vessel Type <span class="req">*</span></label>
+            <select id="f-vessel-type" onchange="onFieldChange()">
+              <option value="">Select type...</option>
+              <option value="bulk_carrier">Bulk Carrier</option>
+              <option value="container">Container Ship</option>
+              <option value="tanker">Tanker</option>
+              <option value="lng_carrier">LNG Carrier</option>
+              <option value="lpg_carrier">LPG Carrier</option>
+              <option value="vehicle_carrier">Vehicle Carrier</option>
+              <option value="general_cargo">General Cargo</option>
+              <option value="reefer">Reefer</option>
+              <option value="cruise">Cruise Ship</option>
+              <option value="ro_ro">Ro-Ro</option>
+              <option value="chemical_tanker">Chemical Tanker</option>
+              <option value="offshore">Offshore Vessel</option>
+              <option value="tug">Tug</option>
+              <option value="yacht">Yacht</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Transit Direction <span class="req">*</span></label>
+            <select id="f-direction" onchange="onFieldChange()">
+              <option value="">Select...</option>
+              <option value="northbound">Northbound (Pacific → Atlantic)</option>
+              <option value="southbound">Southbound (Atlantic → Pacific)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Gross Tonnage (GT) <span class="req">*</span></label>
+            <input type="number" id="f-gt" placeholder="e.g. 45000" oninput="onFieldChange()" min="1">
+          </div>
+          <div class="form-group">
+            <label>LOA (meters) <span class="req">*</span></label>
+            <input type="number" id="f-loa" placeholder="e.g. 225" oninput="onFieldChange()" step="0.1" min="1">
+            <span class="hint">Max Neo-Panamax: 366m</span>
+          </div>
+        </div>
+
+        <div class="form-row thirds">
+          <div class="form-group">
+            <label>Beam (meters)</label>
+            <input type="number" id="f-beam" placeholder="e.g. 32.2" oninput="onFieldChange()" step="0.1" min="1">
+            <span class="hint">Max: 51.25m</span>
+          </div>
+          <div class="form-group">
+            <label>Draft (meters)</label>
+            <input type="number" id="f-draft" placeholder="e.g. 12.5" oninput="onFieldChange()" step="0.01" min="0.1">
+            <span class="hint">Max TFW: 15.24m</span>
+          </div>
+          <div class="form-group">
+            <label>ETA <span class="req">*</span></label>
+            <input type="datetime-local" id="f-eta" oninput="onFieldChange()">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Cargo Type <span class="req">*</span></label>
+            <select id="f-cargo" onchange="onCargoChange()">
+              <option value="">Select cargo...</option>
+              <option value="containerized">Containerized</option>
+              <option value="dry_bulk">Dry Bulk</option>
+              <option value="liquid_bulk">Liquid Bulk</option>
+              <option value="break_bulk">Break Bulk</option>
+              <option value="vehicles">Vehicles</option>
+              <option value="refrigerated">Refrigerated</option>
+              <option value="livestock">Livestock</option>
+              <option value="passengers">Passengers</option>
+              <option value="ballast_only">Ballast Only</option>
+              <option value="lng">LNG</option>
+              <option value="lpg">LPG</option>
+              <option value="chemicals">Chemicals</option>
+              <option value="crude_oil">Crude Oil</option>
+              <option value="petroleum_products">Petroleum Products</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Crew Count <span class="req">*</span></label>
+            <input type="number" id="f-crew" placeholder="e.g. 22" oninput="onFieldChange()" min="1" max="10000">
+            <span class="hint">Min. 10 required per ACP rules</span>
+          </div>
+        </div>
+
+        <div class="check-row" id="hazmat-row">
+          <input type="checkbox" id="f-hazmat" onchange="onHazmatChange()">
+          <label for="f-hazmat">Vessel is carrying dangerous goods (IMDG)</label>
+        </div>
+
+        <div class="form-row" id="dg-fields" style="display:none;">
+          <div class="form-group">
+            <label>IMDG Class <span class="req">*</span></label>
+            <select id="f-dg-class" onchange="onFieldChange()">
+              <option value="">Select class...</option>
+              <option value="1">Class 1 — Explosives</option>
+              <option value="2.1">Class 2.1 — Flammable Gases</option>
+              <option value="2.2">Class 2.2 — Non-Flammable Gases</option>
+              <option value="2.3">Class 2.3 — Toxic Gases</option>
+              <option value="3">Class 3 — Flammable Liquids</option>
+              <option value="4.1">Class 4.1 — Flammable Solids</option>
+              <option value="4.2">Class 4.2 — Spontaneously Combustible</option>
+              <option value="4.3">Class 4.3 — Dangerous When Wet</option>
+              <option value="5.1">Class 5.1 — Oxidizing Substances</option>
+              <option value="5.2">Class 5.2 — Organic Peroxides</option>
+              <option value="6.1">Class 6.1 — Toxic Substances</option>
+              <option value="6.2">Class 6.2 — Infectious Substances</option>
+              <option value="7">Class 7 — Radioactive Material</option>
+              <option value="8">Class 8 — Corrosive Substances</option>
+              <option value="9">Class 9 — Miscellaneous</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>UN Number</label>
+            <input type="text" id="f-un-number" placeholder="e.g. UN1234" oninput="onFieldChange()">
+          </div>
+        </div>
+      </div>
+
+      <!-- PCSOPEP TAB -->
+      <div class="form-tab-content" id="tab-content-pcsopep">
+        <div class="form-row">
+          <div class="form-group">
+            <label>PCSOPEP Certificate Number</label>
+            <input type="text" id="f-pcsopep-cert" placeholder="e.g. PCSOPEP-2024-6543" oninput="onFieldChange()">
+          </div>
+          <div class="form-group">
+            <label>Certificate Status</label>
+            <select id="f-pcsopep-status" onchange="onFieldChange()">
+              <option value="current">Current / Valid</option>
+              <option value="expiring_soon">Expiring Within 30 Days</option>
+              <option value="expired">Expired</option>
+              <option value="not_issued">Not Yet Issued</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Issue Date</label>
+            <input type="date" id="f-pcsopep-issue" oninput="onFieldChange()">
+          </div>
+          <div class="form-group">
+            <label>Expiry Date</label>
+            <input type="date" id="f-pcsopep-expiry" oninput="onFieldChange()">
+          </div>
+        </div>
+        <div class="form-row full">
+          <div class="form-group">
+            <label>Issuing Authority</label>
+            <input type="text" id="f-pcsopep-authority" placeholder="e.g. Panama Canal Authority (ACP)" oninput="onFieldChange()">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>SOPEP Locker Location</label>
+            <input type="text" id="f-sopep-location" placeholder="e.g. Main Deck, Frame 42 Starboard" oninput="onFieldChange()">
+          </div>
+          <div class="form-group">
+            <label>Oil Spill Response Contractor</label>
+            <input type="text" id="f-spill-contractor" placeholder="e.g. Oil Spill Response Ltd" oninput="onFieldChange()">
+          </div>
+        </div>
+
+        <div class="check-row">
+          <input type="checkbox" id="f-sopep-drills" onchange="onFieldChange()">
+          <label for="f-sopep-drills">Oil spill response drills conducted within last 3 months</label>
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="f-oilbook" onchange="onFieldChange()">
+          <label for="f-oilbook">Oil Record Book is up to date and available for inspection</label>
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="f-marpol" onchange="onFieldChange()">
+          <label for="f-marpol">MARPOL equipment (separators, monitors) in operational condition</label>
+        </div>
+      </div>
+
+      <!-- CREW & CARGO TAB -->
+      <div class="form-tab-content" id="tab-content-crew">
+        <div class="form-row thirds">
+          <div class="form-group">
+            <label>Master / Captain Name</label>
+            <input type="text" id="f-master" placeholder="Capt. J. Rodriguez" oninput="onFieldChange()">
+          </div>
+          <div class="form-group">
+            <label>Master Nationality</label>
+            <select id="f-master-nat" onchange="onFieldChange()">
+              <option value="">Select...</option>
+              <option value="PH">Philippines</option>
+              <option value="IN">India</option>
+              <option value="GR">Greece</option>
+              <option value="RU">Russia</option>
+              <option value="UA">Ukraine</option>
+              <option value="CN">China</option>
+              <option value="TR">Turkey</option>
+              <option value="HR">Croatia</option>
+              <option value="ID">Indonesia</option>
+              <option value="MY">Malaysia</option>
+              <option value="GB">UK</option>
+              <option value="NO">Norway</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>STCW Certification</label>
+            <select id="f-stcw" onchange="onFieldChange()">
+              <option value="valid">Valid (all crew)</option>
+              <option value="partial">Partial (some crew)</option>
+              <option value="pending">Pending renewal</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Cargo Description</label>
+            <input type="text" id="f-cargo-desc" placeholder="e.g. Grain (bulk) — 38,000 MT" oninput="onFieldChange()">
+          </div>
+          <div class="form-group">
+            <label>Cargo Weight (MT)</label>
+            <input type="number" id="f-cargo-weight" placeholder="e.g. 38000" oninput="onFieldChange()" min="0">
+          </div>
+        </div>
+
+        <div class="form-row full">
+          <div class="form-group">
+            <label>Port of Loading</label>
+            <input type="text" id="f-pol" placeholder="e.g. New Orleans, USA" oninput="onFieldChange()">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Port of Discharge</label>
+            <input type="text" id="f-pod" placeholder="e.g. Busan, South Korea" oninput="onFieldChange()">
+          </div>
+          <div class="form-group">
+            <label>Booking Reference</label>
+            <input type="text" id="f-booking" placeholder="e.g. ACP-2024-XXXXXX" oninput="onFieldChange()">
+          </div>
+        </div>
+
+        <div class="check-row">
+          <input type="checkbox" id="f-crew-list" onchange="onFieldChange()">
+          <label for="f-crew-list">Complete crew list prepared with passport details and STCW docs</label>
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="f-cargo-manifest" onchange="onFieldChange()">
+          <label for="f-cargo-manifest">Cargo manifest and Bill of Lading available for inspection</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="form-actions">
+      <button class="btn-validate" id="btn-validate" onclick="runValidation()">
+        ✓ Validate Filing
+      </button>
+      <button class="btn-pdf" id="btn-pdf" onclick="openPdfPreview()">
+        📄 Preview PDF
+      </button>
+    </div>
+  </div>
+
+  <!-- RIGHT: RESULTS PANEL -->
+  <div class="results-panel">
+
+    <!-- Validation Status Card -->
+    <div class="status-card" id="status-card">
+      <div class="status-header">
+        <div class="status-title">Validation Status</div>
+        <div class="status-badge badge-idle" id="status-badge">Waiting</div>
+      </div>
+      <div id="validation-idle" class="idle-state">
+        <div class="idle-icon">🛡️</div>
+        <p>Click <strong>Validate Filing</strong> to run ACP compliance checks on your vessel data.</p>
+      </div>
+      <div id="validation-loading" style="display:none;" class="idle-state">
+        <div class="spinner"></div>
+        <p style="margin-top:1rem;">Running ACP validation checks...</p>
+      </div>
+      <div id="validation-results" style="display:none;">
+        <div class="status-checks" id="status-checks">
+          <div class="check-stat">
+            <div class="num num-pass" id="count-pass">—</div>
+            <div class="lbl">Passed</div>
+          </div>
+          <div class="check-stat">
+            <div class="num num-warn" id="count-warn">—</div>
+            <div class="lbl">Warnings</div>
+          </div>
+          <div class="check-stat">
+            <div class="num num-fail" id="count-fail">—</div>
+            <div class="lbl">Issues</div>
+          </div>
+        </div>
+        <div class="checklist-section" id="checklist-container"></div>
+      </div>
+    </div>
+
+    <!-- CTA Card -->
+    <div class="cta-card">
+      <div class="cta-eyebrow">Panama Canal Filing</div>
+      <h3>Stop paying agents $2–5K per transit</h3>
+      <div class="cta-price">from <strong>$599/mo</strong> · unlimited filings</div>
+      <p>VUMPA + PCSOPEP automation with real-time ACP validation and watermarked PDF previews — for every transit, not just this one.</p>
+      <a href="/pricing" class="cta-primary">Start Filing — from $599/mo →</a>
+      <div class="cta-trust">
+        <span>Cancel anytime</span>
+        <span>No setup fees</span>
+        <span>No agent needed</span>
+      </div>
+    </div>
+
+    <!-- Lead capture card -->
+    <div class="lead-card">
+      <h4>Save Your Test Filing</h4>
+      <p>Enter your email and we'll send you a copy of this demo session + the PDF preview.</p>
+      <input type="text" id="lead-vessel" placeholder="Vessel name (optional)">
+      <input type="email" id="lead-email" placeholder="your@company.com">
+      <button onclick="submitLead()">Send Me the PDF →</button>
+      <div class="lead-success" id="lead-success">✓ Sent! Check your inbox.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PDF PREVIEW MODAL -->
+<div class="pdf-modal-overlay" id="pdf-modal">
+  <div class="pdf-modal">
+    <div class="pdf-modal-header">
+      <h3>VUMPA + PCSOPEP Package Preview</h3>
+      <div style="display:flex;align-items:center;gap:0.75rem;">
+        <span class="demo-tag">DEMO — Not for ACP submission</span>
+        <button class="pdf-modal-close" onclick="closePdfModal()">&times;</button>
+      </div>
+    </div>
+    <div class="pdf-modal-body" id="pdf-modal-body">
+      <div class="pdf-loading" id="pdf-loading">
+        <div class="spinner"></div>
+        <p>Generating PDF preview...</p>
+      </div>
+      <iframe id="pdf-iframe" style="display:none;" title="VUMPA PDF Preview"></iframe>
+    </div>
+    <div class="pdf-modal-footer">
+      <p>Watermarked "DEMO" — not valid for submission to ACP. <a href="/pricing" style="color:var(--teal);">Upgrade for real PDFs →</a></p>
+      <a href="/pricing">Start Filing — $599/mo</a>
+    </div>
+  </div>
+</div>
+
+<!-- STICKY BOTTOM CTA -->
+<div class="sticky-cta" id="sticky-cta">
+  <p class="sticky-cta-text"><strong>Save $2–5K per transit.</strong><span class="sticky-cta-sub"> Replace your ship agent with CanalClear — VUMPA + PCSOPEP in minutes.</span></p>
+  <a href="/pricing">Start at $599/mo →</a>
+  <button class="sticky-cta-close" onclick="document.getElementById('sticky-cta').style.display='none'" aria-label="Close">×</button>
+</div>
+
+<script>
+// ─── DEMO STATE ───────────────────────────────────────────────────────────────
+var currentMode = 'sample';
+var lastValidation = null;
+
+// Sample mock data for "Explore with Sample Data" mode
+var SAMPLE_DATA = {
+  vessel_name: 'MV Pacific Navigator',
+  imo: '9876543',
+  flag: 'PA',
+  vessel_type: 'bulk_carrier',
+  direction: 'northbound',
+  gt: '45000',
+  loa: '225',
+  beam: '32.2',
+  draft: '12.5',
+  cargo: 'dry_bulk',
+  crew: '22',
+  hazmat: false,
+  // ETA: 48 hours from now
+  eta: (function(){
+    var d = new Date(Date.now() + 48 * 3600 * 1000);
+    var pad = n => String(n).padStart(2,'0');
+    return d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate()) + 'T' + pad(d.getHours()) + ':' + pad(d.getMinutes());
+  })(),
+  // PCSOPEP
+  pcsopep_cert: 'PCSOPEP-2024-6543',
+  pcsopep_status: 'current',
+  pcsopep_issue: '2024-01-15',
+  pcsopep_expiry: '2025-07-15',
+  pcsopep_authority: 'Panama Canal Authority (ACP)',
+  sopep_location: 'Main Deck, Frame 42 Starboard',
+  spill_contractor: 'Oil Spill Response Ltd',
+  sopep_drills: true,
+  oilbook: true,
+  marpol: true,
+  // Crew & Cargo
+  master: 'Capt. Jose Rodriguez',
+  master_nat: 'PH',
+  stcw: 'valid',
+  cargo_desc: 'Grain (bulk) — 38,500 MT',
+  cargo_weight: '38500',
+  pol: 'New Orleans, Louisiana, USA',
+  pod: 'Busan, South Korea',
+  booking: 'ACP-2024-987654',
+  crew_list: true,
+  cargo_manifest: true,
+};
+
+// ─── MODE SWITCHING ───────────────────────────────────────────────────────────
+function setMode(mode) {
+  currentMode = mode;
+  var btnSample = document.getElementById('btn-sample');
+  var btnOwn = document.getElementById('btn-own');
+  var hint = document.getElementById('mode-hint');
+
+  if (mode === 'sample') {
+    btnSample.classList.add('active');
+    btnOwn.classList.remove('active');
+    hint.textContent = 'Pre-filled with realistic vessel data — click any field to edit';
+    fillSampleData();
+  } else {
+    btnOwn.classList.add('active');
+    btnSample.classList.remove('active');
+    hint.textContent = 'Enter your real vessel data — AI can auto-fill from vessel name or IMO';
+    clearForm();
+  }
+
+  // Reset validation state
+  resetValidation();
+}
+
+// ─── FILL SAMPLE DATA (with typing animation) ─────────────────────────────────
+var fillTimer = null;
+function fillSampleData() {
+  clearTimeout(fillTimer);
+  // Fill instantly
+  var d = SAMPLE_DATA;
+  setFieldAnimated('f-vessel-name', d.vessel_name);
+  setFieldAnimated('f-imo', d.imo, 80);
+  setSelect('f-flag', d.flag, 120);
+  setSelect('f-vessel-type', d.vessel_type, 160);
+  setSelect('f-direction', d.direction, 200);
+  setFieldAnimated('f-gt', d.gt, 100);
+  setFieldAnimated('f-loa', d.loa, 140);
+  setFieldAnimated('f-beam', d.beam, 180);
+  setFieldAnimated('f-draft', d.draft, 220);
+  setField('f-eta', d.eta);
+  setSelect('f-cargo', d.cargo, 240);
+  setFieldAnimated('f-crew', d.crew, 260);
+  document.getElementById('f-hazmat').checked = d.hazmat;
+
+  // PCSOPEP tab
+  setField('f-pcsopep-cert', d.pcsopep_cert);
+  setSelect('f-pcsopep-status', d.pcsopep_status);
+  setField('f-pcsopep-issue', d.pcsopep_issue);
+  setField('f-pcsopep-expiry', d.pcsopep_expiry);
+  setField('f-pcsopep-authority', d.pcsopep_authority);
+  setField('f-sopep-location', d.sopep_location);
+  setField('f-spill-contractor', d.spill_contractor);
+  document.getElementById('f-sopep-drills').checked = d.sopep_drills;
+  document.getElementById('f-oilbook').checked = d.oilbook;
+  document.getElementById('f-marpol').checked = d.marpol;
+
+  // Crew & cargo tab
+  setField('f-master', d.master);
+  setSelect('f-master-nat', d.master_nat);
+  setSelect('f-stcw', d.stcw);
+  setField('f-cargo-desc', d.cargo_desc);
+  setField('f-cargo-weight', d.cargo_weight);
+  setField('f-pol', d.pol);
+  setField('f-pod', d.pod);
+  setField('f-booking', d.booking);
+  document.getElementById('f-crew-list').checked = d.crew_list;
+  document.getElementById('f-cargo-manifest').checked = d.cargo_manifest;
+
+  markAllFilled();
+
+  // Run validation automatically after a short delay
+  fillTimer = setTimeout(function() { runValidation(); }, 800);
+}
+
+function setFieldAnimated(id, val, delay) {
+  delay = delay || 0;
+  setTimeout(function() {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.value = val;
+    el.classList.add('field-autofilled');
+    el.classList.add('has-value');
+    setTimeout(function() { el.classList.remove('field-autofilled'); }, 700);
+  }, delay);
+}
+
+function setField(id, val) {
+  var el = document.getElementById(id);
+  if (el) { el.value = val; el.classList.add('has-value'); }
+}
+
+function setSelect(id, val, delay) {
+  delay = delay || 0;
+  setTimeout(function() {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.value = val;
+    el.classList.add('field-autofilled');
+    setTimeout(function() { el.classList.remove('field-autofilled'); }, 700);
+  }, delay);
+}
+
+function markAllFilled() {
+  setTimeout(function() {
+    var inputs = document.querySelectorAll('.form-group input, .form-group select');
+    inputs.forEach(function(el) {
+      if (el.value) el.classList.add('has-value');
+    });
+  }, 400);
+}
+
+function clearForm() {
+  var inputs = document.querySelectorAll('.form-group input, .form-group select, .form-group textarea');
+  inputs.forEach(function(el) {
+    if (el.type === 'checkbox') el.checked = false;
+    else el.value = '';
+    el.classList.remove('has-value', 'field-error', 'field-ok', 'field-warning');
+  });
+  document.getElementById('f-hazmat').checked = false;
+  document.getElementById('dg-fields').style.display = 'none';
+  // Reset IMO inline hint
+  var imoHint = document.getElementById('imo-hint');
+  if (imoHint) { imoHint.className = 'field-hint'; imoHint.textContent = '7-digit IMO number'; }
+}
+
+// ─── AUTOFILL (demo of AI auto-fill feature) ──────────────────────────────────
+function triggerAutoFill() {
+  var btn = document.getElementById('autofill-btn');
+  var label = document.getElementById('autofill-label');
+
+  if (currentMode === 'own') {
+    // In "own data" mode — clear and re-populate with a typewriter effect
+    var vesselName = document.getElementById('f-vessel-name').value.trim();
+    var imo = document.getElementById('f-imo').value.trim();
+    if (!vesselName && !imo) {
+      document.getElementById('f-vessel-name').focus();
+      document.getElementById('f-vessel-name').placeholder = '← Enter vessel name first';
+      setTimeout(function() {
+        document.getElementById('f-vessel-name').placeholder = 'e.g. MV Pacific Navigator';
+      }, 3000);
+      return;
+    }
+  }
+
+  label.textContent = 'Looking up vessel...';
+  btn.disabled = true;
+
+  setTimeout(function() {
+    label.textContent = 'Auto-filling...';
+    fillSampleData();
+    setTimeout(function() {
+      label.textContent = '✓ Auto-filled!';
+      btn.disabled = false;
+      setTimeout(function() { label.textContent = 'AI Auto-Fill'; }, 2500);
+    }, 600);
+  }, 900);
+}
+
+// ─── FIELD CHANGE HANDLERS ────────────────────────────────────────────────────
+function onFieldChange() {
+  // Mark field as has-value
+  event.target && event.target.value && event.target.classList.add('has-value');
+}
+
+// ─── IMO REAL-TIME VALIDATION ─────────────────────────────────────────────────
+function validateIMOInline() {
+  var input = document.getElementById('f-imo');
+  var hint  = document.getElementById('imo-hint');
+  if (!input || !hint) return;
+
+  var raw = input.value.trim();
+
+  // Clear state when empty
+  if (!raw) {
+    input.classList.remove('field-error', 'field-ok');
+    hint.className = 'field-hint';
+    hint.textContent = '7-digit IMO number';
+    return;
+  }
+
+  // Strip optional "IMO " prefix
+  var cleaned = raw.replace(/^IMO\s*/i, '').trim();
+
+  // Format check: must be exactly 7 digits
+  if (!/^\d{7}$/.test(cleaned)) {
+    input.classList.add('field-error');
+    input.classList.remove('field-ok');
+    hint.className = 'field-hint err';
+    hint.textContent = 'IMO must be 7 digits';
+    return;
+  }
+
+  // Checksum: weights 7,6,5,4,3,2 on digits 0–5; last digit is check digit
+  var d = cleaned.split('').map(Number);
+  var sum = d[0]*7 + d[1]*6 + d[2]*5 + d[3]*4 + d[4]*3 + d[5]*2;
+  if (sum % 10 !== d[6]) {
+    input.classList.add('field-error');
+    input.classList.remove('field-ok');
+    hint.className = 'field-hint err';
+    hint.textContent = 'Invalid IMO number';
+    return;
+  }
+
+  // Valid
+  input.classList.remove('field-error');
+  input.classList.add('field-ok');
+  hint.className = 'field-hint ok';
+  hint.textContent = 'IMO ' + cleaned + ' ✓';
+}
+
+// Return validated IMO for downstream use (returns null if invalid)
+function getValidatedIMO() {
+  var input = document.getElementById('f-imo');
+  if (!input) return null;
+  var raw = input.value.trim();
+  var cleaned = raw.replace(/^IMO\s*/i, '').trim();
+  if (!/^\d{7}$/.test(cleaned)) return null;
+  var d = cleaned.split('').map(Number);
+  var sum = d[0]*7 + d[1]*6 + d[2]*5 + d[3]*4 + d[4]*3 + d[5]*2;
+  if (sum % 10 !== d[6]) return null;
+  return { raw: raw, number: cleaned, formatted: 'IMO ' + cleaned };
+}
+
+// ─── IMO LOOKUP BANNER ────────────────────────────────────────────────────────
+// Validate IMO checksum in JS (mirrors server validation)
+function imoChecksumValid(cleaned) {
+  if (!/^\d{7}$/.test(cleaned)) return false;
+  var d = cleaned.split('').map(Number);
+  var sum = d[0]*7 + d[1]*6 + d[2]*5 + d[3]*4 + d[4]*3 + d[5]*2;
+  return sum % 10 === d[6];
+}
+
+// Called on input in the banner's IMO field
+function onIMOLookupInput(el) {
+  var raw = el.value.trim();
+  var cleaned = raw.replace(/^IMO\s*/i, '').trim();
+  var btn = document.getElementById('imo-lookup-btn');
+  var status = document.getElementById('imo-lookup-status');
+
+  el.classList.remove('imo-valid', 'imo-error');
+
+  if (!cleaned) {
+    btn.disabled = true;
+    setLookupStatus('hint', 'Enter your 7-digit IMO number above');
+    return;
+  }
+  if (!/^\d{1,7}$/.test(cleaned)) {
+    el.classList.add('imo-error');
+    btn.disabled = true;
+    setLookupStatus('error', 'Digits only, 7 characters');
+    return;
+  }
+  if (cleaned.length < 7) {
+    btn.disabled = true;
+    setLookupStatus('hint', (7 - cleaned.length) + ' more digits needed');
+    return;
+  }
+  if (!imoChecksumValid(cleaned)) {
+    el.classList.add('imo-error');
+    btn.disabled = true;
+    setLookupStatus('error', 'Invalid IMO number — check and re-enter');
+    return;
+  }
+
+  // Valid checksum — enable button and auto-trigger lookup
+  el.classList.add('imo-valid');
+  btn.disabled = false;
+  setLookupStatus('hint', '✓ Valid format — press Look Up or hit Enter');
+
+  // Auto-lookup after 400ms debounce (don't wait for button click)
+  clearTimeout(window._imoLookupTimer);
+  window._imoLookupTimer = setTimeout(function() {
+    doIMOLookup();
+  }, 400);
+}
+
+function setLookupStatus(type, msg) {
+  var el = document.getElementById('imo-lookup-status');
+  if (!el) return;
+  el.className = 'imo-lookup-status imo-status-' + type;
+  el.textContent = msg;
+}
+
+// Sync form's f-imo field into the banner input (so editing the form field also triggers lookup)
+function syncIMOLookupFromForm() {
+  var formImo = document.getElementById('f-imo');
+  var bannerImo = document.getElementById('imo-lookup-input');
+  if (!formImo || !bannerImo) return;
+  var val = formImo.value.trim().replace(/^IMO\s*/i, '').trim();
+  if (bannerImo.value !== val) {
+    bannerImo.value = val;
+    onIMOLookupInput(bannerImo);
+  }
+}
+
+// Sync banner value into form field (when user types in banner)
+function syncFormFromLookupBanner() {
+  var bannerImo = document.getElementById('imo-lookup-input');
+  var formImo = document.getElementById('f-imo');
+  if (!bannerImo || !formImo) return;
+  var cleaned = bannerImo.value.trim().replace(/^IMO\s*/i, '').trim();
+  if (formImo.value !== cleaned && cleaned) {
+    formImo.value = cleaned;
+    formImo.classList.add('has-value');
+    validateIMOInline();
+  }
+}
+
+// Main lookup — fires on button click or debounce
+var _imoLookupInFlight = false;
+function doIMOLookup() {
+  clearTimeout(window._imoLookupTimer);
+  if (_imoLookupInFlight) return;
+
+  var bannerInput = document.getElementById('imo-lookup-input');
+  var btn = document.getElementById('imo-lookup-btn');
+  var btnLabel = document.getElementById('imo-lookup-btn-label');
+  if (!bannerInput) return;
+
+  var raw = bannerInput.value.trim();
+  var cleaned = raw.replace(/^IMO\s*/i, '').trim();
+  if (!imoChecksumValid(cleaned)) return;
+
+  _imoLookupInFlight = true;
+  btn.disabled = true;
+  btnLabel.textContent = 'Looking up…';
+  setLookupStatus('loading', '⏳ Searching vessel registry…');
+
+  // Sync the form IMO field
+  syncFormFromLookupBanner();
+
+  fetch('/api/demo/vessel-lookup?imo=' + encodeURIComponent(cleaned))
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      _imoLookupInFlight = false;
+      btn.disabled = false;
+      btnLabel.textContent = 'Look Up →';
+
+      if (data.success && data.vessel) {
+        applyVesselLookupData(data.vessel);
+        setLookupStatus('success', '✓ ' + data.vessel.name + ' — vessel data populated');
+        bannerInput.classList.remove('imo-error');
+        bannerInput.classList.add('imo-valid');
+      } else {
+        // Not found — let user continue manually
+        setLookupStatus('hint', 'Vessel not in registry — fill fields manually below');
+        bannerInput.classList.remove('imo-valid');
+      }
+    })
+    .catch(function() {
+      _imoLookupInFlight = false;
+      btn.disabled = false;
+      btnLabel.textContent = 'Look Up →';
+      // API unavailable — non-blocking, user continues manually
+      setLookupStatus('hint', 'Lookup unavailable — fill fields manually below');
+    });
+}
+
+// Map vessel type codes → select option values
+var VESSEL_TYPE_MAP = {
+  'bulk_carrier':    'bulk_carrier',
+  'container':       'container',
+  'tanker':          'tanker',
+  'lng_carrier':     'lng_carrier',
+  'lpg_carrier':     'lpg_carrier',
+  'vehicle_carrier': 'vehicle_carrier',
+  'general_cargo':   'general_cargo',
+  'reefer':          'reefer',
+  'cruise':          'cruise',
+  'ro_ro':           'ro_ro',
+  'chemical_tanker': 'chemical_tanker',
+  'offshore':        'offshore',
+  'tug':             'tug',
+  'yacht':           'yacht',
+};
+
+// Flag code → select option value (already ISO alpha-2 in our DB)
+// The select uses ISO alpha-2 values directly — no remapping needed.
+
+// Apply fetched vessel data to the VUMPA form fields with animation
+function applyVesselLookupData(v) {
+  // Switch to "own data" mode so the fields aren't overwritten by sample data
+  if (currentMode === 'sample') {
+    // Don't call setMode('own') — that clears the form. Just update mode state + UI.
+    currentMode = 'own';
+    var btnSample = document.getElementById('btn-sample');
+    var btnOwn = document.getElementById('btn-own');
+    if (btnSample) btnSample.classList.remove('active');
+    if (btnOwn) btnOwn.classList.add('active');
+  }
+
+  // Animate each field in sequence
+  if (v.name)  setFieldAnimated('f-vessel-name', v.name, 0);
+  if (v.imo)   setFieldAnimated('f-imo', v.imo, 60);
+  if (v.flag)  setSelect('f-flag', v.flag, 100);
+  if (v.type && VESSEL_TYPE_MAP[v.type]) setSelect('f-vessel-type', VESSEL_TYPE_MAP[v.type], 140);
+  if (v.gt)    setFieldAnimated('f-gt', String(v.gt), 180);
+  if (v.loa)   setFieldAnimated('f-loa', String(v.loa), 220);
+  if (v.beam)  setFieldAnimated('f-beam', String(v.beam), 260);
+  if (v.draft) setFieldAnimated('f-draft', String(v.draft), 300);
+
+  // After fields animate, update IMO hint to show checkmark
+  setTimeout(function() {
+    var hint = document.getElementById('imo-hint');
+    if (hint) {
+      hint.className = 'field-hint ok';
+      hint.textContent = 'IMO ' + (v.imo || '') + ' ✓';
+    }
+    // Update autofill button to reflect "filled via lookup"
+    var label = document.getElementById('autofill-label');
+    if (label) label.textContent = '✓ Vessel loaded';
+    setTimeout(function() {
+      if (label) label.textContent = 'AI Auto-Fill';
+    }, 3000);
+  }, 400);
+
+  // Track analytics
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'imo_lookup_success', { imo: v.imo, vessel_type: v.type });
+  }
+}
+
+function onCargoChange() {
+  onFieldChange();
+}
+
+function onHazmatChange() {
+  var checked = document.getElementById('f-hazmat').checked;
+  document.getElementById('dg-fields').style.display = checked ? 'grid' : 'none';
+}
+
+// ─── TABS ─────────────────────────────────────────────────────────────────────
+function showTab(tab) {
+  ['vumpa', 'pcsopep', 'crew'].forEach(function(t) {
+    document.getElementById('tab-' + t).classList.toggle('active', t === tab);
+    document.getElementById('tab-content-' + t).classList.toggle('active', t === tab);
+  });
+}
+
+// ─── VALIDATION ───────────────────────────────────────────────────────────────
+function getFormData() {
+  return {
+    vessel_name: document.getElementById('f-vessel-name').value.trim(),
+    imo_number: document.getElementById('f-imo').value.trim(),
+    flag_state: document.getElementById('f-flag').value,
+    vessel_type: document.getElementById('f-vessel-type').value,
+    transit_direction: document.getElementById('f-direction').value,
+    gross_tonnage: parseFloat(document.getElementById('f-gt').value) || null,
+    loa: parseFloat(document.getElementById('f-loa').value) || null,
+    beam: parseFloat(document.getElementById('f-beam').value) || null,
+    draft: parseFloat(document.getElementById('f-draft').value) || null,
+    eta: document.getElementById('f-eta').value,
+    cargo_type: document.getElementById('f-cargo').value,
+    crew_count: parseInt(document.getElementById('f-crew').value) || null,
+    has_dangerous_goods: document.getElementById('f-hazmat').checked,
+    dangerous_goods_class: document.getElementById('f-dg-class').value || null,
+    // PCSOPEP
+    pcsopep_cert_number: document.getElementById('f-pcsopep-cert').value,
+    pcsopep_status: document.getElementById('f-pcsopep-status').value,
+    pcsopep_issue_date: document.getElementById('f-pcsopep-issue').value,
+    pcsopep_expiry_date: document.getElementById('f-pcsopep-expiry').value,
+    pcsopep_authority: document.getElementById('f-pcsopep-authority').value,
+  };
+}
+
+function resetValidation() {
+  document.getElementById('validation-idle').style.display = '';
+  document.getElementById('validation-loading').style.display = 'none';
+  document.getElementById('validation-results').style.display = 'none';
+  document.getElementById('status-badge').className = 'status-badge badge-idle';
+  document.getElementById('status-badge').textContent = 'Waiting';
+  lastValidation = null;
+}
+
+function runValidation() {
+  var data = getFormData();
+
+  document.getElementById('validation-idle').style.display = 'none';
+  document.getElementById('validation-loading').style.display = '';
+  document.getElementById('validation-results').style.display = 'none';
+  document.getElementById('status-badge').className = 'status-badge badge-idle';
+  document.getElementById('status-badge').textContent = 'Checking...';
+
+  fetch('/api/demo/validate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(resp) {
+    document.getElementById('validation-loading').style.display = 'none';
+    if (!resp.success) throw new Error(resp.message || 'Validation error');
+    displayValidation(resp.validation);
+    lastValidation = resp.validation;
+  })
+  .catch(function(err) {
+    document.getElementById('validation-loading').style.display = 'none';
+    document.getElementById('validation-idle').style.display = '';
+    document.getElementById('status-badge').className = 'status-badge badge-idle';
+    document.getElementById('status-badge').textContent = 'Error';
+    console.error('Validation error:', err);
+  });
+}
+
+function displayValidation(v) {
+  // Status badge
+  var badge = document.getElementById('status-badge');
+  var statusMap = {
+    'passed': { cls: 'badge-pass', label: '✓ Ready to File' },
+    'warning': { cls: 'badge-warn', label: '⚠ Warnings' },
+    'failed': { cls: 'badge-fail', label: '✗ Issues Found' }
+  };
+  var s = statusMap[v.overall_status] || { cls: 'badge-idle', label: v.overall_status };
+  badge.className = 'status-badge ' + s.cls;
+  badge.textContent = s.label;
+
+  // Counts
+  document.getElementById('count-pass').textContent = v.passed_checks || 0;
+  document.getElementById('count-warn').textContent = v.warning_checks || 0;
+  document.getElementById('count-fail').textContent = v.failed_checks || 0;
+
+  // Checklist
+  var container = document.getElementById('checklist-container');
+  container.innerHTML = '';
+
+  var cats = v.categories || {};
+
+  function renderGroup(title, items, cls, icon) {
+    if (!items || items.length === 0) return;
+    var groupTitle = document.createElement('div');
+    groupTitle.className = 'checklist-group-title ' + cls;
+    groupTitle.textContent = title + ' (' + items.length + ')';
+    container.appendChild(groupTitle);
+
+    // Limit display to avoid overflow
+    var limit = cls === 'pass' ? 5 : 20;
+    items.slice(0, limit).forEach(function(item) {
+      var el = document.createElement('div');
+      el.className = 'check-item';
+      el.innerHTML = '<span class="check-icon">' + icon + '</span>' +
+        '<div class="check-text">' +
+          '<div class="check-name">' + escHtml(item.name || item.id || '') + '</div>' +
+          '<div class="check-msg">' + escHtml(item.message || item.requirement || '') + '</div>' +
+        '</div>';
+      container.appendChild(el);
+    });
+    if (items.length > limit) {
+      var more = document.createElement('div');
+      more.className = 'check-item';
+      more.innerHTML = '<span class="check-icon" style="color:var(--gray)">...</span>' +
+        '<div class="check-text"><div class="check-msg" style="color:var(--gray)">' + (items.length - limit) + ' more checks</div></div>';
+      container.appendChild(more);
+    }
+  }
+
+  renderGroup('Critical Issues', cats.critical, 'crit', '✗');
+  renderGroup('Warnings', cats.warnings, 'warn', '⚠');
+  renderGroup('Passed Checks', cats.passed, 'pass', '✓');
+
+  if (!cats.critical && !cats.warnings && !cats.passed && v.checklist) {
+    // Fallback: render raw checklist
+    var all = v.checklist || [];
+    renderGroup('Issues', all.filter(function(c){ return c.status === 'fail'; }), 'crit', '✗');
+    renderGroup('Warnings', all.filter(function(c){ return c.status === 'warning'; }), 'warn', '⚠');
+    renderGroup('Passed', all.filter(function(c){ return c.status === 'pass'; }), 'pass', '✓');
+  }
+
+  document.getElementById('validation-results').style.display = '';
+
+  // Highlight errors on fields
+  highlightFieldErrors(v);
+}
+
+function highlightFieldErrors(v) {
+  var criticals = (v.categories && v.categories.critical) || [];
+  var errorMap = {
+    'imo_format': 'f-imo', 'imo_required': 'f-imo',
+    'vessel_name_required': 'f-vessel-name', 'vessel_name_length': 'f-vessel-name',
+    'crew_count': 'f-crew', 'crew_minimum': 'f-crew',
+    'loa_limit': 'f-loa', 'loa_required': 'f-loa',
+    'beam_limit': 'f-beam', 'draft_limit': 'f-draft',
+    'eta_required': 'f-eta',
+    'flag_state': 'f-flag',
+    'vessel_type': 'f-vessel-type',
+    'cargo_type': 'f-cargo',
+  };
+  criticals.forEach(function(c) {
+    var fieldId = errorMap[c.id];
+    if (fieldId) {
+      var el = document.getElementById(fieldId);
+      if (el) el.classList.add('field-error');
+    }
+  });
+}
+
+function escHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ─── PDF PREVIEW ──────────────────────────────────────────────────────────────
+function openPdfPreview() {
+  document.getElementById('pdf-modal').classList.add('open');
+  document.getElementById('pdf-loading').style.display = '';
+  document.getElementById('pdf-iframe').style.display = 'none';
+
+  var data = getFormData();
+  if (lastValidation) data.validationResult = lastValidation;
+
+  fetch('/api/demo/pdf-preview', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
+  .then(function(r) {
+    if (!r.ok) throw new Error('PDF generation failed');
+    return r.blob();
+  })
+  .then(function(blob) {
+    var url = URL.createObjectURL(blob);
+    var iframe = document.getElementById('pdf-iframe');
+    iframe.src = url;
+    iframe.style.display = '';
+    document.getElementById('pdf-loading').style.display = 'none';
+  })
+  .catch(function(err) {
+    document.getElementById('pdf-loading').innerHTML =
+      '<p style="color:var(--red)">PDF generation failed. <a href="/pricing" style="color:var(--teal)">Upgrade for real PDFs →</a></p>';
+    console.error('PDF error:', err);
+  });
+}
+
+function closePdfModal() {
+  document.getElementById('pdf-modal').classList.remove('open');
+  var iframe = document.getElementById('pdf-iframe');
+  if (iframe.src && iframe.src.startsWith('blob:')) {
+    URL.revokeObjectURL(iframe.src);
+  }
+  iframe.src = '';
+}
+
+// Close modal on backdrop click
+document.getElementById('pdf-modal').addEventListener('click', function(e) {
+  if (e.target === this) closePdfModal();
+});
+
+// ─── LEAD CAPTURE ─────────────────────────────────────────────────────────────
+function submitLead() {
+  var email = document.getElementById('lead-email').value.trim();
+  var vessel = document.getElementById('lead-vessel').value.trim();
+  if (!email || !email.includes('@')) {
+    document.getElementById('lead-email').style.borderColor = 'var(--red)';
+    return;
+  }
+  document.getElementById('lead-email').style.borderColor = '';
+
+  fetch('/api/cc/demo-contact', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: email, vessel_name: vessel })
+  })
+  .then(function() {
+    document.getElementById('lead-success').style.display = '';
+    document.getElementById('lead-email').value = '';
+    document.getElementById('lead-vessel').value = '';
+
+    // GA event
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'demo_lead_capture', { vessel_name: vessel, email_domain: email.split('@')[1] });
+    }
+  })
+  .catch(function() {
+    document.getElementById('lead-success').textContent = '✓ We\'ll follow up shortly.';
+    document.getElementById('lead-success').style.display = '';
+  });
+}
+
+// ─── MOBILE NAV ───────────────────────────────────────────────────────────────
+function toggleMobileNav() {
+  document.getElementById('mobile-nav').classList.toggle('open');
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+(function init() {
+  // Start in sample mode — load data immediately
+  fillSampleData();
+
+  // Keyboard shortcuts
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closePdfModal();
+  });
+
+  // GA page event
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'demo_page_view', { page: 'demo/panama' });
+  }
+})();
+</script>
+
+    <script src="/js/mobile-nav.js"></script>
+<script src="/js/whatsapp-button.js"></script>
+<script src="/js/ocr-upload.js"></script>
+<script>
+  window.initOCRUpload({
+    waterway: 'panama',
+    onFieldsExtracted: function(data) {
+      var fields = data.fields || {};
+      Object.keys(fields).forEach(function(formId) {
+        var el = document.getElementById(formId);
+        if (!el) return;
+        var val = fields[formId].value;
+        if (el.tagName === 'SELECT') {
+          for (var i = 0; i < el.options.length; i++) {
+            if (el.options[i].value.toLowerCase() === String(val).toLowerCase() ||
+                el.options[i].text.toLowerCase().indexOf(String(val).toLowerCase()) !== -1) {
+              el.selectedIndex = i; break;
+            }
+          }
+        } else { el.value = val; }
+        el.classList.add('has-value');
+        el.dispatchEvent(new Event('input', { bubbles: true }));
+        el.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+      if (typeof onFieldChange === 'function') onFieldChange();
+    }
+  });
+</script>
+</body>
+</html>

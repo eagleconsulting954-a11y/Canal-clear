@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fleet Ops — CanalClear</title>
+<meta name="robots" content="noindex" />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --navy: #0f1d2e;
+  --navy-mid: #152535;
+  --navy-light: #1e3448;
+  --navy-border: #243d55;
+  --orange: #E85A00;
+  --orange-light: #ff6b1a;
+  --orange-glow: rgba(232, 90, 0, 0.15);
+  --amber: #f59e0b;
+  --green: #22c55e;
+  --green-dim: #16a34a;
+  --red: #ef4444;
+  --red-dim: #dc2626;
+  --yellow: #eab308;
+  --text: #e2eaf2;
+  --text-dim: #7a9bb8;
+  --text-muted: #4a6a85;
+  --card: #152535;
+  --card-hover: #1a2e42;
+  --mono: 'IBM Plex Mono', monospace;
+  --sans: 'IBM Plex Sans', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--sans);
+  background: var(--navy);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* ── Nav ──────────────────────────────────────────────────────── */
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px; height: 56px;
+  background: var(--navy-mid);
+  border-bottom: 1px solid var(--navy-border);
+  position: sticky; top: 0; z-index: 100;
+}
+.topbar-left { display: flex; align-items: center; gap: 16px; }
+.logo { font-weight: 700; font-size: 15px; color: var(--text); text-decoration: none; letter-spacing: -0.3px; }
+.logo span { color: var(--orange); }
+.nav-sep { color: var(--text-muted); font-size: 16px; }
+.page-title { font-size: 13px; font-weight: 500; color: var(--text-dim); letter-spacing: 0.3px; }
+.topbar-right { display: flex; align-items: center; gap: 12px; }
+.status-badge { font-family: var(--mono); font-size: 11px; padding: 3px 9px; border-radius: 3px; }
+.status-badge.live { background: rgba(34, 197, 94, 0.12); color: var(--green); border: 1px solid rgba(34, 197, 94, 0.3); }
+.btn-sm { font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 4px; cursor: pointer; border: none; transition: all 0.15s; text-decoration: none; }
+.btn-orange { background: var(--orange); color: #fff; }
+.btn-orange:hover { background: var(--orange-light); }
+.btn-ghost { background: transparent; color: var(--text-dim); border: 1px solid var(--navy-border); }
+.btn-ghost:hover { background: var(--navy-light); color: var(--text); }
+
+/* ── Layout ───────────────────────────────────────────────────── */
+.layout { display: flex; height: calc(100vh - 56px); }
+
+.sidebar {
+  width: 220px; flex-shrink: 0;
+  background: var(--navy-mid);
+  border-right: 1px solid var(--navy-border);
+  padding: 20px 0;
+  display: flex; flex-direction: column;
+  overflow-y: auto;
+}
+.sidebar-section { padding: 0 12px 8px; }
+.sidebar-label { font-size: 10px; font-weight: 600; color: var(--text-muted); letter-spacing: 1.2px; text-transform: uppercase; padding: 0 8px; margin-bottom: 6px; }
+.sidebar-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 12px; border-radius: 6px; cursor: pointer;
+  font-size: 13px; font-weight: 500; color: var(--text-dim);
+  transition: all 0.15s; text-decoration: none;
+  border: 1px solid transparent;
+}
+.sidebar-item:hover { background: var(--navy-light); color: var(--text); }
+.sidebar-item.active { background: var(--orange-glow); color: var(--orange); border-color: rgba(232,90,0,0.2); }
+.sidebar-item .icon { font-size: 15px; width: 20px; text-align: center; }
+.sidebar-item .badge { margin-left: auto; background: var(--red); color: #fff; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 10px; }
+.sidebar-item .badge.warn { background: var(--yellow); color: var(--navy); }
+.sidebar-divider { height: 1px; background: var(--navy-border); margin: 10px 16px; }
+.vessel-filter { padding: 0 12px; }
+.vessel-search { width: 100%; background: var(--navy-light); border: 1px solid var(--navy-border); color: var(--text); padding: 7px 10px; border-radius: 5px; font-size: 12px; font-family: var(--sans); outline: none; }
+.vessel-search:focus { border-color: var(--orange); }
+.vessel-search::placeholder { color: var(--text-muted); }
+
+/* ── Main content ─────────────────────────────────────────────── */
+.main { flex: 1; overflow-y: auto; padding: 24px; }
+
+/* ── Tab system ───────────────────────────────────────────────── */
+.tab-bar { display: flex; gap: 4px; margin-bottom: 24px; border-bottom: 1px solid var(--navy-border); padding-bottom: 0; }
+.tab {
+  padding: 8px 18px 10px; font-size: 13px; font-weight: 500;
+  color: var(--text-dim); cursor: pointer; border: none; background: none;
+  border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.15s;
+}
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--orange); border-bottom-color: var(--orange); }
+
+/* ── KPI row ──────────────────────────────────────────────────── */
+.kpi-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 24px; }
+.kpi-card {
+  background: var(--card); border: 1px solid var(--navy-border); border-radius: 8px;
+  padding: 16px; position: relative; overflow: hidden;
+}
+.kpi-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+}
+.kpi-card.green::before { background: var(--green); }
+.kpi-card.orange::before { background: var(--orange); }
+.kpi-card.red::before { background: var(--red); }
+.kpi-card.yellow::before { background: var(--yellow); }
+.kpi-card.blue::before { background: #3b82f6; }
+.kpi-card.teal::before { background: #14b8a6; }
+.kpi-label { font-size: 11px; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+.kpi-value { font-size: 28px; font-weight: 700; color: var(--text); font-family: var(--mono); line-height: 1; }
+.kpi-value.small { font-size: 20px; }
+.kpi-sub { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+.kpi-delta { font-size: 11px; margin-top: 4px; font-weight: 600; }
+.kpi-delta.up { color: var(--green); }
+.kpi-delta.down { color: var(--red); }
+
+/* ── Section headers ──────────────────────────────────────────── */
+.section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.section-title { font-size: 14px; font-weight: 600; color: var(--text); }
+.section-meta { font-size: 11px; color: var(--text-muted); }
+
+/* ── Fleet table ──────────────────────────────────────────────── */
+.fleet-table-wrap { background: var(--card); border: 1px solid var(--navy-border); border-radius: 8px; overflow: hidden; margin-bottom: 24px; }
+.fleet-table { width: 100%; border-collapse: collapse; }
+.fleet-table th {
+  text-align: left; padding: 10px 14px;
+  font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;
+  background: var(--navy-mid); border-bottom: 1px solid var(--navy-border);
+}
+.fleet-table td { padding: 11px 14px; border-bottom: 1px solid rgba(36, 61, 85, 0.5); font-size: 13px; }
+.fleet-table tr:last-child td { border-bottom: none; }
+.fleet-table tr:hover td { background: var(--card-hover); cursor: pointer; }
+.vessel-name { font-weight: 600; color: var(--text); }
+.vessel-type { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+.flag-imo { display: flex; align-items: center; gap: 5px; font-family: var(--mono); font-size: 11px; color: var(--text-dim); }
+.status-pill {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 9px; border-radius: 20px;
+  font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px;
+  font-family: var(--mono);
+}
+.pill-green { background: rgba(34,197,94,0.12); color: var(--green); border: 1px solid rgba(34,197,94,0.25); }
+.pill-yellow { background: rgba(234,179,8,0.12); color: var(--yellow); border: 1px solid rgba(234,179,8,0.25); }
+.pill-red { background: rgba(239,68,68,0.12); color: var(--red); border: 1px solid rgba(239,68,68,0.25); }
+.pill-blue { background: rgba(59,130,246,0.12); color: #60a5fa; border: 1px solid rgba(59,130,246,0.25); }
+.pill-grey { background: rgba(100,120,140,0.12); color: var(--text-muted); border: 1px solid rgba(100,120,140,0.2); }
+.score-ring { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 13px; font-weight: 700; }
+.score-bar { height: 4px; width: 60px; background: var(--navy-light); border-radius: 2px; overflow: hidden; display: inline-block; vertical-align: middle; }
+.score-fill { height: 100%; border-radius: 2px; transition: width 0.5s; }
+.deadline-text { font-size: 12px; font-family: var(--mono); }
+.deadline-text.urgent { color: var(--red); font-weight: 600; }
+.deadline-text.warn { color: var(--yellow); }
+.deadline-text.ok { color: var(--text-dim); }
+
+/* ── Two column grid ──────────────────────────────────────────── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+.three-col { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+.card { background: var(--card); border: 1px solid var(--navy-border); border-radius: 8px; padding: 18px; }
+
+/* ── Heatmap ──────────────────────────────────────────────────── */
+.heatmap-wrap { overflow-x: auto; }
+.heatmap { width: 100%; border-collapse: collapse; }
+.heatmap th { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; padding: 8px 10px; text-align: center; }
+.heatmap th.vessel-col { text-align: left; min-width: 160px; }
+.heatmap td { padding: 6px 8px; border: 1px solid var(--navy-border); text-align: center; }
+.hm-cell {
+  width: 100%; display: flex; align-items: center; justify-content: center;
+  height: 36px; border-radius: 5px; font-family: var(--mono); font-size: 12px; font-weight: 700;
+  cursor: pointer; transition: all 0.15s;
+}
+.hm-cell:hover { transform: scale(1.08); box-shadow: 0 0 12px rgba(0,0,0,0.4); }
+.hm-compliant { background: rgba(22, 163, 74, 0.25); color: #4ade80; border: 1px solid rgba(22,163,74,0.3); }
+.hm-warning   { background: rgba(202, 138, 4, 0.25); color: #fbbf24; border: 1px solid rgba(202,138,4,0.3); }
+.hm-critical  { background: rgba(185, 28, 28, 0.3);  color: #f87171; border: 1px solid rgba(185,28,28,0.35); }
+.hm-na        { background: rgba(30, 52, 72, 0.5); color: var(--text-muted); border: 1px solid var(--navy-border); cursor: default; }
+.heatmap td.vessel-td { text-align: left; padding: 6px 12px; }
+.hm-vessel-name { font-size: 12px; font-weight: 600; color: var(--text); }
+.hm-vessel-type { font-size: 10px; color: var(--text-muted); }
+
+/* ── Calendar ─────────────────────────────────────────────────── */
+.calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+.cal-header { font-size: 11px; font-weight: 600; color: var(--text-muted); text-align: center; padding: 6px 0; text-transform: uppercase; letter-spacing: 0.5px; }
+.cal-day {
+  background: var(--navy-mid); border: 1px solid var(--navy-border);
+  border-radius: 5px; min-height: 80px; padding: 5px;
+  cursor: pointer; transition: all 0.15s;
+}
+.cal-day:hover { border-color: var(--orange); background: var(--navy-light); }
+.cal-day.today { border-color: var(--orange); background: rgba(232,90,0,0.06); }
+.cal-day.other-month { opacity: 0.3; }
+.cal-day-num { font-size: 11px; font-weight: 600; color: var(--text-dim); margin-bottom: 4px; font-family: var(--mono); }
+.cal-day.today .cal-day-num { color: var(--orange); }
+.cal-event {
+  font-size: 9.5px; padding: 2px 5px; border-radius: 3px; margin-bottom: 2px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 600; cursor: pointer;
+}
+.cal-event.critical { background: rgba(239,68,68,0.2); color: #fca5a5; border-left: 2px solid var(--red); }
+.cal-event.warning  { background: rgba(234,179,8,0.15); color: #fde68a; border-left: 2px solid var(--yellow); }
+.cal-event.ok       { background: rgba(34,197,94,0.12); color: #86efac; border-left: 2px solid var(--green); }
+.cal-event.history  { background: rgba(59,130,246,0.12); color: #93c5fd; border-left: 2px solid #3b82f6; }
+
+/* ── Cost avoidance ───────────────────────────────────────────── */
+.cost-hero { text-align: center; padding: 20px 0 16px; }
+.cost-number { font-size: 42px; font-weight: 700; color: var(--green); font-family: var(--mono); }
+.cost-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+.cost-breakdown { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+.cost-row { display: flex; align-items: center; gap: 10px; }
+.cost-canal { font-size: 12px; font-weight: 600; color: var(--text-dim); width: 80px; }
+.cost-bar-wrap { flex: 1; height: 8px; background: var(--navy-light); border-radius: 4px; overflow: hidden; }
+.cost-bar-fill { height: 100%; border-radius: 4px; background: var(--green); transition: width 0.8s; }
+.cost-amt { font-size: 12px; font-family: var(--mono); color: var(--green); font-weight: 600; width: 70px; text-align: right; }
+.rejection-rates { display: flex; gap: 16px; margin-top: 16px; justify-content: center; }
+.rate-box { text-align: center; padding: 12px 20px; background: var(--navy-light); border-radius: 6px; border: 1px solid var(--navy-border); }
+.rate-num { font-size: 24px; font-weight: 700; font-family: var(--mono); }
+.rate-num.before { color: var(--red); }
+.rate-num.after { color: var(--green); }
+.rate-lbl { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+.rate-arrow { font-size: 20px; color: var(--orange); display: flex; align-items: center; }
+
+/* ── Vessel Detail Panel (slide-in) ──────────────────────────── */
+.detail-overlay {
+  position: fixed; top: 0; right: 0; bottom: 0; width: 480px;
+  background: var(--navy-mid); border-left: 1px solid var(--navy-border);
+  z-index: 200; transform: translateX(100%); transition: transform 0.25s ease;
+  overflow-y: auto; display: flex; flex-direction: column;
+}
+.detail-overlay.open { transform: translateX(0); }
+.detail-backdrop {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 199;
+  opacity: 0; pointer-events: none; transition: opacity 0.2s;
+}
+.detail-backdrop.open { opacity: 1; pointer-events: auto; }
+.detail-header {
+  padding: 20px 24px; border-bottom: 1px solid var(--navy-border);
+  display: flex; align-items: flex-start; justify-content: space-between;
+  position: sticky; top: 0; background: var(--navy-mid); z-index: 1;
+}
+.detail-close { background: none; border: none; color: var(--text-muted); font-size: 20px; cursor: pointer; padding: 0 4px; }
+.detail-close:hover { color: var(--text); }
+.detail-body { padding: 24px; flex: 1; }
+.detail-section { margin-bottom: 24px; }
+.detail-section-title { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; }
+.waterway-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.ww-card {
+  background: var(--navy-light); border: 1px solid var(--navy-border); border-radius: 6px;
+  padding: 10px 12px;
+}
+.ww-name { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.ww-score-row { display: flex; align-items: center; gap: 8px; }
+.ww-score-num { font-family: var(--mono); font-size: 18px; font-weight: 700; }
+.ww-score-bar-wrap { flex: 1; height: 4px; background: var(--navy); border-radius: 2px; overflow: hidden; }
+.ww-score-bar { height: 100%; border-radius: 2px; }
+.ww-issues { font-size: 10px; margin-top: 4px; }
+.ww-na { color: var(--text-muted); font-size: 11px; font-style: italic; }
+.cert-list { display: flex; flex-direction: column; gap: 6px; }
+.cert-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; background: var(--navy-light); border-radius: 5px; }
+.cert-name { font-size: 12px; font-weight: 500; }
+.cert-expiry { font-size: 11px; font-family: var(--mono); }
+.cert-valid { color: var(--green); }
+.cert-expiring { color: var(--yellow); }
+.cert-expired { color: var(--red); }
+.filing-list { display: flex; flex-direction: column; gap: 6px; }
+.filing-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; background: var(--navy-light); border-radius: 5px; }
+.filing-left { display: flex; flex-direction: column; gap: 2px; }
+.filing-type { font-size: 12px; font-weight: 600; }
+.filing-canal { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.4px; }
+.filing-right { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.filing-date { font-size: 11px; font-family: var(--mono); color: var(--text-dim); }
+
+/* ── Quick actions bar ────────────────────────────────────────── */
+.quick-actions { display: flex; gap: 10px; margin-bottom: 24px; }
+.action-btn {
+  display: flex; align-items: center; gap: 8px; padding: 10px 16px;
+  background: var(--card); border: 1px solid var(--navy-border); border-radius: 7px;
+  font-size: 13px; font-weight: 600; color: var(--text-dim); cursor: pointer;
+  transition: all 0.15s; text-decoration: none;
+}
+.action-btn:hover { background: var(--card-hover); border-color: var(--orange); color: var(--orange); }
+.action-btn .icon { font-size: 16px; }
+.action-btn.primary { background: var(--orange); border-color: var(--orange); color: #fff; }
+.action-btn.primary:hover { background: var(--orange-light); }
+
+/* ── Vessel selector modal ────────────────────────────────────── */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 300;
+  display: none; align-items: center; justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: var(--navy-mid); border: 1px solid var(--navy-border); border-radius: 10px;
+  width: 440px; padding: 24px;
+}
+.modal-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+.modal-vessel-list { max-height: 280px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.modal-vessel-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 14px; background: var(--navy-light); border: 1px solid var(--navy-border);
+  border-radius: 6px; cursor: pointer; transition: all 0.15s;
+}
+.modal-vessel-item:hover, .modal-vessel-item.selected { border-color: var(--orange); background: var(--orange-glow); }
+.modal-vessel-item .mv-name { font-size: 13px; font-weight: 600; }
+.modal-vessel-item .mv-sub { font-size: 11px; color: var(--text-muted); }
+.modal-actions { display: flex; justify-content: flex-end; gap: 10px; }
+
+/* ── Alert / attention strip ──────────────────────────────────── */
+.alert-strip { display: flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: 7px; margin-bottom: 16px; }
+.alert-strip.critical { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.25); }
+.alert-strip.warning { background: rgba(234,179,8,0.08); border: 1px solid rgba(234,179,8,0.2); }
+.alert-strip .alert-icon { font-size: 16px; }
+.alert-strip .alert-text { font-size: 13px; }
+.alert-strip .alert-action { margin-left: auto; font-size: 12px; font-weight: 600; cursor: pointer; text-decoration: underline; }
+.alert-strip.critical .alert-action { color: var(--red); }
+.alert-strip.warning .alert-action { color: var(--yellow); }
+
+/* ── Loading skeleton ─────────────────────────────────────────── */
+.skeleton { background: linear-gradient(90deg, var(--navy-light) 25%, var(--navy-border) 50%, var(--navy-light) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 4px; }
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+
+/* ── Tooltip ──────────────────────────────────────────────────── */
+[title] { cursor: help; }
+
+/* ── Responsive ───────────────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .kpi-row { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .two-col, .three-col { grid-template-columns: 1fr; }
+}
+
+.hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="topbar">
+  <div class="topbar-left">
+    <a href="/" class="logo">Canal<span>Clear</span></a>
+    <span class="nav-sep">›</span>
+    <span class="page-title">Fleet Ops Dashboard</span>
+  </div>
+  <div class="topbar-right">
+    <span class="status-badge live">● LIVE</span>
+    <button class="btn-sm btn-ghost" onclick="exportFleetReport()">Export Report</button>
+    <a href="/dashboard" class="btn-sm btn-ghost">Agent View</a>
+  </div>
+</div>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Fleet Ops</div>
+      <div class="sidebar-item active" onclick="showTab('overview')">
+        <span class="icon">⊞</span> Overview
+      </div>
+      <div class="sidebar-item" onclick="showTab('heatmap')">
+        <span class="icon">◈</span> Risk Heatmap
+      </div>
+      <div class="sidebar-item" onclick="showTab('calendar')">
+        <span class="icon">◎</span> Deadline Calendar
+      </div>
+      <div class="sidebar-item" onclick="showTab('cost')">
+        <span class="icon">◐</span> Cost Avoidance
+      </div>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Vessels</div>
+      <div class="vessel-filter">
+        <input class="vessel-search" type="text" placeholder="Search vessel..." id="sidebarSearch" oninput="filterSidebarVessels(this.value)" />
+      </div>
+    </div>
+    <div id="sidebarVesselList" style="padding: 8px 12px; display: flex; flex-direction: column; gap: 3px;">
+      <!-- populated by JS -->
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Actions</div>
+      <div class="sidebar-item" onclick="openFileModal()">
+        <span class="icon">＋</span> File for Vessel
+      </div>
+      <div class="sidebar-item" onclick="exportFleetReport()">
+        <span class="icon">↗</span> Export Report
+      </div>
+      <a href="/tms-import" class="sidebar-item">
+        <span class="icon">⇅</span> Batch Upload
+      </a>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Authority Portals</div>
+      <a href="https://serviceportal.pancanal.com/sp/faces/oracle/webcenter/portalapp/pages/public/login.jspx" target="_blank" rel="noopener noreferrer" class="sidebar-item" onclick="gtag('event','portal_link_click',{waterway:'panama',destination:'acp_portal'})">
+        <span class="icon">🇵🇦</span> Panama Canal
+      </a>
+      <a href="https://www.suezcanal.gov.eg/English/Services/Pages/ETransitRequest.aspx" target="_blank" rel="noopener noreferrer" class="sidebar-item" onclick="gtag('event','portal_link_click',{waterway:'suez',destination:'sca_portal'})">
+        <span class="icon">🇪🇬</span> Suez Canal
+      </a>
+      <a href="https://www.kiyiemniyeti.gov.tr/vessel_traffic_information_systems" target="_blank" rel="noopener noreferrer" class="sidebar-item" onclick="gtag('event','portal_link_click',{waterway:'bosporus',destination:'kdgm_portal'})">
+        <span class="icon">🇹🇷</span> Bosporus
+      </a>
+      <a href="https://digitalport.mpa.gov.sg/" target="_blank" rel="noopener noreferrer" class="sidebar-item" onclick="gtag('event','portal_link_click',{waterway:'malacca',destination:'mpa_portal'})">
+        <span class="icon">🇸🇬</span> Malacca
+      </a>
+      <a href="https://portal.samsa.com/login" target="_blank" rel="noopener noreferrer" class="sidebar-item" onclick="gtag('event','portal_link_click',{waterway:'cape',destination:'samsa_portal'})">
+        <span class="icon">🇿🇦</span> Cape of Good Hope
+      </a>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="main" id="mainContent">
+
+    <!-- Quick actions -->
+    <div class="quick-actions">
+      <button class="action-btn primary" onclick="openFileModal()">
+        <span class="icon">+</span> File for Vessel
+      </button>
+      <a href="/tms-import" class="action-btn">
+        <span class="icon">⇅</span> Fleet Batch Upload
+      </a>
+      <button class="action-btn" onclick="exportFleetReport()">
+        <span class="icon">↗</span> Export Fleet Report
+      </button>
+      <button class="action-btn" onclick="refreshData()">
+        <span class="icon" id="refreshIcon">↻</span> Refresh
+      </button>
+    </div>
+
+    <!-- Alert strips (critical vessels) -->
+    <div id="alertStrips"></div>
+
+    <!-- Tab bar -->
+    <div class="tab-bar">
+      <button class="tab active" onclick="showTab('overview')" id="tab-overview">Overview</button>
+      <button class="tab" onclick="showTab('heatmap')" id="tab-heatmap">Risk Heatmap</button>
+      <button class="tab" onclick="showTab('calendar')" id="tab-calendar">Deadline Calendar</button>
+      <button class="tab" onclick="showTab('cost')" id="tab-cost">Cost Avoidance</button>
+    </div>
+
+    <!-- KPI Row -->
+    <div class="kpi-row" id="kpiRow">
+      <div class="kpi-card green skeleton" style="height:80px;"></div>
+      <div class="kpi-card orange skeleton" style="height:80px;"></div>
+      <div class="kpi-card red skeleton" style="height:80px;"></div>
+      <div class="kpi-card yellow skeleton" style="height:80px;"></div>
+      <div class="kpi-card blue skeleton" style="height:80px;"></div>
+      <div class="kpi-card teal skeleton" style="height:80px;"></div>
+    </div>
+
+    <!-- Tab panels -->
+    <div id="panel-overview">
+      <!-- Fleet table -->
+      <div class="section-header">
+        <div class="section-title">Fleet Vessels</div>
+        <div class="section-meta" id="fleetMeta">Loading…</div>
+      </div>
+      <div class="fleet-table-wrap">
+        <table class="fleet-table" id="fleetTable">
+          <thead>
+            <tr>
+              <th>Vessel</th>
+              <th>Status</th>
+              <th>Compliance Score</th>
+              <th>Next Transit</th>
+              <th>Filing Deadline</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="fleetTableBody">
+            <tr><td colspan="6" style="text-align:center; color: var(--text-muted); padding: 32px;">Loading fleet data…</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Bottom 2-col -->
+      <div class="two-col">
+        <!-- Upcoming deadlines -->
+        <div class="card">
+          <div class="section-header">
+            <div class="section-title">⏰ Upcoming Deadlines</div>
+            <div class="section-meta">Next 30 days</div>
+          </div>
+          <div id="deadlineList" style="display:flex;flex-direction:column;gap:8px;">
+            <div class="skeleton" style="height:40px;border-radius:6px;"></div>
+            <div class="skeleton" style="height:40px;border-radius:6px;"></div>
+            <div class="skeleton" style="height:40px;border-radius:6px;"></div>
+          </div>
+        </div>
+        <!-- Vessels needing attention -->
+        <div class="card">
+          <div class="section-header">
+            <div class="section-title">⚠ Requires Attention</div>
+            <div class="section-meta" id="attentionCount">—</div>
+          </div>
+          <div id="attentionList" style="display:flex;flex-direction:column;gap:8px;">
+            <div class="skeleton" style="height:40px;border-radius:6px;"></div>
+            <div class="skeleton" style="height:40px;border-radius:6px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Heatmap panel -->
+    <div id="panel-heatmap" class="hidden">
+      <div class="section-header">
+        <div class="section-title">Compliance Risk Heatmap</div>
+        <div class="section-meta">Vessel × Waterway</div>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <div class="heatmap-wrap" style="padding:16px;">
+          <table class="heatmap" id="heatmapTable">
+            <thead>
+              <tr>
+                <th class="vessel-col">Vessel</th>
+                <th>🇵🇦 Panama</th>
+                <th>🇪🇬 Suez</th>
+                <th>🇹🇷 Bosporus</th>
+                <th>🇸🇬 Malacca</th>
+                <th>🇿🇦 Cape</th>
+              </tr>
+            </thead>
+            <tbody id="heatmapBody">
+              <tr><td colspan="6" style="text-align:center; color: var(--text-muted); padding: 32px;">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="padding:12px 16px; border-top:1px solid var(--navy-border); display:flex; gap:20px; align-items:center;">
+          <span style="font-size:11px; color:var(--text-muted);">Legend:</span>
+          <span style="display:flex;align-items:center;gap:5px;font-size:11px;"><span class="hm-cell hm-compliant" style="width:28px;height:20px;font-size:10px;">90+</span> Compliant</span>
+          <span style="display:flex;align-items:center;gap:5px;font-size:11px;"><span class="hm-cell hm-warning" style="width:28px;height:20px;font-size:10px;">60+</span> Warning</span>
+          <span style="display:flex;align-items:center;gap:5px;font-size:11px;"><span class="hm-cell hm-critical" style="width:28px;height:20px;font-size:10px;">&lt;60</span> Critical</span>
+          <span style="display:flex;align-items:center;gap:5px;font-size:11px;"><span class="hm-cell hm-na" style="width:28px;height:20px;font-size:10px;">—</span> N/A</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Calendar panel -->
+    <div id="panel-calendar" class="hidden">
+      <div class="section-header">
+        <div class="section-title">Fleet Deadline Calendar — May 2026</div>
+        <div class="section-meta">All vessels · All waterways</div>
+      </div>
+      <div class="card" style="padding:16px;">
+        <div class="calendar-grid">
+          <div class="cal-header">Sun</div>
+          <div class="cal-header">Mon</div>
+          <div class="cal-header">Tue</div>
+          <div class="cal-header">Wed</div>
+          <div class="cal-header">Thu</div>
+          <div class="cal-header">Fri</div>
+          <div class="cal-header">Sat</div>
+          <!-- Days populated by JS -->
+          <div id="calendarDays"></div>
+        </div>
+        <div id="calendarGrid" style="display:contents;"></div>
+      </div>
+    </div>
+
+    <!-- Cost Avoidance panel -->
+    <div id="panel-cost" class="hidden">
+      <div class="three-col">
+        <div class="card">
+          <div class="section-header">
+            <div class="section-title">💰 Cost Avoidance YTD</div>
+            <div class="section-meta">May 2026</div>
+          </div>
+          <div class="cost-hero">
+            <div class="cost-number" id="costTotal">$186,400</div>
+            <div class="cost-label">Estimated penalties + agent fees avoided</div>
+          </div>
+          <div class="cost-breakdown" id="costBreakdown">
+            <!-- populated by JS -->
+          </div>
+        </div>
+        <div class="card">
+          <div class="section-header">
+            <div class="section-title">📊 Rejection Rate</div>
+            <div class="section-meta">Before vs After CanalClear</div>
+          </div>
+          <div class="rejection-rates">
+            <div class="rate-box">
+              <div class="rate-num before" id="rateBeforeNum">34%</div>
+              <div class="rate-lbl">Before</div>
+            </div>
+            <div class="rate-arrow">→</div>
+            <div class="rate-box">
+              <div class="rate-num after" id="rateAfterNum">4.3%</div>
+              <div class="rate-lbl">After</div>
+            </div>
+          </div>
+          <div style="margin-top:20px; display:flex; flex-direction:column; gap:10px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--navy-light);border-radius:6px;">
+              <span style="font-size:12px;color:var(--text-dim);">Filings Completed</span>
+              <span style="font-size:16px;font-weight:700;font-family:var(--mono);" id="filingsCount">47</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--navy-light);border-radius:6px;">
+              <span style="font-size:12px;color:var(--text-dim);">Penalties Avoided</span>
+              <span style="font-size:16px;font-weight:700;font-family:var(--mono);color:var(--green);" id="penaltiesAvoided">12</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--navy-light);border-radius:6px;">
+              <span style="font-size:12px;color:var(--text-dim);">Agent Fees Saved</span>
+              <span style="font-size:16px;font-weight:700;font-family:var(--mono);color:var(--green);" id="agentFeesSaved">$31,200</span>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="section-header">
+            <div class="section-title">📈 Fleet Health Trend</div>
+            <div class="section-meta">Last 90 days</div>
+          </div>
+          <div id="trendChart" style="padding:8px 0;">
+            <!-- Simple ASCII-style bar chart via JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /layout -->
+
+<!-- Vessel detail panel -->
+<div class="detail-backdrop" id="detailBackdrop" onclick="closeDetail()"></div>
+<div class="detail-overlay" id="detailPanel">
+  <div class="detail-header">
+    <div>
+      <div style="font-size:17px;font-weight:700;" id="detailVesselName">—</div>
+      <div style="font-size:12px;color:var(--text-muted);margin-top:3px;" id="detailVesselMeta">—</div>
+    </div>
+    <button class="detail-close" onclick="closeDetail()">✕</button>
+  </div>
+  <div class="detail-body" id="detailBody">
+    <!-- populated by JS -->
+  </div>
+</div>
+
+<!-- File for Vessel modal -->
+<div class="modal-overlay" id="fileModal">
+  <div class="modal-box">
+    <div class="modal-title">File for Vessel</div>
+    <div style="margin-bottom:12px;">
+      <input type="text" class="vessel-search" placeholder="Search vessel…" oninput="filterModalVessels(this.value)" id="modalSearch" style="width:100%;" />
+    </div>
+    <div class="modal-vessel-list" id="modalVesselList">
+      <!-- populated by JS -->
+    </div>
+    <div style="margin-bottom:14px;">
+      <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">Select waterway:</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;" id="waterwayButtons">
+        <button class="btn-sm btn-ghost ww-btn" data-ww="panama">Panama</button>
+        <button class="btn-sm btn-ghost ww-btn" data-ww="suez">Suez</button>
+        <button class="btn-sm btn-ghost ww-btn" data-ww="bosporus">Bosporus</button>
+        <button class="btn-sm btn-ghost ww-btn" data-ww="malacca">Malacca</button>
+        <button class="btn-sm btn-ghost ww-btn" data-ww="cape">Cape</button>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-sm btn-ghost" onclick="closeFileModal()">Cancel</button>
+      <button class="btn-sm btn-orange" onclick="proceedToFiling()">Open Filing Wizard</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── State ─────────────────────────────────────────────────────────────────
+let fleetData = null;
+let heatmapData = null;
+let calendarData = null;
+let costData = null;
+let activeTab = 'overview';
+let selectedVessel = null;
+let selectedWaterway = null;
+let allVessels = [];
+
+// ── Init ──────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  loadOverview();
+  loadHeatmap();
+  loadCalendar();
+  setInterval(refreshData, 60000); // auto-refresh every 60s
+});
+
+async function loadOverview() {
+  try {
+    const res = await fetch('/api/fleet-ops/overview');
+    const data = await res.json();
+    if (!data.success) return;
+    fleetData = data;
+    allVessels = data.fleet;
+    renderKPIs(data.kpis);
+    renderAlertStrips(data.fleet, data.upcomingDeadlines);
+    renderFleetTable(data.fleet);
+    renderDeadlineList(data.upcomingDeadlines);
+    renderAttentionList(data.vesselsNeedingAttention, data.kpis);
+    renderSidebarVessels(data.fleet);
+    renderCostData(data.costAvoidance);
+  } catch (e) {
+    console.error('Failed to load fleet overview', e);
+  }
+}
+
+async function loadHeatmap() {
+  try {
+    const res = await fetch('/api/fleet-ops/heatmap');
+    const data = await res.json();
+    if (!data.success) return;
+    heatmapData = data;
+    renderHeatmap(data);
+  } catch (e) { console.error('Heatmap load failed', e); }
+}
+
+async function loadCalendar() {
+  try {
+    const res = await fetch('/api/fleet-ops/calendar');
+    const data = await res.json();
+    if (!data.success) return;
+    calendarData = data;
+    renderCalendar(data.events);
+  } catch (e) { console.error('Calendar load failed', e); }
+}
+
+function refreshData() {
+  const icon = document.getElementById('refreshIcon');
+  icon.style.animation = 'spin 0.5s linear';
+  setTimeout(() => icon.style.animation = '', 600);
+  loadOverview();
+  loadHeatmap();
+  loadCalendar();
+}
+
+// ── Tab switching ─────────────────────────────────────────────────────────
+function showTab(tab) {
+  activeTab = tab;
+  ['overview','heatmap','calendar','cost'].forEach(t => {
+    document.getElementById('panel-'+t).classList.toggle('hidden', t !== tab);
+    const btn = document.getElementById('tab-'+t);
+    if (btn) btn.classList.toggle('active', t === tab);
+  });
+  // Update sidebar items
+  document.querySelectorAll('.sidebar-item').forEach(el => {
+    el.classList.remove('active');
+    if (el.getAttribute('onclick') === `showTab('${tab}')`) el.classList.add('active');
+  });
+}
+
+// ── KPIs ──────────────────────────────────────────────────────────────────
+function renderKPIs(kpis) {
+  const row = document.getElementById('kpiRow');
+  row.innerHTML = `
+    <div class="kpi-card green">
+      <div class="kpi-label">Fleet Score</div>
+      <div class="kpi-value">${kpis.fleetComplianceScore}</div>
+      <div class="kpi-sub">Fleet-wide average</div>
+    </div>
+    <div class="kpi-card blue">
+      <div class="kpi-label">Total Vessels</div>
+      <div class="kpi-value">${kpis.totalVessels}</div>
+      <div class="kpi-sub">Under management</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">Compliant</div>
+      <div class="kpi-value">${kpis.compliantVessels}</div>
+      <div class="kpi-sub">${kpis.filingCompletionRate}% completion rate</div>
+    </div>
+    <div class="kpi-card yellow">
+      <div class="kpi-label">Needs Attention</div>
+      <div class="kpi-value">${kpis.warningVessels}</div>
+      <div class="kpi-sub">Warnings / Pending</div>
+    </div>
+    <div class="kpi-card red">
+      <div class="kpi-label">Critical</div>
+      <div class="kpi-value">${kpis.criticalVessels}</div>
+      <div class="kpi-sub">Overdue filings</div>
+    </div>
+    <div class="kpi-card teal">
+      <div class="kpi-label">Overdue Alerts</div>
+      <div class="kpi-value">${kpis.overdueAlerts}</div>
+      <div class="kpi-sub">Require immediate action</div>
+    </div>
+  `;
+}
+
+// ── Alert strips ──────────────────────────────────────────────────────────
+function renderAlertStrips(fleet, deadlines) {
+  const container = document.getElementById('alertStrips');
+  const critical = fleet.filter(v => v.filingStatus === 'overdue');
+  const urgentDeadlines = deadlines.filter(d => d.urgency === 'critical');
+  container.innerHTML = '';
+
+  urgentDeadlines.slice(0, 2).forEach(d => {
+    const strip = document.createElement('div');
+    strip.className = 'alert-strip critical';
+    strip.innerHTML = `
+      <span class="alert-icon">🚨</span>
+      <span class="alert-text"><strong>${d.vesselName}</strong> — ${waterwayLabel(d.waterway)} filing deadline passed or imminent. ETA in ${d.urgency === 'critical' ? '&lt;24h' : '&lt;72h'}.</span>
+      <span class="alert-action" onclick="openVesselDetail('${d.imo}')">Review →</span>
+    `;
+    container.appendChild(strip);
+  });
+
+  if (critical.length > urgentDeadlines.length) {
+    const strip = document.createElement('div');
+    strip.className = 'alert-strip warning';
+    const extra = critical.filter(v => !urgentDeadlines.find(d => d.imo === v.imo));
+    strip.innerHTML = `
+      <span class="alert-icon">⚠️</span>
+      <span class="alert-text">${extra.length} vessel${extra.length > 1 ? 's have' : ' has'} overdue or rejected filings: ${extra.map(v => `<strong>${v.name}</strong>`).join(', ')}</span>
+      <span class="alert-action" onclick="showTab('heatmap')">View Heatmap →</span>
+    `;
+    container.appendChild(strip);
+  }
+}
+
+// ── Fleet table ───────────────────────────────────────────────────────────
+function renderFleetTable(fleet) {
+  const tbody = document.getElementById('fleetTableBody');
+  const meta = document.getElementById('fleetMeta');
+  meta.textContent = `${fleet.length} vessels`;
+
+  tbody.innerHTML = fleet.map(v => {
+    const scoreColor = v.overallScore >= 85 ? 'var(--green)' : v.overallScore >= 60 ? 'var(--yellow)' : 'var(--red)';
+    const pillClass = statusPillClass(v.filingStatus);
+    const pillLabel = statusPillLabel(v.filingStatus);
+    const nextTransit = v.nextTransit ? waterwayLabel(v.nextTransit.waterway) : '—';
+    const deadline = v.nextTransit ? formatDeadline(v.nextTransit.filingDeadline, v.etaHours) : '<span class="deadline-text ok">—</span>';
+
+    return `<tr onclick="openVesselDetail('${v.imo}')">
+      <td>
+        <div class="vessel-name">${v.name}</div>
+        <div class="vessel-type">${v.type} · ${v.loa}m · ${(v.dwt/1000).toFixed(0)}k DWT</div>
+      </td>
+      <td><span class="status-pill ${pillClass}">${pillLabel}</span></td>
+      <td>
+        <div class="score-ring">
+          <span style="color:${scoreColor};min-width:30px;">${v.overallScore}</span>
+          <div class="score-bar"><div class="score-fill" style="width:${v.overallScore}%;background:${scoreColor};"></div></div>
+        </div>
+      </td>
+      <td><span style="font-size:13px;">${nextTransit}</span>${v.etaHours > 0 ? `<div style="font-size:11px;color:var(--text-muted);">ETA ${v.etaHours}h</div>` : '<div style="font-size:11px;color:var(--text-dim);">Transiting</div>'}</td>
+      <td>${deadline}</td>
+      <td><button class="btn-sm btn-ghost" style="font-size:11px;" onclick="event.stopPropagation();openFileModalForVessel('${v.imo}')">File</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function statusPillClass(s) {
+  if (s === 'compliant') return 'pill-green';
+  if (s === 'warning') return 'pill-yellow';
+  if (s === 'overdue') return 'pill-red';
+  if (s === 'pending') return 'pill-yellow';
+  return 'pill-grey';
+}
+function statusPillLabel(s) {
+  if (s === 'compliant') return '✓ Compliant';
+  if (s === 'warning') return '⚠ Warning';
+  if (s === 'overdue') return '✕ Overdue';
+  if (s === 'pending') return '… Pending';
+  return s;
+}
+
+function formatDeadline(iso, etaHours) {
+  if (!iso) return '<span class="deadline-text ok">—</span>';
+  const d = new Date(iso);
+  const now = new Date();
+  const diffH = (d - now) / 3600000;
+  const fmt = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) + ' ' + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) + 'Z';
+  if (diffH < 0) return `<span class="deadline-text urgent" title="${fmt}">OVERDUE</span>`;
+  if (diffH < 24) return `<span class="deadline-text urgent" title="${fmt}">${Math.round(diffH)}h left</span>`;
+  if (diffH < 72) return `<span class="deadline-text warn" title="${fmt}">${Math.round(diffH/24)}d left</span>`;
+  return `<span class="deadline-text ok">${fmt}</span>`;
+}
+
+// ── Deadline list ─────────────────────────────────────────────────────────
+function renderDeadlineList(deadlines) {
+  const el = document.getElementById('deadlineList');
+  if (!deadlines.length) { el.innerHTML = '<div style="color:var(--text-muted);font-size:12px;">No upcoming deadlines.</div>'; return; }
+
+  el.innerHTML = deadlines.slice(0, 6).map(d => {
+    const urgencyColor = d.urgency === 'critical' ? 'var(--red)' : d.urgency === 'warning' ? 'var(--yellow)' : 'var(--text-dim)';
+    const dDate = new Date(d.deadline);
+    return `<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--navy-light);border-radius:6px;border-left:3px solid ${urgencyColor};cursor:pointer;" onclick="openVesselDetail('${d.imo}')">
+      <div>
+        <div style="font-size:12px;font-weight:600;">${d.vesselName}</div>
+        <div style="font-size:10px;color:var(--text-muted);">${waterwayLabel(d.waterway)} · ${d.filingStatus}</div>
+      </div>
+      <div style="font-size:11px;font-family:var(--mono);color:${urgencyColor};text-align:right;">
+        ${dDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}<br>
+        ${formatDeadline(d.deadline, d.etaHours)}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── Attention list ────────────────────────────────────────────────────────
+function renderAttentionList(vessels, kpis) {
+  const el = document.getElementById('attentionList');
+  const count = document.getElementById('attentionCount');
+  count.textContent = `${kpis.vesselsNeedingAttention} vessels`;
+
+  if (!vessels.length) { el.innerHTML = '<div style="color:var(--green);font-size:12px;">✓ All vessels in good standing.</div>'; return; }
+
+  el.innerHTML = vessels.map(v => {
+    const scoreColor = v.overallScore >= 85 ? 'var(--green)' : v.overallScore >= 60 ? 'var(--yellow)' : 'var(--red)';
+    return `<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--navy-light);border-radius:6px;cursor:pointer;" onclick="openVesselDetail('${v.imo}')">
+      <div>
+        <div style="font-size:12px;font-weight:600;">${v.name}</div>
+        <div style="font-size:10px;color:var(--text-muted);">${v.type} · ${v.nearestCanal ? 'Near ' + waterwayLabel(v.nearestCanal) : 'At sea'}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="font-family:var(--mono);font-size:14px;font-weight:700;color:${scoreColor};">${v.overallScore}</span>
+        <span class="status-pill ${statusPillClass(v.filingStatus)}" style="font-size:10px;">${statusPillLabel(v.filingStatus)}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── Sidebar vessels ───────────────────────────────────────────────────────
+function renderSidebarVessels(fleet) {
+  const el = document.getElementById('sidebarVesselList');
+  el.innerHTML = fleet.map(v => {
+    const dot = v.filingStatus === 'compliant' ? 'var(--green)' : v.filingStatus === 'overdue' ? 'var(--red)' : 'var(--yellow)';
+    return `<div class="sidebar-item" onclick="openVesselDetail('${v.imo}')" title="${v.name} · ${v.type}">
+      <span style="width:8px;height:8px;border-radius:50%;background:${dot};flex-shrink:0;display:inline-block;"></span>
+      <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${v.name.replace('MV ','').replace('MT ','')}</span>
+      <span style="font-family:var(--mono);font-size:10px;margin-left:auto;color:var(--text-muted);">${v.overallScore}</span>
+    </div>`;
+  }).join('');
+}
+
+function filterSidebarVessels(q) {
+  if (!allVessels.length) return;
+  const filtered = allVessels.filter(v => v.name.toLowerCase().includes(q.toLowerCase()) || v.imo.includes(q));
+  renderSidebarVessels(filtered);
+}
+
+// ── Heatmap ───────────────────────────────────────────────────────────────
+function renderHeatmap(data) {
+  const tbody = document.getElementById('heatmapBody');
+  tbody.innerHTML = data.grid.map(row => {
+    const cells = row.cells.map(c => {
+      if (c.status === 'na') return `<td><div class="hm-cell hm-na" title="Not applicable">—</div></td>`;
+      const cls = c.status === 'compliant' ? 'hm-compliant' : c.status === 'critical' ? 'hm-critical' : 'hm-warning';
+      const tooltip = `Score: ${c.score}${c.issues ? ` · ${c.issues} issue${c.issues>1?'s':''}` : ''}${c.nextDeadline ? ` · Deadline: ${c.nextDeadline}` : ''}`;
+      return `<td><div class="hm-cell ${cls}" title="${tooltip}" onclick="openVesselDetail('${row.imo}')">${c.score}</div></td>`;
+    }).join('');
+    return `<tr>
+      <td class="vessel-td">
+        <div class="hm-vessel-name">${row.vesselName}</div>
+        <div class="hm-vessel-type">${row.type}</div>
+      </td>
+      ${cells}
+    </tr>`;
+  }).join('');
+}
+
+// ── Calendar ──────────────────────────────────────────────────────────────
+function renderCalendar(events) {
+  const container = document.getElementById('calendarGrid');
+  const year = 2026, month = 4; // May 2026 (0-indexed)
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const today = 13; // current date
+
+  // Group events by day
+  const eventsByDay = {};
+  events.forEach(e => {
+    const d = new Date(e.date);
+    if (d.getMonth() === month && d.getFullYear() === year) {
+      const day = d.getDate();
+      if (!eventsByDay[day]) eventsByDay[day] = [];
+      eventsByDay[day].push(e);
+    }
+  });
+
+  // Replace the calendar-grid with proper content
+  const calWrap = document.querySelector('.calendar-grid');
+  // Keep headers, rebuild days
+  const dayDivs = calWrap.querySelectorAll('.cal-day');
+  dayDivs.forEach(d => d.remove());
+  const oldInner = document.getElementById('calendarDays');
+  if (oldInner) oldInner.remove();
+
+  // Blank cells before first day
+  for (let i = 0; i < firstDay; i++) {
+    const cell = document.createElement('div');
+    cell.className = 'cal-day other-month';
+    cell.innerHTML = '<div class="cal-day-num">—</div>';
+    calWrap.appendChild(cell);
+  }
+
+  // Day cells
+  for (let day = 1; day <= daysInMonth; day++) {
+    const cell = document.createElement('div');
+    cell.className = 'cal-day' + (day === today ? ' today' : '');
+    const dayEvents = eventsByDay[day] || [];
+    cell.innerHTML = `<div class="cal-day-num">${day}</div>` +
+      dayEvents.slice(0, 3).map(e => {
+        const cls = e.urgency === 'critical' ? 'critical' : e.urgency === 'warning' ? 'warning' : (e.type.includes('approved') ? 'history' : 'ok');
+        const label = e.vesselName.replace('MV ','').replace('MT ','').split(' ')[0];
+        return `<div class="cal-event ${cls}" title="${e.vesselName} · ${waterwayLabel(e.waterway)} · ${e.type}">${label}</div>`;
+      }).join('') +
+      (dayEvents.length > 3 ? `<div style="font-size:9px;color:var(--text-muted);padding:1px 4px;">+${dayEvents.length-3} more</div>` : '');
+    calWrap.appendChild(cell);
+  }
+}
+
+// ── Cost data ─────────────────────────────────────────────────────────────
+function renderCostData(ca) {
+  const maxSavings = Math.max(...ca.breakdown.map(b => b.savings));
+  const breakdownEl = document.getElementById('costBreakdown');
+  breakdownEl.innerHTML = ca.breakdown.map(b => `
+    <div class="cost-row">
+      <div class="cost-canal">${b.waterway}</div>
+      <div class="cost-bar-wrap"><div class="cost-bar-fill" style="width:${Math.round((b.savings/maxSavings)*100)}%"></div></div>
+      <div class="cost-amt">$${(b.savings/1000).toFixed(0)}k</div>
+    </div>
+  `).join('');
+
+  document.getElementById('rateBeforeNum').textContent = ca.rejectionRateBefore + '%';
+  document.getElementById('rateAfterNum').textContent = ca.rejectionRateAfter + '%';
+  document.getElementById('filingsCount').textContent = ca.filingsCompleted;
+  document.getElementById('penaltiesAvoided').textContent = ca.penaltiesAvoided;
+  document.getElementById('agentFeesSaved').textContent = '$' + ca.agentFeesAvoided.toLocaleString();
+  document.getElementById('costTotal').textContent = '$' + ca.totalAvoidedUSD.toLocaleString();
+
+  renderTrendChart();
+}
+
+function renderTrendChart() {
+  const el = document.getElementById('trendChart');
+  // Synthetic monthly trend data
+  const months = ['Feb','Mar','Apr','May'];
+  const scores = [64, 72, 79, 86];
+  const maxScore = 100;
+  const barH = 80;
+
+  el.innerHTML = `
+    <div style="display:flex;align-items:flex-end;gap:8px;height:${barH+24}px;padding:0 4px;">
+      ${months.map((m, i) => `
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;">
+          <div style="font-family:var(--mono);font-size:11px;color:var(--green);font-weight:700;">${scores[i]}</div>
+          <div style="width:100%;background:linear-gradient(180deg,var(--green),rgba(34,197,94,0.4));height:${Math.round((scores[i]/maxScore)*barH)}px;border-radius:4px 4px 0 0;transition:height 0.6s;"></div>
+          <div style="font-size:10px;color:var(--text-muted);">${m}</div>
+        </div>
+      `).join('')}
+    </div>
+    <div style="font-size:11px;color:var(--text-muted);text-align:center;margin-top:8px;">Fleet compliance score trend (+22pts YTD)</div>
+  `;
+}
+
+// ── Vessel detail ─────────────────────────────────────────────────────────
+async function openVesselDetail(imo) {
+  document.getElementById('detailPanel').classList.add('open');
+  document.getElementById('detailBackdrop').classList.add('open');
+  document.getElementById('detailBody').innerHTML = '<div class="skeleton" style="height:200px;border-radius:6px;"></div>';
+  document.getElementById('detailVesselName').textContent = 'Loading…';
+
+  try {
+    const res = await fetch(`/api/fleet-ops/vessel/${imo}`);
+    const data = await res.json();
+    if (!data.success) { document.getElementById('detailBody').innerHTML = '<p style="color:var(--red);">Failed to load vessel data.</p>'; return; }
+    const v = data.vessel;
+    renderDetailPanel(v);
+  } catch (e) {
+    document.getElementById('detailBody').innerHTML = '<p style="color:var(--red);">Network error.</p>';
+  }
+}
+
+function renderDetailPanel(v) {
+  document.getElementById('detailVesselName').textContent = v.name;
+  document.getElementById('detailVesselMeta').textContent = `${v.type} · IMO ${v.imo} · ${v.loa}m LOA · ${(v.dwt/1000).toFixed(0)}k DWT · Flag ${v.flag}`;
+
+  const scoreColor = v.overallScore >= 85 ? 'var(--green)' : v.overallScore >= 60 ? 'var(--yellow)' : 'var(--red)';
+  const waterways = ['panama','suez','bosporus','malacca','cape'];
+  const wwLabels = { panama:'Panama', suez:'Suez', bosporus:'Bosporus', malacca:'Malacca', cape:'Cape' };
+
+  document.getElementById('detailBody').innerHTML = `
+    <!-- Overall score -->
+    <div class="detail-section">
+      <div style="display:flex;align-items:center;gap:16px;padding:16px;background:var(--navy-light);border-radius:8px;">
+        <div style="font-size:48px;font-weight:800;font-family:var(--mono);color:${scoreColor};line-height:1;">${v.overallScore}</div>
+        <div>
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Overall Compliance Score</div>
+          <div style="font-size:12px;color:var(--text-muted);">Status: <strong style="color:${scoreColor};">${statusPillLabel(v.filingStatus)}</strong></div>
+          ${v.nextTransit ? `<div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Next: ${wwLabels[v.nextTransit.waterway]} · ETA ${new Date(v.nextTransit.eta).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}</div>` : ''}
+        </div>
+        <div style="margin-left:auto;">
+          <button class="btn-sm btn-orange" onclick="openFileModalForVessel('${v.imo}')">File Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Waterway scores -->
+    <div class="detail-section">
+      <div class="detail-section-title">Waterway Compliance</div>
+      <div class="waterway-grid">
+        ${waterways.map(w => {
+          const c = v.compliance[w];
+          if (c.status === 'na') return `<div class="ww-card"><div class="ww-name">${wwLabels[w]}</div><div class="ww-na">Not applicable</div></div>`;
+          const sc = c.score >= 85 ? 'var(--green)' : c.score >= 60 ? 'var(--yellow)' : 'var(--red)';
+          return `<div class="ww-card">
+            <div class="ww-name">${wwLabels[w]}</div>
+            <div class="ww-score-row">
+              <span class="ww-score-num" style="color:${sc};">${c.score}</span>
+              <div class="ww-score-bar-wrap"><div class="ww-score-bar" style="width:${c.score}%;background:${sc};"></div></div>
+            </div>
+            ${c.issues > 0 ? `<div class="ww-issues" style="color:var(--yellow);">${c.issues} issue${c.issues>1?'s':''}</div>` : '<div class="ww-issues" style="color:var(--green);">✓ No issues</div>'}
+            ${c.nextDeadline ? `<div style="font-size:10px;color:var(--text-dim);margin-top:3px;">Deadline: ${c.nextDeadline}</div>` : ''}
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+
+    <!-- Certificates -->
+    <div class="detail-section">
+      <div class="detail-section-title">Certificates & Docs</div>
+      <div class="cert-list">
+        ${v.certificates.map(c => {
+          const cls = c.status === 'valid' || c.status === 'filed' ? 'cert-valid' : c.status === 'expiring' ? 'cert-expiring' : 'cert-expired';
+          const icon = c.status === 'valid' || c.status === 'filed' ? '✓' : c.status === 'expiring' ? '⚠' : '✕';
+          return `<div class="cert-item">
+            <div class="cert-name">${icon} ${c.name}</div>
+            <div class="cert-expiry ${cls}">${c.expires ? 'Exp: ' + c.expires : 'Filed'}</div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+
+    <!-- Recent filings -->
+    <div class="detail-section">
+      <div class="detail-section-title">Recent Filings</div>
+      <div class="filing-list">
+        ${v.recentFilings.map(f => {
+          const sc = f.status === 'approved' ? 'var(--green)' : f.status === 'rejected' ? 'var(--red)' : 'var(--yellow)';
+          return `<div class="filing-item">
+            <div class="filing-left">
+              <div class="filing-type">${f.type}</div>
+              <div class="filing-canal">${f.waterway}</div>
+            </div>
+            <div class="filing-right">
+              <div class="filing-date">${f.date}</div>
+              <span class="status-pill" style="font-size:10px;padding:2px 7px;background:${sc}22;color:${sc};border:1px solid ${sc}44;">${f.status} · ${f.score}</span>
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function closeDetail() {
+  document.getElementById('detailPanel').classList.remove('open');
+  document.getElementById('detailBackdrop').classList.remove('open');
+}
+
+// ── File modal ────────────────────────────────────────────────────────────
+let selectedModalVessel = null;
+
+function openFileModal() {
+  renderModalVessels(allVessels);
+  document.getElementById('fileModal').classList.add('open');
+}
+
+function openFileModalForVessel(imo) {
+  const v = allVessels.find(v => v.imo === imo);
+  selectedModalVessel = v;
+  renderModalVessels(allVessels, imo);
+  document.getElementById('fileModal').classList.add('open');
+}
+
+function closeFileModal() {
+  document.getElementById('fileModal').classList.remove('open');
+  selectedModalVessel = null;
+  selectedWaterway = null;
+  document.querySelectorAll('.ww-btn').forEach(b => b.classList.remove('btn-orange'));
+}
+
+function renderModalVessels(vessels, preselect) {
+  const el = document.getElementById('modalVesselList');
+  el.innerHTML = vessels.map(v => `
+    <div class="modal-vessel-item ${preselect === v.imo ? 'selected' : ''}" onclick="selectModalVessel('${v.imo}', this)">
+      <div>
+        <div class="mv-name">${v.name}</div>
+        <div class="mv-sub">${v.type} · IMO ${v.imo}</div>
+      </div>
+      <span class="status-pill ${statusPillClass(v.filingStatus)}" style="font-size:10px;">${statusPillLabel(v.filingStatus)}</span>
+    </div>
+  `).join('');
+  if (preselect) selectedModalVessel = vessels.find(v => v.imo === preselect);
+}
+
+function selectModalVessel(imo, el) {
+  document.querySelectorAll('.modal-vessel-item').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedModalVessel = allVessels.find(v => v.imo === imo);
+}
+
+function filterModalVessels(q) {
+  if (!allVessels.length) return;
+  const filtered = allVessels.filter(v => v.name.toLowerCase().includes(q.toLowerCase()) || v.imo.includes(q));
+  renderModalVessels(filtered, selectedModalVessel?.imo);
+}
+
+document.querySelectorAll('.ww-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.ww-btn').forEach(b => b.classList.remove('btn-orange'));
+    btn.classList.add('btn-orange');
+    selectedWaterway = btn.dataset.ww;
+  });
+});
+
+function proceedToFiling() {
+  if (!selectedModalVessel) { alert('Please select a vessel first.'); return; }
+  const ww = selectedWaterway || 'panama';
+  const routes = { panama: '/acp', suez: '/filing', bosporus: '/bosporus', malacca: '/malacca', cape: '/cape' };
+  closeFileModal();
+  window.location.href = (routes[ww] || '/filing') + '?imo=' + selectedModalVessel.imo;
+}
+
+function exportFleetReport() {
+  if (!fleetData) { alert('Data still loading. Try again in a moment.'); return; }
+  const lines = [
+    'CanalClear — Fleet Ops Report',
+    `Generated: ${new Date().toUTCString()}`,
+    '',
+    'FLEET KPIs',
+    `Fleet Compliance Score: ${fleetData.kpis.fleetComplianceScore}`,
+    `Total Vessels: ${fleetData.kpis.totalVessels}`,
+    `Compliant: ${fleetData.kpis.compliantVessels}`,
+    `Needs Attention: ${fleetData.kpis.warningVessels}`,
+    `Critical: ${fleetData.kpis.criticalVessels}`,
+    '',
+    'FLEET VESSELS',
+    ...fleetData.fleet.map(v => `${v.name} | IMO ${v.imo} | Score: ${v.overallScore} | Status: ${v.filingStatus} | Next Transit: ${v.nextTransit ? waterwayLabel(v.nextTransit.waterway) : 'N/A'}`),
+    '',
+    'COST AVOIDANCE',
+    `Total Avoided: $${fleetData.costAvoidance.totalAvoidedUSD.toLocaleString()}`,
+    `Rejection Rate: ${fleetData.costAvoidance.rejectionRateBefore}% → ${fleetData.costAvoidance.rejectionRateAfter}%`,
+  ];
+  const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'canalclear-fleet-report.txt'; a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────
+function waterwayLabel(w) {
+  const map = { panama: '🇵🇦 Panama', suez: '🇪🇬 Suez', bosporus: '🇹🇷 Bosporus', malacca: '🇸🇬 Malacca', cape: '🇿🇦 Cape' };
+  return map[w] || w;
+}
+
+// Close modal on backdrop click
+document.getElementById('fileModal').addEventListener('click', function(e) {
+  if (e.target === this) closeFileModal();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+User-agent: *
+Allow: /
+
+# ============================================================
+# Auth-required pages — require login + active subscription
+# ============================================================
+Disallow: /api/
+Disallow: /admin
+Disallow: /admin-analytics
+Disallow: /acp
+Disallow: /app
+Disallow: /dashboard
+Disallow: /settings/
+Disallow: /onboarding
+# Agent portal routes (if/when implemented)
+Disallow: /agent
+
+# ============================================================
+# Pages with meta robots: noindex — no need to disallow here
+# (they self-exclude via <meta name="robots"> in their HTML):
+#   /login, /welcome, /funnel, /funnel/solution,
+#   /funnel/roi, /funnel/pricing, /compliance
+# ============================================================
+
+Sitemap: https://canal-clear.polsia.app/sitemap.xml

@@ -1,0 +1,1031 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ================================================================
+     CanalClear Sitemap.xml — Regenerated 2026-05-05
+     ================================================================
+     HOW TO UPDATE THIS FILE:
+     1. Add new public pages to the <urlset> below
+     2. Use query-param hreflang for language variants (?lang=es|zh|el|ja)
+     3. Priority 1.0 = core conversion pages (homepage, pricing, demo)
+     4. Priority 0.9 = high-value SEO pages
+     5. Priority 0.95 = SEO pillar pages (guide, compare, knowledge-base)
+     6. Priority 0.85 = blog posts
+     7. Priority 0.8 = podcast episodes
+     8. Priority 0.7 = case study, YouTube redirect
+
+     PAGES EXPLICITLY EXCLUDED (noindex or auth required):
+       /login, /welcome, /funnel/*         → meta robots: noindex, nofollow
+       /admin, /admin-analytics          → requires admin auth
+       /app, /acp, /dashboard               → requires auth + subscription
+       /settings/*, /onboarding           → requires auth
+       /api/*                             → API endpoints (not pages)
+
+     LANGUAGE VARIANT URLS:
+     All pages use query-param format for hreflang (?lang=es|zh|el|ja).
+     This matches how the HTML pages handle language switching via URL params.
+     ================================================================ -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- ==================== HOMEPAGE ==================== -->
+  <url>
+    <loc>https://canalclear.org/</loc>
+    <lastmod>2026-04-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://canalclear.org/?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="el" href="https://canalclear.org/?lang=el"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://canalclear.org/?lang=ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/"/>
+  </url>
+
+  <!-- /filing excluded: requires auth + active subscription — returns 401 for unauthenticated crawlers -->
+
+  <!-- ==================== AUTHORITY INTEGRATION STATUS ==================== -->
+  <url>
+    <loc>https://canalclear.org/authorities</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/authorities"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/authorities"/>
+  </url>
+
+  <!-- ==================== DIRECT FILING WAITLIST ==================== -->
+  <url>
+    <loc>https://canalclear.org/direct-filing</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/direct-filing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/direct-filing"/>
+  </url>
+
+  <!-- ==================== PANAMA CANAL LANDING PAGE ==================== -->
+  <url>
+    <loc>https://canalclear.org/panama</loc>
+    <lastmod>2026-04-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/panama"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/panama"/>
+  </url>
+
+  <!-- ==================== SUEZ CANAL LANDING PAGE ==================== -->
+  <url>
+    <loc>https://canalclear.org/suez</loc>
+    <lastmod>2026-04-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/suez"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/suez"/>
+  </url>
+
+  <!-- ==================== SUEZ CANAL FEE CALCULATOR ==================== -->
+  <url>
+    <loc>https://canalclear.org/suez-calculator</loc>
+    <lastmod>2026-04-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/suez-calculator"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/suez-calculator"/>
+  </url>
+
+  <!-- ==================== PRICING ==================== -->
+  <url>
+    <loc>https://canalclear.org/pricing</loc>
+    <lastmod>2026-04-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/pricing"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/pricing?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://canalclear.org/pricing?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="el" href="https://canalclear.org/pricing?lang=el"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://canalclear.org/pricing?lang=ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/pricing"/>
+  </url>
+
+  <!-- ==================== INTEGRATIONS ==================== -->
+  <url>
+    <loc>https://canalclear.org/integrations</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/integrations"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/integrations"/>
+  </url>
+
+  <!-- ==================== DEMO ==================== -->
+  <url>
+    <loc>https://canalclear.org/demo</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/demo"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/demo?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://canalclear.org/demo?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="el" href="https://canalclear.org/demo?lang=el"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://canalclear.org/demo?lang=ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/demo"/>
+  </url>
+
+  <!-- ==================== COMPLIANCE SCORE ==================== -->
+  <url>
+    <loc>https://canalclear.org/compliance-score</loc>
+    <lastmod>2026-04-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/compliance-score"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/compliance-score?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://canalclear.org/compliance-score?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="el" href="https://canalclear.org/compliance-score?lang=el"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://canalclear.org/compliance-score?lang=ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/compliance-score"/>
+  </url>
+
+  <!-- ==================== HAZMAT VALIDATOR — Added 2026-04-20 ==================== -->
+  <url>
+    <loc>https://canalclear.org/hazmat</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/hazmat"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/hazmat?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://canalclear.org/hazmat?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="el" href="https://canalclear.org/hazmat?lang=el"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://canalclear.org/hazmat?lang=ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/hazmat"/>
+  </url>
+
+  <!-- ==================== CASE STUDY ==================== -->
+  <url>
+    <loc>https://canalclear.org/case-study</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/case-study"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/case-study?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://canalclear.org/case-study?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="el" href="https://canalclear.org/case-study?lang=el"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://canalclear.org/case-study?lang=ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/case-study"/>
+  </url>
+
+  <!-- ==================== COMPLIANCE GUIDE (SEO pillar) ==================== -->
+  <url>
+    <loc>https://canalclear.org/compliance-guide</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/compliance-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/compliance-guide?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://canalclear.org/compliance-guide?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="el" href="https://canalclear.org/compliance-guide?lang=el"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://canalclear.org/compliance-guide?lang=ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/compliance-guide"/>
+  </url>
+
+  <!-- ==================== GUIDE — Panama Canal Compliance Pillar Page ==================== -->
+  <url>
+    <loc>https://canalclear.org/guide</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.97</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/guide?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://canalclear.org/guide?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="el" href="https://canalclear.org/guide?lang=el"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://canalclear.org/guide?lang=ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/guide"/>
+  </url>
+
+  <!-- ==================== COMPARE — CanalClear vs Ship Agents ==================== -->
+  <url>
+    <loc>https://canalclear.org/compare</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/compare"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/compare?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://canalclear.org/compare?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="el" href="https://canalclear.org/compare?lang=el"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://canalclear.org/compare?lang=ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/compare"/>
+  </url>
+
+  <!-- ==================== KNOWLEDGE BASE ==================== -->
+  <url>
+    <loc>https://canalclear.org/knowledge-base</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/knowledge-base"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/knowledge-base?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://canalclear.org/knowledge-base?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="el" href="https://canalclear.org/knowledge-base?lang=el"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://canalclear.org/knowledge-base?lang=ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/knowledge-base"/>
+  </url>
+
+  <!-- ==================== ABOUT ==================== -->
+  <url>
+    <loc>https://canalclear.org/about</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/about"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/about?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://canalclear.org/about?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="el" href="https://canalclear.org/about?lang=el"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://canalclear.org/about?lang=ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/about"/>
+  </url>
+
+  <!-- ==================== BLOG INDEX ==================== -->
+  <url>
+    <loc>https://canalclear.org/blog</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/blog?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://canalclear.org/blog?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="el" href="https://canalclear.org/blog?lang=el"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://canalclear.org/blog?lang=ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog"/>
+  </url>
+
+  <!-- ==================== BLOG POSTS — All articles ==================== -->
+
+  <url>
+    <loc>https://canalclear.org/blog/why-ai-is-the-future-of-panama-canal-compliance</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/why-ai-is-the-future-of-panama-canal-compliance"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/blog/why-ai-is-the-future-of-panama-canal-compliance?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/why-ai-is-the-future-of-panama-canal-compliance"/>
+  </url>
+
+  <url>
+    <loc>https://canalclear.org/blog/how-to-avoid-panama-canal-compliance-fines-in-2026</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/how-to-avoid-panama-canal-compliance-fines-in-2026"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/blog/how-to-avoid-panama-canal-compliance-fines-in-2026?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/how-to-avoid-panama-canal-compliance-fines-in-2026"/>
+  </url>
+
+  <url>
+    <loc>https://canalclear.org/blog/panama-canal-transit-documents-required</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/panama-canal-transit-documents-required"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/blog/panama-canal-transit-documents-required?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/panama-canal-transit-documents-required"/>
+  </url>
+
+  <url>
+    <loc>https://canalclear.org/blog/what-is-port-state-control</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/what-is-port-state-control"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/blog/what-is-port-state-control?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/what-is-port-state-control"/>
+  </url>
+
+  <url>
+    <loc>https://canalclear.org/blog/marpol-compliance-checklist-ship-operators-2026</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/marpol-compliance-checklist-ship-operators-2026"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/blog/marpol-compliance-checklist-ship-operators-2026?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/marpol-compliance-checklist-ship-operators-2026"/>
+  </url>
+
+  <url>
+    <loc>https://canalclear.org/blog/how-to-reduce-shipping-delays</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/how-to-reduce-shipping-delays"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/blog/how-to-reduce-shipping-delays?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/how-to-reduce-shipping-delays"/>
+  </url>
+
+  <url>
+    <loc>https://canalclear.org/blog/true-cost-of-non-compliance-global-shipping</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/true-cost-of-non-compliance-global-shipping"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/blog/true-cost-of-non-compliance-global-shipping?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/true-cost-of-non-compliance-global-shipping"/>
+  </url>
+
+  <url>
+    <loc>https://canalclear.org/blog/panama-canal-compliance-complete-guide-2026</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/panama-canal-compliance-complete-guide-2026"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/blog/panama-canal-compliance-complete-guide-2026?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/panama-canal-compliance-complete-guide-2026"/>
+  </url>
+
+  <url>
+    <loc>https://canalclear.org/blog/vumpa-filing-requirements-step-by-step</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/vumpa-filing-requirements-step-by-step"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/blog/vumpa-filing-requirements-step-by-step?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/vumpa-filing-requirements-step-by-step"/>
+  </url>
+
+  <url>
+    <loc>https://canalclear.org/blog/pcsopep-documentation-complete-guide</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/pcsopep-documentation-complete-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/blog/pcsopep-documentation-complete-guide?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/pcsopep-documentation-complete-guide"/>
+  </url>
+
+  <url>
+    <loc>https://canalclear.org/blog/vessel-readiness-inspection-panama-canal</loc>
+    <lastmod>2026-04-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/vessel-readiness-inspection-panama-canal"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/blog/vessel-readiness-inspection-panama-canal?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/vessel-readiness-inspection-panama-canal"/>
+  </url>
+
+  <url>
+    <loc>https://canalclear.org/blog/best-maritime-compliance-podcasts-2026</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/best-maritime-compliance-podcasts-2026"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/blog/best-maritime-compliance-podcasts-2026?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/best-maritime-compliance-podcasts-2026"/>
+  </url>
+
+  <url>
+    <loc>https://canalclear.org/blog/suez-canal-transit-requirements-complete-guide-2026</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/suez-canal-transit-requirements-complete-guide-2026"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/blog/suez-canal-transit-requirements-complete-guide-2026?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/suez-canal-transit-requirements-complete-guide-2026"/>
+  </url>
+
+  <url>
+    <loc>https://canalclear.org/blog/suez-canal-vs-panama-canal-compliance-compared</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/suez-canal-vs-panama-canal-compliance-compared"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/blog/suez-canal-vs-panama-canal-compliance-compared?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/suez-canal-vs-panama-canal-compliance-compared"/>
+  </url>
+
+  <url>
+    <loc>https://canalclear.org/blog/suez-canal-compliance-mistakes-delays</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/suez-canal-compliance-mistakes-delays"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/blog/suez-canal-compliance-mistakes-delays?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/suez-canal-compliance-mistakes-delays"/>
+  </url>
+
+  <url>
+    <loc>https://canalclear.org/blog/suez-canal-isps-compliance-guide</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/suez-canal-isps-compliance-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/blog/suez-canal-isps-compliance-guide?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/suez-canal-isps-compliance-guide"/>
+  </url>
+
+  <url>
+    <loc>https://canalclear.org/blog/suez-canal-transit-checklist-fleet-operators</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/suez-canal-transit-checklist-fleet-operators"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/blog/suez-canal-transit-checklist-fleet-operators?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/suez-canal-transit-checklist-fleet-operators"/>
+  </url>
+
+  <url>
+    <loc>https://canalclear.org/blog/stay-compliant-panama-canal-regulations-listen-while-you-work</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/stay-compliant-panama-canal-regulations-listen-while-you-work"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/blog/stay-compliant-panama-canal-regulations-listen-while-you-work?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/stay-compliant-panama-canal-regulations-listen-while-you-work"/>
+  </url>
+
+  <url>
+    <loc>https://canalclear.org/blog/vumpa-rejection-canalclear</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/vumpa-rejection-canalclear"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/blog/vumpa-rejection-canalclear?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/vumpa-rejection-canalclear"/>
+  </url>
+
+  <url>
+    <loc>https://canalclear.org/blog/vumpa-rejections-cost-more-than-transit-fee</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/vumpa-rejections-cost-more-than-transit-fee"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/vumpa-rejections-cost-more-than-transit-fee"/>
+  </url>
+
+  <!-- ==================== PODCAST HUB ==================== -->
+  <url>
+    <loc>https://canalclear.org/podcast</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/podcast"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/podcast?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/podcast"/>
+  </url>
+
+  <!-- ==================== PODCAST YOUTUBE REDIRECT ==================== -->
+  <url>
+    <loc>https://canalclear.org/podcast/youtube</loc>
+    <lastmod>2026-04-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/podcast/youtube"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/podcast/youtube"/>
+  </url>
+
+  <!-- ==================== PODCAST EPISODES (Episodes 1–15) ==================== -->
+  <url>
+    <loc>https://canalclear.org/podcast/episode-1</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/podcast/episode-1"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/podcast/episode-1"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/podcast/episode-2</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/podcast/episode-2"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/podcast/episode-2"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/podcast/episode-3</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/podcast/episode-3"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/podcast/episode-3"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/podcast/episode-4</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/podcast/episode-4"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/podcast/episode-4"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/podcast/episode-5</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/podcast/episode-5"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/podcast/episode-5"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/podcast/episode-6</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/podcast/episode-6"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/podcast/episode-6"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/podcast/episode-7</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/podcast/episode-7"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/podcast/episode-7"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/podcast/episode-8</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/podcast/episode-8"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/podcast/episode-8"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/podcast/episode-9</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/podcast/episode-9"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/podcast/episode-9"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/podcast/episode-10</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/podcast/episode-10"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/podcast/episode-10"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/podcast/episode-11</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/podcast/episode-11"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/podcast/episode-11"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/podcast/episode-12</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/podcast/episode-12"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/podcast/episode-12"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/podcast/episode-13</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/podcast/episode-13"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/podcast/episode-13"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/podcast/episode-14</loc>
+    <lastmod>2026-04-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/podcast/episode-14"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/podcast/episode-14"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/podcast/episode-15</loc>
+    <lastmod>2026-04-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/podcast/episode-15"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/podcast/episode-15"/>
+  </url>
+
+  <url>
+    <loc>https://canalclear.org/blog/panama-canal-toll-calculator-2026</loc>
+    <lastmod>2026-04-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/panama-canal-toll-calculator-2026"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/panama-canal-toll-calculator-2026"/>
+  </url>
+
+  <!-- ==================== NEW BLOG POSTS — 2026-04-22 ==================== -->
+  <url>
+    <loc>https://canalclear.org/blog/panama-canal-compliance-bulk-carriers</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/panama-canal-compliance-bulk-carriers"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/panama-canal-compliance-bulk-carriers"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/blog/panama-canal-transit-documents-lng-tankers</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/panama-canal-transit-documents-lng-tankers"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/panama-canal-transit-documents-lng-tankers"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/blog/container-ship-vumpa-filing-guide-2026</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/container-ship-vumpa-filing-guide-2026"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/container-ship-vumpa-filing-guide-2026"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/blog/ro-ro-vessel-panama-canal-documentation</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/ro-ro-vessel-panama-canal-documentation"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/ro-ro-vessel-panama-canal-documentation"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/blog/cruise-ship-panama-canal-requirements</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/cruise-ship-panama-canal-requirements"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/cruise-ship-panama-canal-requirements"/>
+  </url>
+  <!-- REMOVED: pcsopep-certificate-requirements-panama-canal-2026 (301 → pcsopep-documentation-complete-guide) -->
+  <url>
+    <loc>https://canalclear.org/blog/panama-canal-crew-manifest-requirements</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/panama-canal-crew-manifest-requirements"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/panama-canal-crew-manifest-requirements"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/blog/cargo-declaration-rules-panama-canal-transit</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/cargo-declaration-rules-panama-canal-transit"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/cargo-declaration-rules-panama-canal-transit"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/blog/panama-canal-environmental-compliance</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/panama-canal-environmental-compliance"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/panama-canal-environmental-compliance"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/blog/panama-canal-non-compliance-cost</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/panama-canal-non-compliance-cost"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/panama-canal-non-compliance-cost"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/blog/panama-canal-filing-mistakes-delays</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/panama-canal-filing-mistakes-delays"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/panama-canal-filing-mistakes-delays"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/blog/panama-canal-filing-automation-vs-manual</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/panama-canal-filing-automation-vs-manual"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/panama-canal-filing-automation-vs-manual"/>
+  </url>
+
+  <!-- ==================== BLOG BATCH 2 — 2026-04-23 ==================== -->
+  <url>
+    <loc>https://canalclear.org/blog/panama-canal-transit-denial-reasons</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/panama-canal-transit-denial-reasons"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/panama-canal-transit-denial-reasons"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/blog/best-panama-canal-compliance-tools-2026</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/best-panama-canal-compliance-tools-2026"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/best-panama-canal-compliance-tools-2026"/>
+  </url>
+
+  <!-- ==================== GLOSSARY — 25 Maritime Compliance Terms ==================== -->
+  <url>
+    <loc>https://canalclear.org/glossary</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/glossary"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/glossary"/>
+  </url>
+
+  <!-- ==================== COMPLIANCE HUB — Programmatic SEO ==================== -->
+  <url>
+    <loc>https://canalclear.org/compliance</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/compliance"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/compliance"/>
+  </url>
+
+  <!-- ==================== COMPLIANCE LANDING PAGES (5 vessel types × 4 regulations) ==================== -->
+  <url>
+    <loc>https://canalclear.org/compliance/bulk-carrier-vumpa</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://canalclear.org/compliance/bulk-carrier-pcsopep</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://canalclear.org/compliance/bulk-carrier-crew-manifest</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://canalclear.org/compliance/bulk-carrier-cargo-declaration</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://canalclear.org/compliance/container-ship-vumpa</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://canalclear.org/compliance/container-ship-pcsopep</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://canalclear.org/compliance/container-ship-crew-manifest</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://canalclear.org/compliance/container-ship-cargo-declaration</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://canalclear.org/compliance/tanker-vumpa</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://canalclear.org/compliance/tanker-pcsopep</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://canalclear.org/compliance/tanker-crew-manifest</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://canalclear.org/compliance/tanker-cargo-declaration</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://canalclear.org/compliance/ro-ro-vessel-vumpa</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://canalclear.org/compliance/ro-ro-vessel-pcsopep</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://canalclear.org/compliance/ro-ro-vessel-crew-manifest</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://canalclear.org/compliance/ro-ro-vessel-cargo-declaration</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://canalclear.org/compliance/lng-carrier-vumpa</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://canalclear.org/compliance/lng-carrier-pcsopep</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://canalclear.org/compliance/lng-carrier-crew-manifest</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://canalclear.org/compliance/lng-carrier-cargo-declaration</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- ==================== SUEZ CANAL BLOG — BATCH 2 ==================== -->
+  <url>
+    <loc>https://canalclear.org/blog/suez-canal-convoy-delays-paperwork-problem</loc>
+    <lastmod>2026-04-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/suez-canal-convoy-delays-paperwork-problem"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/suez-canal-convoy-delays-paperwork-problem"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/blog/suez-canal-convoy-scheduling</loc>
+    <lastmod>2026-04-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://canalclear.org/blog/suez-canal-tonnage-certificate</loc>
+    <lastmod>2026-04-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://canalclear.org/blog/suez-canal-dangerous-goods-compliance</loc>
+    <lastmod>2026-04-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://canalclear.org/blog/suez-canal-pilotage-requirements</loc>
+    <lastmod>2026-04-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://canalclear.org/blog/suez-canal-transit-cost-2026</loc>
+    <lastmod>2026-04-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- ==================== BOSPORUS PRODUCT PAGE ==================== -->
+  <url>
+    <loc>https://canalclear.org/bosporus</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/bosporus"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/bosporus"/>
+  </url>
+
+  <!-- ==================== BOSPORUS SP-1 COMPLIANCE PRIMER (lead magnet) ==================== -->
+  <url>
+    <loc>https://canalclear.org/get/bosporus-primer</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/get/bosporus-primer"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/get/bosporus-primer"/>
+  </url>
+
+  <!-- ==================== BOSPORUS DEMO ==================== -->
+  <url>
+    <loc>https://canalclear.org/demo/bosporus</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/demo/bosporus"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/demo/bosporus"/>
+  </url>
+
+  <!-- ==================== MALACCA STRAITREP COMPLIANCE PRIMER (lead magnet) ==================== -->
+  <url>
+    <loc>https://canalclear.org/get/malacca-primer</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/get/malacca-primer"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/get/malacca-primer"/>
+  </url>
+
+  <!-- ==================== CAPE OF GOOD HOPE SAMSA ISPS GUIDE (lead magnet) ==================== -->
+  <url>
+    <loc>https://canalclear.org/get/cape-primer</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/get/cape-primer"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/get/cape-primer"/>
+  </url>
+
+  <!-- ==================== NEW SEO BLOG POSTS — Cape, Bosporus, Malacca — 2026-05-14 ==================== -->
+  <url>
+    <loc>https://canalclear.org/blog/samsa-isps-requirements-cape-of-good-hope</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/samsa-isps-requirements-cape-of-good-hope"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/samsa-isps-requirements-cape-of-good-hope"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/blog/south-africa-pre-arrival-notice-requirements</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/south-africa-pre-arrival-notice-requirements"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/south-africa-pre-arrival-notice-requirements"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/blog/bosporus-strait-sp1-filing-requirements-2026</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/bosporus-strait-sp1-filing-requirements-2026"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/bosporus-strait-sp1-filing-requirements-2026"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/blog/turkish-straits-transit-compliance-guide-2026</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/turkish-straits-transit-compliance-guide-2026"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/turkish-straits-transit-compliance-guide-2026"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/blog/strait-of-malacca-straitrep-filing-guide-2026</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/strait-of-malacca-straitrep-filing-guide-2026"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/strait-of-malacca-straitrep-filing-guide-2026"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/blog/malacca-strait-vtis-compliance-requirements-2026</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/malacca-strait-vtis-compliance-requirements-2026"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/malacca-strait-vtis-compliance-requirements-2026"/>
+  </url>
+
+  <!-- ==================== PANAMA CANAL SEO BLOG POSTS — 2026-05-14 ==================== -->
+  <url>
+    <loc>https://canalclear.org/blog/vumpa-filing-72-hour-checklist-panama-canal-ship-agents</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/vumpa-filing-72-hour-checklist-panama-canal-ship-agents"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/blog/vumpa-filing-72-hour-checklist-panama-canal-ship-agents?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://canalclear.org/blog/vumpa-filing-72-hour-checklist-panama-canal-ship-agents?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="el" href="https://canalclear.org/blog/vumpa-filing-72-hour-checklist-panama-canal-ship-agents?lang=el"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://canalclear.org/blog/vumpa-filing-72-hour-checklist-panama-canal-ship-agents?lang=ja"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://canalclear.org/blog/vumpa-filing-72-hour-checklist-panama-canal-ship-agents?lang=ar"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/vumpa-filing-72-hour-checklist-panama-canal-ship-agents"/>
+  </url>
+  <url>
+    <loc>https://canalclear.org/blog/65000-panama-canal-compliance-risk-fleet-operators</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/65000-panama-canal-compliance-risk-fleet-operators"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canalclear.org/blog/65000-panama-canal-compliance-risk-fleet-operators?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://canalclear.org/blog/65000-panama-canal-compliance-risk-fleet-operators?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="el" href="https://canalclear.org/blog/65000-panama-canal-compliance-risk-fleet-operators?lang=el"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://canalclear.org/blog/65000-panama-canal-compliance-risk-fleet-operators?lang=ja"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://canalclear.org/blog/65000-panama-canal-compliance-risk-fleet-operators?lang=ar"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/65000-panama-canal-compliance-risk-fleet-operators"/>
+  </url>
+
+</urlset>

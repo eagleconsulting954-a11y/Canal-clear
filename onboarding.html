@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Getting Started — CanalClear</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0a1628;
+      --navy-mid: #0f1f3d;
+      --navy-card: #132040;
+      --navy-border: #1e3060;
+      --orange: #e8612a;
+      --orange-dark: #c94f1f;
+      --orange-glow: rgba(232,97,42,0.15);
+      --text: #e8edf5;
+      --text-muted: #7a92b8;
+      --text-dim: #4a6080;
+      --green: #22c55e;
+      --yellow: #f59e0b;
+      --red: #ef4444;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'IBM Plex Sans', system-ui, sans-serif;
+      background: var(--navy);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Top bar ──────────────────────────────────────────────────────────── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      border-bottom: 1px solid var(--navy-border);
+      background: var(--navy-mid);
+      position: sticky; top: 0; z-index: 10;
+    }
+    .topbar-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--text);
+      font-weight: 700; font-size: 18px;
+    }
+    .topbar-logo-icon {
+      width: 28px; height: 28px;
+      background: var(--orange);
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px;
+    }
+    .skip-btn {
+      background: none;
+      border: 1px solid var(--navy-border);
+      color: var(--text-muted);
+      padding: 8px 18px; border-radius: 6px;
+      font-family: inherit; font-size: 13px; cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .skip-btn:hover { border-color: var(--text-muted); color: var(--text); }
+
+    /* ── Progress ─────────────────────────────────────────────────────────── */
+    .progress-wrap {
+      background: var(--navy-mid);
+      padding: 0 32px 20px;
+      border-bottom: 1px solid var(--navy-border);
+    }
+    .step-track {
+      display: flex; align-items: center;
+      max-width: 600px; margin: 0 auto;
+    }
+    .step-node {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 6px; flex: 1;
+    }
+    .step-node-inner {
+      display: flex; align-items: center; width: 100%; position: relative;
+    }
+    .step-circle {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--navy-border);
+      border: 2px solid var(--navy-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700;
+      color: var(--text-dim); flex-shrink: 0;
+      transition: all 0.3s; position: relative; z-index: 1;
+    }
+    .step-node.active .step-circle {
+      background: var(--orange);
+      border-color: var(--orange);
+      color: white;
+      box-shadow: 0 0 0 4px var(--orange-glow);
+    }
+    .step-node.done .step-circle {
+      background: var(--orange);
+      border-color: var(--orange);
+      color: white;
+    }
+    .step-connector {
+      flex: 1; height: 2px;
+      background: var(--navy-border);
+      margin: 0 2px;
+      transition: background 0.3s;
+    }
+    .step-connector.done { background: var(--orange); }
+    .step-label {
+      font-size: 11px; color: var(--text-dim);
+      white-space: nowrap; text-align: center;
+    }
+    .step-node.active .step-label,
+    .step-node.done .step-label { color: var(--text-muted); }
+
+    /* ── Content ──────────────────────────────────────────────────────────── */
+    .content {
+      flex: 1; display: flex;
+      justify-content: center; align-items: flex-start;
+      padding: 48px 24px 80px;
+    }
+    .step-panel {
+      display: none; width: 100%; max-width: 700px;
+      animation: fadeUp 0.25s ease;
+    }
+    .step-panel.active { display: block; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .eyebrow {
+      font-size: 12px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--orange); margin-bottom: 10px;
+    }
+    .heading {
+      font-size: clamp(24px, 4vw, 32px);
+      font-weight: 700; line-height: 1.2; margin-bottom: 10px;
+    }
+    .subhead {
+      font-size: 15px; color: var(--text-muted);
+      line-height: 1.6; margin-bottom: 36px;
+    }
+
+    /* ── Role cards ───────────────────────────────────────────────────────── */
+    .role-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px; margin-bottom: 32px;
+    }
+    @media (max-width: 520px) { .role-grid { grid-template-columns: 1fr; } }
+    .role-card {
+      background: var(--navy-card);
+      border: 2px solid var(--navy-border);
+      border-radius: 14px; padding: 28px 22px;
+      cursor: pointer; text-align: center;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+    }
+    .role-card:hover { border-color: var(--orange); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.4); }
+    .role-card.selected { border-color: var(--orange); box-shadow: 0 0 0 4px var(--orange-glow); }
+    .role-icon { font-size: 42px; margin-bottom: 14px; }
+    .role-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .role-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+    /* ── Vessel form ──────────────────────────────────────────────────────── */
+    .sample-pill {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      background: none; border: 1px dashed var(--navy-border);
+      border-radius: 8px; color: var(--text-muted);
+      font-family: inherit; font-size: 13px; font-weight: 500;
+      padding: 11px 16px; cursor: pointer; width: 100%; margin-bottom: 24px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .sample-pill:hover { border-color: var(--orange); color: var(--text); }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+    @media (max-width: 520px) { .form-grid { grid-template-columns: 1fr; } }
+    .fg { display: flex; flex-direction: column; gap: 6px; }
+    .fg.full { grid-column: 1 / -1; }
+    label { font-size: 13px; font-weight: 500; color: var(--text-muted); }
+    input, select {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: 8px; color: var(--text);
+      font-family: inherit; font-size: 14px;
+      padding: 10px 12px; outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    input:focus, select:focus { border-color: var(--orange); }
+    input::placeholder { color: var(--text-dim); }
+    select option { background: var(--navy-mid); }
+
+    .imo-group { position: relative; }
+    .imo-group input { padding-right: 34px; }
+    .imo-check {
+      position: absolute; right: 10px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px; display: none;
+    }
+    .imo-check.show { display: block; }
+    .imo-check.ok  { color: var(--green); }
+    .imo-check.bad { color: var(--red); }
+
+    /* ── Waterway grid ────────────────────────────────────────────────────── */
+    .waterway-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 14px; margin-bottom: 32px;
+    }
+    @media (max-width: 560px) { .waterway-grid { grid-template-columns: 1fr 1fr; } }
+    .ww-card {
+      background: var(--navy-card);
+      border: 2px solid var(--navy-border);
+      border-radius: 12px; padding: 20px 14px;
+      cursor: pointer; text-align: center;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+    }
+    .ww-card:hover { border-color: var(--orange); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.4); }
+    .ww-card.selected { border-color: var(--orange); box-shadow: 0 0 0 3px var(--orange-glow); }
+    .ww-flag { font-size: 28px; margin-bottom: 10px; }
+    .ww-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .ww-type { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+    .ww-deadline { font-size: 11px; color: var(--text-dim); }
+
+    /* ── Validation results ───────────────────────────────────────────────── */
+    .prefill-badge {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(34,197,94,.08);
+      border: 1px solid rgba(34,197,94,.25);
+      border-radius: 8px; padding: 12px 16px;
+      font-size: 13px; color: var(--green);
+      margin-bottom: 24px;
+    }
+    .score-center { display: flex; flex-direction: column; align-items: center; margin-bottom: 28px; }
+    .score-donut {
+      width: 120px; height: 120px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column;
+      margin-bottom: 10px;
+      position: relative;
+    }
+    .score-donut::before {
+      content: '';
+      position: absolute; inset: 0; border-radius: 50%;
+      background: conic-gradient(var(--score-color, var(--orange)) var(--score-pct, 0%), var(--navy-border) 0%);
+    }
+    .score-donut::after {
+      content: '';
+      position: absolute; inset: 10px; border-radius: 50%;
+      background: var(--navy);
+    }
+    .score-inner { position: relative; z-index: 1; text-align: center; }
+    .score-big { font-size: 30px; font-weight: 700; line-height: 1; }
+    .score-sub { font-size: 11px; color: var(--text-muted); }
+    .score-caption { font-size: 13px; color: var(--text-muted); text-align: center; }
+
+    .checks { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 28px; }
+    .check-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 10px 14px; border-radius: 8px;
+      background: var(--navy-card); font-size: 13px;
+    }
+    .check-item.pass   { border-left: 3px solid var(--green); }
+    .check-item.warning { border-left: 3px solid var(--yellow); }
+    .check-item.fail   { border-left: 3px solid var(--red); }
+    .ci-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+    .ci-detail { color: var(--text-muted); font-size: 12px; margin-top: 2px; }
+
+    /* ── Success ──────────────────────────────────────────────────────────── */
+    .success-center { text-align: center; margin-bottom: 32px; }
+    .success-ring {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: rgba(34,197,94,.1);
+      border: 3px solid var(--green);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 36px; margin: 0 auto 20px;
+      animation: popIn 0.4s cubic-bezier(.175,.885,.32,1.275);
+    }
+    @keyframes popIn { 0% { transform: scale(0); } 100% { transform: scale(1); } }
+
+    .result-card {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: 12px; padding: 24px; margin-bottom: 24px;
+    }
+    .rc-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 9px 0; border-bottom: 1px solid var(--navy-border);
+      font-size: 14px;
+    }
+    .rc-row:last-child { border-bottom: none; }
+    .rc-key { color: var(--text-muted); }
+    .rc-val { font-weight: 600; }
+    .score-pill {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 4px 12px; border-radius: 20px;
+      font-size: 13px; font-weight: 700;
+    }
+    .score-pill.high { background: rgba(34,197,94,.15); color: var(--green); }
+    .score-pill.med  { background: rgba(245,158,11,.15); color: var(--yellow); }
+    .score-pill.low  { background: rgba(239,68,68,.15);  color: var(--red); }
+
+    .cta-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 480px) { .cta-grid { grid-template-columns: 1fr; } }
+    .cta-tile {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: 10px; padding: 18px;
+      text-decoration: none; color: var(--text);
+      display: block;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .cta-tile:hover { border-color: var(--orange); transform: translateY(-2px); }
+    .ct-icon { font-size: 24px; margin-bottom: 8px; }
+    .ct-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .ct-desc  { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
+
+    /* ── Buttons ──────────────────────────────────────────────────────────── */
+    .btn-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--orange); color: white; border: none;
+      border-radius: 8px; font-family: inherit; font-size: 15px; font-weight: 600;
+      padding: 13px 28px; cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--orange-dark); transform: translateY(-1px); }
+    .btn-primary:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+    .btn-back {
+      background: none; border: 1px solid var(--navy-border);
+      color: var(--text-muted); border-radius: 8px;
+      font-family: inherit; font-size: 14px; padding: 12px 20px;
+      cursor: pointer; transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-back:hover { border-color: var(--text-muted); color: var(--text); }
+    .hint { font-size: 12px; color: var(--text-dim); margin-top: 14px; line-height: 1.5; }
+    .hint a { color: var(--text-muted); text-decoration: underline; }
+
+    /* ── Confetti canvas ──────────────────────────────────────────────────── */
+    #confetti-cv {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none; z-index: 999;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="confetti-cv"></canvas>
+
+<!-- Topbar -->
+<header class="topbar">
+  <a href="/" class="topbar-logo">
+    <div class="topbar-logo-icon">⚓</div>
+    CanalClear
+  </a>
+  <button class="skip-btn" id="skip-top-btn" onclick="skipOnboarding()">Skip for now →</button>
+</header>
+
+<!-- Progress indicator -->
+<div class="progress-wrap">
+  <div class="step-track">
+    <!-- Step nodes + connectors built here, labels below each node -->
+    <div class="step-node active" id="sn-1">
+      <div class="step-node-inner">
+        <div class="step-circle" id="sc-1">1</div>
+        <div class="step-connector" id="scon-1"></div>
+      </div>
+      <span class="step-label">Role</span>
+    </div>
+    <div class="step-node" id="sn-2">
+      <div class="step-node-inner">
+        <div class="step-circle" id="sc-2">2</div>
+        <div class="step-connector" id="scon-2"></div>
+      </div>
+      <span class="step-label">Vessel</span>
+    </div>
+    <div class="step-node" id="sn-3">
+      <div class="step-node-inner">
+        <div class="step-circle" id="sc-3">3</div>
+        <div class="step-connector" id="scon-3"></div>
+      </div>
+      <span class="step-label">Waterway</span>
+    </div>
+    <div class="step-node" id="sn-4">
+      <div class="step-node-inner">
+        <div class="step-circle" id="sc-4">4</div>
+        <div class="step-connector" id="scon-4"></div>
+      </div>
+      <span class="step-label">Validate</span>
+    </div>
+    <div class="step-node" id="sn-5">
+      <div class="step-node-inner">
+        <div class="step-circle" id="sc-5">✓</div>
+      </div>
+      <span class="step-label">Done</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── Main content ── -->
+<main class="content">
+
+  <!-- STEP 1: Role selection -->
+  <div class="step-panel active" id="panel-1">
+    <div class="eyebrow">Step 1 of 5</div>
+    <h1 class="heading">Welcome to CanalClear.<br>Let's get your first filing done.</h1>
+    <p class="subhead">Tell us how you use CanalClear — we'll set up the right dashboard for you.</p>
+
+    <div class="role-grid">
+      <div class="role-card" id="role-agent" onclick="pickRole('agent')">
+        <div class="role-icon">🚢</div>
+        <div class="role-title">Shipping Agent</div>
+        <div class="role-desc">I manage filings on behalf of multiple shipowners and operators across waterways.</div>
+      </div>
+      <div class="role-card" id="role-operator" onclick="pickRole('operator')">
+        <div class="role-icon">🏢</div>
+        <div class="role-title">Fleet Operator</div>
+        <div class="role-desc">I operate my own fleet and manage filings for my vessels directly.</div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-primary" id="step1-btn" onclick="goTo(2)" disabled>Continue →</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: Add first vessel -->
+  <div class="step-panel" id="panel-2">
+    <div class="eyebrow">Step 2 of 5</div>
+    <h1 class="heading">Add your first vessel</h1>
+    <p class="subhead">Enter the key particulars — or use the sample vessel to skip ahead and explore immediately.</p>
+
+    <button class="sample-pill" onclick="fillSample()">
+      ⚡ Use sample vessel (EVER GIVEN) — skip manual entry
+    </button>
+
+    <div class="form-grid">
+      <div class="fg full">
+        <label>Vessel Name *</label>
+        <input type="text" id="v-name" placeholder="e.g. MV PACIFIC GLORY" />
+      </div>
+      <div class="fg">
+        <label>IMO Number *</label>
+        <div class="imo-group">
+          <input type="text" id="v-imo" placeholder="7 digits" maxlength="7" oninput="checkImo(this.value)" />
+          <span class="imo-check" id="imo-icon"></span>
+        </div>
+      </div>
+      <div class="fg">
+        <label>Flag State *</label>
+        <input type="text" id="v-flag" placeholder="e.g. Panama" list="flags-dl" />
+        <datalist id="flags-dl">
+          <option value="Panama"><option value="Marshall Islands"><option value="Liberia">
+          <option value="Bahamas"><option value="Malta"><option value="Greece">
+          <option value="Hong Kong"><option value="Singapore"><option value="Cyprus">
+          <option value="United States"><option value="Japan"><option value="Norway">
+        </datalist>
+      </div>
+      <div class="fg">
+        <label>Vessel Type *</label>
+        <select id="v-type">
+          <option value="">Select type…</option>
+          <option>Bulk Carrier</option>
+          <option>Container Ship</option>
+          <option>Tanker (Oil)</option>
+          <option>Tanker (LNG)</option>
+          <option>Tanker (Chemical)</option>
+          <option>General Cargo</option>
+          <option>RoRo</option>
+          <option>Car Carrier</option>
+          <option>Cruise Ship</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>LOA (metres) *</label>
+        <input type="number" id="v-loa" placeholder="e.g. 399.98" step="0.01" />
+      </div>
+      <div class="fg">
+        <label>Beam (metres)</label>
+        <input type="number" id="v-beam" placeholder="e.g. 59.0" step="0.01" />
+      </div>
+      <div class="fg">
+        <label>Draft (metres)</label>
+        <input type="number" id="v-draft" placeholder="e.g. 14.5" step="0.01" />
+      </div>
+      <div class="fg">
+        <label>Gross Tonnage</label>
+        <input type="number" id="v-gt" placeholder="e.g. 224000" />
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-primary" onclick="collectAndGo(3)">Continue →</button>
+      <button class="btn-back" onclick="goTo(1)">← Back</button>
+    </div>
+    <p class="hint">You can import your full fleet via CSV or API later from your dashboard.</p>
+  </div>
+
+  <!-- STEP 3: Waterway selection -->
+  <div class="step-panel" id="panel-3">
+    <div class="eyebrow">Step 3 of 5</div>
+    <h1 class="heading">Pick your waterway</h1>
+    <p class="subhead">Choose the waterway for this filing. We'll pre-fill the form and run the compliance check.</p>
+
+    <div class="waterway-grid">
+      <div class="ww-card" onclick="pickWaterway('panama', this)">
+        <div class="ww-flag">🇵🇦</div>
+        <div class="ww-name">Panama Canal</div>
+        <div class="ww-type">VUMPA + PCSOPEP</div>
+        <div class="ww-deadline">96h pre-arrival</div>
+      </div>
+      <div class="ww-card" onclick="pickWaterway('suez', this)">
+        <div class="ww-flag">🇪🇬</div>
+        <div class="ww-name">Suez Canal</div>
+        <div class="ww-type">SCA Pre-Arrival + SCNT</div>
+        <div class="ww-deadline">72h pre-arrival</div>
+      </div>
+      <div class="ww-card" onclick="pickWaterway('bosporus', this)">
+        <div class="ww-flag">🇹🇷</div>
+        <div class="ww-name">Bosporus</div>
+        <div class="ww-type">SP-1 Transit Notice</div>
+        <div class="ww-deadline">24h advance notice</div>
+      </div>
+      <div class="ww-card" onclick="pickWaterway('malacca', this)">
+        <div class="ww-flag">🇸🇬</div>
+        <div class="ww-name">Strait of Malacca</div>
+        <div class="ww-type">STRAITREP + VTIS</div>
+        <div class="ww-deadline">VHF reporting zones</div>
+      </div>
+      <div class="ww-card" onclick="pickWaterway('cape', this)">
+        <div class="ww-flag">🇿🇦</div>
+        <div class="ww-name">Cape of Good Hope</div>
+        <div class="ww-type">ISPS Pre-Arrival</div>
+        <div class="ww-deadline">96h pre-arrival</div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-primary" id="step3-btn" onclick="runCheck()" disabled>Run Compliance Check →</button>
+      <button class="btn-back" onclick="goTo(2)">← Back</button>
+    </div>
+    <p class="hint">You can add more waterways anytime from your dashboard.</p>
+  </div>
+
+  <!-- STEP 4: Compliance results -->
+  <div class="step-panel" id="panel-4">
+    <div class="eyebrow">Step 4 of 5</div>
+    <h1 class="heading">Auto-fill &amp; validate</h1>
+    <p class="subhead">This is what CanalClear does — catches issues before the authority does.</p>
+
+    <div class="prefill-badge">
+      ✅ Pre-filled <strong id="pf-count">23</strong> of <strong id="pf-total">31</strong> fields from your vessel data
+    </div>
+
+    <div class="score-center">
+      <div class="score-donut" id="score-donut">
+        <div class="score-inner">
+          <div class="score-big" id="score-num">—</div>
+          <div class="score-sub">Compliance</div>
+        </div>
+      </div>
+      <div class="score-caption" id="score-caption">Running validation…</div>
+    </div>
+
+    <ul class="checks" id="checks-list"></ul>
+
+    <div class="btn-row">
+      <button class="btn-primary" onclick="goTo(5)">Submit Filing →</button>
+      <button class="btn-back" onclick="goTo(3)">← Back</button>
+    </div>
+    <p class="hint">Demo mode — nothing is sent to canal authorities during onboarding.</p>
+  </div>
+
+  <!-- STEP 5: Success -->
+  <div class="step-panel" id="panel-5">
+    <div class="eyebrow">Step 5 of 5 ✅</div>
+    <div class="success-center">
+      <div class="success-ring">🎉</div>
+      <h1 class="heading">Filing submitted!</h1>
+      <p class="subhead">Your first compliance filing is done. Here's what we validated.</p>
+    </div>
+
+    <div class="result-card" id="result-card">
+      <div class="rc-row"><span class="rc-key">Vessel</span><span class="rc-val" id="rc-vessel">—</span></div>
+      <div class="rc-row"><span class="rc-key">Waterway</span><span class="rc-val" id="rc-waterway">—</span></div>
+      <div class="rc-row"><span class="rc-key">Filing type</span><span class="rc-val" id="rc-type">—</span></div>
+      <div class="rc-row">
+        <span class="rc-key">Compliance score</span>
+        <span class="rc-val"><span class="score-pill" id="rc-score">—</span></span>
+      </div>
+      <div class="rc-row"><span class="rc-key">Filed at</span><span class="rc-val" id="rc-time">—</span></div>
+    </div>
+
+    <div class="cta-grid" id="cta-grid">
+      <a href="/tms-import" class="cta-tile">
+        <div class="ct-icon">📋</div>
+        <div class="ct-title">Import your fleet</div>
+        <div class="ct-desc">Upload CSV or connect your TMS to bring in all vessels at once.</div>
+      </a>
+      <a href="/app" class="cta-tile" id="cta-dash">
+        <div class="ct-icon">📊</div>
+        <div class="ct-title">Explore your dashboard</div>
+        <div class="ct-desc">View filing history, compliance scores, and upcoming deadlines.</div>
+      </a>
+      <a href="/deadline-alerts" class="cta-tile">
+        <div class="ct-icon">⏰</div>
+        <div class="ct-title">Set up deadline alerts</div>
+        <div class="ct-desc">Get notified 96h, 48h, and 24h before filing deadlines.</div>
+      </a>
+      <a href="/agent-dashboard" class="cta-tile" id="cta-agent" style="display:none">
+        <div class="ct-icon">🤝</div>
+        <div class="ct-title">Add your first client</div>
+        <div class="ct-desc">Set up your multi-client workspace and import client vessels.</div>
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','972550615207303');
+fbq('track','PageView');
+</script>
+
+<script>
+// ── App state ──────────────────────────────────────────────────────────────
+const S = {
+  step: 1,
+  role: null,     // 'agent' | 'operator'
+  vessel: {},
+  waterway: null,
+  result: null,
+};
+
+const WW_NAMES = {
+  panama:   'Panama Canal',
+  suez:     'Suez Canal',
+  bosporus: 'Bosporus / Turkish Straits',
+  malacca:  'Strait of Malacca',
+  cape:     'Cape of Good Hope',
+};
+const WW_TYPES = {
+  panama:   'VUMPA + PCSOPEP',
+  suez:     'SCA Pre-Arrival + SCNT',
+  bosporus: 'SP-1 Transit Notice',
+  malacca:  'STRAITREP + VTIS',
+  cape:     'ISPS Pre-Arrival (96h)',
+};
+
+// ── Navigation ─────────────────────────────────────────────────────────────
+function goTo(n, save = true) {
+  // Guard: step 1 needs role; step 4 triggers simulation
+  if (n === 4 && !S.waterway) return;
+
+  document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + n).classList.add('active');
+  updateProgress(n);
+  S.step = n;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  if (n === 4) startSimulation();
+  if (n === 5) buildResultCard();
+
+  if (save) syncStep(n);
+
+  // GA4
+  if (typeof gtag !== 'undefined') {
+    const ev = n === 1 ? 'onboarding_start' : `onboarding_step_${n}`;
+    gtag('event', ev);
+    if (n === 5) gtag('event', 'onboarding_complete', { role: S.role, waterway: S.waterway });
+  }
+}
+
+function updateProgress(active) {
+  for (let i = 1; i <= 5; i++) {
+    const node = document.getElementById('sn-' + i);
+    const circ = document.getElementById('sc-' + i);
+    node.classList.remove('active', 'done');
+    if (i < active) {
+      node.classList.add('done');
+      circ.textContent = '✓';
+    } else if (i === active) {
+      node.classList.add('active');
+      circ.textContent = i === 5 ? '✓' : i;
+    } else {
+      circ.textContent = i === 5 ? '✓' : i;
+    }
+    // Connector colour
+    const conn = document.getElementById('scon-' + i);
+    if (conn) conn.classList.toggle('done', i < active);
+  }
+}
+
+// ── Step 1: role pick ───────────────────────────────────────────────────────
+function pickRole(role) {
+  S.role = role;
+  document.getElementById('role-agent').classList.toggle('selected', role === 'agent');
+  document.getElementById('role-operator').classList.toggle('selected', role === 'operator');
+  document.getElementById('step1-btn').disabled = false;
+  syncStep(1, { account_type: role });
+}
+
+// ── Step 2: vessel entry ────────────────────────────────────────────────────
+function fillSample() {
+  document.getElementById('v-name').value  = 'EVER GIVEN';
+  document.getElementById('v-imo').value   = '9811000';
+  document.getElementById('v-flag').value  = 'Panama';
+  document.getElementById('v-type').value  = 'Container Ship';
+  document.getElementById('v-loa').value   = '399.98';
+  document.getElementById('v-beam').value  = '58.8';
+  document.getElementById('v-draft').value = '14.5';
+  document.getElementById('v-gt').value    = '224000';
+  checkImo('9811000');
+}
+
+function checkImo(val) {
+  const digits = String(val).replace(/\D/g, '');
+  const icon = document.getElementById('imo-icon');
+  icon.className = 'imo-check';
+  if (digits.length !== 7) return;
+  const weights = [7,6,5,4,3,2];
+  const sum = weights.reduce((acc,w,i) => acc + w * parseInt(digits[i]), 0);
+  const ok = (sum % 10) === parseInt(digits[6]);
+  icon.className = 'imo-check show ' + (ok ? 'ok' : 'bad');
+  icon.textContent = ok ? '✓' : '✗';
+}
+
+function collectAndGo(target) {
+  S.vessel = {
+    name:        document.getElementById('v-name').value.trim() || 'MV Sample Vessel',
+    imo:         document.getElementById('v-imo').value.trim(),
+    flag:        document.getElementById('v-flag').value.trim(),
+    vessel_type: document.getElementById('v-type').value,
+    loa:         document.getElementById('v-loa').value,
+    beam:        document.getElementById('v-beam').value,
+    draft:       document.getElementById('v-draft').value,
+    gt:          document.getElementById('v-gt').value,
+  };
+  goTo(target);
+}
+
+// ── Step 3: waterway pick ───────────────────────────────────────────────────
+function pickWaterway(ww, el) {
+  S.waterway = ww;
+  document.querySelectorAll('.ww-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('step3-btn').disabled = false;
+  syncStep(3, { waterway: ww });
+}
+
+function runCheck() {
+  goTo(4);
+}
+
+// ── Step 4: simulation ──────────────────────────────────────────────────────
+async function startSimulation() {
+  document.getElementById('checks-list').innerHTML = '<li style="color:var(--text-muted);font-size:13px;padding:8px 0;">Running checks…</li>';
+  document.getElementById('score-num').textContent = '…';
+  document.getElementById('score-caption').textContent = 'Checking compliance rules…';
+
+  try {
+    const r = await fetch('/api/onboarding/simulate-filing', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ vessel: S.vessel, waterway: S.waterway }),
+    });
+    const data = await r.json();
+    S.result = data;
+    renderResult(data);
+  } catch (_) {
+    // Fallback — no connection required for demo
+    const fallback = { compliance_score: 76, fields_prefilled: 23, total_fields: 31,
+      checks: [
+        { label: 'Vessel Name', status: 'pass', detail: 'Required for all filings' },
+        { label: 'IMO Number', status: 'pass', detail: 'Valid IMO checksum' },
+        { label: 'Flag State', status: 'pass', detail: 'Matches certificate of registry' },
+        { label: 'Draft Compliance', status: 'warning', detail: 'Verify max allowed draft for this waterway' },
+        { label: 'PCSOPEP Certificate', status: 'fail', detail: 'Certificate upload required before submission' },
+      ]};
+    S.result = fallback;
+    renderResult(fallback);
+  }
+}
+
+function renderResult(data) {
+  const score = data.compliance_score || 74;
+  const pct = (score / 100 * 360).toFixed(1) + 'deg';
+  const color = score >= 80 ? 'var(--green)' : score >= 60 ? 'var(--yellow)' : 'var(--red)';
+
+  const donut = document.getElementById('score-donut');
+  donut.style.setProperty('--score-pct', pct);
+  donut.style.setProperty('--score-color', color);
+  document.getElementById('score-num').textContent = score;
+  document.getElementById('score-caption').textContent =
+    score >= 80 ? 'Ready to submit — no critical issues detected' :
+    score >= 60 ? 'Minor issues to address before final submission' :
+                  'Action required — review flagged items below';
+
+  document.getElementById('pf-count').textContent = data.fields_prefilled || 23;
+  document.getElementById('pf-total').textContent = data.total_fields || 31;
+
+  const list = document.getElementById('checks-list');
+  list.innerHTML = '';
+  (data.checks || []).forEach(c => {
+    const icon = c.status === 'pass' ? '✅' : c.status === 'warning' ? '⚠️' : '❌';
+    list.innerHTML += `
+      <li class="check-item ${c.status}">
+        <span class="ci-icon">${icon}</span>
+        <div>
+          <div>${c.label}</div>
+          <div class="ci-detail">${c.detail || ''}</div>
+        </div>
+      </li>`;
+  });
+}
+
+// ── Step 5: success card ────────────────────────────────────────────────────
+function buildResultCard() {
+  const score = S.result?.compliance_score || 74;
+  const sc = score >= 80 ? 'high' : score >= 60 ? 'med' : 'low';
+
+  document.getElementById('rc-vessel').textContent   = S.vessel.name || 'MV Sample Vessel';
+  document.getElementById('rc-waterway').textContent = WW_NAMES[S.waterway] || S.waterway || 'Panama Canal';
+  document.getElementById('rc-type').textContent     = WW_TYPES[S.waterway] || 'Pre-Arrival Filing';
+  const pill = document.getElementById('rc-score');
+  pill.className = 'score-pill ' + sc;
+  pill.textContent = score + ' / 100';
+  document.getElementById('rc-time').textContent = new Date().toLocaleString();
+
+  // Agent-specific CTA
+  if (S.role === 'agent') {
+    document.getElementById('cta-agent').style.display = 'block';
+    document.getElementById('cta-dash').href = '/agent-dashboard';
+  }
+
+  launchConfetti();
+  syncStep(5);
+}
+
+// ── Confetti ────────────────────────────────────────────────────────────────
+function launchConfetti() {
+  const cv = document.getElementById('confetti-cv');
+  const ctx = cv.getContext('2d');
+  cv.width  = window.innerWidth;
+  cv.height = window.innerHeight;
+
+  const colors = ['#e8612a','#22c55e','#3b82f6','#f59e0b','#a855f7','#ec4899'];
+  const pieces = Array.from({ length: 120 }, () => ({
+    x: Math.random() * cv.width, y: -20,
+    vx: (Math.random() - .5) * 5,
+    vy: Math.random() * 4 + 2,
+    size: Math.random() * 9 + 4,
+    color: colors[Math.floor(Math.random() * colors.length)],
+    angle: Math.random() * Math.PI * 2,
+    spin:  (Math.random() - .5) * .25,
+  }));
+
+  let frames = 0;
+  (function draw() {
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    pieces.forEach(p => {
+      p.x += p.vx; p.y += p.vy; p.angle += p.spin; p.vy += .06;
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.angle);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size*.6);
+      ctx.restore();
+    });
+    if (++frames < 140) requestAnimationFrame(draw);
+    else ctx.clearRect(0, 0, cv.width, cv.height);
+  })();
+}
+
+// ── Server sync ─────────────────────────────────────────────────────────────
+async function syncStep(step, extra = {}) {
+  try {
+    await fetch('/api/onboarding/step', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ step, ...extra }),
+    });
+  } catch (_) { /* non-critical — flow continues */ }
+}
+
+async function skipOnboarding() {
+  if (typeof gtag !== 'undefined') gtag('event', 'onboarding_skipped', { step: S.step });
+  if (window.fbq) fbq('track', 'CustomEvent', { event_name: 'onboarding_skipped' });
+  try { await fetch('/api/onboarding/skip', { method: 'POST' }); } catch (_) {}
+  window.location.href = '/app';
+}
+
+// ── Auth + resume ────────────────────────────────────────────────────────────
+(async function init() {
+  try {
+    const r = await fetch('/api/auth/me');
+    if (!r.ok) { window.location.href = '/login?next=/onboarding'; return; }
+    const d = await r.json();
+    if (!d.success) { window.location.href = '/login?next=/onboarding'; return; }
+    if (d.user?.onboarding_completed) {
+      window.location.href = d.user.account_type === 'agent' ? '/agent-dashboard' : '/app';
+      return;
+    }
+  } catch (_) {
+    // Could not reach auth — show page anyway (requireAuth handles real security)
+  }
+
+  // Try to resume saved state
+  try {
+    const r = await fetch('/api/onboarding/state');
+    if (r.ok) {
+      const d = await r.json();
+      if (d.account_type) {
+        S.role = d.account_type;
+        pickRole(d.account_type);
+      }
+      const resumeStep = Math.max(1, Math.min(d.onboarding_step || 1, 3));
+      if (resumeStep > 1) goTo(resumeStep, false);
+    }
+  } catch (_) { /* no resume — fresh start */ }
+})();
+</script>
+<script src="/js/whatsapp-button.js"></script>
+</body>
+</html>

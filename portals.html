@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Authority Login Portals — CanalClear</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://canalclear.org/app/portals">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/icons/icon-192.png">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #1a2d4a;
+      --deep: #142238;
+      --slate: #243350;
+      --teal: #E85A00;
+      --teal-dim: rgba(232, 90, 0, 0.15);
+      --cyan: #00B4D8;
+      --white: #ffffff;
+      --gray: #6b7c93;
+      --light-gray: #8fa3b8;
+      --red: #FF6B6B;
+      --green: #4ADE80;
+      --yellow: #FFD93D;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 1rem 2rem;
+      background: rgba(10, 22, 40, 0.92);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(232, 90, 0, 0.08);
+    }
+    nav .nav-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .logo img {
+      height: 34px;
+      width: auto;
+      object-fit: contain;
+    }
+    .nav-links {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .nav-links a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .nav-links a:hover {
+      color: var(--white);
+      background: rgba(232, 90, 0, 0.08);
+    }
+    .nav-links a.active {
+      color: var(--teal);
+      background: rgba(232, 90, 0, 0.08);
+    }
+
+    /* LAYOUT */
+    .page-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5.5rem 2rem 3rem;
+    }
+
+    /* PAGE HEADER */
+    .page-header {
+      margin-bottom: 2.5rem;
+    }
+    .page-header .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+      transition: color 0.2s;
+    }
+    .page-header .back-link:hover { color: var(--teal); }
+    .page-header h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.35rem;
+    }
+    .page-header p {
+      color: var(--light-gray);
+      font-size: 0.95rem;
+      max-width: 560px;
+    }
+
+    /* WATERWAY GROUP */
+    .waterway-group {
+      margin-bottom: 2.5rem;
+    }
+    .waterway-label {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--teal);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid rgba(232, 90, 0, 0.15);
+    }
+    .waterway-label .flag { font-size: 1.1rem; }
+
+    .portal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1rem;
+    }
+
+    /* PORTAL CARD */
+    .portal-card {
+      background: var(--deep);
+      border: 1px solid rgba(136, 153, 170, 0.1);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .portal-card:hover {
+      border-color: rgba(232, 90, 0, 0.25);
+      transform: translateY(-1px);
+    }
+
+    .portal-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .portal-card-title h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+    .portal-card-title .authority-full {
+      font-size: 0.78rem;
+      color: var(--gray);
+      font-weight: 400;
+    }
+
+    /* REACHABILITY INDICATOR */
+    .reachability {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-shrink: 0;
+    }
+    .reach-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--gray);
+      flex-shrink: 0;
+      transition: background 0.3s;
+    }
+    .reach-dot.online {
+      background: var(--green);
+      box-shadow: 0 0 6px rgba(74, 222, 128, 0.5);
+    }
+    .reach-dot.offline { background: var(--red); }
+    .reach-dot.checking {
+      background: var(--yellow);
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
+    .reach-label {
+      font-size: 0.72rem;
+      color: var(--gray);
+    }
+    .reach-time {
+      font-size: 0.68rem;
+      color: var(--gray);
+      opacity: 0.7;
+    }
+
+    /* DESCRIPTION */
+    .portal-desc {
+      font-size: 0.84rem;
+      color: var(--light-gray);
+      line-height: 1.5;
+    }
+
+    /* CARD FOOTER */
+    .portal-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 0.25rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid rgba(136, 153, 170, 0.07);
+    }
+    .reach-timestamp {
+      font-size: 0.72rem;
+      color: var(--gray);
+      opacity: 0.7;
+    }
+    .btn-portal {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1.1rem;
+      background: rgba(232, 90, 0, 0.1);
+      border: 1px solid rgba(232, 90, 0, 0.3);
+      border-radius: 8px;
+      color: var(--teal);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-portal:hover {
+      background: rgba(232, 90, 0, 0.18);
+      border-color: var(--teal);
+    }
+    .btn-portal svg { flex-shrink: 0; }
+
+    /* INFO BANNER */
+    .info-banner {
+      background: rgba(0, 180, 216, 0.06);
+      border: 1px solid rgba(0, 180, 216, 0.18);
+      border-radius: 10px;
+      padding: 0.9rem 1.25rem;
+      font-size: 0.83rem;
+      color: var(--light-gray);
+      margin-bottom: 2.5rem;
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+    }
+    .info-banner .info-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.05rem; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .portal-grid { grid-template-columns: 1fr; }
+      .page-header h1 { font-size: 1.4rem; }
+      nav { padding: 1rem; }
+      .page-container { padding: 5rem 1rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="logo">
+        <img src="https://pub-629428d185ca4960a0a73c850d32294b.r2.dev/company_47541/images/9d5d2ef6-d9e0-40eb-ad15-df5e737cefc1.png" alt="CanalClear">
+      </a>
+      <div class="nav-links">
+        <a href="/app">Validator</a>
+        <a href="/filing">Filing</a>
+        <a href="/app/portals" class="active">Portals</a>
+        <a href="/app/fleet">🚢 Fleet</a>
+        <a href="/" >Home</a>
+        <button id="logout-btn" onclick="logout()" style="background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.2);color:#FF6B6B;border-radius:8px;padding:0.4rem 0.9rem;font-size:0.85rem;font-family:inherit;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,107,107,0.2)'" onmouseout="this.style.background='rgba(255,107,107,0.1)'">Log out</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-container">
+
+    <div class="page-header">
+      <a href="/app" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        Back to Dashboard
+      </a>
+      <h1>Authority Login Portals</h1>
+      <p>Jump directly to any waterway authority filing portal. Live reachability checked on page load.</p>
+    </div>
+
+    <div class="info-banner">
+      <span class="info-icon">ℹ️</span>
+      <span>Reachability is checked server-side — a green dot confirms the authority portal responded to a network probe, not that your credentials are valid. Results are cached for 60 seconds. Some portals require a registered agent account to access.</span>
+    </div>
+
+    <!-- Panama Canal -->
+    <div class="waterway-group">
+      <div class="waterway-label">
+        <span class="flag">🇵🇦</span> Panama Canal
+      </div>
+      <div class="portal-grid">
+
+        <div class="portal-card">
+          <div class="portal-card-header">
+            <div class="portal-card-title">
+              <h3>VUMPA — Maritime Single Window</h3>
+              <div class="authority-full">Autoridad del Canal de Panama (ACP)</div>
+            </div>
+            <div class="reachability" id="reach-vumpa">
+              <div class="reach-dot checking" id="dot-vumpa"></div>
+              <span class="reach-label" id="label-vumpa">Checking…</span>
+            </div>
+          </div>
+          <div class="portal-desc">Submit VUMPA pre-arrival declarations and vessel transit requests at least 96 hours before arrival.</div>
+          <div class="portal-card-footer">
+            <span class="reach-timestamp" id="ts-vumpa"></span>
+            <a href="https://serviceportal.pancanal.com/sp/faces/oracle/webcenter/portalapp/pages/public/login.jspx" target="_blank" rel="noopener noreferrer" class="btn-portal">
+              Open Portal
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="portal-card">
+          <div class="portal-card-header">
+            <div class="portal-card-title">
+              <h3>PCSOPEP Documentation Portal</h3>
+              <div class="authority-full">ACP — Panama Canal Authority</div>
+            </div>
+            <div class="reachability" id="reach-pcsopep">
+              <div class="reach-dot checking" id="dot-pcsopep"></div>
+              <span class="reach-label" id="label-pcsopep">Checking…</span>
+            </div>
+          </div>
+          <div class="portal-desc">Submit and manage Panama Canal Shipboard Oil Pollution Emergency Plans via the ACP maritime service portal.</div>
+          <div class="portal-card-footer">
+            <span class="reach-timestamp" id="ts-pcsopep"></span>
+            <a href="https://pancanal.com/en/maritime-services/panama-maritime-single-windows-vumpa/" target="_blank" rel="noopener noreferrer" class="btn-portal">
+              Open Portal
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Suez Canal -->
+    <div class="waterway-group">
+      <div class="waterway-label">
+        <span class="flag">🇪🇬</span> Suez Canal
+      </div>
+      <div class="portal-grid">
+
+        <div class="portal-card">
+          <div class="portal-card-header">
+            <div class="portal-card-title">
+              <h3>SCA E-Transit Request Portal</h3>
+              <div class="authority-full">Suez Canal Authority (هيئة قناة السويس)</div>
+            </div>
+            <div class="reachability" id="reach-sca">
+              <div class="reach-dot checking" id="dot-sca"></div>
+              <span class="reach-label" id="label-sca">Checking…</span>
+            </div>
+          </div>
+          <div class="portal-desc">Submit vessel transit requests, ISPS notifications, crew change applications, and toll rebate requests through the SCA e-services portal.</div>
+          <div class="portal-card-footer">
+            <span class="reach-timestamp" id="ts-sca"></span>
+            <a href="https://www.suezcanal.gov.eg/English/Services/Pages/ETransitRequest.aspx" target="_blank" rel="noopener noreferrer" class="btn-portal">
+              Open Portal
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bosporus -->
+    <div class="waterway-group">
+      <div class="waterway-label">
+        <span class="flag">🇹🇷</span> Bosporus / Turkish Straits
+      </div>
+      <div class="portal-grid">
+
+        <div class="portal-card">
+          <div class="portal-card-header">
+            <div class="portal-card-title">
+              <h3>KEGM — Vessel Traffic Services</h3>
+              <div class="authority-full">General Directorate of Coastal Safety (Kıyı Emniyeti Genel Müdürlüğü)</div>
+            </div>
+            <div class="reachability" id="reach-kegm">
+              <div class="reach-dot checking" id="dot-kegm"></div>
+              <span class="reach-label" id="label-kegm">Checking…</span>
+            </div>
+          </div>
+          <div class="portal-desc">Access Turkish Straits VTS reporting information and submit SP-1 sailing plan pre-arrival notifications for Bosporus and Çanakkale transits.</div>
+          <div class="portal-card-footer">
+            <span class="reach-timestamp" id="ts-kegm"></span>
+            <a href="https://www.kiyiemniyeti.gov.tr/vessel_traffic_information_systems" target="_blank" rel="noopener noreferrer" class="btn-portal">
+              Open Portal
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Strait of Malacca -->
+    <div class="waterway-group">
+      <div class="waterway-label">
+        <span class="flag">🇸🇬🇲🇾</span> Strait of Malacca
+      </div>
+      <div class="portal-grid">
+
+        <div class="portal-card">
+          <div class="portal-card-header">
+            <div class="portal-card-title">
+              <h3>digitalPORT@SG — MPA Filing Portal</h3>
+              <div class="authority-full">Maritime and Port Authority of Singapore (MPA)</div>
+            </div>
+            <div class="reachability" id="reach-mpa">
+              <div class="reach-dot checking" id="dot-mpa"></div>
+              <span class="reach-label" id="label-mpa">Checking…</span>
+            </div>
+          </div>
+          <div class="portal-desc">Submit pre-arrival notifications (NOA), vessel declarations, and STRAITREP compliance data for Singapore Strait sectors 7–9 of the STRAITREP operational area.</div>
+          <div class="portal-card-footer">
+            <span class="reach-timestamp" id="ts-mpa"></span>
+            <a href="https://digitalport.mpa.gov.sg/" target="_blank" rel="noopener noreferrer" class="btn-portal">
+              Open Portal
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="portal-card">
+          <div class="portal-card-header">
+            <div class="portal-card-title">
+              <h3>JLM STRAITREP Filing System</h3>
+              <div class="authority-full">Jabatan Laut Malaysia — Marine Department Malaysia</div>
+            </div>
+            <div class="reachability" id="reach-jlm">
+              <div class="reach-dot checking" id="dot-jlm"></div>
+              <span class="reach-label" id="label-jlm">Checking…</span>
+            </div>
+          </div>
+          <div class="portal-desc">File mandatory STRAITREP vessel reports for all vessels of 300 GT and above transiting Malaysian TSS sectors (sectors 1–6) of the Strait of Malacca.</div>
+          <div class="portal-card-footer">
+            <span class="reach-timestamp" id="ts-jlm"></span>
+            <a href="https://jlm.enav.my/register" target="_blank" rel="noopener noreferrer" class="btn-portal">
+              Open Portal
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Cape of Good Hope -->
+    <div class="waterway-group">
+      <div class="waterway-label">
+        <span class="flag">🇿🇦</span> Cape of Good Hope
+      </div>
+      <div class="portal-grid">
+
+        <div class="portal-card">
+          <div class="portal-card-header">
+            <div class="portal-card-title">
+              <h3>SAMSA Online Services Portal</h3>
+              <div class="authority-full">South African Maritime Safety Authority (SAMSA)</div>
+            </div>
+            <div class="reachability" id="reach-samsa">
+              <div class="reach-dot checking" id="dot-samsa"></div>
+              <span class="reach-label" id="label-samsa">Checking…</span>
+            </div>
+          </div>
+          <div class="portal-desc">Access SAMSA maritime compliance services — ship registration, seafarer certification, and ISPS pre-arrival notifications for Cape of Good Hope port calls.</div>
+          <div class="portal-card-footer">
+            <span class="reach-timestamp" id="ts-samsa"></span>
+            <a href="https://portal.samsa.com/login" target="_blank" rel="noopener noreferrer" class="btn-portal">
+              Open Portal
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /.page-container -->
+
+  <script>
+    // ========== REACHABILITY CHECK ==========
+    // Uses server-side proxy (/api/portals/reachability) to avoid CORS/no-cors ambiguity.
+    // The server does real HEAD requests and caches results for 60 seconds.
+
+    function updateUI(id, online, checkedAt) {
+      const dot = document.getElementById(`dot-${id}`);
+      const label = document.getElementById(`label-${id}`);
+      const ts = document.getElementById(`ts-${id}`);
+      if (!dot) return;
+
+      dot.classList.remove('checking', 'online', 'offline');
+      if (online) {
+        dot.classList.add('online');
+        if (label) { label.textContent = 'Online'; label.style.color = 'var(--green)'; }
+      } else {
+        dot.classList.add('offline');
+        if (label) { label.textContent = 'Unreachable'; label.style.color = 'var(--red)'; }
+      }
+      if (ts && checkedAt) {
+        const t = new Date(checkedAt);
+        ts.textContent = `Checked ${t.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+      }
+    }
+
+    function markAllOffline() {
+      const IDS = ['vumpa', 'pcsopep', 'sca', 'kegm', 'mpa', 'jlm', 'samsa'];
+      for (const id of IDS) {
+        const dot = document.getElementById(`dot-${id}`);
+        const label = document.getElementById(`label-${id}`);
+        if (dot) { dot.classList.remove('checking', 'online'); dot.classList.add('offline'); }
+        if (label) { label.textContent = 'Check failed'; label.style.color = 'var(--gray)'; }
+      }
+    }
+
+    async function checkAllPortals() {
+      try {
+        const res = await fetch('/api/portals/reachability', { credentials: 'include' });
+        if (!res.ok) { markAllOffline(); return; }
+        const data = await res.json();
+        if (!data.success || !data.portals) { markAllOffline(); return; }
+        for (const [id, info] of Object.entries(data.portals)) {
+          updateUI(id, info.online, info.checkedAt);
+        }
+      } catch (err) {
+        // Network error — leave dots in checking state rather than falsely marking offline
+        console.warn('[Portals] Reachability check failed:', err.message);
+        markAllOffline();
+      }
+    }
+
+    // ========== AUTH ==========
+    async function logout() {
+      try {
+        await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
+      } catch (_) {}
+      window.location.href = '/login';
+    }
+
+    // ========== INIT ==========
+    document.addEventListener('DOMContentLoaded', () => {
+      checkAllPortals();
+    });
+  </script>
+
+</body>
+</html>

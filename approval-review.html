@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Filing Review — CanalClear</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --navy: #1a2d4a; --deep: #0f1e35; --slate: #243350;
+      --orange: #E85A00; --teal: #00D4AA; --cyan: #00B4D8;
+      --white: #ffffff; --gray: #6b7c93; --light: #8fa3b8;
+      --red: #ef4444; --green: #34d399; --yellow: #f59e0b;
+      --border: rgba(255,255,255,0.07);
+    }
+    html { scroll-behavior: smooth; height: 100%; }
+    body { font-family: 'IBM Plex Sans', sans-serif; background: var(--navy); color: var(--white); min-height: 100vh; }
+
+    /* ── Nav ──────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      padding: 0.875rem 2rem;
+      background: rgba(10,22,40,0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(232,90,0,0.08);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { font-size: 1.05rem; font-weight: 700; color: #fff; text-decoration: none; }
+    .logo span { color: var(--orange); }
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+    .nav-btn { padding: 0.4rem 1rem; border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; }
+    .btn-ghost { background: transparent; color: var(--light); border: 1px solid var(--border); }
+    .btn-ghost:hover { color: #fff; border-color: rgba(255,255,255,0.2); }
+    .btn-primary { background: var(--teal); color: #0A1628; }
+    .btn-primary:hover { background: #00bfa0; }
+    .btn-danger { background: rgba(239,68,68,0.15); color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
+    .btn-danger:hover { background: rgba(239,68,68,0.25); }
+    .btn-warn { background: rgba(245,158,11,0.15); color: var(--yellow); border: 1px solid rgba(245,158,11,0.3); }
+    .btn-warn:hover { background: rgba(245,158,11,0.25); }
+
+    /* ── Page shell ──────────────────────────────────────── */
+    .page-shell { padding-top: 60px; display: flex; height: 100vh; overflow: hidden; }
+
+    /* ── Left panel — filing data ────────────────────────── */
+    .left-panel {
+      flex: 1; overflow-y: auto; padding: 2rem;
+      border-right: 1px solid var(--border);
+    }
+    .panel-header { margin-bottom: 1.5rem; }
+    .panel-header h2 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; }
+    .panel-header .meta { color: var(--light); font-size: 0.85rem; margin-top: 4px; }
+
+    /* Status badge */
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 12px; border-radius: 100px;
+      font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .status-badge::before { content: ''; width: 7px; height: 7px; border-radius: 50%; }
+    .badge-draft       { background: rgba(107,124,147,0.15); color: var(--light); }
+    .badge-draft::before { background: var(--gray); }
+    .badge-submitted   { background: rgba(0,180,216,0.12); color: var(--cyan); }
+    .badge-submitted::before { background: var(--cyan); }
+    .badge-in_review   { background: rgba(245,158,11,0.12); color: var(--yellow); }
+    .badge-in_review::before { background: var(--yellow); animation: pulse 1.5s infinite; }
+    .badge-changes_requested { background: rgba(245,158,11,0.12); color: var(--yellow); }
+    .badge-changes_requested::before { background: var(--yellow); }
+    .badge-approved    { background: rgba(52,211,153,0.12); color: var(--green); }
+    .badge-approved::before { background: var(--green); }
+    .badge-exported    { background: rgba(52,211,153,0.08); color: #64d9b5; }
+    .badge-exported::before { background: #64d9b5; }
+    .badge-rejected    { background: rgba(239,68,68,0.12); color: var(--red); }
+    .badge-rejected::before { background: var(--red); }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+    /* Filing fields */
+    .section { margin-bottom: 1.5rem; }
+    .section-title {
+      font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--orange); font-weight: 700; margin-bottom: 0.75rem;
+      padding-bottom: 6px; border-bottom: 1px solid rgba(232,90,0,0.12);
+    }
+    .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .field-item {
+      background: var(--deep);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      position: relative;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+    .field-item:hover { border-color: rgba(0,212,170,0.3); }
+    .field-item.has-comment { border-color: rgba(245,158,11,0.4); }
+    .field-item.has-comment::after {
+      content: '💬';
+      position: absolute; top: 6px; right: 8px;
+      font-size: 0.7rem;
+    }
+    .field-label { font-size: 0.72rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
+    .field-value { font-size: 0.9rem; color: var(--white); font-weight: 500; word-break: break-word; }
+    .field-value.empty { color: var(--gray); font-style: italic; font-weight: 400; }
+
+    /* ── Right panel — review panel ──────────────────────── */
+    .right-panel {
+      width: 380px; min-width: 320px; overflow-y: auto;
+      padding: 2rem;
+      background: rgba(9,18,32,0.6);
+    }
+    .review-section { margin-bottom: 1.75rem; }
+    .review-section-title {
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--light); font-weight: 700; margin-bottom: 0.75rem;
+    }
+
+    /* Action buttons */
+    .action-group { display: flex; flex-direction: column; gap: 8px; }
+    .action-btn {
+      width: 100%; padding: 10px 16px; border-radius: 8px;
+      font-size: 0.88rem; font-weight: 600; cursor: pointer; border: none;
+      text-align: left; display: flex; align-items: center; gap: 8px;
+      transition: all 0.15s;
+    }
+    .action-btn .icon { font-size: 1rem; }
+    .action-approve { background: rgba(52,211,153,0.15); color: var(--green); border: 1px solid rgba(52,211,153,0.3); }
+    .action-approve:hover { background: rgba(52,211,153,0.25); }
+    .action-changes { background: rgba(245,158,11,0.12); color: var(--yellow); border: 1px solid rgba(245,158,11,0.25); }
+    .action-changes:hover { background: rgba(245,158,11,0.22); }
+    .action-reject  { background: rgba(239,68,68,0.1); color: var(--red); border: 1px solid rgba(239,68,68,0.2); }
+    .action-reject:hover  { background: rgba(239,68,68,0.2); }
+    .action-submit  { background: var(--teal); color: #0A1628; border: none; }
+    .action-submit:hover  { background: #00bfa0; }
+    .action-export  { background: rgba(0,212,170,0.12); color: var(--teal); border: 1px solid rgba(0,212,170,0.25); }
+    .action-export:hover  { background: rgba(0,212,170,0.22); }
+    .action-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    /* Comment textarea */
+    .comment-box {
+      background: var(--deep); border: 1px solid var(--border); border-radius: 8px;
+      padding: 10px 12px; color: var(--white); font-family: inherit; font-size: 0.88rem;
+      resize: vertical; width: 100%; min-height: 80px; transition: border-color 0.15s;
+    }
+    .comment-box:focus { outline: none; border-color: var(--teal); }
+    .comment-box::placeholder { color: var(--gray); }
+
+    /* Comments list */
+    .comment-item {
+      background: var(--deep); border: 1px solid var(--border); border-radius: 8px;
+      padding: 10px 14px; margin-bottom: 8px;
+    }
+    .comment-item.resolved { opacity: 0.45; }
+    .comment-meta { font-size: 0.72rem; color: var(--gray); margin-bottom: 4px; display: flex; justify-content: space-between; }
+    .comment-field { font-size: 0.72rem; color: var(--teal); margin-bottom: 4px; font-weight: 600; }
+    .comment-text { font-size: 0.85rem; color: var(--light); line-height: 1.4; }
+    .resolve-btn { font-size: 0.7rem; color: var(--gray); background: none; border: none; cursor: pointer; padding: 0; }
+    .resolve-btn:hover { color: var(--green); }
+
+    /* Audit log */
+    .audit-item { padding: 10px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px; }
+    .audit-item:last-child { border-bottom: none; }
+    .audit-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+    .audit-action { font-size: 0.82rem; color: var(--white); font-weight: 500; }
+    .audit-who { font-size: 0.75rem; color: var(--gray); margin-top: 1px; }
+    .audit-comment { font-size: 0.78rem; color: var(--light); margin-top: 4px; background: rgba(255,255,255,0.04); padding: 6px 8px; border-radius: 4px; }
+    .dot-approved { background: var(--green); }
+    .dot-submitted, .dot-review_started { background: var(--cyan); }
+    .dot-changes_requested { background: var(--yellow); }
+    .dot-rejected { background: var(--red); }
+    .dot-exported { background: var(--teal); }
+    .dot-auto_approved { background: var(--green); }
+    .dot-default { background: var(--gray); }
+
+    /* Toast */
+    #toast {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999;
+      background: var(--slate); border: 1px solid var(--border);
+      border-radius: 8px; padding: 12px 18px;
+      font-size: 0.88rem; color: var(--white);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+      transform: translateY(20px); opacity: 0; pointer-events: none;
+      transition: all 0.25s;
+    }
+    #toast.show { transform: translateY(0); opacity: 1; }
+    #toast.success { border-left: 3px solid var(--green); }
+    #toast.error   { border-left: 3px solid var(--red); }
+    #toast.info    { border-left: 3px solid var(--cyan); }
+
+    /* Modal backdrop */
+    .modal-backdrop {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(0,0,0,0.65); backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .modal {
+      background: var(--deep); border: 1px solid var(--border); border-radius: 14px;
+      padding: 1.75rem; width: 420px; max-width: 92vw;
+    }
+    .modal h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .modal p { color: var(--light); font-size: 0.88rem; margin-bottom: 1rem; line-height: 1.5; }
+    .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 1.25rem; }
+    .modal-actions button { padding: 8px 20px; border-radius: 8px; font-size: 0.88rem; font-weight: 600; cursor: pointer; border: none; }
+    .modal-cancel { background: rgba(255,255,255,0.07); color: var(--light); }
+    .modal-cancel:hover { background: rgba(255,255,255,0.12); }
+    .modal-confirm-approve { background: var(--green); color: #0a1628; }
+    .modal-confirm-changes { background: var(--yellow); color: #0a1628; }
+    .modal-confirm-reject  { background: var(--red); color: #fff; }
+    .modal-confirm-submit  { background: var(--teal); color: #0a1628; }
+    label.form-label { display: block; font-size: 0.8rem; color: var(--light); margin-bottom: 6px; }
+
+    /* Responsive */
+    @media(max-width:768px) {
+      .page-shell { flex-direction: column; height: auto; overflow: auto; }
+      .left-panel, .right-panel { overflow-y: visible; }
+      .right-panel { width: 100%; min-width: 0; border-top: 1px solid var(--border); }
+      .field-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Pending approvals list on a different page */
+    .pending-section { padding: 2rem; }
+    .pending-table { width: 100%; border-collapse: collapse; }
+    .pending-table th, .pending-table td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.88rem; }
+    .pending-table th { color: var(--gray); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .pending-table tr:hover td { background: rgba(255,255,255,0.03); }
+    .pending-table a { color: var(--teal); text-decoration: none; }
+    .pending-table a:hover { text-decoration: underline; }
+    .empty-state { text-align: center; padding: 3rem; color: var(--gray); }
+    .empty-state .icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="/"><span>Canal</span>Clear</a>
+  <div class="nav-right">
+    <span id="notif-bell" style="position:relative;cursor:pointer;font-size:1.2rem;" title="Notifications">
+      🔔 <span id="notif-badge" style="position:absolute;top:-4px;right:-4px;background:var(--orange);color:#fff;border-radius:100px;font-size:0.6rem;padding:1px 5px;display:none;"></span>
+    </span>
+    <a href="/demo/dashboard" class="nav-btn btn-ghost">← Dashboard</a>
+  </div>
+</nav>
+
+<div class="page-shell" id="app">
+  <!-- Loaded by JS -->
+  <div style="margin:auto;padding:4rem;text-align:center;color:var(--gray);">Loading filing…</div>
+</div>
+
+<div id="toast"></div>
+<div id="modal-container"></div>
+
+<script src="/js/approval-workflow.js"></script>
+</body>
+</html>

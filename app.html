@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filing Hub — CanalClear</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="canonical" href="https://canalclear.org/app">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="/css/visual-polish.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --navy: #1a2d4a;
+            --deep: #142238;
+            --slate: #243350;
+            --teal: #E85A00;
+            --teal-dim: rgba(232, 90, 0, 0.15);
+            --cyan: #00B4D8;
+            --white: #ffffff;
+            --gray: #6b7c93;
+            --light-gray: #8fa3b8;
+            --red: #FF6B6B;
+            --red-dim: rgba(255, 107, 107, 0.15);
+            --yellow: #FFD93D;
+            --yellow-dim: rgba(255, 217, 61, 0.15);
+            --green: #E85A00;
+            --green-dim: rgba(232, 90, 0, 0.15);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: var(--navy);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 1rem 2rem;
+            background: rgba(10, 22, 40, 0.92);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(232, 90, 0, 0.08);
+        }
+        nav .nav-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        .logo img {
+            height: 34px;
+            width: auto;
+            object-fit: contain;
+        }
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        .nav-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--white);
+            background: rgba(232, 90, 0, 0.08);
+        }
+        .nav-links a.active {
+            color: var(--teal);
+        }
+
+        /* LAYOUT */
+        .app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5.5rem 2rem 4rem;
+            min-height: 100vh;
+        }
+
+        /* PAGE HEADER */
+        .page-header {
+            margin-bottom: 2.5rem;
+        }
+        .page-header h1 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.35rem;
+        }
+        .page-header p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* STATS BAR */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+        .stat-card {
+            background: var(--deep);
+            border: 1px solid rgba(136, 153, 170, 0.08);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+        }
+        .stat-card .label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+        .stat-card .value {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+        }
+        .stat-card .value.green { color: var(--teal); }
+        .stat-card .value.yellow { color: var(--yellow); }
+        .stat-card .value.cyan { color: var(--cyan); }
+
+        /* SECTION LABEL */
+        .section-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--teal);
+            margin-bottom: 1.25rem;
+            font-weight: 600;
+        }
+
+        /* WATERWAY GRID */
+        .waterway-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 3rem;
+        }
+
+        /* WATERWAY CARD */
+        .waterway-card {
+            background: linear-gradient(135deg, var(--deep) 0%, rgba(15, 29, 50, 0.85) 100%);
+            border: 1.5px solid rgba(136, 153, 170, 0.12);
+            border-radius: 16px;
+            padding: 1.75rem;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .waterway-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--card-accent, var(--teal));
+            opacity: 0;
+            transition: opacity 0.25s;
+        }
+        .waterway-card:hover {
+            border-color: rgba(232, 90, 0, 0.35);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+        }
+        .waterway-card:hover::before { opacity: 1; }
+
+        /* Card variants — top accent color per waterway */
+        .waterway-card.panama   { --card-accent: #E85A00; }
+        .waterway-card.suez     { --card-accent: #00B4D8; }
+        .waterway-card.bosporus { --card-accent: #FFD93D; }
+        .waterway-card.malacca  { --card-accent: #6AB04C; }
+        .waterway-card.cape     { --card-accent: #a29bfe; }
+
+        .waterway-card:hover.panama   { border-color: rgba(232, 90, 0, 0.4); }
+        .waterway-card:hover.suez     { border-color: rgba(0, 180, 216, 0.4); }
+        .waterway-card:hover.bosporus { border-color: rgba(255, 217, 61, 0.4); }
+        .waterway-card:hover.malacca  { border-color: rgba(106, 176, 76, 0.4); }
+        .waterway-card:hover.cape     { border-color: rgba(162, 155, 254, 0.4); }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        .card-flag {
+            font-size: 2.2rem;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+        .card-title-group { flex: 1; }
+        .card-name {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.2rem;
+        }
+        .card-authority {
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.2rem 0.55rem;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .panama   .card-authority { background: rgba(232, 90, 0, 0.15);  color: #E85A00; }
+        .suez     .card-authority { background: rgba(0, 180, 216, 0.15); color: #00B4D8; }
+        .bosporus .card-authority { background: rgba(255, 217, 61, 0.15); color: #FFD93D; }
+        .malacca  .card-authority { background: rgba(106, 176, 76, 0.15); color: #6AB04C; }
+        .cape     .card-authority { background: rgba(162, 155, 254, 0.15); color: #a29bfe; }
+
+        .card-docs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+        .doc-chip {
+            font-size: 0.74rem;
+            font-weight: 500;
+            color: var(--light-gray);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(136, 153, 170, 0.12);
+            border-radius: 5px;
+            padding: 0.2rem 0.55rem;
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 0.75rem;
+            border-top: 1px solid rgba(136, 153, 170, 0.08);
+            margin-top: auto;
+        }
+        .card-deadline {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        .card-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--white);
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 0.45rem 0.9rem;
+            transition: all 0.2s;
+        }
+        .waterway-card:hover .card-cta {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        /* QUICK ACCESS STRIP */
+        .quick-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .quick-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(136, 153, 170, 0.1);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            text-decoration: none;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.2s;
+        }
+        .quick-card:hover {
+            background: rgba(232, 90, 0, 0.06);
+            border-color: rgba(232, 90, 0, 0.2);
+            transform: translateY(-1px);
+        }
+        .quick-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        .quick-text h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.15rem;
+        }
+        .quick-text p {
+            font-size: 0.78rem;
+            color: var(--gray);
+        }
+
+        /* NOTIFICATION BELL */
+        .notif-wrap { position: relative; }
+        .notif-bell-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            position: relative;
+            font-size: 1.1rem;
+            transition: background 0.2s;
+        }
+        .notif-bell-btn:hover { background: rgba(232, 90, 0, 0.08); }
+        .notif-bell-icon { display: block; }
+        .notif-badge {
+            display: none;
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            min-width: 16px;
+            height: 16px;
+            background: var(--teal);
+            color: var(--navy);
+            font-size: 0.65rem;
+            font-weight: 700;
+            font-family: 'IBM Plex Sans', sans-serif;
+            border-radius: 999px;
+            text-align: center;
+            line-height: 16px;
+            padding: 0 3px;
+        }
+        .notif-panel {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            width: 320px;
+            background: var(--deep);
+            border: 1px solid rgba(136, 153, 170, 0.12);
+            border-radius: 14px;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+            z-index: 300;
+            overflow: hidden;
+        }
+        .notif-panel.open { display: block; }
+        .notif-panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.25rem 0.75rem;
+            border-bottom: 1px solid rgba(136, 153, 170, 0.08);
+        }
+        .notif-panel-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+        .notif-panel-link {
+            font-size: 0.78rem;
+            color: var(--teal);
+            text-decoration: none;
+        }
+        .notif-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem 1.25rem;
+            border-bottom: 1px solid rgba(136,153,170,0.05);
+            transition: background 0.15s;
+        }
+        .notif-item:hover { background: rgba(255,255,255,0.03); }
+        .notif-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 5px;
+            background: var(--teal);
+        }
+        .notif-dot.certificate { background: var(--yellow); }
+        .notif-dot.deadline    { background: var(--red); }
+        .notif-dot.vessel      { background: var(--cyan); }
+        .notif-subject {
+            font-size: 0.82rem;
+            color: var(--white);
+            line-height: 1.4;
+        }
+        .notif-time {
+            font-size: 0.72rem;
+            color: var(--gray);
+            margin-top: 0.2rem;
+        }
+        .notif-empty {
+            padding: 1.5rem 1.25rem;
+            font-size: 0.82rem;
+            color: var(--gray);
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        /* TOAST */
+        .toast-container {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        /* AUTHORITY PORTALS STRIP */
+        .portal-strip {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+            padding: 1.25rem 1.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(136, 153, 170, 0.1);
+            border-radius: 12px;
+        }
+        .portal-strip-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--gray);
+            margin-right: 0.25rem;
+            white-space: nowrap;
+        }
+        .portal-strip-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.45rem 0.85rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(136, 153, 170, 0.12);
+            border-radius: 8px;
+            color: var(--light-gray);
+            text-decoration: none;
+            font-size: 0.78rem;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: all 0.18s;
+        }
+        .portal-strip-btn:hover {
+            border-color: rgba(232, 90, 0, 0.4);
+            color: var(--white);
+            background: rgba(232, 90, 0, 0.08);
+        }
+        .portal-strip-btn .flag { font-size: 1rem; }
+        .portal-strip-btn .ext { font-size: 0.65rem; opacity: 0.6; }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .logo img { height: 28px; }
+            nav { padding: 0.75rem 1rem; }
+            .app-container { padding: 5rem 1rem 2rem; }
+            .stats-bar { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+            .waterway-grid { grid-template-columns: 1fr; }
+            .quick-strip { grid-template-columns: 1fr 1fr; }
+            .page-header h1 { font-size: 1.35rem; }
+        }
+        @media (max-width: 480px) {
+            .app-container { padding: 4.5rem 0.875rem 2rem; }
+            .quick-strip { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- DEMO MODE BANNER — shown when user accessed via a demo code -->
+<div id="demo-mode-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:linear-gradient(90deg,#E85A00,#cc4f00);color:#fff;padding:0.6rem 1.5rem;font-size:0.85rem;font-weight:600;align-items:center;justify-content:space-between;gap:1rem;box-shadow:0 -2px 12px rgba(0,0,0,0.3);">
+  <span>DEMO MODE — You have full bundle access. <a href="/pricing" style="color:#fff;text-decoration:underline;">Subscribe to keep your data →</a></span>
+  <button onclick="endDemoSession()" style="background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.3);color:#fff;border-radius:6px;padding:0.3rem 0.75rem;font-size:0.8rem;font-weight:600;cursor:pointer;">Exit Demo</button>
+</div>
+
+<script>
+async function endDemoSession() {
+  try {
+    await fetch('/api/demo/logout', { method: 'POST', credentials: 'include' });
+  } catch(e) { /* ignore */ }
+  window.location.href = '/login';
+}
+</script>
+
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="logo"><img src="https://pub-629428d185ca4960a0a73c850d32294b.r2.dev/company_47541/images/9d5d2ef6-d9e0-40eb-ad15-df5e737cefc1.png" alt="Canal Clear - One Platform, Zero Surprises"></a>
+        <div class="nav-links">
+            <a href="/app" class="active">Hub</a>
+            <a href="/filing">Filing</a>
+            <a href="/validator">Validator</a>
+            <a href="/app/portals">🔗 Authority Portals</a>
+            <a href="/acp" id="acp-nav-link" style="display:flex;align-items:center;gap:0.35rem;">
+                <span id="acpNavDot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gray);flex-shrink:0;"></span>
+                ACP Auto-Filing
+            </a>
+            <a href="/sca-connect" id="sca-nav-link" style="display:flex;align-items:center;gap:0.35rem;">
+                <span id="scaNavDot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gray);flex-shrink:0;"></span>
+                SCA E-Services
+            </a>
+            <a href="/app/fleet">🚢 Fleet</a>
+            <a href="/" data-i18n="appnav.home">Home</a>
+            <a href="/admin" id="admin-nav-link" style="display:none;color:#E85A00;background:rgba(232, 90, 0,0.1);border-radius:8px;padding:0.4rem 0.9rem;font-size:0.85rem;text-decoration:none;font-weight:600;">Admin</a>
+            <!-- Vessel count indicator -->
+            <span id="vessel-count-chip" style="display:none;align-items:center;gap:0.35rem;background:rgba(232, 90, 0,0.08);border:1px solid rgba(232, 90, 0,0.2);border-radius:8px;padding:0.35rem 0.75rem;font-size:0.8rem;color:var(--teal);cursor:pointer;" title="Fleet vessel count" onclick="window.location.href='/app/fleet'">
+              🚢 <span id="vessel-count-label">0/0</span>
+            </span>
+            <!-- Notification Bell -->
+            <div class="notif-wrap" id="notif-wrap">
+                <button class="notif-bell-btn" onclick="toggleNotifPanel(event)" title="Notifications" aria-label="Notifications">
+                    <span class="notif-bell-icon">🔔</span>
+                    <span class="notif-badge" id="notif-badge"></span>
+                </button>
+                <div class="notif-panel" id="notif-panel">
+                    <div class="notif-panel-header">
+                        <span class="notif-panel-title">Recent Alerts</span>
+                        <a href="/settings/alerts" class="notif-panel-link">Alert Settings →</a>
+                    </div>
+                    <div id="notif-list"><div class="notif-empty">Loading…</div></div>
+                </div>
+            </div>
+            <button id="logout-btn" onclick="logout()" style="background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.2);color:#FF6B6B;border-radius:8px;padding:0.4rem 0.9rem;font-size:0.85rem;font-family:inherit;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,107,107,0.2)'" onmouseout="this.style.background='rgba(255,107,107,0.1)'">Log out</button>
+        </div>
+    </div>
+</nav>
+
+<div class="app-container">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>Filing Hub</h1>
+        <p>Select a waterway to start a new compliance filing</p>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar" id="statsBar">
+        <div class="stat-card">
+            <div class="label">Total Filings</div>
+            <div class="value" id="statTotal">—</div>
+        </div>
+        <div class="stat-card">
+            <div class="label">Passed</div>
+            <div class="value green" id="statPassed">—</div>
+        </div>
+        <div class="stat-card">
+            <div class="label">Active Deadlines</div>
+            <div class="value yellow" id="statDeadlines">—</div>
+        </div>
+        <div class="stat-card">
+            <div class="label">Fleet Vessels</div>
+            <div class="value cyan" id="statVessels">—</div>
+        </div>
+    </div>
+
+    <!-- Waterway Cards -->
+    <div class="section-label">Select a Waterway to File</div>
+    <div class="waterway-grid">
+
+        <!-- Panama Canal -->
+        <a href="/filing?canal=panama" class="waterway-card panama">
+            <div class="card-header">
+                <div class="card-flag">🇵🇦</div>
+                <div class="card-title-group">
+                    <div class="card-name">Panama Canal</div>
+                    <span class="card-authority">ACP</span>
+                </div>
+            </div>
+            <div class="card-docs">
+                <span class="doc-chip">VUMPA Pre-Arrival</span>
+                <span class="doc-chip">PCSOPEP Plan</span>
+                <span class="doc-chip">Crew Manifest</span>
+                <span class="doc-chip">Cargo Declaration</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-deadline">📅 96h advance notice required</span>
+                <span class="card-cta">File Now →</span>
+            </div>
+        </a>
+
+        <!-- Suez Canal -->
+        <a href="/filing?canal=suez" class="waterway-card suez">
+            <div class="card-header">
+                <div class="card-flag">🇪🇬</div>
+                <div class="card-title-group">
+                    <div class="card-name">Suez Canal</div>
+                    <span class="card-authority">SCA</span>
+                </div>
+            </div>
+            <div class="card-docs">
+                <span class="doc-chip">SCA Transit Application</span>
+                <span class="doc-chip">ISPS Security Declaration</span>
+                <span class="doc-chip">Crew Manifest (SCA)</span>
+                <span class="doc-chip">Cargo Declaration</span>
+                <span class="doc-chip">SCNT Tonnage</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-deadline">📅 72h / 48h / 24h stages</span>
+                <span class="card-cta">File Now →</span>
+            </div>
+        </a>
+
+        <!-- Bosporus Strait -->
+        <a href="/filing?canal=bosporus" class="waterway-card bosporus">
+            <div class="card-header">
+                <div class="card-flag">🇹🇷</div>
+                <div class="card-title-group">
+                    <div class="card-name">Bosporus Strait</div>
+                    <span class="card-authority">KDGM</span>
+                </div>
+            </div>
+            <div class="card-docs">
+                <span class="doc-chip">SP-1 Pre-Arrival Notification</span>
+                <span class="doc-chip">Dangerous Cargo Notice</span>
+                <span class="doc-chip">Montreux Article 24 Declaration</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-deadline">📅 24h / 48h for hazmat</span>
+                <span class="card-cta">File Now →</span>
+            </div>
+        </a>
+
+        <!-- Strait of Malacca -->
+        <a href="/filing?canal=malacca" class="waterway-card malacca">
+            <div class="card-header">
+                <div class="card-flag">🇲🇾</div>
+                <div class="card-title-group">
+                    <div class="card-name">Strait of Malacca</div>
+                    <span class="card-authority">MPA</span>
+                </div>
+            </div>
+            <div class="card-docs">
+                <span class="doc-chip">STRAITREP Pre-Arrival</span>
+                <span class="doc-chip">TSS Declaration</span>
+                <span class="doc-chip">VTIS Notification</span>
+                <span class="doc-chip">MARPOL Declaration</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-deadline">📅 24h advance required</span>
+                <span class="card-cta">File Now →</span>
+            </div>
+        </a>
+
+        <!-- Cape of Good Hope -->
+        <a href="/filing?canal=cape" class="waterway-card cape">
+            <div class="card-header">
+                <div class="card-flag">🇿🇦</div>
+                <div class="card-title-group">
+                    <div class="card-name">Cape of Good Hope</div>
+                    <span class="card-authority">SAMSA</span>
+                </div>
+            </div>
+            <div class="card-docs">
+                <span class="doc-chip">ISPS Pre-Arrival Declaration</span>
+                <span class="doc-chip">Last 10 Port Calls</span>
+                <span class="doc-chip">Dangerous Goods Declaration</span>
+                <span class="doc-chip">SSO Details</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-deadline">📅 96h advance required</span>
+                <span class="card-cta">File Now →</span>
+            </div>
+        </a>
+
+    </div>
+
+    <!-- Authority Portals — all 5 waterways -->
+    <div class="portal-strip">
+        <span class="portal-strip-label">Authority Portals</span>
+        <a href="https://serviceportal.pancanal.com/sp/faces/oracle/webcenter/portalapp/pages/public/login.jspx" target="_blank" rel="noopener noreferrer" class="portal-strip-btn" onclick="gtag('event','portal_link_click',{waterway:'panama',destination:'acp_portal'})">
+            <span class="flag">🇵🇦</span>
+            <span>Panama Canal</span>
+            <span class="ext">↗</span>
+        </a>
+        <a href="https://www.suezcanal.gov.eg/English/Services/Pages/ETransitRequest.aspx" target="_blank" rel="noopener noreferrer" class="portal-strip-btn" onclick="gtag('event','portal_link_click',{waterway:'suez',destination:'sca_portal'})">
+            <span class="flag">🇪🇬</span>
+            <span>Suez Canal</span>
+            <span class="ext">↗</span>
+        </a>
+        <a href="https://www.kiyiemniyeti.gov.tr/vessel_traffic_information_systems" target="_blank" rel="noopener noreferrer" class="portal-strip-btn" onclick="gtag('event','portal_link_click',{waterway:'bosporus',destination:'kdgm_portal'})">
+            <span class="flag">🇹🇷</span>
+            <span>Bosporus</span>
+            <span class="ext">↗</span>
+        </a>
+        <a href="https://digitalport.mpa.gov.sg/" target="_blank" rel="noopener noreferrer" class="portal-strip-btn" onclick="gtag('event','portal_link_click',{waterway:'malacca',destination:'mpa_portal'})">
+            <span class="flag">🇸🇬</span>
+            <span>Malacca</span>
+            <span class="ext">↗</span>
+        </a>
+        <a href="https://portal.samsa.com/login" target="_blank" rel="noopener noreferrer" class="portal-strip-btn" onclick="gtag('event','portal_link_click',{waterway:'cape',destination:'samsa_portal'})">
+            <span class="flag">🇿🇦</span>
+            <span>Cape of Good Hope</span>
+            <span class="ext">↗</span>
+        </a>
+    </div>
+
+    <!-- Quick Access Strip -->
+    <div class="section-label">Quick Access</div>
+    <div class="quick-strip">
+        <a href="/app/fleet" class="quick-card">
+            <div class="quick-icon">🚢</div>
+            <div class="quick-text">
+                <h4>Fleet Manager</h4>
+                <p>Vessel registry &amp; compliance badges</p>
+            </div>
+        </a>
+        <a href="/app/portals" class="quick-card">
+            <div class="quick-icon">🔗</div>
+            <div class="quick-text">
+                <h4>Authority Portals</h4>
+                <p>Direct links to ACP, SCA, KDGM, MPA, SAMSA</p>
+            </div>
+        </a>
+        <a href="/validator" class="quick-card">
+            <div class="quick-icon">✅</div>
+            <div class="quick-text">
+                <h4>Compliance Validator</h4>
+                <p>Pre-check filings before submission</p>
+            </div>
+        </a>
+        <a href="/settings/alerts" class="quick-card">
+            <div class="quick-icon">⚙️</div>
+            <div class="quick-text">
+                <h4>Alert Settings</h4>
+                <p>Deadline alert windows &amp; preferences</p>
+            </div>
+        </a>
+    </div>
+
+</div><!-- /.app-container -->
+
+<!-- Grace Period Banner -->
+<div id="grace-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(255,217,61,0.95);color:#1a1a1a;padding:0.75rem 1.5rem;text-align:center;font-size:0.9rem;font-weight:600;font-family:'IBM Plex Sans', sans-serif;backdrop-filter:blur(10px);">
+  ⚠️ <span id="grace-banner-text">Your subscription has expired. You have a grace period — upgrade now to avoid losing access.</span>
+  <a href="/pricing" style="margin-left:1rem;background:#1a1a1a;color:#FFD93D;padding:0.3rem 1rem;border-radius:6px;text-decoration:none;font-size:0.85rem;font-weight:700;">Upgrade Now →</a>
+  <button onclick="document.getElementById('grace-banner').style.display='none'" style="margin-left:0.75rem;background:transparent;border:none;cursor:pointer;font-size:1.1rem;color:#1a1a1a;opacity:0.5;">✕</button>
+</div>
+
+<!-- Upgrade Modal -->
+<div id="upgrade-modal" style="display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:1.5rem;">
+  <div style="background:#142238;border:1px solid rgba(232, 90, 0,0.2);border-radius:20px;padding:2.5rem;max-width:480px;width:100%;position:relative;">
+    <button onclick="closeUpgradeModal()" style="position:absolute;top:1rem;right:1rem;background:transparent;border:none;color:#6b7c93;font-size:1.3rem;cursor:pointer;">✕</button>
+    <div style="font-size:2.5rem;margin-bottom:1rem;">🚀</div>
+    <h2 style="font-family:'IBM Plex Sans', sans-serif;font-size:1.5rem;font-weight:700;margin-bottom:0.5rem;color:#ffffff;">Upgrade Your Plan</h2>
+    <p id="upgrade-modal-msg" style="color:#6b7c93;font-size:0.95rem;line-height:1.6;margin-bottom:1.5rem;">Upgrade to unlock more waterways and fleet management.</p>
+    <a href="/pricing" style="display:block;text-align:center;color:#6b7c93;font-size:0.85rem;text-decoration:none;">View all pricing plans →</a>
+  </div>
+</div>
+
+<script>
+// ── Auth check ────────────────────────────────────────────────────────────
+async function checkAuth() {
+    try {
+        const res = await fetch('/api/auth/me', { credentials: 'include' });
+        if (!res.ok) {
+            if (res.status === 401) {
+                // Before redirecting, check if this is a demo session —
+                // demo users don't have a JWT so /api/auth/me returns 401.
+                try {
+                    const dr = await fetch('/api/demo/session', { credentials: 'include' });
+                    const dd = await dr.json();
+                    if (dd.is_demo) return; // valid demo session — stay on page
+                } catch (_) {}
+                window.location.href = '/login';
+            }
+            return;
+        }
+        const data = await res.json();
+        if (!data.success) { window.location.href = '/login'; return; }
+        if (data.user?.is_admin) {
+            const al = document.getElementById('admin-nav-link');
+            if (al) al.style.display = '';
+        }
+    } catch (_) {}
+}
+
+// ── Stats loader ───────────────────────────────────────────────────────────
+async function loadStats() {
+    try {
+        // Filings stats
+        const [filingsRes, fleetRes, deadlinesRes] = await Promise.allSettled([
+            fetch('/api/filings?limit=1', { credentials: 'include' }),
+            fetch('/api/fleet/summary', { credentials: 'include' }),
+            fetch('/api/deadlines?active=true&limit=1', { credentials: 'include' }),
+        ]);
+
+        if (filingsRes.status === 'fulfilled' && filingsRes.value.ok) {
+            const d = await filingsRes.value.json();
+            if (d.total != null) {
+                document.getElementById('statTotal').textContent = d.total;
+                document.getElementById('statPassed').textContent = d.passed ?? '—';
+            }
+        }
+
+        if (fleetRes.status === 'fulfilled' && fleetRes.value.ok) {
+            const d = await fleetRes.value.json();
+            if (d.vessel_count != null) {
+                document.getElementById('statVessels').textContent = d.vessel_count;
+            }
+        }
+
+        if (deadlinesRes.status === 'fulfilled' && deadlinesRes.value.ok) {
+            const d = await deadlinesRes.value.json();
+            if (d.active_count != null) {
+                document.getElementById('statDeadlines').textContent = d.active_count;
+            }
+        }
+    } catch (_) { /* non-fatal */ }
+}
+
+// ── Subscription status loader ──────────────────────────────────────────
+(async function loadSubscriptionStatus() {
+  try {
+    const res = await fetch('/api/subscription/status', { credentials: 'include' });
+    const data = await res.json();
+    if (!data.success) return;
+
+    // Vessel count chip
+    const chip = document.getElementById('vessel-count-chip');
+    const label = document.getElementById('vessel-count-label');
+    if (chip && label && data.vessel_limit != null) {
+      label.textContent = `${data.vessel_count}/${data.vessel_limit === 999 ? '∞' : data.vessel_limit} vessels`;
+      chip.style.display = 'inline-flex';
+
+      // Fill vessels stat
+      document.getElementById('statVessels').textContent = data.vessel_count ?? '—';
+
+      if (data.vessel_count >= data.vessel_limit && data.vessel_limit !== 999) {
+        chip.style.background = 'rgba(255,107,107,0.1)';
+        chip.style.borderColor = 'rgba(255,107,107,0.3)';
+        chip.style.color = '#FF6B6B';
+        label.textContent = `${data.vessel_count}/${data.vessel_limit} — Upgrade`;
+      } else if (data.vessel_limit !== 999 && data.vessel_count >= data.vessel_limit - 1) {
+        chip.style.background = 'rgba(255,217,61,0.1)';
+        chip.style.borderColor = 'rgba(255,217,61,0.3)';
+        chip.style.color = '#FFD93D';
+      }
+    }
+
+    if (data.in_grace_period) {
+      const banner = document.getElementById('grace-banner');
+      const bannerText = document.getElementById('grace-banner-text');
+      if (banner && bannerText) {
+        const days = data.grace_days_remaining;
+        bannerText.textContent = `Your subscription has lapsed. You have ${days} day${days !== 1 ? 's' : ''} remaining to upgrade before access is restricted.`;
+        banner.style.display = 'flex';
+        banner.style.alignItems = 'center';
+        banner.style.justifyContent = 'center';
+        banner.style.gap = '0.5rem';
+      }
+    }
+
+    window._subscriptionStatus = data;
+  } catch (_) { /* non-critical */ }
+})();
+
+// ── Upgrade modal ──────────────────────────────────────────────────────────
+function showUpgradeModal(msg) {
+  const modal = document.getElementById('upgrade-modal');
+  if (!modal) return;
+  if (msg) document.getElementById('upgrade-modal-msg').textContent = msg;
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeUpgradeModal() {
+  const modal = document.getElementById('upgrade-modal');
+  if (modal) modal.style.display = 'none';
+  document.body.style.overflow = '';
+}
+document.getElementById('upgrade-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeUpgradeModal();
+});
+window.showUpgradeModal = showUpgradeModal;
+
+// ── Logout ─────────────────────────────────────────────────────────────────
+async function logout() {
+    try {
+        await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
+    } catch(_) {}
+    window.location.href = '/login';
+}
+
+// ── Notification Bell ──────────────────────────────────────────────────────
+async function loadNotifications() {
+    try {
+        const r = await fetch('/api/notifications', { credentials: 'include' });
+        if (!r.ok) return;
+        const d = await r.json();
+        if (!d.success) return;
+
+        const badge = document.getElementById('notif-badge');
+        const list  = document.getElementById('notif-list');
+
+        if (d.unread_count > 0) {
+            badge.textContent = d.unread_count > 9 ? '9+' : d.unread_count;
+            badge.style.display = 'block';
+            // Show active deadlines in stats bar
+            document.getElementById('statDeadlines').textContent = d.unread_count;
+        } else {
+            badge.style.display = 'none';
+        }
+
+        if (!d.notifications || !d.notifications.length) {
+            list.innerHTML = '<div class="notif-empty">No alerts sent yet.<br>Add vessels &amp; certificates in <a href="/settings/alerts" style="color:#E85A00;">Alert Settings</a>.</div>';
+            return;
+        }
+
+        list.innerHTML = d.notifications.map(n => {
+            const ts = new Date(n.sent_at).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+            const subject = (n.subject || n.alert_category || 'Alert').replace(/^\[CanalClear\]\s*/i, '');
+            const cat = n.alert_category || 'certificate';
+            return `<div class="notif-item">
+                <span class="notif-dot ${cat}"></span>
+                <div>
+                    <div class="notif-subject">${subject.slice(0, 80)}${subject.length > 80 ? '…' : ''}</div>
+                    <div class="notif-time">${ts}</div>
+                </div>
+            </div>`;
+        }).join('');
+    } catch (_) {}
+}
+
+function toggleNotifPanel(e) {
+    e.stopPropagation();
+    const panel = document.getElementById('notif-panel');
+    const wasOpen = panel.classList.contains('open');
+    document.querySelectorAll('.notif-panel.open').forEach(p => p.classList.remove('open'));
+    if (!wasOpen) {
+        panel.classList.add('open');
+        loadNotifications();
+    }
+}
+document.addEventListener('click', function(e) {
+    const wrap = document.getElementById('notif-wrap');
+    if (wrap && !wrap.contains(e.target)) {
+        const panel = document.getElementById('notif-panel');
+        if (panel) panel.classList.remove('open');
+    }
+});
+
+// ── Demo session check ─────────────────────────────────────────────────────
+(async function checkDemoSession() {
+    try {
+        const res = await fetch('/api/demo/session', { credentials: 'include' });
+        const d = await res.json();
+        // API returns is_demo, not demo
+        if (d.is_demo) {
+            const banner = document.getElementById('demo-mode-banner');
+            if (banner) banner.style.display = 'flex';
+        }
+    } catch (_) {}
+})();
+
+// ── Init ───────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', async function() {
+    await checkAuth();
+    loadNotifications();
+    loadStats();
+});
+</script>
+
+<!-- Polsia Analytics -->
+<script>
+(function() {
+    var slug = 'canalclear';
+    if (!slug) return;
+    var vid = localStorage.getItem('polsia_vid');
+    if (!vid) {
+        vid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16 | 0;
+            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+        localStorage.setItem('polsia_vid', vid);
+    }
+    new Image().src = 'https://polsia.com/api/beacon/pixel?s=' + encodeURIComponent(slug) + '&v=' + encodeURIComponent(vid);
+})();
+</script>
+<script src="/js/analytics.js"></script>
+<script src="/js/mobile-nav.js"></script>
+<script src="/js/pwa-manager.js"></script>
+<script src="/js/whatsapp-button.js"></script>
+</body>
+</html>

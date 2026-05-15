@@ -1,0 +1,1647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hazmat Classification Validator — Panama Canal IMDG Checker | CanalClear</title>
+  <meta name="description" content="AI-powered hazardous cargo classification validator. Check UN numbers, IMDG classes, and Panama Canal restrictions before filing your VUMPA. Catch hazmat misclassifications before the ACP does.">
+  <meta name="keywords" content="IMDG hazmat validator, Panama Canal dangerous goods, UN number checker, VUMPA hazmat, hazardous cargo classification, DG maritime validator">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://canalclear.org/hazmat">
+  <link rel="alternate" hreflang="en" href="https://canalclear.org/hazmat">
+  <link rel="alternate" hreflang="es" href="https://canalclear.org/hazmat?lang=es">
+  <link rel="alternate" hreflang="zh" href="https://canalclear.org/hazmat?lang=zh">
+  <link rel="alternate" hreflang="el" href="https://canalclear.org/hazmat?lang=el">
+  <link rel="alternate" hreflang="ja" href="https://canalclear.org/hazmat?lang=ja">
+  <link rel="alternate" hreflang="x-default" href="https://canalclear.org/hazmat">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://canalclear.org/hazmat">
+  <meta property="og:title" content="Hazmat Classification Validator — Panama Canal IMDG Checker | CanalClear">
+  <meta property="og:description" content="Validate hazardous cargo UN numbers, IMDG classes, and Panama Canal restrictions. Catch misclassifications before VUMPA submission.">
+  <meta property="og:image" content="https://canalclear.org/og-image.png">
+  <meta property="og:site_name" content="CanalClear">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hazmat Classification Validator — Panama Canal IMDG Checker">
+  <meta name="twitter:description" content="AI-powered IMDG classification check for Panama Canal transit. Validate UN numbers, IMDG classes, and hazmat restrictions before VUMPA filing.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Meta Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '972550615207303');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=972550615207303&ev=PageView&noscript=1"/></noscript>
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #1a2d4a;
+      --deep: #142238;
+      --slate: #243350;
+      --teal: #E85A00;
+      --teal-dim: rgba(232, 90, 0, 0.12);
+      --teal-border: rgba(232, 90, 0, 0.25);
+      --cyan: #00B4D8;
+      --white: #ffffff;
+      --gray: #6b7c93;
+      --light-gray: #8fa3b8;
+      --red: #FF6B6B;
+      --red-dim: rgba(255, 107, 107, 0.12);
+      --red-border: rgba(255, 107, 107, 0.3);
+      --yellow: #FFD93D;
+      --yellow-dim: rgba(255, 217, 61, 0.12);
+      --yellow-border: rgba(255, 217, 61, 0.3);
+      --orange: #FF9F43;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; width: 100%;
+      z-index: 100;
+      padding: 1rem 2rem;
+      background: rgba(10, 22, 40, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(232, 90, 0, 0.08);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo { display: flex; align-items: center; text-decoration: none; }
+    .logo img { height: 32px; width: auto; object-fit: contain; }
+    .nav-links { display: flex; gap: 0.5rem; align-items: center; }
+    .nav-links a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.875rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); background: rgba(232, 90, 0, 0.08); }
+    .nav-links a.active { color: var(--teal); background: var(--teal-dim); }
+    .nav-links a.btn-nav {
+      background: var(--teal);
+      color: var(--navy);
+      font-weight: 600;
+      padding: 0.45rem 1.1rem;
+    }
+    .nav-links a.btn-nav:hover { background: #00b899; }
+    .nav-mobile-menu { display: none; }
+
+    /* ── LAYOUT ──────────────────────────────────────────────────────────── */
+    .page-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 5.5rem 1.5rem 3rem;
+    }
+
+    /* ── PAGE HEADER ─────────────────────────────────────────────────────── */
+    .page-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .page-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--teal-dim);
+      border: 1px solid var(--teal-border);
+      border-radius: 20px;
+      padding: 0.3rem 0.9rem;
+      font-size: 0.775rem;
+      color: var(--teal);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .page-header h1 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 0.75rem;
+    }
+    .page-header h1 span { color: var(--teal); }
+    .page-header p {
+      color: var(--gray);
+      font-size: 1.05rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ── USAGE BAR ───────────────────────────────────────────────────────── */
+    .usage-bar {
+      background: var(--deep);
+      border: 1px solid rgba(136, 153, 170, 0.1);
+      border-radius: 10px;
+      padding: 0.8rem 1.25rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .usage-bar.pro-tier { border-color: var(--teal-border); }
+    .usage-info { display: flex; align-items: center; gap: 0.6rem; font-size: 0.875rem; }
+    .usage-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--teal);
+      flex-shrink: 0;
+    }
+    .usage-dot.limit { background: var(--yellow); }
+    .usage-dot.empty { background: var(--red); }
+    .usage-label { color: var(--light-gray); }
+    .usage-count { color: var(--gray); font-size: 0.8rem; }
+    .upgrade-link {
+      font-size: 0.8rem;
+      color: var(--teal);
+      text-decoration: none;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .upgrade-link:hover { text-decoration: underline; }
+
+    /* ── PANEL ───────────────────────────────────────────────────────────── */
+    .panel {
+      background: var(--deep);
+      border: 1px solid rgba(136, 153, 170, 0.08);
+      border-radius: 16px;
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .panel-title {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .panel-title .icon { font-size: 1.1rem; }
+    .section-label {
+      font-size: 0.725rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--teal);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      margin-top: 1.5rem;
+    }
+    .section-label:first-child { margin-top: 0; }
+
+    /* ── FORM ────────────────────────────────────────────────────────────── */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label {
+      font-size: 0.825rem;
+      color: var(--light-gray);
+      font-weight: 500;
+    }
+    .form-group label .optional {
+      color: var(--gray);
+      font-weight: 400;
+      font-size: 0.75rem;
+      margin-left: 0.3rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--slate);
+      border: 1px solid rgba(136, 153, 170, 0.15);
+      border-radius: 8px;
+      padding: 0.65rem 0.9rem;
+      color: var(--white);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.9rem;
+      transition: border-color 0.2s;
+      outline: none;
+      width: 100%;
+    }
+    .form-group select option { background: var(--slate); }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: var(--gray); }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--teal); }
+    .form-group input.error,
+    .form-group select.error { border-color: var(--red); }
+    .field-hint { font-size: 0.75rem; color: var(--gray); margin-top: 0.2rem; }
+    textarea { resize: vertical; min-height: 80px; }
+
+    .qty-row { display: flex; gap: 0.5rem; }
+    .qty-row input { flex: 1; }
+    .qty-row select { width: 90px; flex-shrink: 0; }
+
+    /* ── FORM GRID (2-column for optional advanced fields) ──────── */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .form-grid .form-group { margin: 0; }
+    .form-grid .form-group.full { grid-column: 1 / -1; }
+    @media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } }
+
+    /* ── LITHIUM BATTERY PANEL ────────────────────────────────────── */
+    .lb-panel {
+      display: none;
+      background: linear-gradient(135deg, rgba(255, 159, 67, 0.06), rgba(255, 107, 107, 0.04));
+      border: 1px solid rgba(255, 159, 67, 0.25);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-top: 1.25rem;
+    }
+    .lb-panel.show { display: block; }
+    .lb-panel-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .lb-panel-header h3 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--orange);
+    }
+    .lb-badge {
+      font-size: 0.7rem;
+      background: rgba(255, 159, 67, 0.15);
+      color: var(--orange);
+      border: 1px solid rgba(255, 159, 67, 0.3);
+      border-radius: 20px;
+      padding: 0.15rem 0.55rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .lb-ion-fields { display: none; }
+    .lb-metal-fields { display: none; }
+    .lb-ion-fields.show, .lb-metal-fields.show { display: contents; }
+
+    /* ── MANIFEST SECTION ────────────────────────────────────────── */
+    .manifest-section {
+      display: none;
+      margin-top: 1.5rem;
+    }
+    .manifest-section.show { display: block; }
+    .btn-manifest {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, rgba(232, 90, 0, 0.15), rgba(0, 180, 216, 0.12));
+      border: 1px solid var(--teal-border);
+      color: var(--teal);
+      border-radius: 10px;
+      padding: 0.75rem 1.75rem;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+    .btn-manifest:hover { background: var(--teal-dim); box-shadow: 0 4px 16px rgba(232, 90, 0,0.2); }
+    .manifest-output {
+      display: none;
+      background: var(--slate);
+      border: 1px solid var(--teal-border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-top: 1rem;
+    }
+    .manifest-output.show { display: block; }
+    .manifest-output-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    .manifest-output-header h4 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--teal);
+    }
+    .manifest-text {
+      font-family: 'Courier New', monospace;
+      font-size: 0.75rem;
+      color: var(--light-gray);
+      white-space: pre-wrap;
+      line-height: 1.6;
+      max-height: 400px;
+      overflow-y: auto;
+      background: var(--navy);
+      border-radius: 8px;
+      padding: 1rem;
+    }
+    .manifest-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .btn-copy-manifest, .btn-download-manifest {
+      background: transparent;
+      border: 1px solid rgba(136, 153, 170, 0.2);
+      color: var(--light-gray);
+      border-radius: 8px;
+      padding: 0.45rem 1rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+      font-family: 'IBM Plex Sans', sans-serif;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .btn-copy-manifest:hover, .btn-download-manifest:hover { border-color: var(--teal); color: var(--teal); }
+    .manifest-vessel-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .manifest-vessel-fields .form-group { margin: 0; }
+    @media (max-width: 640px) {
+      .manifest-vessel-fields { grid-template-columns: 1fr; }
+    }
+
+    /* ── BUTTONS ─────────────────────────────────────────────────────────── */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: var(--teal);
+      color: var(--navy);
+      border: none;
+      border-radius: 10px;
+      padding: 0.8rem 2rem;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      width: 100%;
+      margin-top: 1.25rem;
+      letter-spacing: 0.01em;
+    }
+    .btn-primary:hover:not(:disabled) { background: #00b899; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(232, 90, 0, 0.3); }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .btn-primary.loading::after {
+      content: '';
+      width: 16px; height: 16px;
+      border: 2px solid rgba(10, 22, 40, 0.3);
+      border-top-color: var(--navy);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    .spinner {
+      display: none;
+      width: 16px; height: 16px;
+      border: 2px solid rgba(10, 22, 40, 0.3);
+      border-top-color: var(--navy);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid rgba(136, 153, 170, 0.2);
+      color: var(--light-gray);
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      font-family: 'IBM Plex Sans', sans-serif;
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--teal); color: var(--teal); }
+
+    /* ── RESULTS ─────────────────────────────────────────────────────────── */
+    #results { display: none; }
+    #results.show { display: block; }
+
+    .result-banner {
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .result-banner.passed {
+      background: var(--teal-dim);
+      border: 1px solid var(--teal-border);
+    }
+    .result-banner.failed {
+      background: var(--red-dim);
+      border: 1px solid var(--red-border);
+    }
+    .result-banner.warning {
+      background: var(--yellow-dim);
+      border: 1px solid var(--yellow-border);
+    }
+    .result-banner-icon { font-size: 2rem; flex-shrink: 0; }
+    .result-banner-text h2 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+    .result-banner.passed .result-banner-text h2 { color: var(--teal); }
+    .result-banner.failed .result-banner-text h2 { color: var(--red); }
+    .result-banner.warning .result-banner-text h2 { color: var(--yellow); }
+    .result-banner-text p { font-size: 0.875rem; color: var(--light-gray); }
+
+    .result-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .stat-pill {
+      background: var(--slate);
+      border-radius: 10px;
+      padding: 0.85rem;
+      text-align: center;
+    }
+    .stat-pill .n {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .stat-pill .n.green { color: var(--teal); }
+    .stat-pill .n.red { color: var(--red); }
+    .stat-pill .n.yellow { color: var(--yellow); }
+    .stat-pill .label { font-size: 0.75rem; color: var(--gray); margin-top: 0.25rem; }
+
+    /* Cargo info card */
+    .cargo-info-card {
+      background: var(--teal-dim);
+      border: 1px solid var(--teal-border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.875rem;
+    }
+    .cargo-info-card h4 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--teal);
+      margin-bottom: 0.6rem;
+    }
+    .cargo-info-row {
+      display: flex;
+      gap: 0.4rem;
+      margin-bottom: 0.3rem;
+      flex-wrap: wrap;
+    }
+    .cargo-info-row .k { color: var(--gray); min-width: 140px; }
+    .cargo-info-row .v { color: var(--white); font-weight: 500; }
+    .cargo-info-row .v.restricted { color: var(--red); }
+    .cargo-info-row .v.ok { color: var(--teal); }
+
+    /* Checklist */
+    .checklist-section { margin-bottom: 1.25rem; }
+    .checklist-section-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .checklist-section-title.red { color: var(--red); }
+    .checklist-section-title.yellow { color: var(--yellow); }
+    .checklist-section-title.green { color: var(--teal); }
+
+    .check-item {
+      background: var(--slate);
+      border-radius: 10px;
+      margin-bottom: 0.5rem;
+      overflow: hidden;
+    }
+    .check-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.8rem 1rem;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s;
+    }
+    .check-header:hover { background: rgba(136, 153, 170, 0.06); }
+    .check-icon { font-size: 1rem; flex-shrink: 0; width: 20px; text-align: center; }
+    .check-name {
+      flex: 1;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--light-gray);
+    }
+    .check-status-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.2rem 0.55rem;
+      border-radius: 20px;
+      flex-shrink: 0;
+    }
+    .badge-pass { background: var(--teal-dim); color: var(--teal); }
+    .badge-fail { background: var(--red-dim); color: var(--red); }
+    .badge-warning { background: var(--yellow-dim); color: var(--yellow); }
+    .check-expand-btn {
+      font-size: 0.75rem;
+      color: var(--gray);
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+    .check-expand-btn.open { transform: rotate(180deg); }
+    .check-detail {
+      display: none;
+      padding: 0 1rem 0.9rem;
+      padding-left: 2.7rem;
+      font-size: 0.825rem;
+    }
+    .check-detail.open { display: block; }
+    .check-message { color: var(--light-gray); margin-bottom: 0.4rem; line-height: 1.5; }
+    .check-requirement { color: var(--gray); font-size: 0.775rem; margin-bottom: 0.3rem; }
+    .check-suggestion {
+      color: var(--teal);
+      font-size: 0.8rem;
+      background: var(--teal-dim);
+      border-left: 2px solid var(--teal);
+      border-radius: 0 6px 6px 0;
+      padding: 0.4rem 0.7rem;
+      margin-top: 0.5rem;
+      line-height: 1.5;
+    }
+    .check-docs {
+      margin-top: 0.5rem;
+      font-size: 0.775rem;
+    }
+    .check-docs-title { color: var(--gray); margin-bottom: 0.3rem; }
+    .doc-tag {
+      display: inline-block;
+      background: rgba(0, 180, 216, 0.1);
+      border: 1px solid rgba(0, 180, 216, 0.2);
+      color: var(--cyan);
+      border-radius: 5px;
+      padding: 0.15rem 0.5rem;
+      margin: 0.1rem 0.2rem 0.1rem 0;
+      font-size: 0.7rem;
+    }
+
+    /* ── LIMIT WALL ──────────────────────────────────────────────────────── */
+    .limit-wall {
+      display: none;
+      background: var(--deep);
+      border: 1px solid rgba(255, 217, 61, 0.2);
+      border-radius: 14px;
+      padding: 2rem;
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .limit-wall.show { display: block; }
+    .limit-wall-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .limit-wall h3 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      color: var(--yellow);
+    }
+    .limit-wall p { color: var(--gray); font-size: 0.875rem; margin-bottom: 1.25rem; max-width: 420px; margin-left: auto; margin-right: auto; }
+    .limit-wall a {
+      display: inline-block;
+      background: var(--teal);
+      color: var(--navy);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 0.7rem 1.75rem;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .limit-wall a:hover { background: #00b899; }
+
+    /* ── INFO BOX ────────────────────────────────────────────────────────── */
+    .info-box {
+      background: rgba(0, 180, 216, 0.06);
+      border: 1px solid rgba(0, 180, 216, 0.15);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      font-size: 0.825rem;
+      color: var(--light-gray);
+      line-height: 1.6;
+      margin-top: 1rem;
+    }
+    .info-box strong { color: var(--cyan); }
+
+    /* ── LANGUAGE SWITCHER ───────────────────────────────────────────────── */
+    .lang-bar {
+      display: flex;
+      justify-content: center;
+      gap: 0.4rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .lang-btn {
+      background: transparent;
+      border: 1px solid rgba(136, 153, 170, 0.15);
+      color: var(--gray);
+      border-radius: 6px;
+      padding: 0.3rem 0.7rem;
+      font-size: 0.775rem;
+      cursor: pointer;
+      font-family: 'IBM Plex Sans', sans-serif;
+      transition: all 0.2s;
+    }
+    .lang-btn:hover, .lang-btn.active {
+      border-color: var(--teal-border);
+      color: var(--teal);
+      background: var(--teal-dim);
+    }
+
+    /* ── LEAD MAGNET FOOTER ──────────────────────────────────────────────── */
+    .lead-block {
+      background: linear-gradient(135deg, rgba(232, 90, 0, 0.06), rgba(0, 180, 216, 0.04));
+      border: 1px solid rgba(232, 90, 0, 0.1);
+      border-radius: 14px;
+      padding: 2rem;
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+    .lead-block h3 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+    .lead-block p { color: var(--gray); font-size: 0.875rem; margin-bottom: 1.25rem; }
+    .lead-block a {
+      background: var(--teal);
+      color: var(--navy);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 0.7rem 1.75rem;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    .lead-block a:hover { background: #00b899; }
+
+    /* ── ANIMATIONS ──────────────────────────────────────────────────────── */
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.35s ease both; }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .nav-mobile-menu { display: block; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-group.full { grid-column: 1; }
+      .result-stats { grid-template-columns: repeat(3, 1fr); }
+      .page-wrap { padding: 5rem 1rem 2.5rem; }
+    }
+    @media (max-width: 400px) {
+      .result-stats { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">
+      <img src="https://pub-629428d185ca4960a0a73c850d32294b.r2.dev/company_47541/images/9d5d2ef6-d9e0-40eb-ad15-df5e737cefc1.png" alt="CanalClear" onerror="this.style.display='none'; this.nextSibling.style.display='block'">
+      <span style="display:none; font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; color: var(--teal); font-size: 1.1rem;">CanalClear</span>
+    </a>
+    <div class="nav-links">
+      <a href="/compliance-score" data-i18n="nav_score">Compliance Score</a>
+      <a href="/hazmat" class="active" data-i18n="nav_hazmat">Hazmat Check</a>
+      <a href="/pricing" data-i18n="nav_pricing">Pricing</a>
+      <a href="/app" data-i18n="nav_validator">VUMPA Validator</a>
+      <a href="/login" class="btn-nav" data-i18n="nav_login">Log In</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- LANGUAGE SWITCHER -->
+  <div class="lang-bar">
+    <button class="lang-btn active" onclick="setLang('en')">🇺🇸 English</button>
+    <button class="lang-btn" onclick="setLang('es')">🇪🇸 Español</button>
+    <button class="lang-btn" onclick="setLang('zh')">🇨🇳 中文</button>
+    <button class="lang-btn" onclick="setLang('el')">🇬🇷 Ελληνικά</button>
+    <button class="lang-btn" onclick="setLang('ja')">🇯🇵 日本語</button>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-badge">⚠️ <span data-i18n="badge">IMDG Validator — Demo</span></div>
+    <h1 data-i18n-html="title">Hazmat <span>Classification Validator</span></h1>
+    <p data-i18n="subtitle">Check UN numbers, IMDG classes, and Panama Canal restrictions before your VUMPA filing. Catch misclassifications before the ACP does.</p>
+  </div>
+
+  <!-- DEMO NOTE -->
+  <div class="usage-bar" id="usageBar" style="justify-content:center;">
+    <div class="usage-info">
+      <div class="usage-dot" style="background:var(--teal);box-shadow:0 0 6px var(--teal);"></div>
+      <span class="usage-label">Demo — unlimited checks · <a href="/pricing" style="color:var(--teal);text-decoration:none;font-weight:600;">See paid plans →</a></span>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <div class="panel" id="formPanel">
+    <div class="panel-title"><span class="icon">📦</span> <span data-i18n="form_title">Cargo Details</span></div>
+
+    <div class="section-label" data-i18n="section_cargo">Cargo Information</div>
+    <div class="form-grid">
+      <div class="form-group full">
+        <label data-i18n="label_cargo_desc">Cargo Description</label>
+        <textarea id="cargo_description" rows="2" placeholder="e.g. Methanol, Petroleum crude oil, Lithium ion batteries…" data-i18n-placeholder="ph_cargo_desc"></textarea>
+        <span class="field-hint" data-i18n="hint_cargo_desc">Describe what the cargo is. Used to cross-check against the IMDG Proper Shipping Name.</span>
+      </div>
+      <div class="form-group">
+        <label>UN Number <span class="optional" data-i18n="optional">(optional)</span></label>
+        <input type="text" id="un_number" placeholder="e.g. UN1230" maxlength="10" data-i18n-placeholder="ph_un">
+        <span class="field-hint" data-i18n="hint_un">4-digit UN number from the SDS. Format: UN1230</span>
+      </div>
+      <div class="form-group">
+        <label data-i18n="label_imdg">IMDG Class <span class="optional" data-i18n="optional">(optional)</span></label>
+        <select id="imdg_class">
+          <option value="" data-i18n="ph_imdg_class">— Select class —</option>
+          <optgroup label="Class 1 — Explosives">
+            <option value="1.1">1.1 — Mass explosion hazard</option>
+            <option value="1.2">1.2 — Projection hazard</option>
+            <option value="1.3">1.3 — Fire hazard</option>
+            <option value="1.4">1.4 — No significant hazard</option>
+            <option value="1.5">1.5 — Very insensitive</option>
+            <option value="1.6">1.6 — Extremely insensitive</option>
+          </optgroup>
+          <optgroup label="Class 2 — Gases">
+            <option value="2.1">2.1 — Flammable gas</option>
+            <option value="2.2">2.2 — Non-flammable, non-toxic gas</option>
+            <option value="2.3">2.3 — Toxic gas</option>
+          </optgroup>
+          <option value="3">3 — Flammable liquids</option>
+          <optgroup label="Class 4 — Flammable solids">
+            <option value="4.1">4.1 — Flammable solids</option>
+            <option value="4.2">4.2 — Spontaneously combustible</option>
+            <option value="4.3">4.3 — Dangerous when wet</option>
+          </optgroup>
+          <optgroup label="Class 5 — Oxidizers">
+            <option value="5.1">5.1 — Oxidizing substances</option>
+            <option value="5.2">5.2 — Organic peroxides</option>
+          </optgroup>
+          <optgroup label="Class 6 — Toxic">
+            <option value="6.1">6.1 — Toxic substances</option>
+            <option value="6.2">6.2 — Infectious substances</option>
+          </optgroup>
+          <option value="7">7 — Radioactive material</option>
+          <option value="8">8 — Corrosive substances</option>
+          <option value="9">9 — Miscellaneous</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="section-label" data-i18n="section_packaging">Packaging &amp; Quantity</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label data-i18n="label_pg">Packaging Group <span class="optional" data-i18n="optional">(optional)</span></label>
+        <select id="packaging_group">
+          <option value="" data-i18n="ph_pg">— Select PG —</option>
+          <option value="I">I — Great danger (high risk)</option>
+          <option value="II">II — Medium danger</option>
+          <option value="III">III — Minor danger</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label data-i18n="label_pkg_type">Packaging Type <span class="optional" data-i18n="optional">(optional)</span></label>
+        <input type="text" id="packaging_type" placeholder="e.g. drums, IBC, cylinders, bulk…" data-i18n-placeholder="ph_pkg_type">
+      </div>
+      <div class="form-group">
+        <label data-i18n="label_qty">Quantity <span class="optional" data-i18n="optional">(optional)</span></label>
+        <div class="qty-row">
+          <input type="number" id="quantity" placeholder="e.g. 2500" min="0" data-i18n-placeholder="ph_qty">
+          <select id="quantity_unit">
+            <option value="kg">kg</option>
+            <option value="L">L</option>
+            <option value="tonnes">t</option>
+            <option value="units">units</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+      <div class="form-group">
+        <label>Flash Point <span class="optional">(optional, °C)</span></label>
+        <input type="number" id="flash_point" placeholder="e.g. -18 (for Acetone)" step="0.1">
+        <span class="field-hint">From SDS Section 9. Required for Class 3 PG validation.</span>
+      </div>
+
+    <!-- LITHIUM BATTERY SPECIALIST PANEL (auto-shows for UN3480/3481/3090/3091) -->
+    <div class="lb-panel" id="lbPanel">
+      <div class="lb-panel-header">
+        <span style="font-size:1.2rem">🔋</span>
+        <h3>Lithium Battery Specialist</h3>
+        <span class="lb-badge" id="lbBadge">Li-Ion</span>
+      </div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>IMDG Section <span class="optional">(II or IB)</span></label>
+          <select id="lithium_section">
+            <option value="">— Select section —</option>
+            <option value="II">Section II (small qty, in/with equipment)</option>
+            <option value="IB">Section IB (standalone or large qty)</option>
+          </select>
+          <span class="field-hint">Section II = packed with/in equipment, small Wh. IB = standalone or larger batteries.</span>
+        </div>
+        <div class="form-group">
+          <label>Battery Form</label>
+          <select id="lithium_cargo_type">
+            <option value="">— Select form —</option>
+            <option value="alone">Standalone batteries (no equipment)</option>
+            <option value="with_equipment">Packed with equipment</option>
+            <option value="in_equipment">Installed in equipment</option>
+          </select>
+        </div>
+        <!-- Li-ion fields (UN3480/3481) -->
+        <div class="form-group lb-ion-fields" id="lbIonWhCell">
+          <label>Energy per Cell <span class="optional">(Wh, optional)</span></label>
+          <input type="number" id="lithium_wh_cell" placeholder="e.g. 15" min="0" step="0.1">
+          <span class="field-hint">Section II limit: ≤20 Wh/cell</span>
+        </div>
+        <div class="form-group lb-ion-fields" id="lbIonWhBattery">
+          <label>Energy per Battery <span class="optional">(Wh, optional)</span></label>
+          <input type="number" id="lithium_wh_battery" placeholder="e.g. 80" min="0" step="0.1">
+          <span class="field-hint">Section II limit: ≤100 Wh/battery</span>
+        </div>
+        <!-- Li-metal fields (UN3090/3091) -->
+        <div class="form-group lb-metal-fields" id="lbMetalLiCell">
+          <label>Li Content per Cell <span class="optional">(g, optional)</span></label>
+          <input type="number" id="lithium_li_cell" placeholder="e.g. 0.5" min="0" step="0.01">
+          <span class="field-hint">Section II limit: ≤1 g/cell</span>
+        </div>
+        <div class="form-group lb-metal-fields" id="lbMetalLiBattery">
+          <label>Li Content per Battery <span class="optional">(g, optional)</span></label>
+          <input type="number" id="lithium_li_battery" placeholder="e.g. 1.5" min="0" step="0.01">
+          <span class="field-hint">Section II limit: ≤2 g/battery</span>
+        </div>
+        <div class="form-group full">
+          <label>UN 38.3 Test Summary Available?</label>
+          <select id="lithium_test_summary">
+            <option value="">— Not specified —</option>
+            <option value="yes">Yes — available on request</option>
+            <option value="no">No — not available</option>
+          </select>
+          <span class="field-hint">Required for Section IB. Not required for Section II (but batteries must have passed testing).</span>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-primary" id="validateBtn" onclick="runValidation()">
+      <span id="btnText" data-i18n="btn_validate">Run Hazmat Check</span>
+      <div class="spinner" id="btnSpinner"></div>
+    </button>
+
+    <div class="info-box">
+      <strong data-i18n="info_title">How it works:</strong>
+      <span data-i18n="info_body"> Enter your cargo details and UN number. The validator cross-checks against the IMDG Code Dangerous Goods List, flags Panama Canal restrictions, and lists required documentation.</span>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results">
+    <!-- Banner -->
+    <div id="resultBanner" class="result-banner fade-up"></div>
+
+    <!-- Stats -->
+    <div class="result-stats fade-up" style="animation-delay:0.05s">
+      <div class="stat-pill">
+        <div class="n green" id="statPassed">—</div>
+        <div class="label" data-i18n="stat_passed">Passed</div>
+      </div>
+      <div class="stat-pill">
+        <div class="n red" id="statFailed">—</div>
+        <div class="label" data-i18n="stat_failed">Failed</div>
+      </div>
+      <div class="stat-pill">
+        <div class="n yellow" id="statWarnings">—</div>
+        <div class="label" data-i18n="stat_warnings">Warnings</div>
+      </div>
+    </div>
+
+    <!-- Cargo info from DB -->
+    <div id="cargoInfoCard" class="cargo-info-card fade-up" style="display:none; animation-delay:0.1s">
+      <h4 data-i18n="cargo_info_title">IMDG Reference — Identified Cargo</h4>
+      <div id="cargoInfoRows"></div>
+    </div>
+
+    <!-- Checklist sections -->
+    <div class="panel fade-up" style="animation-delay:0.15s">
+      <div id="criticalSection" class="checklist-section" style="display:none">
+        <div class="checklist-section-title red">❌ <span data-i18n="section_critical">Critical Issues</span> <span id="criticalCount"></span></div>
+        <div id="criticalList"></div>
+      </div>
+      <div id="warningSection" class="checklist-section" style="display:none">
+        <div class="checklist-section-title yellow">⚠️ <span data-i18n="section_warnings">Warnings</span> <span id="warningCount"></span></div>
+        <div id="warningList"></div>
+      </div>
+      <div id="passedSection" class="checklist-section" style="display:none">
+        <div class="checklist-section-title green">✅ <span data-i18n="section_passed">Passed Checks</span> <span id="passedCount"></span></div>
+        <div id="passedList"></div>
+      </div>
+    </div>
+
+    <!-- DG MANIFEST GENERATOR -->
+    <div class="manifest-section fade-up" id="manifestSection" style="animation-delay:0.2s">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-icon">📄</div>
+          <div>
+            <div class="panel-title">Generate DG Manifest</div>
+            <div class="panel-subtitle">Pre-filled Dangerous Goods Declaration — ready for ACP/VUMPA submission</div>
+          </div>
+        </div>
+
+        <!-- Optional vessel/shipper info -->
+        <div id="manifestVesselForm">
+          <div style="font-size:0.78rem; color:var(--muted); margin-bottom:0.75rem;">Add vessel details to pre-fill the manifest (optional):</div>
+          <div class="manifest-vessel-fields">
+            <div class="form-group">
+              <label>Vessel Name</label>
+              <input type="text" id="mf_vessel_name" placeholder="e.g. MV Ocean Star">
+            </div>
+            <div class="form-group">
+              <label>IMO Number</label>
+              <input type="text" id="mf_imo_number" placeholder="e.g. IMO9123456">
+            </div>
+            <div class="form-group">
+              <label>Voyage Number</label>
+              <input type="text" id="mf_voyage_number" placeholder="e.g. VOY2024-003">
+            </div>
+            <div class="form-group">
+              <label>Port of Loading</label>
+              <input type="text" id="mf_port_loading" placeholder="e.g. Colón, Panama">
+            </div>
+            <div class="form-group">
+              <label>Port of Discharge</label>
+              <input type="text" id="mf_port_discharge" placeholder="e.g. Balboa, Panama">
+            </div>
+            <div class="form-group">
+              <label>Emergency Contact (24h)</label>
+              <input type="text" id="mf_emergency" placeholder="e.g. CHEMTREC +1-703-527-3887">
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-manifest" id="generateManifestBtn" onclick="generateManifest()">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          Generate DG Manifest
+        </button>
+
+        <div class="manifest-output" id="manifestOutput">
+          <div class="manifest-output-header">
+            <h4>📋 IMDG Dangerous Goods Manifest</h4>
+          </div>
+          <div class="manifest-text" id="manifestText"></div>
+          <div class="manifest-actions">
+            <button class="btn-copy-manifest" onclick="copyManifest()">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy Manifest
+            </button>
+            <button class="btn-download-manifest" onclick="downloadManifest()">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download .txt
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reset -->
+    <div style="text-align:center; margin-top: 0.5rem; margin-bottom: 1.5rem">
+      <button class="btn-secondary" onclick="resetForm()" data-i18n="btn_new">Run Another Check</button>
+    </div>
+
+    <!-- Lead block -->
+    <div class="lead-block fade-up">
+      <h3 data-i18n="lead_title">Need full VUMPA + PCSOPEP filing automation?</h3>
+      <p data-i18n="lead_body">CanalClear validates and auto-generates all documents for your Panama Canal transit. Pro includes unlimited hazmat checks.</p>
+      <a href="/pricing" data-i18n="lead_cta">View Plans →</a>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+// I18N
+// ─────────────────────────────────────────────────────────────────────────────
+const TRANSLATIONS = {
+  en: {
+    nav_score: 'Compliance Score', nav_hazmat: 'Hazmat Check', nav_pricing: 'Pricing',
+    nav_validator: 'VUMPA Validator', nav_login: 'Log In',
+    badge: 'IMDG Validator — Demo',
+    title: 'Hazmat <span>Classification Validator</span>',
+    subtitle: 'Check UN numbers, IMDG classes, and Panama Canal restrictions before your VUMPA filing. Catch misclassifications before the ACP does.',
+    usage_loading: '', upgrade_link: '',
+    form_title: 'Cargo Details', section_cargo: 'Cargo Information',
+    label_cargo_desc: 'Cargo Description', ph_cargo_desc: 'e.g. Methanol, Petroleum crude oil, Lithium ion batteries…',
+    hint_cargo_desc: 'Describe what the cargo is. Used to cross-check against the IMDG Proper Shipping Name.',
+    optional: '(optional)', ph_un: 'e.g. UN1230',
+    hint_un: '4-digit UN number from the SDS. Format: UN1230',
+    label_imdg: 'IMDG Class', ph_imdg_class: '— Select class —',
+    section_packaging: 'Packaging & Quantity',
+    label_pg: 'Packaging Group', ph_pg: '— Select PG —',
+    label_pkg_type: 'Packaging Type', ph_pkg_type: 'e.g. drums, IBC, cylinders, bulk…',
+    label_qty: 'Quantity', ph_qty: 'e.g. 2500',
+    btn_validate: 'Run Hazmat Check',
+    info_title: 'How it works:', info_body: ' Enter your cargo details and UN number. The validator cross-checks against the IMDG Code Dangerous Goods List, flags Panama Canal restrictions, and lists required documentation.',
+    limit_title: '', limit_body: '', limit_cta: '',
+    stat_passed: 'Passed', stat_failed: 'Failed', stat_warnings: 'Warnings',
+    cargo_info_title: 'IMDG Reference — Identified Cargo',
+    section_critical: 'Critical Issues', section_warnings: 'Warnings', section_passed: 'Passed Checks',
+    btn_new: 'Run Another Check',
+    lead_title: 'Need full VUMPA + PCSOPEP filing automation?',
+    lead_body: 'CanalClear validates and auto-generates all documents for your Panama Canal transit. Pro includes unlimited hazmat checks.',
+    lead_cta: 'View Plans →',
+    banner_passed: '✅ Classification looks correct', banner_failed: '❌ Classification errors found', banner_warning: '⚠️ Review warnings before filing',
+    banner_sub_passed: 'No critical issues found. Review warnings and verify documentation before submitting.',
+    banner_sub_failed: 'Critical errors must be resolved before VUMPA submission.',
+    banner_sub_warning: 'No critical errors, but warnings should be addressed.',
+  },
+  es: {
+    nav_score: 'Puntuación', nav_hazmat: 'Hazmat', nav_pricing: 'Precios',
+    nav_validator: 'Validador VUMPA', nav_login: 'Iniciar sesión',
+    badge: 'Validador IMDG — Demo',
+    title: 'Validador de <span>Clasificación de Materiales Peligrosos</span>',
+    subtitle: 'Verifica números UN, clases IMDG y restricciones del Canal de Panamá antes de tu declaración VUMPA.',
+    usage_loading: '', upgrade_link: '',
+    form_title: 'Detalles de la Carga', section_cargo: 'Información de Carga',
+    label_cargo_desc: 'Descripción de la Carga', ph_cargo_desc: 'Ej. Metanol, Crudo, Baterías de ion litio…',
+    hint_cargo_desc: 'Describe la carga para comparar con el Nombre de Embarque Apropiado del IMDG.',
+    optional: '(opcional)', ph_un: 'Ej. UN1230',
+    hint_un: 'Número UN de 4 dígitos de la HDS. Formato: UN1230',
+    label_imdg: 'Clase IMDG', ph_imdg_class: '— Seleccionar clase —',
+    section_packaging: 'Embalaje y Cantidad',
+    label_pg: 'Grupo de Embalaje', ph_pg: '— Seleccionar GE —',
+    label_pkg_type: 'Tipo de Embalaje', ph_pkg_type: 'Ej. tambores, GRG, cilindros, granel…',
+    label_qty: 'Cantidad', ph_qty: 'Ej. 2500',
+    btn_validate: 'Verificar Materiales Peligrosos',
+    info_title: 'Cómo funciona:', info_body: ' Ingresa los detalles de la carga y el número UN. El validador lo compara con la Lista de Mercancías Peligrosas del Código IMDG.',
+    limit_title: '', limit_body: '', limit_cta: '',
+    stat_passed: 'Aprobado', stat_failed: 'Fallido', stat_warnings: 'Advertencias',
+    cargo_info_title: 'Referencia IMDG — Carga Identificada',
+    section_critical: 'Errores Críticos', section_warnings: 'Advertencias', section_passed: 'Verificaciones Aprobadas',
+    btn_new: 'Nueva Verificación',
+    lead_title: '¿Necesitas automatización completa de trámites VUMPA + PCSOPEP?',
+    lead_body: 'CanalClear valida y genera automáticamente todos los documentos para tu tránsito.',
+    lead_cta: 'Ver Planes →',
+    banner_passed: '✅ La clasificación parece correcta', banner_failed: '❌ Errores de clasificación encontrados', banner_warning: '⚠️ Revisa las advertencias antes de declarar',
+    banner_sub_passed: 'No se encontraron errores críticos. Revisa las advertencias antes de enviar.',
+    banner_sub_failed: 'Los errores críticos deben resolverse antes de la declaración VUMPA.',
+    banner_sub_warning: 'Sin errores críticos, pero las advertencias deben atenderse.',
+  },
+  zh: {
+    nav_score: '合规评分', nav_hazmat: '危险品检查', nav_pricing: '价格',
+    nav_validator: 'VUMPA验证器', nav_login: '登录',
+    badge: 'IMDG验证器 — 演示',
+    title: '危险品 <span>分类验证器</span>',
+    subtitle: '在提交VUMPA申报前，检查UN编号、IMDG类别和巴拿马运河限制，避免分类错误。',
+    usage_loading: '', upgrade_link: '',
+    form_title: '货物详情', section_cargo: '货物信息',
+    label_cargo_desc: '货物描述', ph_cargo_desc: '例如：甲醇、原油、锂离子电池…',
+    hint_cargo_desc: '描述货物以与IMDG规范运输名称交叉核对。',
+    optional: '（可选）', ph_un: '例如 UN1230',
+    hint_un: 'SDS中的4位UN编号。格式：UN1230',
+    label_imdg: 'IMDG类别', ph_imdg_class: '— 选择类别 —',
+    section_packaging: '包装和数量',
+    label_pg: '包装组', ph_pg: '— 选择包装组 —',
+    label_pkg_type: '包装类型', ph_pkg_type: '例如：桶、IBC、气瓶、散装…',
+    label_qty: '数量', ph_qty: '例如 2500',
+    btn_validate: '运行危险品检查',
+    info_title: '使用方法：', info_body: ' 输入货物详情和UN编号。验证器将与IMDG危险货物列表交叉核对，标记巴拿马运河限制并列出所需文件。',
+    limit_title: '', limit_body: '', limit_cta: '',
+    stat_passed: '通过', stat_failed: '失败', stat_warnings: '警告',
+    cargo_info_title: 'IMDG参考 — 已识别货物',
+    section_critical: '严重问题', section_warnings: '警告', section_passed: '通过的检查',
+    btn_new: '重新检查',
+    lead_title: '需要完整的VUMPA + PCSOPEP申报自动化？',
+    lead_body: 'CanalClear自动验证并生成巴拿马运河过境所需的所有文件。',
+    lead_cta: '查看方案 →',
+    banner_passed: '✅ 分类看起来正确', banner_failed: '❌ 发现分类错误', banner_warning: '⚠️ 提交前请审查警告',
+    banner_sub_passed: '未发现严重问题。提交前请审查警告并确认文件。',
+    banner_sub_failed: '严重错误必须在VUMPA提交前解决。',
+    banner_sub_warning: '没有严重错误，但应处理警告。',
+  },
+  el: {
+    nav_score: 'Βαθμολογία', nav_hazmat: 'Επικίνδυνα', nav_pricing: 'Τιμές',
+    nav_validator: 'Επικύρωση VUMPA', nav_login: 'Σύνδεση',
+    badge: 'Επικυρωτής IMDG — Demo',
+    title: 'Επικυρωτής <span>Ταξινόμησης Επικίνδυνων Φορτίων</span>',
+    subtitle: 'Ελέγξτε αριθμούς UN, κλάσεις IMDG και περιορισμούς Διώρυγας Παναμά πριν την υποβολή VUMPA.',
+    usage_loading: '', upgrade_link: '',
+    form_title: 'Στοιχεία Φορτίου', section_cargo: 'Πληροφορίες Φορτίου',
+    label_cargo_desc: 'Περιγραφή Φορτίου', ph_cargo_desc: 'π.χ. Μεθανόλη, Αργό πετρέλαιο, Μπαταρίες λιθίου…',
+    hint_cargo_desc: 'Περιγράψτε το φορτίο για σταυροεπαλήθευση με το Κωδικό IMDG.',
+    optional: '(προαιρετικό)', ph_un: 'π.χ. UN1230',
+    hint_un: 'Αριθμός UN 4 ψηφίων από το SDS. Μορφή: UN1230',
+    label_imdg: 'Κλάση IMDG', ph_imdg_class: '— Επιλογή κλάσης —',
+    section_packaging: 'Συσκευασία και Ποσότητα',
+    label_pg: 'Ομάδα Συσκευασίας', ph_pg: '— Επιλογή ΟΣ —',
+    label_pkg_type: 'Τύπος Συσκευασίας', ph_pkg_type: 'π.χ. βαρέλια, IBC, φιάλες, χύμα…',
+    label_qty: 'Ποσότητα', ph_qty: 'π.χ. 2500',
+    btn_validate: 'Έλεγχος Επικίνδυνων Φορτίων',
+    info_title: 'Πώς λειτουργεί:', info_body: ' Εισάγετε στοιχεία φορτίου και αριθμό UN. Γίνεται σταυροεπαλήθευση με τον Κατάλογο Επικίνδυνων Αγαθών IMDG.',
+    limit_title: '', limit_body: '', limit_cta: '',
+    stat_passed: 'Επιτυχία', stat_failed: 'Αποτυχία', stat_warnings: 'Προειδοποιήσεις',
+    cargo_info_title: 'Αναφορά IMDG — Αναγνωρισμένο Φορτίο',
+    section_critical: 'Κρίσιμα Ζητήματα', section_warnings: 'Προειδοποιήσεις', section_passed: 'Επιτυχημένοι Έλεγχοι',
+    btn_new: 'Νέος Έλεγχος',
+    lead_title: 'Χρειάζεστε αυτοματοποίηση VUMPA + PCSOPEP;',
+    lead_body: 'Το CanalClear επικυρώνει και δημιουργεί αυτόματα όλα τα έγγραφα για τη διέλευσή σας.',
+    lead_cta: 'Δείτε τα Πλάνα →',
+    banner_passed: '✅ Η ταξινόμηση φαίνεται σωστή', banner_failed: '❌ Βρέθηκαν σφάλματα ταξινόμησης', banner_warning: '⚠️ Ελέγξτε προειδοποιήσεις πριν υποβάλετε',
+    banner_sub_passed: 'Δεν βρέθηκαν κρίσιμα ζητήματα. Ελέγξτε τις προειδοποιήσεις πριν υποβάλετε.',
+    banner_sub_failed: 'Τα κρίσιμα σφάλματα πρέπει να επιλυθούν πριν την υποβολή VUMPA.',
+    banner_sub_warning: 'Χωρίς κρίσιμα σφάλματα, αλλά οι προειδοποιήσεις πρέπει να αντιμετωπιστούν.',
+  },
+  ja: {
+    nav_score: 'コンプライアンス評価', nav_hazmat: '危険物検査', nav_pricing: '料金',
+    nav_validator: 'VUMPAバリデーター', nav_login: 'ログイン',
+    badge: 'IMDGバリデーター — デモ',
+    title: '危険物 <span>分類バリデーター</span>',
+    subtitle: 'VUMPA申告前にUN番号、IMDGクラス、パナマ運河制限を確認。誤分類を未然に防ぎましょう。',
+    usage_loading: '', upgrade_link: '',
+    form_title: '貨物詳細', section_cargo: '貨物情報',
+    label_cargo_desc: '貨物の説明', ph_cargo_desc: '例：メタノール、原油、リチウムイオン電池…',
+    hint_cargo_desc: 'IMDG品名との照合に使用されます。',
+    optional: '（任意）', ph_un: '例：UN1230',
+    hint_un: 'SDSの4桁のUN番号。形式：UN1230',
+    label_imdg: 'IMDGクラス', ph_imdg_class: '— クラスを選択 —',
+    section_packaging: '包装と数量',
+    label_pg: '容器等級', ph_pg: '— 等級を選択 —',
+    label_pkg_type: '包装タイプ', ph_pkg_type: '例：ドラム缶、IBC、シリンダー、バルク…',
+    label_qty: '数量', ph_qty: '例：2500',
+    btn_validate: '危険物チェック実行',
+    info_title: '使い方：', info_body: ' 貨物詳細とUN番号を入力してください。IMDG危険物リストとの照合、パナマ運河制限の確認、必要書類の一覧を提供します。',
+    limit_title: '', limit_body: '', limit_cta: '',
+    stat_passed: '合格', stat_failed: '不合格', stat_warnings: '警告',
+    cargo_info_title: 'IMDG参照 — 識別された貨物',
+    section_critical: '重大な問題', section_warnings: '警告', section_passed: '合格したチェック',
+    btn_new: '新しいチェック',
+    lead_title: 'VUMPA + PCSPEPの完全な申告自動化が必要ですか？',
+    lead_body: 'CanalClearはパナマ運河通過に必要なすべての書類を自動生成します。',
+    lead_cta: 'プランを見る →',
+    banner_passed: '✅ 分類は正しいようです', banner_failed: '❌ 分類エラーが見つかりました', banner_warning: '⚠️ 申告前に警告を確認してください',
+    banner_sub_passed: '重大な問題は見つかりませんでした。提出前に警告を確認し、書類を検証してください。',
+    banner_sub_failed: 'VUMPA提出前に重大なエラーを解決する必要があります。',
+    banner_sub_warning: '重大なエラーはありませんが、警告に対処してください。',
+  },
+};
+
+let currentLang = localStorage.getItem('cc_lang') || 'en';
+
+function t(key) {
+  const d = TRANSLATIONS[currentLang] || TRANSLATIONS['en'];
+  return d[key] || TRANSLATIONS['en'][key] || key;
+}
+
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('cc_lang', lang);
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.getAttribute('onclick') === `setLang('${lang}')`);
+  });
+  applyTranslations();
+}
+
+function applyTranslations() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    el.textContent = t(key);
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    el.innerHTML = t(key);
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    el.placeholder = t(key);
+  });
+  document.getElementById('btnText').textContent = t('btn_validate');
+}
+
+// Usage check removed — hazmat validator is now a free unlimited demo tool
+
+// ─────────────────────────────────────────────────────────────────────────────
+// VALIDATION
+// ─────────────────────────────────────────────────────────────────────────────
+async function runValidation() {
+  const btn = document.getElementById('validateBtn');
+  const btnText = document.getElementById('btnText');
+  const spinner = document.getElementById('btnSpinner');
+
+  btn.disabled = true;
+  spinner.style.display = 'inline-block';
+  btnText.textContent = '…';
+
+  const unVal = document.getElementById('un_number').value.trim().toUpperCase().replace(/\s/g,'');
+  const isLithiumUN = ['UN3480','UN3481','UN3090','UN3091','3480','3481','3090','3091'].some(u => unVal === u || unVal === 'UN'+u.replace('UN',''));
+
+  const payload = {
+    cargo_description: document.getElementById('cargo_description').value.trim(),
+    un_number:         document.getElementById('un_number').value.trim(),
+    imdg_class:        document.getElementById('imdg_class').value,
+    packaging_group:   document.getElementById('packaging_group').value,
+    packaging_type:    document.getElementById('packaging_type').value.trim(),
+    quantity:          document.getElementById('quantity').value,
+    quantity_unit:     document.getElementById('quantity_unit').value,
+    // Flash point / SDS
+    flash_point:       document.getElementById('flash_point')?.value || '',
+    // Lithium battery fields (only if applicable)
+    ...(isLithiumUN ? {
+      lithium_section:       document.getElementById('lithium_section')?.value || '',
+      lithium_cargo_type:    document.getElementById('lithium_cargo_type')?.value || '',
+      lithium_wh_cell:       document.getElementById('lithium_wh_cell')?.value || '',
+      lithium_wh_battery:    document.getElementById('lithium_wh_battery')?.value || '',
+      lithium_li_cell:       document.getElementById('lithium_li_cell')?.value || '',
+      lithium_li_battery:    document.getElementById('lithium_li_battery')?.value || '',
+      lithium_test_summary:  document.getElementById('lithium_test_summary')?.value || '',
+    } : {}),
+  };
+
+  try {
+    const resp = await fetch('/api/hazmat/validate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await resp.json();
+
+    if (!data.success) {
+      throw new Error(data.message || 'Validation failed');
+    }
+
+    renderResults(data.validation);
+
+    // Meta Pixel — hazmat_validation_run
+    if (typeof fbq !== 'undefined') {
+      fbq('trackCustom', 'hazmat_validation_run', {
+        overall_status: data.validation.overall_status,
+        un_number: payload.un_number || null,
+        imdg_class: payload.imdg_class || null,
+        total_checks: data.validation.total_checks,
+        is_lithium_battery: data.validation.is_lithium_battery || false,
+      });
+      // Meta Pixel — hazmat_errors_found (only if there are critical errors)
+      if (data.validation.failed_checks > 0) {
+        fbq('trackCustom', 'hazmat_errors_found', {
+          failed_checks: data.validation.failed_checks,
+          warning_checks: data.validation.warning_checks,
+          un_number: payload.un_number || null,
+          is_lithium_battery: data.validation.is_lithium_battery || false,
+        });
+      }
+    }
+
+  } catch (err) {
+    alert('Validation error: ' + err.message);
+  } finally {
+    btn.disabled = false;
+    spinner.style.display = 'none';
+    btnText.textContent = t('btn_validate');
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// RENDER RESULTS
+// ─────────────────────────────────────────────────────────────────────────────
+function renderResults(v) {
+  const resultsEl = document.getElementById('results');
+
+  // Banner
+  const banner = document.getElementById('resultBanner');
+  banner.className = 'result-banner fade-up ' + v.overall_status;
+  const bannerKey = v.overall_status === 'passed' ? 'banner_passed' : v.overall_status === 'failed' ? 'banner_failed' : 'banner_warning';
+  const subKey = v.overall_status === 'passed' ? 'banner_sub_passed' : v.overall_status === 'failed' ? 'banner_sub_failed' : 'banner_sub_warning';
+  banner.innerHTML = `
+    <div class="result-banner-icon">${v.overall_status === 'passed' ? '✅' : v.overall_status === 'failed' ? '❌' : '⚠️'}</div>
+    <div class="result-banner-text">
+      <h2>${t(bannerKey)}</h2>
+      <p>${t(subKey)} (${v.passed_checks}/${v.total_checks} checks passed)</p>
+    </div>`;
+
+  // Stats
+  document.getElementById('statPassed').textContent = v.passed_checks;
+  document.getElementById('statFailed').textContent = v.failed_checks;
+  document.getElementById('statWarnings').textContent = v.warning_checks;
+
+  // Cargo info card
+  const cargoCard = document.getElementById('cargoInfoCard');
+  if (v.cargo_info) {
+    const rows = document.getElementById('cargoInfoRows');
+    const ci = v.cargo_info;
+    rows.innerHTML = `
+      <div class="cargo-info-row"><span class="k">UN Number:</span><span class="v">${ci.un_number}</span></div>
+      <div class="cargo-info-row"><span class="k">Proper Shipping Name:</span><span class="v">${ci.proper_shipping_name}</span></div>
+      <div class="cargo-info-row"><span class="k">IMDG Class:</span><span class="v">${ci.imdg_class}</span></div>
+      ${ci.subsidiary_hazard ? `<div class="cargo-info-row"><span class="k">Subsidiary Hazard:</span><span class="v">Class ${ci.subsidiary_hazard}</span></div>` : ''}
+      ${ci.packaging_group ? `<div class="cargo-info-row"><span class="k">Packaging Group:</span><span class="v">${ci.packaging_group}</span></div>` : ''}
+      <div class="cargo-info-row"><span class="k">Panama Restricted:</span><span class="v ${ci.panama_restricted ? 'restricted' : 'ok'}">${ci.panama_restricted ? '⚠️ YES — See details below' : '✓ No known restrictions'}</span></div>
+      ${ci.required_documents && ci.required_documents.length ? `
+        <div class="cargo-info-row" style="flex-direction:column; gap:0.3rem; margin-top:0.4rem">
+          <span class="k">Required Documents:</span>
+          <div>${ci.required_documents.map(d => `<span class="doc-tag">${d.label}</span>`).join('')}</div>
+        </div>` : ''}
+    `;
+    cargoCard.style.display = 'block';
+  } else {
+    cargoCard.style.display = 'none';
+  }
+
+  // Checklist sections
+  renderChecklist('critical', v.categories.critical, t('section_critical'));
+  renderChecklist('warning', v.categories.warnings, t('section_warnings'));
+  renderChecklist('passed', v.categories.passed, t('section_passed'));
+
+  // Show manifest section
+  document.getElementById('manifestSection').classList.add('show');
+  document.getElementById('manifestOutput').classList.remove('show');
+
+  resultsEl.classList.add('show');
+  resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderChecklist(type, items, label) {
+  const section = document.getElementById(type + 'Section');
+  const list = document.getElementById(type + 'List');
+  const count = document.getElementById(type + 'Count');
+
+  if (!items || items.length === 0) {
+    section.style.display = 'none';
+    return;
+  }
+
+  section.style.display = 'block';
+  if (count) count.textContent = `(${items.length})`;
+  list.innerHTML = items.map((item, i) => buildCheckItem(item, type, i)).join('');
+}
+
+function buildCheckItem(item, type, idx) {
+  const icon = type === 'critical' ? '❌' : type === 'warning' ? '⚠️' : '✅';
+  const badge = type === 'critical' ? 'badge-fail' : type === 'warning' ? 'badge-warning' : 'badge-pass';
+  const badgeText = type === 'critical' ? 'FAIL' : type === 'warning' ? 'WARN' : 'PASS';
+
+  const id = `check_${type}_${idx}`;
+  let detailHtml = `<div class="check-message">${escHtml(item.message)}</div>`;
+  if (item.requirement) detailHtml += `<div class="check-requirement">📋 ${escHtml(item.requirement)}</div>`;
+  if (item.suggestion) detailHtml += `<div class="check-suggestion">💡 ${escHtml(item.suggestion)}</div>`;
+  if (item.required_documents && item.required_documents.length) {
+    detailHtml += `<div class="check-docs"><div class="check-docs-title">Required documents:</div>${item.required_documents.map(d => `<span class="doc-tag">${escHtml(d.label)}</span>`).join('')}</div>`;
+  }
+
+  return `
+    <div class="check-item">
+      <div class="check-header" onclick="toggleCheck('${id}')">
+        <div class="check-icon">${icon}</div>
+        <div class="check-name">${escHtml(item.name)}</div>
+        <span class="check-status-badge ${badge}">${badgeText}</span>
+        <span class="check-expand-btn" id="${id}_arrow">▾</span>
+      </div>
+      <div class="check-detail" id="${id}">${detailHtml}</div>
+    </div>`;
+}
+
+function toggleCheck(id) {
+  const detail = document.getElementById(id);
+  const arrow = document.getElementById(id + '_arrow');
+  detail.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+
+function escHtml(str) {
+  if (!str) return '';
+  return str.toString()
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function resetForm() {
+  document.getElementById('results').classList.remove('show');
+  document.getElementById('formPanel').style.display = '';
+  document.getElementById('manifestSection').classList.remove('show');
+  document.getElementById('manifestOutput').classList.remove('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// LITHIUM BATTERY PANEL — auto-show when lithium UN entered
+// ─────────────────────────────────────────────────────────────────────────────
+const LITHIUM_ION_UNS   = new Set(['UN3480','UN3481','3480','3481']);
+const LITHIUM_METAL_UNS = new Set(['UN3090','UN3091','3090','3091']);
+
+function checkLithiumPanel() {
+  const raw = (document.getElementById('un_number').value || '').trim().toUpperCase().replace(/\s/g,'');
+  const isIon   = LITHIUM_ION_UNS.has(raw);
+  const isMetal = LITHIUM_METAL_UNS.has(raw);
+  const isLith  = isIon || isMetal;
+
+  const panel  = document.getElementById('lbPanel');
+  const badge  = document.getElementById('lbBadge');
+  const ionF   = document.querySelectorAll('.lb-ion-fields');
+  const metalF = document.querySelectorAll('.lb-metal-fields');
+
+  if (isLith) {
+    panel.classList.add('show');
+    badge.textContent = isIon ? 'Li-Ion' : 'Li-Metal';
+
+    ionF.forEach(el  => el.classList[isIon   ? 'add' : 'remove']('show'));
+    metalF.forEach(el => el.classList[isMetal ? 'add' : 'remove']('show'));
+
+    // Auto-set section based on UN number
+    const secEl = document.getElementById('lithium_section');
+    if (secEl && !secEl.value) {
+      if (['UN3481','3481','UN3091','3091'].includes(raw)) secEl.value = 'II';
+      if (['UN3480','3480','UN3090','3090'].includes(raw)) secEl.value = 'IB';
+    }
+  } else {
+    panel.classList.remove('show');
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// DG MANIFEST GENERATOR
+// ─────────────────────────────────────────────────────────────────────────────
+let lastManifestText = '';
+
+async function generateManifest() {
+  const btn = document.getElementById('generateManifestBtn');
+  btn.disabled = true;
+  btn.textContent = 'Generating…';
+
+  try {
+    const payload = {
+      un_number:       document.getElementById('un_number').value.trim(),
+      imdg_class:      document.getElementById('imdg_class').value,
+      packaging_group: document.getElementById('packaging_group').value,
+      packaging_type:  document.getElementById('packaging_type').value.trim(),
+      quantity:        document.getElementById('quantity').value,
+      quantity_unit:   document.getElementById('quantity_unit').value,
+      cargo_description: document.getElementById('cargo_description').value.trim(),
+      flash_point:     document.getElementById('flash_point')?.value || '',
+      vessel_name:     document.getElementById('mf_vessel_name')?.value || '',
+      imo_number:      document.getElementById('mf_imo_number')?.value || '',
+      voyage_number:   document.getElementById('mf_voyage_number')?.value || '',
+      port_of_loading: document.getElementById('mf_port_loading')?.value || '',
+      port_of_discharge: document.getElementById('mf_port_discharge')?.value || '',
+      emergency_contact: document.getElementById('mf_emergency')?.value || '',
+    };
+
+    const resp = await fetch('/api/hazmat/manifest', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const data = await resp.json();
+
+    if (!data.success) throw new Error(data.message || 'Manifest generation failed');
+
+    lastManifestText = data.text;
+    document.getElementById('manifestText').textContent = data.text;
+    document.getElementById('manifestOutput').classList.add('show');
+
+    // Meta Pixel
+    if (typeof fbq !== 'undefined') {
+      fbq('trackCustom', 'hazmat_manifest_generated', {
+        un_number: payload.un_number || null,
+        has_vessel: !!(payload.vessel_name || payload.imo_number),
+      });
+    }
+  } catch (err) {
+    alert('Manifest error: ' + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> Generate DG Manifest`;
+  }
+}
+
+function copyManifest() {
+  if (!lastManifestText) return;
+  navigator.clipboard.writeText(lastManifestText).then(() => {
+    const btn = document.querySelector('.btn-copy-manifest');
+    const orig = btn.innerHTML;
+    btn.innerHTML = '✓ Copied!';
+    setTimeout(() => { btn.innerHTML = orig; }, 2000);
+  }).catch(() => {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = lastManifestText;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  });
+}
+
+function downloadManifest() {
+  if (!lastManifestText) return;
+  const blob = new Blob([lastManifestText], { type: 'text/plain' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  const unEl = document.getElementById('un_number');
+  const unNum = unEl ? unEl.value.replace(/\s/g,'').toUpperCase() || 'DG' : 'DG';
+  const date  = new Date().toISOString().slice(0,10);
+  a.href = url;
+  a.download = `dg-manifest-${unNum}-${date}.txt`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  applyTranslations();
+
+  // Allow Ctrl+Enter / Enter from UN input
+  document.getElementById('un_number').addEventListener('keydown', e => {
+    if (e.key === 'Enter') runValidation();
+  });
+
+  // Auto-show lithium battery panel when UN number matches
+  document.getElementById('un_number').addEventListener('input', checkLithiumPanel);
+  document.getElementById('un_number').addEventListener('change', checkLithiumPanel);
+});
+</script>
+<script src="/js/whatsapp-button.js"></script>
+</body>
+</html>

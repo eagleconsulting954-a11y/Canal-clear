@@ -1,0 +1,2036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CanalClear — Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy:        #1a2d4a;
+      --deep:        #142238;
+      --slate:       #243350;
+      --slate2:      #1E3350;
+      --teal:        #E85A00;
+      --teal-dim:    rgba(232, 90, 0,0.12);
+      --teal-border: rgba(232, 90, 0,0.2);
+      --cyan:        #00B4D8;
+      --white:       #ffffff;
+      --gray:        #6b7c93;
+      --light-gray:  #8fa3b8;
+      --red:         #FF6B6B;
+      --red-dim:     rgba(255,107,107,0.12);
+      --yellow:      #FFD93D;
+      --yellow-dim:  rgba(255,217,61,0.12);
+      --green:       #E85A00;
+      --green-dim:   rgba(232, 90, 0,0.12);
+      --purple:      #A78BFA;
+      --purple-dim:  rgba(167,139,250,0.12);
+    }
+
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 1rem 2rem;
+      background: rgba(10,22,40,0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--teal-border);
+    }
+    .nav-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo { display: flex; align-items: center; text-decoration: none; }
+    .logo img { height: 34px; width: auto; object-fit: contain; }
+    .nav-links { display: flex; gap: 0.5rem; align-items: center; }
+    .nav-links a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.875rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); background: var(--teal-dim); }
+    .nav-links a.active { color: var(--teal); background: var(--teal-dim); }
+    .admin-badge {
+      background: linear-gradient(135deg, var(--teal), var(--cyan));
+      color: var(--navy);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.15rem 0.55rem;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-left: 0.5rem;
+    }
+    .logout-btn {
+      background: var(--red-dim);
+      border: 1px solid rgba(255,107,107,0.2);
+      color: var(--red);
+      border-radius: 8px;
+      padding: 0.4rem 0.9rem;
+      font-size: 0.85rem;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .logout-btn:hover { background: rgba(255,107,107,0.22); }
+
+    /* LAYOUT */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 5.5rem 2rem 3rem;
+    }
+
+    /* HEADER */
+    .page-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .page-header h1 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .page-header p { color: var(--gray); font-size: 0.9rem; margin-top: 0.2rem; }
+
+    /* TABS */
+    .tabs {
+      display: flex;
+      gap: 0.25rem;
+      background: var(--deep);
+      padding: 0.35rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 2rem;
+      width: fit-content;
+    }
+    .tab-btn {
+      background: none;
+      border: none;
+      color: var(--gray);
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0.5rem 1.1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+    .tab-btn.active { background: var(--teal-dim); color: var(--teal); }
+
+    /* STAT CARDS */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: var(--deep);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .stat-card:hover { border-color: var(--teal-border); }
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.5rem;
+    }
+    .stat-value {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1;
+    }
+    .stat-sub {
+      font-size: 0.78rem;
+      color: var(--gray);
+      margin-top: 0.35rem;
+    }
+    .stat-sub span { color: var(--teal); }
+
+    /* PANEL */
+    .panel {
+      background: var(--deep);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .panel-title {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+    .panel-count {
+      font-size: 0.8rem;
+      color: var(--gray);
+      background: var(--slate);
+      padding: 0.2rem 0.65rem;
+      border-radius: 20px;
+    }
+    .search-input {
+      background: var(--slate);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      color: var(--white);
+      font-family: inherit;
+      font-size: 0.85rem;
+      padding: 0.4rem 0.85rem;
+      outline: none;
+      width: 220px;
+      transition: border-color 0.2s;
+    }
+    .search-input::placeholder { color: var(--gray); }
+    .search-input:focus { border-color: var(--teal-border); }
+
+    /* TABLE */
+    .table-wrap { overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+    thead th {
+      background: var(--slate);
+      padding: 0.75rem 1.25rem;
+      text-align: left;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+    tbody tr {
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: background 0.15s;
+    }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: rgba(255,255,255,0.025); }
+    tbody td {
+      padding: 0.85rem 1.25rem;
+      color: var(--light-gray);
+      vertical-align: middle;
+    }
+    .cell-primary { color: var(--white); font-weight: 500; }
+    .cell-mono { font-family: monospace; font-size: 0.82rem; color: var(--gray); }
+
+    /* BADGES */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.2rem 0.65rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .badge-active   { background: var(--green-dim); color: var(--teal); }
+    .badge-trialing { background: var(--yellow-dim); color: var(--yellow); }
+    .badge-inactive { background: rgba(255,255,255,0.06); color: var(--gray); }
+    .badge-submitted { background: var(--teal-dim); color: var(--teal); }
+    .badge-draft    { background: rgba(255,255,255,0.06); color: var(--gray); }
+    .badge-admin    { background: var(--purple-dim); color: var(--purple); }
+    .badge-dot::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--gray);
+    }
+    .empty-state svg { opacity: 0.3; margin-bottom: 1rem; }
+    .empty-state p { font-size: 0.9rem; }
+
+    /* PAGINATION */
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      font-size: 0.85rem;
+      color: var(--gray);
+    }
+    .page-btns { display: flex; gap: 0.5rem; }
+    .page-btn {
+      background: var(--slate);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--light-gray);
+      font-family: inherit;
+      font-size: 0.8rem;
+      padding: 0.35rem 0.8rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .page-btn:hover:not(:disabled) { background: var(--slate2); border-color: var(--teal-border); }
+    .page-btn:disabled { opacity: 0.4; cursor: default; }
+
+    /* CHART */
+    .chart-section { padding: 1.5rem; }
+    .chart-container { position: relative; height: 200px; margin-top: 1rem; }
+    canvas { width: 100% !important; }
+
+    /* FILTER ROW */
+    .filter-row {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      background: var(--slate);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--gray);
+      font-family: inherit;
+      font-size: 0.8rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover { border-color: var(--teal-border); color: var(--white); }
+    .filter-btn.active { background: var(--teal-dim); border-color: var(--teal-border); color: var(--teal); }
+
+    /* LOADING */
+    .loading { text-align: center; padding: 2rem; color: var(--gray); font-size: 0.9rem; }
+    .spinner {
+      display: inline-block;
+      width: 20px; height: 20px;
+      border: 2px solid rgba(232, 90, 0,0.2);
+      border-top-color: var(--teal);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 0.5rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* TAB PANELS */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 0.75rem 1rem; }
+      .container { padding: 5rem 1rem 2rem; }
+      .stats-grid { grid-template-columns: repeat(2,1fr); }
+      .tabs { overflow-x: auto; }
+      thead th, tbody td { padding: 0.65rem 1rem; }
+    }
+  </style>
+    <link rel="stylesheet" href="/css/mobile.css">
+
+    <!-- PWA / Add to Home Screen -->
+    <meta name="theme-color" content="#1a2d4a">
+    <link rel="manifest" href="/manifest.json">
+    <!-- iOS PWA -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="CanalClear">
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512.png">
+  </head>
+<body>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="logo">
+        <img src="https://pub-629428d185ca4960a0a73c850d32294b.r2.dev/company_47541/images/9d5d2ef6-d9e0-40eb-ad15-df5e737cefc1.png" alt="Canal Clear">
+      </a>
+      <div class="nav-links">
+        <a href="/app">Validator</a>
+        <a href="/filing">Filing</a>
+        <a href="/admin" class="active">Admin <span class="admin-badge">admin</span></a>
+        <button class="logout-btn" onclick="logout()">Log out</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+      <div>
+        <h1>Admin Panel</h1>
+        <p id="admin-subtitle">Loading...</p>
+      </div>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('overview')">Overview</button>
+      <button class="tab-btn" onclick="switchTab('users')">Users</button>
+      <button class="tab-btn" onclick="switchTab('leads')">Leads</button>
+      <button class="tab-btn" onclick="switchTab('purchase-requests')">Purchase Requests</button>
+      <button class="tab-btn" onclick="switchTab('filings')">Filings</button>
+      <button class="tab-btn" onclick="switchTab('suez-monitor')">🇪🇬 Suez Monitor <span id="suez-overdue-badge" style="background:#FF6B6B;color:#fff;border-radius:10px;padding:1px 7px;font-size:0.72rem;font-weight:700;margin-left:4px;display:none;"></span></button>
+      <button class="tab-btn" onclick="switchTab('meeting-requests')" id="tab-btn-meetings">📅 Meetings <span id="meetings-badge" style="background:#E85A00;color:#1a2d4a;border-radius:10px;padding:1px 7px;font-size:0.72rem;font-weight:700;margin-left:4px;display:none;"></span></button>
+      <button class="tab-btn" onclick="switchTab('alert-deliveries')">🔔 Alert Deliveries</button>
+      <button class="tab-btn" onclick="switchTab('deadline-alerts')">⏰ Deadline Alerts <span id="deadline-alerts-badge" style="background:#00d4aa;color:#0f172a;border-radius:10px;padding:1px 7px;font-size:0.72rem;font-weight:700;margin-left:4px;display:none;"></span></button>
+      <button class="tab-btn" onclick="switchTab('demo-codes')">Demo Codes</button>
+      <button class="tab-btn" onclick="switchTab('demo-requests')">🚀 Demo Requests <span id="demo-requests-badge" style="background:#E85A00;color:#1a2d4a;border-radius:10px;padding:1px 7px;font-size:0.72rem;font-weight:700;margin-left:4px;display:none;"></span></button>
+      <button class="tab-btn" onclick="switchTab('calculator-leads')">🧮 Calculator Leads <span id="calc-leads-badge" style="background:#22c55e;color:#0a1628;border-radius:10px;padding:1px 7px;font-size:0.72rem;font-weight:700;margin-left:4px;display:none;"></span></button>
+      <a class="tab-btn" href="/admin-submissions" style="text-decoration:none">📋 Submissions</a>
+    </div>
+
+    <!-- OVERVIEW TAB -->
+    <div id="tab-overview" class="tab-panel active">
+      <div class="stats-grid" id="stats-grid">
+        <div class="loading"><span class="spinner"></span> Loading stats...</div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">Signups — Last 30 Days</span>
+        </div>
+        <div class="chart-section">
+          <div class="chart-container">
+            <canvas id="signups-chart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- USERS TAB -->
+    <div id="tab-users" class="tab-panel">
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">All Users</span>
+          <div class="filter-row">
+            <input type="text" class="search-input" id="user-search" placeholder="Search email or name…" oninput="debouncedUserSearch()">
+            <span class="panel-count" id="users-count">—</span>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Email</th>
+                <th>Name</th>
+                <th>Plan</th>
+                <th>Status</th>
+                <th>Canals</th>
+                <th>Role</th>
+                <th>Expires</th>
+                <th>Joined</th>
+              </tr>
+            </thead>
+            <tbody id="users-tbody">
+              <tr><td colspan="8" class="loading"><span class="spinner"></span> Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination">
+          <span id="users-page-info">—</span>
+          <div class="page-btns">
+            <button class="page-btn" id="users-prev" onclick="usersPage(-1)" disabled>← Prev</button>
+            <button class="page-btn" id="users-next" onclick="usersPage(1)" disabled>Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PURCHASE REQUESTS TAB -->
+    <div id="tab-purchase-requests" class="tab-panel">
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">Purchase Requests</span>
+          <span class="panel-count" id="purchase-count">—</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Email</th>
+                <th>Name</th>
+                <th>Plan</th>
+                <th>Plan ID</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody id="purchase-tbody">
+              <tr><td colspan="5" class="loading"><span class="spinner"></span> Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination">
+          <span id="purchase-page-info">—</span>
+          <div class="page-btns">
+            <button class="page-btn" id="purchase-prev" onclick="purchasePage(-1)" disabled>← Prev</button>
+            <button class="page-btn" id="purchase-next" onclick="purchasePage(1)" disabled>Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEADS TAB -->
+    <div id="tab-leads" class="tab-panel">
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">Demo &amp; Assessment Leads</span>
+          <span class="panel-count" id="leads-count">—</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Email</th>
+                <th>Company</th>
+                <th>Fleet Size</th>
+                <th>Source</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody id="leads-tbody">
+              <tr><td colspan="5" class="loading"><span class="spinner"></span> Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination">
+          <span id="leads-page-info">—</span>
+          <div class="page-btns">
+            <button class="page-btn" id="leads-prev" onclick="leadsPage(-1)" disabled>← Prev</button>
+            <button class="page-btn" id="leads-next" onclick="leadsPage(1)" disabled>Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FILINGS TAB -->
+    <div id="tab-filings" class="tab-panel">
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">Compliance Filings</span>
+          <div class="filter-row">
+            <button class="filter-btn active" onclick="setFilingFilter(null, this)">All</button>
+            <button class="filter-btn" onclick="setFilingFilter('submitted', this)">Submitted</button>
+            <button class="filter-btn" onclick="setFilingFilter('draft', this)">Draft</button>
+            <span style="color:rgba(255,255,255,0.2);margin:0 0.25rem;">|</span>
+            <button class="filter-btn" id="canal-filter-btn-panama" onclick="setCanalFilter('panama', this)">🇵🇦 Panama</button>
+            <button class="filter-btn" id="canal-filter-btn-suez" onclick="setCanalFilter('suez', this)">🇪🇬 Suez</button>
+            <button class="filter-btn" id="canal-filter-btn-bosporus" onclick="setCanalFilter('bosporus', this)">🇹🇷 Bosporus</button>
+            <button class="filter-btn" id="canal-filter-btn-malacca" onclick="setCanalFilter('malacca', this)">🇲🇾 Malacca</button>
+            <button class="filter-btn" id="canal-filter-btn-cape" onclick="setCanalFilter('cape', this)">🇿🇦 Cape</button>
+            <span class="panel-count" id="filings-count">—</span>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Document Type</th>
+                <th>Canal</th>
+                <th>Vessel</th>
+                <th>IMO</th>
+                <th>Status</th>
+                <th>Validation</th>
+                <th>ISPS Stages</th>
+                <th>SCA Ref</th>
+                <th>Filed</th>
+              </tr>
+            </thead>
+            <tbody id="filings-tbody">
+              <tr><td colspan="10" class="loading"><span class="spinner"></span> Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination">
+          <span id="filings-page-info">—</span>
+          <div class="page-btns">
+            <button class="page-btn" id="filings-prev" onclick="filingsPage(-1)" disabled>← Prev</button>
+            <button class="page-btn" id="filings-next" onclick="filingsPage(1)" disabled>Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUEZ MONITOR TAB -->
+    <div id="tab-suez-monitor" class="tab-panel">
+
+      <!-- Analytics stat cards -->
+      <div class="stats-grid" id="suez-stats-grid" style="margin-bottom:1.5rem;">
+        <div class="loading"><span class="spinner"></span> Loading...</div>
+      </div>
+
+      <!-- Overdue ISPS Alerts -->
+      <div class="panel" id="suez-overdue-panel" style="margin-bottom:1.5rem;border-color:rgba(255,107,107,0.25);">
+        <div class="panel-header" style="background:rgba(255,107,107,0.06);">
+          <span class="panel-title" style="color:var(--red);">⚠️ Overdue ISPS Notifications</span>
+          <span class="panel-count" id="suez-overdue-count" style="background:var(--red-dim);color:var(--red);">—</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Vessel</th>
+                <th>IMO</th>
+                <th>Notification Type</th>
+                <th>Status</th>
+                <th>User</th>
+                <th>Pending Since</th>
+              </tr>
+            </thead>
+            <tbody id="suez-overdue-tbody">
+              <tr><td colspan="6" class="loading"><span class="spinner"></span> Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ISPS Notification Timeline -->
+      <div class="panel" style="margin-bottom:1.5rem;">
+        <div class="panel-header">
+          <span class="panel-title">🕐 ISPS Notification Timeline — All Suez Filings</span>
+          <button class="page-btn" onclick="loadSuez()" style="padding:0.35rem 0.85rem;font-size:0.78rem;">Refresh</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Vessel</th>
+                <th>IMO</th>
+                <th>User</th>
+                <th>Filing Status</th>
+                <th>ISPS Stages Sent</th>
+                <th>Notifications</th>
+                <th>Last Notification</th>
+                <th>ISPS Status</th>
+                <th>Filed</th>
+              </tr>
+            </thead>
+            <tbody id="suez-isps-tbody">
+              <tr><td colspan="9" class="loading"><span class="spinner"></span> Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Convoy & SCA Submissions -->
+      <div class="panel" style="margin-bottom:1.5rem;">
+        <div class="panel-header">
+          <span class="panel-title">🚢 SCA Submissions &amp; Convoy Bookings</span>
+          <span class="panel-count" id="convoy-count">—</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Vessel</th>
+                <th>Transit Direction</th>
+                <th>Convoy</th>
+                <th>SCA Reference</th>
+                <th>Submission Status</th>
+                <th>User</th>
+                <th>Filing Ref</th>
+                <th>Submitted</th>
+              </tr>
+            </thead>
+            <tbody id="suez-convoy-tbody">
+              <tr><td colspan="8" class="loading"><span class="spinner"></span> Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Fee Audit Trail -->
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">💰 Fee Calculation Audit Trail</span>
+        </div>
+        <div class="table-wrap" id="suez-fee-audit-container">
+          <div class="loading"><span class="spinner"></span> Loading fee audit...</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- MEETING REQUESTS TAB -->
+    <div id="tab-meeting-requests" class="tab-panel">
+      <!-- Stats row -->
+      <div class="stats-grid" id="meetings-stats-grid" style="margin-bottom:1.5rem;">
+        <div class="loading"><span class="spinner"></span> Loading...</div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">Meeting Requests</span>
+          <div class="filter-row">
+            <button class="filter-btn active" onclick="setMeetingFilter(null, this)">All</button>
+            <button class="filter-btn" onclick="setMeetingFilter('pending', this)">Pending</button>
+            <button class="filter-btn" onclick="setMeetingFilter('confirmed', this)">Confirmed</button>
+            <button class="filter-btn" onclick="setMeetingFilter('completed', this)">Completed</button>
+            <button class="filter-btn" onclick="setMeetingFilter('cancelled', this)">Cancelled</button>
+            <span class="panel-count" id="meetings-count">—</span>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Company</th>
+                <th>Fleet</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Timezone</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="meetings-tbody">
+              <tr><td colspan="9" class="loading"><span class="spinner"></span> Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination">
+          <span id="meetings-page-info">—</span>
+          <div class="page-btns">
+            <button class="page-btn" id="meetings-prev" onclick="meetingsPage(-1)" disabled>← Prev</button>
+            <button class="page-btn" id="meetings-next" onclick="meetingsPage(1)" disabled>Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEADLINE ALERTS TAB -->
+    <div id="tab-deadline-alerts" class="tab-panel">
+      <!-- Summary stats -->
+      <div class="stats-grid" id="deadline-alerts-stats-grid" style="margin-bottom:1.5rem;">
+        <div class="loading"><span class="spinner"></span> Loading alert stats…</div>
+      </div>
+
+      <!-- ── Test Alert + Preview Panel ─────────────────────────────────── -->
+      <div class="panel" style="margin-bottom:1.5rem;">
+        <div class="panel-header">
+          <span class="panel-title">🧪 Test Alert Email</span>
+          <span style="font-size:0.75rem;color:#64748b;">Send a sample alert to your inbox + preview it below</span>
+        </div>
+        <div style="padding:1.25rem 1.5rem;display:flex;flex-wrap:wrap;gap:1rem;align-items:center;border-bottom:1px solid rgba(255,255,255,0.06);">
+          <!-- Waterway selector -->
+          <div style="display:flex;flex-direction:column;gap:0.35rem;">
+            <label style="font-size:0.72rem;color:#64748b;text-transform:uppercase;letter-spacing:0.05em;font-weight:600;">Waterway</label>
+            <select id="test-alert-waterway" onchange="loadAlertPreview()"
+              style="background:#0f172a;border:1px solid rgba(255,255,255,0.12);color:#f1f5f9;border-radius:8px;padding:0.45rem 0.75rem;font-size:0.85rem;font-family:inherit;cursor:pointer;">
+              <option value="panama">🇵🇦 Panama (VUMPA)</option>
+              <option value="suez">🇪🇬 Suez (SCA Convoy)</option>
+              <option value="bosporus">🇹🇷 Bosporus (SP-1)</option>
+              <option value="malacca">🇲🇾 Malacca (STRAITREP)</option>
+              <option value="cape">🇿🇦 Cape of Good Hope (ISPS)</option>
+            </select>
+          </div>
+          <!-- Send button -->
+          <div style="display:flex;flex-direction:column;gap:0.35rem;">
+            <label style="font-size:0.72rem;color:#64748b;text-transform:uppercase;letter-spacing:0.05em;font-weight:600;">Action</label>
+            <button id="test-send-btn" onclick="sendTestAlert()"
+              style="background:#00d4aa;color:#0f172a;border:none;border-radius:8px;padding:0.5rem 1.25rem;font-size:0.85rem;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:0.4rem;white-space:nowrap;">
+              📧 Send Test Alert to My Inbox
+            </button>
+          </div>
+          <!-- Status message -->
+          <div id="test-alert-status" style="font-size:0.82rem;display:none;padding:0.4rem 0.9rem;border-radius:8px;"></div>
+        </div>
+        <!-- In-browser preview -->
+        <div style="padding:1rem 1.5rem;">
+          <div style="font-size:0.72rem;color:#64748b;text-transform:uppercase;letter-spacing:0.05em;font-weight:600;margin-bottom:0.75rem;">Email Preview</div>
+          <div id="test-alert-preview-wrap" style="border:1px solid rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;background:#0f172a;min-height:120px;">
+            <div class="loading" style="padding:2rem;"><span class="spinner"></span> Loading preview…</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Alert Log Panel ─────────────────────────────────────────────── -->
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">⏰ Deadline Alert Log</span>
+          <div style="display:flex;gap:0.75rem;align-items:center;">
+            <div class="filter-row" id="deadline-alerts-filter-row">
+              <button class="filter-btn active" onclick="setDeadlineAlertFilter(null, this)">All Waterways</button>
+              <button class="filter-btn" onclick="setDeadlineAlertFilter('panama', this)">🇵🇦 Panama</button>
+              <button class="filter-btn" onclick="setDeadlineAlertFilter('suez', this)">🇪🇬 Suez</button>
+              <button class="filter-btn" onclick="setDeadlineAlertFilter('bosporus', this)">🇹🇷 Bosporus</button>
+              <button class="filter-btn" onclick="setDeadlineAlertFilter('malacca', this)">🇲🇾 Malacca</button>
+              <button class="filter-btn" onclick="setDeadlineAlertFilter('cape', this)">🇿🇦 Cape</button>
+            </div>
+            <button class="page-btn" onclick="loadDeadlineAlerts()" style="padding:0.35rem 0.85rem;font-size:0.78rem;">Refresh</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Sent At</th>
+                <th>Waterway</th>
+                <th>Vessel</th>
+                <th>Window</th>
+                <th>Deadline</th>
+                <th>Recipient</th>
+                <th>Subject</th>
+              </tr>
+            </thead>
+            <tbody id="deadline-alerts-tbody">
+              <tr><td colspan="7" class="loading"><span class="spinner"></span> Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ALERT DELIVERIES TAB -->
+    <div id="tab-alert-deliveries" class="tab-panel">
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">🔔 Alert Delivery Log</span>
+          <div style="display:flex;gap:0.75rem;align-items:center;">
+            <span id="alert-delivery-stats" style="font-size:0.78rem;color:#6b7c93;"></span>
+            <button class="page-btn" onclick="loadAlertDeliveries()" style="padding:0.35rem 0.85rem;font-size:0.78rem;">Refresh</button>
+          </div>
+        </div>
+        <!-- Summary chips -->
+        <div id="alert-delivery-summary" style="display:flex;gap:0.6rem;flex-wrap:wrap;padding:0 0 1rem 0;"></div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Sent At</th>
+                <th>User</th>
+                <th>Recipient</th>
+                <th>Category</th>
+                <th>Subject</th>
+              </tr>
+            </thead>
+            <tbody id="alert-deliveries-tbody">
+              <tr><td colspan="5" class="loading"><span class="spinner"></span> Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEMO CODES TAB -->
+    <div id="tab-demo-codes" class="tab-panel">
+      <div class="panel" style="margin-bottom:1.5rem;">
+        <div class="panel-header">
+          <span class="panel-title">Generate Demo Code</span>
+        </div>
+        <div style="padding:1.5rem;display:flex;gap:1rem;flex-wrap:wrap;align-items:flex-end;">
+          <div>
+            <label style="display:block;font-size:0.78rem;color:#8fa3b8;margin-bottom:0.4rem;">Expiration Date <span style="color:#6b7c93;">(optional)</span></label>
+            <input type="date" id="demo-expires-at" class="search-input" style="width:180px;">
+          </div>
+          <div>
+            <label style="display:block;font-size:0.78rem;color:#8fa3b8;margin-bottom:0.4rem;">Max Uses</label>
+            <input type="number" id="demo-max-uses" class="search-input" value="10" min="1" max="1000" style="width:100px;">
+          </div>
+          <div style="flex:1;min-width:180px;">
+            <label style="display:block;font-size:0.78rem;color:#8fa3b8;margin-bottom:0.4rem;">Notes <span style="color:#6b7c93;">(optional)</span></label>
+            <input type="text" id="demo-notes" class="search-input" style="width:100%;" placeholder="e.g. Trial for Maersk fleet team">
+          </div>
+          <button class="page-btn" onclick="generateDemoCode()" style="padding:0.45rem 1.1rem;font-size:0.875rem;border-color:rgba(232,90,0,0.35);color:#E85A00;">+ Generate Code</button>
+        </div>
+        <div id="demo-generate-msg" style="padding:0 1.5rem 1rem;font-size:0.85rem;display:none;"></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">Active Demo Codes</span>
+          <button class="page-btn" onclick="loadDemoCodes()" style="padding:0.35rem 0.85rem;font-size:0.78rem;">Refresh</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Code</th>
+                <th>Uses</th>
+                <th>Expires</th>
+                <th>Created</th>
+                <th>Created By</th>
+                <th>Notes</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="demo-codes-tbody">
+              <tr><td colspan="8" class="loading"><span class="spinner"></span> Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEMO REQUESTS TAB -->
+    <div id="tab-demo-requests" class="tab-panel">
+      <!-- Stats -->
+      <div class="stats-grid" id="demo-requests-stats-grid" style="margin-bottom:1.5rem;">
+        <div class="loading"><span class="spinner"></span> Loading…</div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">🚀 Self-Serve Demo Requests</span>
+          <div style="display:flex;gap:0.75rem;align-items:center;">
+            <span class="panel-count" id="demo-requests-count">—</span>
+            <button class="page-btn" onclick="loadDemoRequests()" style="padding:0.35rem 0.85rem;font-size:0.78rem;">Refresh</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Submitted</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Company</th>
+                <th>Role</th>
+                <th>Fleet</th>
+                <th>Waterway</th>
+                <th>Code</th>
+                <th>Email Sent</th>
+                <th>Redeemed</th>
+              </tr>
+            </thead>
+            <tbody id="demo-requests-tbody">
+              <tr><td colspan="10" class="loading"><span class="spinner"></span> Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- CALCULATOR LEADS TAB -->
+    <div id="tab-calculator-leads" class="tab-panel">
+      <!-- Stats -->
+      <div class="stats-grid" id="calc-leads-stats-grid" style="margin-bottom:1.5rem;">
+        <div class="loading"><span class="spinner"></span> Loading…</div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">🧮 Rejection Exposure Calculator Leads</span>
+          <div style="display:flex;gap:0.75rem;align-items:center;">
+            <span class="panel-count" id="calc-leads-count">—</span>
+            <button class="page-btn" onclick="loadCalcLeads()" style="padding:0.35rem 0.85rem;font-size:0.78rem;">Refresh</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Submitted</th>
+                <th>Email</th>
+                <th>Company</th>
+                <th>Fleet</th>
+                <th>Transits/mo</th>
+                <th>Cargo</th>
+                <th>Waterway</th>
+                <th>Method</th>
+                <th>Annual Exposure</th>
+                <th>Savings</th>
+                <th>Report Sent</th>
+              </tr>
+            </thead>
+            <tbody id="calc-leads-tbody">
+              <tr><td colspan="11" class="loading"><span class="spinner"></span> Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Lightweight chart library -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+  <script>
+    // ── State ──────────────────────────────────────────────────────────────────
+    const PAGE_SIZE = 25;
+    let usersOffset = 0, usersTotal = 0, usersSearch = '';
+    let purchaseOffset = 0, purchaseTotal = 0;
+    let filingsOffset = 0, filingsTotal = 0, filingsStatusFilter = null;
+    let leadsOffset = 0, leadsTotal = 0;
+    let meetingsOffset = 0, meetingsTotal = 0, meetingsStatusFilter = null;
+    let chartInstance = null;
+    let debounceTimer = null;
+    let loadedTabs = new Set(['overview']);
+    const ALL_TABS = ['overview','users','leads','purchase-requests','filings','suez-monitor','meeting-requests','alert-deliveries','deadline-alerts','demo-codes','demo-requests','calculator-leads'];
+    let deadlineAlertsFilter = null;
+
+    // ── Auth guard ─────────────────────────────────────────────────────────────
+    // Server-side requireAuth + requireAdmin already validated this user before
+    // serving admin.html. This client-side check is a secondary confirmation
+    // for the UI (show admin email badge). On failure, redirect to /login — NOT
+    // the landing page — so the user can re-authenticate.
+    async function checkAuth() {
+      try {
+        const res = await fetch('/api/auth/me', { credentials: 'include' });
+        if (!res.ok) {
+          window.location.href = '/login';
+          return false;
+        }
+        const data = await res.json();
+        if (!data.success || !data.user?.is_admin) {
+          window.location.href = '/login';
+          return false;
+        }
+        document.getElementById('admin-subtitle').textContent =
+          `Logged in as ${data.user.email} · Admin`;
+        return true;
+      } catch {
+        // Network error — server already validated auth, don't redirect on
+        // transient failures. Log and continue; admin can still use the page.
+        console.warn('[Admin] Auth check failed (network error); server-side auth already passed.');
+        return true;
+      }
+    }
+
+    async function logout() {
+      await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
+      window.location.href = '/login';
+    }
+
+    // ── Tabs ──────────────────────────────────────────────────────────────────
+    function switchTab(name) {
+      document.querySelectorAll('.tab-btn').forEach((b, i) => {
+        b.classList.toggle('active', ALL_TABS[i] === name);
+      });
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById(`tab-${name}`).classList.add('active');
+
+      if (!loadedTabs.has(name)) {
+        loadedTabs.add(name);
+        if (name === 'users')           loadUsers();
+        if (name === 'leads')           loadLeads();
+        if (name === 'purchase-requests') loadPurchases();
+        if (name === 'filings')         loadFilings();
+        if (name === 'suez-monitor')    loadSuez();
+        if (name === 'meeting-requests') loadMeetings();
+        if (name === 'alert-deliveries') loadAlertDeliveries();
+        if (name === 'deadline-alerts')  { loadDeadlineAlerts(); loadAlertPreview(); }
+        if (name === 'demo-codes')       loadDemoCodes();
+        if (name === 'demo-requests')    loadDemoRequests();
+        if (name === 'calculator-leads') loadCalcLeads();
+      }
+    }
+
+    // ── Deadline Alerts ────────────────────────────────────────────────────────
+    const WATERWAY_FLAGS = { panama: '🇵🇦', suez: '🇪🇬', bosporus: '🇹🇷', malacca: '🇲🇾', cape: '🇿🇦' };
+    const WINDOW_COLORS  = { '96h': '#22d3ee', '72h': '#22d3ee', '48h': '#eab308', '24h': '#f97316', '12h': '#ef4444', '6h': '#ef4444' };
+
+    function setDeadlineAlertFilter(waterway, btn) {
+      deadlineAlertsFilter = waterway;
+      document.querySelectorAll('#deadline-alerts-filter-row .filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      loadDeadlineAlerts();
+    }
+
+    async function loadDeadlineAlerts() {
+      const tbody = document.getElementById('deadline-alerts-tbody');
+      const statsGrid = document.getElementById('deadline-alerts-stats-grid');
+      tbody.innerHTML = '<tr><td colspan="7" class="loading"><span class="spinner"></span> Loading...</td></tr>';
+
+      try {
+        const url = '/api/admin/alerts/log' + (deadlineAlertsFilter ? `?waterway=${deadlineAlertsFilter}` : '');
+        const [logRes, statsRes] = await Promise.all([
+          fetch(url + (deadlineAlertsFilter ? '&' : '?') + 'limit=100', { credentials: 'include' }),
+          fetch('/api/admin/alerts/stats', { credentials: 'include' }),
+        ]);
+        const logData = await logRes.json();
+        const statsData = await statsRes.json();
+
+        if (!logData.success) throw new Error(logData.message || 'Failed to load alerts');
+
+        // Stats cards
+        if (statsData.success) {
+          const bw = {};
+          (statsData.by_waterway || []).forEach(w => { bw[w.waterway] = w.count; });
+          statsGrid.innerHTML = [
+            statCard('Total Deadline Alerts', statsData.total_alerts_sent, 'all waterways combined'),
+            ...Object.entries(bw).map(([w, c]) => statCard(`${WATERWAY_FLAGS[w] || ''} ${w} Alerts`, c, 'deadline alerts sent')),
+          ].join('');
+
+          // Update badge on tab
+          const badge = document.getElementById('deadline-alerts-badge');
+          if (badge && statsData.total_alerts_sent > 0) {
+            badge.textContent = statsData.total_alerts_sent;
+            badge.style.display = 'inline';
+          }
+        }
+
+        if (!logData.alerts || !logData.alerts.length) {
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:2rem;color:#64748b;">No deadline alerts sent yet. Alerts fire every 30 min for filings with approaching deadlines.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = logData.alerts.map(a => {
+          const ts = new Date(a.sent_at).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+          const dl = a.deadline_at ? new Date(a.deadline_at).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }) : '—';
+          const wFlag = WATERWAY_FLAGS[a.waterway] || '';
+          const winColor = WINDOW_COLORS[a.alert_window] || '#6b7c93';
+          return `<tr>
+            <td style="white-space:nowrap;color:#94a3b8;font-size:0.82rem;">${ts}</td>
+            <td><span style="font-size:0.82rem;">${wFlag} ${escAdminHtml(a.waterway || '')}</span></td>
+            <td style="font-size:0.82rem;color:#f1f5f9;font-weight:500;">MV ${escAdminHtml(a.vessel_name || '')}${a.imo_number ? `<span style="color:#64748b;font-size:0.75rem;"> IMO ${escAdminHtml(a.imo_number)}</span>` : ''}</td>
+            <td><span style="background:${winColor}22;border:1px solid ${winColor}44;border-radius:6px;padding:2px 8px;font-size:0.72rem;color:${winColor};font-weight:600;">${escAdminHtml(a.alert_window)}</span></td>
+            <td style="white-space:nowrap;color:#94a3b8;font-size:0.8rem;">${dl}</td>
+            <td style="font-size:0.8rem;">${escAdminHtml(a.recipient)}</td>
+            <td style="font-size:0.76rem;color:#64748b;" title="${escAdminHtml(a.subject || '')}">${escAdminHtml((a.subject || '').slice(0, 70))}${(a.subject || '').length > 70 ? '…' : ''}</td>
+          </tr>`;
+        }).join('');
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="7" style="color:#FF6B6B;padding:1rem;">Error: ${escAdminHtml(err.message)}</td></tr>`;
+        statsGrid.innerHTML = `<div style="color:#FF6B6B;padding:1rem;">Failed to load stats: ${escAdminHtml(err.message)}</div>`;
+      }
+    }
+
+    // ── Test Alert + Preview ───────────────────────────────────────────────────
+
+    async function loadAlertPreview() {
+      const waterway = document.getElementById('test-alert-waterway').value;
+      const wrap = document.getElementById('test-alert-preview-wrap');
+      wrap.innerHTML = '<div class="loading" style="padding:2rem;"><span class="spinner"></span> Loading preview…</div>';
+
+      try {
+        const res = await fetch(`/api/admin/alerts/preview?waterway=${waterway}`, { credentials: 'include' });
+        const data = await res.json();
+        if (!data.success) throw new Error(data.message || 'Preview failed');
+
+        // Render email HTML inside a sandboxed iframe so it doesn't bleed styles
+        const iframe = document.createElement('iframe');
+        iframe.setAttribute('sandbox', 'allow-same-origin');
+        iframe.style.cssText = 'width:100%;border:none;display:block;border-radius:10px;';
+        iframe.style.minHeight = '600px';
+        wrap.innerHTML = '';
+        wrap.appendChild(iframe);
+        iframe.contentDocument.open();
+        iframe.contentDocument.write(data.html);
+        iframe.contentDocument.close();
+        // Auto-size to content
+        setTimeout(() => {
+          try { iframe.style.height = iframe.contentDocument.body.scrollHeight + 'px'; } catch (_) {}
+        }, 150);
+      } catch (err) {
+        wrap.innerHTML = `<div style="padding:1.5rem;color:#FF6B6B;font-size:0.85rem;">Preview error: ${escAdminHtml(err.message)}</div>`;
+      }
+    }
+
+    async function sendTestAlert() {
+      const waterway = document.getElementById('test-alert-waterway').value;
+      const btn = document.getElementById('test-send-btn');
+      const status = document.getElementById('test-alert-status');
+
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      status.style.display = 'none';
+
+      try {
+        const res = await fetch('/api/admin/alerts/test-send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ waterway }),
+        });
+        const data = await res.json();
+
+        status.style.display = 'block';
+        if (data.success) {
+          status.style.cssText = 'display:block;background:#00d4aa22;border:1px solid #00d4aa44;color:#00d4aa;font-size:0.82rem;padding:0.4rem 0.9rem;border-radius:8px;';
+          status.textContent = `✓ Sent to ${data.sent_to}`;
+        } else {
+          status.style.cssText = 'display:block;background:#ef444422;border:1px solid #ef444444;color:#ef4444;font-size:0.82rem;padding:0.4rem 0.9rem;border-radius:8px;';
+          status.textContent = data.message || 'Send failed';
+        }
+      } catch (err) {
+        status.style.cssText = 'display:block;background:#ef444422;border:1px solid #ef444444;color:#ef4444;font-size:0.82rem;padding:0.4rem 0.9rem;border-radius:8px;';
+        status.textContent = 'Network error: ' + err.message;
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '📧 Send Test Alert to My Inbox';
+      }
+    }
+
+    // ── Alert Deliveries ───────────────────────────────────────────────────────
+    async function loadAlertDeliveries() {
+      const tbody = document.getElementById('alert-deliveries-tbody');
+      const statsEl = document.getElementById('alert-delivery-stats');
+      const summaryEl = document.getElementById('alert-delivery-summary');
+      tbody.innerHTML = '<tr><td colspan="5" class="loading"><span class="spinner"></span> Loading...</td></tr>';
+
+      try {
+        const res = await fetch('/api/admin/alert-deliveries?limit=100', { credentials: 'include' });
+        const data = await res.json();
+        if (!data.success) throw new Error(data.message);
+
+        statsEl.textContent = `${data.total} recent deliveries`;
+
+        // Summary chips
+        const CATEGORY_COLORS = { certificate: '#ef4444', digest: '#E85A00', filing: '#eab308', test: '#64748b' };
+        summaryEl.innerHTML = Object.entries(data.by_category || {}).map(([cat, count]) => {
+          const col = CATEGORY_COLORS[cat] || '#6b7c93';
+          return `<span style="background:${col}22;border:1px solid ${col}44;border-radius:8px;padding:3px 10px;font-size:0.75rem;color:${col};font-weight:600;">${cat}: ${count}</span>`;
+        }).join('');
+
+        if (!data.deliveries.length) {
+          tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:2rem;color:#64748b;">No alert deliveries yet. Alerts run daily once users have vessels with certificates configured.</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = data.deliveries.map(d => {
+          const ts = new Date(d.sent_at).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+          const subject = (d.subject || '').replace(/^\[CanalClear\]\s*/i, '').slice(0, 80);
+          const catColor = CATEGORY_COLORS[d.alert_category] || '#6b7c93';
+          return `<tr>
+            <td style="white-space:nowrap;color:#94a3b8;">${ts}</td>
+            <td style="font-size:0.8rem;">${escAdminHtml(d.user_name || '')} <span style="color:#64748b;">${escAdminHtml(d.user_email)}</span></td>
+            <td style="font-size:0.8rem;">${escAdminHtml(d.recipient_email)}</td>
+            <td><span style="background:${catColor}22;border:1px solid ${catColor}44;border-radius:6px;padding:2px 8px;font-size:0.72rem;color:${catColor};font-weight:600;">${d.alert_category}</span></td>
+            <td style="font-size:0.78rem;color:#94a3b8;" title="${escAdminHtml(d.subject || '')}">${escAdminHtml(subject)}${(d.subject || '').length > 80 ? '…' : ''}</td>
+          </tr>`;
+        }).join('');
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="5" style="color:#FF6B6B;padding:1rem;">Error: ${err.message}</td></tr>`;
+      }
+    }
+
+    function escAdminHtml(s) {
+      return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    // ── Stats ─────────────────────────────────────────────────────────────────
+    async function loadStats() {
+      try {
+        const [res, alertStatsRes] = await Promise.all([
+          fetch('/api/admin/stats', { credentials: 'include' }),
+          fetch('/api/admin/alerts/stats', { credentials: 'include' }).catch(() => ({ ok: false })),
+        ]);
+        const alertStats = alertStatsRes.ok ? await alertStatsRes.json().catch(() => null) : null;
+        const data = await res.json();
+        if (!data.success) return;
+
+        const { users, filings, purchase_requests, validations, leads,
+                panama, suez, bosporus, malacca, cape } = data;
+        const grid = document.getElementById('stats-grid');
+
+        // Helper: pass rate display
+        const pr = (pass, total) => total > 0 ? Math.round((pass / total) * 100) + '%' : '—';
+
+        // Helper: waterway card with filings + validation pass rate + leads
+        function waterwayCards(flag, name, w) {
+          if (!w) return '';
+          const passRate = pr(w.validations_pass, w.validations_total);
+          return statCard(`${flag} ${name} Filings`, w.filings_total, `<span>${w.filings_this_month}</span> this month` + (w.filings_this_week != null ? ` · <span>${w.filings_this_week}</span> this week` : ''))
+               + statCard(`${flag} ${name} Val. Rate`, passRate, `<span>${w.validations_pass}</span> pass / ${w.validations_total} total`)
+               + statCard(`${flag} ${name} Leads`, w.leads || 0, 'demo leads');
+        }
+
+        grid.innerHTML = `
+          ${statCard('Total Users', users.total, `<span>${users.active}</span> active · <span>${users.new_this_week}</span> new this week`)}
+          ${statCard('Active Subs', users.active, `of ${users.total} total users`)}
+          ${statCard('Filings (All)', filings.total, `<span>${filings.submitted}</span> submitted · <span>${filings.new_this_week}</span> new`)}
+          ${statCard('Purchase Requests', purchase_requests.total, `<span>${purchase_requests.new_this_week}</span> new this week`)}
+          ${statCard('Leads (Demos)', (leads && leads.total) || 0, `<span>${(leads && leads.new_this_week) || 0}</span> new this week`)}
+          ${statCard('Validations Run', validations.total, 'all 5 waterways')}
+          ${alertStats && alertStats.success ? statCard('⏰ Deadline Alerts', alertStats.total_alerts_sent, 'emails sent to fleet operators') : ''}
+          ${suez && suez.overdue_isps > 0 ? statCardAlert('⚠️ Overdue ISPS', suez.overdue_isps, 'Suez notifications pending >24h') : ''}
+          ${suez ? statCard('SCA Submissions', suez.active_sca_submissions, 'total SCA submissions') : ''}
+        `;
+
+        // Per-waterway breakdown section
+        const waterwayGrid = document.createElement('div');
+        waterwayGrid.innerHTML = `
+          <h3 style="color:var(--white);font-size:1rem;font-weight:600;margin:1.5rem 0 0.75rem;padding-left:0.25rem;">Per-Waterway Breakdown</h3>
+          <div class="stats-grid">
+            ${waterwayCards('🇵🇦', 'Panama', panama)}
+            ${waterwayCards('🇪🇬', 'Suez', suez)}
+            ${waterwayCards('🇹🇷', 'Bosporus', bosporus)}
+            ${waterwayCards('🇲🇾', 'Malacca', malacca)}
+            ${waterwayCards('🇿🇦', 'Cape', cape)}
+          </div>
+        `;
+        grid.after(waterwayGrid);
+
+        // Show overdue badge on Suez Monitor tab
+        if (suez && suez.overdue_isps > 0) {
+          const badge = document.getElementById('suez-overdue-badge');
+          if (badge) { badge.textContent = suez.overdue_isps; badge.style.display = 'inline'; }
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    function statCard(label, value, sub) {
+      return `<div class="stat-card">
+        <div class="stat-label">${label}</div>
+        <div class="stat-value">${value ?? '—'}</div>
+        <div class="stat-sub">${sub}</div>
+      </div>`;
+    }
+
+    function statCardAlert(label, value, sub) {
+      return `<div class="stat-card" style="border-color:rgba(255,107,107,0.3);background:rgba(255,107,107,0.05);">
+        <div class="stat-label" style="color:var(--red);">${label}</div>
+        <div class="stat-value" style="color:var(--red);">${value ?? '—'}</div>
+        <div class="stat-sub">${sub}</div>
+      </div>`;
+    }
+
+    // ── Signups Chart ─────────────────────────────────────────────────────────
+    async function loadChart() {
+      try {
+        const res = await fetch('/api/admin/signups-chart', { credentials: 'include' });
+        const data = await res.json();
+        if (!data.success) return;
+
+        const rows = data.data;
+        const labels = rows.map(r => {
+          const d = new Date(r.day);
+          return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        });
+        const values = rows.map(r => parseInt(r.signups));
+
+        const ctx = document.getElementById('signups-chart').getContext('2d');
+        if (chartInstance) chartInstance.destroy();
+        chartInstance = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels,
+            datasets: [{
+              label: 'Signups',
+              data: values,
+              backgroundColor: 'rgba(232, 90, 0,0.25)',
+              borderColor: '#E85A00',
+              borderWidth: 1.5,
+              borderRadius: 4,
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: {
+                ticks: { color: '#6b7c93', font: { size: 11 } },
+                grid: { color: 'rgba(255,255,255,0.04)' },
+              },
+              y: {
+                ticks: { color: '#6b7c93', font: { size: 11 }, stepSize: 1 },
+                grid: { color: 'rgba(255,255,255,0.06)' },
+                beginAtZero: true,
+              }
+            }
+          }
+        });
+      } catch (err) {
+        console.error('Chart error:', err);
+      }
+    }
+
+    // ── Users ─────────────────────────────────────────────────────────────────
+    async function loadUsers(offset = 0) {
+      usersOffset = offset;
+      const params = new URLSearchParams({ limit: PAGE_SIZE, offset });
+      if (usersSearch) params.set('search', usersSearch);
+
+      const tbody = document.getElementById('users-tbody');
+      tbody.innerHTML = `<tr><td colspan="8" class="loading"><span class="spinner"></span> Loading...</td></tr>`;
+
+      try {
+        const res = await fetch(`/api/admin/users?${params}`, { credentials: 'include' });
+        const data = await res.json();
+        if (!data.success) throw new Error(data.message);
+
+        usersTotal = data.total;
+        document.getElementById('users-count').textContent = `${usersTotal} total`;
+
+        if (data.users.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="8" class="empty-state"><p>No users found</p></td></tr>`;
+        } else {
+          tbody.innerHTML = data.users.map(u => `
+            <tr>
+              <td class="cell-primary">${esc(u.email)}</td>
+              <td>${esc(u.name || '—')}</td>
+              <td><span class="cell-mono">${esc(u.subscription_plan || '—')}</span></td>
+              <td>${subBadge(u.subscription_status)}</td>
+              <td>${canalCoverageBadge(u.canals_used, u.panama_filings, u.suez_filings)}</td>
+              <td>${u.is_admin ? '<span class="badge badge-admin badge-dot">Admin</span>' : '<span style="color:var(--gray);font-size:0.8rem">User</span>'}</td>
+              <td class="cell-mono">${u.subscription_expires_at ? fmtDate(u.subscription_expires_at) : '—'}</td>
+              <td class="cell-mono">${fmtDate(u.created_at)}</td>
+            </tr>
+          `).join('');
+        }
+
+        updatePagination('users', offset, usersTotal);
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="8" class="empty-state"><p>Error: ${esc(err.message)}</p></td></tr>`;
+      }
+    }
+
+    function usersPage(dir) {
+      const next = usersOffset + dir * PAGE_SIZE;
+      if (next < 0 || next >= usersTotal) return;
+      loadUsers(next);
+    }
+
+    function debouncedUserSearch() {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        usersSearch = document.getElementById('user-search').value.trim();
+        loadUsers(0);
+      }, 350);
+    }
+
+    // ── Purchase Requests ─────────────────────────────────────────────────────
+    async function loadPurchases(offset = 0) {
+      purchaseOffset = offset;
+      const params = new URLSearchParams({ limit: PAGE_SIZE, offset });
+      const tbody = document.getElementById('purchase-tbody');
+      tbody.innerHTML = `<tr><td colspan="5" class="loading"><span class="spinner"></span> Loading...</td></tr>`;
+
+      try {
+        const res = await fetch(`/api/admin/purchase-requests?${params}`, { credentials: 'include' });
+        const data = await res.json();
+        if (!data.success) throw new Error(data.message);
+
+        purchaseTotal = data.total;
+        document.getElementById('purchase-count').textContent = `${purchaseTotal} total`;
+
+        if (data.purchase_requests.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="5" class="empty-state"><p>No purchase requests yet</p></td></tr>`;
+        } else {
+          tbody.innerHTML = data.purchase_requests.map(p => `
+            <tr>
+              <td class="cell-primary">${esc(p.email)}</td>
+              <td>${esc(p.name || '—')}</td>
+              <td>${esc(p.plan_name || '—')}</td>
+              <td><span class="cell-mono">${esc(p.plan_id)}</span></td>
+              <td class="cell-mono">${fmtDate(p.created_at)}</td>
+            </tr>
+          `).join('');
+        }
+
+        updatePagination('purchase', offset, purchaseTotal);
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="5" class="empty-state"><p>Error: ${esc(err.message)}</p></td></tr>`;
+      }
+    }
+
+    function purchasePage(dir) {
+      const next = purchaseOffset + dir * PAGE_SIZE;
+      if (next < 0 || next >= purchaseTotal) return;
+      loadPurchases(next);
+    }
+
+    // ── Leads ─────────────────────────────────────────────────────────────────
+    async function loadLeads(offset = 0) {
+      leadsOffset = offset;
+      const params = new URLSearchParams({ limit: PAGE_SIZE, offset });
+      const tbody = document.getElementById('leads-tbody');
+      tbody.innerHTML = `<tr><td colspan="5" class="loading"><span class="spinner"></span> Loading...</td></tr>`;
+
+      try {
+        const res = await fetch(`/api/admin/leads?${params}`, { credentials: 'include' });
+        const data = await res.json();
+        if (!data.success) throw new Error(data.message);
+
+        leadsTotal = data.total;
+        document.getElementById('leads-count').textContent = `${leadsTotal} total`;
+
+        if (data.leads.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="5" class="empty-state"><p>No leads yet — they'll appear here when prospects request a demo.</p></td></tr>`;
+        } else {
+          tbody.innerHTML = data.leads.map(l => `
+            <tr>
+              <td class="cell-primary">${esc(l.email)}</td>
+              <td>${esc(l.company_name || '—')}</td>
+              <td>${esc(l.fleet_size || '—')}</td>
+              <td><span class="cell-mono">${esc(l.source || '—')}</span></td>
+              <td class="cell-mono">${fmtDate(l.created_at)}</td>
+            </tr>
+          `).join('');
+        }
+
+        updatePagination('leads', offset, leadsTotal);
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="5" class="empty-state"><p>Error: ${esc(err.message)}</p></td></tr>`;
+      }
+    }
+
+    function leadsPage(dir) {
+      const next = leadsOffset + dir * PAGE_SIZE;
+      if (next < 0 || next >= leadsTotal) return;
+      loadLeads(next);
+    }
+
+    // ── Filings ───────────────────────────────────────────────────────────────
+    let filingsCanalFilter = null;
+
+    function setFilingFilter(status, btn) {
+      filingsStatusFilter = status;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      // Restore canal filter active state if set
+      if (filingsCanalFilter) {
+        const cBtn = document.getElementById('canal-filter-btn-' + filingsCanalFilter);
+        if (cBtn) cBtn.classList.add('active');
+      }
+      loadFilings(0);
+    }
+
+    function setCanalFilter(canal, btn) {
+      const allCanalBtns = ['panama','suez','bosporus','malacca','cape'];
+      if (filingsCanalFilter === canal) {
+        // Toggle off
+        filingsCanalFilter = null;
+        btn.classList.remove('active');
+      } else {
+        filingsCanalFilter = canal;
+        allCanalBtns.forEach(c => {
+          const el = document.getElementById('canal-filter-btn-' + c);
+          if (el) el.classList.remove('active');
+        });
+        btn.classList.add('active');
+      }
+      loadFilings(0);
+    }
+
+    async function loadFilings(offset = 0) {
+      filingsOffset = offset;
+      const params = new URLSearchParams({ limit: PAGE_SIZE, offset });
+      if (filingsStatusFilter) params.set('status', filingsStatusFilter);
+      if (filingsCanalFilter) params.set('canal', filingsCanalFilter);
+
+      const tbody = document.getElementById('filings-tbody');
+      tbody.innerHTML = `<tr><td colspan="8" class="loading"><span class="spinner"></span> Loading...</td></tr>`;
+
+      try {
+        const res = await fetch(`/api/admin/filings?${params}`, { credentials: 'include' });
+        const data = await res.json();
+        if (!data.success) throw new Error(data.message);
+
+        filingsTotal = data.total;
+        document.getElementById('filings-count').textContent = `${filingsTotal} total`;
+
+        const canalFlag = { panama: '🇵🇦', suez: '🇪🇬', bosporus: '🇹🇷', malacca: '🇲🇾', cape: '🇿🇦' };
+
+        if (data.filings.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="10" class="empty-state"><p>No filings found</p></td></tr>`;
+        } else {
+          tbody.innerHTML = data.filings.map(f => `
+            <tr>
+              <td class="cell-primary" title="${esc(f.user_email)}">${esc(f.user_email)}</td>
+              <td><span class="cell-mono">${esc(docTypeLabel(f.document_type))}</span></td>
+              <td><span class="cell-mono">${canalFlag[f.canal] || ''} ${esc(f.canal || 'panama')}</span></td>
+              <td>${esc(f.vessel_name || '—')}</td>
+              <td class="cell-mono">${esc(f.imo_number || '—')}</td>
+              <td>${filingBadge(f.status)}</td>
+              <td>${validationBadge(f.validation_status, f.passed_checks, f.failed_checks)}</td>
+              <td>${ispsStageBadges(f.isps_stages_sent)}</td>
+              <td class="cell-mono">${esc(f.sca_reference || f.reference_number || '—')}</td>
+              <td class="cell-mono">${fmtDate(f.created_at)}</td>
+            </tr>
+          `).join('');
+        }
+
+        updatePagination('filings', offset, filingsTotal);
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="10" class="empty-state"><p>Error: ${esc(err.message)}</p></td></tr>`;
+      }
+    }
+
+    function filingsPage(dir) {
+      const next = filingsOffset + dir * PAGE_SIZE;
+      if (next < 0 || next >= filingsTotal) return;
+      loadFilings(next);
+    }
+
+    // ── Meeting Requests ──────────────────────────────────────────────────────
+    function setMeetingFilter(status, btn) {
+      meetingsStatusFilter = status;
+      const panel = document.getElementById('tab-meeting-requests');
+      panel.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      loadMeetings(0);
+    }
+
+    async function loadMeetings(offset = 0) {
+      meetingsOffset = offset;
+      const params = new URLSearchParams({ limit: PAGE_SIZE, offset });
+      if (meetingsStatusFilter) params.set('status', meetingsStatusFilter);
+
+      const tbody = document.getElementById('meetings-tbody');
+      tbody.innerHTML = `<tr><td colspan="9" class="loading"><span class="spinner"></span> Loading...</td></tr>`;
+
+      try {
+        const res = await fetch(`/api/admin/meeting-requests?${params}`, { credentials: 'include' });
+        const data = await res.json();
+        if (!data.success) throw new Error(data.message);
+
+        meetingsTotal = data.total;
+        document.getElementById('meetings-count').textContent = `${meetingsTotal} total`;
+
+        // Stats
+        if (data.stats) {
+          const s = data.stats;
+          const grid = document.getElementById('meetings-stats-grid');
+          grid.innerHTML = `
+            ${statCard('Total', s.total, `<span>${s.new_this_week}</span> new this week`)}
+            ${statCard('Pending', s.pending, 'awaiting confirmation')}
+            ${statCard('Confirmed', s.confirmed, 'meetings confirmed')}
+            ${statCard('Completed', s.completed, 'calls done')}
+          `;
+          // Update badge
+          const badge = document.getElementById('meetings-badge');
+          if (badge && parseInt(s.pending) > 0) {
+            badge.textContent = s.pending;
+            badge.style.display = 'inline';
+          }
+        }
+
+        if (data.meeting_requests.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="9" class="empty-state"><p>No meeting requests found</p></td></tr>`;
+        } else {
+          tbody.innerHTML = data.meeting_requests.map(m => `
+            <tr id="meeting-row-${m.id}">
+              <td class="cell-primary">${esc(m.name)}</td>
+              <td><a href="mailto:${esc(m.email)}" style="color:var(--teal);">${esc(m.email)}</a></td>
+              <td>${esc(m.company || '—')}</td>
+              <td>${esc(m.fleet_size || '—')}</td>
+              <td class="cell-mono">${esc(m.preferred_date)}</td>
+              <td>${esc(m.preferred_time)}</td>
+              <td>${esc(m.timezone || 'UTC')}</td>
+              <td>${meetingStatusBadge(m.status)}</td>
+              <td>
+                <select onchange="updateMeetingStatus(${m.id}, this.value)" style="background:var(--slate2);border:1px solid rgba(255,255,255,0.1);color:var(--white);border-radius:6px;padding:4px 8px;font-size:0.78rem;cursor:pointer;">
+                  <option value="pending"   ${m.status==='pending'   ?'selected':''}>Pending</option>
+                  <option value="confirmed" ${m.status==='confirmed' ?'selected':''}>Confirmed</option>
+                  <option value="completed" ${m.status==='completed' ?'selected':''}>Completed</option>
+                  <option value="cancelled" ${m.status==='cancelled' ?'selected':''}>Cancelled</option>
+                </select>
+              </td>
+            </tr>
+            ${m.message ? `<tr><td colspan="9" style="padding:4px 12px 10px;color:var(--gray);font-size:0.82rem;font-style:italic;">💬 ${esc(m.message)}</td></tr>` : ''}
+          `).join('');
+        }
+
+        updatePagination('meetings', offset, meetingsTotal);
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="9" class="empty-state"><p>Error: ${esc(err.message)}</p></td></tr>`;
+      }
+    }
+
+    function meetingsPage(dir) {
+      const next = meetingsOffset + dir * PAGE_SIZE;
+      if (next < 0 || next >= meetingsTotal) return;
+      loadMeetings(next);
+    }
+
+    async function updateMeetingStatus(id, status) {
+      try {
+        const res = await fetch(`/api/admin/meeting-requests/${id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ status })
+        });
+        const data = await res.json();
+        if (!data.success) throw new Error(data.message);
+        // Refresh badge
+        const row = document.getElementById(`meeting-row-${id}`);
+        if (row) {
+          const statusCell = row.cells[7];
+          if (statusCell) statusCell.innerHTML = meetingStatusBadge(status);
+        }
+      } catch (err) {
+        alert('Failed to update status: ' + err.message);
+      }
+    }
+
+    function meetingStatusBadge(status) {
+      const map = {
+        pending:   '<span class="badge badge-trialing badge-dot">Pending</span>',
+        confirmed: '<span class="badge badge-active badge-dot">Confirmed</span>',
+        completed: '<span class="badge badge-submitted badge-dot">Completed</span>',
+        cancelled: '<span class="badge badge-inactive">Cancelled</span>'
+      };
+      return map[status] || `<span class="badge badge-inactive">${esc(status)}</span>`;
+    }
+
+    // ── Helpers ───────────────────────────────────────────────────────────────
+    function esc(str) {
+      if (str == null) return '';
+      return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function fmtDate(iso) {
+      if (!iso) return '—';
+      const d = new Date(iso);
+      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+
+    function subBadge(status) {
+      if (status === 'active')   return '<span class="badge badge-active badge-dot">Active</span>';
+      if (status === 'trialing') return '<span class="badge badge-trialing badge-dot">Trial</span>';
+      return `<span class="badge badge-inactive">${esc(status || 'None')}</span>`;
+    }
+
+    function filingBadge(status) {
+      if (status === 'submitted') return '<span class="badge badge-submitted badge-dot">Submitted</span>';
+      return `<span class="badge badge-draft">${esc(status || '—')}</span>`;
+    }
+
+    function docTypeLabel(type) {
+      const map = {
+        vumpa_pre_arrival:        'VUMPA Pre-Arrival',
+        pcsopep_plan:             'PCSOPEP',
+        crew_manifest:            'Crew Manifest',
+        cargo_declaration:        'Cargo Declaration',
+        sca_transit_application:  '🇪🇬 Transit Application',
+        suez_crew_manifest:       '🇪🇬 Crew Manifest',
+        suez_cargo_declaration:   '🇪🇬 Cargo Declaration',
+        suez_isps_declaration:    '🇪🇬 ISPS Declaration',
+        suez_sopep:               '🇪🇬 SOPEP',
+        suez_ballast_water:       '🇪🇬 Ballast Water',
+        suez_tonnage_certificate: '🇪🇬 Tonnage Certificate',
+      };
+      return map[type] || type || '—';
+    }
+
+    function canalCoverageBadge(canals, panamaCount, suezCount) {
+      const arr = Array.isArray(canals) ? canals : (canals || '{}').replace(/[{}]/g,'').split(',').filter(Boolean);
+      if (!arr.length) return '<span style="color:var(--gray);font-size:0.8rem;">None</span>';
+      const bits = [];
+      if (arr.includes('panama')) bits.push(`<span title="${panamaCount} filings" style="font-size:0.78rem;">🇵🇦 ${panamaCount || 0}</span>`);
+      if (arr.includes('suez'))   bits.push(`<span title="${suezCount} filings" style="font-size:0.78rem;">🇪🇬 ${suezCount || 0}</span>`);
+      return bits.join(' ');
+    }
+
+    function validationBadge(status, passed, failed) {
+      if (!status) return '<span style="color:var(--gray);font-size:0.75rem;">—</span>';
+      if (status === 'pass')    return `<span class="badge badge-active badge-dot" title="${passed} passed">Pass</span>`;
+      if (status === 'fail')    return `<span class="badge" style="background:var(--red-dim);color:var(--red);" title="${failed} failed">✗ Fail</span>`;
+      if (status === 'warning') return `<span class="badge badge-trialing badge-dot">Warn</span>`;
+      return `<span class="badge badge-inactive">${esc(status)}</span>`;
+    }
+
+    // ── Demo Codes ────────────────────────────────────────────────────────────
+
+    async function loadDemoCodes() {
+      const tbody = document.getElementById('demo-codes-tbody');
+      if (!tbody) return;
+      tbody.innerHTML = '<tr><td colspan="8" class="loading"><span class="spinner"></span> Loading...</td></tr>';
+
+      try {
+        const res = await fetch('/api/demo/admin/codes', { credentials: 'include' });
+        const data = await res.json();
+
+        if (!data.success || !data.codes.length) {
+          tbody.innerHTML = '<tr><td colspan="8"><div class="empty-state"><p>No demo codes yet. Generate one above.</p></div></td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = data.codes.map(c => `
+          <tr>
+            <td><span style="font-family:monospace;font-size:0.9rem;color:#fff;font-weight:600;">${esc(c.code)}</span></td>
+            <td>${esc(c.use_count)} / ${esc(c.max_uses)}</td>
+            <td>${c.expires_at ? fmtDate(c.expires_at) : '<span style="color:#6b7c93;">Never</span>'}</td>
+            <td>${fmtDate(c.created_at)}</td>
+            <td class="cell-mono">${esc(c.created_by)}</td>
+            <td style="color:#6b7c93;font-size:0.82rem;">${esc(c.notes) || '—'}</td>
+            <td>${c.is_active
+              ? '<span class="badge badge-active badge-dot">Active</span>'
+              : '<span class="badge badge-inactive">Revoked</span>'
+            }</td>
+            <td>${c.is_active
+              ? `<button class="page-btn" onclick="revokeDemoCode(${c.id})" style="font-size:0.75rem;padding:0.25rem 0.6rem;border-color:rgba(255,107,107,0.3);color:#FF6B6B;">Revoke</button>`
+              : '—'
+            }</td>
+          </tr>
+        `).join('');
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="8" style="color:var(--red);padding:1rem;">${esc(err.message)}</td></tr>`;
+      }
+    }
+
+    async function generateDemoCode() {
+      const expiresAt = document.getElementById('demo-expires-at').value || null;
+      const maxUses = parseInt(document.getElementById('demo-max-uses').value) || 10;
+      const notes = document.getElementById('demo-notes').value.trim() || null;
+      const msgEl = document.getElementById('demo-generate-msg');
+
+      msgEl.style.display = 'block';
+      msgEl.style.color = '#8fa3b8';
+      msgEl.textContent = 'Generating…';
+
+      try {
+        const res = await fetch('/api/demo/admin/codes', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ expires_at: expiresAt || null, max_uses: maxUses, notes })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          msgEl.style.color = '#E85A00';
+          msgEl.textContent = `Generated: ${data.code.code}  (max ${data.code.max_uses} uses)`;
+          loadDemoCodes();
+          // Mark demo-codes tab as needing reload next time
+          loadedTabs.delete('demo-codes');
+          loadedTabs.add('demo-codes');
+        } else {
+          msgEl.style.color = '#FF6B6B';
+          msgEl.textContent = 'Error: ' + (data.message || 'Failed');
+        }
+      } catch (err) {
+        msgEl.style.color = '#FF6B6B';
+        msgEl.textContent = 'Network error: ' + err.message;
+      }
+    }
+
+    async function revokeDemoCode(id) {
+      if (!confirm('Revoke this demo code? All active sessions using it will be invalidated.')) return;
+
+      try {
+        const res = await fetch(`/api/demo/admin/codes/${id}/revoke`, {
+          method: 'POST',
+          credentials: 'include'
+        });
+        const data = await res.json();
+        if (data.success) {
+          loadDemoCodes();
+        } else {
+          alert('Failed: ' + (data.message || 'Unknown error'));
+        }
+      } catch (err) {
+        alert('Network error: ' + err.message);
+      }
+    }
+
+    // ── Demo Requests ─────────────────────────────────────────────────────────
+    const WATERWAY_NAMES = { panama: '🇵🇦 Panama', suez: '🇪🇬 Suez', bosporus: '🇹🇷 Bosporus', malacca: '🇲🇾 Malacca', cape: '🇿🇦 Cape' };
+
+    async function loadDemoRequests() {
+      const tbody = document.getElementById('demo-requests-tbody');
+      const countEl = document.getElementById('demo-requests-count');
+      const statsGrid = document.getElementById('demo-requests-stats-grid');
+      tbody.innerHTML = '<tr><td colspan="10" class="loading"><span class="spinner"></span> Loading…</td></tr>';
+
+      try {
+        const res = await fetch('/api/demo-request/admin/list?limit=200', { credentials: 'include' });
+        const data = await res.json();
+
+        if (!data.success) throw new Error(data.message || 'Failed to load');
+
+        const requests = data.requests || [];
+        const total = data.total || 0;
+
+        countEl.textContent = total;
+
+        // Update badge
+        const badge = document.getElementById('demo-requests-badge');
+        if (badge && total > 0) { badge.textContent = total; badge.style.display = 'inline'; }
+
+        // Stats
+        const redeemed = requests.filter(r => r.code_redeemed).length;
+        const emailSent = requests.filter(r => r.email_sent_at).length;
+        statsGrid.innerHTML = [
+          statCard('Total Requests', total, 'demo access requests'),
+          statCard('Emails Sent', emailSent, 'demo codes delivered'),
+          statCard('Codes Redeemed', redeemed, 'prospects logged in'),
+          statCard('Conversion Rate', total > 0 ? Math.round((redeemed / total) * 100) + '%' : '0%', 'request → login'),
+        ].join('');
+
+        if (!requests.length) {
+          tbody.innerHTML = `<tr><td colspan="10" style="text-align:center;padding:2rem;color:#64748b;">No demo requests yet. Share <strong>/request-demo</strong> to start collecting leads.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = requests.map(r => {
+          const ts = new Date(r.created_at).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+          const emailSentStr = r.email_sent_at
+            ? '<span style="color:#22c55e;font-size:0.82rem;">✓ Sent</span>'
+            : '<span style="color:#64748b;font-size:0.82rem;">—</span>';
+          const redeemedStr = r.code_redeemed
+            ? `<span style="color:#22c55e;font-weight:600;font-size:0.82rem;">✓ Yes</span>`
+            : `<span style="color:#64748b;font-size:0.82rem;">No</span>`;
+          const wName = WATERWAY_NAMES[r.waterway] || esc(r.waterway);
+          return `<tr>
+            <td style="white-space:nowrap;color:#94a3b8;font-size:0.82rem;">${ts}</td>
+            <td style="font-weight:500;">${esc(r.name)}</td>
+            <td style="font-size:0.82rem;color:#8fa3b8;">${esc(r.email)}</td>
+            <td style="font-size:0.85rem;">${esc(r.company)}</td>
+            <td style="font-size:0.82rem;color:#8fa3b8;">${esc(r.role)}</td>
+            <td style="font-size:0.82rem;color:#8fa3b8;">${esc(r.fleet_size)}</td>
+            <td style="font-size:0.82rem;">${wName}</td>
+            <td><span style="font-family:monospace;font-size:0.85rem;color:#E85A00;">${esc(r.demo_code || '—')}</span></td>
+            <td>${emailSentStr}</td>
+            <td>${redeemedStr}</td>
+          </tr>`;
+        }).join('');
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="10" style="color:var(--red);padding:1rem;">${esc(err.message)}</td></tr>`;
+      }
+    }
+
+    // ── Calculator Leads ──────────────────────────────────────────────────────
+    const CALC_CARGO_LABELS = {
+      containers: 'Containers', bulk: 'Bulk', tanker: 'Tanker',
+      lng: 'LNG', vehicle_carrier: 'Vehicle Carrier', other: 'Other',
+    };
+    const CALC_METHOD_LABELS = {
+      manual: 'Manual', in_house: 'In-House', third_party: '3P Agent', automated: 'Automated',
+    };
+    const CALC_WATERWAY_FLAGS = {
+      panama: '🇵🇦', suez: '🇪🇬', bosporus: '🇹🇷', singapore: '🇸🇬', cape: '🇿🇦',
+    };
+
+    function fmtMoney(n) {
+      if (n == null) return '—';
+      n = parseFloat(n);
+      if (n >= 1e6) return '$' + (n / 1e6).toFixed(1) + 'M';
+      if (n >= 1e3) return '$' + Math.round(n / 1000) + 'K';
+      return '$' + Math.round(n).toLocaleString();
+    }
+
+    async function loadCalcLeads() {
+      const tbody   = document.getElementById('calc-leads-tbody');
+      const countEl = document.getElementById('calc-leads-count');
+      const statsGrid = document.getElementById('calc-leads-stats-grid');
+      tbody.innerHTML = '<tr><td colspan="11" class="loading"><span class="spinner"></span> Loading…</td></tr>';
+
+      try {
+        const res = await fetch('/api/calculator/leads?limit=200', { credentials: 'include' });
+        const data = await res.json();
+        if (!data.success) throw new Error(data.message || 'Failed to load');
+
+        const leads = data.leads || [];
+        const total = data.total || 0;
+        countEl.textContent = total;
+
+        // Badge
+        const badge = document.getElementById('calc-leads-badge');
+        if (badge && total > 0) { badge.textContent = total; badge.style.display = 'inline'; }
+
+        // Stats
+        const reportsSent = leads.filter(l => l.pdf_sent).length;
+        const totalExposure = leads.reduce((s, l) => s + (parseFloat(l.annual_exposure) || 0), 0);
+        const totalSavings  = leads.reduce((s, l) => s + (parseFloat(l.savings) || 0), 0);
+        statsGrid.innerHTML = [
+          statCard('Total Leads', total, 'calculator submissions'),
+          statCard('Reports Sent', reportsSent, 'emails delivered'),
+          statCard('Avg Exposure', leads.length ? fmtMoney(totalExposure / leads.length) : '—', 'per lead (annual)'),
+          statCard('Total Potential Savings', fmtMoney(totalSavings), 'across all leads'),
+        ].join('');
+
+        if (!leads.length) {
+          tbody.innerHTML = `<tr><td colspan="11" style="text-align:center;padding:2rem;color:#64748b;">No calculator leads yet. Share <strong>/calculator</strong> to start collecting leads.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = leads.map(l => {
+          const ts = new Date(l.created_at).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+          const sentStr = l.pdf_sent
+            ? '<span style="color:#22c55e;font-size:0.82rem;">✓ Sent</span>'
+            : '<span style="color:#64748b;font-size:0.82rem;">—</span>';
+          const wFlag = CALC_WATERWAY_FLAGS[l.primary_waterway] || '';
+          return `<tr>
+            <td style="white-space:nowrap;color:#94a3b8;font-size:0.82rem;">${ts}</td>
+            <td style="font-size:0.82rem;color:#e2eaf4;font-weight:500;">${esc(l.email)}</td>
+            <td style="font-size:0.82rem;color:#8fa3b8;">${esc(l.company || '—')}</td>
+            <td style="text-align:center;">${esc(l.fleet_size)}</td>
+            <td style="text-align:center;">${esc(l.monthly_transits)}</td>
+            <td style="font-size:0.82rem;">${CALC_CARGO_LABELS[l.cargo_type] || esc(l.cargo_type)}</td>
+            <td style="font-size:0.82rem;">${wFlag} ${esc(l.primary_waterway)}</td>
+            <td style="font-size:0.82rem;">${CALC_METHOD_LABELS[l.filing_method] || esc(l.filing_method)}</td>
+            <td style="font-weight:700;color:#ef4444;">${fmtMoney(l.annual_exposure)}</td>
+            <td style="font-weight:700;color:#22c55e;">${fmtMoney(l.savings)}</td>
+            <td>${sentStr}</td>
+          </tr>`;
+        }).join('');
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="11" style="color:var(--red);padding:1rem;">${esc(err.message)}</td></tr>`;
+      }
+    }
+
+    // ── Suez Monitor — see /admin-suez.js ────────────────────────────────────
+
+    function updatePagination(prefix, offset, total) {
+      const start = total === 0 ? 0 : offset + 1;
+      const end = Math.min(offset + PAGE_SIZE, total);
+      document.getElementById(`${prefix}-page-info`).textContent =
+        `Showing ${start}–${end} of ${total}`;
+      document.getElementById(`${prefix}-prev`).disabled = offset === 0;
+      document.getElementById(`${prefix}-next`).disabled = end >= total;
+    }
+
+    // ── Init ──────────────────────────────────────────────────────────────────
+    (async () => {
+      const ok = await checkAuth();
+      if (!ok) return;
+      loadStats();
+      loadChart();
+    })();
+  </script>
+    <script src="/js/mobile-nav.js"></script>
+<script src="/js/pwa-manager.js"></script>
+<script src="/admin-suez.js"></script>
+<script src="/js/whatsapp-button.js"></script>
+</body>
+</html>

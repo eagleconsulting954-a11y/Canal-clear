@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MPA Singapore OCEANS-X Integration — Malacca Filing | CanalClear</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://canalclear.org/mpa-connect">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/visual-polish.css">
+  <link rel="stylesheet" href="/css/mobile.css">
+  <link rel="icon" type="image/png" href="/icons/icon-192.png">
+  <meta name="theme-color" content="#1a2d4a">
+  <link rel="manifest" href="/manifest.json">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --navy: #1a2d4a; --deep: #142238; --slate: #243350;
+      --teal: #E85A00; --teal-dim: rgba(232, 90, 0, 0.12); --teal-border: rgba(232, 90, 0, 0.25);
+      --cyan: #00B4D8; --white: #ffffff; --gray: #6b7c93; --light-gray: #8fa3b8;
+      --red: #FF6B6B; --red-dim: rgba(255, 107, 107, 0.12); --red-border: rgba(255, 107, 107, 0.3);
+      --yellow: #FFD93D; --yellow-dim: rgba(255, 217, 61, 0.12); --yellow-border: rgba(255, 217, 61, 0.3);
+      --green-dim: rgba(46, 213, 115, 0.1); --green-border: rgba(46, 213, 115, 0.25); --green: #2ED573;
+      /* MPA accent — Singapore red */
+      --mpa: #C8102E; --mpa-dim: rgba(200, 16, 46, 0.1); --mpa-border: rgba(200, 16, 46, 0.25);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'IBM Plex Sans', sans-serif; background: var(--navy); color: var(--white); line-height: 1.6; overflow-x: hidden; }
+
+    nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1rem 2rem; background: rgba(10, 22, 40, 0.92); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(232, 90, 0, 0.08); }
+    nav .nav-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .logo { display: flex; align-items: center; text-decoration: none; }
+    .logo img { height: 34px; width: auto; object-fit: contain; }
+    .nav-links { display: flex; gap: 0.5rem; align-items: center; }
+    .nav-links a { color: var(--gray); text-decoration: none; font-size: 0.9rem; padding: 0.5rem 1rem; border-radius: 8px; transition: all 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--white); background: rgba(255,255,255,0.06); }
+    .nav-status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gray); display: inline-block; margin-right: 5px; transition: background 0.3s; }
+    .nav-status-dot.connected { background: var(--green); }
+
+    .app-container { max-width: 1200px; margin: 0 auto; padding: 5.5rem 2rem 3rem; min-height: 100vh; }
+
+    .page-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 2.5rem; gap: 1rem; }
+    .page-header-text h1 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.3rem; }
+    .page-header-text p { color: var(--gray); font-size: 0.95rem; }
+
+    /* MPA badge */
+    .mpa-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0.85rem; background: var(--mpa-dim); border: 1px solid var(--mpa-border); border-radius: 20px; font-size: 0.78rem; font-weight: 600; color: #e84060; }
+    .mpa-badge .sg-flag { font-size: 0.95rem; }
+
+    .status-pill { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; white-space: nowrap; flex-shrink: 0; }
+    .status-pill.connected { background: var(--green-dim); border: 1px solid var(--green-border); color: var(--green); }
+    .status-pill.disconnected { background: rgba(136,153,170,0.1); border: 1px solid rgba(136,153,170,0.2); color: var(--gray); }
+    .status-pill.error { background: var(--red-dim); border: 1px solid var(--red-border); color: var(--red); }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+    .status-pill.connected .status-dot { animation: pulse-dot 2s infinite; }
+    @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    .panel { background: var(--deep); border: 1px solid rgba(136, 153, 170, 0.08); border-radius: 16px; padding: 2rem; margin-bottom: 1.5rem; }
+    .panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.75rem; }
+    .panel-header-left { display: flex; align-items: center; gap: 0.75rem; }
+    .panel-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--teal-dim); border: 1px solid var(--teal-border); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .panel-icon.mpa { background: var(--mpa-dim); border-color: var(--mpa-border); }
+    .panel-title { font-size: 1.1rem; font-weight: 600; }
+    .panel-subtitle { font-size: 0.85rem; color: var(--gray); margin-top: 0.15rem; }
+
+    .security-notice { display: flex; align-items: flex-start; gap: 0.75rem; background: rgba(232, 90, 0, 0.05); border: 1px solid rgba(232, 90, 0, 0.12); border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1.5rem; font-size: 0.85rem; color: var(--light-gray); line-height: 1.5; }
+    .security-notice .lock-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .security-notice strong { color: var(--teal); }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group.full-width { grid-column: 1 / -1; }
+    label { font-size: 0.82rem; font-weight: 600; color: var(--light-gray); text-transform: uppercase; letter-spacing: 0.04em; }
+    input, select { background: var(--slate); border: 1px solid rgba(136, 153, 170, 0.15); border-radius: 8px; color: var(--white); font-family: inherit; font-size: 0.92rem; padding: 0.65rem 0.85rem; transition: border-color 0.2s, box-shadow 0.2s; }
+    input:focus, select:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px rgba(232,90,0,0.1); }
+    input::placeholder { color: var(--gray); }
+    .hint { font-size: 0.78rem; color: var(--gray); }
+
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; padding: 0.65rem 1.5rem; border-radius: 10px; font-family: inherit; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.2s; border: none; white-space: nowrap; }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn-primary { background: var(--teal); color: white; }
+    .btn-primary:hover:not(:disabled) { background: #d14e00; transform: translateY(-1px); }
+    .btn-secondary { background: var(--slate); border: 1px solid rgba(136,153,170,0.2); color: var(--white); }
+    .btn-secondary:hover:not(:disabled) { background: rgba(36,51,80,0.8); border-color: rgba(136,153,170,0.4); }
+    .btn-danger { background: rgba(255,107,107,0.1); border: 1px solid var(--red-border); color: var(--red); }
+    .btn-danger:hover:not(:disabled) { background: rgba(255,107,107,0.2); }
+    .btn-outline-cyan { background: transparent; border: 1px solid rgba(0,180,216,0.3); color: var(--cyan); }
+    .btn-outline-cyan:hover:not(:disabled) { background: rgba(0,180,216,0.08); border-color: rgba(0,180,216,0.5); }
+    .btn-actions { display: flex; gap: 0.75rem; margin-top: 1.5rem; flex-wrap: wrap; }
+
+    .loading-spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .connected-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; padding: 1.25rem; background: var(--slate); border-radius: 12px; border: 1px solid rgba(136,153,170,0.1); margin-bottom: 1rem; }
+    .conn-field .lbl { font-size: 0.75rem; color: var(--gray); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.2rem; }
+    .conn-field .val { font-size: 0.9rem; color: var(--white); }
+    .mono { font-family: monospace; }
+
+    .sub-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .sub-table th { text-align: left; padding: 0.6rem 0.75rem; color: var(--gray); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1px solid rgba(136,153,170,0.1); }
+    .sub-table td { padding: 0.75rem; border-bottom: 1px solid rgba(136,153,170,0.05); color: var(--white); }
+    .sub-table tr:last-child td { border-bottom: none; }
+    .sub-table tr:hover td { background: rgba(255,255,255,0.02); }
+    .sub-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; }
+    .sub-badge.submitted { background: var(--teal-dim); color: var(--teal); border: 1px solid var(--teal-border); }
+    .sub-badge.pending { background: var(--yellow-dim); color: var(--yellow); border: 1px solid var(--yellow-border); }
+    .sub-badge.acknowledged { background: var(--green-dim); color: var(--green); border: 1px solid var(--green-border); }
+    .sub-badge.failed { background: var(--red-dim); color: var(--red); border: 1px solid var(--red-border); }
+    .sub-link { color: var(--cyan); cursor: pointer; text-decoration: none; font-size: 0.82rem; }
+    .sub-link:hover { text-decoration: underline; }
+
+    .quick-submit-bar { display: flex; align-items: flex-end; gap: 0.75rem; padding: 1.25rem; background: var(--slate); border-radius: 12px; border: 1px solid rgba(136,153,170,0.1); flex-wrap: wrap; }
+    .quick-submit-bar .form-group { flex: 1; min-width: 160px; }
+
+    .info-banner { display: flex; gap: 0.75rem; align-items: flex-start; background: rgba(0, 180, 216, 0.06); border: 1px solid rgba(0, 180, 216, 0.15); border-radius: 10px; padding: 0.9rem 1.1rem; margin-bottom: 1.25rem; font-size: 0.84rem; color: var(--light-gray); line-height: 1.5; }
+    .info-banner .info-icon { color: #00B4D8; flex-shrink: 0; font-size: 1rem; margin-top: 0.05rem; }
+
+    .api-info-box { background: var(--mpa-dim); border: 1px solid var(--mpa-border); border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1.5rem; font-size: 0.84rem; color: var(--light-gray); line-height: 1.5; }
+    .api-info-box a { color: #e84060; }
+
+    .steps-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .step-item { display: flex; align-items: flex-start; gap: 1rem; padding: 0.85rem 1rem; background: var(--slate); border-radius: 10px; border: 1px solid rgba(136,153,170,0.08); }
+    .step-num { width: 28px; height: 28px; border-radius: 50%; background: var(--mpa-dim); border: 1px solid var(--mpa-border); color: #e84060; font-size: 0.78rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-text strong { font-size: 0.88rem; font-weight: 600; display: block; margin-bottom: 0.1rem; }
+    .step-text span { font-size: 0.82rem; color: var(--gray); }
+
+    .package-box { background: var(--navy); border: 1px solid rgba(136,153,170,0.12); border-radius: 10px; padding: 1rem 1.25rem; font-family: monospace; font-size: 0.78rem; color: var(--light-gray); line-height: 1.6; white-space: pre-wrap; word-break: break-all; max-height: 320px; overflow-y: auto; }
+
+    #toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--deep); border: 1px solid rgba(136,153,170,0.15); border-radius: 12px; padding: 0.85rem 1.25rem; font-size: 0.88rem; font-weight: 500; z-index: 9999; transform: translateY(20px); opacity: 0; transition: all 0.25s; display: flex; align-items: center; gap: 0.5rem; max-width: 340px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+    #toast.show { transform: translateY(0); opacity: 1; }
+    #toast.success { border-color: rgba(46,213,115,0.3); color: var(--green); }
+    #toast.error { border-color: rgba(255,107,107,0.3); color: var(--red); }
+    #toast.info { border-color: rgba(0,180,216,0.3); color: var(--cyan); }
+
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 1rem; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .modal { background: var(--deep); border: 1px solid rgba(136,153,170,0.12); border-radius: 16px; padding: 2rem; width: 100%; max-width: 520px; transform: translateY(16px); transition: transform 0.2s; }
+    .modal-overlay.open .modal { transform: translateY(0); }
+    .modal-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.5rem; }
+    .modal-title { font-size: 1.1rem; font-weight: 600; }
+    .modal-close { background: none; border: none; color: var(--gray); cursor: pointer; font-size: 1.25rem; padding: 0 0.25rem; transition: color 0.2s; }
+    .modal-close:hover { color: var(--white); }
+    .modal-footer { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem; }
+    .detail-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 0.6rem 0; border-bottom: 1px solid rgba(136,153,170,0.06); gap: 1rem; }
+    .detail-row:last-child { border-bottom: none; }
+    .detail-label { font-size: 0.82rem; color: var(--gray); flex-shrink: 0; }
+    .detail-value { font-size: 0.88rem; color: var(--white); text-align: right; word-break: break-all; }
+
+    .empty-state { text-align: center; padding: 3rem 1.5rem; color: var(--gray); }
+    .empty-state .empty-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .empty-state p { font-size: 0.9rem; }
+
+    @media (max-width: 768px) {
+      nav { padding: 0.75rem 1rem; }
+      .app-container { padding: 5rem 1rem 2rem; }
+      .page-header { flex-direction: column; }
+      .form-grid { grid-template-columns: 1fr; }
+      .connected-info { grid-template-columns: 1fr 1fr; }
+      .sub-table { font-size: 0.78rem; }
+      .sub-table th, .sub-table td { padding: 0.5rem; }
+      .btn-actions { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">
+      <img src="https://pub-629428d185ca4960a0a73c850d32294b.r2.dev/company_47541/images/9d5d2ef6-d9e0-40eb-ad15-df5e737cefc1.png" alt="CanalClear">
+    </a>
+    <div class="nav-links">
+      <a href="/app">Filing Hub</a>
+      <a href="/demo-malacca">Malacca Filing</a>
+      <a href="/mpa-connect" class="active">
+        <span class="nav-status-dot" id="navStatusDot"></span>MPA OCEANS-X
+      </a>
+      <a href="/settings/alerts">⚙️ Alerts</a>
+      <a href="/admin" id="admin-nav-link" style="display:none;color:#E85A00;background:rgba(232,90,0,0.1);border-radius:8px;padding:0.4rem 0.9rem;font-size:0.85rem;font-weight:600;">Admin</a>
+      <button onclick="logout()" style="background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.2);color:#FF6B6B;border-radius:8px;padding:0.4rem 0.9rem;font-size:0.85rem;font-family:inherit;cursor:pointer;">Log out</button>
+    </div>
+  </div>
+</nav>
+
+<div class="app-container">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="page-header-text">
+      <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem;">
+        <h1>MPA Singapore OCEANS-X Integration</h1>
+        <div class="mpa-badge"><span class="sg-flag">🇸🇬</span> Singapore</div>
+      </div>
+      <p>Connect your MPA OCEANS-X API key to enrich Malacca filings with Singapore port data and submit pre-arrival notifications to digitalPORT@SG</p>
+    </div>
+    <div id="headerStatusBadge"></div>
+  </div>
+
+  <!-- Quick link to MPA portal -->
+  <div style="display:flex;align-items:center;justify-content:flex-end;gap:0.75rem;margin-bottom:1.5rem;flex-wrap:wrap;">
+    <a href="https://oceans-x.mpa.gov.sg" target="_blank" rel="noopener noreferrer"
+       style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.5rem 1rem;background:var(--mpa-dim);border:1px solid var(--mpa-border);border-radius:8px;color:#e84060;text-decoration:none;font-size:0.82rem;font-weight:600;"
+       onclick="gtag('event','portal_link_click',{waterway:'malacca',destination:'oceans_x'})">
+      🌐 Open MPA OCEANS-X
+    </a>
+    <a href="https://digitalport.mpa.gov.sg" target="_blank" rel="noopener noreferrer"
+       style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.5rem 1rem;background:rgba(0,180,216,0.07);border:1px solid rgba(0,180,216,0.2);border-radius:8px;color:var(--cyan);text-decoration:none;font-size:0.82rem;font-weight:600;"
+       onclick="gtag('event','portal_link_click',{waterway:'malacca',destination:'digitalport'})">
+      🔗 Open digitalPORT@SG
+    </a>
+  </div>
+
+  <!-- ── CONNECTION PANEL ── -->
+  <div class="panel" id="connectionPanel">
+    <div class="panel-header">
+      <div class="panel-header-left">
+        <div class="panel-icon mpa">🔑</div>
+        <div>
+          <div class="panel-title">Connect MPA OCEANS-X API Key</div>
+          <div class="panel-subtitle">Your API key is encrypted with AES-256-GCM and never stored in plain text</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="security-notice">
+      <span class="lock-icon">🔒</span>
+      <div>
+        <strong>Enterprise-grade encryption.</strong> Your OCEANS-X API key is encrypted before storage using AES-256-GCM. Only you can access it — CanalClear staff cannot read your key. The key is used solely to pull vessel data from MPA's OCEANS-X API to enrich your Malacca filings.
+      </div>
+    </div>
+
+    <div class="api-info-box">
+      <strong style="color:#e84060;">About MPA OCEANS-X:</strong> The Maritime and Port Authority of Singapore's OCEANS-X platform (launched Jan 2026, successor to SG-MDH) provides vessel particulars, arrival records, and position data for Singapore port calls. Register for an API key at <a href="https://oceans-x.mpa.gov.sg" target="_blank" rel="noopener noreferrer">oceans-x.mpa.gov.sg</a>. The API is free for commercial maritime operators.
+    </div>
+
+    <!-- DISCONNECTED: Show connect form -->
+    <div id="connectForm">
+      <div class="form-grid">
+        <div class="form-group full-width">
+          <label>OCEANS-X API Key</label>
+          <input type="password" id="mpaApiKey" placeholder="Paste your MPA OCEANS-X API key here" autocomplete="new-password">
+          <span class="hint">Register at oceans-x.mpa.gov.sg → API Access → Request Key. AES-256-GCM encrypted on save — never stored in plain text.</span>
+        </div>
+      </div>
+      <div class="btn-actions">
+        <button class="btn btn-primary" onclick="saveCredentials()" id="connectBtn">
+          🔗 Connect to MPA OCEANS-X
+        </button>
+        <a href="https://oceans-x.mpa.gov.sg" target="_blank" rel="noopener noreferrer" class="btn btn-outline-cyan">
+          Register for API Key →
+        </a>
+      </div>
+    </div>
+
+    <!-- CONNECTED: Show status + actions -->
+    <div id="connectedState" style="display:none;">
+      <div class="connected-info" id="connectedInfo"></div>
+      <div id="testResultArea" style="margin-top:0.75rem;min-height:24px;"></div>
+      <div class="btn-actions">
+        <button class="btn btn-secondary" onclick="testConnection()" id="testBtn">⚡ Test Connection</button>
+        <button class="btn btn-danger" onclick="confirmDisconnect()">🔌 Disconnect</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── HOW IT WORKS ── -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-header-left">
+        <div class="panel-icon">📋</div>
+        <div>
+          <div class="panel-title">How MPA Integration Works</div>
+          <div class="panel-subtitle">OCEANS-X enrichment + digitalPORT@SG pre-arrival notification</div>
+        </div>
+      </div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <strong>Connect your OCEANS-X API key</strong>
+          <span>Add your MPA OCEANS-X API key here — CanalClear uses it to pull verified vessel data from Singapore's maritime registry</span>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <strong>Auto-enrich Malacca filings with MPA data</strong>
+          <span>When you enter an IMO number on the Malacca filing form, CanalClear queries OCEANS-X to pre-populate vessel name, flag, tonnage, dimensions, and Singapore port call history</span>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <strong>Click "Submit to MPA" on the filing export panel</strong>
+          <span>CanalClear generates a complete digitalPORT@SG Pre-Arrival Notification (PAN) package with MPA reference number and audit log entry</span>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-text">
+          <strong>Upload to digitalPORT@SG portal</strong>
+          <span>CanalClear guides you through the digitalPORT@SG online form submission. Direct API submission available when MPA partner agreement is in place.</span>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">5</div>
+        <div class="step-text">
+          <strong>Track all submissions with audit trail</strong>
+          <span>Every MPA submission logs an MPA reference number, timestamp, and vessel data in CanalClear's filing audit log</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── QUICK SUBMIT PANEL ── (shown when connected) -->
+  <div class="panel" id="submitPanel" style="display:none;">
+    <div class="panel-header">
+      <div class="panel-header-left">
+        <div class="panel-icon">🚢</div>
+        <div>
+          <div class="panel-title">Quick Submit to MPA</div>
+          <div class="panel-subtitle">Submit a Malacca pre-arrival notification to MPA digitalPORT@SG</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-banner">
+      <span class="info-icon">💡</span>
+      <div>
+        For the best experience, submit from the <a href="/demo-malacca" style="color:var(--cyan);">Malacca filing page</a> using the <strong>Submit to MPA</strong> button — it automatically pre-fills vessel data from your completed STRAITREP filing.
+      </div>
+    </div>
+
+    <div class="quick-submit-bar">
+      <div class="form-group">
+        <label>Vessel Name</label>
+        <input type="text" id="qsVesselName" placeholder="e.g. NORDIC BULK">
+      </div>
+      <div class="form-group">
+        <label>IMO Number</label>
+        <input type="text" id="qsImo" placeholder="e.g. 9321483">
+      </div>
+      <div class="form-group">
+        <label>Transit Direction</label>
+        <select id="qsDirection">
+          <option value="SB">Southbound (toward Singapore)</option>
+          <option value="NB">Northbound (away from Singapore)</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" onclick="quickSubmitFiling()" id="qsBtn">
+        Submit to MPA
+      </button>
+    </div>
+    <div id="qsResult" style="margin-top:0.75rem;min-height:20px;"></div>
+  </div>
+
+  <!-- ── SUBMISSION HISTORY ── -->
+  <div class="panel" id="historyPanel">
+    <div class="panel-header">
+      <div class="panel-header-left">
+        <div class="panel-icon">📊</div>
+        <div>
+          <div class="panel-title">MPA Submission History</div>
+          <div class="panel-subtitle" id="historySubtitle">All pre-arrival notifications submitted to MPA digitalPORT@SG</div>
+        </div>
+      </div>
+      <button class="btn btn-secondary" onclick="loadSubmissions()" id="refreshBtn" style="padding:0.5rem 1rem;font-size:0.82rem;">↻ Refresh</button>
+    </div>
+    <div id="historyContent">
+      <div class="empty-state">
+        <div class="empty-icon">🛳️</div>
+        <p>No MPA submissions yet. Connect your OCEANS-X API key and submit a Malacca filing to get started.</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /.app-container -->
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<!-- Disconnect confirm modal -->
+<div class="modal-overlay" id="disconnectModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Disconnect MPA OCEANS-X?</div>
+      <button class="modal-close" onclick="closeModal('disconnectModal')">✕</button>
+    </div>
+    <p style="color:var(--light-gray);font-size:0.9rem;line-height:1.5;">This will remove your OCEANS-X API key from CanalClear. Existing submission history will be preserved. You can reconnect at any time.</p>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('disconnectModal')">Cancel</button>
+      <button class="btn btn-danger" onclick="disconnectAccount()">Disconnect</button>
+    </div>
+  </div>
+</div>
+
+<!-- Submission detail modal -->
+<div class="modal-overlay" id="subDetailModal">
+  <div class="modal" style="max-width:600px;">
+    <div class="modal-header">
+      <div class="modal-title">MPA Submission Detail</div>
+      <button class="modal-close" onclick="closeModal('subDetailModal')">✕</button>
+    </div>
+    <div id="subDetailContent" style="max-height:500px;overflow-y:auto;"></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('subDetailModal')">Close</button>
+      <button class="btn btn-primary" id="subResubmitBtn" style="display:none;" onclick="resubmitFromModal()">↺ Resubmit</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let currentSubId = null;
+
+  // ── Auth guard ──────────────────────────────────────────────────────────────
+  async function checkAuth() {
+    try {
+      const res = await fetch('/api/me', { credentials: 'include' });
+      if (!res.ok) { window.location.href = '/login?redirect=/mpa-connect'; return; }
+      const data = await res.json();
+      if (data.is_admin) document.getElementById('admin-nav-link').style.display = 'flex';
+      return data;
+    } catch (e) { window.location.href = '/login?redirect=/mpa-connect'; }
+  }
+
+  function logout() {
+    fetch('/api/logout', { method: 'POST', credentials: 'include' }).finally(() => { window.location.href = '/login'; });
+  }
+
+  // ── Toast ───────────────────────────────────────────────────────────────────
+  let toastTimer;
+  function showToast(msg, type = 'info') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = `show ${type}`;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { t.className = ''; }, 3500);
+  }
+
+  // ── Modal ───────────────────────────────────────────────────────────────────
+  function openModal(id) { document.getElementById(id).classList.add('open'); }
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+  // ── Status display ──────────────────────────────────────────────────────────
+  function renderStatusBadge(connected) {
+    const el = document.getElementById('headerStatusBadge');
+    const dot = document.getElementById('navStatusDot');
+    if (connected) {
+      el.innerHTML = `<div class="status-pill connected"><div class="status-dot"></div>Connected to OCEANS-X</div>`;
+      dot.classList.add('connected');
+    } else {
+      el.innerHTML = `<div class="status-pill disconnected"><div class="status-dot"></div>Not Connected</div>`;
+      dot.classList.remove('connected');
+    }
+  }
+
+  // ── Load credential status ──────────────────────────────────────────────────
+  async function loadStatus() {
+    try {
+      const res = await fetch('/api/mpa/credentials', { credentials: 'include' });
+      const data = await res.json();
+      if (!data.success) return;
+
+      renderStatusBadge(data.connected);
+
+      if (data.connected && data.connection) {
+        document.getElementById('connectForm').style.display = 'none';
+        document.getElementById('connectedState').style.display = 'block';
+        document.getElementById('submitPanel').style.display = 'block';
+
+        const conn = data.connection;
+        document.getElementById('connectedInfo').innerHTML = `
+          <div class="conn-field"><div class="lbl">Status</div><div class="val" style="color:var(--green);">● Connected</div></div>
+          <div class="conn-field"><div class="lbl">API Key</div><div class="val mono">${conn.key_hint}</div></div>
+          <div class="conn-field"><div class="lbl">Last Tested</div><div class="val">${conn.last_tested_at ? new Date(conn.last_tested_at).toLocaleString() : 'Not tested yet'}</div></div>
+          <div class="conn-field"><div class="lbl">Connected</div><div class="val">${new Date(conn.connected_at).toLocaleDateString()}</div></div>
+        `;
+        loadSubmissions();
+      } else {
+        document.getElementById('connectForm').style.display = 'block';
+        document.getElementById('connectedState').style.display = 'none';
+        document.getElementById('submitPanel').style.display = 'none';
+        loadSubmissions(); // still show empty history
+      }
+    } catch (e) { console.error('Status load error', e); }
+  }
+
+  // ── Save credentials ────────────────────────────────────────────────────────
+  async function saveCredentials() {
+    const apiKey = document.getElementById('mpaApiKey').value.trim();
+    if (!apiKey || apiKey.length < 8) { showToast('API key must be at least 8 characters', 'error'); return; }
+
+    const btn = document.getElementById('connectBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<div class="loading-spinner"></div> Connecting...';
+
+    try {
+      const res = await fetch('/api/mpa/credentials', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ api_key: apiKey }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        showToast('MPA OCEANS-X API key saved securely', 'success');
+        gtag('event', 'mpa_connected', { waterway: 'malacca' });
+        loadStatus();
+      } else {
+        showToast(data.message || 'Failed to save API key', 'error');
+      }
+    } catch (e) {
+      showToast('Network error — please try again', 'error');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = '🔗 Connect to MPA OCEANS-X';
+    }
+  }
+
+  // ── Test connection ─────────────────────────────────────────────────────────
+  async function testConnection() {
+    const btn = document.getElementById('testBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<div class="loading-spinner"></div> Testing...';
+    const area = document.getElementById('testResultArea');
+    area.innerHTML = '';
+
+    try {
+      const res = await fetch('/api/mpa/test', { method: 'POST', credentials: 'include' });
+      const data = await res.json();
+      if (data.success) {
+        area.innerHTML = `<div style="color:var(--green);font-size:0.85rem;">✓ ${data.message}</div>`;
+        showToast('Connection test passed', 'success');
+      } else {
+        area.innerHTML = `<div style="color:var(--red);font-size:0.85rem;">✕ ${data.message}</div>`;
+        showToast('Connection test failed', 'error');
+      }
+    } catch (e) {
+      area.innerHTML = `<div style="color:var(--red);font-size:0.85rem;">✕ Network error during test</div>`;
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = '⚡ Test Connection';
+    }
+  }
+
+  // ── Disconnect ──────────────────────────────────────────────────────────────
+  function confirmDisconnect() { openModal('disconnectModal'); }
+
+  async function disconnectAccount() {
+    closeModal('disconnectModal');
+    try {
+      const res = await fetch('/api/mpa/credentials', { method: 'DELETE', credentials: 'include' });
+      const data = await res.json();
+      if (data.success) { showToast('MPA OCEANS-X disconnected', 'info'); loadStatus(); }
+      else showToast(data.message || 'Disconnect failed', 'error');
+    } catch (e) { showToast('Network error', 'error'); }
+  }
+
+  // ── Quick submit ────────────────────────────────────────────────────────────
+  async function quickSubmitFiling() {
+    const vesselName = document.getElementById('qsVesselName').value.trim();
+    const imo = document.getElementById('qsImo').value.trim();
+    const direction = document.getElementById('qsDirection').value;
+
+    if (!vesselName) { showToast('Vessel name is required', 'error'); return; }
+
+    const btn = document.getElementById('qsBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<div class="loading-spinner"></div> Submitting...';
+    document.getElementById('qsResult').innerHTML = '';
+
+    try {
+      const res = await fetch('/api/mpa/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ vessel_name: vesselName, imo_number: imo, transit_direction: direction, filing_type: 'PRE_ARRIVAL' }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        document.getElementById('qsResult').innerHTML = `
+          <div style="display:flex;align-items:center;gap:0.5rem;padding:0.6rem 0.85rem;background:var(--green-dim);border:1px solid var(--green-border);border-radius:8px;font-size:0.84rem;">
+            <span style="color:var(--green);">✓</span>
+            <span>Submitted — MPA Reference: <strong style="color:var(--green);">${data.mpa_reference}</strong></span>
+            ${data.enriched_from_oceans_x ? '<span style="color:var(--cyan);font-size:0.78rem;margin-left:auto;">⚡ OCEANS-X enriched</span>' : ''}
+          </div>`;
+        showToast(`Submitted — Ref: ${data.mpa_reference}`, 'success');
+        gtag('event', 'mpa_submission', { waterway: 'malacca', direction });
+        loadSubmissions();
+      } else {
+        document.getElementById('qsResult').innerHTML = `<div style="color:var(--red);font-size:0.84rem;">✕ ${data.message}</div>`;
+        showToast(data.message || 'Submission failed', 'error');
+      }
+    } catch (e) {
+      document.getElementById('qsResult').innerHTML = `<div style="color:var(--red);font-size:0.84rem;">✕ Network error. Please try again.</div>`;
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = 'Submit to MPA';
+    }
+  }
+
+  // ── Submission history ──────────────────────────────────────────────────────
+  async function loadSubmissions() {
+    const container = document.getElementById('historyContent');
+    try {
+      const res = await fetch('/api/mpa/submissions?limit=50', { credentials: 'include' });
+      const data = await res.json();
+      if (!data.success || !data.submissions.length) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">🛳️</div>
+            <p>No MPA submissions yet. Submit a Malacca filing to get started.</p>
+          </div>`;
+        document.getElementById('historySubtitle').textContent = 'No submissions yet';
+        return;
+      }
+
+      document.getElementById('historySubtitle').textContent = `${data.total} submission${data.total !== 1 ? 's' : ''} total`;
+
+      const rows = data.submissions.map(s => {
+        const statusBadge = `<span class="sub-badge ${s.status}">${s.status}</span>`;
+        const enriched = s.oceans_x_vessel_data ? '<span title="Enriched with OCEANS-X data" style="font-size:0.75rem;color:var(--cyan);">⚡</span>' : '';
+        return `
+          <tr>
+            <td>${s.vessel_name} ${enriched}</td>
+            <td>${s.imo_number || '—'}</td>
+            <td>${s.transit_direction || '—'}</td>
+            <td>${statusBadge}</td>
+            <td class="mono" style="font-size:0.78rem;">${s.mpa_reference || '—'}</td>
+            <td>${new Date(s.submitted_at).toLocaleDateString()}</td>
+            <td>
+              <a class="sub-link" onclick="showSubDetail(${s.id})">Detail</a>
+              ${s.status === 'failed' || s.status === 'pending' ? `<a class="sub-link" onclick="resubmit(${s.id})" style="margin-left:0.5rem;">Resubmit</a>` : ''}
+            </td>
+          </tr>`;
+      }).join('');
+
+      container.innerHTML = `
+        <div style="overflow-x:auto;">
+          <table class="sub-table">
+            <thead>
+              <tr>
+                <th>Vessel</th><th>IMO</th><th>Direction</th><th>Status</th><th>MPA Reference</th><th>Date</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>`;
+    } catch (e) {
+      container.innerHTML = '<p style="color:var(--red);font-size:0.85rem;padding:1rem;">Failed to load submission history.</p>';
+    }
+  }
+
+  async function showSubDetail(id) {
+    currentSubId = id;
+    const content = document.getElementById('subDetailContent');
+    content.innerHTML = '<p style="color:var(--gray);padding:1rem;">Loading...</p>';
+    openModal('subDetailModal');
+
+    try {
+      const res = await fetch(`/api/mpa/submissions/${id}`, { credentials: 'include' });
+      const data = await res.json();
+      if (!data.success) { content.innerHTML = '<p style="color:var(--red);padding:1rem;">Failed to load submission.</p>'; return; }
+      const s = data.submission;
+      const canResubmit = s.status === 'failed' || s.status === 'pending';
+      document.getElementById('subResubmitBtn').style.display = canResubmit ? 'flex' : 'none';
+
+      const enrichmentRow = s.oceans_x_vessel_data
+        ? `<div class="detail-row"><div class="detail-label">OCEANS-X Enrichment</div><div class="detail-value" style="color:var(--cyan);">⚡ Vessel data enriched from MPA</div></div>`
+        : '';
+
+      content.innerHTML = `
+        <div class="detail-row"><div class="detail-label">Vessel</div><div class="detail-value">${s.vessel_name}</div></div>
+        <div class="detail-row"><div class="detail-label">IMO</div><div class="detail-value mono">${s.imo_number || '—'}</div></div>
+        <div class="detail-row"><div class="detail-label">Filing Type</div><div class="detail-value">${s.filing_type}</div></div>
+        <div class="detail-row"><div class="detail-label">Transit Direction</div><div class="detail-value">${s.transit_direction || '—'}</div></div>
+        <div class="detail-row"><div class="detail-label">MPA Reference</div><div class="detail-value mono" style="color:var(--green);">${s.mpa_reference || '—'}</div></div>
+        <div class="detail-row"><div class="detail-label">Status</div><div class="detail-value"><span class="sub-badge ${s.status}">${s.status}</span></div></div>
+        <div class="detail-row"><div class="detail-label">Submitted</div><div class="detail-value">${new Date(s.submitted_at).toLocaleString()}</div></div>
+        ${enrichmentRow}
+        ${s.notes ? `<div class="detail-row"><div class="detail-label">Notes</div><div class="detail-value">${s.notes}</div></div>` : ''}
+      `;
+    } catch (e) { content.innerHTML = '<p style="color:var(--red);padding:1rem;">Network error.</p>'; }
+  }
+
+  async function resubmit(id) {
+    if (!confirm('Resubmit this MPA filing?')) return;
+    try {
+      const res = await fetch(`/api/mpa/submissions/${id}/resubmit`, { method: 'POST', credentials: 'include' });
+      const data = await res.json();
+      if (data.success) { showToast(`Resubmitted — Ref: ${data.submission && data.submission.mpa_reference}`, 'success'); loadSubmissions(); }
+      else showToast(data.message || 'Resubmit failed', 'error');
+    } catch (e) { showToast('Network error', 'error'); }
+  }
+
+  function resubmitFromModal() {
+    closeModal('subDetailModal');
+    if (currentSubId) resubmit(currentSubId);
+  }
+
+  // ── Init ────────────────────────────────────────────────────────────────────
+  checkAuth().then(loadStatus);
+</script>
+</body>
+</html>

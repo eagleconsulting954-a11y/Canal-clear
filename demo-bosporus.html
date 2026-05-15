@@ -1,0 +1,1980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Demo — Bosporus SP-1 Filing | CanalClear</title>
+  <meta name="description" content="Try CanalClear's Bosporus SP-1 filing automation live. AI auto-fill, Montreux Convention validation, dangerous cargo notifications, and deadline tracking — no account required.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://canalclear.org/demo/bosporus">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://canalclear.org/demo/bosporus">
+  <meta property="og:title" content="Live Demo — CanalClear Bosporus SP-1 Filing">
+  <meta property="og:description" content="AI auto-fill, Montreux Convention validation, dangerous cargo alerts — no account required.">
+  <meta property="og:image" content="https://pub-629428d185ca4960a0a73c850d32294b.r2.dev/company_47541/images/9d5d2ef6-d9e0-40eb-ad15-df5e737cefc1.png">
+  <meta property="og:site_name" content="CanalClear">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/visual-polish.css">
+  <link rel="icon" type="image/png" href="/icons/icon-192.png">
+
+  <!-- Schema: BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://canalclear.org/" },
+      { "@type": "ListItem", "position": 2, "name": "Demo", "item": "https://canalclear.org/demo" },
+      { "@type": "ListItem", "position": 3, "name": "Bosporus Filing", "item": "https://canalclear.org/demo/bosporus" }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #1a2d4a;
+      --deep: #07111F;
+      --slate: #142238;
+      --slate-2: #1e2f4a;
+      --blue: #2563EB;
+      --blue-dim: rgba(37, 99, 235, 0.1);
+      --blue-border: rgba(37, 99, 235, 0.25);
+      --teal: #E85A00;
+      --teal-dim: rgba(232, 90, 0, 0.1);
+      --teal-border: rgba(232, 90, 0, 0.22);
+      --white: #ffffff;
+      --gray: #6b7c93;
+      --light: #8fa3b8;
+      --red: #FF6B6B;
+      --red-dim: rgba(255, 107, 107, 0.12);
+      --yellow: #FFD93D;
+      --yellow-dim: rgba(255, 217, 61, 0.12);
+      --green: #E85A00;
+      --green-dim: rgba(232, 90, 0, 0.12);
+      --gold: #FFD23F;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 0.9rem 2rem;
+      background: rgba(10, 22, 40, 0.94);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(37, 99, 235, 0.12);
+    }
+    .nav-inner {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo img { height: 32px; width: auto; display: block; }
+    .nav-links { display: flex; gap: 0.25rem; align-items: center; }
+    .nav-links a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.875rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      transition: all 0.2s;
+      font-weight: 500;
+    }
+    .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+    .nav-links a.active { color: var(--teal); background: var(--teal-dim); }
+    .nav-links .nav-cta {
+      background: var(--teal);
+      color: var(--navy);
+      font-weight: 700;
+      margin-left: 0.5rem;
+    }
+    .nav-links .nav-cta:hover { background: #CC4F00; color: var(--navy); }
+    .hamburger-btn {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger-btn span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+    }
+
+    /* HERO BANNER */
+    .demo-hero {
+      padding: 6rem 2rem 3rem;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(37,99,235,0.06) 0%, transparent 100%);
+      border-bottom: 1px solid var(--blue-border);
+    }
+    .demo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--blue-dim);
+      border: 1px solid var(--blue-border);
+      color: #60a5fa;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.9rem;
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+    }
+    .demo-hero h1 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .demo-hero h1 span { color: var(--teal); }
+    .demo-hero p {
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      color: var(--gray);
+      max-width: 620px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+
+    /* MODE TOGGLE */
+    .mode-toggle-wrap {
+      max-width: 520px;
+      margin: 0 auto 0.5rem;
+      display: flex;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 4px;
+      gap: 4px;
+    }
+    .mode-btn {
+      flex: 1;
+      padding: 0.65rem 1rem;
+      border: none;
+      border-radius: 9px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--gray);
+      background: transparent;
+    }
+    .mode-btn.active {
+      background: var(--teal);
+      color: var(--navy);
+    }
+    .mode-hint {
+      font-size: 0.8rem;
+      color: var(--gray);
+      text-align: center;
+      margin-bottom: 0;
+    }
+
+    /* MAIN DEMO CONTAINER */
+    .demo-main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 6rem;
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    /* FORM PANEL */
+    .form-panel {
+      background: var(--slate-2);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .form-panel-header {
+      padding: 1.25rem 1.75rem;
+      background: rgba(37,99,235,0.06);
+      border-bottom: 1px solid var(--blue-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .form-panel-title {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .form-panel-subtitle {
+      font-size: 0.78rem;
+      color: var(--gray);
+      margin-top: 0.15rem;
+    }
+    .autofill-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--teal-dim);
+      border: 1px solid var(--teal-border);
+      color: var(--teal);
+      border-radius: 8px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .autofill-btn:hover { background: var(--teal); color: var(--navy); }
+    .autofill-btn .ai-icon { font-size: 1rem; }
+
+    .form-body { padding: 1.75rem; }
+
+    /* TABS */
+    .form-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 1.75rem;
+      background: rgba(255,255,255,0.03);
+      border-radius: 10px;
+      padding: 3px;
+      border: 1px solid rgba(255,255,255,0.07);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .form-tabs::-webkit-scrollbar { display: none; }
+    .form-tab {
+      flex-shrink: 0;
+      padding: 0.5rem 0.7rem;
+      border: none;
+      background: transparent;
+      color: var(--gray);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .form-tab.active { background: var(--slate); color: var(--white); }
+    .form-tab.has-warn { color: var(--yellow); }
+    .form-tab.has-error { color: var(--red); }
+    .form-tab-content { display: none; }
+    .form-tab-content.active { display: block; }
+
+    /* FORM GROUPS */
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-row.thirds { grid-template-columns: 1fr 1fr 1fr; }
+    .form-row.full { grid-template-columns: 1fr; }
+    .form-row.quad { grid-template-columns: 1fr 1fr 1fr 1fr; }
+    .form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+    .form-group label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--light);
+      letter-spacing: 0.02em;
+    }
+    .form-group label .req { color: var(--red); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 0.65rem 0.9rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      color: var(--white);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: all 0.2s;
+      width: 100%;
+    }
+    .form-group input::placeholder { color: var(--gray); }
+    .form-group input:focus,
+    .form-group select:focus { border-color: var(--teal); background: rgba(232, 90, 0,0.04); }
+    .form-group input.has-value { border-color: rgba(232, 90, 0,0.35); }
+    .form-group select option { background: var(--deep); color: var(--white); }
+    .form-group .hint { font-size: 0.75rem; color: var(--gray); }
+
+    .form-section-title {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #60a5fa;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(37,99,235,0.2);
+      margin-bottom: 1rem;
+    }
+
+    /* Autofill animation */
+    @keyframes autofillFlash {
+      0% { background: rgba(232, 90, 0,0.2); border-color: var(--teal); }
+      100% { background: rgba(255,255,255,0.04); border-color: rgba(232, 90, 0,0.35); }
+    }
+    .field-autofilled {
+      animation: autofillFlash 0.6s ease-out forwards;
+    }
+
+    /* Validation feedback */
+    .field-error { border-color: var(--red) !important; }
+    .field-warning { border-color: var(--yellow) !important; }
+    .field-ok { border-color: rgba(232, 90, 0,0.45) !important; }
+    .field-hint { font-size: 0.73rem; margin-top: 0.2rem; }
+    .field-hint.err { color: var(--red); }
+    .field-hint.warn { color: var(--yellow); }
+    .field-hint.ok { color: var(--teal); }
+
+    /* Checkbox row */
+    .check-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 8px;
+      margin-bottom: 0.75rem;
+      cursor: pointer;
+    }
+    .check-row input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--teal); cursor: pointer; flex-shrink: 0; }
+    .check-row label { font-size: 0.875rem; color: var(--white); cursor: pointer; }
+
+    /* Montreux badge */
+    .montreux-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.9rem 1rem;
+      border-radius: 9px;
+      margin-bottom: 1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+    .montreux-badge.ok { background: rgba(232,90,0,0.08); border: 1px solid var(--teal-border); color: var(--teal); }
+    .montreux-badge.warn { background: var(--yellow-dim); border: 1px solid rgba(255,217,61,0.3); color: var(--yellow); }
+    .montreux-badge.err { background: var(--red-dim); border: 1px solid rgba(255,107,107,0.3); color: var(--red); }
+    .montreux-badge .mb-icon { font-size: 1.1rem; flex-shrink: 0; }
+
+    /* Action bar */
+    .form-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      padding: 1.25rem 1.75rem;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .btn-validate {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.7rem 1.5rem;
+      background: var(--teal);
+      color: var(--navy);
+      border: none;
+      border-radius: 9px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-validate:hover { background: #CC4F00; }
+    .btn-submit {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.7rem 1.5rem;
+      background: transparent;
+      color: var(--teal);
+      border: 1px solid var(--teal-border);
+      border-radius: 9px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-submit:hover { background: var(--teal-dim); }
+    .btn-submit:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* SUCCESS STATE */
+    .submit-success {
+      display: none;
+      background: rgba(232,90,0,0.07);
+      border: 1px solid var(--teal-border);
+      border-radius: 14px;
+      padding: 2rem;
+      text-align: center;
+      margin: 1.75rem;
+    }
+    .submit-success.show { display: block; }
+    .submit-success .ss-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .submit-success h3 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--teal);
+    }
+    .submit-success p { font-size: 0.875rem; color: var(--gray); margin-bottom: 1rem; }
+    .conf-number {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--white);
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
+      padding: 0.6rem 1.25rem;
+      display: inline-block;
+      margin-bottom: 1rem;
+      letter-spacing: 0.06em;
+    }
+    .countdown-row {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+    .countdown-item {
+      text-align: center;
+      background: rgba(255,255,255,0.04);
+      border-radius: 8px;
+      padding: 0.6rem 0.85rem;
+      min-width: 70px;
+    }
+    .countdown-item .ci-val {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--teal);
+    }
+    .countdown-item .ci-label { font-size: 0.7rem; color: var(--gray); }
+    .ss-cta {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.65rem 1.5rem;
+      background: var(--teal); color: var(--navy);
+      font-weight: 700; font-size: 0.9rem; border-radius: 9px;
+      text-decoration: none; transition: all 0.2s;
+    }
+    .ss-cta:hover { background: #CC4F00; }
+
+    /* RESULTS PANEL */
+    .results-panel {
+      position: sticky;
+      top: 5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    /* COMPLIANCE SCORE CARD */
+    .score-card {
+      background: var(--slate-2);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .score-header {
+      padding: 1rem 1.25rem;
+      background: rgba(37,99,235,0.06);
+      border-bottom: 1px solid var(--blue-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .score-header h3 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 700;
+    }
+    .score-header .live-badge {
+      display: flex; align-items: center; gap: 0.35rem;
+      font-size: 0.72rem; font-weight: 700;
+      color: var(--teal);
+    }
+    .live-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--teal);
+      animation: livePulse 1.5s ease infinite;
+    }
+    @keyframes livePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+    .score-body { padding: 1.25rem; }
+    .score-ring-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .score-ring {
+      position: relative;
+      width: 90px;
+      height: 90px;
+      flex-shrink: 0;
+    }
+    .score-ring svg { transform: rotate(-90deg); }
+    .score-ring-track { fill: none; stroke: rgba(255,255,255,0.07); stroke-width: 8; }
+    .score-ring-fill {
+      fill: none;
+      stroke: var(--teal);
+      stroke-width: 8;
+      stroke-linecap: round;
+      stroke-dasharray: 226;
+      stroke-dashoffset: 22;
+      transition: stroke-dashoffset 0.8s ease;
+    }
+    .score-ring-fill.warn { stroke: var(--yellow); }
+    .score-ring-fill.err { stroke: var(--red); }
+    .score-num {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .score-num span:first-child {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--teal);
+      line-height: 1;
+    }
+    .score-num span:last-child { font-size: 0.65rem; color: var(--gray); }
+    .score-details h4 { font-size: 0.875rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .score-details .score-label {
+      font-size: 0.8rem;
+      color: var(--gray);
+      display: flex; align-items: center; gap: 0.3rem;
+    }
+
+    /* CHECK ITEMS */
+    .check-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.65rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .check-item.pass { border-color: rgba(232,90,0,0.2); }
+    .check-item.warn { border-color: rgba(255,217,61,0.2); background: var(--yellow-dim); }
+    .check-item.err { border-color: rgba(255,107,107,0.2); background: var(--red-dim); }
+    .check-icon { font-size: 0.9rem; flex-shrink: 0; margin-top: 0.05rem; }
+    .check-text { flex: 1; color: var(--light); line-height: 1.4; }
+    .check-text strong { color: var(--white); }
+
+    /* DEADLINE TRACKER */
+    .deadline-card {
+      background: var(--slate-2);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .deadline-header {
+      padding: 1rem 1.25rem;
+      background: rgba(37,99,235,0.06);
+      border-bottom: 1px solid var(--blue-border);
+    }
+    .deadline-header h3 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 700;
+    }
+    .deadline-list { padding: 1rem 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; }
+    .deadline-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.65rem 0.75rem;
+      background: rgba(255,255,255,0.02);
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .deadline-item .dl-name { font-size: 0.82rem; color: var(--light); flex: 1; }
+    .deadline-item .dl-time {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+    .dl-time.ok { background: var(--teal-dim); color: var(--teal); }
+    .dl-time.warn { background: var(--yellow-dim); color: var(--yellow); }
+    .dl-time.alert { background: var(--red-dim); color: var(--red); }
+    .dl-time.filed { background: rgba(255,255,255,0.06); color: var(--gray); }
+
+    /* CTA CARD */
+    .cta-card {
+      background: var(--slate-2);
+      border: 1px solid var(--teal-border);
+      border-radius: 14px;
+      padding: 1.25rem;
+    }
+    .cta-card h4 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+    .cta-card p { font-size: 0.8rem; color: var(--gray); margin-bottom: 1rem; }
+    .cta-card a.cta-primary {
+      display: flex; justify-content: center; align-items: center; gap: 0.4rem;
+      padding: 0.7rem 1.25rem;
+      background: var(--teal);
+      color: var(--navy);
+      font-weight: 700;
+      font-size: 0.9rem;
+      border-radius: 9px;
+      text-decoration: none;
+      transition: all 0.2s;
+      margin-bottom: 0.75rem;
+    }
+    .cta-card a.cta-primary:hover { background: #CC4F00; }
+    .cta-trust {
+      display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 0.5rem;
+    }
+    .cta-trust span {
+      font-size: 0.72rem; color: var(--gray);
+      display: flex; align-items: center; gap: 0.3rem;
+    }
+    .cta-trust span::before { content: '✓'; color: var(--teal); font-weight: 700; }
+
+    /* Lead capture card */
+    .lead-card {
+      background: var(--slate-2);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 1.25rem;
+    }
+    .lead-card h4 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+      color: var(--white);
+    }
+    .lead-card p { font-size: 0.78rem; color: var(--gray); margin-bottom: 0.85rem; }
+    .lead-card input {
+      width: 100%;
+      padding: 0.6rem 0.85rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      color: var(--white);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.875rem;
+      outline: none;
+      margin-bottom: 0.6rem;
+      transition: border-color 0.2s;
+    }
+    .lead-card input:focus { border-color: var(--teal); }
+    .lead-card button {
+      width: 100%;
+      padding: 0.6rem;
+      background: rgba(232, 90, 0,0.12);
+      color: var(--teal);
+      border: 1px solid var(--teal-border);
+      border-radius: 8px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .lead-card button:hover { background: var(--teal); color: var(--navy); }
+    .lead-success { font-size: 0.82rem; color: var(--teal); text-align: center; padding: 0.5rem 0; display: none; }
+
+    /* EXPORT DEMO CARD */
+    .export-demo-card {
+      background: rgba(0, 196, 154, 0.06);
+      border: 1px solid rgba(0, 196, 154, 0.25);
+      border-radius: 12px;
+      padding: 1.2rem 1.25rem 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .export-demo-header {
+      display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem;
+    }
+    .export-demo-icon { font-size: 1.3rem; }
+    .export-demo-card h4 { font-size: 0.9rem; font-weight: 700; color: #00C49A; }
+    .export-demo-card p { font-size: 0.78rem; color: var(--gray); margin-bottom: 0.9rem; line-height: 1.5; }
+    .export-demo-btns { display: flex; gap: 0.6rem; margin-bottom: 0.65rem; }
+    .export-demo-btn {
+      display: flex; align-items: center; gap: 0.4rem;
+      padding: 0.55rem 1rem; border-radius: 8px;
+      font-size: 0.82rem; font-weight: 600; cursor: pointer;
+      border: none; transition: all 0.18s; flex: 1; justify-content: center;
+    }
+    .export-demo-btn.primary {
+      background: #00C49A; color: #0A1628;
+    }
+    .export-demo-btn.primary:hover { background: #00a882; }
+    .export-demo-btn.secondary {
+      background: rgba(0, 196, 154, 0.1);
+      border: 1px solid rgba(0, 196, 154, 0.3);
+      color: #00C49A;
+    }
+    .export-demo-btn.secondary:hover { background: rgba(0, 196, 154, 0.18); }
+    .export-demo-note { font-size: 0.7rem; color: rgba(143,163,184,0.7); }
+
+    /* STICKY BOTTOM CTA */
+    .sticky-cta {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 90;
+      background: rgba(10,22,40,0.96);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid var(--teal-border);
+      padding: 0.9rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .sticky-cta-text { font-size: 0.875rem; color: var(--light); }
+    .sticky-cta-text strong { color: var(--white); }
+    .sticky-cta a {
+      display: flex; align-items: center; gap: 0.4rem;
+      padding: 0.65rem 1.5rem;
+      background: var(--teal); color: var(--navy);
+      font-weight: 700; font-size: 0.9rem; border-radius: 9px;
+      text-decoration: none; white-space: nowrap; transition: all 0.2s;
+    }
+    .sticky-cta a:hover { background: #CC4F00; }
+    .sticky-cta-close {
+      background: none; border: none; color: var(--gray);
+      font-size: 1.1rem; cursor: pointer; padding: 0.3rem;
+    }
+
+    /* MOBILE */
+    @media (max-width: 900px) {
+      .demo-main { grid-template-columns: 1fr; padding: 1.5rem 1rem 6rem; }
+      .results-panel { position: static; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-row.thirds { grid-template-columns: 1fr 1fr; }
+      .form-row.quad { grid-template-columns: 1fr 1fr; }
+      nav { padding: 0.75rem 1rem; }
+      .nav-links { display: none; }
+      .hamburger-btn { display: flex; }
+      .demo-hero { padding: 5.5rem 1.25rem 2.5rem; }
+      .sticky-cta { padding: 0.75rem 1rem; flex-wrap: wrap; }
+      .sticky-cta-text { font-size: 0.78rem; }
+      .sticky-cta a { flex: 1; text-align: center; }
+    }
+    @media (max-width: 480px) {
+      .form-row.thirds { grid-template-columns: 1fr; }
+      .form-row.quad { grid-template-columns: 1fr 1fr; }
+      .form-actions { flex-direction: column; }
+      .btn-validate, .btn-submit { width: 100%; justify-content: center; }
+    }
+
+    /* Mobile nav overlay */
+    .mobile-nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 99;
+      background: rgba(10,22,40,0.97);
+      backdrop-filter: blur(20px);
+      flex-direction: column;
+      padding: 5rem 2rem 2rem;
+      gap: 0.25rem;
+    }
+    .mobile-nav-overlay.open { display: flex; }
+    .mobile-nav-overlay a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 0.85rem 1rem;
+      border-radius: 10px;
+      transition: background 0.15s;
+    }
+    .mobile-nav-overlay a:hover { background: rgba(255,255,255,0.05); }
+    .mobile-nav-close {
+      position: absolute; top: 1rem; right: 1rem;
+      background: none; border: none; color: var(--gray);
+      font-size: 1.6rem; cursor: pointer;
+    }
+  </style>
+  <link rel="stylesheet" href="/css/mobile.css">
+  <style>
+    .mobile-nav-overlay { top: 0 !important; background: rgba(10,22,40,0.97) !important; border-top: none !important; }
+    @media (max-width: 900px) { .hamburger-btn { display: flex !important; } }
+    @media (min-width: 901px) { .hamburger-btn { display: none !important; } }
+  </style>
+  <link rel="stylesheet" href="/css/nav.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <img src="https://pub-629428d185ca4960a0a73c850d32294b.r2.dev/company_47541/images/9d5d2ef6-d9e0-40eb-ad15-df5e737cefc1.png" alt="CanalClear" width="140" height="35">
+    </a>
+    <div class="nav-links">
+      <a href="/panama">🇵🇦 Panama</a>
+      <a href="/suez">🇪🇬 Suez</a>
+      <a href="/bosporus">🇹🇷 Bosporus</a>
+      <a href="/malacca">🇸🇬 Malacca</a>
+      <a href="/cape-of-good-hope">🌍 Cape</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/demo" class="active">Demo</a>
+      <a href="/blog">Blog</a>
+      <a href="/about">About</a>
+      <a href="/app" class="nav-cta">Open Validator <span style="font-size:0.72rem;font-weight:500;opacity:0.75;">(Paid Plans)</span></a>
+    </div>
+    <button class="hamburger-btn" onclick="toggleMobileNav()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile nav overlay -->
+<div class="mobile-nav-overlay" id="mobile-nav">
+  <button class="mobile-nav-close" onclick="toggleMobileNav()">&times;</button>
+  <a href="/">Home</a>
+  <a href="/panama">🇵🇦 Panama Canal</a>
+  <a href="/suez">🇪🇬 Suez Canal</a>
+  <a href="/bosporus">🇹🇷 Bosporus</a>
+  <a href="/malacca">🇸🇬 Malacca</a>
+  <a href="/cape-of-good-hope">🌍 Cape</a>
+  <a href="/pricing">Pricing</a>
+  <a href="/demo/panama">🎬 Panama Demo</a>
+  <a href="/demo/suez">🎬 Suez Demo</a>
+  <a href="/demo/bosporus">🎬 Bosporus Demo</a>
+  <a href="/demo/malacca">🎬 Malacca Demo</a>
+  <a href="/demo/dashboard">📊 Fleet Dashboard</a>
+  <a href="/filing">Start Filing →</a>
+</div>
+
+<!-- HERO BANNER -->
+<div class="demo-hero">
+  <div class="demo-badge">🎬 Live Interactive Demo</div>
+  <h1>See CanalClear in Action —<br><span>Bosporus SP-1 Filing Demo</span></h1>
+  <p>AI auto-fills the SP-1 pre-arrival notification, validates against Turkish VTS specs and the Montreux Convention, triggers dangerous cargo alerts, and confirms pilot booking. Try it now — no account required.</p>
+
+  <div class="mode-toggle-wrap">
+    <button class="mode-btn active" id="btn-sample" onclick="setMode('sample')">
+      🚢 Explore Sample Data
+    </button>
+    <button class="mode-btn" id="btn-own" onclick="setMode('own')">
+      ✏️ Try With Your Data →
+    </button>
+  </div>
+  <p class="mode-hint" id="mode-hint">Pre-filled with M/V Istanbul Express — click any field to edit</p>
+</div>
+
+<!-- MAIN DEMO AREA -->
+<div class="demo-main">
+
+  <!-- LEFT: FORM PANEL -->
+  <div class="form-panel">
+    <div class="form-panel-header">
+      <div>
+        <div class="form-panel-title" id="form-panel-title">Bosporus SP-1 Pre-Arrival Notification</div>
+        <div class="form-panel-subtitle" id="form-panel-subtitle">Turkish Strait Vessel Traffic Services (VTS) — SP-1/TBSM/2024</div>
+      </div>
+      <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+        <button class="autofill-btn" id="autofill-btn" onclick="triggerAutoFill()">
+          <span class="ai-icon">✨</span>
+          <span id="autofill-label">AI Auto-Fill</span>
+        </button>
+        <button id="ocr-upload-btn" onclick="window.openOCRModal()" title="Upload a certificate or manifest to auto-fill this form">
+          📄 Upload Document
+        </button>
+      </div>
+    </div>
+
+    <!-- SUCCESS STATE (hidden until submitted) -->
+    <div class="submit-success" id="submit-success">
+      <div class="ss-icon">✅</div>
+      <h3>SP-1 Filed Successfully</h3>
+      <p>Turkish VTS confirmation received. Transit window confirmed.</p>
+      <div class="conf-number" id="conf-number">TR-BSP-2024-0847291</div>
+      <p style="font-size:0.8rem;color:var(--gray);margin-bottom:0.75rem;">Transit window opens in:</p>
+      <div class="countdown-row" id="countdown-row">
+        <div class="countdown-item"><div class="ci-val" id="cd-hours">23</div><div class="ci-label">Hours</div></div>
+        <div class="countdown-item"><div class="ci-val" id="cd-mins">47</div><div class="ci-label">Mins</div></div>
+        <div class="countdown-item"><div class="ci-val" id="cd-secs">12</div><div class="ci-label">Secs</div></div>
+      </div>
+      <a href="/pricing" class="ss-cta">Try with your vessel →</a>
+    </div>
+
+    <div class="form-body" id="form-body">
+      <!-- Tabs -->
+      <div class="form-tabs" id="form-tabs">
+        <button class="form-tab active" onclick="showTab('vessel')" id="tab-vessel">Vessel</button>
+        <button class="form-tab" onclick="showTab('cargo')" id="tab-cargo">Cargo</button>
+        <button class="form-tab has-warn" onclick="showTab('hazmat')" id="tab-hazmat">⚠ Haz. Cargo</button>
+        <button class="form-tab" onclick="showTab('crew')" id="tab-crew">Crew</button>
+        <button class="form-tab" onclick="showTab('pilotage')" id="tab-pilotage">Pilotage</button>
+        <button class="form-tab" onclick="showTab('montreux')" id="tab-montreux">Montreux</button>
+      </div>
+
+      <!-- ══ TAB 1: VESSEL IDENTITY ══ -->
+      <div class="form-tab-content active" id="tab-content-vessel">
+        <div class="form-section-title">Vessel Identity</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Vessel Name <span class="req">*</span></label>
+            <input type="text" id="f-vessel-name" value="M/V Istanbul Express" oninput="onFieldChange(event)" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label>IMO Number <span class="req">*</span></label>
+            <input type="text" id="f-imo" value="9876543" oninput="onFieldChange(event)" autocomplete="off">
+            <span class="hint">7-digit IMO number</span>
+          </div>
+        </div>
+        <div class="form-row thirds">
+          <div class="form-group">
+            <label>Flag State <span class="req">*</span></label>
+            <select id="f-flag" onchange="onFieldChange(event)">
+              <option value="">Select flag...</option>
+              <option value="TR" selected>🇹🇷 Turkey (TR)</option>
+              <option value="GR">🇬🇷 Greece (GR)</option>
+              <option value="PA">🇵🇦 Panama (PA)</option>
+              <option value="LR">🇱🇷 Liberia (LR)</option>
+              <option value="MH">🇲🇭 Marshall Islands (MH)</option>
+              <option value="BS">🇧🇸 Bahamas (BS)</option>
+              <option value="MT">🇲🇹 Malta (MT)</option>
+              <option value="SG">🇸🇬 Singapore (SG)</option>
+              <option value="GB">🇬🇧 UK (GB)</option>
+              <option value="NO">🇳🇴 Norway (NO)</option>
+              <option value="JP">🇯🇵 Japan (JP)</option>
+              <option value="CN">🇨🇳 China (CN)</option>
+              <option value="KR">🇰🇷 South Korea (KR)</option>
+              <option value="US">🇺🇸 USA (US)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Call Sign <span class="req">*</span></label>
+            <input type="text" id="f-callsign" value="TCAE7" oninput="onFieldChange(event)" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label>Vessel Type <span class="req">*</span></label>
+            <select id="f-vessel-type" onchange="onFieldChange(event)">
+              <option value="">Select type...</option>
+              <option value="tanker" selected>🛢️ Tanker</option>
+              <option value="container">📦 Container</option>
+              <option value="bulk">⛵ Bulk Carrier</option>
+              <option value="lng">🔵 LNG Tanker</option>
+              <option value="general">🚢 General Cargo</option>
+              <option value="vehicle">🚗 Vehicle Carrier</option>
+              <option value="warship">⚓ Naval / Warship</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-section-title" style="margin-top:1.25rem;">Vessel Dimensions</div>
+        <div class="form-row quad">
+          <div class="form-group">
+            <label>LOA (m) <span class="req">*</span></label>
+            <input type="number" id="f-loa" value="180" oninput="onFieldChange(event)" min="1" max="400">
+            <span class="hint field-hint ok" id="hint-loa">✓ Within 300m limit</span>
+          </div>
+          <div class="form-group">
+            <label>Beam (m) <span class="req">*</span></label>
+            <input type="number" id="f-beam" value="32" oninput="onFieldChange(event)" min="1" max="80">
+            <span class="hint field-hint ok" id="hint-beam">✓ Within 50m limit</span>
+          </div>
+          <div class="form-group">
+            <label>Draft (m) <span class="req">*</span></label>
+            <input type="number" id="f-draft" value="12" oninput="onFieldChange(event)" min="1" max="30" step="0.1">
+          </div>
+          <div class="form-group">
+            <label>GT <span class="req">*</span></label>
+            <input type="number" id="f-gt" value="42850" oninput="onFieldChange(event)" min="1">
+          </div>
+        </div>
+
+        <div class="form-section-title" style="margin-top:1.25rem;">Transit Details</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Direction <span class="req">*</span></label>
+            <select id="f-direction" onchange="onFieldChange(event)">
+              <option value="northbound" selected>⬆ Northbound (Black Sea → Marmara)</option>
+              <option value="southbound">⬇ Southbound (Marmara → Aegean)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Expected Arrival <span class="req">*</span></label>
+            <input type="datetime-local" id="f-eta" oninput="onFieldChange(event)">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Port of Origin</label>
+            <input type="text" id="f-origin" value="Novorossiysk, Russia" oninput="onFieldChange(event)" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label>Port of Destination</label>
+            <input type="text" id="f-dest" value="Aliaga, Turkey" oninput="onFieldChange(event)" autocomplete="off">
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ TAB 2: CARGO ══ -->
+      <div class="form-tab-content" id="tab-content-cargo">
+        <div class="form-section-title">Cargo Declaration</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Cargo Type <span class="req">*</span></label>
+            <select id="f-cargo-type" onchange="onFieldChange(event)">
+              <option value="">Select cargo type...</option>
+              <option value="crude" selected>🛢 Crude Oil</option>
+              <option value="refined">⛽ Refined Products</option>
+              <option value="lng">🔵 LNG</option>
+              <option value="lpg">🟡 LPG</option>
+              <option value="chemicals">⚗️ Chemicals</option>
+              <option value="containers">📦 Containers</option>
+              <option value="bulk_grain">🌾 Bulk Grain</option>
+              <option value="bulk_coal">⬛ Bulk Coal</option>
+              <option value="bulk_ore">🪨 Bulk Ore</option>
+              <option value="general">📦 General Cargo</option>
+              <option value="ballast">💧 Ballast (No Cargo)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Quantity (MT)</label>
+            <input type="number" id="f-cargo-qty" value="58400" oninput="onFieldChange(event)" min="0">
+          </div>
+        </div>
+        <div class="form-row full">
+          <div class="form-group">
+            <label>Cargo Description</label>
+            <input type="text" id="f-cargo-desc" value="Crude petroleum, Urals blend, UN1267" oninput="onFieldChange(event)" autocomplete="off">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>UN Number (if applicable)</label>
+            <input type="text" id="f-un" value="UN1267" oninput="onFieldChange(event)" autocomplete="off">
+            <span class="hint">Leave blank for non-hazardous cargo</span>
+          </div>
+          <div class="form-group">
+            <label>IMDG Class</label>
+            <select id="f-imdg" onchange="onFieldChange(event)">
+              <option value="">None / Not applicable</option>
+              <option value="1">Class 1 — Explosives</option>
+              <option value="2">Class 2 — Gases</option>
+              <option value="3" selected>Class 3 — Flammable Liquids</option>
+              <option value="4">Class 4 — Flammable Solids</option>
+              <option value="5">Class 5 — Oxidizing Agents</option>
+              <option value="6">Class 6 — Toxic Substances</option>
+              <option value="7">Class 7 — Radioactive</option>
+              <option value="8">Class 8 — Corrosives</option>
+              <option value="9">Class 9 — Misc. Dangerous Goods</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ TAB 3: HAZARDOUS CARGO ══ -->
+      <div class="form-tab-content" id="tab-content-hazmat">
+        <div class="montreux-badge warn" id="haz-alert">
+          <span class="mb-icon">⚠️</span>
+          <span><strong>Dangerous Cargo — 48hr pre-notification required.</strong> Turkish VTS requires SP-1 submission 48 hours before arrival for IMDG-classified cargo. Standard deadline is 24 hours.</span>
+        </div>
+        <div class="form-section-title">Dangerous Cargo Notification (IMDG Class 3)</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Proper Shipping Name <span class="req">*</span></label>
+            <input type="text" id="f-psn" value="PETROLEUM CRUDE OIL" oninput="onFieldChange(event)" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label>UN Number <span class="req">*</span></label>
+            <input type="text" id="f-un2" value="UN1267" oninput="onFieldChange(event)" autocomplete="off">
+          </div>
+        </div>
+        <div class="form-row thirds">
+          <div class="form-group">
+            <label>Class <span class="req">*</span></label>
+            <input type="text" id="f-class" value="3" oninput="onFieldChange(event)" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label>Packing Group</label>
+            <select id="f-pg" onchange="onFieldChange(event)">
+              <option value="">N/A</option>
+              <option value="I">I (High Danger)</option>
+              <option value="II" selected>II (Medium Danger)</option>
+              <option value="III">III (Minor Danger)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Flashpoint (°C)</label>
+            <input type="number" id="f-flashpoint" value="-35" oninput="onFieldChange(event)">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Tank Numbers</label>
+            <input type="text" id="f-tanks" value="P1, P2, P3, P4, P5, C1, C2, C3" oninput="onFieldChange(event)" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label>Total Quantity (MT)</label>
+            <input type="number" id="f-haz-qty" value="58400" oninput="onFieldChange(event)" min="0">
+          </div>
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="cb-imo-cert" checked>
+          <label for="cb-imo-cert">IMO Dangerous Goods Certificate on board</label>
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="cb-emergency" checked>
+          <label for="cb-emergency">Emergency Procedure manual for Class 3 (MFAG) available</label>
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="cb-segregation" checked>
+          <label for="cb-segregation">Cargo segregation compliant with IMDG Code</label>
+        </div>
+      </div>
+
+      <!-- ══ TAB 4: CREW ══ -->
+      <div class="form-tab-content" id="tab-content-crew">
+        <div class="form-section-title">Crew List Summary</div>
+        <div class="form-row thirds">
+          <div class="form-group">
+            <label>Total Crew <span class="req">*</span></label>
+            <input type="number" id="f-crew-total" value="24" oninput="onFieldChange(event)" min="1">
+          </div>
+          <div class="form-group">
+            <label>Captain Name <span class="req">*</span></label>
+            <input type="text" id="f-captain" value="Capt. Mehmet Yilmaz" oninput="onFieldChange(event)" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label>Captain Nationality</label>
+            <input type="text" id="f-captain-nat" value="Turkish" oninput="onFieldChange(event)" autocomplete="off">
+          </div>
+        </div>
+        <div style="overflow-x:auto;border:1px solid rgba(255,255,255,0.07);border-radius:8px;margin-bottom:1rem;">
+          <table style="width:100%;border-collapse:collapse;font-size:0.82rem;">
+            <thead>
+              <tr>
+                <th style="padding:0.6rem 0.75rem;background:rgba(255,255,255,0.04);color:var(--light);font-weight:600;text-align:left;border-bottom:1px solid rgba(255,255,255,0.07);">Rank</th>
+                <th style="padding:0.6rem 0.75rem;background:rgba(255,255,255,0.04);color:var(--light);font-weight:600;text-align:left;border-bottom:1px solid rgba(255,255,255,0.07);">Name</th>
+                <th style="padding:0.6rem 0.75rem;background:rgba(255,255,255,0.04);color:var(--light);font-weight:600;text-align:left;border-bottom:1px solid rgba(255,255,255,0.07);">Nationality</th>
+                <th style="padding:0.6rem 0.75rem;background:rgba(255,255,255,0.04);color:var(--light);font-weight:600;text-align:left;border-bottom:1px solid rgba(255,255,255,0.07);">Passport</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td style="padding:0.55rem 0.75rem;border-bottom:1px solid rgba(255,255,255,0.04);"><span style="background:rgba(37,99,235,0.12);color:#93c5fd;border-radius:4px;padding:0.1rem 0.45rem;font-size:0.72rem;font-weight:700;">Master</span></td><td style="padding:0.55rem 0.75rem;border-bottom:1px solid rgba(255,255,255,0.04);">Mehmet Yilmaz</td><td style="padding:0.55rem 0.75rem;border-bottom:1px solid rgba(255,255,255,0.04);">Turkish</td><td style="padding:0.55rem 0.75rem;border-bottom:1px solid rgba(255,255,255,0.04);font-family:'Space Mono',monospace;font-size:0.78rem;">TUR-U84729</td></tr>
+              <tr><td style="padding:0.55rem 0.75rem;border-bottom:1px solid rgba(255,255,255,0.04);"><span style="background:rgba(37,99,235,0.12);color:#93c5fd;border-radius:4px;padding:0.1rem 0.45rem;font-size:0.72rem;font-weight:700;">C/O</span></td><td style="padding:0.55rem 0.75rem;border-bottom:1px solid rgba(255,255,255,0.04);">Aleksei Petrov</td><td style="padding:0.55rem 0.75rem;border-bottom:1px solid rgba(255,255,255,0.04);">Russian</td><td style="padding:0.55rem 0.75rem;border-bottom:1px solid rgba(255,255,255,0.04);font-family:'Space Mono',monospace;font-size:0.78rem;">RUS-P91034</td></tr>
+              <tr><td style="padding:0.55rem 0.75rem;border-bottom:1px solid rgba(255,255,255,0.04);"><span style="background:rgba(37,99,235,0.12);color:#93c5fd;border-radius:4px;padding:0.1rem 0.45rem;font-size:0.72rem;font-weight:700;">2/O</span></td><td style="padding:0.55rem 0.75rem;border-bottom:1px solid rgba(255,255,255,0.04);">Deniz Arslan</td><td style="padding:0.55rem 0.75rem;border-bottom:1px solid rgba(255,255,255,0.04);">Turkish</td><td style="padding:0.55rem 0.75rem;border-bottom:1px solid rgba(255,255,255,0.04);font-family:'Space Mono',monospace;font-size:0.78rem;">TUR-A77213</td></tr>
+              <tr><td style="padding:0.55rem 0.75rem;border-bottom:1px solid rgba(255,255,255,0.04);"><span style="background:rgba(37,99,235,0.12);color:#93c5fd;border-radius:4px;padding:0.1rem 0.45rem;font-size:0.72rem;font-weight:700;">C/E</span></td><td style="padding:0.55rem 0.75rem;border-bottom:1px solid rgba(255,255,255,0.04);">Burak Demir</td><td style="padding:0.55rem 0.75rem;border-bottom:1px solid rgba(255,255,255,0.04);">Turkish</td><td style="padding:0.55rem 0.75rem;border-bottom:1px solid rgba(255,255,255,0.04);font-family:'Space Mono',monospace;font-size:0.78rem;">TUR-D55841</td></tr>
+              <tr><td style="padding:0.55rem 0.75rem;"><span style="background:rgba(37,99,235,0.12);color:#93c5fd;border-radius:4px;padding:0.1rem 0.45rem;font-size:0.72rem;font-weight:700;">+20 crew</span></td><td colspan="3" style="padding:0.55rem 0.75rem;color:var(--gray);font-size:0.78rem;">Full crew list attached (24 total)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="cb-stcw" checked>
+          <label for="cb-stcw">All STCW certificates valid and on board</label>
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="cb-crew-list" checked>
+          <label for="cb-crew-list">Crew list signed by Master and ready for VTS submission</label>
+        </div>
+      </div>
+
+      <!-- ══ TAB 5: PILOTAGE ══ -->
+      <div class="form-tab-content" id="tab-content-pilotage">
+        <div class="montreux-badge ok">
+          <span class="mb-icon">✅</span>
+          <span><strong>Compulsory pilot required.</strong> LOA 180m &gt; 150m threshold. Pilot booked with Kıyı Emniyeti (Turkish Coastal Safety).</span>
+        </div>
+        <div class="form-section-title">Pilotage Details</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Pilot Required <span class="req">*</span></label>
+            <select id="f-pilot-req" onchange="onFieldChange(event)">
+              <option value="yes" selected>Yes — Compulsory (LOA &gt; 150m)</option>
+              <option value="voluntary">Voluntary (LOA ≤ 150m)</option>
+              <option value="exempt">Exempt (Turkish flag + qualified Master)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Pilot Booking Reference</label>
+            <input type="text" id="f-pilot-ref" value="KE-BSP-2024-11938" oninput="onFieldChange(event)" autocomplete="off">
+            <span class="hint field-hint ok">✓ Booking confirmed</span>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Pilot Embarkation Point <span class="req">*</span></label>
+            <select id="f-pilot-embark" onchange="onFieldChange(event)">
+              <option value="karaburun" selected>Karaburun Pilot Station (Northbound)</option>
+              <option value="catalca">Çatalca Pilot Station (Southbound)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Pilot Boarding ETA</label>
+            <input type="datetime-local" id="f-pilot-eta" oninput="onFieldChange(event)">
+          </div>
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="cb-vhf" checked>
+          <label for="cb-vhf">VHF Channel 11 (Istanbul VTS) — communication confirmed</label>
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="cb-ais" checked>
+          <label for="cb-ais">AIS transponder active and transmitting correct vessel data</label>
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="cb-pilot-ladder" checked>
+          <label for="cb-pilot-ladder">Pilot ladder rigged and certified in good condition</label>
+        </div>
+      </div>
+
+      <!-- ══ TAB 6: MONTREUX ══ -->
+      <div class="form-tab-content" id="tab-content-montreux">
+        <div class="montreux-badge ok" id="montreux-result">
+          <span class="mb-icon">✅</span>
+          <span><strong>Montreux Convention: COMPLIANT.</strong> Commercial tanker in peacetime — full freedom of passage. No special certification required.</span>
+        </div>
+        <div class="form-section-title">Montreux Convention Validation</div>
+        <div class="check-list" id="montreux-checks">
+          <div class="check-item pass">
+            <span class="check-icon">✅</span>
+            <div class="check-text"><strong>Commercial vessel</strong> — Freedom of passage guaranteed under Article 2</div>
+          </div>
+          <div class="check-item pass">
+            <span class="check-icon">✅</span>
+            <div class="check-text"><strong>Peacetime transit</strong> — No Montreux Article 19 restrictions apply</div>
+          </div>
+          <div class="check-item pass">
+            <span class="check-icon">✅</span>
+            <div class="check-text"><strong>Vessel type: Tanker</strong> — Not prohibited under Montreux Convention</div>
+          </div>
+          <div class="check-item pass">
+            <span class="check-icon">✅</span>
+            <div class="check-text"><strong>No tonnage restrictions</strong> — Commercial vessels exempt from Article 11 naval tonnage limits</div>
+          </div>
+          <div class="check-item pass">
+            <span class="check-icon">✅</span>
+            <div class="check-text"><strong>Pre-notification</strong> — 24hr SP-1 filing satisfies Article 10 notice requirement for commercial vessels</div>
+          </div>
+        </div>
+        <div style="margin-top:1.25rem;padding:1rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:8px;">
+          <div style="font-size:0.78rem;color:var(--light);font-weight:600;margin-bottom:0.4rem;">MONTREUX REFERENCE</div>
+          <div style="font-size:0.82rem;color:var(--gray);line-height:1.6;">The 1936 Montreux Convention Regarding the Régime of the Straits grants commercial vessels of all nations the right of transit through the Turkish Straits in time of peace (Article 2). Military vessels face restrictions (Articles 11–22). CanalClear validates vessel type automatically against the Convention's vessel category definitions.</div>
+        </div>
+      </div>
+
+    </div><!-- /form-body -->
+
+    <!-- ACTION BAR -->
+    <div class="form-actions" id="form-actions">
+      <button class="btn-validate" onclick="runValidation()">
+        🔍 Validate Filing
+      </button>
+      <button class="btn-submit" id="btn-submit" onclick="submitFiling()">
+        📤 Submit SP-1 to Turkish VTS
+      </button>
+    </div>
+
+  </div><!-- /form-panel -->
+
+  <!-- RIGHT: RESULTS PANEL -->
+  <div class="results-panel">
+
+    <!-- COMPLIANCE SCORE CARD -->
+    <div class="score-card">
+      <div class="score-header">
+        <h3>Live Compliance Score</h3>
+        <div class="live-badge">
+          <span class="live-dot"></span>
+          REAL-TIME
+        </div>
+      </div>
+      <div class="score-body">
+        <div class="score-ring-wrap">
+          <div class="score-ring">
+            <svg width="90" height="90" viewBox="0 0 90 90">
+              <circle class="score-ring-track" cx="45" cy="45" r="36" />
+              <circle class="score-ring-fill" id="score-ring-fill" cx="45" cy="45" r="36" />
+            </svg>
+            <div class="score-num">
+              <span id="score-display">94</span>
+              <span>/ 100</span>
+            </div>
+          </div>
+          <div class="score-details">
+            <h4 id="score-label">Excellent</h4>
+            <div class="score-label" id="score-sublabel">1 warning, ready to file</div>
+          </div>
+        </div>
+
+        <!-- CHECK ITEMS -->
+        <div class="check-list" id="check-list">
+          <div class="check-item pass">
+            <span class="check-icon">✅</span>
+            <div class="check-text"><strong>Vessel dimensions within limits</strong> — LOA 180m (max 300m), Beam 32m (max 50m)</div>
+          </div>
+          <div class="check-item pass">
+            <span class="check-icon">✅</span>
+            <div class="check-text"><strong>Montreux Convention: COMPLIANT</strong> — Commercial tanker, peacetime, no restrictions</div>
+          </div>
+          <div class="check-item warn">
+            <span class="check-icon">⚠️</span>
+            <div class="check-text"><strong>Dangerous cargo — 48hr pre-notification required</strong> — IMDG Class 3 cargo detected. File 48h before arrival, not 24h.</div>
+          </div>
+          <div class="check-item pass">
+            <span class="check-icon">✅</span>
+            <div class="check-text"><strong>Pilot mandatory for LOA &gt; 150m</strong> — Booking confirmed (KE-BSP-2024-11938)</div>
+          </div>
+          <div class="check-item pass">
+            <span class="check-icon">✅</span>
+            <div class="check-text"><strong>SP-1 fields complete</strong> — Vessel identity, cargo, crew, pilotage all populated</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEADLINE TRACKER -->
+    <div class="deadline-card">
+      <div class="deadline-header">
+        <h3>⏰ Filing Deadlines</h3>
+      </div>
+      <div class="deadline-list" id="deadline-list">
+        <div class="deadline-item">
+          <span class="dl-name">SP-1 (Dangerous Cargo)</span>
+          <span class="dl-time warn" id="dl-sp1-haz">48h required</span>
+        </div>
+        <div class="deadline-item">
+          <span class="dl-name">Crew List</span>
+          <span class="dl-time ok" id="dl-crew">24h window</span>
+        </div>
+        <div class="deadline-item">
+          <span class="dl-name">Cargo Declaration</span>
+          <span class="dl-time ok" id="dl-cargo">24h window</span>
+        </div>
+        <div class="deadline-item">
+          <span class="dl-name">Ballast Declaration</span>
+          <span class="dl-time ok" id="dl-ballast">24h window</span>
+        </div>
+        <div class="deadline-item">
+          <span class="dl-name">Pilot Confirmed</span>
+          <span class="dl-time filed">✓ Booked</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXPORT CARD — Download demo results as PDF -->
+    <div class="export-demo-card" id="export-demo-card" style="display:none;">
+      <div class="export-demo-header">
+        <span class="export-demo-icon">📥</span>
+        <h4>Download This Validation</h4>
+      </div>
+      <p>Take the compliance report to your boss. PDF includes vessel details, score, checklist, and deadline tracker.</p>
+      <div class="export-demo-btns">
+        <button class="export-demo-btn primary" onclick="downloadDemoPDF()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download PDF
+        </button>
+        <button class="export-demo-btn secondary" onclick="downloadDemoCSV()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          Export CSV
+        </button>
+      </div>
+      <div class="export-demo-note">PDF is yours — no account required for demo downloads.</div>
+    </div>
+
+    <!-- SUBMIT TO VTSC CARD -->
+    <div class="lead-card" id="vtsc-submit-card" style="background:linear-gradient(135deg,rgba(220,38,38,0.08),rgba(20,34,56,0.95));border-color:rgba(220,38,38,0.25);">
+      <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem;">
+        <span style="font-size:1.1rem;">🇹🇷</span>
+        <h4 style="font-size:1rem;font-weight:700;color:#ef4444;">Submit SP-1 to VTSC</h4>
+        <span style="margin-left:auto;padding:0.2rem 0.55rem;background:rgba(220,38,38,0.12);border:1px solid rgba(220,38,38,0.25);border-radius:12px;font-size:0.7rem;font-weight:700;color:#ef4444;white-space:nowrap;">✉ Auto-file Email</span>
+      </div>
+      <p style="font-size:0.83rem;color:var(--gray);margin-bottom:1rem;line-height:1.5;">Send the SP-1 Pre-Arrival Notification directly to Istanbul VTS or Çanakkale VTS (Kıyı Emniyeti). CanalClear formats the full SP-1 report per Turkish Straits VTS regulations and delivers it via email — no manual copy-paste.</p>
+      <div id="vtscSubmitResult" style="margin-bottom:0.75rem;min-height:0;"></div>
+      <div style="display:flex;gap:0.5rem;margin-bottom:0.6rem;">
+        <select id="vtscCenterSelect" style="flex:1;padding:0.5rem 0.65rem;background:rgba(15,23,42,0.7);border:1px solid rgba(220,38,38,0.3);border-radius:8px;color:#c9d6e3;font-size:0.82rem;cursor:pointer;">
+          <option value="istanbul">Istanbul VTS (Bosporus)</option>
+          <option value="canakkale">Çanakkale VTS (Dardanelles)</option>
+          <option value="both">Both VTS Centers</option>
+        </select>
+      </div>
+      <button onclick="submitToVTSC()" id="vtscSubmitBtn"
+        style="width:100%;padding:0.75rem;background:rgba(220,38,38,0.15);border:1px solid rgba(220,38,38,0.35);border-radius:10px;color:#ef4444;font-size:0.88rem;font-weight:700;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:0.5rem;"
+        onmouseover="this.style.background='rgba(220,38,38,0.25)'" onmouseout="this.style.background='rgba(220,38,38,0.15)'">
+        🇹🇷 Send SP-1 to Turkish VTS
+      </button>
+      <p style="font-size:0.72rem;color:rgba(143,163,184,0.6);margin-top:0.55rem;margin-bottom:0;text-align:center;">Any change in ETA, cargo, or draft must be reported immediately via the same channel.</p>
+    </div>
+
+    <!-- CTA CARD -->
+    <div class="cta-card">
+      <h4>Ready to file for real?</h4>
+      <p>Your first Bosporus filing in under 10 minutes — founding spots are limited.</p>
+      <a href="/pricing" class="cta-primary">Start Now — Limited Spots →</a>
+      <div class="cta-trust">
+        <span>🔒 <span class="cc-slots-inline">20 of 20 Founding Spots Remaining</span></span>
+        <span>Cancel anytime</span>
+      </div>
+    </div>
+
+    <!-- LEAD CAPTURE CARD -->
+    <div class="lead-card">
+      <h4>Get the Bosporus SP-1 Primer</h4>
+      <p>4 deadline windows · 5 rejection fixes · 8-doc checklist. Free PDF, instant delivery.</p>
+      <input type="email" id="lead-email" placeholder="your@company.com">
+      <button onclick="submitLeadCapture()">Send Free Guide →</button>
+      <div class="lead-success" id="lead-success">✓ Check your inbox</div>
+    </div>
+
+  </div><!-- /results-panel -->
+</div><!-- /demo-main -->
+
+<!-- STICKY BOTTOM CTA -->
+<div class="sticky-cta" id="sticky-cta">
+  <div class="sticky-cta-text">
+    <strong>Like what you see?</strong> Lock in lifetime rates — <span class="sticky-cta-sub cc-slots-inline">20 of 20 founding spots remaining.</span>
+  </div>
+  <a href="/pricing">Start Now — Limited Spots →</a>
+  <button class="sticky-cta-close" onclick="document.getElementById('sticky-cta').style.display='none'">✕</button>
+</div>
+
+<script src="/js/whatsapp-button.js" defer></script>
+<script src="/js/analytics.js" defer></script>
+<script src="/js/pricing-slots.js" defer></script>
+
+<script>
+  // ── STATE ─────────────────────────────────────────────────────────────────
+  let isOwnData = false;
+  let autofillDone = false;
+  let countdownInterval = null;
+
+  // ── MODE TOGGLE ───────────────────────────────────────────────────────────
+  function setMode(mode) {
+    isOwnData = mode === 'own';
+    document.getElementById('btn-sample').classList.toggle('active', !isOwnData);
+    document.getElementById('btn-own').classList.toggle('active', isOwnData);
+    document.getElementById('mode-hint').textContent = isOwnData
+      ? 'Edit any field — live validation updates as you type'
+      : 'Pre-filled with M/V Istanbul Express — click any field to edit';
+    if (isOwnData) clearSampleData();
+  }
+
+  function clearSampleData() {
+    const fields = ['f-vessel-name','f-imo','f-callsign','f-loa','f-beam','f-draft','f-gt',
+      'f-origin','f-dest','f-cargo-qty','f-cargo-desc','f-un','f-psn','f-un2','f-class',
+      'f-flashpoint','f-tanks','f-haz-qty','f-crew-total','f-captain','f-captain-nat','f-pilot-ref'];
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    updateScore(0);
+  }
+
+  // ── TAB NAVIGATION ────────────────────────────────────────────────────────
+  function showTab(name) {
+    document.querySelectorAll('.form-tab-content').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.form-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-content-' + name).classList.add('active');
+    document.getElementById('tab-' + name).classList.add('active');
+  }
+
+  // ── AUTOFILL ──────────────────────────────────────────────────────────────
+  function triggerAutoFill() {
+    const btn = document.getElementById('autofill-btn');
+    const label = document.getElementById('autofill-label');
+    if (autofillDone) return;
+    label.textContent = 'Filling...';
+    btn.style.opacity = '0.7';
+
+    const fields = {
+      'f-vessel-name': 'M/V Istanbul Express',
+      'f-imo': '9876543',
+      'f-callsign': 'TCAE7',
+      'f-loa': '180',
+      'f-beam': '32',
+      'f-draft': '12',
+      'f-gt': '42850',
+      'f-origin': 'Novorossiysk, Russia',
+      'f-dest': 'Aliaga, Turkey',
+      'f-cargo-qty': '58400',
+      'f-cargo-desc': 'Crude petroleum, Urals blend, UN1267',
+      'f-un': 'UN1267',
+      'f-psn': 'PETROLEUM CRUDE OIL',
+      'f-un2': 'UN1267',
+      'f-class': '3',
+      'f-flashpoint': '-35',
+      'f-tanks': 'P1, P2, P3, P4, P5, C1, C2, C3',
+      'f-haz-qty': '58400',
+      'f-crew-total': '24',
+      'f-captain': 'Capt. Mehmet Yilmaz',
+      'f-captain-nat': 'Turkish',
+      'f-pilot-ref': 'KE-BSP-2024-11938',
+    };
+
+    const keys = Object.keys(fields);
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i >= keys.length) {
+        clearInterval(interval);
+        label.textContent = '✓ Auto-Filled';
+        btn.style.opacity = '1';
+        autofillDone = true;
+        updateScore(94);
+        return;
+      }
+      const el = document.getElementById(keys[i]);
+      if (el) {
+        el.value = fields[keys[i]];
+        el.classList.add('has-value', 'field-autofilled');
+        setTimeout(() => el.classList.remove('field-autofilled'), 700);
+      }
+      i++;
+    }, 60);
+
+    // Set selects
+    setTimeout(() => {
+      document.getElementById('f-flag').value = 'TR';
+      document.getElementById('f-vessel-type').value = 'tanker';
+      document.getElementById('f-cargo-type').value = 'crude';
+      document.getElementById('f-imdg').value = '3';
+      document.getElementById('f-pg').value = 'II';
+      document.getElementById('f-direction').value = 'northbound';
+      document.getElementById('f-pilot-req').value = 'yes';
+      document.getElementById('f-pilot-embark').value = 'karaburun';
+      validateDimensions();
+    }, 200);
+  }
+
+  // ── FIELD CHANGE ──────────────────────────────────────────────────────────
+  function onFieldChange(e) {
+    if (e.target.value) e.target.classList.add('has-value');
+    validateDimensions();
+    const completeness = calculateCompleteness();
+    updateScore(completeness);
+  }
+
+  function validateDimensions() {
+    const loa = parseFloat(document.getElementById('f-loa').value) || 0;
+    const beam = parseFloat(document.getElementById('f-beam').value) || 0;
+    const hintLoa = document.getElementById('hint-loa');
+    const hintBeam = document.getElementById('hint-beam');
+
+    if (loa > 0) {
+      if (loa > 300) {
+        hintLoa.textContent = '✗ Exceeds 300m Bosporus LOA limit';
+        hintLoa.className = 'hint field-hint err';
+        document.getElementById('f-loa').classList.add('field-error');
+      } else {
+        hintLoa.textContent = '✓ Within 300m limit';
+        hintLoa.className = 'hint field-hint ok';
+        document.getElementById('f-loa').classList.remove('field-error');
+      }
+    }
+    if (beam > 0) {
+      if (beam > 50) {
+        hintBeam.textContent = '✗ Exceeds 50m Bosporus beam limit';
+        hintBeam.className = 'hint field-hint err';
+        document.getElementById('f-beam').classList.add('field-error');
+      } else {
+        hintBeam.textContent = '✓ Within 50m limit';
+        hintBeam.className = 'hint field-hint ok';
+        document.getElementById('f-beam').classList.remove('field-error');
+      }
+    }
+  }
+
+  function calculateCompleteness() {
+    const required = ['f-vessel-name','f-imo','f-flag','f-vessel-type','f-loa','f-beam','f-draft','f-gt','f-direction','f-cargo-type','f-crew-total','f-captain'];
+    const filled = required.filter(id => {
+      const el = document.getElementById(id);
+      return el && el.value && el.value.trim() !== '' && el.value !== '';
+    });
+    const ratio = filled.length / required.length;
+    // Scale to 60-96 range
+    return Math.round(60 + ratio * 36);
+  }
+
+  // ── SCORE UPDATE ──────────────────────────────────────────────────────────
+  function updateScore(score) {
+    document.getElementById('score-display').textContent = score;
+    const fill = document.getElementById('score-ring-fill');
+    const circumference = 226;
+    const offset = circumference - (score / 100) * circumference;
+    fill.style.strokeDashoffset = offset;
+
+    fill.classList.remove('warn', 'err');
+    const label = document.getElementById('score-label');
+    const sublabel = document.getElementById('score-sublabel');
+
+    if (score >= 90) {
+      label.textContent = 'Excellent';
+      sublabel.textContent = '1 warning, ready to file';
+      fill.style.stroke = 'var(--teal)';
+    } else if (score >= 70) {
+      fill.classList.add('warn');
+      label.textContent = 'Good';
+      sublabel.textContent = 'Fill remaining fields';
+    } else {
+      fill.classList.add('err');
+      label.textContent = 'Incomplete';
+      sublabel.textContent = 'Required fields missing';
+    }
+  }
+
+  // ── VALIDATION ────────────────────────────────────────────────────────────
+  function runValidation() {
+    const score = calculateCompleteness();
+    updateScore(score);
+
+    // Flash check list
+    document.querySelectorAll('.check-item').forEach(el => {
+      el.style.transition = 'opacity 0.15s';
+      el.style.opacity = '0.5';
+      setTimeout(() => { el.style.opacity = '1'; }, 200);
+    });
+
+    // Update deadline based on IMDG
+    const imdg = document.getElementById('f-imdg').value;
+    const dl = document.getElementById('dl-sp1-haz');
+    if (imdg) {
+      dl.textContent = '48h required ⚠';
+      dl.className = 'dl-time warn';
+      document.getElementById('tab-hazmat').classList.add('has-warn');
+    } else {
+      dl.textContent = '24h window';
+      dl.className = 'dl-time ok';
+      document.getElementById('tab-hazmat').classList.remove('has-warn');
+    }
+
+    // Update Montreux based on vessel type
+    const vtype = document.getElementById('f-vessel-type').value;
+    const mResult = document.getElementById('montreux-result');
+    if (vtype === 'warship') {
+      mResult.className = 'montreux-badge err';
+      mResult.innerHTML = '<span class="mb-icon">🚫</span><span><strong>Montreux Convention: RESTRICTED.</strong> Naval vessels face tonnage limits, duration restrictions, and 15-day advance notice to Turkish MFA under Articles 13–22.</span>';
+    } else {
+      mResult.className = 'montreux-badge ok';
+      mResult.innerHTML = '<span class="mb-icon">✅</span><span><strong>Montreux Convention: COMPLIANT.</strong> Commercial vessel in peacetime — full freedom of passage. No special certification required.</span>';
+    }
+
+    // Enable submit button
+    document.getElementById('btn-submit').disabled = false;
+
+    // Show export card after validation runs
+    const exportCard = document.getElementById('export-demo-card');
+    if (exportCard) exportCard.style.display = 'block';
+
+    // Record validation run for admin stats (fire-and-forget)
+    const bvName = document.getElementById('f-vessel-name')?.value?.trim() || null;
+    const bvImo = document.getElementById('f-imo')?.value?.trim() || null;
+    const bScore = calculateCompleteness ? calculateCompleteness() : 0;
+    fetch('/api/demo/record-validation', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        canal: 'bosporus',
+        vessel_name: bvName,
+        imo_number: bvImo,
+        overall_status: bScore >= 80 ? 'passed' : bScore >= 60 ? 'warning' : 'failed',
+        failed_checks: 0,
+        warning_checks: 0,
+        passed_checks: 1,
+        total_checks: 1
+      })
+    }).catch(() => {});
+  }
+
+  // ── DEMO EXPORT ────────────────────────────────────────────────────────────
+  // Demo PDF: uses window.print() with a styled snapshot (no auth required)
+  // Full PDF (CanalClear-branded server PDF) requires a live account.
+
+  function downloadDemoPDF() {
+    // Build a printable snapshot from current form values
+    const vessel  = document.getElementById('f-vessel-name')?.value  || 'Demo Vessel';
+    const imo     = document.getElementById('f-imo')?.value          || '—';
+    const loa     = document.getElementById('f-loa')?.value          || '—';
+    const draft   = document.getElementById('f-draft')?.value        || '—';
+    const score   = document.getElementById('score-display')?.textContent || '—';
+    const dateStr = new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+
+    const w = window.open('', '_blank', 'width=800,height=1050');
+    if (!w) { alert('Pop-up blocked. Please allow pop-ups to download the demo PDF.'); return; }
+
+    w.document.write(`<!DOCTYPE html><html><head><title>SP-1 Demo — ${vessel}</title>
+    <style>
+      body{font-family:Arial,sans-serif;max-width:740px;margin:0 auto;padding:30px;color:#1a2332;}
+      .hdr{background:#0A1628;color:#00C49A;padding:18px 24px;border-radius:6px 6px 0 0;margin:-30px -30px 20px;}
+      .hdr h1{font-size:1.1rem;margin:0;}
+      .hdr p{font-size:0.75rem;color:#8fa3b8;margin:4px 0 0;}
+      .score-line{background:#f0fdf8;border:1px solid #00C49A;border-radius:6px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:12px;}
+      .score-num{font-size:2rem;font-weight:700;color:#00C49A;}
+      .score-label{font-size:0.85rem;color:#333;}
+      table{width:100%;border-collapse:collapse;margin-bottom:16px;}
+      th{background:#0A1628;color:#00C49A;text-align:left;padding:7px 10px;font-size:0.78rem;}
+      td{padding:6px 10px;font-size:0.8rem;border-bottom:1px solid #e5e7eb;}
+      tr:nth-child(even) td{background:#f9fafb;}
+      .footer{margin-top:24px;padding-top:12px;border-top:1px solid #e5e7eb;font-size:0.68rem;color:#8fa3b8;text-align:center;}
+      @media print{.no-print{display:none}}
+    </style>
+    </head><body>
+    <div class="hdr"><h1>CanalClear — Bosporus SP-1 Demo Validation</h1>
+    <p>Generated ${dateStr} · Demo filing — not for official submission</p></div>
+    <div class="score-line"><div class="score-num">${score}</div>
+    <div class="score-label"><strong>Compliance Score</strong><br>Demo validation based on form fields</div></div>
+    <table><tr><th colspan="2">VESSEL PARTICULARS</th></tr>
+    <tr><td>Vessel Name</td><td>${vessel}</td></tr>
+    <tr><td>IMO Number</td><td>${imo}</td></tr>
+    <tr><td>LOA (m)</td><td>${loa}</td></tr>
+    <tr><td>Draft (m)</td><td>${draft}</td></tr>
+    <tr><td>Transit Direction</td><td>${document.getElementById('f-direction')?.value || '—'}</td></tr>
+    <tr><td>Cargo Type</td><td>${document.getElementById('f-cargo-type')?.value || '—'}</td></tr>
+    <tr><td>ETA</td><td>${document.getElementById('f-eta')?.value || '—'}</td></tr>
+    </table>
+    <p style="font-size:0.78rem;color:#555;margin-bottom:8px;"><strong>Want a port-authority-ready PDF with your real filing?</strong><br>
+    CanalClear generates branded, SCA/VTS-compliant PDFs with all fields, compliance scores, and signature blocks — ready for submission.</p>
+    <a href="https://canalclear.org/pricing" style="display:inline-block;background:#E85A00;color:#fff;padding:9px 18px;border-radius:6px;text-decoration:none;font-weight:700;font-size:0.85rem;margin-bottom:20px;">Get Full Filing Access →</a>
+    <div class="footer">CanalClear · canalclear.org · This is a demo document — not for regulatory submission.</div>
+    <script>window.onload=function(){window.print();}<\/script>
+    </body></html>`);
+    w.document.close();
+
+    if (typeof gtag !== 'undefined') gtag('event', 'demo_pdf_download', { canal: 'bosporus' });
+  }
+
+  function downloadDemoCSV() {
+    const vessel   = document.getElementById('f-vessel-name')?.value || 'Demo Vessel';
+    const imo      = document.getElementById('f-imo')?.value          || '';
+    const loa      = document.getElementById('f-loa')?.value          || '';
+    const draft    = document.getElementById('f-draft')?.value        || '';
+    const gt       = document.getElementById('f-gt')?.value           || '';
+    const dir      = document.getElementById('f-direction')?.value    || '';
+    const cargo    = document.getElementById('f-cargo-type')?.value   || '';
+    const eta      = document.getElementById('f-eta')?.value          || '';
+    const score    = document.getElementById('score-display')?.textContent || '';
+    const dateStr  = new Date().toISOString().slice(0,10);
+
+    const csv = [
+      ['Field','Value'],
+      ['Vessel Name', vessel],
+      ['IMO Number', imo],
+      ['LOA (m)', loa],
+      ['Draft (m)', draft],
+      ['Gross Tonnage', gt],
+      ['Transit Direction', dir],
+      ['Cargo Type', cargo],
+      ['ETA', eta],
+      ['Compliance Score', score + '/100'],
+      ['Demo Date', dateStr],
+      ['Canal', 'Bosporus / Turkish Straits'],
+    ].map(r => r.map(c => JSON.stringify(c)).join(',')).join('\r\n');
+
+    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `canalclear-bosporus-demo-${dateStr}.csv`;
+    a.click();
+
+    if (typeof gtag !== 'undefined') gtag('event', 'demo_csv_download', { canal: 'bosporus' });
+  }
+
+  // ── SUBMIT ────────────────────────────────────────────────────────────────
+  function submitFiling() {
+    const btn = document.getElementById('btn-submit');
+    btn.textContent = '⏳ Submitting to Turkish VTS...';
+    btn.disabled = true;
+
+    setTimeout(() => {
+      document.getElementById('form-body').style.display = 'none';
+      document.getElementById('form-actions').style.display = 'none';
+      document.getElementById('submit-success').classList.add('show');
+
+      // Set ETA 23h from now
+      const eta = new Date(Date.now() + 23 * 60 * 60 * 1000 + 47 * 60 * 1000 + 12000);
+      startCountdown(eta);
+    }, 1800);
+  }
+
+  function startCountdown(target) {
+    function tick() {
+      const now = new Date();
+      const diff = Math.max(0, target - now);
+      const h = Math.floor(diff / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
+      document.getElementById('cd-mins').textContent = String(m).padStart(2, '0');
+      document.getElementById('cd-secs').textContent = String(s).padStart(2, '0');
+    }
+    tick();
+    countdownInterval = setInterval(tick, 1000);
+  }
+
+  // ── SUBMIT TO VTSC ────────────────────────────────────────────────────────
+  async function submitToVTSC() {
+    const vesselName = (document.getElementById('f-vessel-name') || {}).value || 'Unknown Vessel';
+    const imo = (document.getElementById('f-imo') || {}).value || '';
+    const direction = (document.getElementById('f-direction') || {}).value || '';
+    const vtsCenter = (document.getElementById('vtscCenterSelect') || {}).value || 'istanbul';
+    const btn = document.getElementById('vtscSubmitBtn');
+    const result = document.getElementById('vtscSubmitResult');
+
+    btn.disabled = true;
+    btn.innerHTML = '<span style="display:inline-block;width:14px;height:14px;border:2px solid rgba(220,38,38,0.3);border-top-color:#ef4444;border-radius:50%;animation:spin 0.7s linear infinite;"></span>&nbsp;Sending to Turkish VTS...';
+    result.innerHTML = '';
+
+    try {
+      const res = await fetch('/api/bosporus/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          vessel_name: vesselName,
+          imo_number: imo,
+          transit_direction: direction,
+          vts_center: vtsCenter,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        result.innerHTML = `<div style="padding:0.6rem 0.85rem;background:rgba(46,213,115,0.1);border:1px solid rgba(46,213,115,0.25);border-radius:8px;font-size:0.82rem;color:#2ED573;margin-bottom:0.5rem;">✓ SP-1 sent — Ref: <strong>${data.vtsc_reference}</strong> · <span style="opacity:0.7">${data.recipient_email}</span></div>`;
+        if (typeof gtag !== 'undefined') gtag('event', 'vtsc_submit', { waterway: 'bosporus', vessel_imo: imo });
+      } else if (res.status === 401) {
+        result.innerHTML = `<div style="padding:0.6rem 0.85rem;background:rgba(255,107,107,0.08);border:1px solid rgba(255,107,107,0.2);border-radius:8px;font-size:0.82rem;color:#FF6B6B;">Sign in to submit SP-1 to VTSC. <a href="/login" style="color:#ef4444;text-decoration:underline;">Login →</a></div>`;
+      } else {
+        result.innerHTML = `<div style="padding:0.6rem 0.85rem;background:rgba(255,107,107,0.08);border:1px solid rgba(255,107,107,0.2);border-radius:8px;font-size:0.82rem;color:#FF6B6B;">✕ ${data.message || 'Submission failed — please try again'}</div>`;
+      }
+    } catch (e) {
+      result.innerHTML = `<div style="padding:0.6rem 0.85rem;background:rgba(255,107,107,0.08);border:1px solid rgba(255,107,107,0.2);border-radius:8px;font-size:0.82rem;color:#FF6B6B;">✕ Network error — please try again</div>`;
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = '🇹🇷 Send SP-1 to Turkish VTS';
+    }
+  }
+
+  // ── MOBILE NAV ────────────────────────────────────────────────────────────
+  function toggleMobileNav() {
+    document.getElementById('mobile-nav').classList.toggle('open');
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') document.getElementById('mobile-nav').classList.remove('open');
+  });
+
+  // ── LEAD CAPTURE ──────────────────────────────────────────────────────────
+  async function submitLeadCapture() {
+    const email = document.getElementById('lead-email').value.trim();
+    if (!email) return;
+    try {
+      await fetch('/api/cc/assessment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, canal: 'bosporus', source: 'bosporus-sp1-primer', fleet_size: 1 })
+      });
+    } catch(e) {}
+    document.querySelector('.lead-card button').style.display = 'none';
+    document.getElementById('lead-success').style.display = 'block';
+  }
+
+  // ── INIT ──────────────────────────────────────────────────────────────────
+  window.addEventListener('DOMContentLoaded', () => {
+    // Set ETA to tomorrow at current time + 2h
+    const eta = new Date(Date.now() + 26 * 3600 * 1000);
+    const pad = n => String(n).padStart(2,'0');
+    const etaStr = `${eta.getFullYear()}-${pad(eta.getMonth()+1)}-${pad(eta.getDate())}T${pad(eta.getHours())}:${pad(eta.getMinutes())}`;
+    const etaEl = document.getElementById('f-eta');
+    if (etaEl) etaEl.value = etaStr;
+
+    const pilotEta = new Date(Date.now() + 25 * 3600 * 1000);
+    const pilotEl = document.getElementById('f-pilot-eta');
+    if (pilotEl) pilotEl.value = `${pilotEta.getFullYear()}-${pad(pilotEta.getMonth()+1)}-${pad(pilotEta.getDate())}T${pad(pilotEta.getHours())}:${pad(pilotEta.getMinutes())}`;
+
+    validateDimensions();
+    // Hint to users
+    setTimeout(() => {
+      if (!autofillDone) {
+        const btn = document.getElementById('autofill-btn');
+        btn.style.boxShadow = '0 0 0 3px rgba(232,90,0,0.3)';
+        setTimeout(() => { btn.style.boxShadow = ''; }, 2000);
+      }
+    }, 1500);
+  });
+</script>
+<script src="/js/ocr-upload.js"></script>
+<script>
+  // OCR Upload — Bosporus SP-1
+  window.initOCRUpload({
+    waterway: 'bosporus',
+    onFieldsExtracted: function(data) {
+      var fields = data.fields || {};
+      Object.keys(fields).forEach(function(formId) {
+        var el = document.getElementById(formId);
+        if (!el) return;
+        var val = fields[formId].value;
+        if (el.tagName === 'SELECT') {
+          // Try to match option by value or text
+          var matched = false;
+          for (var i = 0; i < el.options.length; i++) {
+            if (el.options[i].value.toLowerCase() === String(val).toLowerCase() ||
+                el.options[i].text.toLowerCase().indexOf(String(val).toLowerCase()) !== -1) {
+              el.selectedIndex = i;
+              matched = true;
+              break;
+            }
+          }
+          if (!matched && el.options.length > 0) {
+            // leave unchanged if no match
+          }
+        } else {
+          el.value = val;
+        }
+        el.classList.add('has-value');
+        el.dispatchEvent(new Event('input', { bubbles: true }));
+        el.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+      if (typeof onFieldChange === 'function') onFieldChange();
+    }
+  });
+</script>
+</body>
+</html>

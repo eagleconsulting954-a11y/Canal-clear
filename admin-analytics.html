@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CanalClear Analytics</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0d1117; color: #e6edf3; min-height: 100vh;
+      padding: 24px;
+    }
+    h1 { font-size: 1.4rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .subtitle { font-size: 0.85rem; color: #8b949e; margin-bottom: 24px; }
+    .controls { display: flex; gap: 12px; align-items: center; margin-bottom: 24px; flex-wrap: wrap; }
+    select, button {
+      background: #161b22; border: 1px solid #30363d; color: #e6edf3;
+      padding: 6px 12px; border-radius: 6px; font-size: 0.85rem; cursor: pointer;
+    }
+    button { background: #238636; border-color: #2ea043; font-weight: 600; }
+    button:hover { background: #2ea043; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .stat-card {
+      background: #161b22; border: 1px solid #21262d; border-radius: 10px;
+      padding: 16px 20px;
+    }
+    .stat-card .label { font-size: 0.75rem; color: #8b949e; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px; }
+    .stat-card .value { font-size: 1.8rem; font-weight: 700; color: #fff; }
+    .stat-card .sub { font-size: 0.75rem; color: #8b949e; margin-top: 2px; }
+    .section { background: #161b22; border: 1px solid #21262d; border-radius: 10px; padding: 20px; margin-bottom: 16px; }
+    .section h2 { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: #8b949e; margin-bottom: 16px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    th { text-align: left; color: #8b949e; font-weight: 600; padding: 6px 10px 10px; border-bottom: 1px solid #21262d; font-size: 0.75rem; text-transform: uppercase; letter-spacing: .04em; }
+    td { padding: 8px 10px; border-bottom: 1px solid #161b22; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #1c2128; }
+    .bar-wrap { display: flex; align-items: center; gap: 10px; }
+    .bar { height: 6px; background: #238636; border-radius: 3px; min-width: 2px; transition: width .3s; }
+    .num { color: #58a6ff; font-weight: 600; white-space: nowrap; }
+    .funnel-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #21262d; }
+    .funnel-row:last-child { border-bottom: none; }
+    .funnel-page { width: 100px; font-weight: 600; font-size: 0.85rem; }
+    .funnel-bar-outer { flex: 1; background: #21262d; border-radius: 4px; height: 20px; overflow: hidden; }
+    .funnel-bar-inner { background: linear-gradient(90deg, #238636, #2ea043); height: 100%; border-radius: 4px; transition: width .5s; min-width: 2px; }
+    .funnel-count { width: 60px; text-align: right; font-weight: 700; color: #fff; font-size: 0.9rem; }
+    .funnel-pct { width: 50px; text-align: right; font-size: 0.8rem; color: #8b949e; }
+    .chart-wrap { height: 140px; display: flex; align-items: flex-end; gap: 4px; padding-top: 8px; }
+    .bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .bar-col .bar-v { background: #238636; border-radius: 3px 3px 0 0; width: 100%; min-height: 2px; transition: height .4s; }
+    .bar-col .day-label { font-size: 0.6rem; color: #8b949e; transform: rotate(-45deg); white-space: nowrap; }
+    .badge { display: inline-block; background: #1f6feb33; color: #58a6ff; border: 1px solid #1f6feb; border-radius: 12px; padding: 1px 8px; font-size: 0.75rem; }
+    .loading { color: #8b949e; font-size: 0.85rem; padding: 24px; text-align: center; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+    .referrer-cell { max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.8rem; }
+    .token-gate { max-width: 440px; margin: 80px auto; text-align: center; }
+    .token-gate input { background: #161b22; border: 1px solid #30363d; color: #e6edf3; padding: 8px 14px; border-radius: 6px; font-size: 0.9rem; width: 260px; margin-right: 8px; }
+  </style>
+    <link rel="stylesheet" href="/css/mobile.css">
+
+    <!-- PWA / Add to Home Screen -->
+    <meta name="theme-color" content="#1a2d4a">
+    <link rel="manifest" href="/manifest.json">
+    <!-- iOS PWA -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="CanalClear">
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512.png">
+  </head>
+<body>
+
+<div id="app">
+  <div class="loading">Loading analytics…</div>
+</div>
+
+<script>
+(function () {
+  const params = new URLSearchParams(location.search);
+  const token = params.get('token') || '';
+
+  async function fetchData(days) {
+    const url = `/api/admin/analytics?days=${days}${token ? '&token=' + encodeURIComponent(token) : ''}`;
+    const r = await fetch(url);
+    if (r.status === 401) return null;
+    return r.json();
+  }
+
+  function fmt(n) { return Number(n).toLocaleString(); }
+
+  function renderChart(daily) {
+    if (!daily.length) return '<div class="loading">No data yet</div>';
+    const max = Math.max(...daily.map(d => Number(d.views)), 1);
+    const bars = [...daily].reverse().slice(-14).map(d => {
+      const h = Math.max(4, Math.round((Number(d.views) / max) * 120));
+      const label = d.day.slice(5); // MM-DD
+      return `<div class="bar-col" title="${d.day}: ${fmt(d.views)} views">
+        <div class="bar-v" style="height:${h}px"></div>
+        <div class="day-label">${label}</div>
+      </div>`;
+    }).join('');
+    return `<div class="chart-wrap">${bars}</div>`;
+  }
+
+  function renderTable(rows, cols) {
+    if (!rows.length) return '<div class="loading">No data yet</div>';
+    const headers = cols.map(c => `<th>${c.label}</th>`).join('');
+    const body = rows.map(row =>
+      `<tr>${cols.map(c => {
+        let val = row[c.key];
+        if (c.bar) {
+          const max = rows[0][c.key];
+          const pct = Math.max(2, Math.round((Number(val) / Number(max)) * 120));
+          return `<td><div class="bar-wrap"><div class="bar" style="width:${pct}px"></div><span class="num">${fmt(val)}</span></div></td>`;
+        }
+        if (c.badge) return `<td><span class="badge">${val || ''}</span></td>`;
+        return `<td class="${c.class||''}">${val ?? '—'}</td>`;
+      }).join('')}</tr>`
+    ).join('');
+    return `<table><thead><tr>${headers}</tr></thead><tbody>${body}</tbody></table>`;
+  }
+
+  function renderFunnel(funnel) {
+    const order = ['/', '/pricing', '/login', '/welcome', '/app'];
+    const map = {};
+    funnel.forEach(f => { map[f.page_path] = Number(f.uniq_visitors); });
+    const topVal = map['/'] || 1;
+    return order.map(page => {
+      const v = map[page] || 0;
+      const pct = topVal > 0 ? Math.round((v / topVal) * 100) : 0;
+      return `<div class="funnel-row">
+        <div class="funnel-page">${page}</div>
+        <div class="funnel-bar-outer"><div class="funnel-bar-inner" style="width:${pct}%"></div></div>
+        <div class="funnel-count">${fmt(v)}</div>
+        <div class="funnel-pct">${pct}%</div>
+      </div>`;
+    }).join('');
+  }
+
+  async function render(days) {
+    document.getElementById('app').innerHTML = '<div class="loading">Loading…</div>';
+    const data = await fetchData(days);
+
+    if (!data) {
+      document.getElementById('app').innerHTML = `
+        <div class="token-gate">
+          <h1>🔐 Analytics</h1>
+          <p style="color:#8b949e;margin:12px 0 20px">Enter your admin token to view analytics</p>
+          <input id="tok" type="password" placeholder="Admin token" />
+          <button onclick="const t=document.getElementById('tok').value;if(t)location.search='?token='+encodeURIComponent(t);">Go</button>
+        </div>`;
+      return;
+    }
+
+    const totalViews = data.daily_views.reduce((s, r) => s + Number(r.views), 0);
+    const uniqueDays = data.daily_views.length;
+    const avgPerDay = uniqueDays ? Math.round(totalViews / uniqueDays) : 0;
+    const totalEvents = data.top_events.reduce((s, r) => s + Number(r.count), 0);
+    const landingVisitors = (data.funnel.find(f => f.page_path === '/') || {}).uniq_visitors || 0;
+    const appVisitors = (data.funnel.find(f => f.page_path === '/app') || {}).uniq_visitors || 0;
+    const convRate = landingVisitors > 0 ? ((appVisitors / landingVisitors) * 100).toFixed(1) : '0';
+
+    document.getElementById('app').innerHTML = `
+      <h1>Canal Clear Analytics</h1>
+      <p class="subtitle">Last ${days} days · Real visitors only (bots excluded)</p>
+
+      <div class="controls">
+        <select id="daysPicker">
+          <option value="7" ${days==7?'selected':''}>Last 7 days</option>
+          <option value="14" ${days==14?'selected':''}>Last 14 days</option>
+          <option value="30" ${days==30?'selected':''}>Last 30 days</option>
+          <option value="90" ${days==90?'selected':''}>Last 90 days</option>
+        </select>
+        <button onclick="render(parseInt(document.getElementById('daysPicker').value))">Refresh</button>
+      </div>
+
+      <div class="grid">
+        <div class="stat-card">
+          <div class="label">Page Views</div>
+          <div class="value">${fmt(totalViews)}</div>
+          <div class="sub">${fmt(avgPerDay)}/day avg</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Unique Visitors</div>
+          <div class="value">${fmt(landingVisitors)}</div>
+          <div class="sub">landing page visits</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Events Tracked</div>
+          <div class="value">${fmt(totalEvents)}</div>
+          <div class="sub">clicks &amp; interactions</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Conversion</div>
+          <div class="value">${convRate}%</div>
+          <div class="sub">landing → app</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Daily Page Views</h2>
+        ${renderChart(data.daily_views)}
+      </div>
+
+      <div class="section">
+        <h2>Conversion Funnel</h2>
+        ${renderFunnel(data.funnel)}
+      </div>
+
+      <div class="two-col">
+        <div class="section">
+          <h2>Top Pages</h2>
+          ${renderTable(data.top_pages, [
+            { key: 'page_path', label: 'Page' },
+            { key: 'views', label: 'Views', bar: true },
+          ])}
+        </div>
+        <div class="section">
+          <h2>Top Events</h2>
+          ${renderTable(data.top_events, [
+            { key: 'event_type', label: 'Event' },
+            { key: 'count', label: 'Count', bar: true },
+          ])}
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Top Referrers</h2>
+        ${renderTable(data.top_referrers, [
+          { key: 'referrer', label: 'Source', class: 'referrer-cell' },
+          { key: 'visits', label: 'Visits', bar: true },
+        ])}
+      </div>
+
+      ${data.utm_sources.length ? `
+      <div class="section">
+        <h2>UTM Sources</h2>
+        ${renderTable(data.utm_sources, [
+          { key: 'utm_source', label: 'Source', badge: true },
+          { key: 'utm_medium', label: 'Medium' },
+          { key: 'utm_campaign', label: 'Campaign' },
+          { key: 'visits', label: 'Visits', bar: true },
+        ])}
+      </div>` : ''}
+    `;
+
+    // UTM Link Builder
+    const utmLinks = [
+      { label: 'Cold Email — Main', source: 'cold-email', medium: 'email', campaign: 'outreach-2026', path: '/' },
+      { label: 'Cold Email — Pricing', source: 'cold-email', medium: 'email', campaign: 'outreach-2026', path: '/pricing' },
+      { label: 'Cold Email — Demo', source: 'cold-email', medium: 'email', campaign: 'outreach-2026', path: '/demo' },
+      { label: 'Twitter Bio', source: 'twitter', medium: 'social', campaign: 'bio-2026', path: '/' },
+      { label: 'Twitter Post', source: 'twitter', medium: 'social', campaign: 'content-2026', path: '/' },
+      { label: 'LinkedIn Bio', source: 'linkedin', medium: 'social', campaign: 'bio-2026', path: '/' },
+      { label: 'LinkedIn Post', source: 'linkedin', medium: 'social', campaign: 'content-2026', path: '/' },
+      { label: 'ProductHunt', source: 'producthunt', medium: 'referral', campaign: 'launch-2026', path: '/' },
+      { label: 'IndieHackers', source: 'indiehackers', medium: 'referral', campaign: 'community-2026', path: '/' },
+      { label: 'Blog CTA (app)', source: 'blog', medium: 'internal', campaign: 'content-cta', path: '/app' },
+      { label: 'Blog CTA (pricing)', source: 'blog', medium: 'internal', campaign: 'content-cta', path: '/pricing' },
+      { label: 'Email Signature', source: 'email-signature', medium: 'email', campaign: 'signature-2026', path: '/' },
+      { label: 'ACP Forum / Maritime Directory', source: 'maritime-directory', medium: 'referral', campaign: 'directories-2026', path: '/' },
+    ];
+
+    const BASE = 'https://canalclear.org';
+    const utmRows = utmLinks.map(l => {
+      const url = `${BASE}${l.path}?utm_source=${l.source}&utm_medium=${l.medium}&utm_campaign=${l.campaign}`;
+      return `<tr>
+        <td style="font-weight:600">${l.label}</td>
+        <td style="font-size:0.78rem;color:#58a6ff;word-break:break-all">${url}</td>
+        <td><button onclick="navigator.clipboard.writeText('${url}').then(()=>{this.textContent='Copied ✓';setTimeout(()=>{this.textContent='Copy'},1500)})" style="padding:3px 10px;font-size:0.78rem;background:#161b22">Copy</button></td>
+      </tr>`;
+    }).join('');
+
+    const utmSection = `
+      <div class="section" style="margin-top:16px">
+        <h2>📎 UTM Campaign Links</h2>
+        <p style="font-size:0.8rem;color:#8b949e;margin-bottom:12px">Pre-built UTM links for all outbound channels. Use these in cold emails, social bios, directories. Every click will show up in the UTM Sources table above.</p>
+        <table>
+          <thead><tr><th>Channel</th><th>URL</th><th></th></tr></thead>
+          <tbody>${utmRows}</tbody>
+        </table>
+      </div>`;
+
+    document.getElementById('root').insertAdjacentHTML('beforeend', utmSection);
+
+    document.getElementById('daysPicker')?.addEventListener('change', function () {
+      render(parseInt(this.value));
+    });
+  }
+
+  render(parseInt(params.get('days') || '14'));
+})();
+</script>
+    <script src="/js/mobile-nav.js"></script>
+<script src="/js/pwa-manager.js"></script>
+<script src="/js/whatsapp-button.js"></script>
+</body>
+</html>

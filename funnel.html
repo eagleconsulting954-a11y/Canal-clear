@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Still Filing VUMPA Manually? | CanalClear</title>
+    <meta name="description" content="$65,000 daily penalty for a single filing error. 3 government agencies. 40+ page forms. There's a better way to handle Panama Canal compliance.">
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Meta Pixel -->
+    <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '972550615207303');
+    fbq('track', 'PageView');
+    fbq('trackCustom', 'funnel_step_1_view');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=972550615207303&ev=PageView&noscript=1"/></noscript>
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --navy: #1a2d4a;
+            --deep: #142238;
+            --slate: #243350;
+            --teal: #E85A00;
+            --teal-dim: rgba(232, 90, 0, 0.12);
+            --white: #ffffff;
+            --gray: #6b7c93;
+            --light: #8fa3b8;
+            --red: #FF6B6B;
+            --yellow: #FFD93D;
+            --gold: #F59E0B;
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: var(--navy);
+            color: var(--white);
+            min-height: 100vh;
+        }
+
+        /* FUNNEL NAV */
+        .funnel-nav {
+            position: fixed; top: 0; width: 100%; z-index: 100;
+            padding: 1rem 2rem;
+            background: rgba(10, 22, 40, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(232, 90, 0, 0.08);
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .logo { display: flex; align-items: center; text-decoration: none; gap: 0.5rem; }
+        .logo-text { font-family: 'IBM Plex Sans', sans-serif; font-size: 1.15rem; font-weight: 700; color: var(--white); }
+        .logo-dot { color: var(--teal); }
+        .nav-exit { color: var(--gray); text-decoration: none; font-size: 0.85rem; padding: 0.4rem 0.75rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.08); transition: all 0.2s; }
+        .nav-exit:hover { color: var(--white); border-color: rgba(255,255,255,0.2); }
+
+        /* PROGRESS BAR */
+        .progress-bar {
+            position: fixed; top: 62px; left: 0; right: 0; z-index: 99;
+            background: rgba(10, 22, 40, 0.95);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            padding: 0.6rem 2rem;
+            display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+        }
+        .step-dot {
+            width: 28px; height: 28px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.75rem; font-weight: 700;
+            transition: all 0.3s;
+        }
+        .step-dot.active { background: var(--teal); color: var(--navy); }
+        .step-dot.done { background: rgba(232, 90, 0, 0.25); color: var(--teal); }
+        .step-dot.future { background: rgba(255,255,255,0.06); color: var(--gray); }
+        .step-line { flex: 1; max-width: 60px; height: 2px; border-radius: 1px; }
+        .step-line.done { background: var(--teal); }
+        .step-line.future { background: rgba(255,255,255,0.08); }
+        .step-label { font-size: 0.72rem; color: var(--gray); display: none; }
+        @media (min-width: 600px) { .step-label { display: block; } }
+
+        /* MAIN */
+        main { max-width: 900px; margin: 0 auto; padding: 9rem 1.5rem 5rem; }
+
+        /* HERO */
+        .hero { text-align: center; margin-bottom: 4rem; }
+        .hero-tag {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.25);
+            color: #FF6B6B; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+            padding: 0.35rem 1rem; border-radius: 100px; margin-bottom: 1.5rem;
+        }
+        .hero h1 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700; line-height: 1.15; margin-bottom: 1.25rem;
+        }
+        .hero h1 em { font-style: normal; color: var(--teal); }
+        .hero h1 .strike { text-decoration: line-through; color: var(--gray); opacity: 0.7; }
+        .hero-sub { font-size: 1.1rem; color: var(--gray); max-width: 560px; margin: 0 auto 2.5rem; line-height: 1.6; }
+
+        /* PAIN STATS */
+        .pain-stats {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 1rem; margin-bottom: 3rem;
+        }
+        @media (max-width: 640px) { .pain-stats { grid-template-columns: 1fr; } }
+        .pain-stat {
+            background: rgba(255,107,107,0.06);
+            border: 1px solid rgba(255,107,107,0.18);
+            border-radius: 14px; padding: 1.5rem 1.25rem;
+            text-align: center;
+        }
+        .pain-stat .stat-value {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 2rem; font-weight: 700; color: #FF6B6B;
+            margin-bottom: 0.35rem;
+        }
+        .pain-stat .stat-label { font-size: 0.82rem; color: var(--gray); line-height: 1.4; }
+
+        /* PROBLEM CARDS */
+        .problem-section { margin-bottom: 3.5rem; }
+        .section-eyebrow {
+            display: flex; align-items: center; gap: 0.5rem;
+            font-size: 0.78rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.08em; color: var(--teal);
+            margin-bottom: 1rem;
+        }
+        .section-eyebrow::before { content: ''; display: block; width: 24px; height: 2px; background: var(--teal); border-radius: 2px; }
+        .problem-section h2 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 700;
+            margin-bottom: 1.5rem; max-width: 580px;
+        }
+        .problem-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+        .problem-card {
+            background: var(--deep); border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 14px; padding: 1.5rem;
+        }
+        .problem-card .icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
+        .problem-card h3 { font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .problem-card p { font-size: 0.88rem; color: var(--gray); line-height: 1.6; }
+
+        /* SOCIAL PROOF */
+        .social-proof {
+            background: linear-gradient(135deg, rgba(232, 90, 0, 0.07), rgba(0, 180, 216, 0.04));
+            border: 1px solid rgba(232, 90, 0, 0.15);
+            border-radius: 16px; padding: 2rem;
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem; text-align: center; margin-bottom: 3.5rem;
+        }
+        @media (max-width: 560px) { .social-proof { grid-template-columns: 1fr; } }
+        .proof-stat .value {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 2rem; font-weight: 700; color: var(--teal); margin-bottom: 0.25rem;
+        }
+        .proof-stat .label { font-size: 0.82rem; color: var(--gray); line-height: 1.4; }
+
+        /* CTA BLOCK */
+        .cta-block { text-align: center; }
+        .cta-btn {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: var(--teal); color: var(--navy);
+            padding: 1rem 2.5rem; border-radius: 12px;
+            text-decoration: none; font-size: 1.05rem; font-weight: 700;
+            transition: all 0.2s; box-shadow: 0 0 30px rgba(232, 90, 0, 0.25);
+        }
+        .cta-btn:hover { background: #FF8533; transform: translateY(-2px); box-shadow: 0 0 40px rgba(232, 90, 0, 0.35); }
+        .cta-sub { margin-top: 0.75rem; font-size: 0.82rem; color: var(--gray); }
+
+        /* LANGUAGE SWITCHER */
+        .lang-switcher {
+            display: flex; justify-content: center; gap: 0.5rem;
+            flex-wrap: wrap; margin-bottom: 3rem;
+        }
+        .lang-btn {
+            background: none; border: 1px solid rgba(255,255,255,0.1);
+            color: var(--gray); font-size: 0.8rem; padding: 0.3rem 0.7rem;
+            border-radius: 6px; cursor: pointer; transition: all 0.2s;
+            font-family: 'IBM Plex Sans', sans-serif;
+        }
+        .lang-btn:hover, .lang-btn.active { border-color: var(--teal); color: var(--teal); }
+
+        /* FOOTER */
+        .funnel-footer { text-align: center; padding: 2rem; color: var(--gray); font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 4rem; }
+        .funnel-footer a { color: var(--teal); text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .funnel-nav { padding: 0.85rem 1.25rem; }
+            .progress-bar { padding: 0.6rem 1.25rem; }
+            main { padding: 8.5rem 1.25rem 4rem; }
+            .hero h1 { font-size: clamp(1.7rem, 6vw, 2.5rem); }
+        }
+    </style>
+    <link rel="stylesheet" href="/css/mobile.css">
+</head>
+<body>
+
+    <!-- FUNNEL NAV -->
+    <nav class="funnel-nav">
+        <a href="/" class="logo">
+            <span class="logo-text">Canal<span class="logo-dot">Clear</span></span>
+        </a>
+        <a href="/" class="nav-exit" id="exit-link">✕ Exit</a>
+    </nav>
+
+    <!-- PROGRESS BAR -->
+    <div class="progress-bar">
+        <div class="step-dot active" title="Step 1">1</div>
+        <div class="step-line future"></div>
+        <div class="step-dot future" title="Step 2">2</div>
+        <div class="step-line future"></div>
+        <div class="step-dot future" title="Step 3">3</div>
+        <div class="step-line future"></div>
+        <div class="step-dot future" title="Step 4">4</div>
+        <div class="step-label" style="margin-left:0.75rem;" id="step-label-text">Step 1 of 4</div>
+    </div>
+
+    <main>
+
+        <!-- LANG SWITCHER -->
+        <div class="lang-switcher">
+            <button class="lang-btn active" onclick="setLang('en')">EN</button>
+            <button class="lang-btn" onclick="setLang('es')">ES</button>
+            <button class="lang-btn" onclick="setLang('zh')">中文</button>
+            <button class="lang-btn" onclick="setLang('el')">ΕΛ</button>
+            <button class="lang-btn" onclick="setLang('ja')">日本語</button>
+        </div>
+
+        <!-- HERO -->
+        <div class="hero">
+            <div class="hero-tag" id="t-hero-tag">⚠ Panama Canal Compliance</div>
+            <h1 id="t-hero-h1">Still Filing VUMPA <span class="strike">Manually?</span><br>Your vessel is one form away from a <em>$65,000 penalty</em>.</h1>
+            <p class="hero-sub" id="t-hero-sub">The Panama Canal Authority now requires digital VUMPA submissions across 3 government agencies. Most vessels still rely on ship agents charging $2,000–$5,000+ per transit — and one paperwork error triggers a $65,000 daily surcharge.</p>
+        </div>
+
+        <!-- PAIN STATS -->
+        <div class="pain-stats">
+            <div class="pain-stat">
+                <div class="stat-value" id="t-stat1-val">$65K</div>
+                <div class="stat-label" id="t-stat1-lbl">Daily penalty for a single ACP filing error</div>
+            </div>
+            <div class="pain-stat">
+                <div class="stat-value" id="t-stat2-val">3</div>
+                <div class="stat-label" id="t-stat2-lbl">Government agencies you must file with simultaneously</div>
+            </div>
+            <div class="pain-stat">
+                <div class="stat-value" id="t-stat3-val">40+</div>
+                <div class="stat-label" id="t-stat3-lbl">Pages of VUMPA forms — manual filing takes 24–72 hours</div>
+            </div>
+        </div>
+
+        <!-- PROBLEM SECTION -->
+        <div class="problem-section">
+            <div class="section-eyebrow" id="t-problem-eyebrow">The Problem</div>
+            <h2 id="t-problem-h2">Manual filing isn't just slow — it's a liability every transit.</h2>
+            <div class="problem-cards">
+                <div class="problem-card">
+                    <div class="icon">📋</div>
+                    <h3 id="t-p1-h3">Complexity That Compounds</h3>
+                    <p id="t-p1-p">VUMPA packages require crew manifests, cargo declarations, equipment certificates, and PCSOPEP documentation — all cross-referenced against a 23-point validation engine. Miss one item and you miss your slot.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="icon">⏳</div>
+                    <h3 id="t-p2-h3">$150K/Day Sitting at Anchor</h3>
+                    <p id="t-p2-p">Miss your Neo-Panamax slot due to a filing rejection and you wait 5–10 days for the next opening. At $50K–$150K in daily vessel costs, a paperwork error isn't a minor inconvenience — it's a crisis.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="icon">💸</div>
+                    <h3 id="t-p3-h3">Ship Agents Are Expensive</h3>
+                    <p id="t-p3-p">Traditional ship agents charge $2,000–$5,000+ per transit for the same forms you could automate. A fleet of 5 vessels transiting monthly pays $210,000–$390,000 per year just in agent fees.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SOCIAL PROOF -->
+        <div class="social-proof">
+            <div class="proof-stat">
+                <div class="value" id="t-proof1-val">13,000+</div>
+                <div class="label" id="t-proof1-lbl">Annual vessel transits through the Panama Canal</div>
+            </div>
+            <div class="proof-stat">
+                <div class="value" id="t-proof2-val">94%</div>
+                <div class="label" id="t-proof2-lbl">Pre-submission error catch rate with CanalClear AI</div>
+            </div>
+            <div class="proof-stat">
+                <div class="value" id="t-proof3-val">60 sec</div>
+                <div class="label" id="t-proof3-lbl">VUMPA validation — vs. 24–72 hours manually</div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-block">
+            <a href="/funnel/solution" class="cta-btn" id="main-cta" onclick="trackCta()">
+                <span id="t-cta-text">See How CanalClear Works</span>
+                <span>→</span>
+            </a>
+            <p class="cta-sub" id="t-cta-sub">No credit card required to see the demo</p>
+        </div>
+
+    </main>
+
+    <div class="funnel-footer">
+        <p>&copy; 2026 CanalClear · <a href="/">Home</a> · <a href="/pricing">Pricing</a> · <a href="mailto:support@canalclear.org">support@canalclear.org</a></p>
+    </div>
+
+    <script>
+    // ── Canal param forwarding ───────────────────────────────────────────────
+    (function() {
+        var canal = new URLSearchParams(window.location.search).get('canal');
+        if (canal === 'suez' || canal === 'panama' || canal === 'both') {
+            var cta = document.getElementById('main-cta');
+            if (cta) cta.href = '/funnel/solution?canal=' + canal;
+        }
+    })();
+
+    // ── Meta Pixel CTA tracking ──────────────────────────────────────────────
+    function trackCta() {
+        if (typeof fbq !== 'undefined') {
+            fbq('trackCustom', 'funnel_cta_click', { step: 1 });
+        }
+    }
+
+    // ── i18n ────────────────────────────────────────────────────────────────
+    var TRANSLATIONS = {
+        en: {
+            'hero-tag': '⚠ Panama Canal Compliance',
+            'hero-h1': 'Still Filing VUMPA <span class="strike">Manually?</span><br>Your vessel is one form away from a <em>$65,000 penalty</em>.',
+            'hero-sub': 'The Panama Canal Authority now requires digital VUMPA submissions across 3 government agencies. Most vessels still rely on ship agents charging $2,000–$5,000+ per transit — and one paperwork error triggers a $65,000 daily surcharge.',
+            'stat1-val': '$65K', 'stat1-lbl': 'Daily penalty for a single ACP filing error',
+            'stat2-val': '3', 'stat2-lbl': 'Government agencies you must file with simultaneously',
+            'stat3-val': '40+', 'stat3-lbl': 'Pages of VUMPA forms — manual filing takes 24–72 hours',
+            'problem-eyebrow': 'The Problem',
+            'problem-h2': 'Manual filing isn\'t just slow — it\'s a liability every transit.',
+            'p1-h3': 'Complexity That Compounds',
+            'p1-p': 'VUMPA packages require crew manifests, cargo declarations, equipment certificates, and PCSOPEP documentation — all cross-referenced against a 23-point validation engine. Miss one item and you miss your slot.',
+            'p2-h3': '$150K/Day Sitting at Anchor',
+            'p2-p': 'Miss your Neo-Panamax slot due to a filing rejection and you wait 5–10 days for the next opening. At $50K–$150K in daily vessel costs, a paperwork error isn\'t a minor inconvenience — it\'s a crisis.',
+            'p3-h3': 'Ship Agents Are Expensive',
+            'p3-p': 'Traditional ship agents charge $2,000–$5,000+ per transit for the same forms you could automate. A fleet of 5 vessels transiting monthly pays $210,000–$390,000 per year just in agent fees.',
+            'proof1-val': '13,000+', 'proof1-lbl': 'Annual vessel transits through the Panama Canal',
+            'proof2-val': '94%', 'proof2-lbl': 'Pre-submission error catch rate with CanalClear AI',
+            'proof3-val': '60 sec', 'proof3-lbl': 'VUMPA validation — vs. 24–72 hours manually',
+            'cta-text': 'See How CanalClear Works',
+            'cta-sub': 'No credit card required to see the demo',
+            'exit-link': '✕ Exit',
+        },
+        es: {
+            'hero-tag': '⚠ Cumplimiento Canal de Panamá',
+            'hero-h1': '¿Todavía presentando VUMPA <span class="strike">manualmente?</span><br>Su buque está a un formulario de una <em>multa de $65,000</em>.',
+            'hero-sub': 'La Autoridad del Canal de Panamá ahora exige presentaciones VUMPA digitales en 3 agencias gubernamentales. La mayoría de los buques aún dependen de agentes marítimos que cobran $2,000–$5,000+ por tránsito.',
+            'stat1-val': '$65K', 'stat1-lbl': 'Multa diaria por un error en la presentación ACP',
+            'stat2-val': '3', 'stat2-lbl': 'Agencias gubernamentales ante las que debe presentar simultáneamente',
+            'stat3-val': '40+', 'stat3-lbl': 'Páginas de formularios VUMPA — la presentación manual tarda 24–72 horas',
+            'problem-eyebrow': 'El Problema',
+            'problem-h2': 'La presentación manual no es solo lenta — es un riesgo en cada tránsito.',
+            'p1-h3': 'Complejidad que se Acumula',
+            'p1-p': 'Los paquetes VUMPA requieren manifiestos de tripulación, declaraciones de carga, certificados de equipos y documentación PCSOPEP, todo cruzado con un motor de validación de 23 puntos.',
+            'p2-h3': '$150K/Día Esperando en Ancla',
+            'p2-p': 'Pierda su ranura Neo-Panamax por un rechazo de presentación y espere 5–10 días para la próxima apertura. A $50K–$150K en costos diarios del buque, un error de papeleo no es una inconveniencia menor.',
+            'p3-h3': 'Los Agentes Marítimos Son Caros',
+            'p3-p': 'Los agentes marítimos tradicionales cobran $2,000–$5,000+ por tránsito. Una flota de 5 buques que transita mensualmente paga $210,000–$390,000 por año solo en honorarios de agentes.',
+            'proof1-val': '13,000+', 'proof1-lbl': 'Tránsitos anuales de buques por el Canal de Panamá',
+            'proof2-val': '94%', 'proof2-lbl': 'Tasa de detección de errores antes del envío con IA de CanalClear',
+            'proof3-val': '60 seg', 'proof3-lbl': 'Validación VUMPA — vs. 24–72 horas manualmente',
+            'cta-text': 'Ver Cómo Funciona CanalClear',
+            'cta-sub': 'No se requiere tarjeta de crédito para ver la demo',
+            'exit-link': '✕ Salir',
+        },
+        zh: {
+            'hero-tag': '⚠ 巴拿马运河合规',
+            'hero-h1': '仍在<span class="strike">手动</span>提交VUMPA？<br>您的船只距离<em>$65,000罚款</em>只有一份表格的距离。',
+            'hero-sub': '巴拿马运河管理局现在要求向3个政府机构提交数字VUMPA申请。大多数船只仍依赖每次过境收费$2,000–$5,000+的船舶代理。',
+            'stat1-val': '$65K', 'stat1-lbl': '单次ACP申报错误的每日罚款',
+            'stat2-val': '3', 'stat2-lbl': '必须同时提交申请的政府机构',
+            'stat3-val': '40+', 'stat3-lbl': '页VUMPA表格 — 手动提交需24–72小时',
+            'problem-eyebrow': '问题所在',
+            'problem-h2': '手动申报不仅缓慢 — 每次过境都是一种责任。',
+            'p1-h3': '复杂性不断叠加',
+            'p1-p': 'VUMPA包需要船员名单、货物申报、设备证书和PCSOPEP文件，全部需要与23点验证引擎交叉核对。',
+            'p2-h3': '在锚地每天耗费$150K',
+            'p2-p': '因申报被拒而错过新巴拿马型船位，您将等待5–10天才能获得下一个开放时间。每天船只成本$50K–$150K。',
+            'p3-h3': '船舶代理价格昂贵',
+            'p3-p': '传统船舶代理每次过境收费$2,000–$5,000+。5艘船每月过境的船队每年仅支付代理费就高达$210,000–$390,000。',
+            'proof1-val': '13,000+', 'proof1-lbl': '每年通过巴拿马运河的船只过境次数',
+            'proof2-val': '94%', 'proof2-lbl': 'CanalClear AI提交前错误捕获率',
+            'proof3-val': '60秒', 'proof3-lbl': 'VUMPA验证 — 与手动24–72小时相比',
+            'cta-text': '查看CanalClear如何工作',
+            'cta-sub': '查看演示无需信用卡',
+            'exit-link': '✕ 退出',
+        },
+        el: {
+            'hero-tag': '⚠ Συμμόρφωση Διώρυγας Παναμά',
+            'hero-h1': 'Υποβάλλετε ακόμα VUMPA <span class="strike">χειροκίνητα;</span><br>Το πλοίο σας απέχει μια φόρμα από ένα <em>πρόστιμο $65.000</em>.',
+            'hero-sub': 'Η Αρχή της Διώρυγας του Παναμά απαιτεί πλέον ψηφιακές υποβολές VUMPA σε 3 κυβερνητικές υπηρεσίες. Τα περισσότερα πλοία εξαρτώνται από ναυτικούς πράκτορες που χρεώνουν $3.500–$6.500 ανά διέλευση.',
+            'stat1-val': '$65K', 'stat1-lbl': 'Ημερήσιο πρόστιμο για ένα σφάλμα ACP',
+            'stat2-val': '3', 'stat2-lbl': 'Κυβερνητικές υπηρεσίες στις οποίες πρέπει να υποβάλλετε ταυτόχρονα',
+            'stat3-val': '40+', 'stat3-lbl': 'Σελίδες εντύπων VUMPA — η χειροκίνητη υποβολή διαρκεί 24–72 ώρες',
+            'problem-eyebrow': 'Το Πρόβλημα',
+            'problem-h2': 'Η χειροκίνητη υποβολή δεν είναι απλώς αργή — είναι ευθύνη σε κάθε διέλευση.',
+            'p1-h3': 'Πολυπλοκότητα που Αυξάνεται',
+            'p1-p': 'Τα πακέτα VUMPA απαιτούν καταλόγους πληρώματος, δηλώσεις φορτίου, πιστοποιητικά εξοπλισμού και τεκμηρίωση PCSOPEP.',
+            'p2-h3': '$150K/Ημέρα στην Άγκυρα',
+            'p2-p': 'Χάσετε τη θέση σας Neo-Panamax λόγω απόρριψης υποβολής και θα περιμένετε 5–10 ημέρες. Στα $50K–$150K σε ημερήσιο κόστος πλοίου, ένα σφάλμα παπεράς δεν είναι απλή ενόχληση.',
+            'p3-h3': 'Οι Ναυτικοί Πράκτορες Είναι Ακριβοί',
+            'p3-p': 'Οι παραδοσιακοί ναυτικοί πράκτορες χρεώνουν $3.500–$6.500 ανά διέλευση. Ένας στόλος 5 πλοίων που διασχίζει μηνιαίως πληρώνει $210.000–$390.000 ετησίως μόνο σε αμοιβές πρακτόρων.',
+            'proof1-val': '13.000+', 'proof1-lbl': 'Ετήσιες διελεύσεις πλοίων από τη Διώρυγα Παναμά',
+            'proof2-val': '94%', 'proof2-lbl': 'Ποσοστό εντοπισμού σφαλμάτων πριν την υποβολή',
+            'proof3-val': '60 δευτ.', 'proof3-lbl': 'Επικύρωση VUMPA — έναντι 24–72 ωρών χειροκίνητα',
+            'cta-text': 'Δείτε Πώς Λειτουργεί το CanalClear',
+            'cta-sub': 'Δεν απαιτείται πιστωτική κάρτα για τη demo',
+            'exit-link': '✕ Έξοδος',
+        },
+        ja: {
+            'hero-tag': '⚠ パナマ運河コンプライアンス',
+            'hero-h1': 'まだVUMPAを<span class="strike">手動</span>で申請していますか？<br>あなたの船舶は<em>$65,000の罰金</em>まで一つの書類の距離。',
+            'hero-sub': 'パナマ運河庁は、3つの政府機関へのデジタルVUMPA提出を義務付けています。ほとんどの船舶は、1回の通航で$2,000〜$5,000+を請求する船舶代理店に依存しています。',
+            'stat1-val': '$65K', 'stat1-lbl': 'ACP申告エラー1件あたりの日次ペナルティ',
+            'stat2-val': '3', 'stat2-lbl': '同時に申請する必要がある政府機関の数',
+            'stat3-val': '40+', 'stat3-lbl': 'ページのVUMPA書類 — 手動申請には24〜72時間',
+            'problem-eyebrow': '問題',
+            'problem-h2': '手動申請は遅いだけでなく — 毎回の通航でリスクとなります。',
+            'p1-h3': '複雑さが積み重なる',
+            'p1-p': 'VUMPAパッケージには乗組員名簿、貨物申告書、設備証明書、PCSOPEP文書が必要で、23ポイント検証エンジンと照合する必要があります。',
+            'p2-h3': '錨泊中に1日$150K',
+            'p2-p': '申告拒否によりネオパナマックス枠を逃すと、次の機会まで5〜10日待ちます。船舶日次コスト$50K〜$150Kで、書類ミスは小さな不便ではありません。',
+            'p3-h3': '船舶代理店は高額',
+            'p3-p': '従来の船舶代理店は1回の通航で$2,000〜$5,000+を請求します。月1回通航する5隻の船隊は、代理店費用だけで年間$210,000〜$390,000を支払います。',
+            'proof1-val': '13,000+', 'proof1-lbl': 'パナマ運河の年間船舶通航数',
+            'proof2-val': '94%', 'proof2-lbl': 'CanalClear AIによる提出前エラー検出率',
+            'proof3-val': '60秒', 'proof3-lbl': 'VUMPA検証 — 手動の24〜72時間と比較',
+            'cta-text': 'CanalClearの仕組みを見る',
+            'cta-sub': 'デモを見るにはクレジットカード不要',
+            'exit-link': '✕ 終了',
+        }
+    };
+
+    var currentLang = (navigator.language || 'en').slice(0, 2);
+    if (!TRANSLATIONS[currentLang]) currentLang = 'en';
+
+    var IDS = ['hero-tag','hero-h1','hero-sub','stat1-val','stat1-lbl','stat2-val','stat2-lbl','stat3-val','stat3-lbl','problem-eyebrow','problem-h2','p1-h3','p1-p','p2-h3','p2-p','p3-h3','p3-p','proof1-val','proof1-lbl','proof2-val','proof2-lbl','proof3-val','proof3-lbl','cta-text','cta-sub','exit-link'];
+
+    function setLang(lang) {
+        if (!TRANSLATIONS[lang]) return;
+        currentLang = lang;
+        var t = TRANSLATIONS[lang];
+        IDS.forEach(function(id) {
+            var el = document.getElementById('t-' + id) || document.getElementById(id + '-link');
+            if (!el) return;
+            if (id === 'exit-link') { var exitEl = document.getElementById('exit-link'); if(exitEl) exitEl.innerHTML = t[id]; return; }
+            if (t[id]) el.innerHTML = t[id];
+        });
+        // update exit link
+        var exitEl = document.getElementById('exit-link');
+        if (exitEl && t['exit-link']) exitEl.innerHTML = t['exit-link'];
+        // update lang buttons
+        document.querySelectorAll('.lang-btn').forEach(function(btn) {
+            btn.classList.toggle('active', btn.onclick && btn.onclick.toString().includes("'" + lang + "'"));
+        });
+    }
+
+    // Run on load
+    setLang(currentLang);
+
+    // Fix lang button active state
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.lang-btn').forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+        });
+    });
+    </script>
+<script src="/js/whatsapp-button.js"></script>
+</body>
+</html>

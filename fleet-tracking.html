@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fleet Tracking — Live Vessel Positions &amp; Canal Alerts | CanalClear</title>
+  <meta name="description" content="Live fleet tracking dashboard — vessel positions on world map with canal geofence zone overlays for Panama, Suez, Bosporus, Malacca, and Cape of Good Hope.">
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Leaflet.js -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- IBM Plex Sans — consistent with CanalClear brand -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/visual-polish.css">
+  <link rel="icon" type="image/png" href="/icons/icon-192.png">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy:         #0d1b2e;
+      --deep:         #081422;
+      --slate:        #152337;
+      --slate2:       #1c2e44;
+      --panel:        #111f30;
+      --panel-border: rgba(255,255,255,0.07);
+      --orange:       #E85A00;
+      --orange-dim:   rgba(232,90,0,0.12);
+      --orange-glow:  rgba(232,90,0,0.3);
+      --orange-border:rgba(232,90,0,0.28);
+      --white:        #f0f4f8;
+      --gray:         #6b7c93;
+      --muted:        #4a5e72;
+      --light:        #8fa3b8;
+      --green:        #22c55e;
+      --green-dim:    rgba(34,197,94,0.12);
+      --yellow:       #fbbf24;
+      --yellow-dim:   rgba(251,191,36,0.12);
+      --red:          #ef4444;
+      --red-dim:      rgba(239,68,68,0.12);
+      --blue:         #38bdf8;
+      --blue-dim:     rgba(56,189,248,0.12);
+      --teal:         #14b8a6;
+      --teal-dim:     rgba(20,184,166,0.12);
+
+      /* Status colors */
+      --s-compliant:  var(--green);
+      --s-pending:    var(--yellow);
+      --s-overdue:    var(--red);
+      --s-transiting: var(--blue);
+      --s-clear:      var(--teal);
+    }
+
+    html, body { height: 100%; }
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      overflow: hidden; /* full-screen app shell */
+    }
+
+    /* ── TOP NAV ─────────────────────────────────────────────────────── */
+    .topnav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 500;
+      height: 52px;
+      background: rgba(8,20,34,0.97);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--panel-border);
+      display: flex;
+      align-items: center;
+      padding: 0 1rem;
+      gap: 1rem;
+    }
+    .topnav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .topnav-brand-logo {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.02em;
+    }
+    .topnav-brand-logo span { color: var(--orange); }
+    .topnav-divider {
+      width: 1px;
+      height: 24px;
+      background: var(--panel-border);
+      flex-shrink: 0;
+    }
+    .topnav-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--light);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .topnav-title .pulse-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulseDot 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.4; transform: scale(0.7); }
+    }
+    .topnav-spacer { flex: 1; }
+    .topnav-poll-indicator {
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-family: 'IBM Plex Mono', monospace;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .topnav-poll-bar {
+      width: 80px;
+      height: 3px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .topnav-poll-fill {
+      height: 100%;
+      background: var(--orange);
+      border-radius: 2px;
+      width: 0%;
+      transition: width 1s linear;
+    }
+    .topnav-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 6px;
+      border: 1px solid var(--panel-border);
+      background: rgba(255,255,255,0.04);
+      color: var(--light);
+      font-size: 0.78rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .topnav-btn:hover { background: rgba(255,255,255,0.08); color: var(--white); border-color: rgba(255,255,255,0.15); }
+    .topnav-btn.primary { background: var(--orange); border-color: var(--orange); color: #fff; }
+    .topnav-btn.primary:hover { background: #d05200; }
+
+    /* ── APP SHELL ─────────────────────────────────────────────────────── */
+    .app-shell {
+      display: flex;
+      height: 100vh;
+      padding-top: 52px;
+    }
+
+    /* ── SIDEBAR ─────────────────────────────────────────────────────── */
+    .sidebar {
+      width: 300px;
+      flex-shrink: 0;
+      background: var(--deep);
+      border-right: 1px solid var(--panel-border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .sidebar-header {
+      padding: 1rem 1rem 0.75rem;
+      border-bottom: 1px solid var(--panel-border);
+      flex-shrink: 0;
+    }
+    .sidebar-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+    .sidebar-header-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--light);
+    }
+    .approaching-badge {
+      background: var(--orange-dim);
+      border: 1px solid var(--orange-border);
+      color: var(--orange);
+      border-radius: 100px;
+      padding: 0.15rem 0.55rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    /* Search + filter bar */
+    .sidebar-filters {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .search-input {
+      width: 100%;
+      background: var(--slate);
+      border: 1px solid var(--panel-border);
+      border-radius: 6px;
+      padding: 0.45rem 0.75rem 0.45rem 2rem;
+      font-size: 0.82rem;
+      color: var(--white);
+      font-family: 'IBM Plex Sans', sans-serif;
+      outline: none;
+      transition: border-color 0.15s;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236b7c93' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: 0.6rem center;
+    }
+    .search-input:focus { border-color: rgba(232,90,0,0.5); }
+    .search-input::placeholder { color: var(--muted); }
+
+    .filter-pills {
+      display: flex;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+    .filter-pill {
+      padding: 0.2rem 0.6rem;
+      border-radius: 100px;
+      border: 1px solid var(--panel-border);
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      background: transparent;
+      color: var(--muted);
+    }
+    .filter-pill:hover { color: var(--light); border-color: rgba(255,255,255,0.15); }
+    .filter-pill.active { border-color: var(--orange-border); background: var(--orange-dim); color: var(--orange); }
+
+    /* Vessel list */
+    .vessel-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0.5rem 0;
+    }
+    .vessel-list::-webkit-scrollbar { width: 4px; }
+    .vessel-list::-webkit-scrollbar-track { background: transparent; }
+    .vessel-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+    .vessel-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.7rem 1rem;
+      cursor: pointer;
+      transition: background 0.1s;
+      border-left: 2px solid transparent;
+    }
+    .vessel-row:hover { background: rgba(255,255,255,0.03); }
+    .vessel-row.selected {
+      background: rgba(232,90,0,0.07);
+      border-left-color: var(--orange);
+    }
+    .vessel-row.pulse-alert {
+      animation: alertPulse 1.5s ease-in-out 3;
+    }
+    @keyframes alertPulse {
+      0%, 100% { background: transparent; }
+      50%       { background: rgba(239,68,68,0.15); }
+    }
+
+    .vessel-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .vessel-info { flex: 1; min-width: 0; }
+    .vessel-name {
+      font-size: 0.825rem;
+      font-weight: 600;
+      color: var(--white);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .vessel-meta {
+      font-size: 0.72rem;
+      color: var(--gray);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.1rem;
+    }
+    .vessel-meta-sep { color: var(--muted); }
+    .vessel-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.25rem;
+      flex-shrink: 0;
+    }
+    .status-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .status-badge.compliant  { background: var(--green-dim);  color: var(--green); }
+    .status-badge.pending    { background: var(--yellow-dim); color: var(--yellow); }
+    .status-badge.overdue    { background: var(--red-dim);    color: var(--red); }
+    .status-badge.transiting { background: var(--blue-dim);   color: var(--blue); }
+    .status-badge.clear      { background: var(--teal-dim);   color: var(--teal); }
+    .vessel-eta {
+      font-size: 0.7rem;
+      color: var(--gray);
+      font-family: 'IBM Plex Mono', monospace;
+    }
+    .vessel-eta.urgent { color: var(--yellow); }
+    .vessel-eta.critical { color: var(--red); }
+
+    /* Sidebar legend */
+    .sidebar-legend {
+      padding: 0.75rem 1rem;
+      border-top: 1px solid var(--panel-border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+    .legend-title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .legend-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 0.75rem;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.72rem;
+      color: var(--gray);
+    }
+    .legend-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── MAP AREA ─────────────────────────────────────────────────────── */
+    .map-area {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #fleet-map {
+      width: 100%;
+      height: 100%;
+      background: #0d1b2e;
+    }
+
+    /* Custom Leaflet tile filter for maritime dark theme */
+    .leaflet-tile {
+      filter: brightness(0.45) saturate(0.7) hue-rotate(180deg) invert(1) contrast(0.9);
+    }
+
+    /* ── OVERLAY CONTROLS ─────────────────────────────────────────────── */
+    .map-controls {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      z-index: 400;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .control-panel {
+      background: rgba(8,20,34,0.92);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--panel-border);
+      border-radius: 10px;
+      padding: 0.75rem;
+      min-width: 180px;
+    }
+    .control-panel-title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+    .control-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.3rem 0;
+      font-size: 0.78rem;
+      color: var(--light);
+      gap: 0.75rem;
+    }
+    .control-row label {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      cursor: pointer;
+      font-size: 0.78rem;
+      color: var(--light);
+    }
+    /* Toggle switch */
+    .toggle {
+      position: relative;
+      width: 32px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle-track {
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.1);
+      border-radius: 100px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .toggle-track::before {
+      content: '';
+      position: absolute;
+      left: 2px; top: 2px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--muted);
+      transition: transform 0.2s, background 0.2s;
+    }
+    .toggle input:checked + .toggle-track { background: rgba(232,90,0,0.4); }
+    .toggle input:checked + .toggle-track::before {
+      transform: translateX(14px);
+      background: var(--orange);
+    }
+
+    /* Canal colour dot for toggles */
+    .canal-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* Track history toggle */
+    .track-btn {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--panel-border);
+      border-radius: 6px;
+      padding: 0.4rem 0.75rem;
+      color: var(--light);
+      font-size: 0.78rem;
+      cursor: pointer;
+      font-family: 'IBM Plex Sans', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.15s;
+      margin-top: 0.25rem;
+    }
+    .track-btn:hover { background: rgba(255,255,255,0.08); color: var(--white); }
+    .track-btn.active { background: var(--orange-dim); border-color: var(--orange-border); color: var(--orange); }
+
+    /* ── MAP STATS BAR ─────────────────────────────────────────────────── */
+    .map-stats {
+      position: absolute;
+      bottom: 1rem;
+      left: 1rem;
+      z-index: 400;
+      background: rgba(8,20,34,0.92);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--panel-border);
+      border-radius: 10px;
+      padding: 0.65rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+    .map-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .map-stat-val {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      font-family: 'IBM Plex Mono', monospace;
+      line-height: 1;
+    }
+    .map-stat-val.orange { color: var(--orange); }
+    .map-stat-val.red    { color: var(--red); }
+    .map-stat-val.yellow { color: var(--yellow); }
+    .map-stat-label {
+      font-size: 0.65rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-top: 0.2rem;
+    }
+    .map-stat-divider {
+      width: 1px;
+      height: 28px;
+      background: var(--panel-border);
+    }
+
+    /* ── VESSEL POPUP ─────────────────────────────────────────────────── */
+    .leaflet-popup-content-wrapper {
+      background: rgba(8,20,34,0.97) !important;
+      border: 1px solid var(--panel-border) !important;
+      border-radius: 10px !important;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5) !important;
+      color: var(--white) !important;
+      padding: 0 !important;
+    }
+    .leaflet-popup-content {
+      margin: 0 !important;
+      padding: 0 !important;
+      font-family: 'IBM Plex Sans', sans-serif !important;
+    }
+    .leaflet-popup-tip { background: rgba(8,20,34,0.97) !important; }
+    .leaflet-popup-close-button { color: var(--gray) !important; top: 6px !important; right: 8px !important; }
+
+    .popup-header {
+      padding: 0.8rem 1rem 0.6rem;
+      border-bottom: 1px solid var(--panel-border);
+    }
+    .popup-vessel-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+    .popup-vessel-sub {
+      font-size: 0.75rem;
+      color: var(--gray);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .popup-body {
+      padding: 0.7rem 1rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem 0.75rem;
+    }
+    .popup-field { display: flex; flex-direction: column; }
+    .popup-label { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.1rem; }
+    .popup-value { font-size: 0.8rem; color: var(--white); font-weight: 500; }
+    .popup-value.mono { font-family: 'IBM Plex Mono', monospace; }
+    .popup-footer {
+      padding: 0.6rem 1rem;
+      border-top: 1px solid var(--panel-border);
+      display: flex;
+      gap: 0.5rem;
+    }
+    .popup-btn {
+      flex: 1;
+      padding: 0.4rem 0;
+      border-radius: 6px;
+      border: 1px solid var(--panel-border);
+      background: rgba(255,255,255,0.04);
+      color: var(--light);
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      font-family: 'IBM Plex Sans', sans-serif;
+      transition: all 0.15s;
+    }
+    .popup-btn:hover { background: rgba(255,255,255,0.08); color: var(--white); }
+    .popup-btn.primary {
+      background: var(--orange);
+      border-color: var(--orange);
+      color: #fff;
+    }
+    .popup-btn.primary:hover { background: #d05200; }
+
+    /* ── ZONE POPUP ─────────────────────────────────────────────────── */
+    .zone-popup-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.35rem;
+    }
+    .zone-popup-body { font-size: 0.75rem; color: var(--gray); padding: 0.7rem 1rem 0.8rem; }
+    .zone-popup-rings { display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.5rem; }
+    .zone-popup-ring { display: flex; align-items: center; gap: 0.5rem; font-size: 0.73rem; }
+    .zone-ring-swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+    /* ── LOADING OVERLAY ─────────────────────────────────────────────── */
+    .loading-overlay {
+      position: absolute;
+      inset: 0;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      transition: opacity 0.4s;
+    }
+    .loading-overlay.hidden { opacity: 0; pointer-events: none; }
+    .loading-content { text-align: center; max-width: 340px; }
+    .loading-spinner {
+      width: 40px; height: 40px;
+      border: 3px solid rgba(232,90,0,0.2);
+      border-top-color: var(--orange);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 1rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-text { font-size: 0.875rem; color: var(--light); }
+
+    /* Ship silhouettes for syncing state */
+    .syncing-ships {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .syncing-ship {
+      opacity: 0.25;
+      animation: shipPulse 2.4s ease-in-out infinite;
+    }
+    .syncing-ship:nth-child(2) { animation-delay: 0.4s; }
+    .syncing-ship:nth-child(3) { animation-delay: 0.8s; }
+    @keyframes shipPulse {
+      0%, 100% { opacity: 0.15; transform: translateY(0); }
+      50%      { opacity: 0.45; transform: translateY(-4px); }
+    }
+    .syncing-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.35rem;
+    }
+    .syncing-sub {
+      font-size: 0.78rem;
+      color: var(--gray);
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+    .syncing-progress {
+      width: 100%;
+      height: 3px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 3px;
+      overflow: hidden;
+      margin: 0 auto;
+    }
+    .syncing-progress-bar {
+      height: 100%;
+      width: 30%;
+      background: var(--orange);
+      border-radius: 3px;
+      animation: syncBar 2s ease-in-out infinite;
+    }
+    @keyframes syncBar {
+      0%   { transform: translateX(-100%); }
+      100% { transform: translateX(400%); }
+    }
+
+    /* ── SIDEBAR SKELETON ────────────────────────────────────────────── */
+    .skeleton-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.7rem 1rem;
+    }
+    .skeleton-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.05);
+      animation: shimmer 1.6s ease-in-out infinite;
+    }
+    .skeleton-lines { flex: 1; }
+    .skeleton-line {
+      height: 10px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.05);
+      animation: shimmer 1.6s ease-in-out infinite;
+    }
+    .skeleton-line.short { width: 60%; margin-top: 6px; }
+    .skeleton-line.medium { width: 80%; }
+    .skeleton-badge {
+      width: 52px; height: 18px;
+      border-radius: 100px;
+      background: rgba(255,255,255,0.05);
+      animation: shimmer 1.6s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes shimmer {
+      0%, 100% { opacity: 0.4; }
+      50%      { opacity: 0.8; }
+    }
+
+    /* ── MOBILE (simplified list view) ──────────────────────────────── */
+    @media (max-width: 768px) {
+      body { overflow: auto; }
+      .app-shell { flex-direction: column; height: auto; padding-top: 52px; }
+      .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--panel-border);
+      }
+      .map-area { height: 50vh; }
+      .map-controls { top: 0.5rem; right: 0.5rem; }
+      .control-panel { min-width: 150px; }
+      .map-stats { bottom: 0.5rem; left: 0.5rem; gap: 0.75rem; }
+    }
+
+    @media (max-width: 480px) {
+      .map-area { display: none; }
+      .app-shell { overflow: auto; }
+      .sidebar { height: auto; overflow: visible; }
+      .vessel-list { max-height: 70vh; overflow-y: auto; }
+    }
+
+    /* Leaflet custom vessel icon overrides */
+    .vessel-marker-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .vessel-marker-svg {
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));
+      transition: transform 0.3s;
+    }
+    .vessel-marker-svg:hover { transform: scale(1.2); }
+
+    /* Pulse ring for alert vessels */
+    .pulse-ring {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 2px solid var(--red);
+      animation: ringPulse 1.8s ease-out infinite;
+      pointer-events: none;
+    }
+    @keyframes ringPulse {
+      0%   { transform: translate(-50%,-50%) scale(0.8); opacity: 1; }
+      100% { transform: translate(-50%,-50%) scale(2.2); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Top Navigation -->
+<nav class="topnav">
+  <a href="/" class="topnav-brand">
+    <span class="topnav-brand-logo">Canal<span>Clear</span></span>
+  </a>
+  <div class="topnav-divider"></div>
+  <div class="topnav-title">
+    <span class="pulse-dot"></span>
+    Fleet Tracking
+  </div>
+  <div class="topnav-spacer"></div>
+  <div class="topnav-poll-indicator">
+    <span>Updates in</span>
+    <div class="topnav-poll-bar">
+      <div class="topnav-poll-fill" id="poll-fill"></div>
+    </div>
+    <span id="poll-countdown">60s</span>
+  </div>
+  <a href="/demo/dashboard" class="topnav-btn">← Fleet Dashboard</a>
+  <a href="/pricing" class="topnav-btn primary">Upgrade for Live AIS</a>
+</nav>
+
+<!-- App Shell -->
+<div class="app-shell">
+
+  <!-- Sidebar: Vessel List -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-header-row">
+        <span class="sidebar-header-title">Vessels Approaching</span>
+        <span class="approaching-badge" id="approaching-count">—</span>
+      </div>
+      <div class="sidebar-filters">
+        <input
+          type="text"
+          class="search-input"
+          id="vessel-search"
+          placeholder="Search by name or IMO…"
+          autocomplete="off"
+        />
+        <div class="filter-pills" id="filter-pills">
+          <button class="filter-pill active" data-filter="all">All</button>
+          <button class="filter-pill" data-filter="overdue">Overdue</button>
+          <button class="filter-pill" data-filter="pending">Pending</button>
+          <button class="filter-pill" data-filter="compliant">Compliant</button>
+          <button class="filter-pill" data-filter="transiting">Transiting</button>
+          <button class="filter-pill" data-filter="clear">Clear</button>
+        </div>
+      </div>
+    </div>
+    <div class="vessel-list" id="vessel-list">
+      <!-- Skeleton rows shown during initial load -->
+      <div class="skeleton-row"><div class="skeleton-icon"></div><div class="skeleton-lines"><div class="skeleton-line medium"></div><div class="skeleton-line short"></div></div><div class="skeleton-badge"></div></div>
+      <div class="skeleton-row"><div class="skeleton-icon"></div><div class="skeleton-lines"><div class="skeleton-line medium"></div><div class="skeleton-line short"></div></div><div class="skeleton-badge"></div></div>
+      <div class="skeleton-row"><div class="skeleton-icon"></div><div class="skeleton-lines"><div class="skeleton-line medium"></div><div class="skeleton-line short"></div></div><div class="skeleton-badge"></div></div>
+      <div class="skeleton-row"><div class="skeleton-icon"></div><div class="skeleton-lines"><div class="skeleton-line medium"></div><div class="skeleton-line short"></div></div><div class="skeleton-badge"></div></div>
+      <div class="skeleton-row"><div class="skeleton-icon"></div><div class="skeleton-lines"><div class="skeleton-line medium"></div><div class="skeleton-line short"></div></div><div class="skeleton-badge"></div></div>
+      <div class="skeleton-row"><div class="skeleton-icon"></div><div class="skeleton-lines"><div class="skeleton-line medium"></div><div class="skeleton-line short"></div></div><div class="skeleton-badge"></div></div>
+    </div>
+    <div class="sidebar-legend">
+      <div class="legend-title">Status Legend</div>
+      <div class="legend-items">
+        <div class="legend-item"><div class="legend-dot" style="background:#ef4444"></div>Overdue Filing</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#fbbf24"></div>Pending Filing</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#22c55e"></div>Compliant</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#38bdf8"></div>Transiting</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#14b8a6"></div>Clear</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Map Area -->
+  <div class="map-area">
+
+    <!-- Loading / Syncing Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+      <div class="loading-content">
+        <div class="syncing-ships">
+          <svg class="syncing-ship" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#E85A00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20a.6.6 0 0 0 .6.6h18.8a.6.6 0 0 0 .6-.6v0a.6.6 0 0 0-.6-.6H2.6a.6.6 0 0 0-.6.6z"/><path d="M4 17l1.5-8h13L20 17"/><path d="M7 9V5.5a.5.5 0 0 1 .5-.5H12v4"/><path d="M12 9V3"/></svg>
+          <svg class="syncing-ship" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#E85A00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20a.6.6 0 0 0 .6.6h18.8a.6.6 0 0 0 .6-.6v0a.6.6 0 0 0-.6-.6H2.6a.6.6 0 0 0-.6.6z"/><path d="M4 17l1.5-8h13L20 17"/><path d="M7 9V5.5a.5.5 0 0 1 .5-.5H12v4"/><path d="M12 9V3"/></svg>
+          <svg class="syncing-ship" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#E85A00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20a.6.6 0 0 0 .6.6h18.8a.6.6 0 0 0 .6-.6v0a.6.6 0 0 0-.6-.6H2.6a.6.6 0 0 0-.6.6z"/><path d="M4 17l1.5-8h13L20 17"/><path d="M7 9V5.5a.5.5 0 0 1 .5-.5H12v4"/><path d="M12 9V3"/></svg>
+        </div>
+        <div class="syncing-title" id="loading-title">Syncing fleet positions…</div>
+        <div class="syncing-sub" id="loading-sub">Connecting to AIS feed and loading vessel data.<br>This usually takes up to 2 minutes on first load.</div>
+        <div class="syncing-progress"><div class="syncing-progress-bar"></div></div>
+      </div>
+    </div>
+
+    <!-- Map -->
+    <div id="fleet-map"></div>
+
+    <!-- Overlay Controls (top-right) -->
+    <div class="map-controls">
+
+      <!-- Geofence Zone Toggles -->
+      <div class="control-panel">
+        <div class="control-panel-title">Canal Zones</div>
+        <div class="control-row">
+          <label>
+            <div class="canal-dot" style="background:#e95c00"></div>
+            Panama
+          </label>
+          <label class="toggle">
+            <input type="checkbox" id="zone-panama" checked>
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+        <div class="control-row">
+          <label>
+            <div class="canal-dot" style="background:#f59e0b"></div>
+            Suez
+          </label>
+          <label class="toggle">
+            <input type="checkbox" id="zone-suez" checked>
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+        <div class="control-row">
+          <label>
+            <div class="canal-dot" style="background:#a78bfa"></div>
+            Bosporus
+          </label>
+          <label class="toggle">
+            <input type="checkbox" id="zone-bosporus" checked>
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+        <div class="control-row">
+          <label>
+            <div class="canal-dot" style="background:#34d399"></div>
+            Malacca
+          </label>
+          <label class="toggle">
+            <input type="checkbox" id="zone-malacca" checked>
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+        <div class="control-row">
+          <label>
+            <div class="canal-dot" style="background:#60a5fa"></div>
+            Cape
+          </label>
+          <label class="toggle">
+            <input type="checkbox" id="zone-cape" checked>
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Track History -->
+      <div class="control-panel">
+        <div class="control-panel-title">Options</div>
+        <button class="track-btn" id="track-toggle" onclick="toggleTrackMode()">
+          <span>🛤</span> Show Track History
+        </button>
+        <button class="track-btn" id="fit-btn" onclick="fitAllVessels()" style="margin-top:0.35rem">
+          <span>⊞</span> Fit All Vessels
+        </button>
+      </div>
+    </div>
+
+    <!-- Stats Bar (bottom-left) -->
+    <div class="map-stats" id="map-stats">
+      <div class="map-stat">
+        <div class="map-stat-val" id="stat-total">—</div>
+        <div class="map-stat-label">Vessels</div>
+      </div>
+      <div class="map-stat-divider"></div>
+      <div class="map-stat">
+        <div class="map-stat-val orange" id="stat-approaching">—</div>
+        <div class="map-stat-label">Approaching</div>
+      </div>
+      <div class="map-stat-divider"></div>
+      <div class="map-stat">
+        <div class="map-stat-val red" id="stat-overdue">—</div>
+        <div class="map-stat-label">Overdue</div>
+      </div>
+      <div class="map-stat-divider"></div>
+      <div class="map-stat">
+        <div class="map-stat-val yellow" id="stat-pending">—</div>
+        <div class="map-stat-label">Pending</div>
+      </div>
+      <div class="map-stat-divider"></div>
+      <div class="map-stat">
+        <div class="map-stat-val" id="stat-transiting">—</div>
+        <div class="map-stat-label">Transiting</div>
+      </div>
+    </div>
+
+  </div><!-- /map-area -->
+</div><!-- /app-shell -->
+
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+// CanalClear Fleet Tracking — client-side orchestration
+// ─────────────────────────────────────────────────────────────────────────────
+
+const POLL_INTERVAL_NORMAL = 60;  // seconds — once data is loaded
+const POLL_INTERVAL_SYNC   = 10;  // seconds — while waiting for first data
+let   POLL_INTERVAL        = POLL_INTERVAL_SYNC; // starts fast, slows after first load
+let   dataLoaded           = false; // tracks whether we've received vessel data
+const CANAL_COLORS = {
+  panama:   '#e95c00',
+  suez:     '#f59e0b',
+  bosporus: '#a78bfa',
+  malacca:  '#34d399',
+  cape:     '#60a5fa',
+};
+
+const FILING_WIZARD_URLS = {
+  panama:   '/demo/panama',
+  suez:     '/demo/suez',
+  bosporus: '/demo/bosporus',
+  malacca:  '/demo/malacca',
+  cape:     '/demo/cape',
+};
+
+let map;
+let vesselMarkers  = {}; // imo → L.Marker
+let vesselData     = []; // full vessel list from last poll
+let geofenceZones  = {}; // id → array of L.Circle
+let trackLayers    = {}; // imo → L.Polyline
+let trackMode      = false;
+let activeFilter   = 'all';
+let searchQuery    = '';
+let selectedImo    = null;
+let pollCountdown  = POLL_INTERVAL;
+let pollTimer      = null;
+let countdownTimer = null;
+let prevAlertVessels = new Set();
+
+// ── Map init ─────────────────────────────────────────────────────────────────
+function initMap() {
+  map = L.map('fleet-map', {
+    center: [20, 20],
+    zoom: 3,
+    zoomControl: true,
+    attributionControl: true,
+    maxBounds: [[-90, -200], [90, 200]],
+    maxBoundsViscosity: 0.8,
+  });
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    maxZoom: 18,
+  }).addTo(map);
+
+  // Move zoom control to bottom-right (out of sidebar zone)
+  map.zoomControl.setPosition('bottomright');
+}
+
+// ── Geofence zone rendering ──────────────────────────────────────────────────
+function renderGeofences(zones) {
+  zones.forEach(zone => {
+    const canalId = zone.id;
+    const canalColor = CANAL_COLORS[canalId] || '#fff';
+
+    geofenceZones[canalId] = [];
+    // Draw rings outermost → innermost (so inner appears on top)
+    [...zone.rings].reverse().forEach(ring => {
+      const circle = L.circle([zone.lat, zone.lng], {
+        radius:      ring.radiusKm * 1000, // Leaflet uses metres
+        color:       ring.color,
+        fillColor:   ring.color,
+        fillOpacity: 0.03,
+        weight:      1,
+        opacity:     0.5,
+        dashArray:   '6 4',
+        interactive: true,
+      });
+
+      circle.bindPopup(() => {
+        return `<div class="zone-popup-body">
+          <div class="zone-popup-title">${zone.name}</div>
+          <div style="font-size:0.75rem;color:#8fa3b8;margin-top:0.3rem">
+            <strong style="color:#f0f4f8">${ring.hours}h alert zone</strong> — vessels within
+            <strong style="color:#f0f4f8">${ring.radiusKm.toLocaleString()} km</strong> must
+            have filings submitted.
+          </div>
+          <div class="zone-popup-rings" style="margin-top:0.6rem">
+            <div style="font-size:0.7rem;color:#4a5e72;text-transform:uppercase;letter-spacing:.05em;margin-bottom:0.25rem">Zone rings</div>
+            ${zone.rings.map(r => `
+              <div class="zone-popup-ring">
+                <div class="zone-ring-swatch" style="background:${r.color}"></div>
+                <span>${r.hours}h — ${r.radiusKm.toLocaleString()} km</span>
+              </div>
+            `).join('')}
+          </div>
+          <div style="font-size:0.7rem;color:#6b7c93;margin-top:0.5rem">
+            ${countVesselsInZone(zone.lat, zone.lng, zone.rings[0].radiusKm)} vessel(s) currently in zone
+          </div>
+        </div>`;
+      }, { className: 'canal-zone-popup' });
+
+      circle.addTo(map);
+      geofenceZones[canalId].push(circle);
+    });
+
+    // Canal label marker (invisible, for identification)
+    const labelIcon = L.divIcon({
+      className: '',
+      html: `<div style="
+        background:rgba(8,20,34,0.85);
+        border:1px solid ${canalColor}44;
+        border-radius:4px;
+        padding:2px 6px;
+        font-family:'IBM Plex Sans',sans-serif;
+        font-size:10px;
+        font-weight:600;
+        color:${canalColor};
+        white-space:nowrap;
+        pointer-events:none;
+      ">${zone.name}</div>`,
+      iconAnchor: [40, -4],
+    });
+    L.marker([zone.lat, zone.lng], { icon: labelIcon, interactive: false }).addTo(map);
+  });
+
+  // Wire up toggle checkboxes
+  ['panama','suez','bosporus','malacca','cape'].forEach(id => {
+    const el = document.getElementById(`zone-${id}`);
+    if (el) {
+      el.addEventListener('change', () => toggleZone(id, el.checked));
+    }
+  });
+}
+
+function toggleZone(canalId, visible) {
+  (geofenceZones[canalId] || []).forEach(c => {
+    if (visible) c.addTo(map); else map.removeLayer(c);
+  });
+}
+
+function countVesselsInZone(lat, lng, radiusKm) {
+  if (!vesselData.length) return 0;
+  const centre = L.latLng(lat, lng);
+  return vesselData.filter(v => {
+    const vPoint = L.latLng(v.lat, v.lng);
+    return centre.distanceTo(vPoint) / 1000 <= radiusKm;
+  }).length;
+}
+
+// ── Vessel marker rendering ───────────────────────────────────────────────────
+function vesselStatusColor(v) {
+  if (v.filingStatus === 'overdue')    return '#ef4444';
+  if (v.filingStatus === 'pending')    return '#fbbf24';
+  if (v.filingStatus === 'compliant')  return '#22c55e';
+  if (v.status       === 'transiting') return '#38bdf8';
+  return '#14b8a6'; // clear
+}
+
+function vesselMarkerIcon(vessel) {
+  const color = vesselStatusColor(vessel);
+  const heading = vessel.heading || 0;
+  const isAlert = vessel.filingStatus === 'overdue';
+
+  // Ship-shaped SVG, rotated to heading
+  const svgSize = 22;
+  const svg = `
+    <svg width="${svgSize}" height="${svgSize}" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(${heading}deg);overflow:visible">
+      <polygon points="11,2 17,18 11,15 5,18" fill="${color}" stroke="${color === '#ef4444' ? '#ff8888' : '#fff'}" stroke-width="1.2" opacity="0.95"/>
+    </svg>
+  `;
+
+  let pulseHtml = '';
+  if (isAlert) {
+    pulseHtml = `<div class="pulse-ring"></div>`;
+  }
+
+  return L.divIcon({
+    className: 'vessel-marker-icon',
+    html: `<div style="position:relative;width:${svgSize}px;height:${svgSize}px;display:flex;align-items:center;justify-content:center">
+      ${pulseHtml}
+      ${svg}
+    </div>`,
+    iconSize:   [svgSize, svgSize],
+    iconAnchor: [svgSize / 2, svgSize / 2],
+    popupAnchor:[0, -svgSize / 2 - 4],
+  });
+}
+
+function buildPopupHTML(v) {
+  const color  = vesselStatusColor(v);
+  const wizardUrl = FILING_WIZARD_URLS[v.nearestCanal] || '/demo';
+  const canalName = v.nearestCanal.charAt(0).toUpperCase() + v.nearestCanal.slice(1);
+  const etaText = v.etaHours > 0
+    ? `${v.etaHours}h to ${canalName}`
+    : `Currently transiting ${canalName}`;
+
+  return `
+    <div style="min-width:240px">
+      <div class="popup-header">
+        <div class="popup-vessel-name">${v.flag} ${v.name}</div>
+        <div class="popup-vessel-sub">
+          <span>IMO ${v.imo}</span>
+          <span style="color:#2d3f52">|</span>
+          <span>${v.type}</span>
+          <span style="margin-left:auto">
+            <span class="status-badge ${v.filingStatus}" style="font-size:0.62rem;padding:0.1rem 0.45rem;border-radius:100px;background:${color}22;color:${color};font-weight:700;text-transform:uppercase">${v.filingStatus}</span>
+          </span>
+        </div>
+      </div>
+      <div class="popup-body">
+        <div class="popup-field">
+          <span class="popup-label">Speed</span>
+          <span class="popup-value mono">${v.speed} kn</span>
+        </div>
+        <div class="popup-field">
+          <span class="popup-label">Heading</span>
+          <span class="popup-value mono">${v.heading}°</span>
+        </div>
+        <div class="popup-field">
+          <span class="popup-label">Nearest Canal</span>
+          <span class="popup-value">${canalName}</span>
+        </div>
+        <div class="popup-field">
+          <span class="popup-label">ETA</span>
+          <span class="popup-value" style="${v.etaHours < 24 && v.etaHours > 0 ? 'color:#fbbf24' : ''}">${etaText}</span>
+        </div>
+        <div class="popup-field">
+          <span class="popup-label">DWT</span>
+          <span class="popup-value mono">${v.dwt.toLocaleString()} t</span>
+        </div>
+        <div class="popup-field">
+          <span class="popup-label">LOA / Beam</span>
+          <span class="popup-value mono">${v.loa}m / ${v.beam}m</span>
+        </div>
+      </div>
+      <div class="popup-footer">
+        <button class="popup-btn" onclick="toggleTrack('${v.imo}')">🛤 Track</button>
+        <a href="${wizardUrl}" class="popup-btn primary">File Now →</a>
+      </div>
+    </div>
+  `;
+}
+
+function renderVesselMarkers(vessels) {
+  // Detect newly-alerted vessels for pulse animation
+  const currentAlerts = new Set(vessels.filter(v => v.filingStatus === 'overdue').map(v => v.imo));
+  const newAlerts = [...currentAlerts].filter(imo => !prevAlertVessels.has(imo));
+  prevAlertVessels = currentAlerts;
+
+  vessels.forEach(v => {
+    const popup = L.popup().setContent(buildPopupHTML(v));
+
+    if (vesselMarkers[v.imo]) {
+      // Smoothly update position
+      vesselMarkers[v.imo].setLatLng([v.lat, v.lng]);
+      vesselMarkers[v.imo].setIcon(vesselMarkerIcon(v));
+      vesselMarkers[v.imo].bindPopup(popup);
+    } else {
+      const marker = L.marker([v.lat, v.lng], {
+        icon: vesselMarkerIcon(v),
+        title: v.name,
+        riseOnHover: true,
+      });
+      marker.bindPopup(popup);
+      marker.on('click', () => {
+        selectedImo = v.imo;
+        highlightSidebarRow(v.imo);
+        if (trackMode) showTrack(v.imo);
+      });
+      marker.addTo(map);
+      vesselMarkers[v.imo] = marker;
+    }
+
+    // Pulse row in sidebar for new alerts
+    if (newAlerts.includes(v.imo)) {
+      const row = document.querySelector(`.vessel-row[data-imo="${v.imo}"]`);
+      if (row) {
+        row.classList.add('pulse-alert');
+        setTimeout(() => row.classList.remove('pulse-alert'), 5000);
+      }
+    }
+  });
+}
+
+// ── Track history ─────────────────────────────────────────────────────────────
+async function showTrack(imo) {
+  // Remove existing track for this vessel
+  if (trackLayers[imo]) {
+    map.removeLayer(trackLayers[imo]);
+    delete trackLayers[imo];
+  }
+
+  try {
+    const res  = await fetch(`/api/fleet/vessel/${imo}/track`);
+    const data = await res.json();
+    if (!data.success || !data.track.length) return;
+
+    const latlngs = data.track.map(p => [p.lat, p.lng]);
+    const polyline = L.polyline(latlngs, {
+      color:     '#E85A00',
+      weight:    2,
+      opacity:   0.65,
+      dashArray: '4 5',
+    }).addTo(map);
+
+    trackLayers[imo] = polyline;
+  } catch (e) {
+    // Track fetch failed — silent
+  }
+}
+
+function clearAllTracks() {
+  Object.values(trackLayers).forEach(l => map.removeLayer(l));
+  trackLayers = {};
+}
+
+function toggleTrack(imo) {
+  if (trackLayers[imo]) {
+    map.removeLayer(trackLayers[imo]);
+    delete trackLayers[imo];
+  } else {
+    showTrack(imo);
+  }
+}
+
+function toggleTrackMode() {
+  trackMode = !trackMode;
+  const btn = document.getElementById('track-toggle');
+  btn.classList.toggle('active', trackMode);
+  btn.innerHTML = trackMode
+    ? '<span>🛤</span> Hide Track History'
+    : '<span>🛤</span> Show Track History';
+  if (!trackMode) {
+    clearAllTracks();
+  } else if (selectedImo) {
+    showTrack(selectedImo);
+  }
+}
+
+// ── Sidebar rendering ─────────────────────────────────────────────────────────
+function vesselIcon(type) {
+  const icons = {
+    'Container':       '📦',
+    'Bulk Carrier':    '⚓',
+    'Tanker':          '🛢',
+    'Chemical Tanker': '⚗️',
+    'VLCC':            '🛢',
+    'LNG Carrier':     '🔥',
+    'RoRo':            '🚗',
+    'Car Carrier':     '🚗',
+  };
+  return icons[type] || '🚢';
+}
+
+function vesselIconBg(v) {
+  const c = vesselStatusColor(v);
+  return `background:${c}22;border-radius:8px`;
+}
+
+function etaLabel(v) {
+  if (v.etaHours === 0) return 'Transiting';
+  if (v.etaHours >= 96) return `${v.etaHours}h away`;
+  const h = v.etaHours;
+  if (h < 6) return `${h}h — CRITICAL`;
+  if (h < 24) return `${h}h — urgent`;
+  return `ETA ${h}h`;
+}
+
+function etaClass(v) {
+  if (v.etaHours > 0 && v.etaHours < 6) return 'critical';
+  if (v.etaHours > 0 && v.etaHours < 24) return 'urgent';
+  return '';
+}
+
+function canalFlag(canal) {
+  const flags = { panama:'🇵🇦', suez:'🇪🇬', bosporus:'🇹🇷', malacca:'🇸🇬', cape:'🇿🇦' };
+  return flags[canal] || '🌊';
+}
+
+function renderSidebar(vessels) {
+  // Apply filters
+  let filtered = vessels.filter(v => {
+    if (activeFilter !== 'all' && v.filingStatus !== activeFilter) {
+      if (activeFilter === 'transiting' && v.status !== 'transiting') return false;
+      if (activeFilter !== 'transiting') return false;
+    }
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      if (!v.name.toLowerCase().includes(q) && !v.imo.includes(q)) return false;
+    }
+    return true;
+  });
+
+  const list = document.getElementById('vessel-list');
+
+  // Separate empty states: syncing vs. filter-empty
+  if (filtered.length === 0) {
+    if (!dataLoaded || vessels.length === 0) {
+      // Show skeleton rows while syncing
+      list.innerHTML = Array.from({ length: 6 }, () => `
+        <div class="skeleton-row">
+          <div class="skeleton-icon"></div>
+          <div class="skeleton-lines">
+            <div class="skeleton-line medium"></div>
+            <div class="skeleton-line short"></div>
+          </div>
+          <div class="skeleton-badge"></div>
+        </div>
+      `).join('');
+    } else {
+      list.innerHTML = `<div style="padding:2rem 1rem;text-align:center;color:#4a5e72;font-size:0.82rem">No vessels match your filters.</div>`;
+    }
+    return;
+  }
+
+  list.innerHTML = filtered.map(v => `
+    <div class="vessel-row ${selectedImo === v.imo ? 'selected' : ''}" data-imo="${v.imo}" onclick="selectVessel('${v.imo}')">
+      <div class="vessel-icon" style="${vesselIconBg(v)}">${vesselIcon(v.type)}</div>
+      <div class="vessel-info">
+        <div class="vessel-name">${v.name}</div>
+        <div class="vessel-meta">
+          <span>IMO ${v.imo}</span>
+          <span class="vessel-meta-sep">·</span>
+          <span>${canalFlag(v.nearestCanal)} ${v.nearestCanal.charAt(0).toUpperCase() + v.nearestCanal.slice(1)}</span>
+        </div>
+      </div>
+      <div class="vessel-right">
+        <span class="status-badge ${v.filingStatus}">${v.filingStatus}</span>
+        <span class="vessel-eta ${etaClass(v)}">${etaLabel(v)}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function highlightSidebarRow(imo) {
+  document.querySelectorAll('.vessel-row').forEach(r => r.classList.remove('selected'));
+  const row = document.querySelector(`.vessel-row[data-imo="${imo}"]`);
+  if (row) {
+    row.classList.add('selected');
+    row.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }
+}
+
+function selectVessel(imo) {
+  selectedImo = imo;
+  highlightSidebarRow(imo);
+
+  const marker = vesselMarkers[imo];
+  if (marker) {
+    map.setView(marker.getLatLng(), Math.max(map.getZoom(), 5), { animate: true });
+    marker.openPopup();
+  }
+  if (trackMode) showTrack(imo);
+}
+
+// ── Stats bar ──────────────────────────────────────────────────────────────
+function updateStats(vessels) {
+  const approaching = vessels.filter(v => v.status === 'approaching').length;
+  const overdue     = vessels.filter(v => v.filingStatus === 'overdue').length;
+  const pending     = vessels.filter(v => v.filingStatus === 'pending').length;
+  const transiting  = vessels.filter(v => v.status === 'transiting').length;
+
+  document.getElementById('stat-total').textContent      = vessels.length;
+  document.getElementById('stat-approaching').textContent = approaching;
+  document.getElementById('stat-overdue').textContent    = overdue;
+  document.getElementById('stat-pending').textContent    = pending;
+  document.getElementById('stat-transiting').textContent = transiting;
+  document.getElementById('approaching-count').textContent = approaching;
+}
+
+// ── Fit all vessels ──────────────────────────────────────────────────────────
+function fitAllVessels() {
+  if (!vesselData.length) return;
+  const bounds = L.latLngBounds(vesselData.map(v => [v.lat, v.lng]));
+  map.fitBounds(bounds, { padding: [60, 60], maxZoom: 6, animate: true });
+}
+
+// ── Data fetching ─────────────────────────────────────────────────────────────
+async function fetchGeofences() {
+  try {
+    const res  = await fetch('/api/fleet/geofences');
+    const data = await res.json();
+    if (data.success) renderGeofences(data.zones);
+  } catch (e) {
+    // Silent — geofences are non-critical
+  }
+}
+
+async function fetchPositions() {
+  try {
+    const res  = await fetch('/api/fleet/positions');
+    const data = await res.json();
+    if (!data.success) return;
+
+    const overlay = document.getElementById('loading-overlay');
+
+    // Empty response = AIS scheduler hasn't populated vessel_tracks yet
+    if (!data.vessels || data.vessels.length === 0) {
+      if (overlay && !overlay.classList.contains('hidden')) {
+        // Update syncing overlay messaging to show we're still waiting
+        const title = document.getElementById('loading-title');
+        const sub   = document.getElementById('loading-sub');
+        if (title) title.textContent = 'Syncing fleet positions…';
+        if (sub)   sub.innerHTML = 'Waiting for AIS feed to populate vessel data.<br>This usually takes up to 2 minutes on first load.';
+      }
+      // Keep polling at fast interval
+      if (POLL_INTERVAL !== POLL_INTERVAL_SYNC) {
+        POLL_INTERVAL = POLL_INTERVAL_SYNC;
+        startCountdown();
+      }
+      return;
+    }
+
+    vesselData = data.vessels;
+    renderVesselMarkers(data.vessels);
+    renderSidebar(data.vessels);
+    updateStats(data.vessels);
+
+    // First time we receive data — switch to normal poll interval
+    if (!dataLoaded) {
+      dataLoaded = true;
+      POLL_INTERVAL = POLL_INTERVAL_NORMAL;
+      startCountdown(); // restart countdown with normal interval
+    }
+
+    // Hide loading overlay once we have vessels
+    if (overlay && !overlay.classList.contains('hidden')) {
+      overlay.classList.add('hidden');
+      // Fit to vessels on first load
+      setTimeout(fitAllVessels, 300);
+    }
+  } catch (e) {
+    const overlay = document.getElementById('loading-overlay');
+    if (overlay && !overlay.classList.contains('hidden')) {
+      const title = document.getElementById('loading-title');
+      const sub   = document.getElementById('loading-sub');
+      if (title) title.textContent = 'Connection interrupted';
+      if (sub)   sub.innerHTML = 'Unable to reach vessel feed. Retrying automatically…';
+    }
+  }
+}
+
+// ── Poll countdown ─────────────────────────────────────────────────────────
+function startCountdown() {
+  pollCountdown = POLL_INTERVAL;
+  clearInterval(countdownTimer);
+
+  countdownTimer = setInterval(() => {
+    pollCountdown--;
+    const fill = document.getElementById('poll-fill');
+    const label = document.getElementById('poll-countdown');
+    const pct = ((POLL_INTERVAL - pollCountdown) / POLL_INTERVAL) * 100;
+    if (fill)  fill.style.width  = `${pct}%`;
+    if (label) label.textContent = `${pollCountdown}s`;
+
+    if (pollCountdown <= 0) {
+      fetchPositions();
+      startCountdown();
+    }
+  }, 1000);
+}
+
+// ── Filter pills ──────────────────────────────────────────────────────────
+document.getElementById('filter-pills').addEventListener('click', e => {
+  const pill = e.target.closest('.filter-pill');
+  if (!pill) return;
+  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+  pill.classList.add('active');
+  activeFilter = pill.dataset.filter;
+  renderSidebar(vesselData);
+});
+
+// ── Search ────────────────────────────────────────────────────────────────
+document.getElementById('vessel-search').addEventListener('input', e => {
+  searchQuery = e.target.value.trim();
+  renderSidebar(vesselData);
+});
+
+// ── Boot ───────────────────────────────────────────────────────────────────
+(async function boot() {
+  initMap();
+  await fetchGeofences();
+  await fetchPositions();
+  startCountdown();
+
+  // GA4 event
+  if (typeof gtag === 'function') {
+    gtag('event', 'fleet_tracking_view', {
+      event_category: 'fleet',
+      event_label:    'tracking_dashboard',
+    });
+  }
+})();
+</script>
+</body>
+</html>

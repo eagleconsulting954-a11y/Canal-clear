@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>You're Offline — CanalClear</title>
+  <meta name="theme-color" content="#1a2d4a">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #142238;
+      --teal: #E85A00;
+      --teal-dark: #CC4F00;
+      --text: #ffffff;
+      --text-muted: #8898A8;
+      --card-bg: #162338;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 480px;
+    }
+
+    .icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 2rem;
+      background: rgba(232, 90, 0, 0.1);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon svg {
+      width: 40px;
+      height: 40px;
+      fill: var(--teal);
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+
+    p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--teal);
+      color: #142238;
+    }
+
+    .btn-primary:hover {
+      background: var(--teal-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: rgba(232, 90, 0, 0.1);
+      color: var(--teal);
+      border: 1px solid rgba(232, 90, 0, 0.3);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(232, 90, 0, 0.2);
+    }
+
+    .brand {
+      margin-top: 3rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      opacity: 0.6;
+    }
+
+    .ship-icon {
+      margin-bottom: 1.5rem;
+    }
+
+    .ship-icon svg {
+      width: 56px;
+      height: 56px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="ship-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+        <rect width="64" height="64" rx="12" fill="rgba(232, 90, 0,0.08)"/>
+        <path d="M12 42 L17 32 L47 32 L52 42 Z" fill="#E85A00"/>
+        <rect x="22" y="22" width="20" height="10" rx="2" fill="#E85A00"/>
+        <rect x="25" y="14" width="4" height="8" rx="2" fill="#E85A00"/>
+        <rect x="35" y="14" width="4" height="8" rx="2" fill="#E85A00"/>
+        <path d="M8 47 Q16 41 24 47 Q32 53 40 47 Q48 41 56 47" stroke="#E85A00" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <h1 id="title">You're Offline</h1>
+    <p id="message">No internet connection detected. Please check your network and try again. Your compliance data is safe and will sync when you're back online.</p>
+    <div class="actions">
+      <button class="btn btn-primary" onclick="location.reload()" id="retryBtn">Try Again</button>
+      <a href="/" class="btn btn-secondary" id="homeBtn">Go to Homepage</a>
+    </div>
+    <div class="brand">CanalClear</div>
+  </div>
+
+  <script>
+    // ─── Lightweight i18n for offline page ────────────────────────────────────
+    const MESSAGES = {
+      en: {
+        title: "You're Offline",
+        message: "No internet connection detected. Please check your network and try again. Your compliance data is safe and will sync when you're back online.",
+        retry: "Try Again",
+        home: "Go to Homepage"
+      },
+      es: {
+        title: "Estás Sin Conexión",
+        message: "No se detectó conexión a internet. Por favor verifica tu red e intenta de nuevo. Tus datos de cumplimiento están seguros y se sincronizarán cuando vuelvas a estar en línea.",
+        retry: "Intentar de Nuevo",
+        home: "Ir al Inicio"
+      },
+      zh: {
+        title: "您已离线",
+        message: "未检测到互联网连接。请检查您的网络后重试。您的合规数据是安全的，当您重新上线时会自动同步。",
+        retry: "重试",
+        home: "返回首页"
+      },
+      el: {
+        title: "Είστε Εκτός Σύνδεσης",
+        message: "Δεν εντοπίστηκε σύνδεση στο διαδίκτυο. Ελέγξτε τη σύνδεσή σας και δοκιμάστε ξανά. Τα δεδομένα συμμόρφωσής σας είναι ασφαλή και θα συγχρονιστούν όταν επανασυνδεθείτε.",
+        retry: "Δοκιμή Ξανά",
+        home: "Αρχική Σελίδα"
+      },
+      ja: {
+        title: "オフラインです",
+        message: "インターネット接続が検出されませんでした。ネットワーク接続を確認して再試行してください。コンプライアンスデータは安全に保護されており、オンラインに戻ると自動的に同期されます。",
+        retry: "再試行",
+        home: "ホームページへ"
+      }
+    };
+
+    function applyTranslations() {
+      const lang = navigator.language?.split('-')[0] || 'en';
+      const msg = MESSAGES[lang] || MESSAGES['en'];
+      document.getElementById('title').textContent = msg.title;
+      document.getElementById('message').textContent = msg.message;
+      document.getElementById('retryBtn').textContent = msg.retry;
+      document.getElementById('homeBtn').textContent = msg.home;
+      document.documentElement.lang = lang;
+    }
+
+    applyTranslations();
+  </script>
+<script src="/js/whatsapp-button.js"></script>
+</body>
+</html>

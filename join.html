@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accept Invitation — CanalClear</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: #0A1628;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    .card {
+      background: #142238;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 2.5rem;
+      max-width: 480px;
+      width: 100%;
+    }
+    .logo { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 2rem; display: block; text-align: center; }
+    .logo span { color: #00D4AA; }
+    h1 { font-size: 1.35rem; font-weight: 700; margin-bottom: 0.5rem; text-align: center; }
+    .subtitle { color: #6b7c93; font-size: 0.875rem; text-align: center; margin-bottom: 2rem; line-height: 1.6; }
+    .meta-row {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .meta-row p { font-size: 0.85rem; color: #8fa3b8; margin-bottom: 0.4rem; }
+    .meta-row p:last-child { margin-bottom: 0; }
+    .meta-row strong { color: #fff; }
+    .role-badge {
+      display: inline-block; padding: 0.2rem 0.65rem; border-radius: 20px;
+      font-size: 0.78rem; font-weight: 600;
+      background: rgba(0,212,170,0.12); color: #00D4AA;
+      border: 1px solid rgba(0,212,170,0.25);
+    }
+    .btn {
+      width: 100%; padding: 0.85rem; border-radius: 10px; font-size: 1rem; font-weight: 700;
+      border: none; cursor: pointer; transition: all 0.2s; font-family: inherit;
+      margin-bottom: 0.75rem;
+    }
+    .btn-primary { background: #00D4AA; color: #0A1628; }
+    .btn-primary:hover { background: #00b890; }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-ghost {
+      background: rgba(255,255,255,0.06); color: #fff;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.1); }
+    .divider { text-align: center; color: #4a5568; font-size: 0.8rem; margin: 0.75rem 0; }
+    .alert {
+      padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.875rem;
+      margin-bottom: 1rem; display: none;
+    }
+    .alert.success { background: rgba(52,211,153,0.1); color: #34d399; border: 1px solid rgba(52,211,153,0.2); }
+    .alert.error { background: rgba(255,107,107,0.1); color: #FF6B6B; border: 1px solid rgba(255,107,107,0.2); }
+    .alert.show { display: block; }
+    .loading-state { text-align: center; color: #6b7c93; padding: 2rem 0; }
+    .expired-state { text-align: center; padding: 1rem 0; }
+    .expired-state p { color: #6b7c93; font-size: 0.875rem; margin-bottom: 1.5rem; }
+    input {
+      width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; color: #fff; padding: 0.65rem 0.9rem; font-size: 0.9rem;
+      font-family: inherit; margin-bottom: 0.75rem;
+    }
+    input:focus { outline: none; border-color: #00D4AA; }
+    input::placeholder { color: #6b7c93; }
+    label { display: block; font-size: 0.8rem; color: #8fa3b8; margin-bottom: 0.35rem; font-weight: 500; }
+    .terms { font-size: 0.75rem; color: #4a5568; text-align: center; margin-top: 0.75rem; }
+    .terms a { color: #6b7c93; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <a href="/" class="logo">Canal<span>Clear</span></a>
+
+  <div id="loading-state" class="loading-state">Loading invitation…</div>
+
+  <div id="expired-state" class="expired-state" style="display:none;">
+    <h1>Invitation Expired</h1>
+    <p id="expired-msg">This invitation is no longer valid.</p>
+    <a href="/" class="btn btn-ghost" style="display:block;text-align:center;text-decoration:none;">Go to CanalClear</a>
+  </div>
+
+  <div id="main-content" style="display:none;">
+    <h1>You're invited!</h1>
+    <p class="subtitle" id="invite-subtitle">Loading…</p>
+
+    <div class="meta-row">
+      <p>Organization: <strong id="org-name">—</strong></p>
+      <p>Role: <span class="role-badge" id="role-name">—</span></p>
+      <p>Invited by: <strong id="invited-by">—</strong></p>
+    </div>
+
+    <div id="alert-box" class="alert"></div>
+
+    <!-- State A: Not logged in -->
+    <div id="state-signup" style="display:none;">
+      <p style="font-size:0.8rem;color:#8fa3b8;margin-bottom:1rem;">Create your account to join the team:</p>
+      <label>Your name</label>
+      <input type="text" id="signup-name" placeholder="Full name" />
+      <label>Password</label>
+      <input type="password" id="signup-password" placeholder="Choose a secure password" />
+      <button class="btn btn-primary" id="signup-btn" onclick="handleSignup()">Create Account & Join</button>
+      <div class="divider">or</div>
+      <button class="btn btn-ghost" onclick="showLoginState()">Sign in to existing account</button>
+    </div>
+
+    <!-- State B: Login to existing account -->
+    <div id="state-login" style="display:none;">
+      <p style="font-size:0.8rem;color:#8fa3b8;margin-bottom:1rem;">Sign in to your existing CanalClear account:</p>
+      <label>Password</label>
+      <input type="password" id="login-password" placeholder="Your password" />
+      <button class="btn btn-primary" id="login-btn" onclick="handleLogin()">Sign In & Accept Invitation</button>
+      <div class="divider">or</div>
+      <button class="btn btn-ghost" onclick="showSignupState()">Create a new account instead</button>
+    </div>
+
+    <!-- State C: Already logged in -->
+    <div id="state-accept" style="display:none;">
+      <button class="btn btn-primary" id="accept-btn" onclick="handleAccept()">Accept Invitation</button>
+    </div>
+
+    <p class="terms">By accepting, you agree to CanalClear's <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a>.</p>
+  </div>
+</div>
+
+<script>
+let invitationToken = null;
+let invitationData = null;
+let invitationEmail = null;
+
+function showAlert(msg, type = 'error') {
+  const el = document.getElementById('alert-box');
+  el.className = `alert ${type} show`;
+  el.textContent = msg;
+}
+
+function getToken() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('token');
+}
+
+async function loadInvitation() {
+  invitationToken = getToken();
+  if (!invitationToken) {
+    document.getElementById('loading-state').style.display = 'none';
+    document.getElementById('expired-state').style.display = 'block';
+    document.getElementById('expired-msg').textContent = 'No invitation token found in this link.';
+    return;
+  }
+
+  const res = await fetch(`/api/team/invite/${invitationToken}`).then(r => r.json()).catch(() => null);
+
+  document.getElementById('loading-state').style.display = 'none';
+
+  if (!res || !res.success) {
+    document.getElementById('expired-state').style.display = 'block';
+    document.getElementById('expired-msg').textContent = res?.message || 'This invitation is no longer valid.';
+    return;
+  }
+
+  invitationData = res.invitation;
+  invitationEmail = res.invitation.email;
+
+  document.getElementById('main-content').style.display = 'block';
+  document.getElementById('org-name').textContent = res.invitation.org_name;
+  document.getElementById('role-name').textContent = res.invitation.role_name;
+  document.getElementById('invited-by').textContent = res.invitation.invited_by_email || 'a team admin';
+  document.getElementById('invite-subtitle').textContent =
+    `${res.invitation.invited_by_email || 'A team admin'} has invited ${res.invitation.email} to join ${res.invitation.org_name} as ${res.invitation.role_name}.`;
+
+  // Check if already logged in
+  const cookieToken = document.cookie.split(';').find(c => c.trim().startsWith('cc_token='));
+  if (cookieToken) {
+    document.getElementById('state-accept').style.display = 'block';
+  } else {
+    // Show signup by default
+    document.getElementById('state-signup').style.display = 'block';
+  }
+}
+
+function showLoginState() {
+  document.getElementById('state-signup').style.display = 'none';
+  document.getElementById('state-login').style.display = 'block';
+}
+
+function showSignupState() {
+  document.getElementById('state-login').style.display = 'none';
+  document.getElementById('state-signup').style.display = 'block';
+}
+
+async function handleSignup() {
+  const name = document.getElementById('signup-name').value.trim();
+  const password = document.getElementById('signup-password').value;
+  const btn = document.getElementById('signup-btn');
+
+  if (!password || password.length < 8) {
+    showAlert('Password must be at least 8 characters.');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Creating account…';
+
+  // Register with the invitation email
+  const registerRes = await fetch('/api/register', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: invitationEmail, password, name }),
+  }).then(r => r.json()).catch(() => ({ success: false, message: 'Network error' }));
+
+  if (!registerRes.success) {
+    btn.disabled = false;
+    btn.textContent = 'Create Account & Join';
+    // If user already exists, switch to login
+    if (registerRes.message && registerRes.message.toLowerCase().includes('exist')) {
+      showAlert('An account with this email already exists. Please sign in instead.');
+      showLoginState();
+    } else {
+      showAlert(registerRes.message || 'Registration failed');
+    }
+    return;
+  }
+
+  // Now accept the invitation
+  await acceptWithCurrentSession(btn);
+}
+
+async function handleLogin() {
+  const password = document.getElementById('login-password').value;
+  const btn = document.getElementById('login-btn');
+
+  btn.disabled = true;
+  btn.textContent = 'Signing in…';
+
+  const loginRes = await fetch('/api/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: invitationEmail, password }),
+  }).then(r => r.json()).catch(() => ({ success: false, message: 'Network error' }));
+
+  if (!loginRes.success) {
+    btn.disabled = false;
+    btn.textContent = 'Sign In & Accept Invitation';
+    showAlert(loginRes.message || 'Login failed. Check your password.');
+    return;
+  }
+
+  await acceptWithCurrentSession(btn);
+}
+
+async function handleAccept() {
+  const btn = document.getElementById('accept-btn');
+  await acceptWithCurrentSession(btn);
+}
+
+async function acceptWithCurrentSession(btn) {
+  btn.disabled = true;
+  btn.textContent = 'Joining team…';
+
+  const res = await fetch('/api/team/accept-invite', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ token: invitationToken }),
+  }).then(r => r.json()).catch(() => ({ success: false, message: 'Network error' }));
+
+  if (res.success) {
+    showAlert(`Welcome to ${res.org_name || 'the team'}! Redirecting…`, 'success');
+    setTimeout(() => { window.location.href = '/app'; }, 2000);
+  } else {
+    btn.disabled = false;
+    btn.textContent = 'Accept Invitation';
+    showAlert(res.message || 'Failed to accept invitation.');
+  }
+}
+
+loadInvitation();
+</script>
+</body>
+</html>

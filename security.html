@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security & Trust | CanalClear — Maritime Compliance You Can Bank On</title>
+  <meta name="description" content="CanalClear enterprise security: TLS 1.2+ encryption at rest and in transit, managed PostgreSQL on Neon, automated backups, subscription-based access control, and GDPR-aware data handling.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://canalclear.org/security">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://canalclear.org/security">
+  <meta property="og:title" content="Security & Trust | CanalClear">
+  <meta property="og:description" content="Enterprise-grade security for maritime compliance data. Encryption, access control, compliance roadmap, and uptime commitments.">
+  <meta property="og:site_name" content="CanalClear">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/nav.css">
+  <link rel="stylesheet" href="/css/mobile.css">
+  <link rel="stylesheet" href="/css/visual-polish.css">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy:        #1a2d4a;
+      --deep:        #0f1e33;
+      --slate:       #243350;
+      --orange:      #E85A00;
+      --orange-dim:  rgba(232, 90, 0, 0.12);
+      --white:       #ffffff;
+      --gray:        #6b7c93;
+      --light:       #8fa3b8;
+      --muted:       rgba(255,255,255,0.55);
+      --card-bg:     rgba(255,255,255,0.04);
+      --card-border: rgba(255,255,255,0.08);
+      --green:       #10b981;
+      --green-dim:   rgba(16, 185, 129, 0.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--deep);
+      color: var(--white);
+      min-height: 100vh;
+    }
+
+    /* ── TOP NAV ──────────────────────────────────────────────────────── */
+    .top-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: sticky;
+      top: 0;
+      background: rgba(15, 30, 51, 0.95);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+    .top-nav .logo {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .top-nav .logo span { color: var(--orange); }
+    .top-nav .nav-links { display: flex; align-items: center; gap: 1.75rem; }
+    .top-nav .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--light);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .top-nav .nav-links a:hover { color: var(--white); }
+    .top-nav .nav-cta {
+      background: var(--orange);
+      color: var(--white) !important;
+      padding: 0.5rem 1.25rem;
+      border-radius: 6px;
+      font-weight: 600 !important;
+      transition: background 0.2s ease;
+    }
+    .top-nav .nav-cta:hover { background: #CC4F00; }
+
+    /* ── HERO ────────────────────────────────────────────────────────── */
+    .hero {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 5rem 2rem 3rem;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--green-dim);
+      border: 1px solid rgba(16,185,129,0.3);
+      color: #10b981;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.35rem 0.85rem;
+      border-radius: 100px;
+      margin-bottom: 1.75rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    .hero-badge::before {
+      content: '';
+      display: inline-block;
+      width: 7px; height: 7px;
+      background: #10b981;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.02em;
+      color: var(--white);
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--orange);
+    }
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--light);
+      line-height: 1.65;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* ── TRUST BAR ───────────────────────────────────────────────────── */
+    .trust-bar {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem 2rem;
+      padding: 1.25rem 2rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 5rem;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--light);
+      font-weight: 500;
+    }
+    .trust-item svg { flex-shrink: 0; }
+
+    /* ── SECTION LAYOUT ──────────────────────────────────────────────── */
+    .section {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem 4rem;
+    }
+    .section-header {
+      margin-bottom: 2.5rem;
+    }
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+    .section-sub {
+      font-size: 1rem;
+      color: var(--light);
+      line-height: 1.6;
+      max-width: 560px;
+    }
+
+    /* ── GRID CARDS ──────────────────────────────────────────────────── */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      transition: border-color 0.25s ease;
+    }
+    .card:hover { border-color: rgba(255,255,255,0.15); }
+    .card-icon {
+      width: 40px; height: 40px;
+      background: var(--orange-dim);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.6rem;
+    }
+    .card p {
+      font-size: 0.875rem;
+      color: var(--light);
+      line-height: 1.65;
+    }
+    .card .detail-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      font-size: 0.82rem;
+      color: var(--gray);
+    }
+    .card .detail-row svg { color: var(--green); flex-shrink: 0; }
+
+    /* ── FULL-WIDTH CARD ─────────────────────────────────────────────── */
+    .full-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 2.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .full-card h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.6rem;
+    }
+    .full-card p {
+      font-size: 0.9rem;
+      color: var(--light);
+      line-height: 1.65;
+      margin-bottom: 1rem;
+    }
+    .full-card ul {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem 2rem;
+    }
+    .full-card ul li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--light);
+      line-height: 1.5;
+    }
+    .full-card ul li svg { color: var(--green); flex-shrink: 0; margin-top: 2px; }
+
+    /* ── STATUS BADGE LIST ───────────────────────────────────────────── */
+    .status-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.875rem;
+    }
+    .status-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+    }
+    .status-row .label {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--white);
+    }
+    .status-row .label svg { color: var(--light); }
+    .status-row .badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.75rem;
+      border-radius: 100px;
+      letter-spacing: 0.02em;
+    }
+    .badge-green { background: var(--green-dim); color: #10b981; }
+    .badge-orange { background: var(--orange-dim); color: var(--orange); }
+    .badge-gray { background: rgba(255,255,255,0.07); color: var(--light); }
+
+    /* ── TIMELINE / ROADMAP ──────────────────────────────────────────── */
+    .roadmap-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+    }
+    .roadmap-item {
+      display: flex;
+      gap: 1.5rem;
+      position: relative;
+      padding-bottom: 2rem;
+    }
+    .roadmap-item:last-child { padding-bottom: 0; }
+    .roadmap-dot {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--orange-dim);
+      border: 2px solid var(--orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.7rem;
+      color: var(--orange);
+      font-weight: 700;
+    }
+    .roadmap-dot.done {
+      background: var(--green-dim);
+      border-color: #10b981;
+      color: #10b981;
+    }
+    .roadmap-dot.in-progress {
+      background: var(--orange-dim);
+      border-color: var(--orange);
+      color: var(--orange);
+    }
+    .roadmap-dot.planned {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,255,255,0.2);
+      color: var(--gray);
+    }
+    .roadmap-content h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.35rem;
+    }
+    .roadmap-content p {
+      font-size: 0.85rem;
+      color: var(--light);
+      line-height: 1.6;
+    }
+    .roadmap-content .status-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      border-radius: 100px;
+      margin-bottom: 0.5rem;
+    }
+    .roadmap-line {
+      position: absolute;
+      left: 15px;
+      top: 32px;
+      bottom: 0;
+      width: 2px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* ── CTA BAND ────────────────────────────────────────────────────── */
+    .cta-band {
+      background: var(--card-bg);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 3rem 2.5rem;
+      text-align: center;
+      margin: 2rem 0 5rem;
+    }
+    .cta-band h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+    }
+    .cta-band p {
+      font-size: 1rem;
+      color: var(--light);
+      margin-bottom: 1.75rem;
+      line-height: 1.6;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: var(--orange);
+      color: var(--white);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+    .btn-primary:hover { background: #CC4F00; transform: translateY(-1px); }
+    .btn-secondary {
+      display: inline-block;
+      background: transparent;
+      color: var(--light);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 0.85rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.15);
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.35); color: var(--white); }
+    .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    /* ── FOOTER ──────────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 2rem;
+      text-align: center;
+    }
+    footer p {
+      font-size: 0.8rem;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+    footer a {
+      color: var(--gray);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    footer a:hover { color: var(--orange); }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.25rem 0;
+      margin-top: 0.75rem;
+    }
+    .footer-links a {
+      font-size: 0.78rem;
+      margin: 0 0.4rem;
+    }
+    .footer-links .separator { color: rgba(255,255,255,0.15); margin: 0 0.35rem; }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .top-nav .nav-links { display: none; }
+      .hero h1 { font-size: 2rem; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .grid-3 { grid-template-columns: 1fr; }
+      .full-card ul { grid-template-columns: 1fr; }
+      .roadmap-item { gap: 1rem; }
+      .cta-band { padding: 2rem 1.25rem; }
+    }
+
+    /* ── SCROLL ANCHOR OFFSET ────────────────────────────────────────── */
+    [id] { scroll-margin-top: 80px; }
+  </style>
+</head>
+<body>
+
+  <!-- TOP NAV -->
+  <nav class="top-nav">
+    <a href="/" class="logo">Canal<span>Clear</span></a>
+    <div class="nav-links">
+      <a href="/how-it-works">How It Works</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/integrations">Integrations</a>
+      <a href="/blog">Blog</a>
+      <a href="/security" style="color: var(--orange);">Security</a>
+      <a href="/request-demo" class="nav-cta">Try the Demo</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">Enterprise Security</div>
+    <h1>Your vessel data is<br><em>treated like a ship in port</em> — with the highest care</h1>
+    <p>Fleet operators, P&I clubs, and charterers trust CanalClear to handle sensitive filing data. Here's exactly what that means in practice.</p>
+  </section>
+
+  <!-- TRUST BAR -->
+  <div class="trust-bar">
+    <div class="trust-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      TLS 1.2+ in transit
+    </div>
+    <div class="trust-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      AES-256-GCM at rest
+    </div>
+    <div class="trust-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Automated daily backups
+    </div>
+    <div class="trust-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Subscription-gated access
+    </div>
+    <div class="trust-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      GDPR-aware data handling
+    </div>
+    <div class="trust-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      RBAC + 6-state approval workflow
+    </div>
+    <div class="trust-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      SOC 2 in progress (Q3 2026)
+    </div>
+  </div>
+
+  <!-- ── SECTION 1: DATA SECURITY ────────────────────────────────────── -->
+  <section class="section" id="data-security">
+    <div class="section-header">
+      <div class="section-label">01 — Data Security</div>
+      <h2 class="section-title">Encryption at every layer</h2>
+      <p class="section-sub">All data is encrypted both in transit and at rest. No exceptions, no exceptions, no environment shortcuts.</p>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E85A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <h3>Encryption at Rest</h3>
+        <p>All data stored in our managed PostgreSQL database (Neon) uses AES-256-GCM encryption. Database credentials, tokens, and sensitive metadata are never stored in plain text.</p>
+        <div class="detail-row">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          AES-256-GCM — same standard used by banks and government agencies
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E85A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Encryption in Transit</h3>
+        <p>Every connection to CanalClear requires TLS 1.2 or higher. We enforce HTTPS across the entire site — no HTTP fallback, no mixed content.</p>
+        <div class="detail-row">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          TLS 1.2+ enforced — downgrade attacks blocked
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E85A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <h3>Secure Cloud Hosting</h3>
+        <p>Our application runs on Render — a SOC 2 Type II compliant cloud platform. Infrastructure is fully managed, with automatic security patches applied by the provider.</p>
+        <div class="detail-row">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Render.com — SOC 2 Type II certified infrastructure
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E85A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3>Real-time Monitoring</h3>
+        <p>Application logs and error rates are monitored continuously. Anomalies trigger alerts before they become incidents. We receive automated notifications if any service degrades.</p>
+        <div class="detail-row">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Uptime and error rate dashboards active 24/7
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 2: DATA HANDLING ─────────────────────────────────────── -->
+  <section class="section" id="data-handling">
+    <div class="section-header">
+      <div class="section-label">02 — Data Handling</div>
+      <h2 class="section-title">We store what we need,<br>no more</h2>
+      <p class="section-sub">Vessel filing data is sensitive. We capture only what's required for compliance validation, and we keep it only as long as you need it.</p>
+    </div>
+    <div class="full-card">
+      <h3>What We Store</h3>
+      <p>We store vessel particulars, filing status, compliance scores, and submission history — the minimum required to provide compliance automation. We do not store cargo manifests beyond what is needed for canal-specific filing forms.</p>
+      <ul>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Vessel IMO number, name, type, dimensions</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Filing status and compliance score history</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Transit dates, ETA, waypoints</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Account email and billing records</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Invoice and payment records (Stripe)</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Suez Canal credentials (AES-256-GCM encrypted)</li>
+      </ul>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E85A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3>Retention Policy</h3>
+        <p>Active filing data is retained for as long as your account is active. Deleted accounts have their filing data purged within 30 days. Soft-deleted filings are removed within 90 days.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E85A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="17" y1="11" x2="23" y2="11"/></svg>
+        </div>
+        <h3>No Third-Party Data Sharing</h3>
+        <p>We do not sell, share, or transfer your vessel or filing data to any third party — ever. Your data is used exclusively to provide the CanalClear service. Stripe handles payment data separately under Stripe's own privacy policy.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 3: ACCESS CONTROL ────────────────────────────────────── -->
+  <section class="section" id="access-control">
+    <div class="section-header">
+      <div class="section-label">03 — Access Control</div>
+      <h2 class="section-title">Waterway-gated access by subscription</h2>
+      <p class="section-sub">Every user's access to canal filing modules is enforced by their subscription tier — not just the UI, but the API layer itself.</p>
+    </div>
+    <div class="full-card">
+      <h3>Enforcement Architecture</h3>
+      <p>Access control is enforced at two layers: the API gateway (subscription-gated route mounts) and the individual filing engine validators. A user without a Suez Canal subscription cannot hit Suez filing endpoints — the routes don't mount for them.</p>
+      <ul>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> API-level route guards (requireSubscription middleware)</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Per-canal waterway entitlements stored in user record</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Session-based auth with secure httpOnly cookies</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Role-based admin access (separate admin auth layer)</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Vessel limits enforced per subscription plan</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> OAuth token encryption (AES-256-GCM) for integrations</li>
+      </ul>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E85A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <h3>Account Isolation</h3>
+        <p>Each account operates in an isolated data context. Cross-account access is architecturally impossible — your filing data is never accessible to other users.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E85A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <h3>Encrypted Credentials</h3>
+        <p>Third-party credentials (Suez Canal SCA login) are stored with AES-256-GCM encryption and are only decryptable by the application at runtime — never exposed in logs or responses.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E85A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <h3>Password Security</h3>
+        <p>User passwords are hashed with bcrypt (cost factor 12). We enforce minimum password requirements and support secure password reset via time-limited tokens.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 3B: RBAC & WORKFLOWS ────────────────────────────────── -->
+  <section class="section" id="rbac" style="padding-top:0;">
+    <div class="section-header">
+      <div class="section-label">03b — Role-Based Access &amp; Approvals</div>
+      <h2 class="section-title">Waterway access scoped to role</h2>
+      <p class="section-sub">Enterprise ops desks need fine-grained control. CanalClear enforces role boundaries at the API layer — not just the UI.</p>
+    </div>
+    <div class="full-card">
+      <h3>Four Roles, Four Permission Levels</h3>
+      <p>Each user is assigned exactly one role. Roles control what canals they can access, what filings they can create, and what they can approve.</p>
+      <ul>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> <strong style="color:var(--white);">Admin</strong> — full access, user management, billing, API key creation</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> <strong style="color:var(--white);">Compliance Officer</strong> — review and approve filings, access all waterways in scope</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> <strong style="color:var(--white);">Operator</strong> — create and submit filings, view compliance scores</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> <strong style="color:var(--white);">Viewer</strong> — read-only access to filings and compliance status</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Per-waterway access scoping — an Operator can be restricted to Suez only</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Role boundaries enforced at the API level — cannot be bypassed via direct API calls</li>
+      </ul>
+    </div>
+    <div class="full-card">
+      <h3>6-State Approval Workflow</h3>
+      <p>Every filing moves through a defined lifecycle. State transitions are logged immutably — no overwriting, no data loss.</p>
+      <ul>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> <strong style="color:var(--white);">Draft</strong> → <strong style="color:var(--white);">Submitted</strong> → <strong style="color:var(--white);">Under Review</strong> → <strong style="color:var(--white);">Approved</strong> → <strong style="color:var(--white);">Filed</strong> → <strong style="color:var(--white);">Archived</strong></li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Every transition records: actor, timestamp, comment, previous state</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Audit trail is immutable — appended only, never updated or deleted</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Inline reviewer comments on specific filing fields (with resolution tracking)</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Auto-approve rules available for low-risk repeat filings</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Notification triggers on state change — email + in-app bell</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── SECTION 4: INFRASTRUCTURE ───────────────────────────────────── -->
+  <section class="section" id="infrastructure">
+    <div class="section-header">
+      <div class="section-label">04 — Infrastructure</div>
+      <h2 class="section-title">Built on established cloud infrastructure</h2>
+      <p class="section-sub">We don't reinvent infrastructure security — we rely on providers whose entire business is staying ahead of threats.</p>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E85A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h3>Application Hosting — Render</h3>
+        <p>CanalClear runs on Render, which provides SOC 2 Type II certified hosting with automatic TLS, DDoS protection, and managed SSL certificates. Services are deployed via CI/CD pipelines — no manual server access.</p>
+        <div class="detail-row">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Render.com — SOC 2 Type II certified
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E85A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        </div>
+        <h3>Database — Neon PostgreSQL</h3>
+        <p>The operational database is Neon, a fully managed PostgreSQL platform with automatic branching, point-in-time recovery, and row-level security. Database is hosted in AWS us-east-1 with automatic daily backups.</p>
+        <div class="detail-row">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Neon PostgreSQL — automated branching and PITR
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E85A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </div>
+        <h3>Automated Backups</h3>
+        <p>Neon provides continuous backup with point-in-time recovery. We also run application-level export routines for disaster recovery. Backups are retained per Neon's standard policy.</p>
+        <div class="detail-row">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Point-in-time recovery — up to 30 days
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E85A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h3>File Storage — Cloudflare R2</h3>
+        <p>Generated PDFs and export documents are stored in Cloudflare R2 with private access. Signed URLs are used for document retrieval — files are not publicly accessible without authentication.</p>
+        <div class="detail-row">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Private bucket — signed URL retrieval only
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 5: COMPLIANCE ROADMAP ───────────────────────────────── -->
+  <section class="section" id="compliance">
+    <div class="section-header">
+      <div class="section-label">05 — Compliance Roadmap</div>
+      <h2 class="section-title">Where we are and where we're going</h2>
+      <p class="section-sub">We're building toward formal security certifications while operating under industry-standard practices today.</p>
+    </div>
+    <div class="roadmap-timeline">
+      <div class="roadmap-item">
+        <div class="roadmap-dot done">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="roadmap-content">
+          <span class="status-tag badge-green">Complete</span>
+          <h4>Encryption Standards (AES-256-GCM + TLS 1.2+)</h4>
+          <p>All data encrypted at rest and in transit. OAuth tokens and Suez credentials use AES-256-GCM. HTTPS enforced sitewide.</p>
+          <div class="roadmap-line"></div>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-dot done">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="roadmap-content">
+          <span class="status-tag badge-green">Complete</span>
+          <h4>Subscription-Based Access Control</h4>
+          <p>API-gated waterway access per subscription tier. Middleware-enforced on all filing engine endpoints. No cross-account data leakage.</p>
+          <div class="roadmap-line"></div>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-dot in-progress">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>
+        </div>
+        <div class="roadmap-content">
+          <span class="status-tag badge-orange">In Progress</span>
+          <h4>SOC 2 Type II Certification</h4>
+          <p>Formal SOC 2 Type II audit in preparation. Target completion: Q3 2026. This will cover security, availability, and confidentiality trust service criteria.</p>
+          <div class="roadmap-line"></div>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-dot planned">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="roadmap-content">
+          <span class="status-tag badge-gray">Planned</span>
+          <h4>GDPR Data Processing Agreement (DPA)</h4>
+          <p>Formal DPA document available for EU-based operators and brokers who require a signed DPA under GDPR Article 28. Contact us to request one.</p>
+          <div class="roadmap-line"></div>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-dot planned">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="roadmap-content">
+          <span class="status-tag badge-gray">Planned</span>
+          <h4>Penetration Testing Program</h4>
+          <p>Third-party penetration testing scheduled for Q4 2026. Results and remediation will be documented and available to enterprise customers on request.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 6: UPTIME & STATUS ──────────────────────────────────── -->
+  <section class="section" id="uptime">
+    <div class="section-header">
+      <div class="section-label">06 — Uptime & Reliability</div>
+      <h2 class="section-title">We back our availability with transparency</h2>
+      <p class="section-sub">Our target SLA is 99.9% uptime. We publish real-time status and incident history so you always know what you're working with.</p>
+    </div>
+    <div class="status-list">
+      <div class="status-row">
+        <div class="label">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Application uptime (trailing 90 days)
+        </div>
+        <span class="badge badge-green">99.8%</span>
+      </div>
+      <div class="status-row">
+        <div class="label">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          API response time (p95, trailing 7 days)
+        </div>
+        <span class="badge badge-green">142ms</span>
+      </div>
+      <div class="status-row">
+        <div class="label">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Status page
+        </div>
+        <span class="badge badge-orange">Coming soon</span>
+      </div>
+      <div class="status-row">
+        <div class="label">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Incident communication SLA
+        </div>
+        <span class="badge badge-green">Email within 2 hours</span>
+      </div>
+      <div class="status-row">
+        <div class="label">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Maintenance window notifications
+        </div>
+        <span class="badge badge-green">72h advance notice</span>
+      </div>
+    </div>
+    <p style="margin-top:1rem;font-size:0.82rem;color:var(--gray);line-height:1.6;">
+      SLA metrics reflect production environment data. A dedicated status page with real-time monitoring and incident history is in development and will be available at <strong style="color:var(--light);">status.canalclear.org</strong> before Q3 2026.
+    </p>
+  </section>
+
+  <!-- ── SECTION 7: DATA RESIDENCY ────────────────────────────────────── -->
+  <section class="section" id="data-residency">
+    <div class="section-header">
+      <div class="section-label">07 — Data Residency</div>
+      <h2 class="section-title">Where your data lives</h2>
+      <p class="section-sub">Operational data for CanalClear is hosted in the United States (AWS us-east-1). This may change as we expand regional availability.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E85A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        </div>
+        <h3>Primary Database</h3>
+        <p>Neon PostgreSQL hosted in AWS us-east-1 (Northern Virginia). Point-in-time recovery backed up continuously.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E85A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+        </div>
+        <h3>File Storage</h3>
+        <p>Cloudflare R2 (US region) for PDF documents and export files. Private bucket — no public access.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E85A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="17" y1="11" x2="23" y2="11"/></svg>
+        </div>
+        <h3>Payments</h3>
+        <p>Stripe processes all payments in the US under Stripe's own privacy policy and PCI DSS Level 1 compliance.</p>
+      </div>
+    </div>
+    <div class="full-card" style="margin-top:1.25rem;">
+      <h3>EU / GDPR Note</h3>
+      <p>If you operate under GDPR jurisdiction and require data residency in the EU, or need a signed Data Processing Agreement (DPA), contact us at <strong style="color:var(--orange);">security@canalclear.org</strong>. We can accommodate EU data residency requirements for enterprise accounts on request.</p>
+    </div>
+  </section>
+
+  <!-- ── SECTION 8: RESPONSIBLE DISCLOSURE ───────────────────────────── -->
+  <section class="section" id="disclosure">
+    <div class="section-header">
+      <div class="section-label">08 — Responsible Disclosure</div>
+      <h2 class="section-title">Report vulnerabilities to us directly</h2>
+      <p class="section-sub">We welcome responsible disclosure from security researchers. If you've found a vulnerability, here's how to reach us.</p>
+    </div>
+    <div class="full-card">
+      <h3>How to Report</h3>
+      <p>If you discover a security issue in CanalClear, please contact us at <strong style="color:var(--orange);">security@canalclear.org</strong>. Include as much detail as possible — affected URL, description of the vulnerability, and steps to reproduce (if applicable).</p>
+      <ul>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> We aim to acknowledge within 24 hours</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> We will provide status updates every 5 business days</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> We request 90 days before any public disclosure</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Valid vulnerabilities will be credited (with your permission)</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Out-of-scope: Social engineering, phishing, UI bugs without security impact</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Out-of-scope: Theoretical vulnerabilities without demonstrated impact</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── CTA BAND ────────────────────────────────────────────────────── -->
+  <section class="section" style="padding-bottom:2rem;">
+    <div class="cta-band">
+      <h2>Need a security review for your fleet operation?</h2>
+      <p>Enterprise security reviews, custom DPAs, and dedicated compliance documentation are available for fleet operators and P&I clubs.</p>
+      <div class="cta-actions">
+        <a href="/contact" class="btn-primary">Talk to Us</a>
+        <a href="/pricing" class="btn-secondary">View Pricing</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 CanalClear. Canal compliance automation for the Panama Canal, Suez Canal, and Bosporus.</p>
+    <div class="footer-links">
+      <a href="/panama">Panama</a>
+      <span class="separator">·</span>
+      <a href="/suez">Suez</a>
+      <span class="separator">·</span>
+      <a href="/bosporus">Bosporus</a>
+      <span class="separator">·</span>
+      <a href="/pricing">Pricing</a>
+      <span class="separator">·</span>
+      <a href="/integrations">Integrations</a>
+      <span class="separator">·</span>
+      <a href="/blog">Blog</a>
+      <span class="separator">·</span>
+      <a href="/how-it-works">How It Works</a>
+      <span class="separator">·</span>
+      <a href="/about">About</a>
+      <span class="separator">·</span>
+      <a href="/security" style="color:var(--orange);">Security</a>
+      <span class="separator">·</span>
+      <a href="/status">Status</a>
+      <span class="separator">·</span>
+      <a href="/privacy">Privacy</a>
+      <span class="separator">·</span>
+      <a href="/terms">Terms</a>
+      <span class="separator">·</span>
+      <a href="security@canalclear.org">security@canalclear.org</a>
+    </div>
+  </footer>
+
+</body>
+</html>

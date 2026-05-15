@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suez Canal Fee Calculator — CanalClear</title>
+  <link rel="stylesheet" href="/css/mobile.css" />
+  <style>
+    :root {
+      --canal-blue: #0f4c8a;
+      --canal-teal: #00897b;
+      --canal-sand: #f5f0e8;
+      --canal-gold: #c8a84b;
+    }
+    body { background: #f8fafc; font-family: 'Inter', system-ui, sans-serif; }
+    .canal-card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+    }
+    .btn-primary {
+      background: var(--canal-blue);
+      color: white;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      font-size: 15px;
+      transition: background .15s;
+      width: 100%;
+    }
+    .btn-primary:hover { background: #0d3f73; }
+    .btn-primary:disabled { background: #94a3b8; cursor: not-allowed; }
+    label { font-size: 13px; font-weight: 500; color: #374151; margin-bottom: 4px; display: block; }
+    input, select {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 14px;
+      color: #111827;
+      background: white;
+      outline: none;
+      box-sizing: border-box;
+    }
+    input:focus, select:focus { border-color: var(--canal-blue); box-shadow: 0 0 0 3px rgba(15,76,138,.12); }
+    .fee-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #f1f5f9; }
+    .fee-row:last-child { border-bottom: none; }
+    .fee-label { font-size: 13px; color: #64748b; }
+    .fee-value { font-size: 13px; font-weight: 600; color: #1e293b; }
+    .fee-total-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; background: #f0f9ff; margin: 0 -16px; padding: 10px 16px; border-radius: 6px; margin-top: 4px; }
+    .rebate-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: #dcfce7; color: #166534;
+      padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 600;
+    }
+    .canal-header { background: linear-gradient(135deg, var(--canal-blue) 0%, #1565c0 100%); color: white; border-radius: 12px 12px 0 0; padding: 20px 24px; }
+    .section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #64748b; margin-bottom: 12px; }
+    .comparison-cell { text-align: center; padding: 12px; }
+    .winner-cell { background: #f0fdf4; border-radius: 6px; }
+    .spinner { display: none; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,.3); border-top-color: white; border-radius: 50%; animation: spin .7s linear infinite; margin: 0 auto; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .estimate-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: #fef9c3; color: #854d0e;
+      padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 500;
+    }
+    .validation-ok    { color: #16a34a; font-size: 12px; }
+    .validation-warn  { color: #ca8a04; font-size: 12px; }
+    .validation-error { color: #dc2626; font-size: 12px; }
+    #results-section  { display: none; }
+    .tab-btn { padding: 6px 16px; font-size: 13px; font-weight: 500; border-radius: 6px; cursor: pointer; border: none; background: transparent; color: #64748b; }
+    .tab-btn.active { background: var(--canal-blue); color: white; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .sdr-pill { background: #e0f2fe; color: #0369a1; padding: 2px 7px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+    .usd-pill { background: #dcfce7; color: #15803d; padding: 2px 7px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+    .auto-pop-banner { background: #eff6ff; border: 1px solid #bfdbfe; color: #1d4ed8; border-radius: 8px; padding: 10px 14px; font-size: 13px; display: none; margin-bottom: 16px; }
+  </style>
+</head>
+<body>
+
+<!-- NAV BAR -->
+<nav style="background:white;border-bottom:1px solid #e2e8f0;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;">
+  <a href="/app" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+    <img src="/CanalClear_Logo.png" alt="CanalClear" style="height:28px;" />
+    <span style="font-size:13px;font-weight:500;color:#64748b;">/ Suez Fee Calculator</span>
+  </a>
+  <div style="display:flex;gap:12px;align-items:center;">
+    <a href="/filing" style="font-size:13px;color:var(--canal-blue);font-weight:500;text-decoration:none;">← Back to Filing</a>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main style="max-width:1100px;margin:0 auto;padding:32px 24px;">
+
+  <!-- PAGE HEADER -->
+  <div style="margin-bottom:28px;">
+    <h1 style="font-size:24px;font-weight:700;color:#1e293b;margin:0 0 6px;">Suez Canal Fee Estimator</h1>
+    <p style="color:#64748b;font-size:14px;margin:0;">
+      Estimate SCA transit tolls from the 2024 tariff schedule. Enter vessel data to get an itemized breakdown and compare against Panama Canal costs.
+    </p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:380px 1fr;gap:24px;align-items:start;">
+
+    <!-- ── LEFT: INPUT FORM ── -->
+    <div>
+      <div class="canal-card" style="overflow:hidden;">
+        <div class="canal-header">
+          <h2 style="font-size:16px;font-weight:700;margin:0 0 4px;">Vessel Parameters</h2>
+          <p style="font-size:12px;opacity:.8;margin:0;">Enter SCNT directly or provide dimensions for estimation</p>
+        </div>
+        <div style="padding:20px;">
+
+          <div id="auto-pop-banner" class="auto-pop-banner">
+            ✓ Vessel data pre-filled from your filing.
+          </div>
+
+          <!-- TONNAGE SECTION -->
+          <div class="section-title" style="margin-bottom:8px;">Tonnage</div>
+          <div style="margin-bottom:12px;">
+            <label>Suez Canal Net Tonnage (SCNT)
+              <span style="font-size:11px;color:#94a3b8;font-weight:400;">— from SCNT certificate</span>
+            </label>
+            <input type="number" id="inp-scnt" placeholder="e.g. 25000" min="1" step="1" />
+          </div>
+          <div style="margin-bottom:12px;">
+            <label>Gross Tonnage (GT)
+              <span style="font-size:11px;color:#94a3b8;font-weight:400;">— for validation &amp; Panama comparison</span>
+            </label>
+            <input type="number" id="inp-gt" placeholder="e.g. 38000" min="1" step="1" />
+          </div>
+
+          <!-- SCNT ESTIMATION FROM DIMENSIONS -->
+          <details style="margin-bottom:16px;">
+            <summary style="font-size:12px;color:var(--canal-blue);cursor:pointer;font-weight:500;list-style:none;display:flex;align-items:center;gap:4px;">
+              <svg style="width:14px;height:14px;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              Estimate SCNT from vessel dimensions
+            </summary>
+            <div style="margin-top:10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px;">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+                <div>
+                  <label>LOA (m)</label>
+                  <input type="number" id="inp-loa" placeholder="300" step="0.1" />
+                </div>
+                <div>
+                  <label>Beam (m)</label>
+                  <input type="number" id="inp-beam" placeholder="45" step="0.1" />
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <div>
+                  <label>Moulded Depth (m)</label>
+                  <input type="number" id="inp-depth" placeholder="24" step="0.1" />
+                </div>
+                <div>
+                  <label>Mean Draft (m)</label>
+                  <input type="number" id="inp-draft" placeholder="14.5" step="0.1" />
+                </div>
+              </div>
+              <p style="font-size:11px;color:#94a3b8;margin:8px 0 0;">Estimation accuracy ±15%. Always use certified SCNT for actual filings.</p>
+            </div>
+          </details>
+
+          <!-- VESSEL TYPE -->
+          <div class="section-title">Vessel Details</div>
+          <div style="margin-bottom:12px;">
+            <label>Vessel Type</label>
+            <select id="inp-vessel-type">
+              <option value="container">Container</option>
+              <option value="tanker">Tanker (Crude / Product)</option>
+              <option value="bulk_carrier">Bulk Carrier</option>
+              <option value="lng_carrier">LNG Carrier</option>
+              <option value="lpg_carrier">LPG Carrier</option>
+              <option value="general_cargo">General Cargo</option>
+              <option value="ro_ro">Ro-Ro</option>
+              <option value="passenger">Passenger / Cruise</option>
+              <option value="chemical_tanker">Chemical Tanker</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+            <div>
+              <label>Laden Status</label>
+              <select id="inp-laden">
+                <option value="laden">Laden (with cargo)</option>
+                <option value="ballast">Ballast (empty)</option>
+              </select>
+            </div>
+            <div>
+              <label>Transit Direction</label>
+              <select id="inp-direction">
+                <option value="northbound">Northbound</option>
+                <option value="southbound">Southbound</option>
+                <option value="both">Either</option>
+              </select>
+            </div>
+          </div>
+          <div style="margin-bottom:12px;">
+            <label>Cargo Type
+              <span style="font-size:11px;color:#94a3b8;font-weight:400;">— affects rebate eligibility</span>
+            </label>
+            <select id="inp-cargo-type">
+              <option value="general">General / Container</option>
+              <option value="grain">Grain</option>
+              <option value="coal">Coal</option>
+              <option value="fertilizer">Fertilizer</option>
+              <option value="lng">LNG</option>
+              <option value="oil">Oil / Petroleum</option>
+              <option value="chemicals">Chemicals</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <!-- REBATE INPUTS -->
+          <div class="section-title">Rebate Eligibility</div>
+          <div style="margin-bottom:12px;">
+            <label>Suez Transits This Calendar Year</label>
+            <input type="number" id="inp-transit-count" value="0" min="0" step="1" />
+            <p style="font-size:11px;color:#94a3b8;margin:4px 0 0;">10+ transits may qualify for frequency rebates (container: 15%)</p>
+          </div>
+          <div style="margin-bottom:20px;display:flex;align-items:center;gap:8px;">
+            <input type="checkbox" id="inp-green" style="width:auto;margin:0;accent-color:var(--canal-blue);" />
+            <label for="inp-green" style="margin:0;cursor:pointer;font-size:13px;">LNG Green Passage certified
+              <span style="font-size:11px;color:#94a3b8;">(SCA low-emission incentive)</span>
+            </label>
+          </div>
+
+          <button class="btn-primary" id="calculate-btn" onclick="calculateFees()">
+            <span id="btn-text">Calculate Fees</span>
+            <div class="spinner" id="btn-spinner"></div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── RIGHT: RESULTS ── -->
+    <div id="results-section">
+
+      <!-- RESULT HEADER SUMMARY -->
+      <div id="result-summary" class="canal-card" style="margin-bottom:16px;overflow:hidden;">
+        <div style="padding:20px 24px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:12px;">
+            <div>
+              <div style="font-size:12px;color:#64748b;font-weight:500;text-transform:uppercase;letter-spacing:.06em;">Estimated Net Total (Suez)</div>
+              <div style="display:flex;align-items:baseline;gap:10px;margin-top:4px;">
+                <span id="res-total-usd" style="font-size:32px;font-weight:800;color:var(--canal-blue);">—</span>
+                <span id="res-total-sdr" style="font-size:16px;color:#64748b;font-weight:500;"></span>
+              </div>
+            </div>
+            <div id="scnt-badge" style="text-align:right;">
+              <div style="font-size:11px;color:#64748b;font-weight:500;">SCNT Used</div>
+              <div id="res-scnt" style="font-size:20px;font-weight:700;color:#1e293b;">—</div>
+              <span id="res-scnt-estimated" class="estimate-badge" style="display:none;">Estimated</span>
+            </div>
+          </div>
+          <div id="res-scnt-validation" style="font-size:12px;"></div>
+          <div id="res-dimension-note" style="font-size:12px;color:#92400e;background:#fef3c7;border-radius:6px;padding:8px 10px;margin-top:8px;display:none;"></div>
+        </div>
+      </div>
+
+      <!-- TABS -->
+      <div style="display:flex;gap:4px;margin-bottom:16px;background:white;padding:4px;border-radius:8px;border:1px solid #e2e8f0;width:fit-content;">
+        <button class="tab-btn active" onclick="switchTab('breakdown')">Fee Breakdown</button>
+        <button class="tab-btn" onclick="switchTab('rebates')">Rebates</button>
+        <button class="tab-btn" onclick="switchTab('comparison')">vs Panama</button>
+      </div>
+
+      <!-- TAB: BREAKDOWN -->
+      <div id="tab-breakdown" class="tab-content active canal-card" style="padding:20px 24px;">
+        <div class="section-title">Itemized Suez Fee Breakdown (2024 Tariff)</div>
+
+        <!-- Base toll -->
+        <div style="margin-bottom:16px;">
+          <div style="font-size:12px;font-weight:600;color:#64748b;margin-bottom:8px;padding-bottom:6px;border-bottom:2px solid #e2e8f0;">TRANSIT TOLL</div>
+          <div class="fee-row">
+            <span class="fee-label">SCNT × Rate (SDR/SCNT)</span>
+            <div style="text-align:right;">
+              <span id="r-calc-toll-sdr" class="sdr-pill">—</span>
+            </div>
+          </div>
+          <div id="r-minimum-row" class="fee-row" style="display:none;">
+            <span class="fee-label">Minimum Toll Applied</span>
+            <span id="r-minimum-sdr" class="sdr-pill">—</span>
+          </div>
+          <div class="fee-row" style="background:#f8fafc;margin:0 -24px;padding:8px 24px;">
+            <span style="font-size:13px;font-weight:600;color:#1e293b;">Transit Toll</span>
+            <div style="text-align:right;">
+              <div id="r-transit-toll-usd" style="font-size:14px;font-weight:700;color:var(--canal-blue);">—</div>
+              <div id="r-transit-toll-sdr" style="font-size:11px;color:#64748b;">—</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Additional charges -->
+        <div style="margin-bottom:16px;">
+          <div style="font-size:12px;font-weight:600;color:#64748b;margin-bottom:8px;padding-bottom:6px;border-bottom:2px solid #e2e8f0;">ADDITIONAL CHARGES</div>
+          <div class="fee-row">
+            <span class="fee-label">Pilotage</span>
+            <div style="text-align:right;">
+              <span id="r-pilotage-usd" class="fee-value">—</span>
+              <span id="r-pilotage-sdr" class="sdr-pill" style="margin-left:6px;">—</span>
+            </div>
+          </div>
+          <div class="fee-row">
+            <span class="fee-label">Tug Assistance</span>
+            <div style="text-align:right;">
+              <span id="r-tugs-usd" class="fee-value">—</span>
+              <span id="r-tugs-sdr" class="sdr-pill" style="margin-left:6px;">—</span>
+            </div>
+          </div>
+          <div class="fee-row">
+            <span class="fee-label">Mooring / Unmooring</span>
+            <div style="text-align:right;">
+              <span id="r-mooring-usd" class="fee-value">—</span>
+              <span id="r-mooring-sdr" class="sdr-pill" style="margin-left:6px;">—</span>
+            </div>
+          </div>
+          <div class="fee-row">
+            <span class="fee-label">Light Dues</span>
+            <div style="text-align:right;">
+              <span id="r-lightdues-usd" class="fee-value">—</span>
+              <span id="r-lightdues-sdr" class="sdr-pill" style="margin-left:6px;">—</span>
+            </div>
+          </div>
+          <div class="fee-row">
+            <span class="fee-label">Communications &amp; Admin</span>
+            <div style="text-align:right;">
+              <span id="r-comms-usd" class="fee-value">—</span>
+              <span id="r-comms-sdr" class="sdr-pill" style="margin-left:6px;">—</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gross total + rebate -->
+        <div style="background:#f8fafc;border-radius:8px;padding:14px 16px;margin-bottom:12px;">
+          <div class="fee-row" style="border-bottom:1px solid #e2e8f0;">
+            <span style="font-size:13px;font-weight:600;color:#1e293b;">Gross Total</span>
+            <div style="text-align:right;">
+              <div id="r-gross-usd" style="font-size:14px;font-weight:700;color:#1e293b;">—</div>
+              <div id="r-gross-sdr" style="font-size:11px;color:#64748b;">—</div>
+            </div>
+          </div>
+          <div id="r-rebate-row" class="fee-row" style="display:none;">
+            <span class="fee-label" id="r-rebate-label">Rebate Applied</span>
+            <div style="text-align:right;">
+              <span id="r-rebate-usd" style="font-size:13px;font-weight:600;color:#16a34a;">—</span>
+              <span id="r-rebate-sdr" class="sdr-pill" style="margin-left:6px;background:#dcfce7;color:#166534;">—</span>
+            </div>
+          </div>
+          <div class="fee-row" style="border-bottom:none;padding-top:10px;">
+            <span style="font-size:15px;font-weight:700;color:var(--canal-blue);">Net Total</span>
+            <div style="text-align:right;">
+              <div id="r-net-usd" style="font-size:18px;font-weight:800;color:var(--canal-blue);">—</div>
+              <div id="r-net-sdr" style="font-size:12px;color:#64748b;">—</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="font-size:11px;color:#94a3b8;border-top:1px solid #f1f5f9;padding-top:10px;">
+          SDR/USD rate: <strong id="r-sdr-rate">1.33</strong> (approximate). SCA invoices at IMF daily rate on payment date.
+          Pilotage, tugs and mooring are estimates — actual amounts depend on vessel LOA and convoy type.
+        </div>
+      </div>
+
+      <!-- TAB: REBATES -->
+      <div id="tab-rebates" class="tab-content canal-card" style="padding:20px 24px;">
+        <div class="section-title">Applicable Rebate Programs</div>
+        <div id="rebates-list">
+          <p style="color:#94a3b8;font-size:14px;">No rebates applicable for the entered parameters.</p>
+        </div>
+        <div style="margin-top:20px;background:#f8fafc;border-radius:8px;padding:14px 16px;">
+          <div style="font-size:12px;font-weight:600;color:#64748b;margin-bottom:8px;">ALL SCA REBATE PROGRAMS (2024)</div>
+          <table style="width:100%;border-collapse:collapse;font-size:12px;">
+            <thead>
+              <tr style="border-bottom:1px solid #e2e8f0;">
+                <th style="text-align:left;padding:6px 0;color:#64748b;font-weight:600;">Program</th>
+                <th style="text-align:center;padding:6px 0;color:#64748b;font-weight:600;">Rebate</th>
+                <th style="text-align:left;padding:6px 0;color:#64748b;font-weight:600;">Applies To</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid #f1f5f9;">
+                <td style="padding:7px 0;color:#1e293b;font-weight:500;">Bulk Carrier Promotion 2024</td>
+                <td style="text-align:center;"><span class="rebate-badge">75%</span></td>
+                <td style="color:#64748b;padding-left:8px;">Bulk carriers: grain, coal, fertilizer</td>
+              </tr>
+              <tr style="border-bottom:1px solid #f1f5f9;">
+                <td style="padding:7px 0;color:#1e293b;font-weight:500;">Tanker Ballast Passage</td>
+                <td style="text-align:center;"><span class="rebate-badge">25%</span></td>
+                <td style="color:#64748b;padding-left:8px;">Tankers in ballast (no cargo)</td>
+              </tr>
+              <tr style="border-bottom:1px solid #f1f5f9;">
+                <td style="padding:7px 0;color:#1e293b;font-weight:500;">LNG Green Passage</td>
+                <td style="text-align:center;"><span class="rebate-badge">20%</span></td>
+                <td style="color:#64748b;padding-left:8px;">LNG carriers with STS credentials</td>
+              </tr>
+              <tr>
+                <td style="padding:7px 0;color:#1e293b;font-weight:500;">Container Frequency (10+/yr)</td>
+                <td style="text-align:center;"><span class="rebate-badge">15%</span></td>
+                <td style="color:#64748b;padding-left:8px;">Container vessels, 10+ transits/year</td>
+              </tr>
+            </tbody>
+          </table>
+          <p style="font-size:11px;color:#94a3b8;margin:10px 0 0;">Rebate programs change periodically. Verify current eligibility with your SCA agent before planning transits.</p>
+        </div>
+      </div>
+
+      <!-- TAB: COMPARISON -->
+      <div id="tab-comparison" class="tab-content canal-card" style="padding:20px 24px;">
+        <div class="section-title">Suez vs Panama Cost Comparison</div>
+
+        <div id="comparison-banner" style="display:none;margin-bottom:16px;border-radius:8px;padding:12px 16px;font-size:14px;font-weight:600;"></div>
+
+        <table style="width:100%;border-collapse:collapse;margin-bottom:16px;">
+          <thead>
+            <tr>
+              <th style="text-align:left;padding:8px 0;font-size:12px;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:.05em;">Item</th>
+              <th style="text-align:center;padding:8px 12px;font-size:13px;font-weight:700;color:var(--canal-blue);">🔵 Suez (SCA)</th>
+              <th style="text-align:center;padding:8px 12px;font-size:13px;font-weight:700;color:#b45309;">🟡 Panama (ACP)</th>
+            </tr>
+          </thead>
+          <tbody id="comparison-tbody">
+            <tr>
+              <td colspan="3" style="padding:20px 0;text-align:center;color:#94a3b8;font-size:13px;">Run a calculation to see the comparison</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="background:#fafafa;border:1px solid #e2e8f0;border-radius:8px;padding:14px 16px;font-size:12px;">
+          <strong style="color:#374151;">Methodology</strong>
+          <ul style="margin:8px 0 0;padding-left:18px;color:#64748b;line-height:1.7;">
+            <li><strong>Suez:</strong> 2024 SCA SCNT-based tariff from <code>suez_fee_tiers</code> table + approximate SCA ancillary charges</li>
+            <li><strong>Panama:</strong> ACP 2024 PC/UMS-based tariff — PC/UMS estimated as 1.08 × GT</li>
+            <li>Both estimates use laden or ballast rates as selected</li>
+            <li>Panama transit is ~8–10h; Suez is ~14–16h. Factor in fuel burn differences for full cost comparison</li>
+            <li>Route via Cape of Good Hope adds ~10 days and ~$500K fuel for a VLCC — factoring this in favors both canals</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- DISCLAIMER -->
+      <div style="margin-top:16px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:12px 16px;font-size:12px;color:#92400e;">
+        <strong>⚠ Estimates Only.</strong> These figures are for planning purposes. Actual SCA invoices depend on:
+        certified SCNT certificates, current IMF SDR/USD rate on invoice date, pilotage zone assignments, vessel LOA surcharges, and rebate pre-approval.
+        Always confirm fees with your SCA agent before transit.
+      </div>
+
+    </div><!-- /results-section -->
+
+    <!-- placeholder when no results yet -->
+    <div id="placeholder-section">
+      <div class="canal-card" style="padding:48px 24px;text-align:center;color:#94a3b8;">
+        <svg style="width:56px;height:56px;margin:0 auto 16px;opacity:.4;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 11h.01M12 11h.01M15 11h.01M4 19h16a2 2 0 002-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+        </svg>
+        <p style="font-size:15px;font-weight:500;color:#64748b;margin:0 0 8px;">Enter vessel parameters and click <strong>Calculate Fees</strong></p>
+        <p style="font-size:13px;margin:0;">Results include an itemized breakdown, applicable rebates, and a Panama Canal comparison.</p>
+      </div>
+    </div>
+
+  </div><!-- /grid -->
+</main>
+
+<script>
+// ── Utility formatters ────────────────────────────────────────────────────────
+
+function fmtUsd(n) {
+  return '$' + Math.round(n).toLocaleString();
+}
+function fmtSdr(n) {
+  return Math.round(n).toLocaleString() + ' SDR';
+}
+
+// ── Tab switcher ──────────────────────────────────────────────────────────────
+
+function switchTab(name) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  const tabMap = { breakdown: 0, rebates: 1, comparison: 2 };
+  document.querySelectorAll('.tab-btn')[tabMap[name]].classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+}
+
+// ── Pre-populate from URL query params (auto-fill from filing page) ───────────
+
+(function autoPop() {
+  const params = new URLSearchParams(window.location.search);
+  let filled = false;
+  if (params.get('scnt')) { document.getElementById('inp-scnt').value = params.get('scnt'); filled = true; }
+  if (params.get('gt'))   { document.getElementById('inp-gt').value = params.get('gt'); filled = true; }
+  if (params.get('vessel_type')) {
+    const sel = document.getElementById('inp-vessel-type');
+    const opt = [...sel.options].find(o => o.value === params.get('vessel_type'));
+    if (opt) { sel.value = params.get('vessel_type'); filled = true; }
+  }
+  if (params.get('laden')) { document.getElementById('inp-laden').value = params.get('laden'); }
+  if (params.get('direction')) { document.getElementById('inp-direction').value = params.get('direction'); }
+  if (filled) {
+    document.getElementById('auto-pop-banner').style.display = 'flex';
+    // Auto-calculate if key inputs are provided
+    if (params.get('scnt') || params.get('gt')) {
+      setTimeout(calculateFees, 400);
+    }
+  }
+})();
+
+// ── Main calculation function ──────────────────────────────────────────────────
+
+async function calculateFees() {
+  const btn     = document.getElementById('calculate-btn');
+  const btnText = document.getElementById('btn-text');
+  const spinner = document.getElementById('btn-spinner');
+
+  // Gather inputs
+  const body = {
+    scnt:                   parseFloat(document.getElementById('inp-scnt').value)  || null,
+    gross_tonnage:          parseFloat(document.getElementById('inp-gt').value)    || null,
+    vessel_type:            document.getElementById('inp-vessel-type').value,
+    laden_status:           document.getElementById('inp-laden').value,
+    transit_direction:      document.getElementById('inp-direction').value,
+    cargo_type:             document.getElementById('inp-cargo-type').value,
+    transit_count_this_year: parseInt(document.getElementById('inp-transit-count').value, 10) || 0,
+    green_certified:        document.getElementById('inp-green').checked,
+    loa:                    parseFloat(document.getElementById('inp-loa').value)   || null,
+    beam:                   parseFloat(document.getElementById('inp-beam').value)  || null,
+    depth:                  parseFloat(document.getElementById('inp-depth').value) || null,
+    draft:                  parseFloat(document.getElementById('inp-draft').value) || null,
+  };
+
+  // Require at least some tonnage input
+  if (!body.scnt && !body.gross_tonnage && !(body.loa && body.beam && body.depth)) {
+    alert('Please enter SCNT, Gross Tonnage, or vessel dimensions (LOA × Beam × Depth) to proceed.');
+    return;
+  }
+
+  // Loading state
+  btn.disabled = true;
+  btnText.style.display = 'none';
+  spinner.style.display = 'block';
+
+  try {
+    const resp = await fetch('/api/suez/calculate-fees', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    const data = await resp.json();
+
+    if (!resp.ok || !data.success) {
+      alert('Error: ' + (data.message || 'Failed to calculate fees. Please try again.'));
+      return;
+    }
+
+    renderResults(data);
+
+  } catch (err) {
+    console.error(err);
+    alert('Network error — please try again.');
+  } finally {
+    btn.disabled = false;
+    btnText.style.display = 'inline';
+    spinner.style.display = 'none';
+  }
+}
+
+// ── Render results ─────────────────────────────────────────────────────────────
+
+function renderResults(d) {
+  const b = d.suez_breakdown;
+  const p = d.panama_estimate;
+  const c = d.comparison;
+
+  // Show results panel
+  document.getElementById('results-section').style.display = 'block';
+  document.getElementById('placeholder-section').style.display = 'none';
+
+  // ── Summary header ──
+  document.getElementById('res-scnt').textContent   = b.scnt.toLocaleString();
+  document.getElementById('res-total-usd').textContent = fmtUsd(b.net_total_usd);
+  document.getElementById('res-total-sdr').textContent = fmtSdr(b.net_total_sdr) + ' SDR';
+
+  const estBadge = document.getElementById('res-scnt-estimated');
+  estBadge.style.display = d.scnt_estimated ? 'inline-flex' : 'none';
+
+  if (d.scnt_validation) {
+    const vDiv = document.getElementById('res-scnt-validation');
+    const cls  = d.scnt_validation.status === 'ok' ? 'validation-ok' : d.scnt_validation.status === 'warning' ? 'validation-warn' : 'validation-error';
+    vDiv.innerHTML = `<span class="${cls}">● ${d.scnt_validation.message}</span>`;
+  }
+
+  const noteDiv = document.getElementById('res-dimension-note');
+  if (d.dimension_notes && d.dimension_notes.length > 0) {
+    noteDiv.textContent = d.dimension_notes[0];
+    noteDiv.style.display = 'block';
+  } else {
+    noteDiv.style.display = 'none';
+  }
+
+  // ── Breakdown tab ──
+  document.getElementById('r-calc-toll-sdr').textContent = b.scnt.toLocaleString() + ' × ' + b.base_rate_sdr.toFixed(2) + ' SDR = ' + fmtSdr(b.calculated_toll_sdr);
+
+  const minRow = document.getElementById('r-minimum-row');
+  if (b.minimum_toll_sdr && b.calculated_toll_sdr < b.minimum_toll_sdr) {
+    document.getElementById('r-minimum-sdr').textContent = fmtSdr(b.minimum_toll_sdr);
+    minRow.style.display = 'flex';
+  } else {
+    minRow.style.display = 'none';
+  }
+
+  document.getElementById('r-transit-toll-usd').textContent = fmtUsd(b.transit_toll_usd);
+  document.getElementById('r-transit-toll-sdr').textContent = fmtSdr(b.transit_toll_sdr);
+
+  document.getElementById('r-pilotage-usd').textContent  = fmtUsd(b.pilotage_sdr * b.sdr_rate);
+  document.getElementById('r-pilotage-sdr').textContent  = fmtSdr(b.pilotage_sdr);
+  document.getElementById('r-tugs-usd').textContent      = fmtUsd(b.tugs_sdr * b.sdr_rate);
+  document.getElementById('r-tugs-sdr').textContent      = fmtSdr(b.tugs_sdr);
+  document.getElementById('r-mooring-usd').textContent   = fmtUsd(b.mooring_sdr * b.sdr_rate);
+  document.getElementById('r-mooring-sdr').textContent   = fmtSdr(b.mooring_sdr);
+  document.getElementById('r-lightdues-usd').textContent = fmtUsd(b.light_dues_sdr * b.sdr_rate);
+  document.getElementById('r-lightdues-sdr').textContent = fmtSdr(b.light_dues_sdr);
+  document.getElementById('r-comms-usd').textContent     = fmtUsd(b.communication_sdr * b.sdr_rate);
+  document.getElementById('r-comms-sdr').textContent     = fmtSdr(b.communication_sdr);
+
+  document.getElementById('r-gross-usd').textContent = fmtUsd(b.gross_total_usd);
+  document.getElementById('r-gross-sdr').textContent = fmtSdr(b.gross_total_sdr);
+
+  const rebateRow = document.getElementById('r-rebate-row');
+  if (d.best_rebate && b.rebate_amount_sdr > 0) {
+    document.getElementById('r-rebate-label').textContent = `${d.best_rebate.percentage}% ${d.best_rebate.name}`;
+    document.getElementById('r-rebate-usd').textContent   = '−' + fmtUsd(b.rebate_amount_usd);
+    document.getElementById('r-rebate-sdr').textContent   = '−' + fmtSdr(b.rebate_amount_sdr);
+    rebateRow.style.display = 'flex';
+  } else {
+    rebateRow.style.display = 'none';
+  }
+
+  document.getElementById('r-net-usd').textContent = fmtUsd(b.net_total_usd);
+  document.getElementById('r-net-sdr').textContent = fmtSdr(b.net_total_sdr);
+  document.getElementById('r-sdr-rate').textContent = b.sdr_rate;
+
+  // ── Rebates tab ──
+  const rebatesList = document.getElementById('rebates-list');
+  if (d.applicable_rebates && d.applicable_rebates.length > 0) {
+    rebatesList.innerHTML = d.applicable_rebates.map((r, i) => `
+      <div style="background:${r.percentage === d.best_rebate?.percentage ? '#f0fdf4' : '#f8fafc'};
+                  border:1px solid ${r.percentage === d.best_rebate?.percentage ? '#bbf7d0' : '#e2e8f0'};
+                  border-radius:8px;padding:14px 16px;margin-bottom:10px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+          <span style="font-size:13px;font-weight:600;color:#1e293b;">${r.name}</span>
+          <div style="display:flex;gap:6px;align-items:center;">
+            <span class="rebate-badge">${r.percentage}%</span>
+            ${r.percentage === d.best_rebate?.percentage ? '<span style="background:#166534;color:white;padding:2px 7px;border-radius:4px;font-size:11px;font-weight:600;">Best</span>' : ''}
+          </div>
+        </div>
+        ${r.conditions ? `<p style="font-size:12px;color:#64748b;margin:0;">${r.conditions}</p>` : ''}
+        ${r.auto_applied ? `<p style="font-size:11px;color:#16a34a;margin:6px 0 0;font-weight:500;">✓ Applied to this calculation</p>` : ''}
+      </div>
+    `).join('');
+  } else {
+    rebatesList.innerHTML = '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:20px;text-align:center;color:#94a3b8;font-size:13px;">No rebates apply to the entered parameters.<br><span style="font-size:12px;">Try: bulk carrier with grain cargo, tanker in ballast, or LNG carrier with Green Passage.</span></div>';
+  }
+
+  // ── Comparison tab ──
+  const cheaper = c.cheaper_canal;
+  const diffUsd  = fmtUsd(c.difference_usd);
+
+  const bannerEl = document.getElementById('comparison-banner');
+  if (cheaper === 'suez') {
+    bannerEl.style.background = '#eff6ff';
+    bannerEl.style.border = '1px solid #bfdbfe';
+    bannerEl.style.color = '#1d4ed8';
+    bannerEl.innerHTML = `🔵 Suez is <strong>${diffUsd} cheaper</strong> than Panama for this vessel type.`;
+  } else if (cheaper === 'panama') {
+    bannerEl.style.background = '#fffbeb';
+    bannerEl.style.border = '1px solid #fde68a';
+    bannerEl.style.color = '#92400e';
+    bannerEl.innerHTML = `🟡 Panama is <strong>${diffUsd} cheaper</strong> than Suez for this vessel type.`;
+  } else {
+    bannerEl.innerHTML = `⚖️ Estimated costs are roughly equal between the two canals.`;
+    bannerEl.style.background = '#f8fafc';
+    bannerEl.style.border = '1px solid #e2e8f0';
+    bannerEl.style.color = '#374151';
+  }
+  bannerEl.style.display = 'block';
+
+  document.getElementById('comparison-tbody').innerHTML = `
+    <tr style="border-bottom:1px solid #e2e8f0;">
+      <td style="padding:10px 0;font-size:13px;color:#374151;font-weight:500;">Tonnage System</td>
+      <td class="comparison-cell"><span style="font-size:12px;color:#64748b;">SCNT ${b.scnt.toLocaleString()}</span></td>
+      <td class="comparison-cell"><span style="font-size:12px;color:#64748b;">PC/UMS ${p.pcums_tonnage.toLocaleString()}</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #e2e8f0;">
+      <td style="padding:10px 0;font-size:13px;color:#374151;font-weight:500;">Base Rate</td>
+      <td class="comparison-cell"><span style="font-size:12px;color:#64748b;">${b.base_rate_sdr.toFixed(2)} SDR/SCNT</span></td>
+      <td class="comparison-cell"><span style="font-size:12px;color:#64748b;">${p.base_rate_usd_per_pcums.toFixed(2)} USD/PC-UMS</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #e2e8f0;">
+      <td style="padding:10px 0;font-size:13px;color:#374151;font-weight:500;">Transit Toll</td>
+      <td class="comparison-cell ${cheaper === 'suez' ? 'winner-cell' : ''}">
+        <span style="font-size:14px;font-weight:700;color:var(--canal-blue);">${fmtUsd(b.transit_toll_usd)}</span>
+      </td>
+      <td class="comparison-cell ${cheaper === 'panama' ? 'winner-cell' : ''}">
+        <span style="font-size:14px;font-weight:700;color:#b45309;">${fmtUsd(p.transit_toll_usd)}</span>
+      </td>
+    </tr>
+    <tr style="border-bottom:1px solid #e2e8f0;">
+      <td style="padding:10px 0;font-size:13px;color:#374151;font-weight:500;">Additional Charges</td>
+      <td class="comparison-cell"><span style="font-size:13px;font-weight:600;color:#1e293b;">${fmtUsd(b.additional_charges_usd)}</span></td>
+      <td class="comparison-cell"><span style="font-size:13px;font-weight:600;color:#1e293b;">${fmtUsd(p.additional_charges_usd)}</span></td>
+    </tr>
+    ${b.rebate_amount_usd > 0 ? `
+    <tr style="border-bottom:1px solid #e2e8f0;">
+      <td style="padding:10px 0;font-size:13px;color:#374151;font-weight:500;">Rebate</td>
+      <td class="comparison-cell"><span style="font-size:13px;font-weight:600;color:#16a34a;">−${fmtUsd(b.rebate_amount_usd)}</span></td>
+      <td class="comparison-cell"><span style="font-size:12px;color:#94a3b8;">—</span></td>
+    </tr>` : ''}
+    <tr>
+      <td style="padding:12px 0;font-size:14px;font-weight:700;color:#1e293b;">Net Total (est.)</td>
+      <td class="comparison-cell ${cheaper === 'suez' ? 'winner-cell' : ''}" style="padding:12px;">
+        <span style="font-size:18px;font-weight:800;color:var(--canal-blue);">${fmtUsd(c.suez_total_usd)}</span>
+        ${cheaper === 'suez' ? '<div style="font-size:11px;color:#16a34a;font-weight:600;margin-top:2px;">✓ Lower cost</div>' : ''}
+      </td>
+      <td class="comparison-cell ${cheaper === 'panama' ? 'winner-cell' : ''}" style="padding:12px;">
+        <span style="font-size:18px;font-weight:800;color:#b45309;">${fmtUsd(c.panama_total_usd)}</span>
+        ${cheaper === 'panama' ? '<div style="font-size:11px;color:#16a34a;font-weight:600;margin-top:2px;">✓ Lower cost</div>' : ''}
+      </td>
+    </tr>
+  `;
+
+  // Scroll to results on mobile
+  if (window.innerWidth < 768) {
+    document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+  }
+}
+</script>
+
+<script src="/js/whatsapp-button.js"></script>
+</body>
+</html>

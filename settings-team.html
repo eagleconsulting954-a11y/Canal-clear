@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Team Settings — CanalClear</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --navy: #1a2d4a; --deep: #142238; --slate: #243350;
+      --teal: #00D4AA; --orange: #E85A00;
+      --white: #ffffff; --gray: #6b7c93; --light-gray: #8fa3b8;
+      --red: #FF6B6B; --green: #34d399; --yellow: #fbbf24;
+    }
+    body { font-family: 'IBM Plex Sans', sans-serif; background: var(--navy); color: var(--white); line-height: 1.6; }
+
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      padding: 1rem 2rem;
+      background: rgba(10,22,40,0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0,212,170,0.1);
+    }
+    .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-size: 1.1rem; font-weight: 700; color: #fff; text-decoration: none; }
+    .logo span { color: var(--teal); }
+    .nav-links { display: flex; gap: 0.5rem; align-items: center; }
+    .nav-links a { color: var(--gray); text-decoration: none; font-size: 0.875rem; padding: 0.5rem 0.9rem; border-radius: 6px; transition: all 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--white); background: rgba(255,255,255,0.06); }
+
+    .container { max-width: 960px; margin: 0 auto; padding: 5.5rem 2rem 4rem; }
+
+    .page-header { margin-bottom: 2rem; }
+    .page-header h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .page-header p { color: var(--gray); font-size: 0.9rem; }
+
+    .breadcrumb { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.25rem; color: var(--gray); font-size: 0.8rem; }
+    .breadcrumb a { color: var(--gray); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--teal); }
+    .breadcrumb span { color: var(--light-gray); }
+
+    .role-access-banner {
+      background: rgba(251, 191, 36, 0.08);
+      border: 1px solid rgba(251, 191, 36, 0.25);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--yellow);
+      display: none;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--deep);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.25rem;
+    }
+    .card-header h2 { font-size: 1rem; font-weight: 600; margin-bottom: 0.15rem; }
+    .card-header p { color: var(--gray); font-size: 0.825rem; }
+
+    /* Form */
+    .form-row { display: flex; gap: 0.75rem; align-items: flex-end; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; flex: 1; }
+    .form-group label { font-size: 0.8rem; color: var(--light-gray); font-weight: 500; }
+    input[type="email"], input[type="text"], select {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      color: var(--white);
+      padding: 0.6rem 0.9rem;
+      font-size: 0.875rem;
+      font-family: inherit;
+      width: 100%;
+    }
+    input:focus, select:focus { outline: none; border-color: var(--teal); }
+    input::placeholder { color: var(--gray); }
+    select option { background: var(--deep); color: var(--white); }
+
+    .btn {
+      padding: 0.6rem 1.25rem; border-radius: 8px; font-size: 0.875rem; font-weight: 600;
+      border: none; cursor: pointer; transition: all 0.2s; font-family: inherit;
+      white-space: nowrap;
+    }
+    .btn-primary { background: var(--teal); color: #0A1628; }
+    .btn-primary:hover { background: #00b890; }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-ghost { background: rgba(255,255,255,0.06); color: var(--white); }
+    .btn-ghost:hover { background: rgba(255,255,255,0.1); }
+    .btn-danger { background: rgba(255,107,107,0.12); color: var(--red); border: 1px solid rgba(255,107,107,0.2); }
+    .btn-danger:hover { background: rgba(255,107,107,0.22); }
+    .btn-sm { padding: 0.35rem 0.75rem; font-size: 0.8rem; }
+
+    /* Org name */
+    .org-name-row { display: flex; gap: 0.75rem; align-items: center; }
+    .org-name-display { font-size: 1.1rem; font-weight: 600; color: var(--teal); }
+
+    /* Members table */
+    .members-list { margin-top: 0.5rem; }
+    .member-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      gap: 1rem;
+    }
+    .member-row:last-child { border-bottom: none; }
+    .member-info { flex: 1; min-width: 0; }
+    .member-email { font-size: 0.9rem; font-weight: 500; }
+    .member-meta { font-size: 0.78rem; color: var(--gray); margin-top: 0.1rem; }
+    .member-actions { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+
+    /* Role badges */
+    .role-badge {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      padding: 0.25rem 0.65rem; border-radius: 20px;
+      font-size: 0.75rem; font-weight: 600;
+    }
+    .role-badge.admin { background: rgba(0,212,170,0.12); color: var(--teal); border: 1px solid rgba(0,212,170,0.25); }
+    .role-badge.compliance { background: rgba(96,165,250,0.12); color: #60a5fa; border: 1px solid rgba(96,165,250,0.25); }
+    .role-badge.operator { background: rgba(251,191,36,0.12); color: var(--yellow); border: 1px solid rgba(251,191,36,0.25); }
+    .role-badge.viewer { background: rgba(148,163,184,0.12); color: #94a3b8; border: 1px solid rgba(148,163,184,0.25); }
+
+    /* Pending invitations */
+    .invite-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      gap: 1rem;
+    }
+    .invite-row:last-child { border-bottom: none; }
+    .invite-email { font-size: 0.875rem; color: var(--light-gray); }
+    .invite-pending-tag {
+      font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.5rem;
+      background: rgba(251,191,36,0.1); color: var(--yellow);
+      border: 1px solid rgba(251,191,36,0.2); border-radius: 20px;
+    }
+
+    /* Role descriptions */
+    .role-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; margin-top: 0.5rem; }
+    .role-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      padding: 1rem;
+    }
+    .role-card h3 { font-size: 0.875rem; font-weight: 600; margin-bottom: 0.35rem; }
+    .role-card p { font-size: 0.78rem; color: var(--gray); line-height: 1.5; }
+    .role-card.admin h3 { color: var(--teal); }
+    .role-card.compliance h3 { color: #60a5fa; }
+    .role-card.operator h3 { color: var(--yellow); }
+    .role-card.viewer h3 { color: #94a3b8; }
+
+    /* Change role inline */
+    .role-select-inline {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      color: var(--white);
+      padding: 0.35rem 0.6rem;
+      font-size: 0.8rem;
+      font-family: inherit;
+    }
+    .role-select-inline:focus { outline: none; border-color: var(--teal); }
+    .role-select-inline option { background: var(--deep); }
+
+    /* Alert messages */
+    .alert {
+      padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.875rem;
+      margin-bottom: 1rem; display: none;
+    }
+    .alert.success { background: rgba(52,211,153,0.1); color: var(--green); border: 1px solid rgba(52,211,153,0.2); }
+    .alert.error { background: rgba(255,107,107,0.1); color: var(--red); border: 1px solid rgba(255,107,107,0.2); }
+    .alert.show { display: block; }
+
+    /* Empty state */
+    .empty-state { text-align: center; padding: 2rem; color: var(--gray); font-size: 0.875rem; }
+
+    /* Loading */
+    .loading { color: var(--gray); font-size: 0.875rem; padding: 1rem 0; }
+
+    /* Current user indicator */
+    .you-tag { font-size: 0.7rem; color: var(--gray); background: rgba(255,255,255,0.06); padding: 0.15rem 0.45rem; border-radius: 10px; margin-left: 0.4rem; }
+
+    /* Waterways select */
+    .waterway-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
+    .waterway-pill {
+      padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.75rem; cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.15); color: var(--light-gray);
+      background: transparent; transition: all 0.15s;
+      user-select: none;
+    }
+    .waterway-pill.active { background: rgba(0,212,170,0.12); color: var(--teal); border-color: rgba(0,212,170,0.3); }
+
+    @media (max-width: 640px) {
+      .form-row { flex-direction: column; }
+      .member-row { flex-direction: column; align-items: flex-start; }
+      .member-actions { width: 100%; justify-content: flex-end; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/app" class="logo">Canal<span>Clear</span></a>
+    <div class="nav-links">
+      <a href="/app">Dashboard</a>
+      <a href="/settings-team" class="active">Team</a>
+      <a href="/app" id="nav-back">← Back to App</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="/app">Dashboard</a>
+    <span>›</span>
+    <span>Settings</span>
+    <span>›</span>
+    <span>Team</span>
+  </div>
+
+  <div class="page-header">
+    <h1>Team Management</h1>
+    <p>Invite teammates, assign roles, and control waterway access across your fleet compliance team.</p>
+  </div>
+
+  <!-- Access denied banner for non-admins -->
+  <div class="role-access-banner" id="access-banner">
+    ⚠️ Only organization Admins can manage team members. Contact your Admin to make changes.
+  </div>
+
+  <div id="alert-box" class="alert"></div>
+
+  <!-- Org name card -->
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <h2>Organization</h2>
+        <p>Your team's organization name shown in invitations and reports.</p>
+      </div>
+    </div>
+    <div class="org-name-row" id="org-name-display-row">
+      <span class="org-name-display" id="org-name-text">Loading…</span>
+      <button class="btn btn-ghost btn-sm" id="edit-org-name-btn" onclick="startEditOrgName()">Edit</button>
+    </div>
+    <div class="form-row" id="org-name-edit-row" style="display:none;">
+      <div class="form-group">
+        <input type="text" id="org-name-input" placeholder="e.g. Maersk Fleet Ops" />
+      </div>
+      <button class="btn btn-primary" onclick="saveOrgName()">Save</button>
+      <button class="btn btn-ghost" onclick="cancelEditOrgName()">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Invite a teammate -->
+  <div class="card" id="invite-card">
+    <div class="card-header">
+      <div>
+        <h2>Invite a Teammate</h2>
+        <p>They'll receive an email with a 7-day invitation link.</p>
+      </div>
+    </div>
+    <div id="invite-alert" class="alert"></div>
+    <form id="invite-form" onsubmit="sendInvite(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Email address</label>
+          <input type="email" id="invite-email" placeholder="officer@company.com" required />
+        </div>
+        <div class="form-group" style="max-width:200px;">
+          <label>Role</label>
+          <select id="invite-role">
+            <option value="">Loading roles…</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" id="invite-btn">Send Invite</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Current members -->
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <h2>Team Members</h2>
+        <p>Active members with their assigned roles and waterway access.</p>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="loadTeam()">↻ Refresh</button>
+    </div>
+    <div id="members-loading" class="loading">Loading team…</div>
+    <div id="members-list" class="members-list" style="display:none;"></div>
+    <div id="members-empty" class="empty-state" style="display:none;">
+      No team members yet. Invite your first teammate above.
+    </div>
+  </div>
+
+  <!-- Pending invitations -->
+  <div class="card" id="invitations-card" style="display:none;">
+    <div class="card-header">
+      <div>
+        <h2>Pending Invitations</h2>
+        <p>Invitations that haven't been accepted yet.</p>
+      </div>
+    </div>
+    <div id="invitations-list"></div>
+  </div>
+
+  <!-- Role reference -->
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <h2>Role Reference</h2>
+        <p>What each role can and cannot do.</p>
+      </div>
+    </div>
+    <div class="role-grid">
+      <div class="role-card admin">
+        <h3>Admin</h3>
+        <p>Full access: manage users, billing, SSO, all waterways, all filings, all settings.</p>
+      </div>
+      <div class="role-card compliance">
+        <h3>Compliance Officer</h3>
+        <p>Create, edit, and submit filings. Manage alerts. Export reports. Cannot manage users or billing.</p>
+      </div>
+      <div class="role-card operator">
+        <h3>Operator</h3>
+        <p>Create and edit draft filings only. Cannot submit. Read-only fleet dashboard.</p>
+      </div>
+      <div class="role-card viewer">
+        <h3>Viewer</h3>
+        <p>Read-only access to filings, reports, and fleet dashboard. No edits or submissions.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let currentUserId = null;
+let isAdmin = false;
+let orgId = null;
+let rolesCache = [];
+
+async function api(method, path, body) {
+  const opts = { method, headers: { 'Content-Type': 'application/json' } };
+  if (body) opts.body = JSON.stringify(body);
+  const res = await fetch('/api/team' + path, opts);
+  return res.json();
+}
+
+function showAlert(msg, type = 'success', targetId = 'alert-box') {
+  const el = document.getElementById(targetId);
+  if (!el) return;
+  el.className = `alert ${type} show`;
+  el.textContent = msg;
+  setTimeout(() => el.classList.remove('show'), 5000);
+}
+
+function roleBadge(roleName) {
+  const cls = {
+    'Admin': 'admin',
+    'Compliance Officer': 'compliance',
+    'Operator': 'operator',
+    'Viewer': 'viewer',
+  }[roleName] || 'viewer';
+  return `<span class="role-badge ${cls}">${roleName}</span>`;
+}
+
+function waterwayLabel(waterways) {
+  if (!waterways || waterways.includes('all')) return 'All waterways';
+  return waterways.map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(', ');
+}
+
+async function init() {
+  const meRes = await api('GET', '/me').catch(() => null);
+  if (!meRes || !meRes.success) {
+    window.location.href = '/login?next=' + encodeURIComponent(window.location.pathname);
+    return;
+  }
+
+  currentUserId = meRes.rbac ? meRes.rbac.orgId : null; // store orgId
+  isAdmin = meRes.is_super_admin || (meRes.role && meRes.role.name === 'Admin') || (meRes.rbac && meRes.rbac.roleName === 'Admin');
+
+  // Show access banner for non-admins
+  if (!isAdmin && meRes.org) {
+    document.getElementById('access-banner').style.display = 'block';
+    document.getElementById('invite-card').style.display = 'none';
+    // Hide action buttons later
+  }
+
+  // Get logged-in user id from JWT via /api/me or similar
+  // We can derive it from the team members list
+  await loadTeam();
+}
+
+async function loadTeam() {
+  document.getElementById('members-loading').style.display = 'block';
+  document.getElementById('members-list').style.display = 'none';
+  document.getElementById('members-empty').style.display = 'none';
+
+  const data = await api('GET', '/members').catch(() => null);
+
+  document.getElementById('members-loading').style.display = 'none';
+
+  if (!data || !data.success) {
+    document.getElementById('members-empty').style.display = 'block';
+    document.getElementById('members-empty').textContent = 'Failed to load team. Please refresh.';
+    return;
+  }
+
+  // Org name
+  if (data.org) {
+    document.getElementById('org-name-text').textContent = data.org.name;
+    orgId = data.org.id;
+  } else {
+    document.getElementById('org-name-text').textContent = 'Your Organization';
+  }
+
+  // Populate role select
+  if (data.roles && data.roles.length > 0) {
+    rolesCache = data.roles;
+    const select = document.getElementById('invite-role');
+    select.innerHTML = data.roles.map(r =>
+      `<option value="${r.id}">${r.name}</option>`
+    ).join('');
+    // Default to Compliance Officer
+    const defaultRole = data.roles.find(r => r.is_default) || data.roles[1];
+    if (defaultRole) select.value = defaultRole.id;
+  }
+
+  // Members
+  const members = data.members || [];
+  const invitations = data.invitations || [];
+
+  if (members.length === 0) {
+    document.getElementById('members-empty').style.display = 'block';
+  } else {
+    const list = document.getElementById('members-list');
+    list.style.display = 'block';
+    list.innerHTML = members.map(m => {
+      const isCurrentUser = false; // We don't have the current user's ID from JWT easily
+      const youTag = ''; // simplified
+      const canEdit = isAdmin && !isCurrentUser;
+
+      const roleSelectHtml = canEdit ? `
+        <select class="role-select-inline" onchange="changeRole(${m.id}, this.value)">
+          ${rolesCache.map(r => `<option value="${r.id}" ${r.id === m.role_id ? 'selected' : ''}>${r.name}</option>`).join('')}
+        </select>
+      ` : roleBadge(m.role_name);
+
+      const actionHtml = canEdit ? `
+        <button class="btn btn-danger btn-sm" onclick="removeMember(${m.id}, '${m.email}')">Remove</button>
+      ` : '';
+
+      return `
+        <div class="member-row" id="member-${m.id}">
+          <div class="member-info">
+            <div class="member-email">${m.email}${youTag}</div>
+            <div class="member-meta">Waterways: ${waterwayLabel(m.waterways)} · Joined ${new Date(m.assigned_at).toLocaleDateString()}</div>
+          </div>
+          <div class="member-actions">
+            ${roleSelectHtml}
+            ${actionHtml}
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // Pending invitations
+  if (invitations.length > 0 && isAdmin) {
+    const card = document.getElementById('invitations-card');
+    card.style.display = 'block';
+    document.getElementById('invitations-list').innerHTML = invitations.map(inv => `
+      <div class="invite-row" id="invite-${inv.id}">
+        <div>
+          <div class="invite-email">${inv.email}</div>
+          <div class="member-meta">${inv.role_name} · Expires ${new Date(inv.expires_at).toLocaleDateString()}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.75rem;">
+          <span class="invite-pending-tag">Pending</span>
+          <button class="btn btn-ghost btn-sm" onclick="copyInviteLink('${inv.token}')">Copy Link</button>
+          <button class="btn btn-danger btn-sm" onclick="revokeInvite(${inv.id})">Revoke</button>
+        </div>
+      </div>
+    `).join('');
+  }
+}
+
+async function sendInvite(e) {
+  e.preventDefault();
+  const email = document.getElementById('invite-email').value.trim();
+  const roleId = parseInt(document.getElementById('invite-role').value, 10);
+  const btn = document.getElementById('invite-btn');
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  const res = await api('POST', '/invite', { email, role_id: roleId }).catch(() => ({ success: false, message: 'Network error' }));
+
+  btn.disabled = false;
+  btn.textContent = 'Send Invite';
+
+  if (res.success) {
+    showAlert(`Invitation sent to ${email}`, 'success', 'invite-alert');
+    document.getElementById('invite-email').value = '';
+    await loadTeam();
+  } else {
+    showAlert(res.message || 'Failed to send invitation', 'error', 'invite-alert');
+  }
+}
+
+async function changeRole(userId, roleId) {
+  const res = await api('PATCH', `/members/${userId}/role`, { role_id: parseInt(roleId, 10) })
+    .catch(() => ({ success: false, message: 'Network error' }));
+  if (res.success) {
+    showAlert('Role updated', 'success');
+  } else {
+    showAlert(res.message || 'Failed to update role', 'error');
+    await loadTeam(); // reset UI
+  }
+}
+
+async function removeMember(userId, email) {
+  if (!confirm(`Remove ${email} from your organization? They will lose access immediately.`)) return;
+  const res = await api('DELETE', `/members/${userId}`).catch(() => ({ success: false, message: 'Network error' }));
+  if (res.success) {
+    document.getElementById('member-' + userId)?.remove();
+    showAlert(`${email} removed from team`, 'success');
+    await loadTeam();
+  } else {
+    showAlert(res.message || 'Failed to remove member', 'error');
+  }
+}
+
+async function revokeInvite(invId) {
+  if (!confirm('Revoke this invitation?')) return;
+  const res = await api('DELETE', `/invitations/${invId}`).catch(() => ({ success: false, message: 'Network error' }));
+  if (res.success) {
+    document.getElementById('invite-' + invId)?.remove();
+    showAlert('Invitation revoked', 'success');
+  } else {
+    showAlert(res.message || 'Failed to revoke invitation', 'error');
+  }
+}
+
+function copyInviteLink(token) {
+  const url = `${window.location.origin}/join?token=${token}`;
+  navigator.clipboard.writeText(url).then(() => showAlert('Invite link copied to clipboard', 'success'));
+}
+
+function startEditOrgName() {
+  document.getElementById('org-name-display-row').style.display = 'none';
+  document.getElementById('org-name-edit-row').style.display = 'flex';
+  document.getElementById('org-name-input').value = document.getElementById('org-name-text').textContent;
+  document.getElementById('org-name-input').focus();
+}
+
+function cancelEditOrgName() {
+  document.getElementById('org-name-edit-row').style.display = 'none';
+  document.getElementById('org-name-display-row').style.display = 'flex';
+}
+
+async function saveOrgName() {
+  const name = document.getElementById('org-name-input').value.trim();
+  if (!name) return;
+  const res = await api('PATCH', '/org/name', { name }).catch(() => ({ success: false, message: 'Network error' }));
+  if (res.success) {
+    document.getElementById('org-name-text').textContent = name;
+    cancelEditOrgName();
+    showAlert('Organization name updated', 'success');
+  } else {
+    showAlert(res.message || 'Failed to update name', 'error');
+  }
+}
+
+init();
+</script>
+</body>
+</html>

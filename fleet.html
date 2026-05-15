@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fleet Management — CanalClear</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://canalclear.org/app/fleet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --navy: #1a2d4a;
+      --deep: #142238;
+      --slate: #243350;
+      --teal: #E85A00;
+      --teal-dim: rgba(232,90,0,0.15);
+      --cyan: #00B4D8;
+      --white: #ffffff;
+      --gray: #6b7c93;
+      --light-gray: #8fa3b8;
+      --red: #FF6B6B;
+      --red-dim: rgba(255,107,107,0.15);
+      --yellow: #FFD93D;
+      --yellow-dim: rgba(255,217,61,0.15);
+      --green: #4ADE80;
+      --green-dim: rgba(74,222,128,0.15);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'IBM Plex Sans', sans-serif; background: var(--navy); color: var(--white); line-height: 1.6; overflow-x: hidden; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1rem 2rem; background: rgba(10,22,40,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(232,90,0,0.08); }
+    nav .nav-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .logo { display: flex; align-items: center; text-decoration: none; }
+    .logo img { height: 34px; width: auto; object-fit: contain; }
+    .nav-links { display: flex; gap: 0.5rem; align-items: center; }
+    .nav-links a { color: var(--gray); text-decoration: none; font-size: 0.9rem; padding: 0.5rem 1rem; border-radius: 8px; transition: all 0.2s; }
+    .nav-links a:hover { color: var(--white); background: rgba(232,90,0,0.08); }
+    .nav-links a.active { color: var(--teal); background: rgba(232,90,0,0.08); }
+
+    /* LAYOUT */
+    .app-container { max-width: 1400px; margin: 0 auto; padding: 5.5rem 2rem 3rem; min-height: 100vh; }
+    .page-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 2rem; gap: 1rem; }
+    .page-header-left h1 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.25rem; }
+    .page-header-left p { color: var(--gray); font-size: 0.95rem; }
+    .page-header-actions { display: flex; gap: 0.75rem; align-items: center; flex-shrink: 0; }
+
+    /* STATS BAR */
+    .stats-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
+    .stat-card { background: var(--deep); border: 1px solid rgba(136,153,170,0.08); border-radius: 12px; padding: 1.25rem 1.5rem; }
+    .stat-card .label { font-size: 0.8rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+    .stat-card .value { font-size: 1.75rem; font-weight: 700; }
+    .stat-card .value.teal  { color: var(--teal); }
+    .stat-card .value.green { color: var(--green); }
+    .stat-card .value.red   { color: var(--red); }
+    .stat-card .value.yellow{ color: var(--yellow); }
+
+    /* BUTTONS */
+    .btn { padding: 0.7rem 1.5rem; border-radius: 10px; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.2s; border: none; display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+    .btn-primary { background: var(--teal); color: var(--navy); }
+    .btn-primary:hover { background: #ff7a1a; transform: translateY(-1px); }
+    .btn-secondary { background: var(--slate); color: var(--white); border: 1px solid rgba(136,153,170,0.15); }
+    .btn-secondary:hover { border-color: var(--teal); }
+    .btn-ghost { background: none; color: var(--gray); padding: 0.5rem 1rem; }
+    .btn-ghost:hover { color: var(--white); }
+    .btn-danger { background: var(--red-dim); color: var(--red); border: 1px solid rgba(255,107,107,0.2); }
+    .btn-danger:hover { background: rgba(255,107,107,0.25); }
+    .btn-sm { padding: 0.45rem 0.9rem; font-size: 0.82rem; }
+
+    /* FLEET TABLE */
+    .fleet-panel { background: var(--deep); border: 1px solid rgba(136,153,170,0.08); border-radius: 16px; overflow: hidden; }
+    .fleet-panel-header { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border-bottom: 1px solid rgba(136,153,170,0.08); gap: 1rem; }
+    .fleet-panel-title { font-size: 1rem; font-weight: 600; }
+    .search-bar { background: var(--slate); border: 1px solid rgba(136,153,170,0.15); border-radius: 8px; padding: 0.5rem 1rem; color: var(--white); font-family: 'IBM Plex Sans', sans-serif; font-size: 0.9rem; min-width: 220px; }
+    .search-bar::placeholder { color: var(--gray); }
+    .search-bar:focus { outline: none; border-color: var(--teal); }
+
+    table { width: 100%; border-collapse: collapse; }
+    thead th { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray); text-align: left; padding: 0.85rem 1.25rem; border-bottom: 1px solid rgba(136,153,170,0.08); white-space: nowrap; }
+    tbody tr { transition: background 0.15s; cursor: pointer; }
+    tbody tr:hover { background: rgba(232,90,0,0.04); }
+    tbody td { padding: 1rem 1.25rem; font-size: 0.9rem; border-bottom: 1px solid rgba(136,153,170,0.04); vertical-align: middle; }
+    tbody tr:last-child td { border-bottom: none; }
+
+    .vessel-name-cell { display: flex; flex-direction: column; gap: 0.1rem; }
+    .vessel-name { font-weight: 600; }
+    .vessel-imo  { font-size: 0.78rem; color: var(--gray); font-family: monospace; }
+    .vessel-flag-type { font-size: 0.85rem; color: var(--light-gray); }
+    .sample-tag { display: inline-block; padding: 0.1rem 0.5rem; background: rgba(0,180,216,0.15); color: var(--cyan); border-radius: 4px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em; margin-left: 0.5rem; }
+
+    /* COMPLIANCE BADGES */
+    .waterway-badges { display: flex; gap: 0.3rem; flex-wrap: nowrap; }
+    .wb { display: inline-flex; align-items: center; gap: 0.2rem; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; }
+    .wb.green   { background: var(--green-dim);  color: var(--green); }
+    .wb.yellow  { background: var(--yellow-dim); color: var(--yellow); }
+    .wb.red     { background: var(--red-dim);    color: var(--red); }
+    .wb.unknown { background: rgba(136,153,170,0.1); color: var(--gray); }
+    .wb-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+
+    /* ROW ACTIONS */
+    .row-actions { display: flex; gap: 0.5rem; opacity: 0; transition: opacity 0.15s; }
+    tbody tr:hover .row-actions { opacity: 1; }
+    .icon-btn { background: none; border: none; color: var(--gray); cursor: pointer; padding: 0.3rem; border-radius: 4px; transition: all 0.15s; font-size: 1rem; }
+    .icon-btn:hover { color: var(--white); background: rgba(136,153,170,0.1); }
+    .icon-btn.danger:hover { color: var(--red); background: var(--red-dim); }
+
+    /* EMPTY STATE */
+    .empty-state { text-align: center; padding: 5rem 2rem; }
+    .empty-icon { font-size: 4rem; margin-bottom: 1rem; opacity: 0.4; }
+    .empty-state h2 { font-size: 1.3rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--light-gray); }
+    .empty-state p  { color: var(--gray); font-size: 0.95rem; margin-bottom: 2rem; max-width: 380px; margin-left: auto; margin-right: auto; }
+    .empty-cta { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--teal); color: var(--navy); padding: 0.9rem 2rem; border-radius: 10px; font-weight: 700; font-size: 1rem; border: none; cursor: pointer; transition: all 0.2s; }
+    .empty-cta:hover { background: #ff7a1a; transform: translateY(-1px); }
+
+    /* MODAL */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; align-items: center; justify-content: center; padding: 1rem; }
+    .modal-overlay.open { display: flex; }
+    .modal { background: var(--deep); border: 1px solid rgba(136,153,170,0.15); border-radius: 16px; padding: 2rem; width: 100%; max-width: 640px; max-height: 90vh; overflow-y: auto; }
+    .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+    .modal-title { font-size: 1.2rem; font-weight: 700; }
+    .modal-close { background: none; border: none; color: var(--gray); cursor: pointer; font-size: 1.4rem; padding: 0.25rem; transition: color 0.15s; }
+    .modal-close:hover { color: var(--white); }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-grid.three-col { grid-template-columns: 1fr 1fr 1fr; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label { font-size: 0.82rem; color: var(--light-gray); font-weight: 500; }
+    .form-group input, .form-group select { background: var(--slate); border: 1px solid rgba(136,153,170,0.15); border-radius: 8px; padding: 0.7rem 1rem; color: var(--white); font-family: 'IBM Plex Sans', sans-serif; font-size: 0.9rem; transition: border-color 0.2s; }
+    .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--teal); }
+    .form-group input::placeholder { color: var(--gray); }
+    .form-group select option { background: var(--slate); }
+    .form-group .hint { font-size: 0.73rem; color: var(--gray); }
+    .section-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--teal); margin-top: 1rem; margin-bottom: 0.25rem; grid-column: 1 / -1; }
+    .form-actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(136,153,170,0.08); }
+    .error-msg { background: var(--red-dim); border: 1px solid rgba(255,107,107,0.2); color: var(--red); border-radius: 8px; padding: 0.75rem 1rem; font-size: 0.88rem; margin-bottom: 1rem; display: none; }
+    .error-msg.visible { display: block; }
+
+    /* CSV IMPORT PANEL */
+    .csv-drop-zone { border: 2px dashed rgba(136,153,170,0.2); border-radius: 12px; padding: 2.5rem; text-align: center; cursor: pointer; transition: all 0.2s; }
+    .csv-drop-zone:hover, .csv-drop-zone.drag { border-color: var(--teal); background: var(--teal-dim); }
+    .csv-drop-zone .drop-icon { font-size: 2rem; margin-bottom: 0.5rem; opacity: 0.6; }
+    .csv-drop-zone p { color: var(--gray); font-size: 0.9rem; }
+    .csv-drop-zone strong { color: var(--light-gray); }
+    #csvInput { display: none; }
+    .import-preview { margin-top: 1rem; }
+    .import-preview table { font-size: 0.82rem; }
+    .import-preview th { background: rgba(136,153,170,0.05); }
+
+    /* LOADING */
+    .spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(26,45,74,0.4); border-top-color: var(--navy); border-radius: 50%; animation: spin 0.6s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* TOAST */
+    .toast { position: fixed; bottom: 2rem; right: 2rem; padding: 0.85rem 1.5rem; border-radius: 10px; font-size: 0.9rem; font-weight: 500; z-index: 999; transform: translateY(120%); transition: transform 0.3s; max-width: 380px; }
+    .toast.show { transform: translateY(0); }
+    .toast.success { background: var(--green-dim); border: 1px solid rgba(74,222,128,0.25); color: var(--green); }
+    .toast.error   { background: var(--red-dim);   border: 1px solid rgba(255,107,107,0.25); color: var(--red); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .stats-bar { grid-template-columns: 1fr 1fr; }
+      .waterway-badges { flex-wrap: wrap; }
+      .page-header { flex-direction: column; }
+      .page-header-actions { width: 100%; }
+    }
+    @media (max-width: 640px) {
+      .form-grid, .form-grid.three-col { grid-template-columns: 1fr; }
+      .app-container { padding: 5rem 1rem 2rem; }
+      nav { padding: 0.75rem 1rem; }
+      thead th:nth-child(4), thead th:nth-child(5) { display: none; }
+      tbody td:nth-child(4), tbody td:nth-child(5) { display: none; }
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="/app" class="logo"><img src="/images/logo.png" alt="CanalClear" onerror="this.style.display='none'; this.nextSibling.style.display='block'"><span style="display:none;font-size:1.1rem;font-weight:700;color:var(--teal);">⚓ CanalClear</span></a>
+    <div class="nav-links">
+      <a href="/app">Validator</a>
+      <a href="/filing">Filing</a>
+      <a href="/app/portals">🔗 Portals</a>
+      <a href="/app/fleet" class="active">🚢 Fleet</a>
+      <a href="/suez-calculator">Suez Fees</a>
+      <a href="/settings/alerts">⚙️ Alerts</a>
+      <a href="/" >Home</a>
+      <a href="/admin" id="admin-nav-link" style="display:none;">Admin</a>
+      <button onclick="logout()" style="background:none;border:1px solid rgba(136,153,170,0.2);color:var(--gray);padding:0.4rem 1rem;border-radius:8px;cursor:pointer;font-size:0.85rem;font-family:inherit;">Log out</button>
+    </div>
+  </div>
+</nav>
+
+<div class="app-container">
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="page-header-left">
+      <h1>🚢 Fleet Management</h1>
+      <p>Manage your vessels and track per-waterway compliance status</p>
+    </div>
+    <div class="page-header-actions">
+      <button class="btn btn-secondary" onclick="openImportModal()">📥 Bulk Import CSV</button>
+      <button class="btn btn-primary" onclick="openAddModal()">+ Add Vessel</button>
+    </div>
+  </div>
+
+  <!-- Stats Bar -->
+  <div class="stats-bar" id="statsBar" style="display:none;">
+    <div class="stat-card"><div class="label">Total Vessels</div><div class="value teal" id="statTotal">—</div></div>
+    <div class="stat-card"><div class="label">Fully Compliant</div><div class="value green" id="statGreen">—</div></div>
+    <div class="stat-card"><div class="label">Needs Attention</div><div class="value yellow" id="statYellow">—</div></div>
+    <div class="stat-card"><div class="label">Non-Compliant</div><div class="value red" id="statRed">—</div></div>
+  </div>
+
+  <!-- Fleet Table -->
+  <div class="fleet-panel" id="fleetPanel">
+    <!-- Loading -->
+    <div id="loadingState" style="text-align:center;padding:4rem 2rem;color:var(--gray);">
+      <div style="font-size:2rem;margin-bottom:1rem;">⏳</div>
+      <p>Loading fleet…</p>
+    </div>
+
+    <!-- Empty State -->
+    <div id="emptyState" style="display:none;">
+      <div class="empty-state">
+        <div class="empty-icon">🚢</div>
+        <h2>Add your first vessel</h2>
+        <p>Your fleet workspace is ready. Add a vessel to start tracking waterway compliance and running pre-transit validations.</p>
+        <button class="empty-cta" onclick="openAddModal()">+ Add Your First Vessel</button>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div id="tableState" style="display:none;">
+      <div class="fleet-panel-header">
+        <span class="fleet-panel-title">All Vessels</span>
+        <input class="search-bar" type="text" placeholder="Search by name or IMO…" oninput="filterTable(this.value)" id="searchInput">
+      </div>
+      <table id="vesselTable">
+        <thead>
+          <tr>
+            <th>Vessel</th>
+            <th>IMO</th>
+            <th>Flag / Type</th>
+            <th>GT</th>
+            <th>LOA / Draft</th>
+            <th>Waterway Compliance</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="vesselTbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ── Add / Edit Vessel Modal ─────────────────────────────────────────────── -->
+<div class="modal-overlay" id="addModal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="modalTitle">Add Vessel</span>
+      <button class="modal-close" onclick="closeAddModal()">✕</button>
+    </div>
+    <div class="error-msg" id="addError"></div>
+    <form id="addForm" onsubmit="submitVessel(event)">
+      <div class="form-grid">
+        <div class="form-group full">
+          <label>Vessel Name *</label>
+          <input type="text" id="vName" placeholder="MV Pacific Pioneer" required>
+        </div>
+        <div class="form-group">
+          <label>IMO Number</label>
+          <input type="text" id="vImo" placeholder="9234567" maxlength="7" pattern="\d{7}">
+          <span class="hint">7-digit IMO (e.g. 9234567)</span>
+        </div>
+        <div class="form-group">
+          <label>Flag State</label>
+          <input type="text" id="vFlag" placeholder="Panama">
+        </div>
+        <div class="form-group">
+          <label>Vessel Type</label>
+          <select id="vType">
+            <option value="">Select type…</option>
+            <option>Tanker</option>
+            <option>Bulk Carrier</option>
+            <option>Container</option>
+            <option>Gas Carrier</option>
+            <option>General Cargo</option>
+            <option>RoRo</option>
+            <option>Car Carrier</option>
+            <option>LNG Carrier</option>
+            <option>VLCC</option>
+            <option>Chemical Tanker</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Class Society</label>
+          <input type="text" id="vClass" placeholder="Lloyd's, DNV, BV…">
+        </div>
+        <div class="section-label">Dimensions &amp; Tonnage</div>
+        <div class="form-group">
+          <label>Gross Tonnage (GT)</label>
+          <input type="number" id="vGt" placeholder="62500" min="1" max="500000">
+        </div>
+        <div class="form-group">
+          <label>Net Tonnage (NT)</label>
+          <input type="number" id="vNt" placeholder="35000" min="1" max="500000">
+        </div>
+        <div class="form-group">
+          <label>LOA (m)</label>
+          <input type="number" id="vLoa" placeholder="294.0" step="0.1" min="1">
+        </div>
+        <div class="form-group">
+          <label>Beam (m)</label>
+          <input type="number" id="vBeam" placeholder="32.2" step="0.1" min="1">
+        </div>
+        <div class="form-group">
+          <label>Max Draft (m)</label>
+          <input type="number" id="vDraft" placeholder="14.5" step="0.1" min="0.1">
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="button" class="btn btn-ghost" onclick="closeAddModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="submitBtn">Save Vessel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ── CSV Import Modal ────────────────────────────────────────────────────── -->
+<div class="modal-overlay" id="importModal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">Bulk Import Vessels</span>
+      <button class="modal-close" onclick="closeImportModal()">✕</button>
+    </div>
+    <p style="color:var(--light-gray);font-size:0.9rem;margin-bottom:1rem;">Upload a CSV file with columns: <code style="color:var(--teal);">IMO, Name, Flag, Type</code>. First row is treated as header and skipped.</p>
+    <div class="csv-drop-zone" id="csvDrop" onclick="document.getElementById('csvInput').click()" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragleave="this.classList.remove('drag')">
+      <div class="drop-icon">📂</div>
+      <p><strong>Click to browse</strong> or drag &amp; drop your CSV file here</p>
+      <p style="font-size:0.8rem;margin-top:0.25rem;">Supports up to 500 vessels</p>
+    </div>
+    <input type="file" id="csvInput" accept=".csv,text/csv" onchange="handleFileSelect(this.files[0])">
+    <div class="import-preview" id="importPreview" style="display:none;">
+      <p style="color:var(--light-gray);font-size:0.85rem;margin-bottom:0.5rem;" id="previewCount"></p>
+      <div style="max-height:200px;overflow-y:auto;border-radius:8px;border:1px solid rgba(136,153,170,0.1);">
+        <table style="width:100%;border-collapse:collapse;font-size:0.82rem;">
+          <thead><tr id="previewHeader"></tr></thead>
+          <tbody id="previewBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="error-msg" id="importError"></div>
+    <div class="form-actions">
+      <button class="btn btn-ghost" onclick="closeImportModal()">Cancel</button>
+      <button class="btn btn-primary" id="importBtn" style="display:none;" onclick="submitImport()">Import Vessels</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── State ─────────────────────────────────────────────────────────────────────
+let vessels     = [];
+let editingId   = null;
+let importData  = [];
+
+const WATERWAYS = ['panama','suez','bosporus','malacca','cape'];
+const WW_LABEL  = { panama:'PAN', suez:'SUE', bosporus:'BOS', malacca:'MAL', cape:'CPH' };
+
+// ── Auth check ────────────────────────────────────────────────────────────────
+(async function init() {
+  try {
+    const r = await fetch('/api/me');
+    if (!r.ok) { window.location.href = '/login'; return; }
+    const data = await r.json();
+    if (data.user?.is_admin) {
+      document.getElementById('admin-nav-link').style.display = '';
+    }
+    await loadVessels();
+  } catch { window.location.href = '/login'; }
+})();
+
+function logout() {
+  fetch('/api/logout', { method: 'POST' })
+    .finally(() => { window.location.href = '/login'; });
+}
+
+// ── Load fleet ────────────────────────────────────────────────────────────────
+async function loadVessels() {
+  try {
+    const r    = await fetch('/api/vessels');
+    const data = await r.json();
+    if (!data.success) throw new Error(data.message);
+    vessels = data.vessels || [];
+    renderVessels(vessels);
+  } catch (err) {
+    document.getElementById('loadingState').innerHTML = `<p style="color:var(--red)">Failed to load fleet: ${err.message}</p>`;
+  }
+}
+
+function renderVessels(list) {
+  const loading = document.getElementById('loadingState');
+  const empty   = document.getElementById('emptyState');
+  const table   = document.getElementById('tableState');
+  const stats   = document.getElementById('statsBar');
+
+  loading.style.display = 'none';
+
+  if (list.length === 0 && vessels.length === 0) {
+    empty.style.display = '';
+    table.style.display = 'none';
+    stats.style.display = 'none';
+    return;
+  }
+
+  empty.style.display = 'none';
+  table.style.display = '';
+  stats.style.display = '';
+
+  // Stats from all vessels (not filtered)
+  const allStatuses = vessels.flatMap(v => Object.values(v.compliance || {}).map(c => c.status));
+  document.getElementById('statTotal').textContent = vessels.length;
+  document.getElementById('statGreen').textContent  = allStatuses.filter(s => s === 'green').length;
+  document.getElementById('statYellow').textContent = allStatuses.filter(s => s === 'yellow').length;
+  document.getElementById('statRed').textContent    = allStatuses.filter(s => s === 'red').length;
+
+  const tbody = document.getElementById('vesselTbody');
+  tbody.innerHTML = list.map(v => {
+    const comp = v.compliance || {};
+    const badges = WATERWAYS.map(w => {
+      const c = comp[w] || {};
+      const cls = c.status || 'unknown';
+      return `<span class="wb ${cls}"><span class="wb-dot"></span>${WW_LABEL[w]}</span>`;
+    }).join('');
+
+    const imoDisplay = v.imo ? `<div class="vessel-imo">IMO ${v.imo}</div>` : `<div class="vessel-imo" style="color:rgba(107,124,147,0.5)">No IMO</div>`;
+    const sample = v.is_sample ? `<span class="sample-tag">DEMO</span>` : '';
+    const gt  = v.gt  ? Number(v.gt).toLocaleString() : '—';
+    const loa = v.loa ? `${v.loa}m` : '—';
+    const draft = v.max_draft ? `${v.max_draft}m` : '—';
+
+    return `<tr onclick="goToDetail(${v.id})" data-id="${v.id}" data-name="${(v.name||'').toLowerCase()}" data-imo="${(v.imo||'').toLowerCase()}">
+      <td>
+        <div class="vessel-name-cell">
+          <div class="vessel-name">${escHtml(v.name)}${sample}</div>
+          ${imoDisplay}
+        </div>
+      </td>
+      <td style="font-family:monospace;font-size:0.85rem;">${v.imo || '—'}</td>
+      <td><div class="vessel-flag-type">${v.flag || '—'} ${v.flag && v.type ? '·' : ''} ${v.type || ''}</div></td>
+      <td style="color:var(--light-gray);">${gt}</td>
+      <td style="color:var(--light-gray);">${loa} / ${draft}</td>
+      <td><div class="waterway-badges">${badges}</div></td>
+      <td onclick="event.stopPropagation()">
+        <div class="row-actions">
+          <button class="icon-btn" title="Edit" onclick="openEditModal(${v.id})">✏️</button>
+          <a class="icon-btn" href="/app/fleet/${v.id}" title="Detail" style="text-decoration:none;">🔍</a>
+          <button class="icon-btn danger" title="Delete" onclick="deleteVessel(${v.id}, '${escHtml(v.name)}')">🗑</button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function filterTable(q) {
+  const query = q.trim().toLowerCase();
+  if (!query) { renderVessels(vessels); return; }
+  const filtered = vessels.filter(v =>
+    (v.name || '').toLowerCase().includes(query) ||
+    (v.imo  || '').toLowerCase().includes(query) ||
+    (v.flag || '').toLowerCase().includes(query)
+  );
+  renderVessels(filtered);
+}
+
+function goToDetail(id) {
+  window.location.href = `/app/fleet/${id}`;
+}
+
+// ── Add / Edit Modal ──────────────────────────────────────────────────────────
+function openAddModal() {
+  editingId = null;
+  document.getElementById('modalTitle').textContent = 'Add Vessel';
+  document.getElementById('addForm').reset();
+  clearError('addError');
+  document.getElementById('addModal').classList.add('open');
+}
+
+function openEditModal(id) {
+  const v = vessels.find(x => x.id === id);
+  if (!v) return;
+  editingId = id;
+  document.getElementById('modalTitle').textContent = 'Edit Vessel';
+  document.getElementById('vName').value  = v.name  || '';
+  document.getElementById('vImo').value   = v.imo   || '';
+  document.getElementById('vFlag').value  = v.flag  || '';
+  document.getElementById('vType').value  = v.type  || '';
+  document.getElementById('vClass').value = v.class_society || '';
+  document.getElementById('vGt').value    = v.gt    || '';
+  document.getElementById('vNt').value    = v.nt    || '';
+  document.getElementById('vLoa').value   = v.loa   || '';
+  document.getElementById('vBeam').value  = v.beam  || '';
+  document.getElementById('vDraft').value = v.max_draft || '';
+  clearError('addError');
+  document.getElementById('addModal').classList.add('open');
+}
+
+function closeAddModal() {
+  document.getElementById('addModal').classList.remove('open');
+}
+
+async function submitVessel(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.innerHTML = `<span class="spinner"></span> Saving…`;
+  clearError('addError');
+
+  const body = {
+    name:         document.getElementById('vName').value.trim(),
+    imo:          document.getElementById('vImo').value.trim(),
+    flag:         document.getElementById('vFlag').value.trim(),
+    type:         document.getElementById('vType').value,
+    class_society:document.getElementById('vClass').value.trim(),
+    gt:           document.getElementById('vGt').value,
+    nt:           document.getElementById('vNt').value,
+    loa:          document.getElementById('vLoa').value,
+    beam:         document.getElementById('vBeam').value,
+    max_draft:    document.getElementById('vDraft').value,
+  };
+
+  const url    = editingId ? `/api/vessels/${editingId}` : '/api/vessels';
+  const method = editingId ? 'PUT' : 'POST';
+
+  try {
+    const r    = await fetch(url, { method, headers: { 'Content-Type':'application/json' }, body: JSON.stringify(body) });
+    const data = await r.json();
+    if (!data.success) { showError('addError', data.message); return; }
+    closeAddModal();
+    showToast(editingId ? 'Vessel updated' : 'Vessel added', 'success');
+    await loadVessels();
+  } catch (err) {
+    showError('addError', err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Save Vessel';
+  }
+}
+
+// ── Delete ────────────────────────────────────────────────────────────────────
+async function deleteVessel(id, name) {
+  if (!confirm(`Remove "${name}" from fleet? This cannot be undone.`)) return;
+  try {
+    const r    = await fetch(`/api/vessels/${id}`, { method: 'DELETE' });
+    const data = await r.json();
+    if (!data.success) throw new Error(data.message);
+    showToast(`${name} removed`, 'success');
+    await loadVessels();
+  } catch (err) {
+    showToast(err.message, 'error');
+  }
+}
+
+// ── CSV Import ────────────────────────────────────────────────────────────────
+function openImportModal() {
+  importData = [];
+  document.getElementById('importModal').classList.add('open');
+  document.getElementById('importPreview').style.display = 'none';
+  document.getElementById('importBtn').style.display = 'none';
+  document.getElementById('csvInput').value = '';
+  clearError('importError');
+}
+function closeImportModal() {
+  document.getElementById('importModal').classList.remove('open');
+}
+
+function handleDragOver(e) {
+  e.preventDefault();
+  document.getElementById('csvDrop').classList.add('drag');
+}
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('csvDrop').classList.remove('drag');
+  const file = e.dataTransfer.files[0];
+  if (file) handleFileSelect(file);
+}
+
+function handleFileSelect(file) {
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const text = e.target.result;
+    parseCSV(text);
+  };
+  reader.readAsText(file);
+}
+
+function parseCSV(text) {
+  const lines = text.trim().split(/\r?\n/).filter(Boolean);
+  if (lines.length < 2) { showError('importError', 'CSV must have at least a header row and one data row'); return; }
+
+  // Skip header row
+  const dataLines = lines.slice(1);
+  importData = dataLines.map(line => {
+    const cols = line.split(',').map(c => c.trim().replace(/^"|"$/g, ''));
+    return { imo: cols[0] || '', name: cols[1] || '', flag: cols[2] || '', type: cols[3] || '' };
+  }).filter(v => v.name);
+
+  if (importData.length === 0) { showError('importError', 'No valid vessel rows found in CSV'); return; }
+  clearError('importError');
+
+  // Preview
+  document.getElementById('previewCount').textContent = `${importData.length} vessels ready to import`;
+  document.getElementById('previewHeader').innerHTML = '<th style="padding:0.5rem;color:var(--gray);">IMO</th><th style="padding:0.5rem;color:var(--gray);">Name</th><th style="padding:0.5rem;color:var(--gray);">Flag</th><th style="padding:0.5rem;color:var(--gray);">Type</th>';
+  document.getElementById('previewBody').innerHTML = importData.slice(0, 10).map(v =>
+    `<tr><td style="padding:0.4rem 0.5rem;">${v.imo||'—'}</td><td style="padding:0.4rem 0.5rem;">${escHtml(v.name)}</td><td style="padding:0.4rem 0.5rem;">${v.flag||'—'}</td><td style="padding:0.4rem 0.5rem;">${v.type||'—'}</td></tr>`
+  ).join('') + (importData.length > 10 ? `<tr><td colspan="4" style="padding:0.4rem 0.5rem;color:var(--gray);font-style:italic;">…and ${importData.length - 10} more</td></tr>` : '');
+
+  document.getElementById('importPreview').style.display = '';
+  document.getElementById('importBtn').style.display = '';
+}
+
+async function submitImport() {
+  const btn = document.getElementById('importBtn');
+  btn.disabled = true;
+  btn.innerHTML = `<span class="spinner"></span> Importing…`;
+  clearError('importError');
+
+  try {
+    const r    = await fetch('/api/vessels/bulk-import', { method: 'POST', headers: { 'Content-Type':'application/json' }, body: JSON.stringify({ vessels: importData }) });
+    const data = await r.json();
+    if (!data.success) throw new Error(data.message);
+    closeImportModal();
+    showToast(`Imported ${data.imported} vessels${data.skipped ? `, skipped ${data.skipped}` : ''}`, 'success');
+    await loadVessels();
+  } catch (err) {
+    showError('importError', err.message);
+    btn.disabled = false;
+    btn.textContent = 'Import Vessels';
+  }
+}
+
+// ── Utilities ─────────────────────────────────────────────────────────────────
+function escHtml(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function showError(id, msg) {
+  const el = document.getElementById(id);
+  el.textContent = msg;
+  el.classList.add('visible');
+}
+function clearError(id) {
+  const el = document.getElementById(id);
+  el.textContent = '';
+  el.classList.remove('visible');
+}
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast ${type}`;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+// Close modals on overlay click
+document.querySelectorAll('.modal-overlay').forEach(el => {
+  el.addEventListener('click', e => { if (e.target === el) el.classList.remove('open'); });
+});
+</script>
+</body>
+</html>

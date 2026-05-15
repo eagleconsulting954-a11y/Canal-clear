@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How CanalClear Works | Panama Canal Compliance</title>
+    <meta name="description" content="Upload your docs, let AI validate compliance, and submit in one click. CanalClear automates VUMPA filings in under 60 seconds.">
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Meta Pixel -->
+    <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '972550615207303');
+    fbq('track', 'PageView');
+    fbq('trackCustom', 'funnel_step_2_view');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=972550615207303&ev=PageView&noscript=1"/></noscript>
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --navy: #1a2d4a; --deep: #142238; --slate: #243350;
+            --teal: #E85A00; --teal-dim: rgba(232, 90, 0, 0.12);
+            --white: #ffffff; --gray: #6b7c93; --light: #8fa3b8;
+            --red: #FF6B6B; --yellow: #FFD93D; --gold: #F59E0B;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'IBM Plex Sans', sans-serif; background: var(--navy); color: var(--white); min-height: 100vh; }
+
+        /* NAV */
+        .funnel-nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1rem 2rem; background: rgba(10,22,40,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(232, 90, 0,0.08); display: flex; align-items: center; justify-content: space-between; }
+        .logo { display: flex; align-items: center; text-decoration: none; }
+        .logo-text { font-family: 'IBM Plex Sans', sans-serif; font-size: 1.15rem; font-weight: 700; color: var(--white); }
+        .logo-dot { color: var(--teal); }
+        .nav-exit { color: var(--gray); text-decoration: none; font-size: 0.85rem; padding: 0.4rem 0.75rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.08); transition: all 0.2s; }
+        .nav-exit:hover { color: var(--white); border-color: rgba(255,255,255,0.2); }
+
+        /* PROGRESS */
+        .progress-bar { position: fixed; top: 62px; left: 0; right: 0; z-index: 99; background: rgba(10,22,40,0.95); border-bottom: 1px solid rgba(255,255,255,0.04); padding: 0.6rem 2rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+        .step-dot { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; transition: all 0.3s; }
+        .step-dot.active { background: var(--teal); color: var(--navy); }
+        .step-dot.done { background: rgba(232, 90, 0,0.25); color: var(--teal); }
+        .step-dot.future { background: rgba(255,255,255,0.06); color: var(--gray); }
+        .step-line { flex: 1; max-width: 60px; height: 2px; border-radius: 1px; }
+        .step-line.done { background: var(--teal); }
+        .step-line.future { background: rgba(255,255,255,0.08); }
+
+        /* MAIN */
+        main { max-width: 900px; margin: 0 auto; padding: 9rem 1.5rem 5rem; }
+
+        /* LANG */
+        .lang-switcher { display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 3rem; }
+        .lang-btn { background: none; border: 1px solid rgba(255,255,255,0.1); color: var(--gray); font-size: 0.8rem; padding: 0.3rem 0.7rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; font-family: 'IBM Plex Sans', sans-serif; }
+        .lang-btn:hover, .lang-btn.active { border-color: var(--teal); color: var(--teal); }
+
+        /* HERO */
+        .hero { text-align: center; margin-bottom: 4rem; }
+        .hero-tag { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--teal-dim); border: 1px solid rgba(232, 90, 0,0.25); color: var(--teal); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; padding: 0.35rem 1rem; border-radius: 100px; margin-bottom: 1.5rem; }
+        .hero h1 { font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(1.9rem, 4.5vw, 3rem); font-weight: 700; line-height: 1.2; margin-bottom: 1rem; }
+        .hero h1 em { font-style: normal; color: var(--teal); }
+        .hero-sub { font-size: 1.05rem; color: var(--gray); max-width: 520px; margin: 0 auto; line-height: 1.6; }
+
+        /* 3-STEP FLOW */
+        .steps-section { margin-bottom: 4rem; }
+        .section-eyebrow { display: flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--teal); margin-bottom: 1rem; }
+        .section-eyebrow::before { content: ''; display: block; width: 24px; height: 2px; background: var(--teal); border-radius: 2px; }
+        .steps-section h2 { font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 700; margin-bottom: 2.5rem; }
+        .steps-flow { display: flex; flex-direction: column; gap: 0; }
+        .step-item {
+            display: flex; gap: 2rem; align-items: flex-start;
+            padding: 2rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+        }
+        .step-item:last-child { border-bottom: none; }
+        .step-number {
+            flex-shrink: 0; width: 52px; height: 52px; border-radius: 50%;
+            background: var(--teal-dim); border: 2px solid rgba(232, 90, 0,0.3);
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'IBM Plex Sans', sans-serif; font-size: 1.1rem; font-weight: 700;
+            color: var(--teal);
+        }
+        .step-content { flex: 1; }
+        .step-content h3 { font-family: 'IBM Plex Sans', sans-serif; font-size: 1.15rem; font-weight: 700; margin-bottom: 0.6rem; }
+        .step-content p { font-size: 0.9rem; color: var(--gray); line-height: 1.6; margin-bottom: 0.75rem; }
+        .step-features { list-style: none; }
+        .step-features li { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.85rem; color: var(--light); margin-bottom: 0.4rem; }
+        .step-features li::before { content: '✓'; color: var(--teal); font-weight: 700; flex-shrink: 0; margin-top: 0.05rem; }
+        .step-visual {
+            flex-shrink: 0; width: 160px; height: 100px;
+            background: var(--deep); border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 12px; display: flex; align-items: center; justify-content: center;
+            font-size: 2.5rem;
+        }
+        @media (max-width: 640px) { .step-visual { display: none; } .step-item { gap: 1.25rem; } }
+
+        /* FEATURE HIGHLIGHTS */
+        .features-section { margin-bottom: 4rem; }
+        .features-section h2 { font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(1.4rem, 3vw, 1.8rem); font-weight: 700; margin-bottom: 1.5rem; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+        .feature-card { background: var(--deep); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 1.25rem; transition: border-color 0.2s; }
+        .feature-card:hover { border-color: rgba(232, 90, 0,0.2); }
+        .feature-card .icon { font-size: 1.5rem; margin-bottom: 0.6rem; }
+        .feature-card h4 { font-family: 'IBM Plex Sans', sans-serif; font-size: 0.95rem; font-weight: 600; margin-bottom: 0.35rem; }
+        .feature-card p { font-size: 0.82rem; color: var(--gray); line-height: 1.5; }
+
+        /* VIDEO/ANIMATED DEMO PLACEHOLDER */
+        .demo-section { margin-bottom: 4rem; }
+        .demo-section h2 { font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(1.4rem, 3vw, 1.8rem); font-weight: 700; margin-bottom: 1rem; }
+        .demo-walkthrough {
+            background: var(--deep); border: 1px solid rgba(232, 90, 0,0.15);
+            border-radius: 16px; padding: 2rem; position: relative; overflow: hidden;
+        }
+        .demo-screen {
+            background: rgba(10,22,40,0.8); border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px; padding: 1.5rem; margin-bottom: 1rem;
+            font-family: 'IBM Plex Sans', sans-serif; font-size: 0.85rem; color: var(--light);
+        }
+        .demo-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem; }
+        .demo-label { font-size: 0.78rem; color: var(--gray); min-width: 140px; }
+        .demo-value { color: var(--white); font-weight: 500; }
+        .demo-check { color: var(--teal); font-weight: 700; }
+        .demo-warn { color: var(--yellow); font-weight: 700; }
+        .demo-badge { display: inline-flex; align-items: center; gap: 0.35rem; background: rgba(232, 90, 0,0.12); border: 1px solid rgba(232, 90, 0,0.25); color: var(--teal); font-size: 0.75rem; font-weight: 600; padding: 0.2rem 0.6rem; border-radius: 6px; }
+        .demo-caption { font-size: 0.82rem; color: var(--gray); text-align: center; }
+        .demo-tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+        .demo-tab { padding: 0.4rem 0.9rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600; cursor: pointer; border: none; font-family: 'IBM Plex Sans', sans-serif; transition: all 0.2s; }
+        .demo-tab.active { background: var(--teal); color: var(--navy); }
+        .demo-tab.inactive { background: rgba(255,255,255,0.06); color: var(--gray); }
+
+        /* CTA */
+        .cta-block { text-align: center; }
+        .cta-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--teal); color: var(--navy); padding: 1rem 2.5rem; border-radius: 12px; text-decoration: none; font-size: 1.05rem; font-weight: 700; transition: all 0.2s; box-shadow: 0 0 30px rgba(232, 90, 0,0.25); }
+        .cta-btn:hover { background: #FF8533; transform: translateY(-2px); box-shadow: 0 0 40px rgba(232, 90, 0,0.35); }
+        .cta-sub { margin-top: 0.75rem; font-size: 0.82rem; color: var(--gray); }
+        .cta-back { display: block; margin-top: 1rem; font-size: 0.82rem; color: var(--gray); text-decoration: none; }
+        .cta-back:hover { color: var(--teal); }
+
+        /* FOOTER */
+        .funnel-footer { text-align: center; padding: 2rem; color: var(--gray); font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 4rem; }
+        .funnel-footer a { color: var(--teal); text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .funnel-nav { padding: 0.85rem 1.25rem; }
+            .progress-bar { padding: 0.6rem 1.25rem; }
+            main { padding: 8.5rem 1.25rem 4rem; }
+        }
+    </style>
+    <link rel="stylesheet" href="/css/mobile.css">
+</head>
+<body>
+
+    <nav class="funnel-nav">
+        <a href="/" class="logo"><span class="logo-text">Canal<span class="logo-dot">Clear</span></span></a>
+        <a href="/" class="nav-exit">✕ Exit</a>
+    </nav>
+
+    <div class="progress-bar">
+        <div class="step-dot done" title="Step 1">✓</div>
+        <div class="step-line done"></div>
+        <div class="step-dot active" title="Step 2">2</div>
+        <div class="step-line future"></div>
+        <div class="step-dot future" title="Step 3">3</div>
+        <div class="step-line future"></div>
+        <div class="step-dot future" title="Step 4">4</div>
+        <span style="margin-left:0.75rem;font-size:0.72rem;color:var(--gray);" id="step-label">Step 2 of 4</span>
+    </div>
+
+    <main>
+
+        <div class="lang-switcher">
+            <button class="lang-btn active" onclick="setLang('en')">EN</button>
+            <button class="lang-btn" onclick="setLang('es')">ES</button>
+            <button class="lang-btn" onclick="setLang('zh')">中文</button>
+            <button class="lang-btn" onclick="setLang('el')">ΕΛ</button>
+            <button class="lang-btn" onclick="setLang('ja')">日本語</button>
+        </div>
+
+        <!-- HERO -->
+        <div class="hero">
+            <div class="hero-tag" id="t-hero-tag">✦ How It Works</div>
+            <h1 id="t-hero-h1">From <em>Documents to Compliance</em><br>in Under 60 Seconds</h1>
+            <p class="hero-sub" id="t-hero-sub">CanalClear replaces 72 hours of manual filing with an AI-powered 3-step workflow. Upload once, validate instantly, submit directly.</p>
+        </div>
+
+        <!-- 3-STEP FLOW -->
+        <div class="steps-section">
+            <div class="section-eyebrow" id="t-steps-eyebrow">The Process</div>
+            <h2 id="t-steps-h2">Three steps. Zero filing errors.</h2>
+            <div class="steps-flow">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 id="t-step1-h3">Upload Your Documents</h3>
+                        <p id="t-step1-p">Drag and drop your vessel documents — crew manifests, cargo declarations, equipment certificates, PCSOPEP files. CanalClear's AI extracts and structures the data automatically. Supports PDF, Word, and image formats.</p>
+                        <ul class="step-features">
+                            <li id="t-step1-f1">AI reads handwritten and scanned documents</li>
+                            <li id="t-step1-f2">Auto-extracts crew names, IMO numbers, cert dates</li>
+                            <li id="t-step1-f3">Supports 5 languages — EN, ES, ZH, EL, JA</li>
+                        </ul>
+                    </div>
+                    <div class="step-visual">📂</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 id="t-step2-h3">AI Validates Against ACP Requirements</h3>
+                        <p id="t-step2-p">The compliance engine runs the 23-point validation engine against your filing package in real time. Every error is flagged with the exact requirement it violates, the fix required, and the regulatory reference. No guessing.</p>
+                        <ul class="step-features">
+                            <li id="t-step2-f1">Checks all 3 government agency requirements simultaneously</li>
+                            <li id="t-step2-f2">Catches 94% of errors before you submit</li>
+                            <li id="t-step2-f3">Instant fix suggestions with regulatory citations</li>
+                        </ul>
+                    </div>
+                    <div class="step-visual">🤖</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 id="t-step3-h3">One-Click Submit & Download</h3>
+                        <p id="t-step3-p">Once validated, submit your VUMPA package directly or export audit-ready PDFs. Your filing history is stored, certificates are tracked, and you receive alerts before any documentation expires.</p>
+                        <ul class="step-features">
+                            <li id="t-step3-f1">Direct ACP portal submission (Pro+ plans)</li>
+                            <li id="t-step3-f2">Audit-ready PDF export for every filing</li>
+                            <li id="t-step3-f3">Certificate expiry alerts — never miss a renewal</li>
+                        </ul>
+                    </div>
+                    <div class="step-visual">✅</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DEMO WALKTHROUGH -->
+        <div class="demo-section">
+            <div class="section-eyebrow" id="t-demo-eyebrow">Live Example</div>
+            <h2 id="t-demo-h2">What a Real Validation Looks Like</h2>
+            <div class="demo-walkthrough">
+                <div class="demo-tabs">
+                    <button class="demo-tab active" id="tab-validation" onclick="showTab('validation')">Validation Report</button>
+                    <button class="demo-tab inactive" id="tab-fleet" onclick="showTab('fleet')">Fleet Dashboard</button>
+                </div>
+                <div id="panel-validation" class="demo-screen">
+                    <div style="margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+                        <div style="font-weight:700;font-size:1rem;">MV Ocean Pioneer — VUMPA Validation</div>
+                        <div class="demo-badge">✓ 38 of 40 items passed</div>
+                    </div>
+                    <div class="demo-row"><span class="demo-label">Crew manifest</span><span class="demo-check">✓ Complete</span></div>
+                    <div class="demo-row"><span class="demo-label">Cargo declaration</span><span class="demo-check">✓ ACP-validated</span></div>
+                    <div class="demo-row"><span class="demo-label">PCSOPEP cert</span><span class="demo-warn">⚠ Expires in 12 days</span></div>
+                    <div class="demo-row"><span class="demo-label">Equipment certs</span><span class="demo-check">✓ 8/8 current</span></div>
+                    <div class="demo-row"><span class="demo-label">Hazmat declaration</span><span class="demo-check">✓ No restrictions</span></div>
+                    <div class="demo-row"><span class="demo-label">ACP fee payment</span><span class="demo-check">✓ Confirmed</span></div>
+                    <div style="margin-top:0.75rem;padding:0.75rem;background:rgba(255,217,61,0.07);border:1px solid rgba(255,217,61,0.2);border-radius:8px;font-size:0.82rem;color:var(--yellow);">
+                        ⚠ Action required: PCSOPEP certificate renews on May 1, 2026. Renew before transit to avoid slot rejection.
+                    </div>
+                </div>
+                <div id="panel-fleet" class="demo-screen" style="display:none;">
+                    <div style="margin-bottom:1rem;font-weight:700;font-size:1rem;">Fleet Overview — 5 vessels</div>
+                    <div class="demo-row"><span class="demo-label">MV Ocean Pioneer</span><span class="demo-badge">Transit ready</span></div>
+                    <div class="demo-row"><span class="demo-label">MV Arctic Star</span><span class="demo-badge" style="background:rgba(255,107,107,0.1);border-color:rgba(255,107,107,0.25);color:var(--red);">Action required</span></div>
+                    <div class="demo-row"><span class="demo-label">MV Pacific Crown</span><span class="demo-badge">Transit ready</span></div>
+                    <div class="demo-row"><span class="demo-label">MV Blue Horizon</span><span class="demo-badge" style="background:rgba(255,217,61,0.1);border-color:rgba(255,217,61,0.2);color:var(--yellow);">Cert expiry in 30d</span></div>
+                    <div class="demo-row"><span class="demo-label">MV Eastern Jade</span><span class="demo-badge">Transit ready</span></div>
+                </div>
+                <p class="demo-caption" id="t-demo-caption">Actual CanalClear validation output — 60 seconds to complete, not 72 hours</p>
+            </div>
+        </div>
+
+        <!-- FEATURE HIGHLIGHTS -->
+        <div class="features-section">
+            <div class="section-eyebrow" id="t-features-eyebrow">Features</div>
+            <h2 id="t-features-h2">Built for maritime professionals.</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="icon">🌐</div>
+                    <h4 id="t-f1-h4">5-Language Support</h4>
+                    <p id="t-f1-p">Full interface and document processing in English, Spanish, Chinese, Greek, and Japanese.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🚢</div>
+                    <h4 id="t-f2-h4">Fleet Dashboard</h4>
+                    <p id="t-f2-p">Manage compliance status for every vessel in one unified view. Pro plan supports up to 5 vessels.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🔔</div>
+                    <h4 id="t-f3-h4">Certificate Alerts</h4>
+                    <p id="t-f3-p">Automatic notifications 30, 14, and 7 days before any certificate expires. Never miss a renewal.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">📊</div>
+                    <h4 id="t-f4-h4">Audit-Ready PDFs</h4>
+                    <p id="t-f4-p">Every filing generates a timestamped compliance report exportable as PDF for port authority audits.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🔒</div>
+                    <h4 id="t-f5-h4">AES-256 Encryption</h4>
+                    <p id="t-f5-p">All vessel data and filing documents encrypted in transit and at rest. Your data stays yours.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">⚡</div>
+                    <h4 id="t-f6-h4">Instant Access</h4>
+                    <p id="t-f6-p">No waiting, no onboarding call. Pay and start validating filings within 5 minutes.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-block">
+            <a href="/funnel/roi" class="cta-btn" onclick="trackCta()">
+                <span id="t-cta-text">See Your Potential Savings</span>
+                <span>→</span>
+            </a>
+            <p class="cta-sub" id="t-cta-sub">Takes 30 seconds — enter your transit volume</p>
+            <a href="/funnel" class="cta-back" id="t-cta-back">← Back to overview</a>
+        </div>
+
+    </main>
+
+    <div class="funnel-footer">
+        <p>&copy; 2026 CanalClear · <a href="/">Home</a> · <a href="/pricing">Pricing</a> · <a href="mailto:support@canalclear.org">support@canalclear.org</a></p>
+    </div>
+
+    <script>
+    // ── Canal param forwarding ───────────────────────────────────────────────
+    (function() {
+        var canal = new URLSearchParams(window.location.search).get('canal');
+        if (canal === 'suez' || canal === 'panama' || canal === 'both') {
+            var fwd = document.querySelector('a[href="/funnel/roi"]');
+            if (fwd) fwd.href = '/funnel/roi?canal=' + canal;
+            var back = document.querySelector('a[href="/funnel"]');
+            if (back) back.href = '/funnel?canal=' + canal;
+        }
+    })();
+
+    function trackCta() { if (typeof fbq !== 'undefined') fbq('trackCustom', 'funnel_cta_click', { step: 2 }); }
+
+    function showTab(tab) {
+        document.getElementById('panel-validation').style.display = tab === 'validation' ? 'block' : 'none';
+        document.getElementById('panel-fleet').style.display = tab === 'fleet' ? 'block' : 'none';
+        document.getElementById('tab-validation').className = 'demo-tab ' + (tab === 'validation' ? 'active' : 'inactive');
+        document.getElementById('tab-fleet').className = 'demo-tab ' + (tab === 'fleet' ? 'active' : 'inactive');
+    }
+
+    var T = {
+        en: {
+            'hero-tag': '✦ How It Works',
+            'hero-h1': 'From <em>Documents to Compliance</em><br>in Under 60 Seconds',
+            'hero-sub': 'CanalClear replaces 72 hours of manual filing with an AI-powered 3-step workflow. Upload once, validate instantly, submit directly.',
+            'steps-eyebrow': 'The Process', 'steps-h2': 'Three steps. Zero filing errors.',
+            'step1-h3': 'Upload Your Documents',
+            'step1-p': "Drag and drop your vessel documents — crew manifests, cargo declarations, equipment certificates, PCSOPEP files. CanalClear's AI extracts and structures the data automatically. Supports PDF, Word, and image formats.",
+            'step1-f1': 'AI reads handwritten and scanned documents', 'step1-f2': 'Auto-extracts crew names, IMO numbers, cert dates', 'step1-f3': 'Supports 5 languages — EN, ES, ZH, EL, JA',
+            'step2-h3': 'AI Validates Against ACP Requirements',
+            'step2-p': 'The compliance engine runs the 23-point validation engine against your filing package in real time. Every error is flagged with the exact requirement it violates, the fix required, and the regulatory reference.',
+            'step2-f1': 'Checks all 3 government agency requirements simultaneously', 'step2-f2': 'Catches 94% of errors before you submit', 'step2-f3': 'Instant fix suggestions with regulatory citations',
+            'step3-h3': 'One-Click Submit & Download',
+            'step3-p': 'Once validated, submit your VUMPA package directly or export audit-ready PDFs. Your filing history is stored, certificates are tracked, and you receive alerts before any documentation expires.',
+            'step3-f1': 'Direct ACP portal submission (Pro+ plans)', 'step3-f2': 'Audit-ready PDF export for every filing', 'step3-f3': 'Certificate expiry alerts — never miss a renewal',
+            'demo-eyebrow': 'Live Example', 'demo-h2': 'What a Real Validation Looks Like',
+            'demo-caption': 'Actual CanalClear validation output — 60 seconds to complete, not 72 hours',
+            'features-eyebrow': 'Features', 'features-h2': 'Built for maritime professionals.',
+            'f1-h4': '5-Language Support', 'f1-p': 'Full interface and document processing in English, Spanish, Chinese, Greek, and Japanese.',
+            'f2-h4': 'Fleet Dashboard', 'f2-p': 'Manage compliance status for every vessel in one unified view. Pro plan supports up to 5 vessels.',
+            'f3-h4': 'Certificate Alerts', 'f3-p': 'Automatic notifications 30, 14, and 7 days before any certificate expires. Never miss a renewal.',
+            'f4-h4': 'Audit-Ready PDFs', 'f4-p': 'Every filing generates a timestamped compliance report exportable as PDF for port authority audits.',
+            'f5-h4': 'AES-256 Encryption', 'f5-p': 'All vessel data and filing documents encrypted in transit and at rest. Your data stays yours.',
+            'f6-h4': 'Instant Access', 'f6-p': 'No waiting, no onboarding call. Pay and start validating filings within 5 minutes.',
+            'cta-text': 'See Your Potential Savings', 'cta-sub': 'Takes 30 seconds — enter your transit volume',
+            'cta-back': '← Back to overview',
+        },
+        es: {
+            'hero-tag': '✦ Cómo Funciona',
+            'hero-h1': 'De <em>Documentos a Cumplimiento</em><br>en Menos de 60 Segundos',
+            'hero-sub': 'CanalClear reemplaza 72 horas de presentación manual con un flujo de trabajo de 3 pasos impulsado por IA.',
+            'steps-eyebrow': 'El Proceso', 'steps-h2': 'Tres pasos. Cero errores en las presentaciones.',
+            'step1-h3': 'Cargue Sus Documentos',
+            'step1-p': 'Arrastre y suelte los documentos de su buque — manifiestos de tripulación, declaraciones de carga, certificados de equipos, archivos PCSOPEP.',
+            'step1-f1': 'La IA lee documentos escritos a mano y escaneados', 'step1-f2': 'Extrae automáticamente nombres, números IMO, fechas de cert.', 'step1-f3': 'Compatible con 5 idiomas: EN, ES, ZH, EL, JA',
+            'step2-h3': 'IA Valida Contra Requisitos ACP',
+            'step2-p': 'El motor de cumplimiento ejecuta el motor de validación de 23 puntos en tiempo real. Cada error se marca con el requisito exacto que viola.',
+            'step2-f1': 'Verifica los requisitos de las 3 agencias gubernamentales simultáneamente', 'step2-f2': 'Detecta el 94% de los errores antes de enviar', 'step2-f3': 'Sugerencias de corrección instantáneas',
+            'step3-h3': 'Envío y Descarga con Un Solo Clic',
+            'step3-p': 'Una vez validado, envíe su paquete VUMPA directamente o exporte PDFs listos para auditoría.',
+            'step3-f1': 'Envío directo al portal ACP (planes Pro+)', 'step3-f2': 'Exportación de PDF listo para auditoría', 'step3-f3': 'Alertas de vencimiento de certificados',
+            'demo-eyebrow': 'Ejemplo en Vivo', 'demo-h2': 'Cómo se Ve una Validación Real',
+            'demo-caption': 'Salida real de validación de CanalClear — 60 segundos, no 72 horas',
+            'features-eyebrow': 'Características', 'features-h2': 'Construido para profesionales marítimos.',
+            'f1-h4': 'Soporte en 5 Idiomas', 'f1-p': 'Interfaz completa en inglés, español, chino, griego y japonés.',
+            'f2-h4': 'Panel de Flota', 'f2-p': 'Gestione el estado de cumplimiento de todos los buques en una vista unificada.',
+            'f3-h4': 'Alertas de Certificados', 'f3-p': 'Notificaciones automáticas 30, 14 y 7 días antes del vencimiento.',
+            'f4-h4': 'PDFs Listos para Auditoría', 'f4-p': 'Cada presentación genera un informe de cumplimiento con marca de tiempo.',
+            'f5-h4': 'Cifrado AES-256', 'f5-p': 'Todos los datos del buque cifrados en tránsito y en reposo.',
+            'f6-h4': 'Acceso Instantáneo', 'f6-p': 'Sin esperas. Pague y comience a validar en 5 minutos.',
+            'cta-text': 'Ver Sus Ahorros Potenciales', 'cta-sub': 'Solo 30 segundos — ingrese su volumen de tránsitos',
+            'cta-back': '← Volver al resumen',
+        },
+        zh: {
+            'hero-tag': '✦ 工作原理',
+            'hero-h1': '从<em>文件到合规</em><br>不到60秒',
+            'hero-sub': 'CanalClear用AI驱动的3步工作流程替代72小时的手动申报。',
+            'steps-eyebrow': '流程', 'steps-h2': '三个步骤。零申报错误。',
+            'step1-h3': '上传您的文件',
+            'step1-p': '拖放您的船舶文件——乘组名单、货物申报、设备证书、PCSOPEP文件。CanalClear的AI自动提取和整理数据。',
+            'step1-f1': 'AI读取手写和扫描文件', 'step1-f2': '自动提取乘组名称、IMO编号、证书日期', 'step1-f3': '支持5种语言：EN、ES、ZH、EL、JA',
+            'step2-h3': 'AI验证ACP要求',
+            'step2-p': '合规引擎实时运行23点验证引擎。每个错误都标注了违反的确切要求和修复建议。',
+            'step2-f1': '同时检查3个政府机构的要求', 'step2-f2': '在提交前捕获94%的错误', 'step2-f3': '即时修复建议附监管引用',
+            'step3-h3': '一键提交和下载',
+            'step3-p': '验证后，直接提交VUMPA包或导出审计就绪PDF。存储申报历史，跟踪证书，文件到期前收到提醒。',
+            'step3-f1': '直接向ACP门户提交（Pro+方案）', 'step3-f2': '每次申报的审计就绪PDF导出', 'step3-f3': '证书到期提醒',
+            'demo-eyebrow': '实时示例', 'demo-h2': '真实验证看起来是什么样的',
+            'demo-caption': 'CanalClear的实际验证输出——60秒完成，而非72小时',
+            'features-eyebrow': '功能', 'features-h2': '专为海事专业人士打造。',
+            'f1-h4': '5语言支持', 'f1-p': '完整界面和文件处理支持英语、西班牙语、中文、希腊语和日语。',
+            'f2-h4': '船队仪表板', 'f2-p': '在统一视图中管理所有船舶的合规状态。Pro方案支持最多5艘船。',
+            'f3-h4': '证书提醒', 'f3-p': '在任何证书到期前30、14和7天自动通知。',
+            'f4-h4': '审计就绪PDF', 'f4-p': '每次申报生成可导出为PDF的时间戳合规报告。',
+            'f5-h4': 'AES-256加密', 'f5-p': '所有船舶数据和申报文件传输中和静止时均加密。',
+            'f6-h4': '即时访问', 'f6-p': '无需等待。付款后5分钟内开始验证。',
+            'cta-text': '查看您的潜在节省', 'cta-sub': '只需30秒——输入您的过境量',
+            'cta-back': '← 返回概述',
+        },
+        el: {
+            'hero-tag': '✦ Πώς Λειτουργεί',
+            'hero-h1': 'Από <em>Έγγραφα σε Συμμόρφωση</em><br>σε Λιγότερο από 60 Δευτερόλεπτα',
+            'hero-sub': 'Το CanalClear αντικαθιστά 72 ώρες χειροκίνητης υποβολής με ένα 3-βήμα ροή εργασίας AI.',
+            'steps-eyebrow': 'Η Διαδικασία', 'steps-h2': 'Τρία βήματα. Μηδέν σφάλματα υποβολής.',
+            'step1-h3': 'Ανεβάστε τα Έγγραφά Σας',
+            'step1-p': 'Σύρετε και αποθέστε τα έγγραφα του πλοίου σας — καταλόγους πληρώματος, δηλώσεις φορτίου, πιστοποιητικά εξοπλισμού, αρχεία PCSOPEP.',
+            'step1-f1': 'AI διαβάζει χειρόγραφα και σαρωμένα έγγραφα', 'step1-f2': 'Αυτόματη εξαγωγή ονομάτων, αριθμών IMO, ημερομηνιών πιστ.', 'step1-f3': 'Υποστήριξη 5 γλωσσών: EN, ES, ZH, EL, JA',
+            'step2-h3': 'AI Επικυρώνει έναντι Απαιτήσεων ACP',
+            'step2-p': 'Ο μηχανισμός συμμόρφωσης εκτελεί τον μηχανισμό επικύρωσης 23 σημείων σε πραγματικό χρόνο.',
+            'step2-f1': 'Ελέγχει τις απαιτήσεις και των 3 κυβερνητικών υπηρεσιών ταυτόχρονα', 'step2-f2': 'Εντοπίζει το 94% των σφαλμάτων πριν την υποβολή', 'step2-f3': 'Άμεσες προτάσεις διόρθωσης',
+            'step3-h3': 'Υποβολή και Λήψη με Ένα Κλικ',
+            'step3-p': 'Μόλις επικυρωθεί, υποβάλετε το πακέτο VUMPA ή εξαγάγετε PDFs έτοιμα για έλεγχο.',
+            'step3-f1': 'Άμεση υποβολή στη πύλη ACP (σχέδια Pro+)', 'step3-f2': 'Εξαγωγή PDF έτοιμου για έλεγχο', 'step3-f3': 'Ειδοποιήσεις λήξης πιστοποιητικών',
+            'demo-eyebrow': 'Ζωντανό Παράδειγμα', 'demo-h2': 'Πώς Φαίνεται μια Πραγματική Επικύρωση',
+            'demo-caption': 'Πραγματική έξοδος επικύρωσης CanalClear — 60 δευτερόλεπτα, όχι 72 ώρες',
+            'features-eyebrow': 'Χαρακτηριστικά', 'features-h2': 'Κατασκευασμένο για θαλάσσιους επαγγελματίες.',
+            'f1-h4': 'Υποστήριξη 5 Γλωσσών', 'f1-p': 'Πλήρης διεπαφή σε Αγγλικά, Ισπανικά, Κινεζικά, Ελληνικά και Ιαπωνικά.',
+            'f2-h4': 'Πίνακας Στόλου', 'f2-p': 'Διαχειριστείτε την κατάσταση συμμόρφωσης κάθε πλοίου.',
+            'f3-h4': 'Ειδοποιήσεις Πιστοποιητικών', 'f3-p': 'Αυτόματες ειδοποιήσεις 30, 14 και 7 ημέρες πριν τη λήξη.',
+            'f4-h4': 'PDFs Έτοιμα για Έλεγχο', 'f4-p': 'Κάθε υποβολή δημιουργεί έκθεση συμμόρφωσης εξαγώγιμη ως PDF.',
+            'f5-h4': 'Κρυπτογράφηση AES-256', 'f5-p': 'Όλα τα δεδομένα κρυπτογραφημένα σε μεταφορά και ηρεμία.',
+            'f6-h4': 'Άμεση Πρόσβαση', 'f6-p': 'Χωρίς αναμονή. Πληρώστε και ξεκινήστε να επικυρώνετε σε 5 λεπτά.',
+            'cta-text': 'Δείτε τις Δυνατές Οικονομίες Σας', 'cta-sub': 'Μόλις 30 δευτερόλεπτα — εισάγετε τον αριθμό διελεύσεων',
+            'cta-back': '← Πίσω στην επισκόπηση',
+        },
+        ja: {
+            'hero-tag': '✦ 仕組み',
+            'hero-h1': '<em>書類からコンプライアンス</em>まで<br>60秒以内',
+            'hero-sub': 'CanalClearはAIを活用した3ステップのワークフローで、72時間の手動申請に取って代わります。',
+            'steps-eyebrow': 'プロセス', 'steps-h2': '3ステップ。申告エラーゼロ。',
+            'step1-h3': '書類をアップロード',
+            'step1-p': '船舶書類をドラッグ＆ドロップ — 乗組員名簿、貨物申告書、設備証明書、PCSSOPEPファイル。CanalClearのAIが自動的にデータを抽出・整理します。',
+            'step1-f1': 'AIが手書きおよびスキャン文書を読み取り', 'step1-f2': '乗組員名、IMO番号、証明書日付を自動抽出', 'step1-f3': '5言語対応：EN、ES、ZH、EL、JA',
+            'step2-h3': 'AIがACP要件に対して検証',
+            'step2-p': 'コンプライアンスエンジンがリアルタイムで23ポイント検証エンジンを実行。すべてのエラーに違反要件と修正案が表示されます。',
+            'step2-f1': '3つの政府機関の要件を同時チェック', 'step2-f2': '提出前に94%のエラーを検出', 'step2-f3': '規制引用付きの即時修正提案',
+            'step3-h3': 'ワンクリック提出＆ダウンロード',
+            'step3-p': '検証後、VUMPAパッケージを直接提出するか、監査対応PDFをエクスポート。申告履歴が保存され、証明書が追跡されます。',
+            'step3-f1': 'ACPポータルへの直接提出（Pro+プラン）', 'step3-f2': '各申告の監査対応PDFエクスポート', 'step3-f3': '証明書有効期限アラート',
+            'demo-eyebrow': 'ライブ例', 'demo-h2': '実際の検証がどのように見えるか',
+            'demo-caption': 'CanalClearの実際の検証出力 — 60秒で完了、72時間ではなく',
+            'features-eyebrow': '機能', 'features-h2': '海事専門家向けに構築。',
+            'f1-h4': '5言語サポート', 'f1-p': '英語、スペイン語、中国語、ギリシャ語、日本語での完全インターフェースと書類処理。',
+            'f2-h4': '船隊ダッシュボード', 'f2-p': '統一されたビューですべての船舶のコンプライアンス状況を管理。',
+            'f3-h4': '証明書アラート', 'f3-p': '証明書が期限切れになる30、14、7日前に自動通知。',
+            'f4-h4': '監査対応PDF', 'f4-p': '各申告が港湾当局の監査用にPDFとしてエクスポート可能なタイムスタンプ付きレポートを生成。',
+            'f5-h4': 'AES-256暗号化', 'f5-p': 'すべての船舶データと申告書類が転送中および保存時に暗号化。',
+            'f6-h4': '即時アクセス', 'f6-p': '待機不要。支払い後5分以内に検証を開始。',
+            'cta-text': '潜在的な節約額を見る', 'cta-sub': '30秒で完了 — 過境量を入力',
+            'cta-back': '← 概要に戻る',
+        }
+    };
+
+    var lang = (navigator.language || 'en').slice(0, 2);
+    if (!T[lang]) lang = 'en';
+    var IDS = Object.keys(T.en);
+
+    function setLang(l) {
+        if (!T[l]) return;
+        lang = l;
+        IDS.forEach(function(id) {
+            var el = document.getElementById('t-' + id);
+            if (el && T[l][id]) el.innerHTML = T[l][id];
+        });
+        document.querySelectorAll('.lang-btn').forEach(function(b) { b.classList.remove('active'); });
+        event && event.target && event.target.classList.add('active');
+    }
+    setLang(lang);
+
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.lang-btn').forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+        });
+    });
+    </script>
+<script src="/js/whatsapp-button.js"></script>
+</body>
+</html>

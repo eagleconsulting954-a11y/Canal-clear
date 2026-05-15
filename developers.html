@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Developer API — CanalClear TMS Integration</title>
+  <meta name="description" content="Integrate your TMS (Veson, Q88, Dataloy, ShipNet) with CanalClear via REST API or webhook. Push vessel, voyage, and crew data directly into compliance workflows." />
+  <link rel="canonical" href="https://canal-clear.polsia.app/developers" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/nav.css" />
+  <link rel="stylesheet" href="/css/mobile.css" />
+  <style>
+    :root {
+      --navy: #0a1628;
+      --navy-mid: #0f2240;
+      --blue: #1e4da1;
+      --blue-light: #2563eb;
+      --cyan: #06b6d4;
+      --green: #10b981;
+      --amber: #f59e0b;
+      --red: #ef4444;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-400: #94a3b8;
+      --gray-600: #475569;
+      --gray-800: #1e293b;
+      --white: #ffffff;
+      --code-bg: #0f172a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--white);
+      color: var(--gray-800);
+      line-height: 1.6;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #0d2f5a 100%);
+      color: var(--white);
+      padding: 80px 24px 64px;
+      text-align: center;
+    }
+    .hero .badge {
+      display: inline-block;
+      background: rgba(6,182,212,0.15);
+      border: 1px solid rgba(6,182,212,0.3);
+      color: var(--cyan);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 800;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+    .hero p {
+      font-size: 18px;
+      color: rgba(255,255,255,0.75);
+      max-width: 640px;
+      margin: 0 auto 32px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--blue-light);
+      color: var(--white);
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 15px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.4);
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 15px;
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--cyan); background: rgba(6,182,212,0.08); }
+
+    /* Layout */
+    .docs-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      max-width: 1200px;
+      margin: 0 auto;
+      gap: 0;
+    }
+    @media (max-width: 768px) {
+      .docs-layout { grid-template-columns: 1fr; }
+      .docs-nav { display: none; }
+    }
+
+    .docs-nav {
+      position: sticky;
+      top: 24px;
+      height: fit-content;
+      padding: 40px 24px 40px 0;
+      border-right: 1px solid var(--gray-200);
+    }
+    .docs-nav h3 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 8px;
+      margin-top: 20px;
+    }
+    .docs-nav h3:first-child { margin-top: 0; }
+    .docs-nav a {
+      display: block;
+      padding: 5px 0;
+      color: var(--gray-600);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.15s;
+    }
+    .docs-nav a:hover { color: var(--blue-light); }
+
+    .docs-content {
+      padding: 40px 0 80px 48px;
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 60px;
+      scroll-margin-top: 24px;
+    }
+    .section h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--gray-100);
+    }
+    .section h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--gray-800);
+      margin: 32px 0 10px;
+    }
+    .section h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gray-600);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 20px 0 8px;
+    }
+    .section p { color: var(--gray-600); margin-bottom: 12px; }
+
+    /* Endpoint cards */
+    .endpoint {
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .endpoint-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      background: var(--gray-50);
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .method {
+      font-size: 12px;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 5px;
+      letter-spacing: 0.5px;
+      min-width: 52px;
+      text-align: center;
+    }
+    .method.post { background: #dcfce7; color: #166534; }
+    .method.get  { background: #dbeafe; color: #1e40af; }
+    .method.patch { background: #fef3c7; color: #92400e; }
+    .method.delete { background: #fee2e2; color: #991b1b; }
+    .endpoint-path {
+      font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', monospace;
+      font-size: 14px;
+      color: var(--navy);
+      font-weight: 600;
+    }
+    .endpoint-desc {
+      margin-left: auto;
+      font-size: 13px;
+      color: var(--gray-400);
+    }
+    .endpoint-body { padding: 18px; }
+
+    /* Code blocks */
+    .code-tabs { margin-bottom: 0; }
+    .tab-bar {
+      display: flex;
+      gap: 2px;
+      background: #1e293b;
+      padding: 6px 6px 0;
+      border-radius: 8px 8px 0 0;
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 6px 6px 0 0;
+      transition: background 0.15s, color 0.15s;
+    }
+    .tab-btn.active { background: var(--code-bg); color: #e2e8f0; }
+    pre {
+      background: var(--code-bg);
+      color: #e2e8f0;
+      padding: 18px 20px;
+      font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      overflow-x: auto;
+      margin: 0;
+      border-radius: 0 0 8px 8px;
+    }
+    pre.standalone { border-radius: 8px; }
+    .kw  { color: #93c5fd; }   /* keyword */
+    .str { color: #86efac; }   /* string */
+    .num { color: #fca5a5; }   /* number */
+    .cmt { color: #64748b; }   /* comment */
+    .var { color: #fde68a; }   /* variable */
+    .fn  { color: #a5b4fc; }   /* function */
+
+    /* Field table */
+    .field-table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 12px 0 20px; }
+    .field-table th {
+      text-align: left;
+      padding: 8px 12px;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray-600);
+    }
+    .field-table td {
+      padding: 9px 12px;
+      border: 1px solid var(--gray-200);
+      vertical-align: top;
+    }
+    .field-table tr:hover td { background: var(--gray-50); }
+    .field-name { font-family: monospace; font-size: 13px; color: var(--blue); font-weight: 600; }
+    .field-type { color: var(--gray-400); font-size: 12px; }
+    .badge-req {
+      display: inline-block;
+      background: #fee2e2;
+      color: #991b1b;
+      font-size: 10px;
+      padding: 1px 7px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+    .badge-opt {
+      display: inline-block;
+      background: var(--gray-100);
+      color: var(--gray-400);
+      font-size: 10px;
+      padding: 1px 7px;
+      border-radius: 4px;
+    }
+
+    /* Callout */
+    .callout {
+      border-left: 3px solid var(--cyan);
+      background: rgba(6,182,212,0.05);
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+      font-size: 14px;
+      color: var(--gray-600);
+    }
+    .callout.warn { border-color: var(--amber); background: rgba(245,158,11,0.06); }
+    .callout strong { color: var(--gray-800); }
+
+    /* TMS compatibility */
+    .tms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      margin: 16px 0;
+    }
+    .tms-card {
+      border: 1.5px solid var(--gray-200);
+      border-radius: 8px;
+      padding: 14px 16px;
+      text-align: center;
+    }
+    .tms-card .tms-name { font-weight: 700; font-size: 15px; color: var(--navy); }
+    .tms-card .tms-status { font-size: 12px; color: var(--green); margin-top: 4px; }
+
+    /* Response badges */
+    .resp { display: inline-block; font-family: monospace; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 4px; margin-right: 6px; }
+    .resp-200 { background: #dcfce7; color: #166534; }
+    .resp-202 { background: #dbeafe; color: #1e40af; }
+    .resp-401 { background: #fee2e2; color: #991b1b; }
+    .resp-422 { background: #fef3c7; color: #92400e; }
+    .resp-429 { background: #fce7f3; color: #9d174d; }
+
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 13px;
+    }
+    footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+    footer a:hover { color: var(--white); }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="main-nav">
+  <div class="nav-container">
+    <a href="/" class="nav-logo">⚓ CanalClear</a>
+    <div class="nav-links">
+      <a href="/panama">Panama</a>
+      <a href="/suez">Suez</a>
+      <a href="/bosporus">Bosporus</a>
+      <a href="/malacca">Malacca</a>
+      <a href="/cape-of-good-hope">Cape</a>
+      <a href="/integrations">Integrations</a>
+      <a href="/developers" class="nav-active">Developers</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/dashboard" class="nav-cta">Dashboard →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="badge">REST API v1</div>
+  <h1>TMS Integration API</h1>
+  <p>Push vessel, voyage, and crew data directly into CanalClear from Veson, Q88, Dataloy, ShipNet, or any custom system. One API, every waterway.</p>
+  <div class="hero-actions">
+    <a href="/developer-portal" class="btn-primary">Get API Key →</a>
+    <a href="#quickstart" class="btn-outline">Quickstart</a>
+  </div>
+</div>
+
+<!-- Docs Layout -->
+<div class="docs-layout">
+
+  <!-- Sidebar nav -->
+  <aside class="docs-nav">
+    <h3>Getting Started</h3>
+    <a href="#quickstart">Quickstart</a>
+    <a href="#authentication">Authentication</a>
+    <a href="#rate-limits">Rate Limits</a>
+    <a href="#errors">Errors</a>
+
+    <h3>Endpoints</h3>
+    <a href="#vessels">Vessels</a>
+    <a href="#voyages">Voyages</a>
+    <a href="#crew">Crew</a>
+    <a href="#webhook">Webhook Receiver</a>
+
+    <h3>Webhook Setup</h3>
+    <a href="#field-mapping">Field Mapping</a>
+    <a href="#tms-guides">TMS Guides</a>
+
+    <h3>Key Management</h3>
+    <a href="#key-management">API Key Management</a>
+    <a href="#delivery-log">Delivery Log</a>
+  </aside>
+
+  <!-- Main content -->
+  <main class="docs-content">
+
+    <!-- Quickstart -->
+    <section class="section" id="quickstart">
+      <h2>Quickstart</h2>
+      <p>Three steps to push your first vessel:</p>
+      <ol style="margin: 12px 0 20px 20px; color: var(--gray-600); line-height: 2;">
+        <li>Generate an API key from <a href="/dashboard#developer" style="color: var(--blue-light);">your developer portal</a></li>
+        <li>POST vessel data to <code style="background: var(--gray-100); padding: 2px 6px; border-radius: 4px; font-size: 13px;">/api/v1/vessels</code></li>
+        <li>Data auto-fills your filing wizards</li>
+      </ol>
+
+      <div class="code-tabs">
+        <div class="tab-bar">
+          <button class="tab-btn active" onclick="showTab(this,'qs-curl')">curl</button>
+          <button class="tab-btn" onclick="showTab(this,'qs-node')">Node.js</button>
+          <button class="tab-btn" onclick="showTab(this,'qs-python')">Python</button>
+        </div>
+        <div id="qs-curl">
+<pre><span class="cmt"># Push a vessel — replace with your API key and real IMO</span>
+<span class="kw">curl</span> -X POST https://canal-clear.polsia.app/api/v1/vessels \
+  -H <span class="str">"Authorization: Bearer cc_live_YOUR_KEY_HERE"</span> \
+  -H <span class="str">"Content-Type: application/json"</span> \
+  -d <span class="str">'{
+    "imo": "9321483",
+    "vessel_name": "EVER GIVEN",
+    "flag": "PA",
+    "gross_tonnage": 219079,
+    "loa": 399.94,
+    "beam": 58.8,
+    "draft": 14.5,
+    "vessel_type": "container"
+  }'</span></pre>
+        </div>
+        <div id="qs-node" style="display:none">
+<pre><span class="kw">const</span> <span class="var">res</span> = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">'https://canal-clear.polsia.app/api/v1/vessels'</span>, {
+  <span class="var">method</span>: <span class="str">'POST'</span>,
+  <span class="var">headers</span>: {
+    <span class="str">'Authorization'</span>: <span class="str">'Bearer cc_live_YOUR_KEY_HERE'</span>,
+    <span class="str">'Content-Type'</span>: <span class="str">'application/json'</span>,
+  },
+  <span class="var">body</span>: <span class="fn">JSON.stringify</span>({
+    <span class="var">imo</span>: <span class="str">'9321483'</span>,
+    <span class="var">vessel_name</span>: <span class="str">'EVER GIVEN'</span>,
+    <span class="var">flag</span>: <span class="str">'PA'</span>,
+    <span class="var">gross_tonnage</span>: <span class="num">219079</span>,
+    <span class="var">loa</span>: <span class="num">399.94</span>,
+    <span class="var">beam</span>: <span class="num">58.8</span>,
+    <span class="var">draft</span>: <span class="num">14.5</span>,
+    <span class="var">vessel_type</span>: <span class="str">'container'</span>,
+  }),
+});
+<span class="kw">const</span> <span class="var">data</span> = <span class="kw">await</span> <span class="var">res</span>.<span class="fn">json</span>();
+<span class="fn">console.log</span>(<span class="var">data</span>.<span class="var">vessel</span>.<span class="var">imo_number</span>); <span class="cmt">// "9321483"</span></pre>
+        </div>
+        <div id="qs-python" style="display:none">
+<pre><span class="kw">import</span> requests
+
+<span class="var">response</span> = requests.<span class="fn">post</span>(
+    <span class="str">"https://canal-clear.polsia.app/api/v1/vessels"</span>,
+    headers={
+        <span class="str">"Authorization"</span>: <span class="str">"Bearer cc_live_YOUR_KEY_HERE"</span>,
+        <span class="str">"Content-Type"</span>: <span class="str">"application/json"</span>,
+    },
+    json={
+        <span class="str">"imo"</span>: <span class="str">"9321483"</span>,
+        <span class="str">"vessel_name"</span>: <span class="str">"EVER GIVEN"</span>,
+        <span class="str">"flag"</span>: <span class="str">"PA"</span>,
+        <span class="str">"gross_tonnage"</span>: <span class="num">219079</span>,
+        <span class="str">"loa"</span>: <span class="num">399.94</span>,
+        <span class="str">"beam"</span>: <span class="num">58.8</span>,
+        <span class="str">"draft"</span>: <span class="num">14.5</span>,
+    },
+)
+<span class="fn">print</span>(<span class="var">response</span>.<span class="fn">json</span>())</pre>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top: 20px;">
+        <strong>Base URL:</strong> <code>https://canal-clear.polsia.app/api/v1</code>
+        &nbsp;·&nbsp; All requests and responses are JSON.
+      </div>
+    </section>
+
+    <!-- Authentication -->
+    <section class="section" id="authentication">
+      <h2>Authentication</h2>
+      <p>Every request must include your API key as a Bearer token:</p>
+<pre class="standalone"><span class="var">Authorization</span>: Bearer cc_live_YOUR_KEY_HERE</pre>
+      <p style="margin-top: 12px;">API keys are generated from <a href="/dashboard#developer" style="color: var(--blue-light);">your developer portal</a>. Each key is scoped to your account. Keys start with <code style="background: var(--gray-100); padding: 2px 5px; border-radius: 3px; font-size: 12px;">cc_live_</code> followed by 32 hex characters.</p>
+      <div class="callout warn">
+        <strong>Key shown once.</strong> The full key is only returned at creation time. Store it immediately in your TMS or environment variables — it cannot be retrieved again.
+      </div>
+    </section>
+
+    <!-- Rate Limits -->
+    <section class="section" id="rate-limits">
+      <h2>Rate Limits</h2>
+      <p><strong>100 requests per minute</strong> per API key. Rate limit state is tracked in a sliding window per key.</p>
+      <p>Every response includes rate limit headers:</p>
+<pre class="standalone">X-RateLimit-Limit: 100
+X-RateLimit-Remaining: 87
+X-RateLimit-Reset: 1748000060    <span class="cmt"># Unix timestamp when window resets</span></pre>
+      <p style="margin-top: 12px;">Exceeding the limit returns <span class="resp resp-429">429</span> with a <code>retry_after</code> field (seconds).</p>
+    </section>
+
+    <!-- Errors -->
+    <section class="section" id="errors">
+      <h2>Error Responses</h2>
+      <p>All errors return JSON with consistent structure:</p>
+<pre class="standalone">{
+  <span class="str">"success"</span>: <span class="kw">false</span>,
+  <span class="str">"error"</span>: <span class="str">"validation_failed"</span>,
+  <span class="str">"message"</span>: <span class="str">"Payload failed validation"</span>,
+  <span class="str">"errors"</span>: [
+    { <span class="str">"field"</span>: <span class="str">"imo"</span>, <span class="str">"message"</span>: <span class="str">"IMO check digit invalid (expected 3, got 2)"</span> }
+  ]
+}</pre>
+      <table class="field-table" style="margin-top: 16px;">
+        <thead><tr><th>Status</th><th>Error code</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><span class="resp resp-401">401</span></td><td><code>missing_auth</code> / <code>invalid_key</code></td><td>No or invalid API key</td></tr>
+          <tr><td><span class="resp resp-422">422</span></td><td><code>validation_failed</code></td><td>IMO invalid, missing required field, bad date</td></tr>
+          <tr><td><span class="resp resp-429">429</span></td><td><code>rate_limited</code></td><td>100 req/min exceeded; check <code>retry_after</code></td></tr>
+          <tr><td><span class="resp">500</span></td><td><code>server_error</code></td><td>Contact support@canalclear.com</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Vessels -->
+    <section class="section" id="vessels">
+      <h2>Vessels</h2>
+      <p>Push vessel particulars. Data is stored against the IMO number — subsequent pushes update the existing record (upsert).</p>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method post">POST</span>
+          <span class="endpoint-path">/api/v1/vessels</span>
+          <span class="endpoint-desc">Create or update vessel</span>
+        </div>
+        <div class="endpoint-body">
+          <h4>Request body</h4>
+          <table class="field-table">
+            <thead><tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td class="field-name">imo</td><td class="field-type">string</td><td><span class="badge-req">REQUIRED</span></td><td>7-digit IMO number (check digit validated)</td></tr>
+              <tr><td class="field-name">vessel_name</td><td class="field-type">string</td><td><span class="badge-opt">optional</span></td><td>Name of vessel</td></tr>
+              <tr><td class="field-name">flag</td><td class="field-type">string</td><td><span class="badge-opt">optional</span></td><td>Flag state (ISO 3166-1 alpha-2, e.g. "PA")</td></tr>
+              <tr><td class="field-name">gross_tonnage</td><td class="field-type">number</td><td><span class="badge-opt">optional</span></td><td>Gross tonnage (GT)</td></tr>
+              <tr><td class="field-name">net_tonnage</td><td class="field-type">number</td><td><span class="badge-opt">optional</span></td><td>Net tonnage (NT)</td></tr>
+              <tr><td class="field-name">loa</td><td class="field-type">number</td><td><span class="badge-opt">optional</span></td><td>Length overall in metres</td></tr>
+              <tr><td class="field-name">beam</td><td class="field-type">number</td><td><span class="badge-opt">optional</span></td><td>Beam in metres</td></tr>
+              <tr><td class="field-name">draft</td><td class="field-type">number</td><td><span class="badge-opt">optional</span></td><td>Maximum draft in metres</td></tr>
+              <tr><td class="field-name">vessel_class</td><td class="field-type">string</td><td><span class="badge-opt">optional</span></td><td>Classification society class notation</td></tr>
+              <tr><td class="field-name">vessel_type</td><td class="field-type">string</td><td><span class="badge-opt">optional</span></td><td>e.g. "bulk_carrier", "tanker", "container"</td></tr>
+              <tr><td class="field-name">call_sign</td><td class="field-type">string</td><td><span class="badge-opt">optional</span></td><td>Radio call sign</td></tr>
+              <tr><td class="field-name">mmsi</td><td class="field-type">string</td><td><span class="badge-opt">optional</span></td><td>9-digit MMSI</td></tr>
+            </tbody>
+          </table>
+          <h4>Response <span class="resp resp-200">200</span></h4>
+<pre><span class="cmt">// Returns the stored/updated vessel record</span>
+{
+  <span class="str">"success"</span>: <span class="kw">true</span>,
+  <span class="str">"vessel"</span>: {
+    <span class="str">"id"</span>: <span class="num">42</span>,
+    <span class="str">"imo_number"</span>: <span class="str">"9321483"</span>,
+    <span class="str">"vessel_name"</span>: <span class="str">"EVER GIVEN"</span>,
+    <span class="str">"flag"</span>: <span class="str">"PA"</span>,
+    <span class="str">"gross_tonnage"</span>: <span class="num">219079</span>,
+    <span class="str">"loa"</span>: <span class="str">"399.94"</span>,
+    <span class="str">"source"</span>: <span class="str">"api"</span>,
+    <span class="str">"updated_at"</span>: <span class="str">"2026-05-13T10:22:00Z"</span>
+  }
+}</pre>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method get">GET</span>
+          <span class="endpoint-path">/api/v1/vessels/:imo</span>
+          <span class="endpoint-desc">Retrieve vessel by IMO</span>
+        </div>
+        <div class="endpoint-body">
+          <p>Returns the stored particulars for a vessel by its 7-digit IMO number.</p>
+<pre><span class="kw">curl</span> https://canal-clear.polsia.app/api/v1/vessels/9321483 \
+  -H <span class="str">"Authorization: Bearer cc_live_YOUR_KEY"</span></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Voyages -->
+    <section class="section" id="voyages">
+      <h2>Voyages</h2>
+      <p>Push voyage scheduling data. If <code>voyage_ref</code> is provided, subsequent pushes with the same ref update the record. Otherwise a new voyage is created.</p>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method post">POST</span>
+          <span class="endpoint-path">/api/v1/voyages</span>
+          <span class="endpoint-desc">Create or update voyage</span>
+        </div>
+        <div class="endpoint-body">
+          <h4>Request body</h4>
+          <table class="field-table">
+            <thead><tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td class="field-name">vessel_imo</td><td class="field-type">string</td><td><span class="badge-req">REQUIRED</span></td><td>IMO of the vessel</td></tr>
+              <tr><td class="field-name">voyage_ref</td><td class="field-type">string</td><td><span class="badge-opt">optional</span></td><td>TMS voyage number — used as upsert key</td></tr>
+              <tr><td class="field-name">origin</td><td class="field-type">string</td><td><span class="badge-opt">optional</span></td><td>Departure port (UN/LOCODE or name)</td></tr>
+              <tr><td class="field-name">destination</td><td class="field-type">string</td><td><span class="badge-opt">optional</span></td><td>Arrival port</td></tr>
+              <tr><td class="field-name">eta</td><td class="field-type">string</td><td><span class="badge-opt">optional</span></td><td>ISO 8601 datetime e.g. <code>2026-06-01T08:00:00Z</code></td></tr>
+              <tr><td class="field-name">etd</td><td class="field-type">string</td><td><span class="badge-opt">optional</span></td><td>ISO 8601 datetime — must be after eta if both provided</td></tr>
+              <tr><td class="field-name">cargo_type</td><td class="field-type">string</td><td><span class="badge-opt">optional</span></td><td>e.g. "bulk", "crude_oil", "containers", "LNG"</td></tr>
+              <tr><td class="field-name">cargo_quantity</td><td class="field-type">number</td><td><span class="badge-opt">optional</span></td><td>Metric tons</td></tr>
+              <tr><td class="field-name">waterway</td><td class="field-type">string</td><td><span class="badge-opt">optional</span></td><td>One of: <code>panama</code>, <code>suez</code>, <code>bosporus</code>, <code>malacca</code>, <code>cape</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method get">GET</span>
+          <span class="endpoint-path">/api/v1/voyages</span>
+          <span class="endpoint-desc">List voyages</span>
+        </div>
+        <div class="endpoint-body">
+          <h4>Query parameters</h4>
+          <table class="field-table">
+            <thead><tr><th>Param</th><th>Default</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td class="field-name">vessel_imo</td><td>—</td><td>Filter to a specific vessel</td></tr>
+              <tr><td class="field-name">limit</td><td>50</td><td>Max results (max 200)</td></tr>
+              <tr><td class="field-name">offset</td><td>0</td><td>Pagination offset</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Crew -->
+    <section class="section" id="crew">
+      <h2>Crew</h2>
+      <p>Push crew manifests for a vessel. Each POST appends the provided members — it does not replace existing crew.</p>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method post">POST</span>
+          <span class="endpoint-path">/api/v1/crew</span>
+          <span class="endpoint-desc">Add crew members</span>
+        </div>
+        <div class="endpoint-body">
+          <h4>Request body</h4>
+          <table class="field-table">
+            <thead><tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td class="field-name">vessel_imo</td><td class="field-type">string</td><td><span class="badge-req">REQUIRED</span></td><td>IMO of the vessel</td></tr>
+              <tr><td class="field-name">voyage_ref</td><td class="field-type">string</td><td><span class="badge-opt">optional</span></td><td>Associate with a voyage</td></tr>
+              <tr><td class="field-name">crew</td><td class="field-type">array</td><td><span class="badge-req">REQUIRED</span></td><td>Array of crew member objects (see below)</td></tr>
+            </tbody>
+          </table>
+          <h4>Crew member object</h4>
+          <table class="field-table">
+            <thead><tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td class="field-name">full_name</td><td class="field-type">string</td><td><span class="badge-req">REQUIRED</span></td><td>Full name of crew member</td></tr>
+              <tr><td class="field-name">nationality</td><td class="field-type">string</td><td><span class="badge-opt">optional</span></td><td>ISO 3166-1 alpha-2 e.g. "PH"</td></tr>
+              <tr><td class="field-name">rank</td><td class="field-type">string</td><td><span class="badge-opt">optional</span></td><td>e.g. "Master", "Chief Officer", "AB"</td></tr>
+              <tr><td class="field-name">cert_number</td><td class="field-type">string</td><td><span class="badge-opt">optional</span></td><td>STCW certificate number</td></tr>
+              <tr><td class="field-name">cert_type</td><td class="field-type">string</td><td><span class="badge-opt">optional</span></td><td>e.g. "STCW", "GMDSS"</td></tr>
+              <tr><td class="field-name">cert_expiry</td><td class="field-type">string</td><td><span class="badge-opt">optional</span></td><td>YYYY-MM-DD format</td></tr>
+            </tbody>
+          </table>
+<pre><span class="cmt"># Example: push 2 crew members</span>
+<span class="kw">curl</span> -X POST https://canal-clear.polsia.app/api/v1/crew \
+  -H <span class="str">"Authorization: Bearer cc_live_YOUR_KEY"</span> \
+  -H <span class="str">"Content-Type: application/json"</span> \
+  -d <span class="str">'{
+    "vessel_imo": "9321483",
+    "voyage_ref": "VOY-2026-041",
+    "crew": [
+      {
+        "full_name": "Juan Santos",
+        "nationality": "PH",
+        "rank": "Master",
+        "cert_number": "STCW-PH-20241",
+        "cert_expiry": "2028-03-15"
+      },
+      {
+        "full_name": "Li Wei",
+        "nationality": "CN",
+        "rank": "Chief Officer"
+      }
+    ]
+  }'</span></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Webhook -->
+    <section class="section" id="webhook">
+      <h2>Webhook Receiver</h2>
+      <p>Configure your TMS to send webhooks to a single endpoint. CanalClear logs every delivery and optionally maps fields using a stored template before ingesting.</p>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method post">POST</span>
+          <span class="endpoint-path">/api/v1/webhook</span>
+          <span class="endpoint-desc">Generic webhook receiver</span>
+        </div>
+        <div class="endpoint-body">
+          <h4>Query parameters</h4>
+          <table class="field-table">
+            <thead><tr><th>Param</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td class="field-name">source</td><td>Label for this source (e.g. <code>veson</code>, <code>q88</code>) — appears in delivery log</td></tr>
+              <tr><td class="field-name">mapping_id</td><td>ID of a stored field mapping template to apply before ingestion</td></tr>
+            </tbody>
+          </table>
+
+          <p>Configure your Veson IMOS webhook URL as:</p>
+<pre>https://canal-clear.polsia.app/api/v1/webhook?source=veson&mapping_id=1
+Authorization: Bearer cc_live_YOUR_KEY</pre>
+
+          <h4>Response <span class="resp resp-202">202</span></h4>
+<pre>{
+  <span class="str">"success"</span>: <span class="kw">true</span>,
+  <span class="str">"delivery_id"</span>: <span class="num">187</span>,          <span class="cmt">// use this to inspect the delivery log</span>
+  <span class="str">"status"</span>: <span class="str">"ingested"</span>,
+  <span class="str">"ingested"</span>: {
+    <span class="str">"vessel"</span>: <span class="str">"9321483"</span>,
+    <span class="str">"voyage"</span>: <span class="num">55</span>
+  }
+}</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Field Mapping -->
+    <section class="section" id="field-mapping">
+      <h2>Field Mapping</h2>
+      <p>TMS systems use different field names. Create a mapping template once, then reference it with <code>?mapping_id=N</code> on the webhook endpoint.</p>
+      <p>Mapping keys are CanalClear target fields. Values are dot-notation paths into the source JSON payload.</p>
+
+<pre><span class="cmt"># Create a mapping template for Veson IMOS</span>
+<span class="kw">curl</span> -X POST https://canal-clear.polsia.app/api/developer/webhook-mappings \
+  -H <span class="str">"Authorization: Bearer YOUR_SESSION_TOKEN"</span> \
+  -H <span class="str">"Content-Type: application/json"</span> \
+  -d <span class="str">'{
+    "name": "Veson IMOS Vessel Update",
+    "source_name": "veson",
+    "mapping": {
+      "imo": "vessel.imo_no",
+      "vessel_name": "vessel.vessel_code",
+      "vessel_type": "vessel.vessel_type_description",
+      "gross_tonnage": "vessel.gt",
+      "loa": "vessel.loa",
+      "beam": "vessel.beam",
+      "draft": "vessel.draft_max"
+    }
+  }'</span></pre>
+
+      <div class="callout">
+        <strong>Dot notation:</strong> <code>"vessel.imo_no"</code> maps to <code>payload.vessel.imo_no</code> in the raw JSON. Nested objects work as expected.
+      </div>
+    </section>
+
+    <!-- TMS Guides -->
+    <section class="section" id="tms-guides">
+      <h2>TMS Compatibility</h2>
+      <p>Works with any system that can make HTTP POST requests. Pre-built field mapping templates available for:</p>
+
+      <div class="tms-grid">
+        <div class="tms-card">
+          <div class="tms-name">Veson IMOS</div>
+          <div class="tms-status">✓ REST webhook</div>
+        </div>
+        <div class="tms-card">
+          <div class="tms-name">Q88</div>
+          <div class="tms-status">✓ Vessel API</div>
+        </div>
+        <div class="tms-card">
+          <div class="tms-name">Dataloy</div>
+          <div class="tms-status">✓ REST export</div>
+        </div>
+        <div class="tms-card">
+          <div class="tms-name">ShipNet</div>
+          <div class="tms-status">✓ Event webhook</div>
+        </div>
+        <div class="tms-card">
+          <div class="tms-name">OneOcean</div>
+          <div class="tms-status">✓ REST API</div>
+        </div>
+        <div class="tms-card">
+          <div class="tms-name">Custom</div>
+          <div class="tms-status">✓ Any HTTP client</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        Need a pre-built mapping for your TMS? Email <a href="mailto:support@canalclear.com">support@canalclear.com</a> — typical turnaround is 1 business day.
+      </div>
+    </section>
+
+    <!-- Key Management -->
+    <section class="section" id="key-management">
+      <h2>API Key Management</h2>
+      <p>These endpoints use <strong>session auth</strong> (your dashboard login), not API key auth — use them from your fleet dashboard or internal scripts.</p>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method post">POST</span>
+          <span class="endpoint-path">/api/developer/keys</span>
+          <span class="endpoint-desc">Generate new API key</span>
+        </div>
+        <div class="endpoint-body">
+          <p>Body: <code>{ "label": "Veson prod" }</code></p>
+          <div class="callout warn"><strong>The raw key is only shown once.</strong> Store it immediately.</div>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method get">GET</span>
+          <span class="endpoint-path">/api/developer/keys</span>
+          <span class="endpoint-desc">List all API keys (prefix only)</span>
+        </div>
+        <div class="endpoint-body"><p>Returns all active and revoked keys for your account. Raw keys are never returned.</p></div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method delete">DELETE</span>
+          <span class="endpoint-path">/api/developer/keys/:id</span>
+          <span class="endpoint-desc">Revoke a key</span>
+        </div>
+        <div class="endpoint-body"><p>Immediately revokes the key. All future requests using it return 401. Irreversible.</p></div>
+      </div>
+    </section>
+
+    <!-- Delivery Log -->
+    <section class="section" id="delivery-log">
+      <h2>Webhook Delivery Log</h2>
+      <p>Every webhook delivery is logged. Use this to debug failed pushes or inspect raw payloads.</p>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method get">GET</span>
+          <span class="endpoint-path">/api/developer/webhook-logs</span>
+          <span class="endpoint-desc">List recent deliveries</span>
+        </div>
+        <div class="endpoint-body">
+          <p>Returns the 50 most recent webhook deliveries with status, source, and a payload preview.</p>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method get">GET</span>
+          <span class="endpoint-path">/api/developer/webhook-logs/:id</span>
+          <span class="endpoint-desc">Full payload inspection</span>
+        </div>
+        <div class="endpoint-body">
+          <p>Returns the complete headers and JSON payload for a single delivery. Statuses: <code>received</code>, <code>mapped</code>, <code>ingested</code>, <code>invalid</code>, <code>error</code>.</p>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method get">GET</span>
+          <span class="endpoint-path">/api/developer/activity</span>
+          <span class="endpoint-desc">Inbound data activity feed</span>
+        </div>
+        <div class="endpoint-body">
+          <p>Last 50 inbound data pushes across vessels, voyages, and crew — with entity type, reference, source, and timestamp.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- Footer -->
+<footer>
+  <p>
+    <a href="/privacy">Privacy</a> &nbsp;·&nbsp;
+    <a href="/terms">Terms</a> &nbsp;·&nbsp;
+    <a href="/security">Security</a> &nbsp;·&nbsp;
+    <a href="/integrations">Integrations</a> &nbsp;·&nbsp;
+    <a href="/dashboard">Dashboard</a>
+  </p>
+  <p style="margin-top: 8px;">© 2026 CanalClear. Maritime compliance automation.</p>
+</footer>
+
+<script>
+function showTab(btn, id) {
+  // Hide all tab contents in same group
+  const parent = btn.closest('.code-tabs');
+  parent.querySelectorAll('[id^="qs-"]').forEach(el => el.style.display = 'none');
+  parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).style.display = 'block';
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>

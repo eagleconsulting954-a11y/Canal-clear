@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fleet Dashboard — CanalClear</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --navy: #1a2d4a;
+            --deep: #142238;
+            --slate: #243350;
+            --teal: #E85A00;
+            --teal-dim: rgba(232, 90, 0, 0.15);
+            --cyan: #00B4D8;
+            --white: #ffffff;
+            --gray: #6b7c93;
+            --light-gray: #8fa3b8;
+            --red: #FF6B6B;
+            --red-dim: rgba(255, 107, 107, 0.15);
+            --yellow: #FFD93D;
+            --yellow-dim: rgba(255, 217, 61, 0.15);
+            --green: #E85A00;
+            --green-dim: rgba(232, 90, 0, 0.15);
+        }
+
+        html { scroll-behavior: smooth; }
+        body { font-family: 'IBM Plex Sans', sans-serif; background: var(--navy); color: var(--white); line-height: 1.6; overflow-x: hidden; }
+
+        /* NAV */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 100;
+            padding: 1rem 2rem;
+            background: rgba(10, 22, 40, 0.92);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(232, 90, 0, 0.08);
+        }
+        nav .nav-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+        .logo { display: flex; align-items: center; text-decoration: none; }
+        .logo img { height: 34px; width: auto; object-fit: contain; }
+        .nav-links { display: flex; gap: 0.5rem; align-items: center; }
+        .nav-links a {
+            color: var(--gray); text-decoration: none; font-size: 0.9rem;
+            padding: 0.5rem 1rem; border-radius: 8px; transition: all 0.2s;
+        }
+        .nav-links a:hover { color: var(--white); background: rgba(232, 90, 0, 0.08); }
+        .nav-links a.active { color: var(--teal); background: rgba(232, 90, 0, 0.08); }
+        .nav-dot {
+            display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+            background: var(--teal); margin-left: 6px; vertical-align: middle;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+
+        /* MAIN */
+        .app-container { max-width: 1200px; margin: 0 auto; padding: 5.5rem 2rem 3rem; min-height: 100vh; }
+
+        /* PAGE HEADER */
+        .page-header { margin-bottom: 1.5rem; display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+        .page-header h1 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.25rem;
+        }
+        .page-header p { color: var(--gray); font-size: 0.95rem; }
+        .header-actions { display: flex; gap: 0.75rem; align-items: center; flex-shrink: 0; }
+
+        /* SUMMARY BAR */
+        .summary-bar {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+            margin-bottom: 1.75rem;
+        }
+        .summary-card {
+            background: var(--slate); border-radius: 12px;
+            padding: 1rem 1.25rem;
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: border-color 0.2s;
+        }
+        .summary-card:hover { border-color: rgba(232, 90, 0, 0.2); }
+        .summary-card .sc-label { font-size: 0.78rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.35rem; }
+        .summary-card .sc-value { font-family: 'IBM Plex Sans', sans-serif; font-size: 2rem; font-weight: 700; line-height: 1; }
+        .summary-card.total .sc-value { color: var(--white); }
+        .summary-card.compliant .sc-value { color: var(--green); }
+        .summary-card.warning .sc-value { color: var(--yellow); }
+        .summary-card.danger .sc-value { color: var(--red); }
+
+        /* CONTROLS */
+        .controls-row { display: flex; gap: 0.75rem; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; }
+        .filter-btn {
+            padding: 0.45rem 1rem; border-radius: 8px; font-size: 0.85rem; font-weight: 500;
+            border: 1px solid rgba(255,255,255,0.1); background: var(--slate);
+            color: var(--gray); cursor: pointer; transition: all 0.2s;
+        }
+        .filter-btn:hover { color: var(--white); border-color: rgba(255,255,255,0.2); }
+        .filter-btn.active { background: var(--teal-dim); border-color: var(--teal); color: var(--teal); }
+        .filter-btn.active.red { background: var(--red-dim); border-color: var(--red); color: var(--red); }
+        .filter-btn.active.yellow { background: var(--yellow-dim); border-color: var(--yellow); color: var(--yellow); }
+        .controls-right { margin-left: auto; }
+        .btn-add-vessel {
+            padding: 0.5rem 1.1rem; background: var(--teal); color: #1a2d4a;
+            border: none; border-radius: 8px; font-weight: 600; font-size: 0.875rem;
+            cursor: pointer; transition: opacity 0.2s;
+        }
+        .btn-add-vessel:hover { opacity: 0.85; }
+
+        /* CLIENT SWITCHER */
+        .client-switcher {
+            display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .client-tab {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            padding: 0.4rem 0.875rem; border-radius: 20px;
+            font-size: 0.82rem; font-weight: 500; cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.1); background: var(--slate);
+            color: var(--gray); transition: all 0.2s; white-space: nowrap;
+        }
+        .client-tab:hover { color: var(--white); border-color: rgba(255,255,255,0.25); }
+        .client-tab.active { color: var(--white); border-color: var(--client-color, var(--teal)); background: rgba(255,255,255,0.06); }
+        .client-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+        .client-switcher-manage { color: var(--gray); font-size: 0.8rem; text-decoration: none; margin-left: auto; flex-shrink: 0; }
+        .client-switcher-manage:hover { color: var(--teal); }
+
+        /* FLEET LIST */
+        .fleet-list { display: flex; flex-direction: column; gap: 0.75rem; }
+        .vessel-card {
+            background: var(--slate); border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.06);
+            overflow: hidden; transition: border-color 0.2s;
+        }
+        .vessel-card:hover { border-color: rgba(232, 90, 0, 0.15); }
+        .vessel-card.red { border-left: 3px solid var(--red); }
+        .vessel-card.yellow { border-left: 3px solid var(--yellow); }
+        .vessel-card.green { border-left: 3px solid var(--teal); }
+
+        .vessel-header {
+            display: flex; align-items: center; gap: 1rem;
+            padding: 1rem 1.25rem; cursor: pointer;
+            transition: background 0.15s;
+        }
+        .vessel-header:hover { background: rgba(255,255,255,0.025); }
+
+        .vessel-badge {
+            flex-shrink: 0; width: 38px; height: 38px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem;
+        }
+        .vessel-badge.green { background: var(--green-dim); }
+        .vessel-badge.yellow { background: var(--yellow-dim); }
+        .vessel-badge.red { background: var(--red-dim); }
+
+        .vessel-info { flex: 1; min-width: 0; }
+        .vessel-name { font-weight: 600; font-size: 0.975rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .vessel-meta-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.25rem; }
+        .vtag {
+            font-size: 0.72rem; padding: 0.15rem 0.55rem; border-radius: 100px;
+            background: rgba(255,255,255,0.06); color: var(--gray);
+        }
+
+        .vessel-cert-summary { flex-shrink: 0; text-align: right; }
+        .cert-count { font-size: 0.82rem; color: var(--gray); }
+        .cert-count strong { font-weight: 600; }
+        .cert-count.danger strong { color: var(--red); }
+        .cert-count.warning strong { color: var(--yellow); }
+        .cert-count.ok strong { color: var(--teal); }
+
+        .vessel-expand-icon {
+            flex-shrink: 0; color: var(--gray); font-size: 0.85rem;
+            transition: transform 0.2s; margin-left: 0.5rem;
+        }
+        .vessel-card.expanded .vessel-expand-icon { transform: rotate(180deg); }
+
+        /* CERTIFICATES PANEL */
+        .cert-panel {
+            display: none; padding: 0 1.25rem 1.25rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+        .vessel-card.expanded .cert-panel { display: block; }
+
+        .cert-panel-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0.75rem 0 0.75rem;
+        }
+        .cert-panel-title { font-size: 0.85rem; font-weight: 600; color: var(--light-gray); text-transform: uppercase; letter-spacing: 0.5px; }
+
+        .cert-grid { display: flex; flex-direction: column; gap: 0.5rem; }
+        .cert-item {
+            display: flex; align-items: center; gap: 0.75rem;
+            padding: 0.65rem 0.85rem; border-radius: 8px;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .cert-status-dot {
+            flex-shrink: 0; width: 8px; height: 8px; border-radius: 50%;
+        }
+        .cert-status-dot.green { background: var(--teal); }
+        .cert-status-dot.yellow { background: var(--yellow); }
+        .cert-status-dot.red { background: var(--red); }
+
+        .cert-name { flex: 1; font-size: 0.875rem; font-weight: 500; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .cert-issuer { font-size: 0.78rem; color: var(--gray); flex-shrink: 0; }
+        .cert-expiry {
+            flex-shrink: 0; font-size: 0.78rem; font-weight: 600;
+            padding: 0.2rem 0.55rem; border-radius: 6px; white-space: nowrap;
+        }
+        .cert-expiry.green { background: var(--green-dim); color: var(--teal); }
+        .cert-expiry.yellow { background: var(--yellow-dim); color: var(--yellow); }
+        .cert-expiry.red { background: var(--red-dim); color: var(--red); }
+
+        .cert-delete {
+            flex-shrink: 0; background: none; border: none; color: var(--gray);
+            cursor: pointer; font-size: 0.8rem; padding: 0.2rem 0.4rem;
+            border-radius: 4px; transition: all 0.15s; opacity: 0.5;
+        }
+        .cert-delete:hover { color: var(--red); opacity: 1; background: var(--red-dim); }
+
+        .no-certs {
+            color: var(--gray); font-size: 0.85rem; padding: 0.5rem 0;
+            font-style: italic;
+        }
+        .btn-add-cert {
+            margin-top: 0.75rem; padding: 0.4rem 0.9rem;
+            font-size: 0.8rem; font-weight: 600;
+            background: none; border: 1px solid rgba(232, 90, 0, 0.3); color: var(--teal);
+            border-radius: 8px; cursor: pointer; transition: all 0.2s;
+        }
+        .btn-add-cert:hover { background: var(--teal-dim); border-color: var(--teal); }
+
+        /* VESSEL ACTIONS */
+        .vessel-actions { display: flex; gap: 0.5rem; flex-shrink: 0; }
+        .btn-icon {
+            background: none; border: 1px solid rgba(255,255,255,0.1);
+            color: var(--gray); padding: 0.3rem 0.65rem; border-radius: 6px;
+            font-size: 0.78rem; cursor: pointer; transition: all 0.15s;
+        }
+        .btn-icon:hover { color: var(--white); border-color: rgba(255,255,255,0.2); }
+        .btn-icon.danger:hover { color: var(--red); border-color: var(--red); background: var(--red-dim); }
+
+        /* EMPTY STATE */
+        .empty-state {
+            text-align: center; padding: 4rem 2rem;
+            background: var(--slate); border-radius: 12px;
+            border: 1px dashed rgba(255,255,255,0.1);
+        }
+        .empty-state .empty-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.5; }
+        .empty-state h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .empty-state p { color: var(--gray); font-size: 0.9rem; margin-bottom: 1.5rem; }
+
+        /* MODALS */
+        .modal-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.75); z-index: 200;
+            align-items: center; justify-content: center;
+            padding: 1rem;
+        }
+        .modal-overlay.open { display: flex; }
+        .modal {
+            background: var(--deep); border-radius: 14px;
+            border: 1px solid rgba(232, 90, 0, 0.15);
+            padding: 1.75rem; width: 100%; max-width: 520px;
+            max-height: 90vh; overflow-y: auto;
+        }
+        .modal h3 { font-family: 'IBM Plex Sans', sans-serif; font-size: 1.15rem; margin-bottom: 1.25rem; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+        .form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+        .form-group.full { grid-column: 1 / -1; }
+        .form-group label { font-size: 0.8rem; color: var(--gray); font-weight: 500; }
+        .form-group input, .form-group select {
+            background: var(--slate); border: 1px solid rgba(255,255,255,0.1);
+            color: var(--white); border-radius: 8px; padding: 0.55rem 0.75rem;
+            font-size: 0.9rem; font-family: inherit; outline: none; transition: border-color 0.2s;
+        }
+        .form-group input:focus, .form-group select:focus { border-color: var(--teal); }
+        .form-group select option { background: var(--slate); }
+        .modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.25rem; }
+        .btn-primary { background: var(--teal); color: #1a2d4a; border: none; border-radius: 8px; padding: 0.55rem 1.25rem; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: opacity 0.2s; }
+        .btn-primary:hover { opacity: 0.85; }
+        .btn-secondary { background: none; border: 1px solid rgba(255,255,255,0.15); color: var(--gray); border-radius: 8px; padding: 0.55rem 1.25rem; font-weight: 500; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; }
+        .btn-secondary:hover { border-color: rgba(255,255,255,0.3); color: var(--white); }
+
+        /* FLASH */
+        .flash {
+            position: fixed; top: 5rem; left: 50%; transform: translateX(-50%);
+            z-index: 300; padding: 0.65rem 1.25rem; border-radius: 8px;
+            font-size: 0.875rem; font-weight: 500; display: none;
+            min-width: 260px; text-align: center;
+        }
+        .flash.show { display: block; animation: fadeInOut 3s forwards; }
+        .flash.success { background: var(--green-dim); color: var(--teal); border: 1px solid var(--teal); }
+        .flash.error { background: var(--red-dim); color: var(--red); border: 1px solid var(--red); }
+        @keyframes fadeInOut { 0%{opacity:0;top:5.5rem;} 10%{opacity:1;top:5rem;} 80%{opacity:1;} 100%{opacity:0;} }
+
+        /* LOADING */
+        .loading-spinner {
+            display: flex; align-items: center; justify-content: center; padding: 4rem;
+            color: var(--gray); gap: 0.75rem; font-size: 0.9rem;
+        }
+        .spinner { width: 24px; height: 24px; border: 2px solid rgba(255,255,255,0.1); border-top-color: var(--teal); border-radius: 50%; animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        @media (max-width: 768px) {
+            .summary-bar { grid-template-columns: repeat(2, 1fr); }
+            .form-grid { grid-template-columns: 1fr; }
+            .cert-issuer { display: none; }
+        }
+        @media (max-width: 480px) {
+            .summary-bar { grid-template-columns: repeat(2, 1fr); }
+            .nav-links a span { display: none; }
+        }
+    </style>
+    <link rel="stylesheet" href="/css/mobile.css">
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="logo">
+            <img src="/icons/logo.png" alt="CanalClear" onerror="this.style.display='none';this.parentElement.innerHTML='<span style=\'font-family:Space Grotesk,sans-serif;font-size:1.1rem;font-weight:700;color:#ffffff;\'>Canal<span style=\'color:#E85A00;\'>Clear</span></span>'">
+        </a>
+        <div class="nav-links">
+            <a href="/app"><span>Validator</span></a>
+            <a href="/filing"><span>Filing</span></a>
+            <a href="/acp"><span>ACP</span></a>
+            <a href="/dashboard" class="active"><span>Fleet</span><span class="nav-dot"></span></a>
+            <a href="/clients"><span>Clients</span></a>
+            <a href="/settings/alerts"><span>Alerts</span></a>
+            <a href="#" onclick="logout()" id="logout-btn"><span>Logout</span></a>
+            <a href="/admin" id="admin-nav-link" style="display:none;"><span>Admin</span></a>
+        </div>
+    </div>
+</nav>
+
+<div class="app-container">
+    <!-- Page header -->
+    <div class="page-header">
+        <div>
+            <h1>Fleet Dashboard</h1>
+            <p>Certificate compliance status for all vessels</p>
+        </div>
+        <div class="header-actions">
+            <button class="btn-add-vessel" onclick="openAddVessel()">+ Add Vessel</button>
+        </div>
+    </div>
+
+    <!-- Client switcher (populated by JS when user has clients) -->
+    <div class="client-switcher" id="client-switcher" style="display:none;"></div>
+
+    <!-- Summary bar -->
+    <div class="summary-bar" id="summary-bar">
+        <div class="summary-card total">
+            <div class="sc-label">Total Vessels</div>
+            <div class="sc-value" id="sc-total">—</div>
+        </div>
+        <div class="summary-card compliant">
+            <div class="sc-label">🟢 Compliant</div>
+            <div class="sc-value" id="sc-compliant">—</div>
+        </div>
+        <div class="summary-card warning">
+            <div class="sc-label">🟡 Expiring Soon</div>
+            <div class="sc-value" id="sc-expiring">—</div>
+        </div>
+        <div class="summary-card danger">
+            <div class="sc-label">🔴 Expired / Critical</div>
+            <div class="sc-value" id="sc-expired">—</div>
+        </div>
+    </div>
+
+    <!-- Filter controls -->
+    <div class="controls-row">
+        <button class="filter-btn active" id="filter-all" onclick="setFilter('all')">All</button>
+        <button class="filter-btn" id="filter-red" onclick="setFilter('red')">🔴 Expired / Critical</button>
+        <button class="filter-btn" id="filter-yellow" onclick="setFilter('yellow')">🟡 Expiring Soon</button>
+        <button class="filter-btn" id="filter-green" onclick="setFilter('green')">🟢 Compliant</button>
+    </div>
+
+    <!-- Fleet list -->
+    <div id="fleet-list">
+        <div class="loading-spinner"><div class="spinner"></div> Loading fleet…</div>
+    </div>
+</div>
+
+<!-- Flash -->
+<div class="flash" id="flash"></div>
+
+<!-- Add/Edit Vessel Modal -->
+<div class="modal-overlay" id="vessel-modal">
+    <div class="modal">
+        <h3 id="vessel-modal-title">Add Vessel</h3>
+        <div class="form-grid">
+            <div class="form-group full">
+                <label>Vessel Name *</label>
+                <input type="text" id="v-name" placeholder="e.g., MV Pacific Star">
+            </div>
+            <div class="form-group">
+                <label>IMO Number</label>
+                <input type="text" id="v-imo" placeholder="e.g., 9876543">
+            </div>
+            <div class="form-group">
+                <label>Flag State</label>
+                <input type="text" id="v-flag" placeholder="e.g., Panama">
+            </div>
+            <div class="form-group">
+                <label>Vessel Type</label>
+                <input type="text" id="v-type" placeholder="e.g., Bulk Carrier">
+            </div>
+            <div class="form-group">
+                <label>Classification Society</label>
+                <input type="text" id="v-class" placeholder="e.g., Lloyd's Register">
+            </div>
+        </div>
+        <div class="modal-actions">
+            <button class="btn-secondary" onclick="closeVesselModal()">Cancel</button>
+            <button class="btn-primary" onclick="saveVessel()">Save Vessel</button>
+        </div>
+    </div>
+</div>
+
+<!-- Add Certificate Modal -->
+<div class="modal-overlay" id="cert-modal">
+    <div class="modal">
+        <h3>Add Certificate</h3>
+        <div class="form-grid">
+            <div class="form-group full">
+                <label>Certificate Type *</label>
+                <select id="cert-type" style="width:100%;">
+                    <option value="iopp">IOPP Certificate</option>
+                    <option value="issc">ISSC (International Ship Security Certificate)</option>
+                    <option value="class_cert">Class Certificate</option>
+                    <option value="smc">Safety Management Certificate (SMC)</option>
+                    <option value="pcsopep">SOPEP / PCSOPEP</option>
+                    <option value="pi_insurance">P&amp;I Insurance Certificate</option>
+                    <option value="load_line">Loadline Certificate</option>
+                    <option value="tonnage">International Tonnage Certificate</option>
+                    <option value="registry">Certificate of Registry</option>
+                    <option value="doc">Document of Compliance (DOC)</option>
+                    <option value="solas_safety">SOLAS Safety Certificate</option>
+                    <option value="marpol_annex_v">MARPOL Annex V Plan</option>
+                    <option value="marpol_annex_vi">MARPOL Annex VI (IAPP)</option>
+                    <option value="flag_state">Flag State Certificate</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Certificate Number</label>
+                <input type="text" id="cert-number" placeholder="Optional">
+            </div>
+            <div class="form-group">
+                <label>Issuing Authority</label>
+                <input type="text" id="cert-issuer" placeholder="e.g., Lloyd's Register">
+            </div>
+            <div class="form-group">
+                <label>Issue Date</label>
+                <input type="date" id="cert-issued">
+            </div>
+            <div class="form-group">
+                <label>Expiry Date *</label>
+                <input type="date" id="cert-expiry">
+            </div>
+            <div class="form-group full">
+                <label>Notes</label>
+                <input type="text" id="cert-notes" placeholder="Optional notes">
+            </div>
+        </div>
+        <div class="modal-actions">
+            <button class="btn-secondary" onclick="closeCertModal()">Cancel</button>
+            <button class="btn-primary" onclick="saveCertificate()">Add Certificate</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ── Constants ────────────────────────────────────────────────────────────────
+const CERT_LABELS = {
+    iopp: 'IOPP Certificate',
+    issc: 'ISSC',
+    class_cert: 'Class Certificate',
+    smc: 'Safety Mgmt Certificate',
+    pcsopep: 'SOPEP / PCSOPEP',
+    pi_insurance: 'P&I Insurance',
+    load_line: 'Loadline Certificate',
+    tonnage: 'Tonnage Certificate',
+    registry: 'Certificate of Registry',
+    doc: 'Document of Compliance',
+    solas_safety: 'SOLAS Safety',
+    marpol_annex_v: 'MARPOL Annex V',
+    marpol_annex_vi: 'MARPOL Annex VI (IAPP)',
+    flag_state: 'Flag State Certificate',
+    other: 'Certificate',
+};
+
+// ── State ────────────────────────────────────────────────────────────────────
+let state = {
+    vessels: [],
+    summary: { total: 0, compliant: 0, expiring_soon: 0, expired: 0 },
+    filter: 'all',
+    editingVesselId: null,
+    certForVesselId: null,
+    expandedVessels: new Set(),
+    activeClientId: null,   // null = all clients
+    clients: [],
+};
+
+// ── Client Switcher ───────────────────────────────────────────────────────────
+async function loadClientSwitcher() {
+    try {
+        const r = await fetch('/api/clients', { credentials: 'include' });
+        if (!r.ok) return; // 401 / not available — silently skip
+        const d = await r.json();
+        if (!d.success || !d.clients || d.clients.length === 0) return;
+        state.clients = d.clients;
+        renderClientSwitcher();
+    } catch { /* silently skip — clients feature is additive */ }
+}
+
+function renderClientSwitcher() {
+    const wrap = document.getElementById('client-switcher');
+    if (!state.clients.length) { wrap.style.display = 'none'; return; }
+
+    const tabs = [
+        `<button class="client-tab ${state.activeClientId === null ? 'active' : ''}"
+            onclick="setActiveClient(null)"
+            style="--client-color: var(--teal)">
+            All Clients
+        </button>`,
+        ...state.clients.map(c => `
+        <button class="client-tab ${state.activeClientId === c.id ? 'active' : ''}"
+            onclick="setActiveClient(${c.id})"
+            style="--client-color: ${escHtml(c.color)}">
+            <span class="client-dot" style="background:${escHtml(c.color)}"></span>
+            ${escHtml(c.short_name || c.name)}
+        </button>`),
+        `<a href="/clients" class="client-switcher-manage">Manage →</a>`,
+    ].join('');
+
+    wrap.innerHTML = tabs;
+    wrap.style.display = 'flex';
+}
+
+function setActiveClient(clientId) {
+    state.activeClientId = clientId;
+    renderClientSwitcher();
+    // Reload dashboard with client filter
+    loadDashboard();
+}
+
+// ── Auth ─────────────────────────────────────────────────────────────────────
+// Server-side requireAuth + requireSubscription already validated this user
+// before serving this page. This client-side check is a secondary confirmation.
+// On network error, DON'T redirect — server already validated auth.
+async function checkAuth() {
+    try {
+        const r = await fetch('/api/auth/me', { credentials: 'include' });
+        if (!r.ok) {
+            // 401 = genuinely not authenticated → redirect to login
+            if (r.status === 401) { window.location.href = '/login'; return null; }
+            // Other errors (500, etc.) — server already validated, continue
+            console.warn('[Dashboard] Auth check returned', r.status, '— server-side auth already passed.');
+            return {};
+        }
+        const d = await r.json();
+        if (!d.success) {
+            // Auth truly failed
+            window.location.href = '/login'; return null;
+        }
+        if (!d.is_active) {
+            // Subscription expired and not in grace period → pricing
+            window.location.href = '/pricing?reason=expired'; return null;
+        }
+        if (d.user?.is_admin) document.getElementById('admin-nav-link').style.display = 'inline-block';
+        return d.user;
+    } catch (e) {
+        // Network error — server already validated auth before serving this page.
+        // Don't redirect on transient failures.
+        console.warn('[Dashboard] Auth check failed (network error); server-side auth already passed.');
+        return {};
+    }
+}
+function logout() {
+    fetch('/api/auth/logout', { method: 'POST', credentials: 'include' })
+        .finally(() => { document.cookie = 'cc_token=; Max-Age=0; path=/'; window.location.href = '/login'; });
+}
+
+// ── Init ─────────────────────────────────────────────────────────────────────
+async function init() {
+    const user = await checkAuth();
+    if (!user) return;
+    // Load client switcher in parallel with dashboard
+    await Promise.all([loadDashboard(), loadClientSwitcher()]);
+}
+
+async function loadDashboard() {
+    try {
+        const clientParam = state.activeClientId ? `?client_id=${state.activeClientId}` : '';
+        const r = await fetch(`/api/fleet/dashboard${clientParam}`, { credentials: 'include' });
+        const d = await r.json();
+        if (!d.success) throw new Error(d.message);
+        state.vessels = d.vessels;
+        state.summary = d.summary;
+        renderSummary(d.summary);
+        renderFleet();
+    } catch (err) {
+        document.getElementById('fleet-list').innerHTML =
+            `<div class="empty-state"><div class="empty-icon">⚠️</div><h3>Failed to load fleet</h3><p>${err.message}</p></div>`;
+    }
+}
+
+function renderSummary(s) {
+    document.getElementById('sc-total').textContent = s.total;
+    document.getElementById('sc-compliant').textContent = s.compliant;
+    document.getElementById('sc-expiring').textContent = s.expiring_soon;
+    document.getElementById('sc-expired').textContent = s.expired;
+}
+
+// ── Fleet rendering ───────────────────────────────────────────────────────────
+function setFilter(f) {
+    state.filter = f;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active', 'red', 'yellow'));
+    const btn = document.getElementById('filter-' + f);
+    btn.classList.add('active');
+    if (f === 'red') btn.classList.add('red');
+    if (f === 'yellow') btn.classList.add('yellow');
+    renderFleet();
+}
+
+function renderFleet() {
+    const wrap = document.getElementById('fleet-list');
+    let vessels = state.vessels.slice();
+
+    // Sort: red first, then yellow, then green
+    const badgeOrder = { red: 0, yellow: 1, green: 2 };
+    vessels.sort((a, b) => (badgeOrder[a.compliance_badge] ?? 3) - (badgeOrder[b.compliance_badge] ?? 3));
+
+    // Filter
+    if (state.filter !== 'all') {
+        vessels = vessels.filter(v => v.compliance_badge === state.filter);
+    }
+
+    if (!state.vessels.length) {
+        wrap.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-icon">⚓</div>
+                <h3>No vessels yet</h3>
+                <p>Add your first vessel to start tracking certificate compliance.</p>
+                <button class="btn-primary" onclick="openAddVessel()">+ Add Vessel</button>
+            </div>`;
+        return;
+    }
+
+    if (!vessels.length) {
+        wrap.innerHTML = `<div class="empty-state"><div class="empty-icon">🔍</div><h3>No vessels match this filter</h3></div>`;
+        return;
+    }
+
+    wrap.innerHTML = `<div class="fleet-list">${vessels.map(renderVesselCard).join('')}</div>`;
+}
+
+function badgeEmoji(badge) {
+    if (badge === 'red') return '🔴';
+    if (badge === 'yellow') return '🟡';
+    return '🟢';
+}
+
+function certStatusClass(daysLeft) {
+    if (daysLeft <= 0) return 'red';
+    if (daysLeft <= 7) return 'red';
+    if (daysLeft <= 30) return 'yellow';
+    return 'green';
+}
+
+function certCountLabel(certs) {
+    if (!certs.length) return { cls: 'ok', text: '<strong>0</strong> certs tracked' };
+    const expired = certs.filter(c => c.days_left <= 0).length;
+    const urgent = certs.filter(c => c.days_left > 0 && c.days_left <= 7).length;
+    const warning = certs.filter(c => c.days_left > 7 && c.days_left <= 30).length;
+    if (expired) return { cls: 'danger', text: `<strong>${expired} expired</strong> · ${certs.length} total` };
+    if (urgent) return { cls: 'danger', text: `<strong>${urgent} urgent</strong> · ${certs.length} total` };
+    if (warning) return { cls: 'warning', text: `<strong>${warning} expiring soon</strong> · ${certs.length} total` };
+    return { cls: 'ok', text: `<strong>${certs.length}</strong> cert${certs.length === 1 ? '' : 's'} — all valid` };
+}
+
+function expiryLabel(daysLeft) {
+    if (daysLeft < 0) return `Expired ${Math.abs(daysLeft)}d ago`;
+    if (daysLeft === 0) return 'Expires today';
+    if (daysLeft === 1) return '1 day left';
+    return `${daysLeft}d left`;
+}
+
+function escHtml(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function renderVesselCard(v) {
+    const expanded = state.expandedVessels.has(v.id);
+    const { cls, text } = certCountLabel(v.certificates || []);
+    const tags = [v.imo ? `IMO ${v.imo}` : null, v.flag, v.type, v.class_society].filter(Boolean);
+
+    const certRows = (v.certificates || []).map(c => {
+        const sc = certStatusClass(c.days_left);
+        const label = CERT_LABELS[c.cert_type] || c.cert_type;
+        return `
+        <div class="cert-item">
+            <div class="cert-status-dot ${sc}"></div>
+            <div class="cert-name" title="${escHtml(label)}">${escHtml(label)}${c.cert_number ? ` <span style="color:var(--gray);font-weight:400;">(${escHtml(c.cert_number)})</span>` : ''}</div>
+            ${c.issuing_body ? `<div class="cert-issuer">${escHtml(c.issuing_body)}</div>` : ''}
+            <div class="cert-expiry ${sc}">${expiryLabel(c.days_left)}</div>
+            <button class="cert-delete" onclick="deleteCert(event, ${v.id}, ${c.id})" title="Remove certificate">✕</button>
+        </div>`;
+    }).join('');
+
+    return `
+    <div class="vessel-card ${v.compliance_badge}${expanded ? ' expanded' : ''}" id="vessel-card-${v.id}">
+        <div class="vessel-header" onclick="toggleVessel(${v.id})">
+            <div class="vessel-badge ${v.compliance_badge}">${badgeEmoji(v.compliance_badge)}</div>
+            <div class="vessel-info">
+                <div class="vessel-name">${escHtml(v.name)}</div>
+                <div class="vessel-meta-tags">${tags.map(t => `<span class="vtag">${escHtml(t)}</span>`).join('')}</div>
+            </div>
+            <div class="vessel-cert-summary">
+                <div class="cert-count ${cls}">${text}</div>
+            </div>
+            <div class="vessel-actions" onclick="event.stopPropagation()">
+                <button class="btn-icon" onclick="openEditVessel(${v.id})" title="Edit vessel">✏️</button>
+                <button class="btn-icon danger" onclick="deleteVessel(${v.id}, '${escHtml(v.name)}')" title="Delete vessel">🗑</button>
+            </div>
+            <div class="vessel-expand-icon">▼</div>
+        </div>
+        <div class="cert-panel">
+            <div class="cert-panel-header">
+                <div class="cert-panel-title">Certificates</div>
+            </div>
+            <div class="cert-grid" id="cert-grid-${v.id}">
+                ${certRows || `<div class="no-certs">No certificates tracked yet. Add certificates to monitor expiry.</div>`}
+            </div>
+            <button class="btn-add-cert" onclick="openAddCert(${v.id})">+ Add Certificate</button>
+        </div>
+    </div>`;
+}
+
+function toggleVessel(id) {
+    const card = document.getElementById(`vessel-card-${id}`);
+    if (!card) return;
+    if (state.expandedVessels.has(id)) {
+        state.expandedVessels.delete(id);
+        card.classList.remove('expanded');
+    } else {
+        state.expandedVessels.add(id);
+        card.classList.add('expanded');
+    }
+}
+
+// ── Vessel CRUD ───────────────────────────────────────────────────────────────
+function openAddVessel() {
+    state.editingVesselId = null;
+    document.getElementById('vessel-modal-title').textContent = 'Add Vessel';
+    ['v-name','v-imo','v-flag','v-type','v-class'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('vessel-modal').classList.add('open');
+}
+function openEditVessel(id) {
+    const v = state.vessels.find(x => x.id === id);
+    if (!v) return;
+    state.editingVesselId = id;
+    document.getElementById('vessel-modal-title').textContent = 'Edit Vessel';
+    document.getElementById('v-name').value = v.name || '';
+    document.getElementById('v-imo').value = v.imo || '';
+    document.getElementById('v-flag').value = v.flag || '';
+    document.getElementById('v-type').value = v.type || '';
+    document.getElementById('v-class').value = v.class_society || '';
+    document.getElementById('vessel-modal').classList.add('open');
+}
+function closeVesselModal() { document.getElementById('vessel-modal').classList.remove('open'); }
+
+async function saveVessel() {
+    const name = document.getElementById('v-name').value.trim();
+    if (!name) { showFlash('error', 'Vessel name is required'); return; }
+    const body = {
+        name,
+        imo: document.getElementById('v-imo').value.trim() || null,
+        flag: document.getElementById('v-flag').value.trim() || null,
+        type: document.getElementById('v-type').value.trim() || null,
+        class_society: document.getElementById('v-class').value.trim() || null,
+    };
+    try {
+        const url = state.editingVesselId ? `/api/vessels/${state.editingVesselId}` : '/api/vessels';
+        const method = state.editingVesselId ? 'PUT' : 'POST';
+        const r = await fetch(url, { method, credentials: 'include', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+        const d = await r.json();
+        if (!d.success) throw new Error(d.message);
+        closeVesselModal();
+        showFlash('success', state.editingVesselId ? 'Vessel updated' : 'Vessel added');
+
+        // Track with analytics
+        if (typeof ccTrack === 'function') ccTrack('fleet_vessel_saved', { editing: !!state.editingVesselId });
+
+        await loadDashboard();
+        if (state.editingVesselId === null && d.vessel) state.expandedVessels.add(d.vessel.id);
+    } catch (err) { showFlash('error', err.message); }
+}
+
+async function deleteVessel(id, name) {
+    if (!confirm(`Delete ${name}? This will remove all its certificates too.`)) return;
+    try {
+        const r = await fetch(`/api/vessels/${id}`, { method: 'DELETE', credentials: 'include' });
+        const d = await r.json();
+        if (!d.success) throw new Error(d.message);
+        state.expandedVessels.delete(id);
+        showFlash('success', 'Vessel deleted');
+        await loadDashboard();
+    } catch (err) { showFlash('error', err.message); }
+}
+
+// ── Certificate CRUD ──────────────────────────────────────────────────────────
+function openAddCert(vesselId) {
+    state.certForVesselId = vesselId;
+    ['cert-number','cert-issuer','cert-notes','cert-issued','cert-expiry'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('cert-type').value = 'iopp';
+    document.getElementById('cert-modal').classList.add('open');
+}
+function closeCertModal() { document.getElementById('cert-modal').classList.remove('open'); }
+
+async function saveCertificate() {
+    const expiry = document.getElementById('cert-expiry').value;
+    if (!expiry) { showFlash('error', 'Expiry date is required'); return; }
+    const body = {
+        cert_type: document.getElementById('cert-type').value,
+        cert_number: document.getElementById('cert-number').value.trim() || null,
+        issued_date: document.getElementById('cert-issued').value || null,
+        expiry_date: expiry,
+        issuing_body: document.getElementById('cert-issuer').value.trim() || null,
+        notes: document.getElementById('cert-notes').value.trim() || null,
+    };
+    try {
+        const r = await fetch(`/api/vessels/${state.certForVesselId}/certificates`, {
+            method: 'POST', credentials: 'include',
+            headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body),
+        });
+        const d = await r.json();
+        if (!d.success) throw new Error(d.message);
+        closeCertModal();
+        showFlash('success', 'Certificate added');
+
+        // Track
+        if (typeof ccTrack === 'function') ccTrack('fleet_certificate_added', { cert_type: body.cert_type });
+
+        state.expandedVessels.add(state.certForVesselId);
+        await loadDashboard();
+    } catch (err) { showFlash('error', err.message); }
+}
+
+async function deleteCert(event, vesselId, certId) {
+    event.stopPropagation();
+    if (!confirm('Remove this certificate?')) return;
+    try {
+        const r = await fetch(`/api/vessels/${vesselId}/certificates/${certId}`, { method: 'DELETE', credentials: 'include' });
+        const d = await r.json();
+        if (!d.success) throw new Error(d.message);
+        showFlash('success', 'Certificate removed');
+        state.expandedVessels.add(vesselId);
+        await loadDashboard();
+    } catch (err) { showFlash('error', err.message); }
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function showFlash(type, msg) {
+    const el = document.getElementById('flash');
+    el.textContent = msg;
+    el.className = `flash ${type}`;
+    // Restart animation
+    el.classList.remove('show');
+    void el.offsetWidth; // force reflow
+    el.classList.add('show');
+}
+
+// Close modals on overlay click
+document.getElementById('vessel-modal').addEventListener('click', e => {
+    if (e.target === document.getElementById('vessel-modal')) closeVesselModal();
+});
+document.getElementById('cert-modal').addEventListener('click', e => {
+    if (e.target === document.getElementById('cert-modal')) closeCertModal();
+});
+
+// Start
+init();
+</script>
+<script src="/js/whatsapp-button.js"></script>
+</body>
+</html>

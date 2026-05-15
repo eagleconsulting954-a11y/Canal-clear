@@ -1,0 +1,3431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VUMPA Filing Demo — Panama Canal Compliance Automation | CanalClear</title>
+    <meta name="description" content="Watch CanalClear automate VUMPA filings, PCSOPEP compliance, and ACP submissions in real-time. See how maritime compliance software replaces $2,000–$5,000 ship agent fees.">
+    <meta name="keywords" content="Panama Canal compliance demo, VUMPA filing software demo, PCSOPEP compliance automation, maritime compliance software, ACP filing automation, ship compliance automation">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://canalclear.org/demo">
+    <link rel="alternate" hreflang="en" href="https://canalclear.org/demo">
+    <link rel="alternate" hreflang="es" href="https://canalclear.org/demo?lang=es">
+    <link rel="alternate" hreflang="zh" href="https://canalclear.org/demo?lang=zh">
+    <link rel="alternate" hreflang="el" href="https://canalclear.org/demo?lang=el">
+    <link rel="alternate" hreflang="ja" href="https://canalclear.org/demo?lang=ja">
+    <link rel="alternate" hreflang="x-default" href="https://canalclear.org/demo">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://canalclear.org/demo">
+    <meta property="og:title" content="VUMPA Filing Demo — Panama Canal Compliance Automation in Action">
+    <meta property="og:description" content="Watch CanalClear automate VUMPA filings, PCSOPEP compliance, and ACP submissions live. Maritime compliance software that replaces $2,000–$5,000+ ship agent fees per transit.">
+    <meta property="og:image" content="https://canalclear.org/og-image.png">
+    <meta property="og:site_name" content="CanalClear">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://canalclear.org/demo">
+    <meta name="twitter:title" content="VUMPA Filing Demo — Panama Canal Compliance Automation">
+    <meta name="twitter:description" content="See VUMPA filing automation and PCSOPEP compliance validation in real-time. Replace ship agent paperwork with maritime compliance software.">
+    <meta name="twitter:image" content="https://canalclear.org/og-image.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --navy: #1a2d4a;
+            --deep: #142238;
+            --slate: #243350;
+            --teal: #E85A00;
+            --teal-dim: rgba(232, 90, 0, 0.15);
+            --teal-glow: rgba(232, 90, 0, 0.3);
+            --cyan: #00B4D8;
+            --white: #ffffff;
+            --gray: #6b7c93;
+            --light-gray: #8fa3b8;
+            --red: #FF4D6D;
+            --red-dim: rgba(255, 77, 109, 0.15);
+            --green: #E85A00;
+            --amber: #FFB347;
+            --amber-dim: rgba(255, 179, 71, 0.15);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: var(--navy);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 1.25rem 2rem;
+            background: rgba(10, 22, 40, 0.92);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(232, 90, 0, 0.08);
+        }
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        .logo img { height: 38px; width: auto; object-fit: contain; }
+        .nav-links { display: flex; align-items: center; gap: 1rem; }
+        .nav-link {
+            color: var(--gray);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .nav-link:hover { color: var(--white); background: rgba(232, 90, 0,0.08); }
+        .nav-cta {
+            background: var(--teal);
+            color: var(--navy);
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .nav-cta:hover { background: #FF8533; }
+
+        /* ── PAGE LAYOUT ── */
+        .page-wrap {
+            padding-top: 100px;
+            padding-bottom: 6rem;
+        }
+
+        .demo-header {
+            text-align: center;
+            padding: 3rem 2rem 2rem;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+        .demo-header .eyebrow {
+            display: inline-block;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--teal);
+            background: var(--teal-dim);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+        }
+        .demo-header h1 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            margin-bottom: 1rem;
+        }
+        .demo-header h1 em { font-style: normal; color: var(--teal); }
+        .demo-header p {
+            font-size: 1.1rem;
+            color: var(--light-gray);
+            line-height: 1.7;
+        }
+
+        /* ── DEMO PLAYER ── */
+        .demo-player-wrap {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .demo-player {
+            position: relative;
+            background: var(--deep);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(232, 90, 0, 0.12);
+            box-shadow:
+                0 0 0 1px rgba(232, 90, 0,0.05),
+                0 4px 40px rgba(0,0,0,0.5),
+                0 0 80px rgba(232, 90, 0,0.04);
+        }
+
+        /* Cinematic top bar */
+        .player-chrome {
+            background: rgba(10, 22, 40, 0.8);
+            border-bottom: 1px solid rgba(232, 90, 0,0.08);
+            padding: 0.75rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .chrome-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+        }
+        .chrome-dot.red { background: #FF5F57; }
+        .chrome-dot.amber { background: #FEBC2E; }
+        .chrome-dot.green { background: #28C840; }
+        .chrome-url {
+            margin-left: 1rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 6px;
+            padding: 0.3rem 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--gray);
+            flex: 1;
+            max-width: 320px;
+        }
+        .chrome-badge {
+            margin-left: auto;
+            font-size: 0.7rem;
+            color: var(--teal);
+            background: var(--teal-dim);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Viewport where scenes appear */
+        .player-viewport {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 */
+            background: var(--navy);
+        }
+        .scene-container {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        /* ── SCENES ── */
+        .scene {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            padding: 2rem;
+        }
+        .scene.active { opacity: 1; }
+        .scene.exit { opacity: 0; }
+
+        /* Scene background grid */
+        .scene::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(232, 90, 0,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(232, 90, 0,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+
+        /* ── SCENE TITLE ── */
+        .scene-title {
+            position: absolute;
+            top: 1rem;
+            left: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 10;
+        }
+        .scene-num {
+            width: 22px; height: 22px;
+            background: var(--teal);
+            color: var(--navy);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 700;
+            font-family: 'IBM Plex Sans', sans-serif;
+        }
+        .scene-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--teal);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* ── CALLOUT BADGE ── */
+        .callout {
+            position: absolute;
+            bottom: 4rem;
+            right: 1.5rem;
+            background: rgba(10,22,40,0.9);
+            border: 1px solid rgba(232, 90, 0,0.25);
+            border-radius: 10px;
+            padding: 0.75rem 1.1rem;
+            backdrop-filter: blur(10px);
+            z-index: 20;
+            transform: translateY(10px);
+            opacity: 0;
+            transition: all 0.5s ease 0.5s;
+            max-width: 220px;
+        }
+        .callout.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .callout-stat {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--teal);
+        }
+        .callout-text {
+            font-size: 0.75rem;
+            color: var(--light-gray);
+            line-height: 1.4;
+            margin-top: 0.15rem;
+        }
+
+        /* ── SCENE 1: ENTER VESSEL ── */
+        .vessel-panel {
+            background: var(--slate);
+            border: 1px solid rgba(232, 90, 0,0.12);
+            border-radius: 14px;
+            padding: 2rem 2.5rem;
+            width: 100%;
+            max-width: 520px;
+            position: relative;
+        }
+        .vessel-panel h3 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 1.1rem;
+            color: var(--white);
+            margin-bottom: 0.25rem;
+        }
+        .vessel-panel p {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+        .vessel-input-wrap {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        .vessel-input {
+            width: 100%;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(232, 90, 0,0.2);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            font-size: 0.95rem;
+            color: var(--white);
+            font-family: 'JetBrains Mono', monospace;
+            outline: none;
+        }
+        .vessel-input.focused { border-color: var(--teal); box-shadow: 0 0 0 3px var(--teal-dim); }
+        .vessel-input-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background: var(--teal);
+            margin-left: 1px;
+            vertical-align: middle;
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        .vessel-data-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            opacity: 0;
+            transform: translateX(-8px);
+            transition: all 0.3s ease;
+        }
+        .vessel-data-row.show { opacity: 1; transform: translateX(0); }
+        .vessel-data-row:last-child { border-bottom: none; }
+        .vdr-label { font-size: 0.75rem; color: var(--gray); }
+        .vdr-value { font-size: 0.85rem; color: var(--white); font-weight: 500; font-family: 'JetBrains Mono', monospace; }
+        .vdr-value.teal { color: var(--teal); }
+
+        .vessel-found-badge {
+            position: absolute;
+            top: -0.75rem;
+            right: 1rem;
+            background: var(--teal);
+            color: var(--navy);
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            letter-spacing: 0.05em;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .vessel-found-badge.show { opacity: 1; }
+
+        /* ── SCENE 2: VUMPA VALIDATION ── */
+        .validation-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            width: 100%;
+            max-width: 700px;
+        }
+        .val-card {
+            background: var(--slate);
+            border: 1px solid rgba(232, 90, 0,0.1);
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+        .val-card-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--teal);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .val-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.45rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            opacity: 0;
+            transform: translateX(-5px);
+            transition: all 0.35s ease;
+        }
+        .val-item:last-child { border-bottom: none; }
+        .val-item.show { opacity: 1; transform: translateX(0); }
+        .val-icon {
+            width: 20px; height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .val-icon.scanning {
+            background: rgba(0,180,216,0.15);
+            border: 1px solid rgba(0,180,216,0.3);
+            animation: pulse-scan 1s ease-in-out infinite;
+        }
+        .val-icon.pass {
+            background: rgba(232, 90, 0,0.15);
+            border: 1px solid var(--teal);
+        }
+        .val-icon.fail {
+            background: rgba(255,77,109,0.15);
+            border: 1px solid var(--red);
+        }
+        @keyframes pulse-scan {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0,180,216,0.4); }
+            50% { box-shadow: 0 0 0 4px rgba(0,180,216,0); }
+        }
+        .val-text { font-size: 0.78rem; color: var(--light-gray); line-height: 1.3; }
+        .val-text strong { color: var(--white); }
+
+        /* Scan progress bar */
+        .scan-bar-wrap {
+            background: rgba(255,255,255,0.05);
+            border-radius: 100px;
+            height: 4px;
+            margin: 0.75rem 0;
+            overflow: hidden;
+        }
+        .scan-bar-fill {
+            height: 100%;
+            border-radius: 100px;
+            background: linear-gradient(90deg, var(--teal), var(--cyan));
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+        .scan-status {
+            font-size: 0.7rem;
+            color: var(--gray);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Error flag */
+        .val-error-box {
+            background: var(--red-dim);
+            border: 1px solid rgba(255,77,109,0.3);
+            border-radius: 8px;
+            padding: 0.65rem 0.85rem;
+            margin-top: 0.75rem;
+            opacity: 0;
+            transform: scale(0.96);
+            transition: all 0.4s ease;
+        }
+        .val-error-box.show { opacity: 1; transform: scale(1); }
+        .val-error-title { font-size: 0.7rem; color: var(--red); font-weight: 600; margin-bottom: 0.2rem; }
+        .val-error-text { font-size: 0.72rem; color: var(--light-gray); line-height: 1.4; }
+
+        /* ── SCENE 3: PCSOPEP ── */
+        .pcsopep-panel {
+            width: 100%;
+            max-width: 580px;
+        }
+        .pcsopep-header {
+            background: var(--slate);
+            border: 1px solid rgba(232, 90, 0,0.1);
+            border-radius: 12px 12px 0 0;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .pcsopep-title {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+        .pcsopep-body {
+            background: var(--deep);
+            border: 1px solid rgba(232, 90, 0,0.1);
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            padding: 1.25rem 1.5rem;
+        }
+
+        .check-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            opacity: 0;
+            transform: translateY(5px);
+            transition: all 0.35s ease;
+        }
+        .check-row:last-child { border-bottom: none; }
+        .check-row.show { opacity: 1; transform: translateY(0); }
+
+        .check-icon {
+            width: 24px; height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+        }
+        .check-icon.pass { background: rgba(232, 90, 0,0.15); color: var(--teal); }
+        .check-icon.fail { background: rgba(255,77,109,0.15); color: var(--red); }
+        .check-icon.scanning { background: rgba(0,180,216,0.15); color: var(--cyan); animation: pulse-scan 0.8s ease-in-out infinite; }
+        .check-icon.warn { background: var(--amber-dim); color: var(--amber); }
+
+        .check-info { flex: 1; }
+        .check-label { font-size: 0.8rem; color: var(--white); font-weight: 500; }
+        .check-sub { font-size: 0.7rem; color: var(--gray); }
+        .check-badge {
+            font-size: 0.65rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+            white-space: nowrap;
+        }
+        .check-badge.pass { background: rgba(232, 90, 0,0.15); color: var(--teal); }
+        .check-badge.fail { background: rgba(255,77,109,0.15); color: var(--red); }
+        .check-badge.warn { background: var(--amber-dim); color: var(--amber); }
+
+        /* Doc scan progress */
+        .doc-scan-wrap {
+            background: var(--slate);
+            border-radius: 8px;
+            padding: 0.85rem 1rem;
+            margin-bottom: 1rem;
+        }
+        .doc-scan-label {
+            font-size: 0.72rem;
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+        }
+        .doc-scan-label span { color: var(--teal); font-family: 'JetBrains Mono', monospace; }
+        .doc-scan-bar {
+            background: rgba(255,255,255,0.05);
+            border-radius: 100px;
+            height: 6px;
+            overflow: hidden;
+        }
+        .doc-scan-fill {
+            height: 100%;
+            border-radius: 100px;
+            background: linear-gradient(90deg, var(--teal), var(--cyan));
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        /* ── SCENE 4: CREW & CARGO ── */
+        .crew-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            width: 100%;
+            max-width: 680px;
+        }
+        .crew-card {
+            background: var(--slate);
+            border: 1px solid rgba(232, 90, 0,0.1);
+            border-radius: 12px;
+            padding: 1.1rem 1.25rem;
+        }
+        .crew-card-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gray);
+            font-weight: 600;
+            margin-bottom: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .crew-card-title::before {
+            content: '';
+            display: inline-block;
+            width: 6px; height: 6px;
+            background: var(--teal);
+            border-radius: 50%;
+        }
+        .micro-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.3rem 0;
+            font-size: 0.75rem;
+            color: var(--light-gray);
+            opacity: 0;
+            transition: all 0.25s ease;
+        }
+        .micro-item.show { opacity: 1; }
+        .micro-dot {
+            width: 14px; height: 14px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.55rem;
+            flex-shrink: 0;
+        }
+        .micro-dot.pass { background: rgba(232, 90, 0,0.2); color: var(--teal); }
+        .micro-dot.fail { background: rgba(255,77,109,0.2); color: var(--red); }
+        .micro-dot.warn { background: var(--amber-dim); color: var(--amber); }
+
+        .crew-summary {
+            grid-column: 1 / -1;
+            background: rgba(232, 90, 0,0.05);
+            border: 1px solid rgba(232, 90, 0,0.15);
+            border-radius: 10px;
+            padding: 0.85rem 1.25rem;
+            display: flex;
+            justify-content: space-around;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .crew-summary.show { opacity: 1; }
+        .cs-stat { text-align: center; }
+        .cs-num {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--teal);
+            line-height: 1;
+        }
+        .cs-label { font-size: 0.7rem; color: var(--gray); margin-top: 0.2rem; }
+
+        /* ── SCENE 5: COMPILE DOCS ── */
+        .compile-panel {
+            width: 100%;
+            max-width: 580px;
+        }
+        .compile-title {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--white);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .compile-docs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+        .doc-card {
+            background: var(--slate);
+            border: 1px solid rgba(232, 90, 0,0.1);
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(12px) scale(0.97);
+            transition: all 0.45s ease;
+        }
+        .doc-card.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .doc-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--teal), transparent);
+            transform: scaleX(0);
+            transition: transform 0.6s ease 0.3s;
+        }
+        .doc-card.show::after { transform: scaleX(1); }
+        .doc-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .doc-name {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.2rem;
+        }
+        .doc-pages { font-size: 0.7rem; color: var(--gray); }
+        .doc-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--teal);
+            background: var(--teal-dim);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+        }
+
+        .compile-action {
+            background: var(--teal);
+            color: var(--navy);
+            border: none;
+            border-radius: 10px;
+            padding: 0.9rem;
+            width: 100%;
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: default;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .compile-action.show { opacity: 1; transform: translateY(0); }
+
+        /* ── SCENE 6: ACP FILING ── */
+        .acp-panel {
+            width: 100%;
+            max-width: 560px;
+        }
+        .acp-header {
+            background: var(--slate);
+            border: 1px solid rgba(232, 90, 0,0.1);
+            border-radius: 12px 12px 0 0;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .acp-logo-text {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+        .acp-logo-text span { color: var(--teal); }
+        .acp-status-badge {
+            margin-left: auto;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.25rem 0.7rem;
+            border-radius: 20px;
+            transition: all 0.5s ease;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .acp-status-badge.pending { background: var(--amber-dim); color: var(--amber); }
+        .acp-status-badge.submitting { background: rgba(0,180,216,0.15); color: var(--cyan); animation: pulse-scan 1s ease-in-out infinite; }
+        .acp-status-badge.submitted { background: var(--teal-dim); color: var(--teal); }
+        .acp-status-badge.approved { background: rgba(232, 90, 0,0.25); color: #00ffc4; border: 1px solid var(--teal); }
+
+        .acp-body {
+            background: var(--deep);
+            border: 1px solid rgba(232, 90, 0,0.1);
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            padding: 1.5rem;
+        }
+
+        .acp-timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+        .acp-timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 4px;
+            bottom: 4px;
+            width: 1px;
+            background: rgba(232, 90, 0,0.15);
+        }
+        .acp-step {
+            position: relative;
+            padding-bottom: 1.1rem;
+            opacity: 0;
+            transform: translateX(-6px);
+            transition: all 0.35s ease;
+        }
+        .acp-step:last-child { padding-bottom: 0; }
+        .acp-step.show { opacity: 1; transform: translateX(0); }
+        .acp-step-dot {
+            position: absolute;
+            left: -1.75rem;
+            top: 3px;
+            width: 16px; height: 16px;
+            border-radius: 50%;
+            border: 2px solid rgba(232, 90, 0,0.2);
+            background: var(--deep);
+            transition: all 0.3s ease;
+        }
+        .acp-step.done .acp-step-dot {
+            background: var(--teal);
+            border-color: var(--teal);
+        }
+        .acp-step.active .acp-step-dot {
+            background: var(--cyan);
+            border-color: var(--cyan);
+            animation: pulse-scan 0.8s ease-in-out infinite;
+        }
+        .acp-step-label { font-size: 0.8rem; color: var(--light-gray); line-height: 1.3; }
+        .acp-step.done .acp-step-label { color: var(--white); }
+        .acp-step-sub { font-size: 0.7rem; color: var(--gray); margin-top: 0.1rem; }
+
+        /* APPROVED state - the money shot */
+        .approved-overlay {
+            position: absolute;
+            inset: 0;
+            background: var(--navy);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            z-index: 10;
+        }
+        .approved-overlay.show { opacity: 1; }
+        .approved-icon {
+            width: 80px; height: 80px;
+            background: linear-gradient(135deg, rgba(232, 90, 0,0.2), rgba(0,180,216,0.2));
+            border: 2px solid var(--teal);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: 0 0 40px rgba(232, 90, 0,0.3);
+            animation: approved-pulse 2s ease-in-out infinite;
+        }
+        @keyframes approved-pulse {
+            0%, 100% { box-shadow: 0 0 40px rgba(232, 90, 0,0.3); }
+            50% { box-shadow: 0 0 60px rgba(232, 90, 0,0.5); }
+        }
+        .approved-title {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--teal);
+            letter-spacing: -0.02em;
+        }
+        .approved-sub { font-size: 0.9rem; color: var(--light-gray); text-align: center; }
+        .approved-details {
+            display: flex;
+            gap: 2rem;
+            margin-top: 0.5rem;
+        }
+        .approved-detail { text-align: center; }
+        .approved-detail-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--white);
+            font-weight: 600;
+        }
+        .approved-detail-lbl { font-size: 0.65rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.2rem; }
+
+        /* ── CONTROLS ── */
+        .player-controls {
+            background: rgba(10,22,40,0.9);
+            border-top: 1px solid rgba(232, 90, 0,0.08);
+            padding: 0.85rem 1.25rem;
+        }
+        .progress-track {
+            position: relative;
+            height: 3px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 100px;
+            margin-bottom: 0.85rem;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--teal), var(--cyan));
+            border-radius: 100px;
+            width: 0%;
+            transition: width 0.5s linear;
+        }
+        .scene-ticks {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            gap: 0;
+        }
+        .scene-tick {
+            flex: 1;
+            border-right: 1px solid rgba(255,255,255,0.12);
+        }
+        .scene-tick:last-child { border-right: none; }
+
+        .controls-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .ctrl-btn {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 8px;
+            width: 36px; height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--light-gray);
+            font-size: 0.85rem;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .ctrl-btn:hover { background: rgba(232, 90, 0,0.1); border-color: rgba(232, 90, 0,0.2); color: var(--teal); }
+        .ctrl-btn.primary { background: var(--teal); border-color: var(--teal); color: var(--navy); width: 40px; height: 40px; font-size: 1rem; }
+        .ctrl-btn.primary:hover { background: #FF8533; }
+
+        .scene-indicators {
+            display: flex;
+            gap: 0.4rem;
+            align-items: center;
+        }
+        .scene-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .scene-dot.active {
+            background: var(--teal);
+            width: 18px;
+            border-radius: 3px;
+        }
+
+        .scene-info {
+            margin-left: auto;
+            text-align: right;
+        }
+        .scene-name {
+            font-size: 0.8rem;
+            color: var(--white);
+            font-weight: 500;
+        }
+        .scene-time {
+            font-size: 0.7rem;
+            color: var(--gray);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ── SCENE LABELS (below player) ── */
+        .scene-labels-row {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            overflow-x: auto;
+            padding-bottom: 0.25rem;
+        }
+        .scene-label-chip {
+            flex-shrink: 0;
+            font-size: 0.7rem;
+            color: var(--gray);
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.07);
+            padding: 0.3rem 0.75rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .scene-label-chip.active { color: var(--teal); background: var(--teal-dim); border-color: rgba(232, 90, 0,0.2); }
+        .scene-label-chip:hover { color: var(--white); border-color: rgba(255,255,255,0.15); }
+
+        /* ── CTA SECTION ── */
+        .demo-cta {
+            max-width: 700px;
+            margin: 4rem auto 0;
+            padding: 0 1.5rem;
+            text-align: center;
+        }
+        .demo-cta h2 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: clamp(1.6rem, 3vw, 2.4rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.75rem;
+        }
+        .demo-cta h2 em { font-style: normal; color: var(--teal); }
+        .demo-cta p { font-size: 1rem; color: var(--light-gray); margin-bottom: 2rem; line-height: 1.7; }
+        .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .cta-primary {
+            background: var(--teal);
+            color: var(--navy);
+            padding: 0.9rem 2rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        .cta-primary:hover { background: #FF8533; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(232, 90, 0,0.3); }
+        .cta-secondary {
+            background: transparent;
+            color: var(--light-gray);
+            padding: 0.9rem 2rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            border: 1px solid rgba(255,255,255,0.12);
+            transition: all 0.2s;
+        }
+        .cta-secondary:hover { color: var(--white); border-color: rgba(255,255,255,0.25); }
+
+        /* ── SOCIAL PROOF ── */
+        .social-proof {
+            max-width: 900px;
+            margin: 4rem auto 0;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+        }
+        .proof-card {
+            background: var(--deep);
+            border: 1px solid rgba(232, 90, 0,0.08);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        .proof-stat {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--teal);
+            margin-bottom: 0.25rem;
+        }
+        .proof-label { font-size: 0.85rem; color: var(--light-gray); line-height: 1.4; }
+
+        /* ── FOOTER ── */
+        .demo-footer {
+            text-align: center;
+            padding: 3rem 2rem 2rem;
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+        .demo-footer a { color: var(--teal); text-decoration: none; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 640px) {
+            .validation-layout { grid-template-columns: 1fr; }
+            .crew-layout { grid-template-columns: 1fr; }
+            .compile-docs { grid-template-columns: 1fr; }
+            .social-proof { grid-template-columns: 1fr; }
+            .approved-details { gap: 1rem; }
+            .scene { padding: 1rem; }
+            .demo-header h1 { font-size: 1.6rem; }
+            .nav-links .nav-link:not(.nav-cta) { display: none; }
+            .chrome-url { display: none; }
+        }
+
+        @media (max-width: 480px) {
+            .val-card { padding: 0.85rem; }
+            .acp-body { padding: 1rem; }
+            .scene-label-chip { font-size: 0.65rem; padding: 0.25rem 0.6rem; }
+        }
+
+        /* ── TRY IT YOURSELF - INTERACTIVE WALKTHROUGH ── */
+        .try-it-anchor-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--teal);
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 600;
+            margin-top: 1.25rem;
+            padding: 0.55rem 1.25rem;
+            border: 1px solid rgba(232, 90, 0,0.3);
+            border-radius: 20px;
+            transition: all 0.2s;
+            background: var(--teal-dim);
+        }
+        .try-it-anchor-btn:hover { background: rgba(232, 90, 0,0.22); border-color: var(--teal); transform: translateY(-1px); }
+
+        .interactive-section {
+            max-width: 960px;
+            margin: 6rem auto 0;
+            padding: 0 1.5rem;
+        }
+        .interactive-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .interactive-header .eyebrow {
+            display: inline-block;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--teal);
+            background: var(--teal-dim);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+        }
+        .interactive-header h2 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: clamp(1.7rem, 3.5vw, 2.6rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.75rem;
+        }
+        .interactive-header h2 em { font-style: normal; color: var(--teal); }
+        .interactive-header p {
+            font-size: 1rem;
+            color: var(--light-gray);
+            max-width: 540px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Step indicator */
+        .step-indicator {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 0;
+            margin-bottom: 2.5rem;
+        }
+        .step-pip {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+            cursor: pointer;
+        }
+        .step-pip-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--slate);
+            border: 2px solid rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--gray);
+            transition: all 0.35s ease;
+        }
+        .step-pip.active .step-pip-circle {
+            background: var(--teal);
+            border-color: var(--teal);
+            color: var(--navy);
+            box-shadow: 0 0 22px rgba(232, 90, 0,0.4);
+        }
+        .step-pip.done .step-pip-circle {
+            background: rgba(232, 90, 0,0.15);
+            border-color: var(--teal);
+            color: var(--teal);
+        }
+        .step-pip-label {
+            font-size: 0.68rem;
+            font-weight: 600;
+            color: var(--gray);
+            white-space: nowrap;
+            transition: color 0.3s;
+            text-align: center;
+            max-width: 80px;
+            line-height: 1.3;
+        }
+        .step-pip.active .step-pip-label { color: var(--teal); }
+        .step-pip.done .step-pip-label { color: var(--light-gray); }
+        .step-connector {
+            flex: 1;
+            height: 2px;
+            background: rgba(255,255,255,0.07);
+            margin: 0 0.35rem;
+            margin-top: 21px;
+            max-width: 100px;
+            min-width: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .step-connector-fill {
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 0%;
+            background: linear-gradient(90deg, var(--teal), var(--cyan));
+            transition: width 0.5s ease;
+        }
+
+        /* Step panels */
+        .istep { display: none; }
+        .istep.active { display: block; animation: istep-in 0.4s ease; }
+        .istep.istep-back { animation: istep-in-back 0.4s ease; }
+        @keyframes istep-in { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes istep-in-back { from { opacity: 0; transform: translateX(-24px); } to { opacity: 1; transform: translateX(0); } }
+
+        .istep-card {
+            background: var(--deep);
+            border: 1px solid rgba(232, 90, 0,0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        .istep-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(232, 90, 0,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(232, 90, 0,0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+        .istep-card-header { margin-bottom: 1.75rem; }
+        .istep-card-header .step-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--teal);
+            background: var(--teal-dim);
+            padding: 0.28rem 0.75rem;
+            border-radius: 20px;
+            margin-bottom: 0.85rem;
+        }
+        .istep-card-header h3 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 1.55rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.35rem;
+        }
+        .istep-card-header p { color: var(--light-gray); font-size: 0.9rem; line-height: 1.6; }
+        .istep-body { flex: 1; }
+        .istep-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        .istep-nav-left { display: flex; align-items: center; gap: 0.75rem; }
+        .istep-btn {
+            padding: 0.7rem 1.4rem;
+            border-radius: 10px;
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-weight: 600;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .istep-btn.primary { background: var(--teal); color: var(--navy); }
+        .istep-btn.primary:hover { background: #FF8533; transform: translateY(-1px); }
+        .istep-btn.primary:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+        .istep-btn.secondary { background: rgba(255,255,255,0.05); color: var(--light-gray); border: 1px solid rgba(255,255,255,0.09); }
+        .istep-btn.secondary:hover { background: rgba(255,255,255,0.09); color: var(--white); }
+        .istep-btn.warning { background: rgba(255,179,71,0.1); color: var(--amber); border: 1px solid rgba(255,179,71,0.25); }
+        .istep-btn.warning:hover { background: rgba(255,179,71,0.18); }
+        .istep-btn.success { background: rgba(232, 90, 0,0.12); color: var(--teal); border: 1px solid rgba(232, 90, 0,0.25); }
+
+        /* Step 1 styles */
+        .vessel-suggestions-label { font-size: 0.72rem; color: var(--gray); margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+        .vessel-suggestions { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+        .vessel-chip {
+            font-size: 0.75rem;
+            color: var(--light-gray);
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 20px;
+            padding: 0.35rem 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .vessel-chip:hover { color: var(--teal); border-color: rgba(232, 90, 0,0.3); background: var(--teal-dim); }
+
+        .i-vessel-input-wrap { position: relative; margin-bottom: 0.85rem; display: flex; gap: 0.75rem; }
+        .i-vessel-input {
+            flex: 1;
+            background: rgba(255,255,255,0.04);
+            border: 1.5px solid rgba(232, 90, 0,0.22);
+            border-radius: 10px;
+            padding: 0.8rem 1rem 0.8rem 2.75rem;
+            font-size: 0.95rem;
+            color: var(--white);
+            font-family: 'JetBrains Mono', monospace;
+            outline: none;
+            transition: all 0.2s;
+        }
+        .i-vessel-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px var(--teal-dim); }
+        .i-vessel-input::placeholder { color: var(--gray); }
+        .i-vessel-input-icon { position: absolute; left: 0.85rem; top: 50%; transform: translateY(-50%); color: var(--gray); font-size: 1rem; pointer-events: none; }
+        .i-vessel-search-btn {
+            padding: 0.8rem 1.25rem;
+            background: var(--teal);
+            color: var(--navy);
+            border: none;
+            border-radius: 10px;
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-weight: 700;
+            font-size: 0.88rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+        .i-vessel-search-btn:hover { background: #FF8533; }
+
+        .vessel-lookup-result {
+            background: var(--slate);
+            border: 1px solid rgba(232, 90, 0,0.2);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+        .vessel-lookup-result.show { display: block; animation: istep-in 0.35s ease; }
+        .vlr-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+        .vlr-name { font-family: 'IBM Plex Sans', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--white); }
+        .vlr-badge { font-size: 0.62rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 20px; background: var(--teal-dim); color: var(--teal); letter-spacing: 0.05em; }
+        .vlr-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem 1rem; }
+        .vlr-item-lbl { font-size: 0.65rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.08em; }
+        .vlr-item-val { font-size: 0.8rem; color: var(--white); font-family: 'JetBrains Mono', monospace; font-weight: 500; margin-top: 0.15rem; }
+        .vlr-item-val.teal { color: var(--teal); }
+
+        /* Step 2 styles */
+        .ai-scan-bar-wrap {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--slate);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.25rem;
+        }
+        .ai-scan-orb {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(232, 90, 0,0.15), rgba(0,180,216,0.15));
+            border: 2px solid rgba(232, 90, 0,0.3);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.25rem; flex-shrink: 0;
+            animation: scan-orb-pulse 2s ease-in-out infinite;
+        }
+        .ai-scan-orb.done { animation: none; background: linear-gradient(135deg, rgba(232, 90, 0,0.25), rgba(0,180,216,0.2)); border-color: var(--teal); }
+        @keyframes scan-orb-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(232, 90, 0,0.3); }
+            50% { box-shadow: 0 0 0 8px rgba(232, 90, 0,0); }
+        }
+        .ai-scan-info { flex: 1; }
+        .ai-scan-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--white); }
+        .ai-scan-status-text { font-size: 0.75rem; color: var(--gray); margin-top: 0.2rem; }
+        .ai-scan-pct-wrap { display: flex; flex-direction: column; align-items: flex-end; gap: 0.25rem; }
+        .ai-scan-pct { font-family: 'JetBrains Mono', monospace; font-size: 1.05rem; font-weight: 700; color: var(--teal); }
+        .ai-progress-bar { background: rgba(255,255,255,0.06); border-radius: 100px; height: 4px; overflow: hidden; width: 80px; }
+        .ai-progress-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--teal), var(--cyan)); width: 0%; transition: width 0.3s ease; }
+        .ai-checks-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem; margin-bottom: 1rem; }
+        .ai-check {
+            display: flex; align-items: center; gap: 0.55rem;
+            padding: 0.55rem 0.8rem;
+            background: rgba(255,255,255,0.025);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 8px;
+            opacity: 0; transform: translateY(4px);
+            transition: all 0.3s ease;
+        }
+        .ai-check.visible { opacity: 1; transform: translateY(0); }
+        .ai-check.fail-border { border-color: rgba(255,77,109,0.25); background: rgba(255,77,109,0.05); }
+        .ai-check.warn-border { border-color: rgba(255,179,71,0.22); background: rgba(255,179,71,0.04); }
+        .ai-check-icon {
+            width: 20px; height: 20px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.62rem; flex-shrink: 0;
+        }
+        .ai-check-icon.scanning { background: rgba(0,180,216,0.15); color: var(--cyan); animation: pulse-scan 0.8s ease-in-out infinite; }
+        .ai-check-icon.pass { background: rgba(232, 90, 0,0.15); color: var(--teal); }
+        .ai-check-icon.fail { background: rgba(255,77,109,0.15); color: var(--red); }
+        .ai-check-icon.warn { background: var(--amber-dim); color: var(--amber); }
+        .ai-check-text { flex: 1; min-width: 0; }
+        .ai-check-label { font-size: 0.76rem; color: var(--white); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .ai-check-sub { font-size: 0.67rem; color: var(--gray); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .ai-error-panel { display: none; margin-bottom: 0.75rem; }
+        .ai-error-panel.show { display: block; }
+        .ai-error-item {
+            display: flex; gap: 0.75rem;
+            padding: 0.8rem 1rem; border-radius: 10px; margin-bottom: 0.5rem;
+            animation: istep-in 0.4s ease;
+        }
+        .ai-error-item.error { background: rgba(255,77,109,0.07); border: 1px solid rgba(255,77,109,0.2); }
+        .ai-error-item.warning { background: rgba(255,179,71,0.07); border: 1px solid rgba(255,179,71,0.2); }
+        .ai-error-icon { font-size: 1.1rem; flex-shrink: 0; padding-top: 0.05rem; }
+        .ai-error-title { font-size: 0.8rem; font-weight: 600; }
+        .ai-error-item.error .ai-error-title { color: var(--red); }
+        .ai-error-item.warning .ai-error-title { color: var(--amber); }
+        .ai-error-desc { font-size: 0.73rem; color: var(--light-gray); margin-top: 0.1rem; line-height: 1.4; }
+        .step2-actions { display: none; gap: 0.75rem; flex-wrap: wrap; }
+
+        /* Step 3 styles */
+        .doc-tabs { display: flex; gap: 0.4rem; margin-bottom: 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 0.75rem; }
+        .doc-tab {
+            padding: 0.5rem 1.1rem; border-radius: 8px;
+            font-size: 0.8rem; font-weight: 600;
+            color: var(--gray); cursor: pointer; transition: all 0.2s;
+            border: 1px solid transparent; background: rgba(255,255,255,0.03);
+        }
+        .doc-tab:hover { color: var(--white); background: rgba(255,255,255,0.06); }
+        .doc-tab.active { color: var(--teal); background: var(--teal-dim); border-color: rgba(232, 90, 0,0.2); }
+        .doc-preview { display: none; }
+        .doc-preview.active { display: block; animation: istep-in 0.3s ease; }
+        .form-preview { background: var(--slate); border: 1px solid rgba(232, 90, 0,0.1); border-radius: 12px; overflow: hidden; }
+        .form-preview-header { background: rgba(0,0,0,0.18); padding: 0.85rem 1.25rem; display: flex; align-items: center; justify-content: space-between; }
+        .form-preview-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--white); }
+        .form-preview-meta { font-size: 0.68rem; color: var(--gray); font-family: 'JetBrains Mono', monospace; }
+        .form-preview-body { padding: 1rem 1.25rem; }
+        .form-field-row { display: grid; grid-template-columns: 140px 1fr; gap: 0.5rem 1rem; padding: 0.35rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); align-items: center; }
+        .form-field-row:last-child { border-bottom: none; }
+        .form-field-lbl { font-size: 0.67rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.06em; }
+        .form-field-val { font-size: 0.78rem; color: var(--white); font-family: 'JetBrains Mono', monospace; background: rgba(232, 90, 0,0.05); border: 1px solid rgba(232, 90, 0,0.09); border-radius: 4px; padding: 0.22rem 0.5rem; }
+        .form-field-val.highlight { color: var(--teal); background: rgba(232, 90, 0,0.1); border-color: rgba(232, 90, 0,0.2); }
+        .doc-download-btn {
+            display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+            margin-top: 0.85rem; padding: 0.65rem 1.5rem;
+            background: rgba(232, 90, 0,0.07); border: 1px solid rgba(232, 90, 0,0.18);
+            border-radius: 8px; color: var(--teal); font-weight: 600; font-size: 0.82rem;
+            cursor: pointer; transition: all 0.2s; width: 100%;
+        }
+        .doc-download-btn:hover { background: rgba(232, 90, 0,0.13); }
+        @keyframes dl-pulse { 0%, 100% { background: rgba(232, 90, 0,0.07); } 50% { background: rgba(232, 90, 0,0.18); } }
+        .doc-download-btn.downloading { animation: dl-pulse 0.5s ease-in-out 4; }
+
+        /* Step 4 styles */
+        .acp-submit-panel { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1.25rem; }
+        .acp-portal-card { background: var(--slate); border: 1px solid rgba(232, 90, 0,0.12); border-radius: 14px; padding: 1.5rem 1.75rem; width: 100%; max-width: 460px; }
+        .acp-portal-logo { font-family: 'IBM Plex Sans', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 0.2rem; }
+        .acp-portal-logo span { color: var(--teal); }
+        .acp-portal-meta { font-size: 0.7rem; color: var(--gray); font-family: 'JetBrains Mono', monospace; margin-bottom: 1.25rem; }
+        .acp-doc-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem; }
+        .acp-doc-item { display: flex; align-items: center; gap: 0.45rem; background: rgba(232, 90, 0,0.05); border: 1px solid rgba(232, 90, 0,0.09); border-radius: 7px; padding: 0.45rem 0.7rem; font-size: 0.73rem; color: var(--light-gray); }
+        .acp-doc-item::before { content: '✓'; color: var(--teal); font-weight: 700; flex-shrink: 0; }
+        .acp-submit-btn-wrap { width: 100%; max-width: 460px; }
+        .acp-submit-btn { width: 100%; padding: 0.95rem; background: var(--teal); color: var(--navy); border: none; border-radius: 12px; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+        .acp-submit-btn:hover { background: #FF8533; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(232, 90, 0,0.3); }
+        .acp-submit-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; box-shadow: none; }
+        .acp-progress-wrap { width: 100%; max-width: 460px; display: none; }
+        .acp-progress-wrap.show { display: block; }
+        .acp-progress-steps { background: var(--slate); border: 1px solid rgba(232, 90, 0,0.1); border-radius: 12px; overflow: hidden; }
+        .acp-prog-step { display: flex; align-items: center; gap: 0.8rem; padding: 0.8rem 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.04); opacity: 0.28; transition: all 0.3s ease; }
+        .acp-prog-step:last-child { border-bottom: none; }
+        .acp-prog-step.active { opacity: 1; background: rgba(232, 90, 0,0.03); }
+        .acp-prog-step.done { opacity: 1; }
+        .acp-prog-dot { width: 26px; height: 26px; border-radius: 50%; background: rgba(255,255,255,0.05); border: 1.5px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; font-size: 0.68rem; flex-shrink: 0; transition: all 0.3s ease; color: var(--gray); }
+        .acp-prog-step.active .acp-prog-dot { background: rgba(0,180,216,0.15); border-color: var(--cyan); color: var(--cyan); animation: pulse-scan 0.8s ease-in-out infinite; }
+        .acp-prog-step.done .acp-prog-dot { background: rgba(232, 90, 0,0.18); border-color: var(--teal); color: var(--teal); animation: none; }
+        .acp-prog-text { flex: 1; }
+        .acp-prog-label { font-size: 0.8rem; color: var(--white); font-weight: 500; }
+        .acp-prog-sub { font-size: 0.69rem; color: var(--gray); }
+        .acp-prog-step.active .acp-prog-sub { color: var(--cyan); }
+        .acp-prog-step.done .acp-prog-sub { color: var(--teal); }
+        .acp-prog-time { font-size: 0.65rem; color: var(--gray); font-family: 'JetBrains Mono', monospace; }
+        .acp-prog-step.done .acp-prog-time { color: var(--teal); }
+
+        /* Approval screen */
+        .acp-approval-screen { display: none; flex-direction: column; align-items: center; text-align: center; padding: 0.5rem 0; gap: 1rem; }
+        .acp-approval-screen.show { display: flex; animation: istep-in 0.5s ease; }
+        .approval-glow { width: 88px; height: 88px; border-radius: 50%; background: linear-gradient(135deg, rgba(232, 90, 0,0.2), rgba(0,180,216,0.12)); border: 2px solid var(--teal); display: flex; align-items: center; justify-content: center; font-size: 2.4rem; box-shadow: 0 0 40px rgba(232, 90, 0,0.3); animation: approval-glow-anim 2.5s ease-in-out infinite; }
+        @keyframes approval-glow-anim { 0%, 100% { box-shadow: 0 0 40px rgba(232, 90, 0,0.3); } 50% { box-shadow: 0 0 65px rgba(232, 90, 0,0.5); } }
+        .approval-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 2.1rem; font-weight: 700; color: var(--teal); letter-spacing: -0.03em; }
+        .approval-subtitle { font-size: 0.95rem; color: var(--light-gray); max-width: 400px; line-height: 1.5; }
+        .approval-ref-badge { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--teal); background: var(--teal-dim); border: 1px solid rgba(232, 90, 0,0.2); padding: 0.35rem 1rem; border-radius: 20px; }
+        .approval-details-grid { display: flex; gap: 2rem; background: var(--slate); border: 1px solid rgba(232, 90, 0,0.12); border-radius: 12px; padding: 1rem 2rem; }
+        .approval-detail { text-align: center; }
+        .approval-detail-val { font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; font-weight: 700; color: var(--white); }
+        .approval-detail-lbl { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray); margin-top: 0.2rem; }
+        .approval-cta-text { font-size: 0.95rem; color: var(--light-gray); line-height: 1.6; max-width: 440px; }
+        .approval-cta-btns { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-top: 0.5rem; }
+        .approval-cta-primary { background: var(--teal); color: var(--navy); padding: 0.8rem 1.75rem; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: all 0.2s; }
+        .approval-cta-primary:hover { background: #FF8533; transform: translateY(-1px); }
+        .approval-cta-secondary { background: transparent; color: var(--light-gray); padding: 0.8rem 1.75rem; border-radius: 10px; text-decoration: none; font-weight: 500; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.12); transition: all 0.2s; }
+        .approval-cta-secondary:hover { color: var(--white); border-color: rgba(255,255,255,0.22); }
+        .approval-replay-btn { background: none; border: none; color: var(--gray); font-size: 0.78rem; cursor: pointer; text-decoration: underline; transition: color 0.2s; margin-top: 0.25rem; }
+        .approval-replay-btn:hover { color: var(--teal); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .istep-card { padding: 1.5rem; min-height: 0; }
+            .ai-checks-grid { grid-template-columns: 1fr; }
+            .vlr-grid { grid-template-columns: 1fr 1fr; }
+            .acp-doc-summary { grid-template-columns: 1fr; }
+            .approval-details-grid { gap: 1rem; padding: 0.85rem 1.25rem; }
+            .step-connector { max-width: 50px; }
+        }
+        @media (max-width: 480px) {
+            .step-pip-circle { width: 36px; height: 36px; font-size: 0.82rem; }
+            .step-connector { max-width: 22px; }
+            .istep-card { padding: 1.1rem; }
+            .approval-title { font-size: 1.7rem; }
+            .vlr-grid { grid-template-columns: 1fr 1fr; }
+            .i-vessel-input-wrap { flex-direction: column; }
+            .form-field-row { grid-template-columns: 1fr; }
+            .form-field-lbl { border-bottom: none; padding-bottom: 0; }
+        }
+
+        /* ── MOBILE STYLES ≤768px ── */
+        @media (max-width: 768px) {
+            /* Page layout */
+            .page-wrap { padding-top: 80px; padding-bottom: 4rem; }
+
+            /* Demo header */
+            .demo-header { padding: 2rem 1.25rem 1.5rem; }
+            .demo-header h1 { font-size: clamp(1.5rem, 6vw, 2.2rem); }
+            .demo-header p { font-size: 0.97rem; }
+
+            /* Demo player: maintain 16:9 aspect ratio, full width */
+            .demo-player-wrap { padding: 0 0.75rem; margin: 1.5rem auto; }
+            .player-viewport { padding-bottom: 56.25%; /* keep 16:9 */ }
+
+            /* Chrome bar: tighten */
+            .player-chrome { padding: 0.6rem 0.85rem; gap: 0.4rem; }
+            .chrome-dot { width: 8px; height: 8px; }
+            .chrome-url { max-width: 180px; font-size: 0.68rem; }
+            .chrome-badge { font-size: 0.62rem; }
+
+            /* Player controls: larger tap targets */
+            .player-controls { padding: 0.75rem 0.85rem; }
+            .ctrl-btn { width: 44px; height: 44px; font-size: 1rem; }
+            .ctrl-btn.primary { width: 48px; height: 48px; font-size: 1.1rem; }
+
+            /* Progress bar: taller for easier touch */
+            .progress-track { height: 5px; margin-bottom: 0.75rem; }
+
+            /* Scene labels row: scrollable chips */
+            .scene-labels-row { gap: 0.4rem; }
+            .scene-label-chip { font-size: 0.68rem; padding: 0.3rem 0.6rem; }
+
+            /* Scene content: avoid overflow */
+            .scene { padding: 0.85rem; }
+            .callout { max-width: 180px; padding: 0.55rem 0.75rem; right: 0.85rem; bottom: 3.5rem; }
+            .callout-stat { font-size: 1.1rem; }
+            .callout-text { font-size: 0.68rem; }
+
+            /* Social proof: 2 columns */
+            .social-proof {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.85rem;
+                margin: 2.5rem auto 0;
+            }
+            .proof-stat { font-size: 1.6rem; }
+            .proof-label { font-size: 0.8rem; }
+
+            /* CTA section */
+            .demo-cta { margin: 2.5rem auto 0; padding: 0 1.25rem; }
+            .demo-cta h2 { font-size: clamp(1.4rem, 5vw, 2rem); }
+            .cta-buttons { flex-direction: column; align-items: center; }
+            .cta-primary, .cta-secondary {
+                width: 100%;
+                max-width: 320px;
+                text-align: center;
+                padding: 0.9rem 1.5rem;
+            }
+
+            /* Interactive section */
+            .interactive-section { margin: 4rem auto 0; padding: 0 1rem; }
+            .interactive-header h2 { font-size: clamp(1.4rem, 5vw, 2rem); }
+            .interactive-header p { font-size: 0.92rem; }
+
+            /* Step indicator: shrink labels */
+            .step-indicator { gap: 0; }
+            .step-pip-label { font-size: 0.62rem; max-width: 64px; }
+
+            /* Interactive step card */
+            .istep-card { padding: 1.5rem 1.25rem; min-height: 0; }
+            .istep-card-header h3 { font-size: 1.3rem; }
+            .istep-nav { flex-direction: column; gap: 0.75rem; }
+            .istep-nav-left { width: 100%; justify-content: flex-end; }
+            .istep-btn { padding: 0.75rem 1.25rem; font-size: 0.88rem; min-height: 44px; }
+
+            /* Vessel lookup result grid: 2 cols */
+            .vlr-grid { grid-template-columns: 1fr 1fr; }
+
+            /* Approval details: wrap */
+            .approval-details-grid { flex-wrap: wrap; gap: 0.75rem; }
+            .approval-cta-btns { flex-direction: column; align-items: center; }
+            .approval-cta-primary, .approval-cta-secondary {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+
+            /* Footer */
+            .demo-footer { padding: 2rem 1.25rem 1.5rem; }
+        }
+
+        @media (max-width: 400px) {
+            /* Social proof: single column on very narrow screens */
+            .social-proof { grid-template-columns: 1fr; }
+            /* Chrome bar: hide URL bar to save space */
+            .chrome-url { display: none; }
+            .scene-name { font-size: 0.72rem; }
+            .scene-time { font-size: 0.65rem; }
+        }
+    </style>
+    <link rel="stylesheet" href="/css/mobile.css">
+
+    <!-- PWA / Add to Home Screen -->
+    <meta name="theme-color" content="#1a2d4a">
+    <link rel="manifest" href="/manifest.json">
+    <!-- iOS PWA -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="CanalClear">
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512.png">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://canalclear.org/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Demo",
+          "item": "https://canalclear.org/demo"
+        }
+      ]
+    }
+    </script>
+      <link rel="stylesheet" href="/css/nav.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="nav-logo">
+            <img src="https://pub-629428d185ca4960a0a73c850d32294b.r2.dev/company_47541/images/9d5d2ef6-d9e0-40eb-ad15-df5e737cefc1.png" alt="CanalClear" width="140" height="35">
+        </a>
+        <div class="nav-links">
+            <a href="/panama">🇵🇦 Panama</a>
+            <a href="/suez">🇪🇬 Suez</a>
+            <a href="/bosporus">🇹🇷 Bosporus</a>
+            <a href="/malacca">🇸🇬 Malacca</a>
+            <a href="/cape-of-good-hope">🌍 Cape</a>
+            <a href="/pricing">Pricing</a>
+            <a href="/demo" class="active">Demo</a>
+            <a href="/blog">Blog</a>
+            <a href="/knowledge-base">Knowledge Base</a>
+            <a href="/about">About</a>
+            <a href="/app" class="nav-cta">Open Validator <span class="nav-cta-sub">(Paid Plans)</span></a>
+        </div>
+    </div>
+</nav>
+
+<div class="page-wrap">
+
+    <!-- HEADER -->
+    <div class="demo-header">
+        <span class="eyebrow">Full Product Walkthrough</span>
+        <h1>From vessel entry to <em>Transit Approved</em><br>in under 4 minutes</h1>
+        <p>Watch CanalClear handle every step of Panama Canal compliance — VUMPA validation, PCSOPEP checks, crew & cargo review, and ACP auto-submission. Real workflows, real results.</p>
+        <a href="#try-it" class="try-it-anchor-btn">⚡ Try It Yourself ↓</a>
+    </div>
+
+    <!-- DEMO PLAYER -->
+    <div class="demo-player-wrap">
+        <div class="demo-player">
+
+            <!-- Chrome bar -->
+            <div class="player-chrome">
+                <div class="chrome-dot red"></div>
+                <div class="chrome-dot amber"></div>
+                <div class="chrome-dot green"></div>
+                <div class="chrome-url">app.canalclear.org/transit/TRN-2024-8847</div>
+                <div class="chrome-badge" id="chrome-badge">● LIVE</div>
+            </div>
+
+            <!-- Viewport -->
+            <div class="player-viewport">
+                <div class="scene-container">
+
+                    <!-- Scene 1: Enter Vessel -->
+                    <div class="scene" id="scene-1">
+                        <div class="scene-title">
+                            <div class="scene-num">1</div>
+                            <div class="scene-label">Enter Vessel</div>
+                        </div>
+                        <div class="vessel-panel">
+                            <div class="vessel-found-badge" id="vessel-badge">✓ VESSEL FOUND</div>
+                            <h3>New Transit Filing</h3>
+                            <p>Enter vessel name or IMO number to begin</p>
+                            <div class="vessel-input-wrap">
+                                <div class="vessel-input focused" id="vessel-input">
+                                    <span id="vessel-typed"></span><span class="vessel-input-cursor"></span>
+                                </div>
+                            </div>
+                            <div id="vessel-data" style="display:none;">
+                                <div class="vessel-data-row" id="vdr-1">
+                                    <span class="vdr-label">Vessel Name</span>
+                                    <span class="vdr-value teal">MV PACIFIC SUNRISE</span>
+                                </div>
+                                <div class="vessel-data-row" id="vdr-2">
+                                    <span class="vdr-label">IMO Number</span>
+                                    <span class="vdr-value">9764123</span>
+                                </div>
+                                <div class="vessel-data-row" id="vdr-3">
+                                    <span class="vdr-label">Flag State</span>
+                                    <span class="vdr-value">Panama</span>
+                                </div>
+                                <div class="vessel-data-row" id="vdr-4">
+                                    <span class="vdr-label">Gross Tonnage</span>
+                                    <span class="vdr-value">42,800 GT</span>
+                                </div>
+                                <div class="vessel-data-row" id="vdr-5">
+                                    <span class="vdr-label">ETA Cristóbal</span>
+                                    <span class="vdr-value teal">2024-03-18 06:30 UTC</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="callout" id="callout-1">
+                            <div class="callout-stat">96 hrs</div>
+                            <div class="callout-text">ACP deadline window. Handled automatically.</div>
+                        </div>
+                    </div>
+
+                    <!-- Scene 2: VUMPA Validation -->
+                    <div class="scene" id="scene-2">
+                        <div class="scene-title">
+                            <div class="scene-num">2</div>
+                            <div class="scene-label">AI Validates VUMPA</div>
+                        </div>
+                        <div class="validation-layout">
+                            <div class="val-card">
+                                <div class="val-card-title">Pre-Arrival Documents</div>
+                                <div class="scan-bar-wrap">
+                                    <div class="scan-bar-fill" id="vumpa-bar"></div>
+                                </div>
+                                <div class="scan-status">
+                                    <span>Scanning VUMPA package…</span>
+                                    <span id="vumpa-pct">0%</span>
+                                </div>
+                                <div class="val-item" id="v2-1">
+                                    <div class="val-icon scanning" id="vi-1">⋯</div>
+                                    <div class="val-text"><strong>ETA Notice</strong><br>96-hr advance filing</div>
+                                </div>
+                                <div class="val-item" id="v2-2">
+                                    <div class="val-icon scanning" id="vi-2">⋯</div>
+                                    <div class="val-text"><strong>General Arrangement</strong><br>Deck plans & GA diagram</div>
+                                </div>
+                                <div class="val-item" id="v2-3">
+                                    <div class="val-icon scanning" id="vi-3">⋯</div>
+                                    <div class="val-text"><strong>IMDG Classes</strong><br>Class 3, 4.1 declared</div>
+                                </div>
+                                <div class="val-item" id="v2-4">
+                                    <div class="val-icon scanning" id="vi-4">⋯</div>
+                                    <div class="val-text"><strong>Cargo Manifest</strong><br>Bill of lading attached</div>
+                                </div>
+                                <div class="val-error-box" id="vumpa-error">
+                                    <div class="val-error-title">⚠ Issue Detected</div>
+                                    <div class="val-error-text">IMDG segregation table for Class 3 + 4.1 missing from manifest. CanalClear flagged for correction before filing.</div>
+                                </div>
+                            </div>
+                            <div class="val-card">
+                                <div class="val-card-title">Compliance Checks</div>
+                                <div class="val-item" id="v2-5">
+                                    <div class="val-icon scanning" id="vi-5">⋯</div>
+                                    <div class="val-text"><strong>ACP Regulation 98</strong><br>Advance notification met</div>
+                                </div>
+                                <div class="val-item" id="v2-6">
+                                    <div class="val-icon scanning" id="vi-6">⋯</div>
+                                    <div class="val-text"><strong>Safety Certificate</strong><br>SOLAS Class Certificate</div>
+                                </div>
+                                <div class="val-item" id="v2-7">
+                                    <div class="val-icon scanning" id="vi-7">⋯</div>
+                                    <div class="val-text"><strong>Stability Booklet</strong><br>IMO format verified</div>
+                                </div>
+                                <div class="val-item" id="v2-8">
+                                    <div class="val-icon scanning" id="vi-8">⋯</div>
+                                    <div class="val-text"><strong>Insurance Certificate</strong><br>P&I Club coverage active</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="callout" id="callout-2">
+                            <div class="callout-stat">$65K/day</div>
+                            <div class="callout-text">Canal delay cost. AI catches errors before they cause holds.</div>
+                        </div>
+                    </div>
+
+                    <!-- Scene 3: PCSOPEP -->
+                    <div class="scene" id="scene-3">
+                        <div class="scene-title">
+                            <div class="scene-num">3</div>
+                            <div class="scene-label">AI Validates PCSOPEP</div>
+                        </div>
+                        <div class="pcsopep-panel">
+                            <div class="pcsopep-header">
+                                <div>
+                                    <div style="font-family:'IBM Plex Sans', sans-serif;font-size:0.9rem;font-weight:600;color:var(--white);">PCSOPEP Review</div>
+                                    <div style="font-size:0.7rem;color:var(--gray);">Pollution Control & Spill Response Plan</div>
+                                </div>
+                                <div style="text-align:right;">
+                                    <div style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--teal);" id="pcsopep-score">0 / 6</div>
+                                    <div style="font-size:0.65rem;color:var(--gray);">checks passed</div>
+                                </div>
+                            </div>
+                            <div class="pcsopep-body">
+                                <div class="doc-scan-wrap">
+                                    <div class="doc-scan-label">
+                                        <span>Scanning PCSOPEP documents…</span>
+                                        <span id="pcsopep-pct">0%</span>
+                                    </div>
+                                    <div class="doc-scan-bar">
+                                        <div class="doc-scan-fill" id="pcsopep-bar"></div>
+                                    </div>
+                                </div>
+                                <div class="check-row" id="pc-1">
+                                    <div class="check-icon scanning" id="pci-1">⋯</div>
+                                    <div class="check-info">
+                                        <div class="check-label">400+ MT Threshold Check</div>
+                                        <div class="check-sub">Vessel meets PCSOPEP requirements</div>
+                                    </div>
+                                    <div class="check-badge pass" id="pcb-1">REQUIRED</div>
+                                </div>
+                                <div class="check-row" id="pc-2">
+                                    <div class="check-icon scanning" id="pci-2">⋯</div>
+                                    <div class="check-info">
+                                        <div class="check-label">Authorized Person</div>
+                                        <div class="check-sub">Qualified Spill Response Officer</div>
+                                    </div>
+                                    <div class="check-badge pass" id="pcb-2">VERIFIED</div>
+                                </div>
+                                <div class="check-row" id="pc-3">
+                                    <div class="check-icon scanning" id="pci-3">⋯</div>
+                                    <div class="check-info">
+                                        <div class="check-label">IOPP Certificate Match</div>
+                                        <div class="check-sub">International Oil Pollution Prevention</div>
+                                    </div>
+                                    <div class="check-badge pass" id="pcb-3">MATCHED</div>
+                                </div>
+                                <div class="check-row" id="pc-4">
+                                    <div class="check-icon scanning" id="pci-4">⋯</div>
+                                    <div class="check-info">
+                                        <div class="check-label">Equipment Inventory</div>
+                                        <div class="check-sub">Boom, skimmer, dispersant kit</div>
+                                    </div>
+                                    <div class="check-badge pass" id="pcb-4">COMPLETE</div>
+                                </div>
+                                <div class="check-row" id="pc-5">
+                                    <div class="check-icon scanning" id="pci-5">⋯</div>
+                                    <div class="check-info">
+                                        <div class="check-label">Emergency Contact List</div>
+                                        <div class="check-sub">ACP, NMC, Promar updated</div>
+                                    </div>
+                                    <div class="check-badge pass" id="pcb-5">CURRENT</div>
+                                </div>
+                                <div class="check-row" id="pc-6">
+                                    <div class="check-icon scanning" id="pci-6">⋯</div>
+                                    <div class="check-info">
+                                        <div class="check-label">Plan Approval Date</div>
+                                        <div class="check-sub">Within 5-year validity period</div>
+                                    </div>
+                                    <div class="check-badge pass" id="pcb-6">VALID</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="callout" id="callout-3">
+                            <div class="callout-stat">6/6</div>
+                            <div class="callout-text">PCSOPEP checks passed. Zero issues.</div>
+                        </div>
+                    </div>
+
+                    <!-- Scene 4: Crew & Cargo -->
+                    <div class="scene" id="scene-4">
+                        <div class="scene-title">
+                            <div class="scene-num">4</div>
+                            <div class="scene-label">Crew & Cargo Validation</div>
+                        </div>
+                        <div class="crew-layout">
+                            <div class="crew-card">
+                                <div class="crew-card-title">Crew Documents</div>
+                                <div class="micro-item" id="cr-1"><div class="micro-dot pass">✓</div>Master: Capt. Rodrigo Alves</div>
+                                <div class="micro-item" id="cr-2"><div class="micro-dot pass">✓</div>22 crew listed · all passports valid</div>
+                                <div class="micro-item" id="cr-3"><div class="micro-dot pass">✓</div>STCW certificates current</div>
+                                <div class="micro-item" id="cr-4"><div class="micro-dot pass">✓</div>Health declarations signed</div>
+                                <div class="micro-item" id="cr-5"><div class="micro-dot pass">✓</div>Yellow fever vaccinations on file</div>
+                            </div>
+                            <div class="crew-card">
+                                <div class="crew-card-title">Cargo Verification</div>
+                                <div class="micro-item" id="cr-6"><div class="micro-dot pass">✓</div>UN 1203 (Gasoline) — Class 3</div>
+                                <div class="micro-item" id="cr-7"><div class="micro-dot pass">✓</div>UN 1325 (Flammable solid) — Class 4.1</div>
+                                <div class="micro-item" id="cr-8"><div class="micro-dot pass">✓</div>MSDS attached for all hazmat</div>
+                                <div class="micro-item" id="cr-9"><div class="micro-dot warn">!</div>Lithium batteries detected in cargo</div>
+                                <div class="micro-item" id="cr-10"><div class="micro-dot pass">✓</div>IATA DGR section 3.9 docs added</div>
+                            </div>
+                            <div class="crew-summary" id="crew-summary">
+                                <div class="cs-stat">
+                                    <div class="cs-num">22</div>
+                                    <div class="cs-label">Crew Cleared</div>
+                                </div>
+                                <div class="cs-stat">
+                                    <div class="cs-num">4</div>
+                                    <div class="cs-label">IMDG Classes</div>
+                                </div>
+                                <div class="cs-stat">
+                                    <div class="cs-num">100%</div>
+                                    <div class="cs-label">Docs Validated</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="callout" id="callout-4">
+                            <div class="callout-stat">3 min</div>
+                            <div class="callout-text">Full crew + cargo check. Would take hours manually.</div>
+                        </div>
+                    </div>
+
+                    <!-- Scene 5: Compile Documents -->
+                    <div class="scene" id="scene-5">
+                        <div class="scene-title">
+                            <div class="scene-num">5</div>
+                            <div class="scene-label">Auto-Compile Documents</div>
+                        </div>
+                        <div class="compile-panel">
+                            <div class="compile-title">Generating Submission-Ready Packages</div>
+                            <div class="compile-docs">
+                                <div class="doc-card" id="doc-vumpa">
+                                    <div class="doc-icon">📋</div>
+                                    <div class="doc-name">VUMPA Package</div>
+                                    <div class="doc-pages">47 pages · ACP format</div>
+                                    <div class="doc-status"><span>●</span> COMPILED</div>
+                                </div>
+                                <div class="doc-card" id="doc-pcsopep">
+                                    <div class="doc-icon">🛡</div>
+                                    <div class="doc-name">PCSOPEP Bundle</div>
+                                    <div class="doc-pages">31 pages · Pollution plan</div>
+                                    <div class="doc-status"><span>●</span> COMPILED</div>
+                                </div>
+                                <div class="doc-card" id="doc-crew">
+                                    <div class="doc-icon">👥</div>
+                                    <div class="doc-name">Crew Manifest</div>
+                                    <div class="doc-pages">22 members · Notarized</div>
+                                    <div class="doc-status"><span>●</span> COMPILED</div>
+                                </div>
+                                <div class="doc-card" id="doc-cargo">
+                                    <div class="doc-icon">📦</div>
+                                    <div class="doc-name">Cargo Declaration</div>
+                                    <div class="doc-pages">DG manifest · IMDG cert</div>
+                                    <div class="doc-status"><span>●</span> COMPILED</div>
+                                </div>
+                            </div>
+                            <button class="compile-action" id="compile-btn">
+                                <span>📤</span> Submit to ACP Maritime Service Portal →
+                            </button>
+                        </div>
+                        <div class="callout" id="callout-5">
+                            <div class="callout-stat">109 pgs</div>
+                            <div class="callout-text">Auto-compiled. Zero manual formatting.</div>
+                        </div>
+                    </div>
+
+                    <!-- Scene 6: ACP Auto-Filing -->
+                    <div class="scene" id="scene-6">
+                        <div class="scene-title">
+                            <div class="scene-num">6</div>
+                            <div class="scene-label">ACP Auto-Filing</div>
+                        </div>
+                        <div class="acp-panel">
+                            <div class="acp-header">
+                                <div>
+                                    <div class="acp-logo-text">ACP <span>Maritime Service Portal</span></div>
+                                    <div style="font-size:0.65rem;color:var(--gray);font-family:'JetBrains Mono',monospace;">TRN-2024-8847 · MV PACIFIC SUNRISE</div>
+                                </div>
+                                <div class="acp-status-badge pending" id="acp-badge">PENDING</div>
+                            </div>
+                            <div class="acp-body">
+                                <div class="acp-timeline">
+                                    <div class="acp-step" id="acp-1">
+                                        <div class="acp-step-dot"></div>
+                                        <div class="acp-step-label">Documents uploaded to ACP portal</div>
+                                        <div class="acp-step-sub">VUMPA + PCSOPEP + Crew + Cargo — 4 packages</div>
+                                    </div>
+                                    <div class="acp-step" id="acp-2">
+                                        <div class="acp-step-dot"></div>
+                                        <div class="acp-step-label">ACP acknowledgment received</div>
+                                        <div class="acp-step-sub">Ref: ACP/2024/TRN/8847/INT</div>
+                                    </div>
+                                    <div class="acp-step" id="acp-3">
+                                        <div class="acp-step-dot"></div>
+                                        <div class="acp-step-label">Compliance review completed</div>
+                                        <div class="acp-step-sub">All documents accepted · No deficiencies</div>
+                                    </div>
+                                    <div class="acp-step" id="acp-4">
+                                        <div class="acp-step-dot"></div>
+                                        <div class="acp-step-label">Transit slot assigned</div>
+                                        <div class="acp-step-sub">Northbound · Locks slot 06:30 UTC</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- APPROVED OVERLAY -->
+                        <div class="approved-overlay" id="approved-overlay">
+                            <div class="approved-icon">✓</div>
+                            <div class="approved-title">Transit Approved</div>
+                            <div class="approved-sub">MV Pacific Sunrise cleared for Panama Canal transit</div>
+                            <div class="approved-details">
+                                <div class="approved-detail">
+                                    <div class="approved-detail-val">TRN-2024-8847</div>
+                                    <div class="approved-detail-lbl">Filing Ref</div>
+                                </div>
+                                <div class="approved-detail">
+                                    <div class="approved-detail-val">06:30 UTC</div>
+                                    <div class="approved-detail-lbl">Slot Time</div>
+                                </div>
+                                <div class="approved-detail">
+                                    <div class="approved-detail-val">3m 47s</div>
+                                    <div class="approved-detail-lbl">Total Time</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="callout" id="callout-6">
+                            <div class="callout-stat">Done.</div>
+                            <div class="callout-text">Full transit clearance. Start to finish.</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div><!-- /player-viewport -->
+
+            <!-- Controls -->
+            <div class="player-controls">
+                <div class="progress-track" id="progress-track">
+                    <div class="scene-ticks">
+                        <div class="scene-tick"></div>
+                        <div class="scene-tick"></div>
+                        <div class="scene-tick"></div>
+                        <div class="scene-tick"></div>
+                        <div class="scene-tick"></div>
+                        <div class="scene-tick"></div>
+                    </div>
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="controls-row">
+                    <button class="ctrl-btn primary" id="play-btn" title="Play / Pause">▶</button>
+                    <button class="ctrl-btn" id="restart-btn" title="Restart">↺</button>
+                    <div class="scene-indicators" id="scene-indicators">
+                        <div class="scene-dot active" data-scene="1"></div>
+                        <div class="scene-dot" data-scene="2"></div>
+                        <div class="scene-dot" data-scene="3"></div>
+                        <div class="scene-dot" data-scene="4"></div>
+                        <div class="scene-dot" data-scene="5"></div>
+                        <div class="scene-dot" data-scene="6"></div>
+                    </div>
+                    <div class="scene-info">
+                        <div class="scene-name" id="ctrl-scene-name">Enter Vessel</div>
+                        <div class="scene-time" id="ctrl-time">0:00 / 1:30</div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /demo-player -->
+
+        <!-- Scene label chips -->
+        <div class="scene-labels-row" id="scene-chips">
+            <div class="scene-label-chip active" data-scene="1">① Enter Vessel</div>
+            <div class="scene-label-chip" data-scene="2">② VUMPA Validation</div>
+            <div class="scene-label-chip" data-scene="3">③ PCSOPEP Check</div>
+            <div class="scene-label-chip" data-scene="4">④ Crew & Cargo</div>
+            <div class="scene-label-chip" data-scene="5">⑤ Compile Docs</div>
+            <div class="scene-label-chip" data-scene="6">⑥ ACP Filing</div>
+        </div>
+
+    </div><!-- /demo-player-wrap -->
+
+    <!-- INTERACTIVE WALKTHROUGH -->
+    <div class="interactive-section" id="try-it">
+        <div class="interactive-header">
+            <span class="eyebrow">Hands-On Demo</span>
+            <h2>Experience the workflow <em>yourself</em></h2>
+            <p>Click through each step of a real Panama Canal transit filing. Use the pre-filled sample data or type any vessel name to begin.</p>
+        </div>
+
+        <!-- Step Indicator -->
+        <div class="step-indicator">
+            <div class="step-pip active" id="spip-1">
+                <div class="step-pip-circle">1</div>
+                <div class="step-pip-label">Enter Vessel</div>
+            </div>
+            <div class="step-connector"><div class="step-connector-fill" id="scon-1"></div></div>
+            <div class="step-pip" id="spip-2">
+                <div class="step-pip-circle">2</div>
+                <div class="step-pip-label">AI Validation</div>
+            </div>
+            <div class="step-connector"><div class="step-connector-fill" id="scon-2"></div></div>
+            <div class="step-pip" id="spip-3">
+                <div class="step-pip-circle">3</div>
+                <div class="step-pip-label">Documents</div>
+            </div>
+            <div class="step-connector"><div class="step-connector-fill" id="scon-3"></div></div>
+            <div class="step-pip" id="spip-4">
+                <div class="step-pip-circle">4</div>
+                <div class="step-pip-label">ACP Submit</div>
+            </div>
+        </div>
+
+        <!-- Steps Wrapper -->
+        <div class="isteps-wrap">
+
+            <!-- STEP 1: Enter Vessel -->
+            <div class="istep active" id="istep-1">
+                <div class="istep-card">
+                    <div class="istep-card-header">
+                        <div class="step-tag">Step 1 of 4 · Enter Vessel</div>
+                        <h3>Find your vessel</h3>
+                        <p>Enter a vessel name or IMO number. We'll pull the latest registry data from ACP's database.</p>
+                    </div>
+                    <div class="istep-body">
+                        <div class="vessel-suggestions-label">Try a sample vessel:</div>
+                        <div class="vessel-suggestions">
+                            <div class="vessel-chip" data-vessel="IMO 9764123">IMO 9764123</div>
+                            <div class="vessel-chip" data-vessel="MV CONTESSA">MV CONTESSA</div>
+                            <div class="vessel-chip" data-vessel="IMO 9441228">IMO 9441228</div>
+                        </div>
+                        <div class="i-vessel-input-wrap">
+                            <span class="i-vessel-input-icon">🔍</span>
+                            <input class="i-vessel-input" id="i-vessel-input" type="text" placeholder="e.g. MV Pacific Voyager or IMO 9764123" autocomplete="off">
+                            <button class="i-vessel-search-btn" id="i-vessel-search-btn">Find Vessel →</button>
+                        </div>
+                        <div class="vessel-lookup-result" id="vessel-lookup-result">
+                            <div class="vlr-header">
+                                <div class="vlr-name">—</div>
+                                <div class="vlr-badge">✓ VESSEL FOUND</div>
+                            </div>
+                            <div class="vlr-grid">
+                                <div class="vlr-item"><div class="vlr-item-lbl">IMO Number</div><div class="vlr-item-val" data-field="imo">—</div></div>
+                                <div class="vlr-item"><div class="vlr-item-lbl">Flag State</div><div class="vlr-item-val" data-field="flag">—</div></div>
+                                <div class="vlr-item"><div class="vlr-item-lbl">Vessel Type</div><div class="vlr-item-val" data-field="type">—</div></div>
+                                <div class="vlr-item"><div class="vlr-item-lbl">Gross Tonnage</div><div class="vlr-item-val" data-field="gt">—</div></div>
+                                <div class="vlr-item"><div class="vlr-item-lbl">ETA Cristóbal</div><div class="vlr-item-val teal" data-field="eta">—</div></div>
+                                <div class="vlr-item"><div class="vlr-item-lbl">Port of Entry</div><div class="vlr-item-val" data-field="port">—</div></div>
+                                <div class="vlr-item"><div class="vlr-item-lbl">Operator</div><div class="vlr-item-val" data-field="operator">—</div></div>
+                                <div class="vlr-item"><div class="vlr-item-lbl">Filing Deadline</div><div class="vlr-item-val teal" data-field="deadline">96 hrs prior</div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="istep-nav">
+                        <div class="istep-nav-left">
+                            <span style="font-size:0.78rem;color:var(--gray);">Select a vessel to continue</span>
+                        </div>
+                        <button class="istep-btn primary" id="istep1-next" disabled>Start Compliance Check →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 2: AI Validation -->
+            <div class="istep" id="istep-2">
+                <div class="istep-card">
+                    <div class="istep-card-header">
+                        <div class="step-tag">Step 2 of 4 · AI Validation</div>
+                        <h3>AI scanning your documents</h3>
+                        <p>CanalClear checks every VUMPA and ACP requirement against your vessel data in real time.</p>
+                    </div>
+                    <div class="istep-body">
+                        <div class="ai-scan-bar-wrap">
+                            <div class="ai-scan-orb" id="ai-scan-orb">🤖</div>
+                            <div class="ai-scan-info">
+                                <div class="ai-scan-title">Running compliance scan…</div>
+                                <div class="ai-scan-status-text" id="ai-scan-status-text">Checking 12 required fields against ACP Regulation 98</div>
+                            </div>
+                            <div class="ai-scan-pct-wrap">
+                                <div class="ai-scan-pct" id="ai-scan-pct">0%</div>
+                                <div class="ai-progress-bar"><div class="ai-progress-fill" id="ai-progress-fill"></div></div>
+                            </div>
+                        </div>
+                        <div class="ai-checks-grid">
+                            <div class="ai-check" id="aic-1"><div class="ai-check-icon scanning">⋯</div><div class="ai-check-text"><div class="ai-check-label">ETA Advance Notice</div><div class="ai-check-sub">96-hr ACP requirement</div></div></div>
+                            <div class="ai-check" id="aic-2"><div class="ai-check-icon scanning">⋯</div><div class="ai-check-text"><div class="ai-check-label">General Arrangement</div><div class="ai-check-sub">Deck plans & GA diagram</div></div></div>
+                            <div class="ai-check" id="aic-3"><div class="ai-check-icon scanning">⋯</div><div class="ai-check-text"><div class="ai-check-label">IMDG Class Segregation</div><div class="ai-check-sub">Class 3 + 4.1 co-manifest</div></div></div>
+                            <div class="ai-check" id="aic-4"><div class="ai-check-icon scanning">⋯</div><div class="ai-check-text"><div class="ai-check-label">Cargo Manifest (B/L)</div><div class="ai-check-sub">Bill of lading attached</div></div></div>
+                            <div class="ai-check" id="aic-5"><div class="ai-check-icon scanning">⋯</div><div class="ai-check-text"><div class="ai-check-label">SOLAS Class Certificate</div><div class="ai-check-sub">Safety compliance check</div></div></div>
+                            <div class="ai-check" id="aic-6"><div class="ai-check-icon scanning">⋯</div><div class="ai-check-text"><div class="ai-check-label">ETA Deadline Window</div><div class="ai-check-sub">94 hrs remaining to file</div></div></div>
+                            <div class="ai-check" id="aic-7"><div class="ai-check-icon scanning">⋯</div><div class="ai-check-text"><div class="ai-check-label">Stability Booklet</div><div class="ai-check-sub">IMO format verified</div></div></div>
+                            <div class="ai-check" id="aic-8"><div class="ai-check-icon scanning">⋯</div><div class="ai-check-text"><div class="ai-check-label">P&amp;I Insurance</div><div class="ai-check-sub">Club coverage active</div></div></div>
+                            <div class="ai-check" id="aic-9"><div class="ai-check-icon scanning">⋯</div><div class="ai-check-text"><div class="ai-check-label">ACP Regulation 98</div><div class="ai-check-sub">Advance notification met</div></div></div>
+                            <div class="ai-check" id="aic-10"><div class="ai-check-icon scanning">⋯</div><div class="ai-check-text"><div class="ai-check-label">IOPP Certificate</div><div class="ai-check-sub">Oil pollution prevention</div></div></div>
+                            <div class="ai-check" id="aic-11"><div class="ai-check-icon scanning">⋯</div><div class="ai-check-text"><div class="ai-check-label">Crew Health Declarations</div><div class="ai-check-sub">22 crew × 1 each</div></div></div>
+                            <div class="ai-check" id="aic-12"><div class="ai-check-icon scanning">⋯</div><div class="ai-check-text"><div class="ai-check-label">PCSOPEP Validity</div><div class="ai-check-sub">Within 5-yr approval period</div></div></div>
+                        </div>
+                        <div class="ai-error-panel" id="ai-error-panel">
+                            <div class="ai-error-item error">
+                                <div class="ai-error-icon">🚨</div>
+                                <div>
+                                    <div class="ai-error-title">IMDG Class Mismatch Detected</div>
+                                    <div class="ai-error-desc">Segregation table for Class 3 + 4.1 co-loading is missing from the cargo manifest. Required by IMDG Code 7.2.4 and ACP Reg 98 §3.2.</div>
+                                </div>
+                            </div>
+                            <div class="ai-error-item warning">
+                                <div class="ai-error-icon">⚠️</div>
+                                <div>
+                                    <div class="ai-error-title">ETA Deadline Warning: 94 Hours Remaining</div>
+                                    <div class="ai-error-desc">ACP requires 96-hour advance notice. You have a 2-hour buffer remaining. CanalClear will prioritize this filing immediately.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step2-actions" id="step2-actions">
+                            <button class="istep-btn success" id="step2-autofix">🔧 Auto-Fix Issues</button>
+                            <button class="istep-btn warning" id="step2-review">Review Manually →</button>
+                        </div>
+                    </div>
+                    <div class="istep-nav">
+                        <button class="istep-btn secondary" id="istep2-back">← Back</button>
+                        <span style="font-size:0.75rem;color:var(--gray);">Fix issues above to continue</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 3: Document Compilation -->
+            <div class="istep" id="istep-3">
+                <div class="istep-card">
+                    <div class="istep-card-header">
+                        <div class="step-tag">Step 3 of 4 · Document Compilation</div>
+                        <h3>Auto-compiled submission package</h3>
+                        <p>CanalClear has auto-filled VUMPA and PCSOPEP forms using your validated vessel data. Review before submitting.</p>
+                    </div>
+                    <div class="istep-body">
+                        <div class="doc-tabs">
+                            <button class="doc-tab active" data-doc="vumpa">📋 VUMPA Package</button>
+                            <button class="doc-tab" data-doc="pcsopep">🛡 PCSOPEP Bundle</button>
+                            <button class="doc-tab" data-doc="crew">👥 Crew Manifest</button>
+                        </div>
+
+                        <!-- VUMPA Preview -->
+                        <div class="doc-preview active" id="doc-preview-vumpa">
+                            <div class="form-preview">
+                                <div class="form-preview-header">
+                                    <div class="form-preview-title">VUMPA — Pre-Arrival Document Package</div>
+                                    <div class="form-preview-meta">47 pages · ACP format · Auto-filled</div>
+                                </div>
+                                <div class="form-preview-body">
+                                    <div class="form-field-row"><div class="form-field-lbl">Vessel Name</div><div class="form-field-val highlight" id="vumpa-vessel-name">MV PACIFIC SUNRISE</div></div>
+                                    <div class="form-field-row"><div class="form-field-lbl">IMO Number</div><div class="form-field-val" id="vumpa-imo">9764123</div></div>
+                                    <div class="form-field-row"><div class="form-field-lbl">Flag State</div><div class="form-field-val" id="vumpa-flag">Panama</div></div>
+                                    <div class="form-field-row"><div class="form-field-lbl">Transit Type</div><div class="form-field-val highlight">Northbound · Full Transit</div></div>
+                                    <div class="form-field-row"><div class="form-field-lbl">ETA Cristóbal</div><div class="form-field-val highlight" id="vumpa-eta">2026-04-02 06:30 UTC</div></div>
+                                    <div class="form-field-row"><div class="form-field-lbl">Gross Tonnage</div><div class="form-field-val" id="vumpa-gt">42,800 GT</div></div>
+                                    <div class="form-field-row"><div class="form-field-lbl">IMDG Classes</div><div class="form-field-val highlight">Class 3 · Class 4.1 (segregation table attached)</div></div>
+                                    <div class="form-field-row"><div class="form-field-lbl">Filing Status</div><div class="form-field-val highlight" style="color:var(--teal)">✓ READY FOR SUBMISSION</div></div>
+                                </div>
+                            </div>
+                            <button class="doc-download-btn" id="dl-vumpa">📥 Download VUMPA Package PDF</button>
+                        </div>
+
+                        <!-- PCSOPEP Preview -->
+                        <div class="doc-preview" id="doc-preview-pcsopep">
+                            <div class="form-preview">
+                                <div class="form-preview-header">
+                                    <div class="form-preview-title">PCSOPEP — Pollution Control & Spill Response Plan</div>
+                                    <div class="form-preview-meta">31 pages · Pollution plan · Auto-filled</div>
+                                </div>
+                                <div class="form-preview-body">
+                                    <div class="form-field-row"><div class="form-field-lbl">Vessel Name</div><div class="form-field-val highlight" id="pcsopep-vessel-name">MV PACIFIC SUNRISE</div></div>
+                                    <div class="form-field-row"><div class="form-field-lbl">Tonnage Check</div><div class="form-field-val highlight">42,800 GT — exceeds 400 MT threshold ✓</div></div>
+                                    <div class="form-field-row"><div class="form-field-lbl">Authorized Person</div><div class="form-field-val">Capt. R. Alves · Qualified SRO</div></div>
+                                    <div class="form-field-row"><div class="form-field-lbl">IOPP Certificate</div><div class="form-field-val highlight">Valid · Exp. 2028-06-15</div></div>
+                                    <div class="form-field-row"><div class="form-field-lbl">Equipment Status</div><div class="form-field-val highlight">Boom · Skimmer · Dispersant kit ✓</div></div>
+                                    <div class="form-field-row"><div class="form-field-lbl">Emergency Contacts</div><div class="form-field-val">ACP · NMC · Promar — all current</div></div>
+                                    <div class="form-field-row"><div class="form-field-lbl">Plan Validity</div><div class="form-field-val highlight">Approved 2022-03-01 · 5-yr window ✓</div></div>
+                                </div>
+                            </div>
+                            <button class="doc-download-btn" id="dl-pcsopep">📥 Download PCSOPEP Bundle PDF</button>
+                        </div>
+
+                        <!-- Crew Preview -->
+                        <div class="doc-preview" id="doc-preview-crew">
+                            <div class="form-preview">
+                                <div class="form-preview-header">
+                                    <div class="form-preview-title">Crew Manifest — Notarized</div>
+                                    <div class="form-preview-meta">22 crew members · All passports verified</div>
+                                </div>
+                                <div class="form-preview-body">
+                                    <div class="form-field-row"><div class="form-field-lbl">Master</div><div class="form-field-val highlight">Capt. Rodrigo Alves (PT) · Cert. 2027</div></div>
+                                    <div class="form-field-row"><div class="form-field-lbl">Crew Count</div><div class="form-field-val">22 total · 3 nationalities</div></div>
+                                    <div class="form-field-row"><div class="form-field-lbl">STCW Status</div><div class="form-field-val highlight">All 22 certificates current ✓</div></div>
+                                    <div class="form-field-row"><div class="form-field-lbl">Health Declarations</div><div class="form-field-val highlight">22/22 signed ✓</div></div>
+                                    <div class="form-field-row"><div class="form-field-lbl">Yellow Fever</div><div class="form-field-val highlight">22/22 vaccination cards on file ✓</div></div>
+                                    <div class="form-field-row"><div class="form-field-lbl">Passports</div><div class="form-field-val highlight">22/22 valid — all expire after transit ✓</div></div>
+                                </div>
+                            </div>
+                            <button class="doc-download-btn" id="dl-crew">📥 Download Crew Manifest PDF</button>
+                        </div>
+                    </div>
+                    <div class="istep-nav">
+                        <button class="istep-btn secondary" id="istep3-back">← Back</button>
+                        <button class="istep-btn primary" id="istep3-next">Submit to ACP →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 4: ACP Submission -->
+            <div class="istep" id="istep-4">
+                <div class="istep-card">
+                    <div class="istep-card-header">
+                        <div class="step-tag">Step 4 of 4 · ACP Submission</div>
+                        <h3>Submit to ACP Maritime Portal</h3>
+                        <p>Your full document package is ready. One click sends everything to the ACP Maritime Service Portal.</p>
+                    </div>
+                    <div class="istep-body">
+                        <div class="acp-submit-panel">
+                            <div class="acp-portal-card">
+                                <div class="acp-portal-logo">ACP <span>Maritime Service Portal</span></div>
+                                <div class="acp-portal-meta" id="acp-portal-meta">TRN-2026-XXXX · MV PACIFIC SUNRISE</div>
+                                <div class="acp-doc-summary">
+                                    <div class="acp-doc-item">VUMPA Package (47 pp.)</div>
+                                    <div class="acp-doc-item">PCSOPEP Bundle (31 pp.)</div>
+                                    <div class="acp-doc-item">Crew Manifest (22 crew)</div>
+                                    <div class="acp-doc-item">Cargo Declaration (DG)</div>
+                                </div>
+                            </div>
+
+                            <div class="acp-submit-btn-wrap" id="acp-submit-btn-wrap">
+                                <button class="acp-submit-btn" id="acp-submit-btn">🚢 Submit to ACP Maritime Service Portal</button>
+                            </div>
+
+                            <!-- Progress -->
+                            <div class="acp-progress-wrap" id="acp-progress-wrap">
+                                <div class="acp-progress-steps">
+                                    <div class="acp-prog-step" id="aprog-1">
+                                        <div class="acp-prog-dot">⟳</div>
+                                        <div class="acp-prog-text">
+                                            <div class="acp-prog-label">Uploading document packages</div>
+                                            <div class="acp-prog-sub" id="aprog-1-sub">VUMPA + PCSOPEP + Crew + Cargo — 4 packages</div>
+                                        </div>
+                                        <div class="acp-prog-time" id="aprog-1-time"></div>
+                                    </div>
+                                    <div class="acp-prog-step" id="aprog-2">
+                                        <div class="acp-prog-dot">⟳</div>
+                                        <div class="acp-prog-text">
+                                            <div class="acp-prog-label">ACP acknowledgment received</div>
+                                            <div class="acp-prog-sub" id="aprog-2-sub">Ref: ACP/2026/TRN/INT</div>
+                                        </div>
+                                        <div class="acp-prog-time" id="aprog-2-time"></div>
+                                    </div>
+                                    <div class="acp-prog-step" id="aprog-3">
+                                        <div class="acp-prog-dot">⟳</div>
+                                        <div class="acp-prog-text">
+                                            <div class="acp-prog-label">Compliance review completed</div>
+                                            <div class="acp-prog-sub" id="aprog-3-sub">All docs accepted · No deficiencies</div>
+                                        </div>
+                                        <div class="acp-prog-time" id="aprog-3-time"></div>
+                                    </div>
+                                    <div class="acp-prog-step" id="aprog-4">
+                                        <div class="acp-prog-dot">⟳</div>
+                                        <div class="acp-prog-text">
+                                            <div class="acp-prog-label">Transit slot assigned</div>
+                                            <div class="acp-prog-sub" id="aprog-4-sub">Northbound · Locks slot confirmed</div>
+                                        </div>
+                                        <div class="acp-prog-time" id="aprog-4-time"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Approval Screen -->
+                            <div class="acp-approval-screen" id="acp-approval-screen">
+                                <div class="approval-glow">✓</div>
+                                <div class="approval-title">Transit Cleared</div>
+                                <div class="approval-subtitle" id="approval-vessel-sub">MV Pacific Sunrise — Panama Canal transit approved</div>
+                                <div class="approval-ref-badge" id="approval-ref">TRN-2026-8847</div>
+                                <div class="approval-details-grid">
+                                    <div class="approval-detail">
+                                        <div class="approval-detail-val" id="approval-time">06:30 UTC</div>
+                                        <div class="approval-detail-lbl">Transit Slot</div>
+                                    </div>
+                                    <div class="approval-detail">
+                                        <div class="approval-detail-val" id="approval-submitted-at">—</div>
+                                        <div class="approval-detail-lbl">Submitted At</div>
+                                    </div>
+                                    <div class="approval-detail">
+                                        <div class="approval-detail-val">109 pp.</div>
+                                        <div class="approval-detail-lbl">Docs Filed</div>
+                                    </div>
+                                    <div class="approval-detail">
+                                        <div class="approval-detail-val" style="color:var(--teal);">✓ CLEARED</div>
+                                        <div class="approval-detail-lbl">Status</div>
+                                    </div>
+                                </div>
+                                <div class="approval-cta-text">Ready to automate your <strong>real</strong> transits?<br>Start filing — no credit card required.</div>
+                                <div class="approval-cta-btns">
+                                    <a href="/pricing" class="approval-cta-primary">Start Filing →</a>
+                                    <a href="/pricing" class="approval-cta-secondary">See Pricing</a>
+                                </div>
+                                <button class="approval-replay-btn" id="approval-replay-btn">↺ Try again with a different vessel</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="istep-nav" id="istep4-nav">
+                        <button class="istep-btn secondary" id="istep4-back">← Back</button>
+                        <span style="font-size:0.75rem;color:var(--gray);" id="istep4-hint">Click submit to complete your filing</span>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /isteps-wrap -->
+    </div><!-- /interactive-section -->
+
+    <!-- SOCIAL PROOF STATS -->
+    <div class="social-proof">
+        <div class="proof-card">
+            <div class="proof-stat">96 hrs</div>
+            <div class="proof-label">ACP pre-arrival deadline — CanalClear files in minutes, not days</div>
+        </div>
+        <div class="proof-card">
+            <div class="proof-stat">$65K+</div>
+            <div class="proof-label">Average daily vessel delay cost at the Canal. One missed doc can cost this.</div>
+        </div>
+        <div class="proof-card">
+            <div class="proof-stat">400+</div>
+            <div class="proof-label">Compliance checks per transit. Fully automated. Zero manual review needed.</div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="demo-cta">
+        <h2>Ready to <em>stop worrying</em> about compliance?</h2>
+        <p>Start automating your transit filings. Upload your VUMPA or PCSOPEP documents and CanalClear will identify every issue before you file with ACP.</p>
+        <div class="cta-buttons">
+            <a href="/pricing" class="cta-primary">Start Filing →</a>
+            <a href="/pricing" class="cta-secondary">See Pricing</a>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="demo-footer">
+        <a href="/">← Back to CanalClear.org</a> &nbsp;·&nbsp; <a href="/blog">Blog</a> &nbsp;·&nbsp; <a href="/pricing">Pricing</a> &nbsp;·&nbsp; Questions? <a href="mailto:hello@canalclear.com">hello@canalclear.com</a>
+    </div>
+
+</div><!-- /page-wrap -->
+
+<script>
+// ─────────────────────────────────────────────────────────
+// CANALCLEAR DEMO PLAYER
+// ─────────────────────────────────────────────────────────
+
+const TOTAL_DURATION = 90; // seconds
+
+const SCENES = [
+    { id: 1, name: 'Enter Vessel',      duration: 14, start: 0  },
+    { id: 2, name: 'VUMPA Validation',  duration: 17, start: 14 },
+    { id: 3, name: 'PCSOPEP Check',     duration: 15, start: 31 },
+    { id: 4, name: 'Crew & Cargo',      duration: 13, start: 46 },
+    { id: 5, name: 'Compile Docs',      duration: 13, start: 59 },
+    { id: 6, name: 'ACP Filing',        duration: 18, start: 72 },
+];
+
+let currentScene = 0;
+let playing = false;
+let elapsed = 0;
+let raf = null;
+let lastTs = null;
+let sceneAnimated = [false, false, false, false, false, false];
+
+// ── Scene transition ──────────────────────────────────────
+function showScene(idx) {
+    document.querySelectorAll('.scene').forEach((s, i) => {
+        s.classList.remove('active', 'exit');
+        if (i === idx) s.classList.add('active');
+    });
+
+    document.querySelectorAll('.scene-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === idx);
+    });
+    document.querySelectorAll('.scene-label-chip').forEach((c, i) => {
+        c.classList.toggle('active', i === idx);
+    });
+
+    const s = SCENES[idx];
+    document.getElementById('ctrl-scene-name').textContent = s.name;
+
+    // Run scene animation if not already done
+    if (!sceneAnimated[idx]) {
+        sceneAnimated[idx] = true;
+        animateScene(idx + 1);
+    }
+
+    // Replay callout
+    const callout = document.getElementById('callout-' + (idx + 1));
+    if (callout) {
+        callout.classList.remove('visible');
+        setTimeout(() => callout.classList.add('visible'), 800);
+    }
+}
+
+// ── RAF loop ──────────────────────────────────────────────
+function tick(ts) {
+    if (!lastTs) lastTs = ts;
+    const dt = (ts - lastTs) / 1000;
+    lastTs = ts;
+
+    elapsed = Math.min(elapsed + dt, TOTAL_DURATION);
+    updateProgress();
+
+    // Scene transition
+    let newScene = SCENES.length - 1;
+    for (let i = 0; i < SCENES.length; i++) {
+        if (elapsed < SCENES[i].start + SCENES[i].duration) {
+            newScene = i;
+            break;
+        }
+    }
+    if (newScene !== currentScene) {
+        currentScene = newScene;
+        showScene(currentScene);
+    }
+
+    if (elapsed >= TOTAL_DURATION) {
+        playing = false;
+        document.getElementById('play-btn').textContent = '↺';
+        return;
+    }
+
+    if (playing) raf = requestAnimationFrame(tick);
+}
+
+function updateProgress() {
+    const pct = (elapsed / TOTAL_DURATION) * 100;
+    document.getElementById('progress-fill').style.width = pct + '%';
+    const s = SCENES[currentScene];
+    const sceneElapsed = elapsed - s.start;
+    const mins = Math.floor(elapsed / 60);
+    const secs = Math.floor(elapsed % 60).toString().padStart(2, '0');
+    const tmins = Math.floor(TOTAL_DURATION / 60);
+    const tsecs = (TOTAL_DURATION % 60).toString().padStart(2, '0');
+    document.getElementById('ctrl-time').textContent = `${mins}:${secs} / ${tmins}:${tsecs}`;
+}
+
+// ── Play / Pause ──────────────────────────────────────────
+document.getElementById('play-btn').addEventListener('click', () => {
+    if (elapsed >= TOTAL_DURATION) {
+        restartDemo();
+        return;
+    }
+    togglePlay();
+});
+
+document.getElementById('restart-btn').addEventListener('click', restartDemo);
+
+function togglePlay() {
+    playing = !playing;
+    document.getElementById('play-btn').textContent = playing ? '⏸' : '▶';
+    if (playing) {
+        lastTs = null;
+        raf = requestAnimationFrame(tick);
+    } else {
+        cancelAnimationFrame(raf);
+    }
+}
+
+function restartDemo() {
+    cancelAnimationFrame(raf);
+    elapsed = 0;
+    playing = false;
+    currentScene = 0;
+    sceneAnimated = [false, false, false, false, false, false];
+    lastTs = null;
+    updateProgress();
+    resetAllScenes();
+    showScene(0);
+    document.getElementById('play-btn').textContent = '▶';
+}
+
+// ── Progress bar click ────────────────────────────────────
+document.getElementById('progress-track').addEventListener('click', (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const pct = (e.clientX - rect.left) / rect.width;
+    const targetTime = pct * TOTAL_DURATION;
+
+    // Find target scene
+    let targetScene = SCENES.length - 1;
+    for (let i = 0; i < SCENES.length; i++) {
+        if (targetTime < SCENES[i].start + SCENES[i].duration) {
+            targetScene = i;
+            break;
+        }
+    }
+
+    elapsed = targetTime;
+    currentScene = targetScene;
+    sceneAnimated = [false, false, false, false, false, false];
+    resetAllScenes();
+    showScene(currentScene);
+    updateProgress();
+
+    if (!playing) togglePlay();
+});
+
+// ── Dot / chip navigation ────────────────────────────────
+document.getElementById('scene-indicators').addEventListener('click', (e) => {
+    const dot = e.target.closest('.scene-dot');
+    if (!dot) return;
+    jumpToScene(parseInt(dot.dataset.scene) - 1);
+});
+document.getElementById('scene-chips').addEventListener('click', (e) => {
+    const chip = e.target.closest('.scene-label-chip');
+    if (!chip) return;
+    jumpToScene(parseInt(chip.dataset.scene) - 1);
+});
+
+function jumpToScene(idx) {
+    elapsed = SCENES[idx].start;
+    currentScene = idx;
+    sceneAnimated = [false, false, false, false, false, false];
+    resetAllScenes();
+    showScene(idx);
+    updateProgress();
+    if (!playing) togglePlay();
+}
+
+// ── Reset helpers ─────────────────────────────────────────
+function resetAllScenes() {
+    // Scene 1
+    document.getElementById('vessel-typed').textContent = '';
+    document.getElementById('vessel-data').style.display = 'none';
+    document.getElementById('vessel-badge').classList.remove('show');
+    document.querySelectorAll('.vessel-data-row').forEach(r => r.classList.remove('show'));
+
+    // Scene 2
+    ['vi-1','vi-2','vi-3','vi-4','vi-5','vi-6','vi-7','vi-8'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) { el.className = 'val-icon scanning'; el.textContent = '⋯'; }
+    });
+    ['v2-1','v2-2','v2-3','v2-4','v2-5','v2-6','v2-7','v2-8'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove('show');
+    });
+    document.getElementById('vumpa-bar').style.width = '0%';
+    document.getElementById('vumpa-pct').textContent = '0%';
+    document.getElementById('vumpa-error').classList.remove('show');
+
+    // Scene 3
+    ['pc-1','pc-2','pc-3','pc-4','pc-5','pc-6'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove('show');
+    });
+    ['pci-1','pci-2','pci-3','pci-4','pci-5','pci-6'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) { el.className = 'check-icon scanning'; el.textContent = '⋯'; }
+    });
+    document.getElementById('pcsopep-bar').style.width = '0%';
+    document.getElementById('pcsopep-pct').textContent = '0%';
+    document.getElementById('pcsopep-score').textContent = '0 / 6';
+
+    // Scene 4
+    for (let i = 1; i <= 10; i++) {
+        const el = document.getElementById('cr-' + i);
+        if (el) el.classList.remove('show');
+    }
+    document.getElementById('crew-summary').classList.remove('show');
+
+    // Scene 5
+    ['doc-vumpa','doc-pcsopep','doc-crew','doc-cargo'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove('show');
+    });
+    document.getElementById('compile-btn').classList.remove('show');
+
+    // Scene 6
+    ['acp-1','acp-2','acp-3','acp-4'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) { el.classList.remove('show','done','active'); }
+    });
+    document.getElementById('acp-badge').className = 'acp-status-badge pending';
+    document.getElementById('acp-badge').textContent = 'PENDING';
+    document.getElementById('approved-overlay').classList.remove('show');
+    document.getElementById('chrome-badge').textContent = '● LIVE';
+    document.getElementById('chrome-badge').style.color = '';
+
+    // Callouts
+    for (let i = 1; i <= 6; i++) {
+        const el = document.getElementById('callout-' + i);
+        if (el) el.classList.remove('visible');
+    }
+}
+
+// ─────────────────────────────────────────────────────────
+// SCENE ANIMATIONS
+// ─────────────────────────────────────────────────────────
+
+function animateScene(sceneNum) {
+    switch (sceneNum) {
+        case 1: animateScene1(); break;
+        case 2: animateScene2(); break;
+        case 3: animateScene3(); break;
+        case 4: animateScene4(); break;
+        case 5: animateScene5(); break;
+        case 6: animateScene6(); break;
+    }
+}
+
+// ── Scene 1: Vessel Entry ─────────────────────────────────
+function animateScene1() {
+    const text = 'IMO 9764123';
+    let i = 0;
+    const el = document.getElementById('vessel-typed');
+    const interval = setInterval(() => {
+        if (i < text.length) {
+            el.textContent = text.slice(0, ++i);
+        } else {
+            clearInterval(interval);
+            // Show vessel data
+            document.getElementById('vessel-data').style.display = 'block';
+            document.getElementById('vessel-badge').classList.add('show');
+            ['vdr-1','vdr-2','vdr-3','vdr-4','vdr-5'].forEach((id, idx) => {
+                setTimeout(() => document.getElementById(id).classList.add('show'), idx * 220);
+            });
+        }
+    }, 80);
+}
+
+// ── Scene 2: VUMPA Validation ─────────────────────────────
+function animateScene2() {
+    const items = ['v2-1','v2-2','v2-3','v2-4','v2-5','v2-6','v2-7','v2-8'];
+    const icons = ['vi-1','vi-2','vi-3','vi-4','vi-5','vi-6','vi-7','vi-8'];
+    // pass for all except #3 (IMDG)
+    const results = ['pass','pass','fail','pass','pass','pass','pass','pass'];
+
+    let pct = 0;
+    const barInterval = setInterval(() => {
+        pct = Math.min(pct + 3, 100);
+        document.getElementById('vumpa-bar').style.width = pct + '%';
+        document.getElementById('vumpa-pct').textContent = pct + '%';
+        if (pct >= 100) clearInterval(barInterval);
+    }, 50);
+
+    items.forEach((id, idx) => {
+        const delay = 600 + idx * 700;
+        setTimeout(() => {
+            const row = document.getElementById(id);
+            if (row) row.classList.add('show');
+            // after scanning, show result
+            setTimeout(() => {
+                const icon = document.getElementById(icons[idx]);
+                if (!icon) return;
+                if (results[idx] === 'pass') {
+                    icon.className = 'val-icon pass';
+                    icon.textContent = '✓';
+                } else {
+                    icon.className = 'val-icon fail';
+                    icon.textContent = '✕';
+                    setTimeout(() => {
+                        const errBox = document.getElementById('vumpa-error');
+                        if (errBox) errBox.classList.add('show');
+                    }, 400);
+                }
+            }, 600);
+        }, delay);
+    });
+}
+
+// ── Scene 3: PCSOPEP ──────────────────────────────────────
+function animateScene3() {
+    let pct = 0;
+    const barInterval = setInterval(() => {
+        pct = Math.min(pct + 2.5, 100);
+        document.getElementById('pcsopep-bar').style.width = pct + '%';
+        document.getElementById('pcsopep-pct').textContent = Math.round(pct) + '%';
+        if (pct >= 100) clearInterval(barInterval);
+    }, 45);
+
+    const rows = ['pc-1','pc-2','pc-3','pc-4','pc-5','pc-6'];
+    const icons = ['pci-1','pci-2','pci-3','pci-4','pci-5','pci-6'];
+    let passed = 0;
+
+    rows.forEach((id, idx) => {
+        const delay = 700 + idx * 900;
+        setTimeout(() => {
+            const row = document.getElementById(id);
+            if (row) row.classList.add('show');
+            setTimeout(() => {
+                const icon = document.getElementById(icons[idx]);
+                if (icon) { icon.className = 'check-icon pass'; icon.textContent = '✓'; }
+                passed++;
+                document.getElementById('pcsopep-score').textContent = passed + ' / 6';
+            }, 500);
+        }, delay);
+    });
+}
+
+// ── Scene 4: Crew & Cargo ─────────────────────────────────
+function animateScene4() {
+    for (let i = 1; i <= 10; i++) {
+        const delay = (i - 1) * 350 + 300;
+        setTimeout(() => {
+            const el = document.getElementById('cr-' + i);
+            if (el) el.classList.add('show');
+        }, delay);
+    }
+    setTimeout(() => {
+        document.getElementById('crew-summary').classList.add('show');
+    }, 3800);
+}
+
+// ── Scene 5: Compile Docs ─────────────────────────────────
+function animateScene5() {
+    const docs = ['doc-vumpa','doc-pcsopep','doc-crew','doc-cargo'];
+    docs.forEach((id, idx) => {
+        setTimeout(() => {
+            const el = document.getElementById(id);
+            if (el) el.classList.add('show');
+        }, 400 + idx * 600);
+    });
+    setTimeout(() => {
+        document.getElementById('compile-btn').classList.add('show');
+    }, 3200);
+}
+
+// ── Scene 6: ACP Filing ───────────────────────────────────
+function animateScene6() {
+    const badge = document.getElementById('acp-badge');
+
+    // Step 1: submitting
+    setTimeout(() => {
+        badge.className = 'acp-status-badge submitting';
+        badge.textContent = 'SUBMITTING…';
+        const s = document.getElementById('acp-1');
+        if (s) { s.classList.add('show','active'); }
+    }, 500);
+
+    // Step 2
+    setTimeout(() => {
+        const s1 = document.getElementById('acp-1');
+        if (s1) { s1.classList.remove('active'); s1.classList.add('done'); }
+        badge.className = 'acp-status-badge submitted';
+        badge.textContent = 'SUBMITTED';
+        const s2 = document.getElementById('acp-2');
+        if (s2) { s2.classList.add('show','active'); }
+    }, 2500);
+
+    // Step 3
+    setTimeout(() => {
+        const s2 = document.getElementById('acp-2');
+        if (s2) { s2.classList.remove('active'); s2.classList.add('done'); }
+        const s3 = document.getElementById('acp-3');
+        if (s3) { s3.classList.add('show','active'); }
+    }, 4800);
+
+    // Step 4
+    setTimeout(() => {
+        const s3 = document.getElementById('acp-3');
+        if (s3) { s3.classList.remove('active'); s3.classList.add('done'); }
+        const s4 = document.getElementById('acp-4');
+        if (s4) { s4.classList.add('show','active'); }
+    }, 7200);
+
+    // APPROVED
+    setTimeout(() => {
+        const s4 = document.getElementById('acp-4');
+        if (s4) { s4.classList.remove('active'); s4.classList.add('done'); }
+        badge.className = 'acp-status-badge approved';
+        badge.textContent = '✓ APPROVED';
+
+        const chromeBadge = document.getElementById('chrome-badge');
+        chromeBadge.textContent = '✓ CLEARED';
+        chromeBadge.style.color = 'var(--teal)';
+
+        setTimeout(() => {
+            document.getElementById('approved-overlay').classList.add('show');
+        }, 600);
+    }, 10000);
+}
+
+// ── Init ──────────────────────────────────────────────────
+resetAllScenes();
+showScene(0);
+updateProgress();
+
+// Auto-start after 1.5s
+setTimeout(() => {
+    togglePlay();
+}, 1500);
+
+// ─────────────────────────────────────────────────────────
+// INTERACTIVE WALKTHROUGH
+// ─────────────────────────────────────────────────────────
+
+let iCurrentStep = 1;
+let selectedVesselData = null;
+let step2Initialized = false;
+let step3Initialized = false;
+let step4Initialized = false;
+
+const VESSELS = {
+    'IMO 9764123': { name: 'MV PACIFIC SUNRISE', imo: '9764123', flag: 'Panama', type: 'Bulk Carrier', gt: '42,800 GT', eta: '2026-04-02 06:30 UTC', port: 'Cristóbal', operator: 'Pacific Shipping Co.' },
+    'MV CONTESSA':  { name: 'MV CONTESSA',        imo: '9612847', flag: 'Liberia', type: 'Container Ship', gt: '68,400 GT', eta: '2026-04-03 14:00 UTC', port: 'Balboa', operator: 'Atlantic Lines Ltd.' },
+    'IMO 9441228': { name: 'ATLANTIC PIONEER',    imo: '9441228', flag: 'Marshall Islands', type: 'Tanker', gt: '55,200 GT', eta: '2026-04-04 09:15 UTC', port: 'Cristóbal', operator: 'Global Tankers Inc.' },
+};
+
+// ── Navigation ─────────────────────────────────────────────
+function iGoToStep(step, direction) {
+    direction = direction || 'forward';
+    const curr = document.getElementById('istep-' + iCurrentStep);
+    const next = document.getElementById('istep-' + step);
+    if (!curr || !next) return;
+
+    curr.classList.remove('active', 'istep-back');
+    next.classList.remove('active', 'istep-back');
+    if (direction === 'back') next.classList.add('istep-back');
+    next.classList.add('active');
+
+    iCurrentStep = step;
+    iUpdateIndicator();
+    if (direction === 'forward') iInitStep(step);
+
+    // Scroll to the interactive section smoothly
+    var section = document.getElementById('try-it');
+    if (section) {
+        var offset = section.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top: offset, behavior: 'smooth' });
+    }
+}
+
+function iUpdateIndicator() {
+    [1,2,3,4].forEach(function(n) {
+        var pip = document.getElementById('spip-' + n);
+        if (!pip) return;
+        pip.classList.remove('active', 'done');
+        if (n === iCurrentStep) pip.classList.add('active');
+        else if (n < iCurrentStep) pip.classList.add('done');
+    });
+    [1,2,3].forEach(function(n) {
+        var fill = document.getElementById('scon-' + n);
+        if (!fill) return;
+        fill.style.width = n < iCurrentStep ? '100%' : '0%';
+    });
+}
+
+function iInitStep(step) {
+    if (step === 2 && !step2Initialized) { step2Initialized = true; iRunStep2(); }
+    if (step === 3 && !step3Initialized) { step3Initialized = true; iInitStep3(); }
+    if (step === 4 && !step4Initialized) { step4Initialized = true; iInitStep4(); }
+}
+
+// ── Step 1: Vessel entry ────────────────────────────────────
+document.querySelectorAll('.vessel-chip').forEach(function(chip) {
+    chip.addEventListener('click', function() {
+        document.getElementById('i-vessel-input').value = this.dataset.vessel;
+        iLookupVessel(this.dataset.vessel);
+    });
+});
+
+document.getElementById('i-vessel-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') iLookupVessel(this.value.trim());
+});
+
+document.getElementById('i-vessel-search-btn').addEventListener('click', function() {
+    iLookupVessel(document.getElementById('i-vessel-input').value.trim());
+});
+
+function iLookupVessel(query) {
+    if (!query) {
+        query = 'IMO 9764123'; // default
+        document.getElementById('i-vessel-input').value = query;
+    }
+    var vessel = null;
+    var q = query.toLowerCase().trim();
+    for (var key in VESSELS) {
+        var v = VESSELS[key];
+        if (key.toLowerCase() === q || v.name.toLowerCase().includes(q) || v.imo === q.replace('imo ', '').replace('imo', '').trim()) {
+            vessel = v; break;
+        }
+    }
+    if (!vessel) vessel = VESSELS['IMO 9764123'];
+    selectedVesselData = vessel;
+
+    var btn = document.getElementById('i-vessel-search-btn');
+    btn.textContent = '⟳ Looking up…';
+    btn.disabled = true;
+    btn.style.background = 'rgba(255,255,255,0.1)';
+    btn.style.color = 'var(--light-gray)';
+
+    setTimeout(function() {
+        btn.textContent = '✓ Found';
+        btn.style.background = 'rgba(232, 90, 0,0.15)';
+        btn.style.color = 'var(--teal)';
+        iShowVesselResult(vessel);
+        document.getElementById('istep1-next').disabled = false;
+    }, 750);
+}
+
+function iShowVesselResult(v) {
+    var r = document.getElementById('vessel-lookup-result');
+    r.querySelector('.vlr-name').textContent = v.name;
+    r.querySelector('[data-field="imo"]').textContent = v.imo;
+    r.querySelector('[data-field="flag"]').textContent = v.flag;
+    r.querySelector('[data-field="type"]').textContent = v.type;
+    r.querySelector('[data-field="gt"]').textContent = v.gt;
+    r.querySelector('[data-field="eta"]').textContent = v.eta;
+    r.querySelector('[data-field="port"]').textContent = v.port;
+    r.querySelector('[data-field="operator"]').textContent = v.operator;
+    r.classList.add('show');
+}
+
+document.getElementById('istep1-next').addEventListener('click', function() {
+    if (!selectedVesselData) {
+        iLookupVessel('IMO 9764123');
+        setTimeout(function() { iGoToStep(2); }, 900);
+    } else {
+        iGoToStep(2);
+    }
+});
+
+// ── Step 2: AI Validation ───────────────────────────────────
+function iRunStep2() {
+    var checks = [
+        { id: 'aic-1',  result: 'pass' },
+        { id: 'aic-2',  result: 'pass' },
+        { id: 'aic-3',  result: 'fail' },
+        { id: 'aic-4',  result: 'pass' },
+        { id: 'aic-5',  result: 'pass' },
+        { id: 'aic-6',  result: 'warn' },
+        { id: 'aic-7',  result: 'pass' },
+        { id: 'aic-8',  result: 'pass' },
+        { id: 'aic-9',  result: 'pass' },
+        { id: 'aic-10', result: 'pass' },
+        { id: 'aic-11', result: 'pass' },
+        { id: 'aic-12', result: 'pass' },
+    ];
+    var pct = 0;
+    var barInterval = setInterval(function() {
+        pct = Math.min(pct + 1, 100);
+        document.getElementById('ai-progress-fill').style.width = pct + '%';
+        document.getElementById('ai-scan-pct').textContent = pct + '%';
+        if (pct >= 100) {
+            clearInterval(barInterval);
+            document.getElementById('ai-scan-orb').classList.add('done');
+            document.getElementById('ai-scan-status-text').textContent = 'Scan complete — 2 items require attention';
+        }
+    }, 32);
+
+    checks.forEach(function(c, idx) {
+        setTimeout(function() {
+            var el = document.getElementById(c.id);
+            if (!el) return;
+            el.classList.add('visible');
+            setTimeout(function() {
+                var icon = el.querySelector('.ai-check-icon');
+                if (!icon) return;
+                icon.classList.remove('scanning');
+                if (c.result === 'pass') { icon.classList.add('pass'); icon.textContent = '✓'; }
+                else if (c.result === 'fail') { icon.classList.add('fail'); icon.textContent = '✕'; el.classList.add('fail-border'); }
+                else if (c.result === 'warn') { icon.classList.add('warn'); icon.textContent = '!'; el.classList.add('warn-border'); }
+            }, 380);
+        }, 250 + idx * 240);
+    });
+
+    setTimeout(function() {
+        document.getElementById('ai-error-panel').classList.add('show');
+        document.getElementById('step2-actions').style.display = 'flex';
+    }, 250 + 12 * 240 + 500);
+}
+
+document.getElementById('step2-autofix').addEventListener('click', function() {
+    var btn = this;
+    btn.textContent = '✓ Auto-Fixed';
+    btn.classList.remove('success');
+    btn.classList.add('secondary');
+    btn.disabled = true;
+    ['aic-3','aic-6'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        var icon = el.querySelector('.ai-check-icon');
+        icon.classList.remove('fail', 'warn');
+        icon.classList.add('pass');
+        icon.textContent = '✓';
+        el.classList.remove('fail-border', 'warn-border');
+    });
+    setTimeout(function() { iGoToStep(3); }, 600);
+});
+
+document.getElementById('step2-review').addEventListener('click', function() {
+    iGoToStep(3);
+});
+
+document.getElementById('istep2-back').addEventListener('click', function() {
+    iGoToStep(1, 'back');
+});
+
+// ── Step 3: Document Compilation ───────────────────────────
+function iInitStep3() {
+    // Populate form fields with vessel data if available
+    var v = selectedVesselData || VESSELS['IMO 9764123'];
+    var setField = function(id, val) { var el = document.getElementById(id); if (el) el.textContent = val; };
+    setField('vumpa-vessel-name', v.name);
+    setField('vumpa-imo', v.imo);
+    setField('vumpa-flag', v.flag);
+    setField('vumpa-eta', v.eta);
+    setField('vumpa-gt', v.gt);
+    setField('pcsopep-vessel-name', v.name);
+    // Update ACP portal meta
+    var meta = document.getElementById('acp-portal-meta');
+    if (meta) meta.textContent = 'TRN-2026-8847 · ' + v.name;
+}
+
+document.querySelectorAll('.doc-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+        document.querySelectorAll('.doc-tab').forEach(function(t) { t.classList.remove('active'); });
+        document.querySelectorAll('.doc-preview').forEach(function(p) { p.classList.remove('active'); });
+        tab.classList.add('active');
+        var preview = document.getElementById('doc-preview-' + tab.dataset.doc);
+        if (preview) preview.classList.add('active');
+    });
+});
+
+document.querySelectorAll('.doc-download-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        var self = this;
+        var orig = self.innerHTML;
+        self.classList.add('downloading');
+        self.textContent = '⟳ Generating PDF…';
+        self.disabled = true;
+        setTimeout(function() {
+            self.classList.remove('downloading');
+            self.innerHTML = '✓ PDF Ready — Downloaded';
+            self.style.background = 'rgba(232, 90, 0,0.13)';
+            self.style.borderColor = 'rgba(232, 90, 0,0.3)';
+            setTimeout(function() { self.disabled = false; self.innerHTML = orig; self.style.background = ''; self.style.borderColor = ''; }, 4000);
+        }, 1600);
+    });
+});
+
+document.getElementById('istep3-back').addEventListener('click', function() {
+    iGoToStep(2, 'back');
+});
+document.getElementById('istep3-next').addEventListener('click', function() {
+    iGoToStep(4);
+});
+
+// ── Step 4: ACP Submission ──────────────────────────────────
+function iInitStep4() {
+    var v = selectedVesselData || VESSELS['IMO 9764123'];
+    var meta = document.getElementById('acp-portal-meta');
+    if (meta) meta.textContent = 'TRN-2026-8847 · ' + v.name;
+}
+
+document.getElementById('acp-submit-btn').addEventListener('click', function() {
+    var submitBtn = this;
+    submitBtn.disabled = true;
+    submitBtn.textContent = '⟳ Connecting to ACP Portal…';
+    document.getElementById('acp-submit-btn-wrap').style.display = 'none';
+    var progress = document.getElementById('acp-progress-wrap');
+    progress.classList.add('show');
+
+    var now = new Date();
+    var submittedAt = now.getUTCHours().toString().padStart(2,'0') + ':' + now.getUTCMinutes().toString().padStart(2,'0') + ' UTC';
+    var refNum = 'TRN-2026-' + (Math.floor(Math.random() * 2000) + 7000);
+    var v = selectedVesselData || VESSELS['IMO 9764123'];
+
+    var stepTimings = [
+        { id: 'aprog-1', delay: 400 },
+        { id: 'aprog-2', delay: 2600 },
+        { id: 'aprog-3', delay: 5000 },
+        { id: 'aprog-4', delay: 7600 },
+    ];
+
+    stepTimings.forEach(function(s, idx) {
+        setTimeout(function() {
+            if (idx > 0) {
+                var prev = document.getElementById(stepTimings[idx-1].id);
+                if (prev) { prev.classList.remove('active'); prev.classList.add('done'); }
+                var prevTime = prev ? prev.querySelector('.acp-prog-time') : null;
+                if (prevTime) prevTime.textContent = '✓';
+            }
+            var el = document.getElementById(s.id);
+            if (el) el.classList.add('active');
+        }, s.delay);
+    });
+
+    setTimeout(function() {
+        var last = document.getElementById('aprog-4');
+        if (last) { last.classList.remove('active'); last.classList.add('done'); var t = last.querySelector('.acp-prog-time'); if (t) t.textContent = '✓'; }
+
+        setTimeout(function() {
+            progress.style.display = 'none';
+            document.getElementById('istep4-nav').style.display = 'none';
+
+            var refEl = document.getElementById('approval-ref');
+            if (refEl) refEl.textContent = refNum;
+            var timeEl = document.getElementById('approval-time');
+            if (timeEl) timeEl.textContent = '06:30 UTC';
+            var satEl = document.getElementById('approval-submitted-at');
+            if (satEl) satEl.textContent = submittedAt;
+            var subEl = document.getElementById('approval-vessel-sub');
+            if (subEl) subEl.textContent = v.name + ' — Panama Canal transit approved';
+
+            document.getElementById('acp-approval-screen').classList.add('show');
+
+            // Scroll to show the approval screen
+            setTimeout(function() {
+                var screen = document.getElementById('acp-approval-screen');
+                if (screen) screen.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 200);
+        }, 700);
+    }, 10000);
+});
+
+document.getElementById('istep4-back').addEventListener('click', function() {
+    // Reset step 4
+    step4Initialized = false;
+    var submitWrap = document.getElementById('acp-submit-btn-wrap');
+    submitWrap.style.display = 'block';
+    var btn = document.getElementById('acp-submit-btn');
+    btn.disabled = false;
+    btn.innerHTML = '🚢 Submit to ACP Maritime Service Portal';
+    var progress = document.getElementById('acp-progress-wrap');
+    progress.classList.remove('show');
+    progress.style.display = '';
+    document.getElementById('acp-approval-screen').classList.remove('show');
+    document.querySelectorAll('.acp-prog-step').forEach(function(s) { s.classList.remove('active','done'); });
+    document.getElementById('istep4-nav').style.display = '';
+    document.getElementById('istep4-hint').style.display = '';
+    iGoToStep(3, 'back');
+});
+
+document.getElementById('approval-replay-btn').addEventListener('click', function() {
+    // Full reset of the walkthrough
+    iCurrentStep = 1;
+    step2Initialized = false;
+    step3Initialized = false;
+    step4Initialized = false;
+    selectedVesselData = null;
+
+    // Reset step 1
+    document.getElementById('i-vessel-input').value = '';
+    var searchBtn = document.getElementById('i-vessel-search-btn');
+    searchBtn.textContent = 'Find Vessel →';
+    searchBtn.disabled = false;
+    searchBtn.style.background = '';
+    searchBtn.style.color = '';
+    document.getElementById('vessel-lookup-result').classList.remove('show');
+    document.getElementById('istep1-next').disabled = true;
+
+    // Reset step 2
+    ['aic-1','aic-2','aic-3','aic-4','aic-5','aic-6','aic-7','aic-8','aic-9','aic-10','aic-11','aic-12'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        el.classList.remove('visible','fail-border','warn-border');
+        var icon = el.querySelector('.ai-check-icon');
+        if (icon) { icon.className = 'ai-check-icon scanning'; icon.textContent = '⋯'; }
+    });
+    document.getElementById('ai-progress-fill').style.width = '0%';
+    document.getElementById('ai-scan-pct').textContent = '0%';
+    document.getElementById('ai-scan-orb').classList.remove('done');
+    document.getElementById('ai-scan-status-text').textContent = 'Checking 12 required fields against ACP Regulation 98';
+    document.getElementById('ai-error-panel').classList.remove('show');
+    document.getElementById('step2-actions').style.display = 'none';
+    var autoFixBtn = document.getElementById('step2-autofix');
+    autoFixBtn.textContent = '🔧 Auto-Fix Issues';
+    autoFixBtn.disabled = false;
+    autoFixBtn.className = 'istep-btn success';
+
+    // Reset step 4
+    document.getElementById('acp-submit-btn-wrap').style.display = 'block';
+    var btn4 = document.getElementById('acp-submit-btn');
+    btn4.disabled = false;
+    btn4.innerHTML = '🚢 Submit to ACP Maritime Service Portal';
+    var prog = document.getElementById('acp-progress-wrap');
+    prog.classList.remove('show');
+    prog.style.display = '';
+    document.getElementById('acp-approval-screen').classList.remove('show');
+    document.querySelectorAll('.acp-prog-step').forEach(function(s) { s.classList.remove('active','done'); });
+    document.getElementById('istep4-nav').style.display = '';
+
+    // Reset doc tabs
+    document.querySelectorAll('.doc-tab').forEach(function(t, i) { t.classList.toggle('active', i === 0); });
+    document.querySelectorAll('.doc-preview').forEach(function(p, i) { p.classList.toggle('active', i === 0); });
+
+    // Show step 1, hide all others
+    [1,2,3,4].forEach(function(n) {
+        var el = document.getElementById('istep-' + n);
+        if (!el) return;
+        el.classList.remove('active','istep-back');
+        if (n === 1) el.classList.add('active');
+    });
+    iUpdateIndicator();
+
+    // Scroll back up
+    var section = document.getElementById('try-it');
+    if (section) {
+        var offset = section.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top: offset, behavior: 'smooth' });
+    }
+});
+
+// Init the indicator
+iUpdateIndicator();
+</script>
+
+<!-- CanalClear Analytics -->
+<script src="/js/analytics.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var ccTrack = window._ccTrack || function(){};
+
+    // Demo page view
+    ccTrack('demo_page_view', {});
+
+    // CTA clicks (Start Free Audit, See Pricing)
+    document.querySelectorAll('a[href="/app"], a[href="/pricing"]').forEach(function(a) {
+        a.addEventListener('click', function() {
+            ccTrack('cta_click', { label: a.textContent.trim(), href: a.getAttribute('href'), context: 'demo_page' });
+        });
+    });
+
+    // Interactive demo step progression (wizard steps 1-4)
+    var stepMap = {
+        'istep1-next': { step: 1, action: 'vessel_search' },
+        'istep2-next': { step: 2, action: 'compliance_check' },
+        'step2-autofix': { step: 2, action: 'autofix' },
+        'step2-review': { step: 2, action: 'manual_review' },
+        'istep3-next': { step: 3, action: 'review_docs' },
+        'acp-submit-btn': { step: 4, action: 'acp_submit' },
+    };
+    Object.keys(stepMap).forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) {
+            el.addEventListener('click', function() {
+                ccTrack('demo_step_click', stepMap[id]);
+            });
+        }
+    });
+
+    // Vessel search
+    var searchBtn = document.getElementById('i-vessel-search-btn');
+    if (searchBtn) {
+        searchBtn.addEventListener('click', function() {
+            ccTrack('demo_vessel_search', {});
+        });
+    }
+
+    // Document type tab switch
+    document.querySelectorAll('.doc-tab').forEach(function(tab) {
+        tab.addEventListener('click', function() {
+            ccTrack('demo_doc_tab_switch', { tab: tab.getAttribute('data-doc') || tab.textContent.trim() });
+        });
+    });
+
+    // Download buttons
+    ['dl-vumpa','dl-pcsopep','dl-crew'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) {
+            el.addEventListener('click', function() {
+                ccTrack('demo_download_click', { doc: id.replace('dl-', '') });
+            });
+        }
+    });
+});
+</script>
+    <script src="/js/mobile-nav.js"></script>
+    <!-- CanalClear AI Chat Widget -->
+    <script src="/js/chatbot-knowledge.js"></script>
+    <script src="/js/chatbot-widget.js"></script>
+<script src="/js/pwa-manager.js"></script>
+<script src="/js/whatsapp-button.js"></script>
+</body>
+</html>

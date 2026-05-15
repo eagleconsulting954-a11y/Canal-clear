@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VUMPA Portal Integration — Panama Canal Filing | CanalClear</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://canalclear.org/vumpa-connect">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/visual-polish.css">
+  <link rel="stylesheet" href="/css/mobile.css">
+  <link rel="icon" type="image/png" href="/icons/icon-192.png">
+  <meta name="theme-color" content="#1a2d4a">
+  <link rel="manifest" href="/manifest.json">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #1a2d4a;
+      --deep: #142238;
+      --slate: #243350;
+      --teal: #E85A00;
+      --teal-dim: rgba(232, 90, 0, 0.12);
+      --teal-border: rgba(232, 90, 0, 0.25);
+      --cyan: #00B4D8;
+      --white: #ffffff;
+      --gray: #6b7c93;
+      --light-gray: #8fa3b8;
+      --muted: #8fa3b8;
+      --red: #FF6B6B;
+      --red-dim: rgba(255, 107, 107, 0.12);
+      --red-border: rgba(255, 107, 107, 0.3);
+      --yellow: #FFD93D;
+      --yellow-dim: rgba(255, 217, 61, 0.12);
+      --yellow-border: rgba(255, 217, 61, 0.3);
+      --green-dim: rgba(46, 213, 115, 0.1);
+      --green-border: rgba(46, 213, 115, 0.25);
+      --green: #2ED573;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'IBM Plex Sans', sans-serif; background: var(--navy); color: var(--white); line-height: 1.6; overflow-x: hidden; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1rem 2rem; background: rgba(10, 22, 40, 0.92); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(232, 90, 0, 0.08); }
+    nav .nav-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .logo { display: flex; align-items: center; text-decoration: none; }
+    .logo img { height: 34px; width: auto; object-fit: contain; }
+    .nav-links { display: flex; gap: 0.5rem; align-items: center; }
+    .nav-links a { color: var(--gray); text-decoration: none; font-size: 0.9rem; padding: 0.5rem 1rem; border-radius: 8px; transition: all 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--white); background: rgba(255,255,255,0.06); }
+    .nav-status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gray); display: inline-block; margin-right: 5px; transition: background 0.3s; }
+    .nav-status-dot.connected { background: var(--green); }
+    .nav-status-dot.error { background: var(--red); }
+
+    /* LAYOUT */
+    .app-container { max-width: 1200px; margin: 0 auto; padding: 5.5rem 2rem 3rem; min-height: 100vh; }
+
+    /* PAGE HEADER */
+    .page-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 2.5rem; gap: 1rem; }
+    .page-header-text h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.35rem; }
+    .page-header-text p { color: var(--light-gray); font-size: 0.95rem; }
+
+    /* STATUS PILL */
+    .status-pill { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.4rem 0.85rem; border-radius: 100px; font-size: 0.82rem; font-weight: 600; }
+    .status-pill .status-dot { width: 7px; height: 7px; border-radius: 50%; }
+    .status-pill.connected { background: var(--green-dim); border: 1px solid var(--green-border); color: var(--green); }
+    .status-pill.connected .status-dot { background: var(--green); }
+    .status-pill.error { background: var(--red-dim); border: 1px solid var(--red-border); color: var(--red); }
+    .status-pill.error .status-dot { background: var(--red); }
+    .status-pill.disconnected { background: rgba(107,124,147,0.1); border: 1px solid rgba(107,124,147,0.2); color: var(--gray); }
+    .status-pill.disconnected .status-dot { background: var(--gray); }
+
+    /* PANEL */
+    .panel { background: var(--slate); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 2rem; margin-bottom: 1.5rem; }
+    .panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; gap: 1rem; }
+    .panel-header-left { display: flex; align-items: center; gap: 1rem; }
+    .panel-icon { font-size: 1.75rem; line-height: 1; }
+    .panel-title { font-size: 1.1rem; font-weight: 700; }
+    .panel-subtitle { color: var(--light-gray); font-size: 0.85rem; margin-top: 0.2rem; }
+
+    /* SECURITY NOTICE */
+    .security-notice { display: flex; gap: 0.75rem; align-items: flex-start; background: rgba(0,180,216,0.06); border: 1px solid rgba(0,180,216,0.15); border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1.5rem; font-size: 0.88rem; color: var(--light-gray); }
+    .lock-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.1rem; }
+
+    /* INFO BANNER */
+    .info-banner { display: flex; gap: 0.75rem; align-items: flex-start; background: rgba(232,90,0,0.06); border: 1px solid rgba(232,90,0,0.15); border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1.5rem; font-size: 0.88rem; color: var(--light-gray); }
+    .info-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.15rem; }
+
+    /* FORM */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label { font-size: 0.82rem; font-weight: 600; color: var(--light-gray); text-transform: uppercase; letter-spacing: 0.03em; }
+    .form-group input, .form-group select { background: var(--navy); border: 1px solid rgba(136,153,170,0.15); border-radius: 8px; padding: 0.75rem 1rem; color: var(--white); font-family: 'IBM Plex Sans', sans-serif; font-size: 0.9rem; transition: border-color 0.2s; width: 100%; }
+    .form-group input:focus, .form-group select:focus { outline: none; border-color: rgba(232,90,0,0.4); }
+    .form-group input::placeholder { color: var(--gray); }
+    .hint { font-size: 0.78rem; color: var(--gray); }
+
+    /* BUTTONS */
+    .btn-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .btn { padding: 0.65rem 1.4rem; border-radius: 10px; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.18s; border: none; display: inline-flex; align-items: center; gap: 0.45rem; }
+    .btn-primary { background: var(--teal); color: #fff; }
+    .btn-primary:hover:not(:disabled) { background: #c94e00; transform: translateY(-1px); }
+    .btn-primary:disabled { opacity: 0.55; cursor: not-allowed; }
+    .btn-secondary { background: transparent; border: 1px solid rgba(255,255,255,0.12); color: var(--white); }
+    .btn-secondary:hover:not(:disabled) { background: rgba(255,255,255,0.06); }
+    .btn-secondary:disabled { opacity: 0.55; cursor: not-allowed; }
+    .btn-danger { background: var(--red-dim); border: 1px solid var(--red-border); color: var(--red); }
+    .btn-danger:hover { background: rgba(255,107,107,0.2); }
+    .btn-sm { padding: 0.45rem 0.9rem; font-size: 0.82rem; border-radius: 8px; }
+
+    /* CONNECTED INFO */
+    .connected-info { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.75rem; margin-bottom: 1.25rem; }
+    .conn-field { background: var(--navy); border-radius: 10px; padding: 0.85rem 1rem; }
+    .conn-field .lbl { font-size: 0.72rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.25rem; }
+    .conn-field .val { font-size: 0.88rem; color: var(--white); font-weight: 500; }
+    .conn-field .val.mono { font-family: monospace; }
+
+    /* QUICK SUBMIT BAR */
+    .quick-submit-bar { display: flex; gap: 0.75rem; align-items: flex-end; flex-wrap: wrap; margin-bottom: 0; }
+    .quick-submit-bar .form-group { flex: 1; min-width: 160px; }
+
+    /* SUBMISSION TABLE */
+    .sub-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    .sub-table th { background: rgba(255,255,255,0.04); color: var(--light-gray); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; padding: 0.6rem 0.85rem; text-align: left; font-weight: 600; }
+    .sub-table td { padding: 0.75rem 0.85rem; border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: middle; }
+    .sub-table tr:hover td { background: rgba(255,255,255,0.02); cursor: pointer; }
+    .sub-table .mono { font-family: monospace; font-size: 0.83rem; color: var(--light-gray); }
+
+    /* STATUS BADGES */
+    .sub-status { display: inline-block; padding: 0.22rem 0.6rem; border-radius: 100px; font-size: 0.75rem; font-weight: 600; }
+    .sub-status.submitted { background: var(--green-dim); border: 1px solid var(--green-border); color: var(--green); }
+    .sub-status.pending { background: var(--yellow-dim); border: 1px solid var(--yellow-border); color: var(--yellow); }
+    .sub-status.failed { background: var(--red-dim); border: 1px solid var(--red-border); color: var(--red); }
+    .sub-status.confirmed { background: rgba(0,180,216,0.1); border: 1px solid rgba(0,180,216,0.25); color: #00B4D8; }
+
+    /* EMPTY STATE */
+    .empty-state { text-align: center; padding: 3rem 1rem; }
+    .empty-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .empty-state h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .empty-state p { color: var(--light-gray); font-size: 0.88rem; }
+
+    /* MODAL */
+    .modal-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.72); backdrop-filter: blur(4px); align-items: center; justify-content: center; padding: 1.5rem; }
+    .modal-overlay.open { display: flex; }
+    .modal { background: var(--slate); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 2rem; max-width: 520px; width: 100%; }
+    .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
+    .modal-title { font-size: 1.05rem; font-weight: 700; }
+    .modal-close { background: none; border: none; color: var(--gray); cursor: pointer; font-size: 1.1rem; padding: 0.25rem; }
+    .modal-footer { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem; }
+
+    /* LOADING SPINNER */
+    .loading-spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* TEST RESULT */
+    .test-success { display: flex; align-items: center; gap: 0.5rem; color: var(--green); font-size: 0.88rem; padding: 0.6rem 0.85rem; background: var(--green-dim); border: 1px solid var(--green-border); border-radius: 8px; }
+    .checkmark { font-size: 1rem; }
+
+    /* TOAST */
+    #toast { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%); z-index: 999; padding: 0.75rem 1.5rem; border-radius: 10px; font-size: 0.9rem; font-weight: 600; opacity: 0; transition: opacity 0.3s; pointer-events: none; max-width: 420px; text-align: center; }
+    #toast.show { opacity: 1; }
+    #toast.success { background: rgba(46,213,115,0.92); color: #142238; }
+    #toast.error   { background: rgba(255,107,107,0.92); color: #fff; }
+    #toast.info    { background: rgba(0,180,216,0.92); color: #142238; }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .quick-submit-bar { flex-direction: column; }
+      nav { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">
+      <img src="https://pub-629428d185ca4960a0a73c850d32294b.r2.dev/company_47541/images/9d5d2ef6-d9e0-40eb-ad15-df5e737cefc1.png" alt="CanalClear">
+    </a>
+    <div class="nav-links">
+      <a href="/filing">Filing</a>
+      <a href="/vumpa-connect" class="active">
+        <span class="nav-status-dot" id="navStatusDot"></span>VUMPA Connect
+      </a>
+      <a href="/sca-connect">SCA Connect</a>
+      <a href="/app">App Hub</a>
+      <a href="/">Home</a>
+      <a href="/admin" id="admin-nav-link" style="display:none;color:#E85A00;background:rgba(232,90,0,0.1);border-radius:8px;padding:0.4rem 0.9rem;font-size:0.85rem;font-weight:600;">Admin</a>
+      <button onclick="logout()" style="background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.2);color:#FF6B6B;border-radius:8px;padding:0.4rem 0.9rem;font-size:0.85rem;font-family:inherit;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,107,107,0.2)'" onmouseout="this.style.background='rgba(255,107,107,0.1)'">Log out</button>
+    </div>
+  </div>
+</nav>
+
+<div class="app-container">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="page-header-text">
+      <h1>🇵🇦 VUMPA Portal Integration</h1>
+      <p>Connect your ACP Maritime Service Portal account to enable direct Panama Canal filing submissions</p>
+    </div>
+    <div id="headerStatusBadge"></div>
+  </div>
+
+  <!-- ACP Portal Quick Access -->
+  <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap;">
+    <a href="https://www.vumpa.gob.pa" target="_blank" rel="noopener noreferrer"
+       style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.5rem 1rem;background:rgba(232,90,0,0.1);border:1px solid rgba(232,90,0,0.25);border-radius:8px;color:#E85A00;text-decoration:none;font-size:0.82rem;font-weight:600;white-space:nowrap;"
+       onclick="gtag('event','portal_link_click',{waterway:'panama',destination:'vumpa_portal'})">
+      🔗 Open VUMPA Portal
+    </a>
+    <a href="https://serviceportal.pancanal.com" target="_blank" rel="noopener noreferrer"
+       style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.5rem 1rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:var(--light-gray);text-decoration:none;font-size:0.82rem;font-weight:600;white-space:nowrap;"
+       onclick="gtag('event','portal_link_click',{waterway:'panama',destination:'acp_service_portal'})">
+      🔗 ACP Service Portal
+    </a>
+  </div>
+
+  <!-- ── CONNECTION PANEL ── -->
+  <div class="panel" id="connectionPanel">
+    <div class="panel-header">
+      <div class="panel-header-left">
+        <div class="panel-icon">🔐</div>
+        <div>
+          <div class="panel-title">Connect to ACP VUMPA Portal</div>
+          <div class="panel-subtitle">Your credentials are encrypted with AES-256-GCM and never stored in plain text</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="security-notice">
+      <span class="lock-icon">🔒</span>
+      <div>
+        <strong>Enterprise-grade encryption.</strong> Credentials are encrypted before storage using AES-256-GCM. Only you can access your account — CanalClear staff cannot read your password. Credentials are used solely for automated VUMPA filings on your behalf.
+      </div>
+    </div>
+
+    <!-- DISCONNECTED: Show connect form -->
+    <div id="connectForm">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>VUMPA Username</label>
+          <input type="text" id="vumpaUsername" placeholder="Enter your ACP / VUMPA username" autocomplete="off">
+          <span class="hint">Your ACP Maritime Service Portal login username</span>
+        </div>
+        <div class="form-group">
+          <label>VUMPA Password</label>
+          <input type="password" id="vumpaPassword" placeholder="Enter your VUMPA password" autocomplete="new-password">
+          <span class="hint">Never shared or stored in plain text</span>
+        </div>
+      </div>
+      <div class="btn-actions">
+        <button class="btn btn-primary" onclick="saveCredentials()" id="connectBtn">
+          🔗 Connect to VUMPA Portal
+        </button>
+      </div>
+    </div>
+
+    <!-- CONNECTED: Show status + actions -->
+    <div id="connectedState" style="display:none;">
+      <div class="connected-info" id="connectedInfo">
+        <!-- Filled by JS -->
+      </div>
+      <div id="testResultArea" style="margin-top: 0.75rem; min-height: 24px;"></div>
+      <div class="btn-actions">
+        <button class="btn btn-secondary" onclick="testConnection()" id="testBtn">
+          ⚡ Test Connection
+        </button>
+        <button class="btn btn-danger" onclick="confirmDisconnect()">
+          🔌 Disconnect
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── QUICK SUBMIT FILING ── -->
+  <div class="panel" id="submitPanel" style="display:none;">
+    <div class="panel-header">
+      <div class="panel-header-left">
+        <div class="panel-icon">📤</div>
+        <div>
+          <div class="panel-title">Submit Filing to VUMPA</div>
+          <div class="panel-subtitle">Auto-submit a compliance document to the ACP VUMPA portal</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-banner">
+      <span class="info-icon">ℹ️</span>
+      <div>
+        VUMPA submissions use your connected ACP credentials to generate a filing package. Automated portal submission (RPA) is in development — submissions are tracked in your history below. VUMPA requires submission at least <strong>96 hours before arrival</strong> at Panama Canal waters.
+      </div>
+    </div>
+
+    <div class="quick-submit-bar">
+      <div class="form-group">
+        <label>Vessel Name</label>
+        <input type="text" id="qsVesselName" placeholder="e.g., MSC ANNA">
+      </div>
+      <div class="form-group">
+        <label>Filing Type</label>
+        <select id="qsFilingType" style="background:var(--slate);border:1px solid rgba(136,153,170,0.15);border-radius:8px;padding:0.75rem 1rem;color:var(--white);font-family:'IBM Plex Sans', sans-serif;font-size:0.9rem;width:100%;">
+          <option value="VUMPA">VUMPA Pre-Arrival Declaration</option>
+          <option value="PCSOPEP">PCSOPEP Plan</option>
+          <option value="CREW_MANIFEST">Crew Manifest</option>
+          <option value="CARGO_DECL">Cargo Declaration</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" onclick="quickSubmitFiling()" id="qsBtn" style="align-self:flex-end;white-space:nowrap;">
+        📤 Submit to VUMPA
+      </button>
+    </div>
+  </div>
+
+  <!-- ── FILING SUBMISSION HISTORY ── -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-header-left">
+        <div class="panel-icon">📋</div>
+        <div>
+          <div class="panel-title">Filing Submission History</div>
+          <div class="panel-subtitle">Track all VUMPA submissions and their status</div>
+        </div>
+      </div>
+      <button class="btn btn-secondary btn-sm" onclick="loadSubmissions()">↻ Refresh</button>
+    </div>
+
+    <div id="submissionsContent">
+      <div class="empty-state">
+        <div class="empty-icon">🚢</div>
+        <h3>No submissions yet</h3>
+        <p id="emptyStateMsg">Connect your VUMPA account above to start auto-filing compliance documents.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── NOTES PANEL ── -->
+  <div class="panel" style="border-color:rgba(255,217,61,0.15);background:rgba(255,217,61,0.03);">
+    <div class="panel-header" style="margin-bottom:1rem;">
+      <div class="panel-header-left">
+        <div class="panel-icon">⚠️</div>
+        <div>
+          <div class="panel-title" style="color:var(--yellow);">About VUMPA Automated Submission</div>
+        </div>
+      </div>
+    </div>
+    <div style="color:var(--light-gray);font-size:0.88rem;line-height:1.7;">
+      <p style="margin-bottom:0.75rem;">The ACP VUMPA portal (<strong>www.vumpa.gob.pa</strong>) uses a web form interface with no public API. Automated submission via browser automation (RPA) is in development.</p>
+      <p style="margin-bottom:0.75rem;"><strong>Current approach:</strong> CanalClear generates a structured VUMPA filing package from your form data. You or your ship agent uploads this to VUMPA directly. Your submission is tracked in the history above with an ACP reference number.</p>
+      <p><strong>Large shipping lines</strong> with private EDIFACT/XML agreements with ACP can continue to use those channels. CanalClear supports the standard web form workflow for operators without private agreements.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── DETAIL MODAL ── -->
+<div class="modal-overlay" id="detailModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Submission Details</div>
+      <button class="modal-close" onclick="closeModal('detailModal')">✕</button>
+    </div>
+    <div id="detailModalContent"></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('detailModal')">Close</button>
+      <button class="btn btn-primary" id="detailResubmitBtn" style="display:none;" onclick="resubmitFromDetail()">
+        ↺ Re-submit
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── DISCONNECT CONFIRM MODAL ── -->
+<div class="modal-overlay" id="disconnectModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Disconnect VUMPA Account?</div>
+      <button class="modal-close" onclick="closeModal('disconnectModal')">✕</button>
+    </div>
+    <p style="color: var(--light-gray); font-size: 0.9rem; line-height: 1.6;">
+      This will remove your stored VUMPA credentials. You'll need to re-enter them to resume auto-filing. Your submission history will be preserved.
+    </p>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('disconnectModal')">Cancel</button>
+      <button class="btn btn-danger" onclick="disconnect()">🔌 Yes, Disconnect</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ── STATE ──
+let connectionState = null;
+let detailSubmissionId = null;
+
+// ── INIT ──
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    const me = await apiFetch('/api/auth/me');
+    if (me.success && me.user?.is_admin) {
+      const adminLink = document.getElementById('admin-nav-link');
+      if (adminLink) adminLink.style.display = '';
+    }
+  } catch(e) {}
+
+  await loadConnectionStatus();
+  await loadSubmissions();
+});
+
+// ── API HELPER ──
+async function apiFetch(url, opts = {}) {
+  const res = await fetch(url, { credentials: 'include', ...opts,
+    headers: { 'Content-Type': 'application/json', ...(opts.headers || {}) }
+  });
+  return res.json();
+}
+
+// ── CONNECTION ──
+async function loadConnectionStatus() {
+  try {
+    const data = await apiFetch('/api/vumpa/credentials');
+    if (!data.success) return;
+    connectionState = data.connected ? data.connection : null;
+    renderConnectionUI();
+  } catch(e) {
+    console.error('Failed to load VUMPA connection status:', e);
+  }
+}
+
+function renderConnectionUI() {
+  const navDot = document.getElementById('navStatusDot');
+  const headerBadge = document.getElementById('headerStatusBadge');
+  const connectForm = document.getElementById('connectForm');
+  const connectedState = document.getElementById('connectedState');
+  const submitPanel = document.getElementById('submitPanel');
+
+  if (connectionState && connectionState.status !== 'disconnected') {
+    const status = connectionState.status;
+    const isError = status === 'error';
+
+    navDot.className = `nav-status-dot ${isError ? 'error' : 'connected'}`;
+
+    headerBadge.innerHTML = isError
+      ? `<div class="status-pill error"><div class="status-dot"></div>Connection Error</div>`
+      : `<div class="status-pill connected"><div class="status-dot"></div>Connected</div>`;
+
+    connectForm.style.display = 'none';
+    connectedState.style.display = 'block';
+    submitPanel.style.display = 'block';
+
+    const connectedAt = connectionState.connected_at
+      ? new Date(connectionState.connected_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+      : 'Unknown';
+    const lastTested = connectionState.last_tested_at
+      ? new Date(connectionState.last_tested_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+      : 'Never tested';
+
+    document.getElementById('connectedInfo').innerHTML = `
+      <div class="conn-field">
+        <div class="lbl">Account</div>
+        <div class="val mono">${escHtml(connectionState.username_hint || '***')}</div>
+      </div>
+      <div class="conn-field">
+        <div class="lbl">Portal</div>
+        <div class="val">ACP VUMPA Portal</div>
+      </div>
+      <div class="conn-field">
+        <div class="lbl">Status</div>
+        <div class="val" style="color: ${isError ? 'var(--red)' : 'var(--teal)'}">
+          ${isError ? '⚠ Connection Error' : '✓ Connected & Active'}
+        </div>
+      </div>
+      <div class="conn-field">
+        <div class="lbl">Connected</div>
+        <div class="val">${connectedAt}</div>
+      </div>
+      <div class="conn-field">
+        <div class="lbl">Last Tested</div>
+        <div class="val" style="color: var(--gray)">${lastTested}</div>
+      </div>
+    `;
+  } else {
+    navDot.className = 'nav-status-dot';
+    headerBadge.innerHTML = `<div class="status-pill disconnected"><div class="status-dot"></div>Not Connected</div>`;
+    connectForm.style.display = 'block';
+    connectedState.style.display = 'none';
+    submitPanel.style.display = 'none';
+  }
+}
+
+async function saveCredentials() {
+  const username = document.getElementById('vumpaUsername').value.trim();
+  const password = document.getElementById('vumpaPassword').value;
+  const btn = document.getElementById('connectBtn');
+
+  if (!username || !password) {
+    showToast('Please enter both username and password', 'error');
+    return;
+  }
+  if (password.length < 4) {
+    showToast('Password seems too short', 'error');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loading-spinner"></span> Connecting...';
+
+  try {
+    const data = await apiFetch('/api/vumpa/credentials', {
+      method: 'POST',
+      body: JSON.stringify({ username, password }),
+    });
+
+    if (data.success) {
+      connectionState = data.connection;
+      document.getElementById('vumpaUsername').value = '';
+      document.getElementById('vumpaPassword').value = '';
+      renderConnectionUI();
+      showToast('✓ VUMPA account connected securely', 'success');
+      gtag('event', 'vumpa_credentials_saved');
+    } else {
+      showToast(data.message || 'Failed to save credentials', 'error');
+    }
+  } catch(e) {
+    showToast('Network error. Please try again.', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '🔗 Connect to VUMPA Portal';
+  }
+}
+
+async function testConnection() {
+  const btn = document.getElementById('testBtn');
+  const resultArea = document.getElementById('testResultArea');
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loading-spinner"></span> Testing...';
+  resultArea.innerHTML = '';
+
+  try {
+    await new Promise(r => setTimeout(r, 1000));
+
+    const data = await apiFetch('/api/vumpa/test', { method: 'POST' });
+
+    if (data.success) {
+      resultArea.innerHTML = `<div class="test-success"><span class="checkmark">✅</span> Connection verified — VUMPA credentials are saved and active</div>`;
+      await loadConnectionStatus();
+    } else {
+      resultArea.innerHTML = `<div style="color:var(--red);font-size:0.88rem;">⚠ ${escHtml(data.message)}</div>`;
+    }
+  } catch(e) {
+    resultArea.innerHTML = `<div style="color:var(--red);font-size:0.88rem;">⚠ Connection test failed — network error</div>`;
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '⚡ Test Connection';
+  }
+}
+
+function confirmDisconnect() { openModal('disconnectModal'); }
+
+async function disconnect() {
+  closeModal('disconnectModal');
+  try {
+    const data = await apiFetch('/api/vumpa/credentials', { method: 'DELETE' });
+    if (data.success) {
+      connectionState = null;
+      renderConnectionUI();
+      showToast('VUMPA account disconnected', 'info');
+    }
+  } catch(e) {
+    showToast('Failed to disconnect. Please try again.', 'error');
+  }
+}
+
+// ── QUICK SUBMIT ──
+async function quickSubmitFiling() {
+  const vesselName = document.getElementById('qsVesselName').value.trim();
+  const filingType = document.getElementById('qsFilingType').value;
+  const btn = document.getElementById('qsBtn');
+
+  if (!vesselName) {
+    showToast('Please enter a vessel name', 'error');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loading-spinner"></span> Submitting...';
+
+  try {
+    const data = await apiFetch('/api/vumpa/submit', {
+      method: 'POST',
+      body: JSON.stringify({ vessel_name: vesselName, filing_type: filingType }),
+    });
+
+    if (data.success) {
+      showToast(`✓ ${data.message}`, 'success');
+      document.getElementById('qsVesselName').value = '';
+      await loadSubmissions();
+      gtag('event', 'vumpa_filing_submitted', { filing_type: filingType });
+    } else if (data.action_required === 'connect_vumpa') {
+      showToast('⚠ VUMPA credentials not connected', 'error');
+    } else {
+      showToast(data.message || 'Submission failed', 'error');
+    }
+  } catch(e) {
+    showToast('Network error. Please try again.', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '📤 Submit to VUMPA';
+  }
+}
+
+// ── SUBMISSIONS ──
+async function loadSubmissions() {
+  const container = document.getElementById('submissionsContent');
+
+  try {
+    const data = await apiFetch('/api/vumpa/submissions?limit=50');
+    if (!data.success) { renderEmptyState(container); return; }
+
+    if (!data.submissions || data.submissions.length === 0) {
+      renderEmptyState(container);
+      return;
+    }
+
+    container.innerHTML = `
+      <table class="sub-table">
+        <thead>
+          <tr>
+            <th>Vessel</th>
+            <th>Filing Type</th>
+            <th>Submitted</th>
+            <th>Status</th>
+            <th>ACP Reference</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${data.submissions.map(s => `
+            <tr onclick="showDetail(${s.id})">
+              <td><strong>${escHtml(s.vessel_name || '—')}</strong>
+                ${s.imo_number ? `<div class="mono">IMO ${escHtml(s.imo_number)}</div>` : ''}
+              </td>
+              <td><span style="font-size:0.82rem;background:var(--teal-dim);border:1px solid var(--teal-border);border-radius:6px;padding:0.18rem 0.5rem;color:var(--teal);">${escHtml(s.filing_type || '—')}</span></td>
+              <td style="color:var(--light-gray);font-size:0.85rem;">${formatDate(s.submitted_at)}</td>
+              <td><span class="sub-status ${s.status || 'pending'}">${escHtml(s.status || 'pending')}</span></td>
+              <td class="mono">${s.acp_reference ? escHtml(s.acp_reference) : '<span style="color:var(--gray);">—</span>'}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+      ${data.total > 50 ? `<p style="color:var(--gray);font-size:0.82rem;margin-top:0.75rem;text-align:center;">${data.total} total submissions — showing latest 50</p>` : ''}
+    `;
+  } catch(e) {
+    renderEmptyState(container);
+  }
+}
+
+function renderEmptyState(container) {
+  const isConnected = !!connectionState;
+  container.innerHTML = `
+    <div class="empty-state">
+      <div class="empty-icon">🚢</div>
+      <h3>No submissions yet</h3>
+      <p>${isConnected
+        ? 'Your VUMPA submissions will appear here after you file a Panama Canal document.'
+        : 'Connect your VUMPA account above to start auto-filing compliance documents.'
+      }</p>
+    </div>
+  `;
+}
+
+async function showDetail(id) {
+  detailSubmissionId = id;
+  const modal = document.getElementById('detailModal');
+  const content = document.getElementById('detailModalContent');
+  const resubmitBtn = document.getElementById('detailResubmitBtn');
+
+  content.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--gray);">Loading...</div>';
+  openModal('detailModal');
+
+  try {
+    const data = await apiFetch(`/api/vumpa/submissions/${id}`);
+    if (!data.success) { content.innerHTML = '<p style="color:var(--red);">Failed to load submission details.</p>'; return; }
+
+    const s = data.submission;
+    const canResubmit = s.status === 'failed' || s.status === 'error';
+    if (resubmitBtn) resubmitBtn.style.display = canResubmit ? '' : 'none';
+
+    content.innerHTML = `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1.25rem;">
+        <div class="conn-field"><div class="lbl">Vessel</div><div class="val">${escHtml(s.vessel_name || '—')}</div></div>
+        <div class="conn-field"><div class="lbl">Filing Type</div><div class="val">${escHtml(s.filing_type || '—')}</div></div>
+        <div class="conn-field"><div class="lbl">Status</div><div class="val"><span class="sub-status ${s.status}">${escHtml(s.status)}</span></div></div>
+        <div class="conn-field"><div class="lbl">ACP Reference</div><div class="val mono">${s.acp_reference ? escHtml(s.acp_reference) : '—'}</div></div>
+        <div class="conn-field"><div class="lbl">Submitted</div><div class="val" style="color:var(--light-gray);">${formatDate(s.submitted_at)}</div></div>
+        ${s.imo_number ? `<div class="conn-field"><div class="lbl">IMO</div><div class="val mono">${escHtml(s.imo_number)}</div></div>` : ''}
+      </div>
+      ${s.notes ? `<div style="color:var(--light-gray);font-size:0.85rem;padding:0.75rem;background:var(--navy);border-radius:8px;">${escHtml(s.notes)}</div>` : ''}
+    `;
+  } catch(e) {
+    content.innerHTML = '<p style="color:var(--red);">Failed to load submission details.</p>';
+  }
+}
+
+async function resubmitFromDetail() {
+  if (!detailSubmissionId) return;
+  const btn = document.getElementById('detailResubmitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loading-spinner"></span> Resubmitting...';
+
+  try {
+    const data = await apiFetch(`/api/vumpa/submissions/${detailSubmissionId}/resubmit`, { method: 'POST' });
+    if (data.success) {
+      showToast(`✓ ${data.message}`, 'success');
+      closeModal('detailModal');
+      await loadSubmissions();
+    } else {
+      showToast(data.message || 'Resubmission failed', 'error');
+    }
+  } catch(e) {
+    showToast('Network error. Please try again.', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '↺ Re-submit';
+  }
+}
+
+// ── MODAL HELPERS ──
+function openModal(id)  { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+// ── UTILS ──
+function escHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function formatDate(iso) {
+  if (!iso) return '—';
+  return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+
+function showToast(message, type = 'info') {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.className = `show ${type}`;
+  clearTimeout(toast._timeout);
+  toast._timeout = setTimeout(() => { toast.className = ''; }, 3500);
+}
+
+async function logout() {
+  try { await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' }); } catch(e) {}
+  window.location.href = '/login';
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voyage Planner — Multi-Waterway Filing Generator | CanalClear</title>
+  <meta name="description" content="Plan a multi-canal voyage and auto-generate all required filings — Panama VUMPA, Suez SCA, Bosporus SP-1, Malacca STRAITREP, Cape ISPS — in one click. No competitor does this.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://canalclear.org/voyage">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://canalclear.org/voyage">
+  <meta property="og:title" content="Voyage Planner — Multi-Waterway Compliance Filing | CanalClear">
+  <meta property="og:description" content="Enter a route, auto-generate all required canal filings. Panama → Suez → Bosporus in one click.">
+  <meta property="og:site_name" content="CanalClear">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/icons/icon-192.png">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy:         #1a2d4a;
+      --deep:         #0f1d30;
+      --slate:        #1e2f4a;
+      --slate2:       #243350;
+      --orange:       #E85A00;
+      --orange-dim:   rgba(232, 90, 0, 0.12);
+      --orange-border:rgba(232, 90, 0, 0.25);
+      --white:        #ffffff;
+      --gray:         #6b7c93;
+      --light:        #8fa3b8;
+      --red:          #FF6B6B;
+      --red-dim:      rgba(255, 107, 107, 0.12);
+      --yellow:       #FFD93D;
+      --yellow-dim:   rgba(255, 217, 61, 0.12);
+      --green:        #4CAF50;
+      --green-dim:    rgba(76, 175, 80, 0.12);
+      --teal:         #00BCD4;
+      --teal-dim:     rgba(0, 188, 212, 0.12);
+    }
+
+    /* Waterway colour map */
+    :root {
+      --ww-panama:   #0369A1;
+      --ww-suez:     #D97706;
+      --ww-bosporus: #7C3AED;
+      --ww-malacca:  #059669;
+      --ww-cape:     #DC2626;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── DEMO BANNER ── */
+    .demo-banner {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: rgba(232, 90, 0, 0.95);
+      padding: 0.55rem 1.5rem;
+      display: flex; align-items: center; justify-content: center;
+      gap: 1rem; font-size: 0.85rem; font-weight: 500;
+    }
+    .demo-banner a { color: #fff; font-weight: 700; text-decoration: underline; }
+    .demo-banner .dismiss {
+      position: absolute; right: 1rem; background: none; border: none;
+      color: rgba(255,255,255,0.7); font-size: 1.2rem; cursor: pointer;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 38px; width: 100%; z-index: 100;
+      background: rgba(10, 22, 40, 0.96); backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(232, 90, 0, 0.1);
+    }
+    .nav-inner {
+      max-width: 100%; padding: 0 1.5rem;
+      display: flex; align-items: center; height: 52px; gap: 1rem;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 0.6rem;
+      text-decoration: none; font-size: 1rem; font-weight: 700; color: var(--white);
+    }
+    .nav-brand .logo-dot { color: var(--orange); }
+    .nav-links {
+      display: flex; align-items: center; gap: 0.25rem; margin-left: 1rem; flex: 1;
+    }
+    .nav-link {
+      padding: 0.35rem 0.8rem; border-radius: 6px; font-size: 0.85rem;
+      color: var(--gray); text-decoration: none; transition: all 0.15s;
+    }
+    .nav-link:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+    .nav-link.active { color: var(--orange); background: var(--orange-dim); }
+    .nav-cta {
+      margin-left: auto;
+      background: var(--orange); color: #fff; font-weight: 600; font-size: 0.82rem;
+      padding: 0.4rem 1rem; border-radius: 6px; text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .nav-cta:hover { opacity: 0.88; }
+
+    /* ── LAYOUT ── */
+    .page-body { padding-top: 94px; min-height: 100vh; }
+
+    .page-header {
+      background: linear-gradient(135deg, var(--deep) 0%, var(--slate) 100%);
+      border-bottom: 1px solid rgba(232, 90, 0, 0.15);
+      padding: 2.5rem 2rem 2rem;
+    }
+    .header-inner { max-width: 1200px; margin: 0 auto; }
+    .header-badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--orange-dim); border: 1px solid var(--orange-border);
+      color: var(--orange); font-size: 0.72rem; font-weight: 700;
+      padding: 0.25rem 0.7rem; border-radius: 100px; letter-spacing: 0.05em;
+      margin-bottom: 0.75rem; text-transform: uppercase;
+    }
+    .page-header h1 {
+      font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 700; line-height: 1.2;
+      margin-bottom: 0.6rem;
+    }
+    .page-header h1 span { color: var(--orange); }
+    .page-header p { color: var(--light); font-size: 1rem; max-width: 600px; }
+
+    /* ── MAIN GRID ── */
+    .planner-grid {
+      display: grid; grid-template-columns: 400px 1fr;
+      gap: 0; max-width: 100%; min-height: calc(100vh - 200px);
+    }
+    @media (max-width: 900px) {
+      .planner-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── LEFT PANEL — Route Builder ── */
+    .route-panel {
+      background: var(--deep); border-right: 1px solid rgba(255,255,255,0.06);
+      padding: 1.5rem; overflow-y: auto;
+    }
+    .panel-title {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--gray); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .panel-title::after {
+      content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.06);
+    }
+
+    .form-group { margin-bottom: 1.1rem; }
+    .form-label {
+      display: block; font-size: 0.75rem; font-weight: 600; color: var(--light);
+      margin-bottom: 0.35rem; letter-spacing: 0.03em;
+    }
+    .form-input, .form-select {
+      width: 100%; background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
+      color: var(--white); font-family: inherit; font-size: 0.9rem;
+      padding: 0.55rem 0.75rem; outline: none; transition: border-color 0.15s;
+    }
+    .form-input:focus, .form-select:focus { border-color: var(--orange); }
+    .form-input::placeholder { color: var(--gray); }
+    .form-select option { background: #1a2d4a; }
+
+    /* Port autocomplete dropdown */
+    .port-wrap { position: relative; }
+    .port-dropdown {
+      position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 50;
+      background: #0f1d30; border: 1px solid rgba(255,255,255,0.12); border-radius: 8px;
+      max-height: 200px; overflow-y: auto; display: none;
+    }
+    .port-dropdown.open { display: block; }
+    .port-option {
+      padding: 0.5rem 0.75rem; font-size: 0.88rem; cursor: pointer; color: var(--light);
+    }
+    .port-option:hover, .port-option.highlighted { background: var(--orange-dim); color: var(--white); }
+
+    /* Waterway toggles */
+    .ww-toggles { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.35rem; }
+    .ww-toggle {
+      display: flex; align-items: center; gap: 0.35rem;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px; padding: 0.3rem 0.65rem; font-size: 0.8rem; cursor: pointer;
+      transition: all 0.15s; color: var(--light); user-select: none;
+    }
+    .ww-toggle.active { border-color: var(--ww-active, #E85A00); background: rgba(var(--ww-rgb, 232,90,0),0.15); color: var(--white); }
+    .ww-toggle .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+    .ww-panama   { --ww-active: #0369A1; --ww-rgb: 3,105,161; }
+    .ww-suez     { --ww-active: #D97706; --ww-rgb: 217,119,6; }
+    .ww-bosporus { --ww-active: #7C3AED; --ww-rgb: 124,58,237; }
+    .ww-malacca  { --ww-active: #059669; --ww-rgb: 5,150,105; }
+    .ww-cape     { --ww-active: #DC2626; --ww-rgb: 220,38,38; }
+
+    /* Action buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      border: none; border-radius: 8px; font-family: inherit; font-weight: 600;
+      cursor: pointer; transition: all 0.18s; text-decoration: none;
+    }
+    .btn-primary {
+      background: var(--orange); color: #fff; font-size: 0.95rem;
+      padding: 0.7rem 1.4rem; width: 100%;
+      box-shadow: 0 4px 16px rgba(232, 90, 0, 0.35);
+    }
+    .btn-primary:hover { filter: brightness(1.1); transform: translateY(-1px); }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .btn-outline {
+      background: transparent; border: 1px solid rgba(255,255,255,0.15);
+      color: var(--light); font-size: 0.82rem; padding: 0.5rem 1rem;
+    }
+    .btn-outline:hover { border-color: var(--orange); color: var(--white); }
+
+    /* Divider */
+    .divider { height: 1px; background: rgba(255,255,255,0.06); margin: 1.2rem 0; }
+
+    /* Vessel IMO row */
+    .imo-row { display: flex; gap: 0.5rem; }
+    .imo-row .form-input { flex: 1; }
+    .imo-lookup-btn {
+      background: var(--orange-dim); border: 1px solid var(--orange-border);
+      color: var(--orange); font-size: 0.8rem; font-weight: 600;
+      padding: 0 0.75rem; border-radius: 8px; cursor: pointer; white-space: nowrap;
+      transition: all 0.15s;
+    }
+    .imo-lookup-btn:hover { background: var(--orange); color: #fff; }
+
+    /* Two-column vessel fields */
+    .vessel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+
+    /* Autofill indicator */
+    .autofill-badge {
+      font-size: 0.68rem; font-weight: 600; background: var(--green-dim);
+      border: 1px solid var(--green); color: var(--green);
+      padding: 0.15rem 0.5rem; border-radius: 4px; margin-top: 0.3rem;
+      display: none;
+    }
+    .autofill-badge.show { display: inline-block; }
+
+    /* ── RIGHT PANEL — Results ── */
+    .results-panel {
+      background: var(--slate); padding: 1.5rem; overflow-y: auto;
+    }
+
+    /* Empty state */
+    .empty-state {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      min-height: 60vh; text-align: center; padding: 2rem;
+    }
+    .empty-icon { font-size: 4rem; margin-bottom: 1rem; opacity: 0.4; }
+    .empty-state h2 { font-size: 1.3rem; font-weight: 600; color: var(--light); margin-bottom: 0.5rem; }
+    .empty-state p { color: var(--gray); font-size: 0.9rem; max-width: 320px; }
+
+    /* Route map SVG world */
+    .route-map-wrap {
+      background: var(--deep); border-radius: 12px; border: 1px solid rgba(255,255,255,0.06);
+      padding: 1rem; margin-bottom: 1.5rem; overflow: hidden;
+    }
+    .route-map-title {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--gray); margin-bottom: 0.75rem;
+    }
+    #world-map { width: 100%; height: 220px; }
+
+    /* Waterway cards grid */
+    .waterway-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+    .ww-card {
+      background: var(--deep); border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.06);
+      overflow: hidden; transition: border-color 0.15s;
+    }
+    .ww-card:hover { border-color: rgba(255,255,255,0.15); }
+    .ww-card-header {
+      padding: 0.75rem 1rem; display: flex; align-items: center; gap: 0.75rem;
+    }
+    .ww-card-color { width: 4px; height: 36px; border-radius: 2px; flex-shrink: 0; }
+    .ww-card-meta { flex: 1; }
+    .ww-card-name { font-size: 0.9rem; font-weight: 700; }
+    .ww-card-forms { font-size: 0.72rem; color: var(--gray); margin-top: 0.1rem; }
+    .ww-card-score {
+      font-size: 1.3rem; font-weight: 700; text-align: right;
+    }
+    .ww-card-body { padding: 0 1rem 1rem; }
+    .ww-row {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.8rem; padding: 0.25rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .ww-row:last-child { border-bottom: none; }
+    .ww-row .label { color: var(--gray); }
+    .ww-row .value { color: var(--white); font-weight: 500; }
+    .ww-row .deadline { color: var(--yellow); font-weight: 600; }
+    .status-badge {
+      font-size: 0.68rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 4px;
+      letter-spacing: 0.04em;
+    }
+    .status-pending  { background: var(--yellow-dim); color: var(--yellow); }
+    .status-complete { background: var(--green-dim);  color: var(--green);  }
+    .status-overdue  { background: var(--red-dim);    color: var(--red);    }
+
+    /* Timeline */
+    .timeline-wrap {
+      background: var(--deep); border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 1rem; margin-bottom: 1.5rem;
+    }
+    .timeline-title {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--gray); margin-bottom: 1rem;
+    }
+    .timeline { position: relative; padding-left: 1.5rem; }
+    .timeline::before {
+      content: ''; position: absolute; left: 7px; top: 0; bottom: 0;
+      width: 2px; background: rgba(255,255,255,0.08);
+    }
+    .tl-item { position: relative; padding-bottom: 1.2rem; }
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-dot {
+      position: absolute; left: -1.5rem; top: 4px;
+      width: 16px; height: 16px; border-radius: 50%;
+      border: 2px solid var(--deep); display: flex; align-items: center; justify-content: center;
+      font-size: 0.55rem; font-weight: 700; color: #fff;
+    }
+    .tl-content { }
+    .tl-waterway { font-size: 0.82rem; font-weight: 700; }
+    .tl-date { font-size: 0.72rem; color: var(--gray); margin-top: 0.1rem; }
+    .tl-deadline { font-size: 0.72rem; color: var(--yellow); }
+
+    /* Overall score bar */
+    .score-bar-wrap { background: var(--deep); border-radius: 12px; border: 1px solid rgba(255,255,255,0.06); padding: 1rem; margin-bottom: 1.5rem; }
+    .score-row { display: flex; align-items: center; gap: 1rem; }
+    .score-number { font-size: 2.5rem; font-weight: 700; color: var(--orange); min-width: 70px; }
+    .score-details { flex: 1; }
+    .score-label { font-size: 0.8rem; font-weight: 600; color: var(--light); margin-bottom: 0.4rem; }
+    .score-track { height: 8px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; }
+    .score-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; background: var(--orange); }
+
+    /* Export bar */
+    .export-bar {
+      display: flex; gap: 0.75rem; flex-wrap: wrap;
+      background: var(--deep); border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 1rem;
+    }
+    .export-bar p { flex-basis: 100%; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gray); margin-bottom: 0.25rem; }
+
+    /* Loading spinner */
+    .spinner {
+      display: none; width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,0.2); border-top-color: #fff;
+      border-radius: 50%; animation: spin 0.6s linear infinite;
+    }
+    .spinner.show { display: inline-block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Demo pre-seed bar */
+    .demo-seed-bar {
+      background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px; padding: 0.7rem 1rem; margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;
+    }
+    .demo-seed-bar span { font-size: 0.78rem; color: var(--gray); flex: 1; }
+    .seed-btn {
+      background: var(--orange-dim); border: 1px solid var(--orange-border);
+      color: var(--orange); font-size: 0.75rem; font-weight: 600;
+      padding: 0.3rem 0.75rem; border-radius: 6px; cursor: pointer; white-space: nowrap;
+    }
+    .seed-btn:hover { background: var(--orange); color: #fff; }
+
+    /* Alerts */
+    .alert {
+      padding: 0.65rem 0.9rem; border-radius: 8px; font-size: 0.85rem;
+      margin-bottom: 0.75rem; display: none;
+    }
+    .alert.show { display: block; }
+    .alert-error { background: var(--red-dim); border: 1px solid var(--red); color: var(--red); }
+    .alert-success { background: var(--green-dim); border: 1px solid var(--green); color: var(--green); }
+
+    /* Responsive tweaks */
+    @media (max-width: 700px) {
+      .route-panel, .results-panel { padding: 1rem; }
+      .page-header { padding: 1.5rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Demo banner -->
+  <div class="demo-banner" id="demo-banner">
+    🚢 <strong>Voyage Planner Demo</strong> — plan a route, generate all filings.
+    <a href="/pricing">See Pricing →</a>
+    <button class="dismiss" onclick="document.getElementById('demo-banner').remove()">✕</button>
+  </div>
+
+  <!-- Nav -->
+  <nav>
+    <div class="nav-inner">
+      <a class="nav-brand" href="/">CanalClear<span class="logo-dot">.</span></a>
+      <div class="nav-links">
+        <a href="/demo/dashboard" class="nav-link">Dashboard</a>
+        <a href="/voyage" class="nav-link active">Voyage Planner</a>
+        <a href="/demo/panama" class="nav-link">Panama</a>
+        <a href="/demo/suez" class="nav-link">Suez</a>
+        <a href="/demo/bosporus" class="nav-link">Bosporus</a>
+        <a href="/demo/malacca" class="nav-link">Malacca</a>
+        <a href="/demo/cape" class="nav-link">Cape</a>
+      </div>
+      <a href="/pricing" class="nav-cta">See Pricing</a>
+    </div>
+  </nav>
+
+  <!-- Page header -->
+  <div class="page-body">
+    <div class="page-header">
+      <div class="header-inner">
+        <div class="header-badge">🗺 NEW — Killer Differentiator</div>
+        <h1>Unified <span>Voyage Planner</span></h1>
+        <p>Enter a route — auto-detect every waterway you cross and generate all required filings in one click. No competitor does this.</p>
+      </div>
+    </div>
+
+    <div class="planner-grid">
+
+      <!-- ── LEFT: Route Builder ── -->
+      <div class="route-panel">
+
+        <!-- Demo pre-seed -->
+        <div class="demo-seed-bar">
+          <span>Try the demo route: Shanghai → Rotterdam via Malacca, Suez, Bosporus</span>
+          <button class="seed-btn" onclick="seedDemoRoute()">Load Demo Route</button>
+        </div>
+
+        <!-- SECTION: Route -->
+        <div class="panel-title">Route</div>
+
+        <div class="form-group">
+          <label class="form-label">Origin Port</label>
+          <div class="port-wrap">
+            <input id="origin" class="form-input" placeholder="e.g. Shanghai" autocomplete="off">
+            <div class="port-dropdown" id="origin-dd"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Destination Port</label>
+          <div class="port-wrap">
+            <input id="destination" class="form-input" placeholder="e.g. Rotterdam" autocomplete="off">
+            <div class="port-dropdown" id="destination-dd"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Departure Date</label>
+          <input id="departure-date" class="form-input" type="datetime-local">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Vessel Speed (knots)</label>
+          <input id="speed" class="form-input" type="number" min="5" max="30" value="14" step="0.5">
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Waterway selection -->
+        <div class="panel-title">Waterways</div>
+        <p style="font-size:0.78rem;color:var(--gray);margin-bottom:0.6rem;">Auto-detected from route. Toggle to override.</p>
+        <div class="ww-toggles" id="ww-toggles">
+          <button class="ww-toggle ww-panama"   data-ww="panama"   onclick="toggleWaterway(this)"><span class="dot"></span>Panama</button>
+          <button class="ww-toggle ww-suez"     data-ww="suez"     onclick="toggleWaterway(this)"><span class="dot"></span>Suez</button>
+          <button class="ww-toggle ww-bosporus" data-ww="bosporus" onclick="toggleWaterway(this)"><span class="dot"></span>Bosporus</button>
+          <button class="ww-toggle ww-malacca"  data-ww="malacca"  onclick="toggleWaterway(this)"><span class="dot"></span>Malacca</button>
+          <button class="ww-toggle ww-cape"     data-ww="cape"     onclick="toggleWaterway(this)"><span class="dot"></span>Cape</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Vessel -->
+        <div class="panel-title">Vessel</div>
+
+        <div class="form-group">
+          <label class="form-label">IMO Number</label>
+          <div class="imo-row">
+            <input id="imo" class="form-input" placeholder="e.g. 9416965" maxlength="10">
+            <button class="imo-lookup-btn" onclick="lookupIMO()">Auto-fill</button>
+          </div>
+          <span class="autofill-badge" id="autofill-badge">✓ Vessel data auto-filled</span>
+        </div>
+
+        <div class="vessel-grid">
+          <div class="form-group">
+            <label class="form-label">Vessel Name</label>
+            <input id="vessel-name" class="form-input" placeholder="MV Example">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Flag State</label>
+            <input id="flag-state" class="form-input" placeholder="PA">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Vessel Type</label>
+            <select id="vessel-type" class="form-select">
+              <option value="">Select…</option>
+              <option value="container">Container</option>
+              <option value="bulk_carrier">Bulk Carrier</option>
+              <option value="tanker">Tanker</option>
+              <option value="lng_carrier">LNG Carrier</option>
+              <option value="ro_ro">Ro-Ro</option>
+              <option value="passenger">Passenger</option>
+              <option value="general_cargo">General Cargo</option>
+              <option value="offshore">Offshore</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Gross Tonnage</label>
+            <input id="gt" class="form-input" type="number" placeholder="e.g. 94000">
+          </div>
+          <div class="form-group">
+            <label class="form-label">LOA (m)</label>
+            <input id="loa" class="form-input" type="number" placeholder="e.g. 352.0" step="0.1">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Draft (m)</label>
+            <input id="draft" class="form-input" type="number" placeholder="e.g. 14.5" step="0.1">
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Alert -->
+        <div class="alert alert-error" id="form-error"></div>
+
+        <!-- CTA -->
+        <button class="btn btn-primary" id="plan-btn" onclick="planVoyage()">
+          <div class="spinner" id="plan-spinner"></div>
+          <span id="plan-btn-text">Generate All Filings</span>
+        </button>
+
+        <div style="margin-top:0.75rem;display:flex;gap:0.5rem;">
+          <button class="btn btn-outline" style="flex:1" onclick="clearAll()">Clear</button>
+          <button class="btn btn-outline" style="flex:1" onclick="autoDetect()">Auto-detect Waterways</button>
+        </div>
+
+      </div><!-- /route-panel -->
+
+      <!-- ── RIGHT: Results ── -->
+      <div class="results-panel" id="results-panel">
+
+        <div class="empty-state" id="empty-state">
+          <div class="empty-icon">🌍</div>
+          <h2>Plan your voyage</h2>
+          <p>Enter an origin and destination, then click "Generate All Filings" to see every required form for your route.</p>
+        </div>
+
+        <div id="results-content" style="display:none">
+
+          <!-- Score bar -->
+          <div class="score-bar-wrap" id="score-bar">
+            <div class="score-row">
+              <div class="score-number" id="overall-score-num">—</div>
+              <div class="score-details">
+                <div class="score-label" id="score-label">Overall Compliance Score</div>
+                <div class="score-track"><div class="score-fill" id="score-fill" style="width:0%"></div></div>
+                <div style="font-size:0.72rem;color:var(--gray);margin-top:0.3rem;" id="score-subtext">Fill in filing details to see your compliance score.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- World map -->
+          <div class="route-map-wrap">
+            <div class="route-map-title">Route Map</div>
+            <svg id="world-map" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid meet">
+              <!-- Simplified world outline paths -->
+              <rect width="800" height="400" fill="#0f1d30"/>
+              <!-- Grid lines -->
+              <line x1="0" y1="200" x2="800" y2="200" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+              <line x1="400" y1="0" x2="400" y2="400" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+
+              <!-- Very simplified continent outlines (fill shapes only) -->
+              <!-- North America -->
+              <path d="M80,60 L180,55 L200,90 L220,120 L200,160 L160,200 L120,220 L80,180 L60,130 Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+              <!-- South America -->
+              <path d="M130,230 L180,220 L200,260 L195,330 L150,360 L120,310 L115,260 Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+              <!-- Europe -->
+              <path d="M330,50 L410,45 L430,75 L420,110 L390,120 L360,110 L330,90 Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+              <!-- Africa -->
+              <path d="M340,130 L400,120 L430,150 L440,210 L430,290 L390,340 L350,320 L320,270 L310,200 L320,150 Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+              <!-- Middle East -->
+              <path d="M415,120 L470,110 L480,140 L460,160 L430,165 L415,145 Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+              <!-- Asia -->
+              <path d="M460,50 L600,40 L650,70 L660,110 L640,140 L580,160 L520,150 L470,130 L455,90 Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+              <!-- SE Asia -->
+              <path d="M590,160 L640,150 L670,190 L650,210 L600,200 Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+              <!-- Australia -->
+              <path d="M590,260 L680,250 L710,290 L700,340 L640,360 L590,330 L570,290 Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+
+              <!-- Waterway gate markers (permanent) -->
+              <!-- Panama ~lon=-79.5 -> x=265, lat=9 -> y=222 -->
+              <circle id="gate-panama" cx="264" cy="222" r="5" fill="#0369A1" opacity="0.4"/>
+              <text x="264" y="245" font-size="7" fill="#0369A1" text-anchor="middle" opacity="0.7">Panama</text>
+              <!-- Suez ~lon=32.5 -> x=477, lat=30.5 -> y=134 -->
+              <circle id="gate-suez" cx="477" cy="134" r="5" fill="#D97706" opacity="0.4"/>
+              <text x="477" y="125" font-size="7" fill="#D97706" text-anchor="middle" opacity="0.7">Suez</text>
+              <!-- Bosporus ~lon=29.05 -> x=472, lat=41 -> y=108 -->
+              <circle id="gate-bosporus" cx="472" cy="108" r="5" fill="#7C3AED" opacity="0.4"/>
+              <text x="500" y="104" font-size="7" fill="#7C3AED" text-anchor="middle" opacity="0.7">Bosporus</text>
+              <!-- Malacca ~lon=101.5 -> x=576, lat=2.5 -> y=195 -->
+              <circle id="gate-malacca" cx="576" cy="195" r="5" fill="#059669" opacity="0.4"/>
+              <text x="576" y="215" font-size="7" fill="#059669" text-anchor="middle" opacity="0.7">Malacca</text>
+              <!-- Cape ~lon=18.5 -> x=452, lat=-34.5 -> y=306 -->
+              <circle id="gate-cape" cx="452" cy="306" r="5" fill="#DC2626" opacity="0.4"/>
+              <text x="452" y="325" font-size="7" fill="#DC2626" text-anchor="middle" opacity="0.7">Cape</text>
+
+              <!-- Route line (drawn dynamically) -->
+              <polyline id="route-line" points="" fill="none" stroke="var(--orange)" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.7"/>
+
+              <!-- Origin/Destination markers (drawn dynamically) -->
+              <circle id="map-origin" cx="0" cy="0" r="0" fill="var(--orange)"/>
+              <text id="map-origin-label" x="0" y="0" font-size="8" fill="var(--orange)" text-anchor="middle"></text>
+              <circle id="map-dest" cx="0" cy="0" r="0" fill="var(--orange)" opacity="0.6"/>
+              <text id="map-dest-label" x="0" y="0" font-size="8" fill="var(--orange)" text-anchor="middle" opacity="0.7"></text>
+            </svg>
+          </div><!-- /route-map-wrap -->
+
+          <!-- Waterway filing cards -->
+          <div class="waterway-cards" id="waterway-cards"></div>
+
+          <!-- Timeline -->
+          <div class="timeline-wrap">
+            <div class="timeline-title">Voyage Timeline</div>
+            <div class="timeline" id="voyage-timeline"></div>
+          </div>
+
+          <!-- Export -->
+          <div class="export-bar">
+            <p>Export</p>
+            <button class="btn btn-outline" id="pdf-btn" onclick="downloadPDF()">📄 Voyage Compliance Package PDF</button>
+            <a href="/pricing" class="btn btn-outline" style="font-size:0.82rem">🔒 Save Voyage (Subscribe)</a>
+          </div>
+
+        </div><!-- /results-content -->
+
+      </div><!-- /results-panel -->
+
+    </div><!-- /planner-grid -->
+  </div><!-- /page-body -->
+
+  <script>
+    // ── Port autocomplete ─────────────────────────────────────────────────────
+
+    let ALL_PORTS = [];
+
+    async function loadPorts() {
+      try {
+        const r = await fetch('/api/voyage/ports');
+        const d = await r.json();
+        if (d.success) ALL_PORTS = d.ports;
+      } catch (e) { /* silently fail — autocomplete optional */ }
+    }
+
+    function setupPortAutocomplete(inputId, dropdownId) {
+      const input = document.getElementById(inputId);
+      const dd    = document.getElementById(dropdownId);
+      let highlighted = -1;
+
+      input.addEventListener('input', () => {
+        const q = input.value.toLowerCase().trim();
+        if (!q) { dd.classList.remove('open'); return; }
+        const matches = ALL_PORTS.filter(p => p.toLowerCase().includes(q)).slice(0, 8);
+        if (!matches.length) { dd.classList.remove('open'); return; }
+        dd.innerHTML = matches.map((p, i) =>
+          `<div class="port-option" data-port="${p}" onclick="selectPort('${inputId}','${dropdownId}','${p}')">${p}</div>`
+        ).join('');
+        dd.classList.add('open');
+        highlighted = -1;
+      });
+
+      input.addEventListener('keydown', (e) => {
+        const opts = dd.querySelectorAll('.port-option');
+        if (e.key === 'ArrowDown') {
+          highlighted = Math.min(highlighted + 1, opts.length - 1);
+          opts.forEach((o, i) => o.classList.toggle('highlighted', i === highlighted));
+          e.preventDefault();
+        } else if (e.key === 'ArrowUp') {
+          highlighted = Math.max(highlighted - 1, 0);
+          opts.forEach((o, i) => o.classList.toggle('highlighted', i === highlighted));
+          e.preventDefault();
+        } else if (e.key === 'Enter' && highlighted >= 0) {
+          selectPort(inputId, dropdownId, opts[highlighted].dataset.port);
+          e.preventDefault();
+        } else if (e.key === 'Escape') {
+          dd.classList.remove('open');
+        }
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!input.contains(e.target) && !dd.contains(e.target)) dd.classList.remove('open');
+      });
+    }
+
+    function selectPort(inputId, dropdownId, port) {
+      document.getElementById(inputId).value = port;
+      document.getElementById(dropdownId).classList.remove('open');
+    }
+
+    // ── Waterway toggles ──────────────────────────────────────────────────────
+
+    function toggleWaterway(btn) {
+      btn.classList.toggle('active');
+    }
+
+    function getSelectedWaterways() {
+      return [...document.querySelectorAll('.ww-toggle.active')]
+        .map(b => b.dataset.ww);
+    }
+
+    function setActiveWaterways(list) {
+      document.querySelectorAll('.ww-toggle').forEach(btn => {
+        btn.classList.toggle('active', list.includes(btn.dataset.ww));
+      });
+    }
+
+    async function autoDetect() {
+      const origin = document.getElementById('origin').value.trim();
+      const dest   = document.getElementById('destination').value.trim();
+      if (!origin || !dest) { showError('Enter origin and destination first.'); return; }
+      try {
+        const r = await fetch('/api/voyage/detect', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ origin, destination }),
+        });
+        const d = await r.json();
+        if (d.success) setActiveWaterways(d.waterways);
+      } catch (e) { showError('Auto-detect failed: ' + e.message); }
+    }
+
+    // ── IMO auto-fill ─────────────────────────────────────────────────────────
+
+    async function lookupIMO() {
+      const imo = document.getElementById('imo').value.trim();
+      if (!imo) return;
+      try {
+        const r = await fetch('/api/cape/autofill', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ imo }),
+        });
+        const d = await r.json();
+        if (d.success && d.found) {
+          const v = d.vessel;
+          document.getElementById('vessel-name').value = v.name   || '';
+          document.getElementById('flag-state').value  = v.flag   || '';
+          document.getElementById('vessel-type').value = v.type   || '';
+          document.getElementById('gt').value          = v.gt     || '';
+          document.getElementById('loa').value         = v.loa    || '';
+          document.getElementById('draft').value       = v.draft  || '';
+          document.getElementById('autofill-badge').classList.add('show');
+        } else {
+          showError(d.message || 'IMO not found in database.');
+        }
+      } catch (e) { showError('IMO lookup failed: ' + e.message); }
+    }
+
+    // ── Plan voyage ────────────────────────────────────────────────────────────
+
+    let currentPlan = null;
+
+    async function planVoyage() {
+      const origin = document.getElementById('origin').value.trim();
+      const dest   = document.getElementById('destination').value.trim();
+      if (!origin || !dest) { showError('Enter origin and destination ports.'); return; }
+
+      clearError();
+      setBusy(true);
+
+      const selectedWW = getSelectedWaterways();
+      const departure  = document.getElementById('departure-date').value;
+      const speed      = parseFloat(document.getElementById('speed').value) || 14;
+
+      try {
+        const r = await fetch('/api/voyage/plan', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            origin, destination: dest,
+            departure_date: departure || new Date(Date.now() + 3*86400000).toISOString(),
+            vessel_speed_kt: speed,
+            waterways: selectedWW.length > 0 ? selectedWW : undefined,
+          }),
+        });
+        const d = await r.json();
+        if (!d.success) { showError(d.message || 'Planning failed.'); return; }
+
+        currentPlan = { origin, destination: dest, waterways: d.waterways, waypoints: d.waypoints, speed };
+        setActiveWaterways(d.waterways);
+        renderResults(d.waterways, d.waypoints, origin, dest);
+
+      } catch (e) {
+        showError('Request failed: ' + e.message);
+      } finally {
+        setBusy(false);
+      }
+    }
+
+    // ── Render results ────────────────────────────────────────────────────────
+
+    const WW_COLORS = {
+      panama: '#0369A1', suez: '#D97706', bosporus: '#7C3AED', malacca: '#059669', cape: '#DC2626',
+    };
+    const WW_LABELS = {
+      panama: 'Panama Canal', suez: 'Suez Canal', bosporus: 'Bosporus Strait',
+      malacca: 'Strait of Malacca', cape: 'Cape of Good Hope',
+    };
+    const WW_FORMS = {
+      panama:   ['VUMPA', 'PCSOPEP'],
+      suez:     ['SCA Form', 'SCNT', 'Convoy Booking'],
+      bosporus: ['SP-1 Form', 'Dangerous Cargo Notice'],
+      malacca:  ['STRAITREP', 'VTIS Pre-Arrival'],
+      cape:     ['SAMSA ISPS Pre-Arrival'],
+    };
+    // Gate positions on SVG (x,y) — matches waterway gate circles in SVG
+    const GATE_POS = {
+      panama:   [264, 222],
+      suez:     [477, 134],
+      bosporus: [472, 108],
+      malacca:  [576, 195],
+      cape:     [452, 306],
+    };
+    // Port coords mapped to SVG x,y (lon 0→800, lat 90→0)
+    function portToSVG(lat, lon) {
+      const x = ((lon + 180) / 360) * 800;
+      const y = ((90 - lat) / 180) * 400;
+      return [Math.round(x), Math.round(y)];
+    }
+
+    const PORT_APPROX = {
+      'Shanghai': [31.2,121.5], 'Singapore': [1.3,103.8], 'Rotterdam': [51.9,4.5],
+      'Hamburg': [53.5,10.0], 'Antwerp': [51.2,4.4], 'Felixstowe': [51.9,1.3],
+      'Dubai': [25.1,55.2], 'Jeddah': [21.5,39.2], 'Port Said': [31.3,32.3],
+      'Istanbul': [41.0,29.0], 'Novorossiysk': [44.7,37.8], 'Odessa': [46.5,30.7],
+      'Colón': [9.4,-79.9], 'Balboa': [8.9,-79.6], 'Los Angeles': [33.7,-118.3],
+      'Long Beach': [33.8,-118.2], 'New York': [40.7,-74.0], 'Houston': [29.7,-95.0],
+      'Cape Town': [-33.9,18.4], 'Port Elizabeth': [-33.9,25.6], 'Durban': [-29.9,31.0],
+      'Colombo': [6.9,79.9], 'Mumbai': [18.9,72.8], 'Busan': [35.1,129.0],
+      'Yokohama': [35.4,139.6], 'Hong Kong': [22.3,114.2], 'Guangzhou': [23.1,113.3],
+      'Tianjin': [39.0,117.7], 'Kaohsiung': [22.6,120.3], 'Port Klang': [3.0,101.4],
+      'Tanjung Pelepas': [1.4,103.6], 'Piraeus': [37.9,23.7], 'Barcelona': [41.4,2.2],
+      'Algeciras': [36.1,-5.5], 'Valencia': [39.5,-0.3], 'Genoa': [44.4,8.9],
+    };
+
+    function getPortCoords(name) {
+      for (const [k, v] of Object.entries(PORT_APPROX)) {
+        if (k.toLowerCase() === name.toLowerCase() ||
+            k.toLowerCase().startsWith(name.toLowerCase().slice(0,4))) return v;
+      }
+      return null;
+    }
+
+    function renderResults(waterways, waypoints, origin, dest) {
+      document.getElementById('empty-state').style.display = 'none';
+      document.getElementById('results-content').style.display = 'block';
+
+      // Score (0 since no filing data yet — demo)
+      const score = 0;
+      document.getElementById('overall-score-num').textContent = `${score}%`;
+      document.getElementById('score-fill').style.width = `${score}%`;
+      document.getElementById('score-subtext').textContent =
+        `${waterways.length} waterway${waterways.length !== 1 ? 's' : ''} detected — complete filing details to update score.`;
+
+      // Map
+      drawMap(waterways, waypoints, origin, dest);
+
+      // Waterway cards
+      const cardsEl = document.getElementById('waterway-cards');
+      cardsEl.innerHTML = '';
+      for (const wp of waypoints) {
+        const col   = WW_COLORS[wp.waterway] || '#888';
+        const label = WW_LABELS[wp.waterway] || wp.waterway;
+        const forms = (WW_FORMS[wp.waterway] || []).join(' · ');
+        cardsEl.innerHTML += `
+          <div class="ww-card">
+            <div class="ww-card-header">
+              <div class="ww-card-color" style="background:${col}"></div>
+              <div class="ww-card-meta">
+                <div class="ww-card-name">${label}</div>
+                <div class="ww-card-forms">${forms}</div>
+              </div>
+              <div class="ww-card-score" style="color:${col}">—%</div>
+            </div>
+            <div class="ww-card-body">
+              <div class="ww-row">
+                <span class="label">Entry Port</span>
+                <span class="value">${wp.port_entry || '—'}</span>
+              </div>
+              <div class="ww-row">
+                <span class="label">ETA</span>
+                <span class="value">${fmtDateShort(wp.eta)}</span>
+              </div>
+              <div class="ww-row">
+                <span class="label">Transit Duration</span>
+                <span class="value">${wp.transit_hours ? wp.transit_hours + ' hrs' : '—'}</span>
+              </div>
+              <div class="ww-row">
+                <span class="label">Filing Deadline</span>
+                <span class="deadline">${fmtDateShort(wp.filing_deadline)}</span>
+              </div>
+              <div class="ww-row">
+                <span class="label">Status</span>
+                <span class="status-badge status-pending">⏳ Pending</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Timeline
+      const tlEl = document.getElementById('voyage-timeline');
+      tlEl.innerHTML = '';
+      const allPoints = [
+        { label: `Departure — ${origin}`, date: null, color: '#E85A00', icon: '▶' },
+        ...waypoints.map(wp => ({
+          label:   WW_LABELS[wp.waterway] || wp.waterway,
+          date:    wp.eta,
+          deadline: wp.filing_deadline,
+          color:   WW_COLORS[wp.waterway] || '#888',
+          icon:    '⚓',
+        })),
+        { label: `Arrival — ${dest}`, date: null, color: '#E85A00', icon: '■' },
+      ];
+      for (const pt of allPoints) {
+        tlEl.innerHTML += `
+          <div class="tl-item">
+            <div class="tl-dot" style="background:${pt.color}">${pt.icon}</div>
+            <div class="tl-content">
+              <div class="tl-waterway" style="color:${pt.color}">${pt.label}</div>
+              ${pt.date ? `<div class="tl-date">ETA: ${fmtDateShort(pt.date)}</div>` : ''}
+              ${pt.deadline ? `<div class="tl-deadline">⏱ Filing due: ${fmtDateShort(pt.deadline)}</div>` : ''}
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function drawMap(waterways, waypoints, origin, dest) {
+      const origCoords = getPortCoords(origin);
+      const destCoords = getPortCoords(dest);
+
+      // Dim all gates
+      for (const key of Object.keys(GATE_POS)) {
+        const el = document.getElementById(`gate-${key}`);
+        if (el) el.setAttribute('opacity', '0.2');
+      }
+
+      // Highlight active waterways
+      for (const key of waterways) {
+        const el = document.getElementById(`gate-${key}`);
+        if (el) {
+          el.setAttribute('opacity', '1');
+          el.setAttribute('r', '7');
+        }
+      }
+
+      // Build route polyline points
+      const points = [];
+      if (origCoords) points.push(portToSVG(origCoords[0], origCoords[1]));
+      for (const wp of waypoints) {
+        const gp = GATE_POS[wp.waterway];
+        if (gp) points.push(gp);
+      }
+      if (destCoords) points.push(portToSVG(destCoords[0], destCoords[1]));
+
+      document.getElementById('route-line').setAttribute('points',
+        points.map(p => p.join(',')).join(' '));
+
+      // Origin marker
+      if (origCoords) {
+        const [ox, oy] = portToSVG(origCoords[0], origCoords[1]);
+        document.getElementById('map-origin').setAttribute('cx', ox);
+        document.getElementById('map-origin').setAttribute('cy', oy);
+        document.getElementById('map-origin').setAttribute('r', 5);
+        document.getElementById('map-origin-label').setAttribute('x', ox);
+        document.getElementById('map-origin-label').setAttribute('y', oy - 8);
+        document.getElementById('map-origin-label').textContent = origin;
+      }
+      // Dest marker
+      if (destCoords) {
+        const [dx, dy] = portToSVG(destCoords[0], destCoords[1]);
+        document.getElementById('map-dest').setAttribute('cx', dx);
+        document.getElementById('map-dest').setAttribute('cy', dy);
+        document.getElementById('map-dest').setAttribute('r', 5);
+        document.getElementById('map-dest-label').setAttribute('x', dx);
+        document.getElementById('map-dest-label').setAttribute('y', dy - 8);
+        document.getElementById('map-dest-label').textContent = dest;
+      }
+    }
+
+    // ── PDF export ────────────────────────────────────────────────────────────
+
+    async function downloadPDF() {
+      if (!currentPlan) return;
+      const btn = document.getElementById('pdf-btn');
+      btn.textContent = '⏳ Generating…';
+      btn.disabled = true;
+
+      try {
+        // Build a synthetic "voyage" object for the PDF endpoint (no auth needed for demo)
+        // We POST the plan data to a demo PDF endpoint
+        const r = await fetch('/api/voyage/demo-pdf', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            voyage: {
+              voyage_name:      `${currentPlan.origin} → ${currentPlan.destination}`,
+              vessel_name:      document.getElementById('vessel-name').value || null,
+              imo_number:       document.getElementById('imo').value || null,
+              flag_state:       document.getElementById('flag-state').value || null,
+              vessel_type:      document.getElementById('vessel-type').value || null,
+              gross_tonnage:    parseInt(document.getElementById('gt').value) || null,
+              origin_port:      currentPlan.origin,
+              destination_port: currentPlan.destination,
+              departure_date:   document.getElementById('departure-date').value || null,
+              vessel_speed_kt:  currentPlan.speed,
+              overall_score:    0,
+            },
+            waypoints: currentPlan.waypoints,
+          }),
+        });
+
+        if (!r.ok) { throw new Error('PDF generation failed'); }
+
+        const blob = await r.blob();
+        const url  = URL.createObjectURL(blob);
+        const a    = document.createElement('a');
+        a.href     = url;
+        a.download = `voyage-${currentPlan.origin.replace(/\s+/g,'-')}-${currentPlan.destination.replace(/\s+/g,'-')}-compliance.pdf`;
+        a.click();
+        URL.revokeObjectURL(url);
+      } catch (e) {
+        alert('PDF generation failed: ' + e.message);
+      } finally {
+        btn.textContent = '📄 Voyage Compliance Package PDF';
+        btn.disabled    = false;
+      }
+    }
+
+    // ── Demo pre-seed ─────────────────────────────────────────────────────────
+
+    function seedDemoRoute() {
+      document.getElementById('origin').value      = 'Shanghai';
+      document.getElementById('destination').value = 'Rotterdam';
+      document.getElementById('imo').value         = '9416965';
+      document.getElementById('speed').value       = 14;
+      // Set departure 3 days from now
+      const dep = new Date(Date.now() + 3 * 86400000);
+      document.getElementById('departure-date').value = dep.toISOString().slice(0,16);
+      // Auto-detect will highlight malacca, suez, bosporus
+      setActiveWaterways(['malacca', 'suez', 'bosporus']);
+      lookupIMO();
+    }
+
+    // ── Helpers ───────────────────────────────────────────────────────────────
+
+    function fmtDateShort(iso) {
+      if (!iso) return '—';
+      try {
+        const d = new Date(iso);
+        return d.toUTCString().replace(/ \d+:\d+:\d+ GMT/, '').replace(/\s+/, ' ');
+      } catch { return iso; }
+    }
+
+    function showError(msg) {
+      const el = document.getElementById('form-error');
+      el.textContent = msg; el.classList.add('show');
+    }
+    function clearError() {
+      document.getElementById('form-error').classList.remove('show');
+    }
+    function setBusy(b) {
+      document.getElementById('plan-btn').disabled     = b;
+      document.getElementById('plan-spinner').classList.toggle('show', b);
+      document.getElementById('plan-btn-text').textContent = b ? 'Generating…' : 'Generate All Filings';
+    }
+
+    function clearAll() {
+      ['origin','destination','imo','vessel-name','flag-state','gt','loa','draft'].forEach(id => {
+        document.getElementById(id).value = '';
+      });
+      document.getElementById('vessel-type').value = '';
+      document.getElementById('autofill-badge').classList.remove('show');
+      document.querySelectorAll('.ww-toggle').forEach(b => b.classList.remove('active'));
+      document.getElementById('empty-state').style.display = 'flex';
+      document.getElementById('results-content').style.display = 'none';
+      currentPlan = null;
+      clearError();
+    }
+
+    // ── Init ──────────────────────────────────────────────────────────────────
+
+    loadPorts().then(() => {
+      setupPortAutocomplete('origin',      'origin-dd');
+      setupPortAutocomplete('destination', 'destination-dd');
+    });
+
+    // Adjust nav top when demo banner dismissed
+    document.addEventListener('DOMContentLoaded', () => {
+      const nav = document.querySelector('nav');
+      if (document.getElementById('demo-banner')) {
+        nav.style.top = '38px';
+      }
+    });
+  </script>
+</body>
+</html>

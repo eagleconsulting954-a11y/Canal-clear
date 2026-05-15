@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent Dashboard — CanalClear</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy:     #1a2d4a;
+      --deep:     #112036;
+      --slate:    #243350;
+      --orange:   #E85A00;
+      --orange-dim: rgba(232, 90, 0, 0.12);
+      --orange-mid: rgba(232, 90, 0, 0.25);
+      --cyan:     #00B4D8;
+      --white:    #ffffff;
+      --gray:     #6b7c93;
+      --light-gray: #8fa3b8;
+      --muted:    rgba(255,255,255,0.06);
+      --border:   rgba(255,255,255,0.08);
+      --red:      #FF6B6B;
+      --red-dim:  rgba(255,107,107,0.12);
+      --yellow:   #FFD93D;
+      --yellow-dim: rgba(255,217,61,0.12);
+      --green:    #4ade80;
+      --green-dim: rgba(74,222,128,0.12);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'IBM Plex Sans', sans-serif; background: var(--deep); color: var(--white); line-height: 1.6; overflow-x: hidden; min-height: 100vh; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      padding: 0.875rem 2rem;
+      background: rgba(10,22,40,0.96);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .logo { display: flex; align-items: center; gap: 0.625rem; text-decoration: none; }
+    .logo-mark { width: 32px; height: 32px; background: var(--orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; color: white; flex-shrink: 0; }
+    .logo-text { font-size: 1.05rem; font-weight: 700; color: var(--white); }
+    .logo-badge { background: var(--orange-dim); border: 1px solid var(--orange-mid); color: var(--orange); font-size: 0.65rem; font-weight: 600; padding: 2px 7px; border-radius: 20px; letter-spacing: 0.05em; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 0.25rem; align-items: center; }
+    .nav-links a { color: var(--gray); text-decoration: none; font-size: 0.875rem; padding: 0.5rem 0.875rem; border-radius: 8px; transition: all 0.18s; white-space: nowrap; }
+    .nav-links a:hover { color: var(--white); background: var(--muted); }
+    .nav-links a.active { color: var(--orange); background: var(--orange-dim); }
+    .nav-actions { display: flex; gap: 0.625rem; align-items: center; }
+    .btn-sm { padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.8rem; font-weight: 600; cursor: pointer; border: none; transition: all 0.18s; text-decoration: none; display: inline-flex; align-items: center; gap: 0.375rem; }
+    .btn-primary { background: var(--orange); color: white; }
+    .btn-primary:hover { background: #d44f00; transform: translateY(-1px); }
+    .btn-ghost { background: var(--muted); color: var(--light-gray); border: 1px solid var(--border); }
+    .btn-ghost:hover { color: var(--white); background: rgba(255,255,255,0.1); }
+
+    /* ── LAYOUT ── */
+    .layout { display: flex; min-height: 100vh; padding-top: 60px; }
+
+    /* ── SIDEBAR ── */
+    .sidebar { width: 260px; flex-shrink: 0; background: rgba(10,22,40,0.6); border-right: 1px solid var(--border); padding: 1.5rem 1rem; position: sticky; top: 60px; height: calc(100vh - 60px); overflow-y: auto; display: flex; flex-direction: column; gap: 0.25rem; }
+    .sidebar-section { font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray); padding: 0.75rem 0.75rem 0.375rem; margin-top: 0.75rem; }
+    .sidebar-link { display: flex; align-items: center; gap: 0.625rem; padding: 0.625rem 0.75rem; border-radius: 8px; color: var(--light-gray); text-decoration: none; font-size: 0.875rem; transition: all 0.15s; cursor: pointer; border: none; background: none; width: 100%; text-align: left; }
+    .sidebar-link:hover { color: var(--white); background: var(--muted); }
+    .sidebar-link.active { color: var(--orange); background: var(--orange-dim); }
+    .sidebar-link .icon { width: 18px; text-align: center; flex-shrink: 0; }
+    .sidebar-link .badge { margin-left: auto; background: var(--orange); color: white; font-size: 0.65rem; font-weight: 700; padding: 2px 6px; border-radius: 10px; }
+    .sidebar-link .badge.warn { background: var(--yellow); color: #1a1a00; }
+    .sidebar-kpis { margin-top: auto; padding: 1rem; background: var(--muted); border-radius: 12px; border: 1px solid var(--border); }
+    .sidebar-kpi-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; padding: 0.25rem 0; }
+    .sidebar-kpi-label { color: var(--gray); }
+    .sidebar-kpi-val { color: var(--white); font-weight: 600; }
+
+    /* ── MAIN CONTENT ── */
+    .main { flex: 1; min-width: 0; padding: 1.75rem 2rem; max-width: 1140px; }
+
+    /* ── DEMO BANNER ── */
+    .demo-banner { background: rgba(255,217,61,0.06); border: 1px solid rgba(255,217,61,0.25); border-radius: 10px; padding: 0.75rem 1.25rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; font-size: 0.83rem; color: var(--yellow); }
+    .demo-banner strong { color: var(--yellow); }
+
+    /* ── PAGE HEADER ── */
+    .page-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1.75rem; flex-wrap: wrap; }
+    .page-title h1 { font-size: 1.625rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.25rem; }
+    .page-title p { color: var(--gray); font-size: 0.9rem; }
+    .quick-actions { display: flex; gap: 0.625rem; flex-wrap: wrap; }
+    .btn-action { padding: 0.625rem 1.125rem; border-radius: 10px; font-size: 0.85rem; font-weight: 600; cursor: pointer; border: none; transition: all 0.18s; display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+    .btn-action.primary { background: var(--orange); color: white; }
+    .btn-action.primary:hover { background: #d44f00; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(232,90,0,0.3); }
+    .btn-action.secondary { background: var(--muted); color: var(--light-gray); border: 1px solid var(--border); }
+    .btn-action.secondary:hover { color: var(--white); background: rgba(255,255,255,0.09); }
+
+    /* ── KPI GRID ── */
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1rem; margin-bottom: 1.75rem; }
+    .kpi-card { background: var(--muted); border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem; transition: border-color 0.2s; }
+    .kpi-card:hover { border-color: rgba(255,255,255,0.14); }
+    .kpi-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray); margin-bottom: 0.625rem; }
+    .kpi-val { font-size: 2rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1; margin-bottom: 0.25rem; }
+    .kpi-sub { font-size: 0.78rem; color: var(--gray); }
+    .kpi-card.highlight { border-color: var(--orange-mid); background: var(--orange-dim); }
+    .kpi-card.highlight .kpi-val { color: var(--orange); }
+    .kpi-card.good .kpi-val { color: var(--green); }
+    .kpi-card.warn .kpi-val { color: var(--yellow); }
+    .kpi-card.alert .kpi-val { color: var(--red); }
+
+    /* ── SECTION HEADER ── */
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+    .section-title { font-size: 1rem; font-weight: 600; }
+    .section-meta { font-size: 0.8rem; color: var(--gray); }
+
+    /* ── TWO COL ── */
+    .two-col { display: grid; grid-template-columns: 1fr 340px; gap: 1.25rem; margin-bottom: 1.25rem; }
+    @media (max-width: 1100px) { .two-col { grid-template-columns: 1fr; } }
+
+    /* ── CLIENT CARDS ── */
+    .client-grid { display: flex; flex-direction: column; gap: 0.75rem; }
+    .client-card {
+      background: var(--muted); border: 1px solid var(--border); border-radius: 14px;
+      padding: 1.125rem 1.375rem; cursor: pointer; transition: all 0.18s;
+    }
+    .client-card:hover { border-color: rgba(255,255,255,0.15); background: rgba(255,255,255,0.04); }
+    .client-card.selected { border-color: var(--orange-mid); background: var(--orange-dim); }
+    .client-card-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 0.75rem; }
+    .client-name { font-size: 0.975rem; font-weight: 600; }
+    .client-type-badge { font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; padding: 3px 9px; border-radius: 20px; background: var(--muted); border: 1px solid var(--border); color: var(--light-gray); }
+    .client-meta { font-size: 0.78rem; color: var(--gray); margin-bottom: 0.875rem; }
+    .client-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 0.5rem; }
+    .client-stat { text-align: center; }
+    .client-stat-val { font-size: 1.15rem; font-weight: 700; }
+    .client-stat-label { font-size: 0.68rem; color: var(--gray); }
+    .status-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 6px; }
+    .status-dot.active { background: var(--green); }
+    .status-dot.needs_attention { background: var(--yellow); }
+
+    /* ── COMPLIANCE BAR ── */
+    .compliance-bar-wrap { display: flex; align-items: center; gap: 0.625rem; margin-top: 0.5rem; }
+    .compliance-bar-track { flex: 1; height: 4px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; }
+    .compliance-bar-fill { height: 100%; border-radius: 4px; transition: width 0.4s ease; }
+    .score-label { font-size: 0.78rem; font-weight: 600; white-space: nowrap; }
+
+    /* ── RIGHT PANEL ── */
+    .right-panel { display: flex; flex-direction: column; gap: 1.25rem; }
+
+    /* ── DEADLINE PANEL ── */
+    .deadline-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .deadline-item { display: flex; gap: 0.75rem; align-items: flex-start; padding: 0.75rem; background: var(--muted); border: 1px solid var(--border); border-radius: 10px; transition: border-color 0.15s; }
+    .deadline-item:hover { border-color: rgba(255,255,255,0.14); }
+    .deadline-item.critical { border-left: 3px solid var(--red); }
+    .deadline-item.high     { border-left: 3px solid var(--yellow); }
+    .deadline-item.medium   { border-left: 3px solid var(--orange); }
+    .deadline-item.low      { border-left: 3px solid var(--green); }
+    .deadline-info { flex: 1; min-width: 0; }
+    .deadline-vessel { font-size: 0.82rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .deadline-client-row { font-size: 0.73rem; color: var(--gray); }
+    .deadline-type { font-size: 0.73rem; color: var(--light-gray); margin-top: 1px; }
+    .deadline-time { font-size: 0.75rem; font-weight: 600; white-space: nowrap; flex-shrink: 0; }
+    .deadline-time.critical { color: var(--red); }
+    .deadline-time.high     { color: var(--yellow); }
+    .deadline-time.medium   { color: var(--orange); }
+    .deadline-time.low      { color: var(--green); }
+
+    /* ── WATERWAY BREAKDOWN ── */
+    .waterway-breakdown { background: var(--muted); border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem; }
+    .waterway-row { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
+    .waterway-row:last-child { border-bottom: none; }
+    .waterway-flag { font-size: 1.1rem; width: 24px; text-align: center; flex-shrink: 0; }
+    .waterway-label { flex: 1; font-size: 0.85rem; }
+    .waterway-bar-wrap { width: 80px; height: 4px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; flex-shrink: 0; }
+    .waterway-bar { height: 100%; background: var(--orange); border-radius: 4px; }
+    .waterway-count { font-size: 0.82rem; font-weight: 600; width: 24px; text-align: right; flex-shrink: 0; }
+
+    /* ── FILING TREND ── */
+    .trend-card { background: var(--muted); border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem; margin-bottom: 1.25rem; }
+    .trend-chart { display: flex; align-items: flex-end; gap: 3px; height: 56px; margin-top: 0.875rem; }
+    .trend-bar { flex: 1; border-radius: 3px 3px 0 0; background: var(--orange); opacity: 0.7; min-height: 3px; transition: opacity 0.2s; }
+    .trend-bar:hover { opacity: 1; }
+
+    /* ── CLIENT DETAIL MODAL ── */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 500; display: none; align-items: flex-start; justify-content: flex-end; padding: 1rem; }
+    .modal-overlay.open { display: flex; }
+    .modal-panel { background: #112036; border: 1px solid var(--border); border-radius: 16px; width: 480px; max-height: calc(100vh - 80px); overflow-y: auto; padding: 1.75rem; margin-top: 60px; box-shadow: 0 24px 80px rgba(0,0,0,0.6); animation: slideIn 0.2s ease; }
+    @keyframes slideIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+    .modal-close { float: right; background: none; border: none; color: var(--gray); font-size: 1.25rem; cursor: pointer; padding: 4px; transition: color 0.15s; }
+    .modal-close:hover { color: var(--white); }
+    .modal-client-name { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .modal-contact { font-size: 0.83rem; color: var(--gray); margin-bottom: 1.25rem; }
+    .modal-section { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray); margin: 1.125rem 0 0.5rem; }
+    .vessel-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .vessel-row { display: flex; align-items: center; justify-content: space-between; padding: 0.625rem 0.875rem; background: var(--muted); border-radius: 8px; border: 1px solid var(--border); }
+    .vessel-name { font-size: 0.85rem; font-weight: 600; }
+    .vessel-sub { font-size: 0.73rem; color: var(--gray); }
+    .vessel-waterways { display: flex; gap: 4px; flex-wrap: wrap; }
+    .waterway-tag { font-size: 0.65rem; padding: 2px 7px; border-radius: 20px; background: var(--orange-dim); border: 1px solid var(--orange-mid); color: var(--orange); text-transform: uppercase; font-weight: 600; letter-spacing: 0.04em; }
+    .export-btn { width: 100%; padding: 0.75rem; background: var(--orange); color: white; border: none; border-radius: 10px; font-size: 0.875rem; font-weight: 600; cursor: pointer; margin-top: 1.25rem; transition: background 0.18s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+    .export-btn:hover { background: #d44f00; }
+
+    /* ── NEW FILING MODAL ── */
+    .filing-modal { width: 420px; }
+    .modal-form { display: flex; flex-direction: column; gap: 0.875rem; margin-top: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.375rem; }
+    .form-label { font-size: 0.78rem; font-weight: 600; color: var(--light-gray); }
+    .form-select { background: var(--muted); border: 1px solid var(--border); color: var(--white); padding: 0.625rem 0.875rem; border-radius: 8px; font-size: 0.875rem; font-family: inherit; width: 100%; }
+    .form-select:focus { outline: none; border-color: var(--orange); }
+    .form-actions { display: flex; gap: 0.625rem; margin-top: 0.5rem; }
+    .btn-full { flex: 1; padding: 0.75rem; border-radius: 10px; font-size: 0.875rem; font-weight: 600; cursor: pointer; border: none; transition: all 0.18s; }
+    .btn-full.primary { background: var(--orange); color: white; }
+    .btn-full.primary:hover { background: #d44f00; }
+    .btn-full.secondary { background: var(--muted); color: var(--light-gray); border: 1px solid var(--border); }
+
+    /* ── LOADING ── */
+    .loading { display: flex; align-items: center; justify-content: center; min-height: 40vh; }
+    .spinner { width: 36px; height: 36px; border: 3px solid var(--border); border-top-color: var(--orange); border-radius: 50%; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── EMPTY ── */
+    .empty-state { text-align: center; padding: 3rem 1rem; color: var(--gray); }
+    .empty-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .empty-title { font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 0.375rem; }
+    .empty-sub { font-size: 0.85rem; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .sidebar { display: none; }
+      .main { padding: 1.25rem; }
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .client-stats { grid-template-columns: repeat(2, 1fr); }
+      .quick-actions { flex-direction: column; }
+    }
+
+    /* ── AUTHORITY PORTALS ── */
+    .portal-panel-wrap { display: flex; flex-direction: column; gap: 0.5rem; }
+    .portal-item { display: flex; flex-direction: column; gap: 0.5rem; padding: 0.75rem; background: var(--muted); border: 1px solid var(--border); border-radius: 10px; transition: border-color 0.15s; }
+    .portal-item:hover { border-color: rgba(255,255,255,0.14); }
+    .portal-item-top { display: flex; align-items: center; gap: 0.5rem; }
+    .portal-flag { font-size: 1.1rem; flex-shrink: 0; }
+    .portal-info { flex: 1; min-width: 0; }
+    .portal-auth { font-size: 0.75rem; font-weight: 600; color: var(--white); line-height: 1.3; }
+    .portal-desc { font-size: 0.65rem; color: var(--gray); line-height: 1.3; }
+    .portal-login-btn {
+      display: flex; align-items: center; justify-content: center; gap: 4px;
+      background: var(--orange); color: white; border: none;
+      border-radius: 7px; padding: 0.4rem 0.75rem;
+      font-size: 0.72rem; font-weight: 600; cursor: pointer;
+      text-decoration: none; white-space: nowrap;
+      transition: background 0.15s; flex-shrink: 0;
+    }
+    .portal-login-btn:hover { background: #d44f00; }
+    .portals-loading { font-size: 0.75rem; color: var(--gray); padding: 0.5rem 0; text-align: center; }
+    .portals-error { font-size: 0.75rem; color: var(--red); padding: 0.5rem 0; }
+    .portals-none { font-size: 0.75rem; color: var(--gray); padding: 0.5rem 0; font-style: italic; }
+    #portals-toggle.open { color: var(--white); background: var(--muted); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="/dashboard">
+      <div class="logo-mark">CC</div>
+      <span class="logo-text">CanalClear</span>
+      <span class="logo-badge">Agent</span>
+    </a>
+    <div class="nav-links">
+      <a href="/agent-dashboard" class="active">Portfolio</a>
+      <a href="/dashboard">Fleet View</a>
+      <a href="/filing">New Filing</a>
+      <a href="/settings/alerts">Alerts</a>
+    </div>
+    <div class="nav-actions">
+      <button class="btn-sm btn-ghost" onclick="openNewFiling()">⚡ New Filing</button>
+      <a href="/app" class="btn-sm btn-primary">Open App</a>
+    </div>
+  </div>
+</nav>
+
+<div class="layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-section">Portfolio</div>
+    <button class="sidebar-link active" onclick="showSection('clients')">
+      <span class="icon">🏢</span> Client Roster
+    </button>
+    <button class="sidebar-link" onclick="showSection('deadlines')">
+      <span class="icon">⏰</span> All Deadlines
+      <span class="badge warn" id="sb-deadline-count">—</span>
+    </button>
+    <button class="sidebar-link" onclick="showSection('filings')">
+      <span class="icon">📋</span> Filing History
+    </button>
+    <div class="sidebar-section">Actions</div>
+    <button class="sidebar-link" onclick="openNewFiling()">
+      <span class="icon">✚</span> New Filing
+    </button>
+    <a href="/app" class="sidebar-link">
+      <span class="icon">📁</span> Batch Upload
+    </a>
+    <button class="sidebar-link" onclick="exportPortfolioReport()">
+      <span class="icon">📊</span> Export Portfolio
+    </button>
+    <div class="sidebar-section">Navigation</div>
+    <a href="/dashboard" class="sidebar-link"><span class="icon">📡</span> Fleet Dashboard</a>
+    <a href="/settings/alerts" class="sidebar-link"><span class="icon">🔔</span> Alert Settings</a>
+    <a href="/app" class="sidebar-link"><span class="icon">⚙️</span> App Home</a>
+
+    <!-- Authority Portals section — loaded async based on waterway subscription -->
+    <div class="sidebar-section" style="margin-top:1rem;">Authority Portals</div>
+    <button class="sidebar-link" id="portals-toggle" onclick="togglePortals()" style="font-size:0.8rem;">
+      <span class="icon">🔐</span> <span id="portals-toggle-label">Login Portals</span>
+      <span id="portals-count-badge" style="margin-left:auto;background:var(--orange);color:white;font-size:0.65rem;font-weight:700;padding:2px 6px;border-radius:10px;display:none;"></span>
+    </button>
+    <div id="portals-panel" style="display:none;padding:0 0.75rem 0.75rem;"></div>
+
+    <!-- Vessel plan usage badge -->
+    <div id="vessel-plan-badge" style="display:none; margin:1rem 0.75rem 0; padding:0.625rem 0.75rem; background:rgba(255,255,255,0.05); border-radius:8px; border:1px solid rgba(255,255,255,0.08);">
+      <div style="font-size:0.7rem;color:var(--light-gray);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.375rem;">Plan Vessels</div>
+      <div id="vessel-plan-badge-text" style="font-size:0.875rem;font-weight:600;"></div>
+    </div>
+
+    <!-- KPI sidebar summary -->
+    <div class="sidebar-kpis" id="sidebar-kpis" style="display:none;">
+      <div class="sidebar-kpi-row">
+        <span class="sidebar-kpi-label">Vessels managed</span>
+        <span class="sidebar-kpi-val" id="sb-vessels">—</span>
+      </div>
+      <div class="sidebar-kpi-row">
+        <span class="sidebar-kpi-label">Clients</span>
+        <span class="sidebar-kpi-val" id="sb-clients">—</span>
+      </div>
+      <div class="sidebar-kpi-row">
+        <span class="sidebar-kpi-label">Filings this month</span>
+        <span class="sidebar-kpi-val" id="sb-filings">—</span>
+      </div>
+      <div class="sidebar-kpi-row">
+        <span class="sidebar-kpi-label">Avg compliance</span>
+        <span class="sidebar-kpi-val" id="sb-score">—</span>
+      </div>
+      <div class="sidebar-kpi-row">
+        <span class="sidebar-kpi-label">Rejection rate</span>
+        <span class="sidebar-kpi-val" id="sb-rejection">—</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div style="flex:1;display:flex;flex-direction:column;min-width:0;">
+    <!-- Vessel limit warning banner — shown when agency is at/over limit -->
+    <div id="vessel-limit-banner" style="display:none;"></div>
+    <main class="main" id="main-content">
+      <div class="loading"><div class="spinner"></div></div>
+    </main>
+  </div>
+</div>
+
+<!-- CLIENT DETAIL MODAL -->
+<div class="modal-overlay" id="client-modal" onclick="closeClientModal(event)">
+  <div class="modal-panel" id="client-panel">
+    <button class="modal-close" onclick="closeClientModal()">✕</button>
+    <div id="client-modal-body"></div>
+  </div>
+</div>
+
+<!-- NEW FILING MODAL -->
+<div class="modal-overlay" id="filing-modal" onclick="closeFilingModal(event)">
+  <div class="modal-panel filing-modal">
+    <button class="modal-close" onclick="closeFilingModal()">✕</button>
+    <h2 style="font-size:1.15rem;font-weight:700;margin-bottom:0.25rem;">New Filing</h2>
+    <p style="font-size:0.82rem;color:var(--gray);margin-bottom:0.5rem;">Select client and waterway to begin.</p>
+    <div class="modal-form">
+      <div class="form-group">
+        <label class="form-label">Client</label>
+        <select class="form-select" id="filing-client">
+          <option value="">— Select client —</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Waterway</label>
+        <select class="form-select" id="filing-waterway">
+          <option value="">— Select waterway —</option>
+          <option value="panama">Panama Canal (VUMPA)</option>
+          <option value="suez">Suez Canal (SCNT/SCA)</option>
+          <option value="bosporus">Bosporus / Turkish Straits (SP-1)</option>
+          <option value="malacca">Strait of Malacca (STRAITREP)</option>
+          <option value="cape">Cape of Good Hope (ISPS)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Vessel</label>
+        <select class="form-select" id="filing-vessel">
+          <option value="">— Select client first —</option>
+        </select>
+      </div>
+      <div class="form-actions">
+        <button class="btn-full secondary" onclick="closeFilingModal()">Cancel</button>
+        <button class="btn-full primary" onclick="goToFiling()">Start Filing →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── State ──────────────────────────────────────────────────────────────────
+let dashData = null;
+let currentSection = 'clients';
+let vesselLimitStatus = null;
+let portalsData = null;
+let portalsOpen = false;
+
+// ── Init ───────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  loadDashboard();
+  loadVesselLimitStatus();
+  loadPortals();
+});
+
+async function loadDashboard() {
+  try {
+    const res = await fetch('/api/agent-dashboard/summary');
+    if (!res.ok) {
+      if (res.status === 401) { window.location.href = '/login?next=/agent-dashboard'; return; }
+      if (res.status === 403) { window.location.href = '/pricing?reason=no_subscription'; return; }
+      throw new Error('HTTP ' + res.status);
+    }
+    dashData = await res.json();
+    render();
+  } catch (err) {
+    document.getElementById('main-content').innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">⚠️</div>
+        <div class="empty-title">Unable to load dashboard</div>
+        <div class="empty-sub">${err.message}</div>
+      </div>`;
+  }
+}
+
+// ── Vessel Limit Status ────────────────────────────────────────────────────
+async function loadVesselLimitStatus() {
+  try {
+    const res = await fetch('/api/vessel-limits/status');
+    if (!res.ok) return; // non-agency users get non-200 or no status — ignore
+    const data = await res.json();
+    if (!data.success || !data.isAgency) return;
+    vesselLimitStatus = data;
+    renderVesselLimitUI(data);
+
+    // GA4 events
+    if (data.atLimit && !data.overLimit) {
+      gtag('event', 'vessel_limit_warning_shown', { plan: data.tierName, vessel_count: data.vesselCount });
+    } else if (data.overLimit) {
+      gtag('event', 'vessel_limit_exceeded', { plan: data.tierName, vessel_count: data.vesselCount, days_remaining: data.daysRemaining });
+    }
+    if (data.filingBlocked) {
+      gtag('event', 'vessel_limit_blocked', { plan: data.tierName, vessel_count: data.vesselCount });
+    }
+  } catch (e) { /* non-fatal */ }
+}
+
+// ── Authority Portals ────────────────────────────────────────────────────────
+async function loadPortals() {
+  try {
+    const res = await fetch('/api/agent-dashboard/portals');
+    if (!res.ok) return;
+    const data = await res.json();
+    if (!data.success || !data.portals) return;
+    portalsData = data.portals;
+    renderPortalBadge();
+    if (portalsOpen) renderPortalPanel();
+  } catch (e) { /* non-fatal */ }
+}
+
+function renderPortalBadge() {
+  if (!portalsData || portalsData.length === 0) return;
+  const badge = document.getElementById('portals-count-badge');
+  if (badge) {
+    badge.textContent = portalsData.length;
+    badge.style.display = 'inline';
+  }
+}
+
+function togglePortals() {
+  portalsOpen = !portalsOpen;
+  const toggle = document.getElementById('portals-toggle');
+  const panel = document.getElementById('portals-panel');
+  if (toggle) toggle.classList.toggle('open', portalsOpen);
+  if (panel) {
+    panel.style.display = portalsOpen ? 'block' : 'none';
+    if (portalsOpen && portalsData) renderPortalPanel();
+  }
+}
+
+function renderPortalPanel() {
+  const panel = document.getElementById('portals-panel');
+  if (!panel) return;
+  if (!portalsData || portalsData.length === 0) {
+    panel.innerHTML = '<div class="portals-none">No portals available for your plan.</div>';
+    return;
+  }
+  panel.innerHTML = `<div class="portal-panel-wrap">${portalsData.map(p => `
+    <div class="portal-item">
+      <div class="portal-item-top">
+        <div class="portal-flag">${p.icon}</div>
+        <div class="portal-info">
+          <div class="portal-auth">${p.authority_name}</div>
+          <div class="portal-desc">${p.description}</div>
+        </div>
+      </div>
+      <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="portal-login-btn" onclick="gtag('event','authority_portal_click',{waterway:'${p.waterway_key}',authority:'${p.authority_name.replace(/'/g,"\\'")}'})">
+        Login → <span style="font-size:0.65rem;opacity:0.8;">new tab</span>
+      </a>
+    </div>
+  `).join('')}</div>`;
+}
+
+function renderVesselLimitUI(s) {
+  if (!s || !s.isAgency) return;
+
+  // Sidebar badge: "47 / 50 vessels" or "47 / ∞"
+  const limitLabel = s.vesselLimit === null ? '∞' : s.vesselLimit;
+  const badge = document.getElementById('vessel-plan-badge');
+  const badgeText = document.getElementById('vessel-plan-badge-text');
+  if (badge && badgeText) {
+    const color = s.filingBlocked ? '#FF6B6B' : s.overLimit ? '#FFD93D' : s.atLimit ? '#FFD93D' : '#4ade80';
+    badgeText.innerHTML = `<span style="color:${color};">${s.vesselCount}</span><span style="color:rgba(255,255,255,0.4);"> / ${limitLabel} vessels</span>`;
+    badge.style.display = 'block';
+  }
+
+  // Persistent banner
+  const bannerEl = document.getElementById('vessel-limit-banner');
+  if (!bannerEl) return;
+
+  if (s.filingBlocked) {
+    bannerEl.innerHTML = `<div style="background:rgba(255,107,107,0.15);border-bottom:1px solid rgba(255,107,107,0.3);padding:0.75rem 1.5rem;display:flex;align-items:center;gap:0.75rem;font-size:0.875rem;">
+      <span>🚫</span>
+      <span><strong>Filing paused.</strong> Your ${s.tierName} plan covers ${s.vesselLimit} vessels. You have ${s.vesselCount} active. Upgrade or remove vessels to resume.</span>
+      <a href="${s.upgrade_url}" onclick="gtag('event','vessel_limit_upgrade_clicked',{from:'blocked_banner'})" style="margin-left:auto;white-space:nowrap;background:#E85A00;color:#fff;padding:0.375rem 1rem;border-radius:6px;text-decoration:none;font-weight:600;font-size:0.8rem;">Upgrade Plan →</a>
+    </div>`;
+    bannerEl.style.display = 'block';
+  } else if (s.overLimit) {
+    const daysText = s.daysRemaining === 1 ? '1 day' : `${s.daysRemaining} days`;
+    bannerEl.innerHTML = `<div style="background:rgba(255,217,61,0.12);border-bottom:1px solid rgba(255,217,61,0.3);padding:0.75rem 1.5rem;display:flex;align-items:center;gap:0.75rem;font-size:0.875rem;">
+      <span>⚠️</span>
+      <span><strong>Over plan limit.</strong> You have ${s.vesselCount}/${s.vesselLimit} vessels on your ${s.tierName} plan. Upgrade within ${daysText} or new filings will be blocked.</span>
+      <a href="${s.upgrade_url}" onclick="gtag('event','vessel_limit_upgrade_clicked',{from:'over_limit_banner'})" style="margin-left:auto;white-space:nowrap;background:#E85A00;color:#fff;padding:0.375rem 1rem;border-radius:6px;text-decoration:none;font-weight:600;font-size:0.8rem;">Upgrade to ${s.upgradeTierName} →</a>
+    </div>`;
+    bannerEl.style.display = 'block';
+  } else if (s.atLimit) {
+    bannerEl.innerHTML = `<div style="background:rgba(255,217,61,0.08);border-bottom:1px solid rgba(255,217,61,0.2);padding:0.625rem 1.5rem;display:flex;align-items:center;gap:0.75rem;font-size:0.82rem;">
+      <span>⚡</span>
+      <span>You've reached your ${s.vesselLimit}-vessel ${s.tierName} limit. Upgrade to ${s.upgradeTierName} for more capacity.</span>
+      <a href="${s.upgrade_url}" onclick="gtag('event','vessel_limit_upgrade_clicked',{from:'at_limit_banner'})" style="margin-left:auto;white-space:nowrap;color:#E85A00;font-weight:600;font-size:0.8rem;text-decoration:none;">Upgrade →</a>
+    </div>`;
+    bannerEl.style.display = 'block';
+  }
+}
+
+// ── Render ──────────────────────────────────────────────────────────────────
+function render() {
+  if (!dashData) return;
+  const k = dashData.kpis;
+
+  // Sidebar KPIs
+  document.getElementById('sb-vessels').textContent  = k.total_vessels;
+  document.getElementById('sb-clients').textContent  = k.total_clients;
+  document.getElementById('sb-filings').textContent  = k.filings_this_month;
+  document.getElementById('sb-score').textContent    = k.avg_compliance_score + '%';
+  document.getElementById('sb-rejection').textContent = k.rejection_rate + '%';
+  document.getElementById('sb-deadline-count').textContent = k.pending_deadlines;
+  document.getElementById('sidebar-kpis').style.display = 'block';
+
+  // Populate new filing client dropdown
+  const clientSel = document.getElementById('filing-client');
+  dashData.clients.forEach(c => {
+    const o = document.createElement('option');
+    o.value = c.id;
+    o.textContent = c.client_name;
+    clientSel.appendChild(o);
+  });
+  document.getElementById('filing-client').addEventListener('change', updateVesselOptions);
+
+  renderSection(currentSection);
+}
+
+function renderSection(section) {
+  currentSection = section;
+  document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+  const main = document.getElementById('main-content');
+
+  if (section === 'clients') {
+    main.innerHTML = buildClientsHTML();
+  } else if (section === 'deadlines') {
+    main.innerHTML = buildDeadlinesHTML();
+  } else if (section === 'filings') {
+    main.innerHTML = buildFilingsHTML();
+  }
+}
+
+function showSection(s) {
+  document.querySelectorAll('.sidebar-link').forEach(l => {
+    if (l.getAttribute('onclick') === `showSection('${s}')`) l.classList.add('active');
+    else l.classList.remove('active');
+  });
+  renderSection(s);
+}
+
+// ── Clients Section ─────────────────────────────────────────────────────────
+function buildClientsHTML() {
+  const k = dashData.kpis;
+  const maxFilings = Math.max(...Object.values(dashData.waterway_breakdown).map(w => w.filings));
+  const trendMax = Math.max(...dashData.filing_trend.map(d => d.filings));
+
+  return `
+    ${dashData.is_demo ? `
+    <div class="demo-banner">
+      <span>🔒</span>
+      <span><strong>Demo mode</strong> — showing sample client portfolio. <a href="/pricing" style="color:var(--yellow);">Upgrade to Agent Pro</a> to manage real clients and link your vessel roster.</span>
+    </div>` : ''}
+
+    <!-- Page header -->
+    <div class="page-header">
+      <div class="page-title">
+        <h1>Agent Portfolio</h1>
+        <p>Manage ${k.total_clients} clients · ${k.total_vessels} vessels across 5 waterways</p>
+      </div>
+      <div class="quick-actions">
+        <button class="btn-action secondary" onclick="exportPortfolioReport()">📊 Export Portfolio</button>
+        <button class="btn-action secondary" onclick="openBatchUpload()">📂 Batch Upload</button>
+        <button class="btn-action primary" onclick="openNewFiling()">✚ New Filing</button>
+      </div>
+    </div>
+
+    <!-- KPI strip -->
+    <div class="kpi-grid">
+      <div class="kpi-card highlight">
+        <div class="kpi-label">Vessels Managed</div>
+        <div class="kpi-val">${k.total_vessels}</div>
+        <div class="kpi-sub">${k.total_clients} principals</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Filings This Month</div>
+        <div class="kpi-val">${k.filings_this_month}</div>
+        <div class="kpi-sub">${k.filings_today} today · ${k.filings_this_week} this week</div>
+      </div>
+      <div class="kpi-card good">
+        <div class="kpi-label">Avg Compliance Score</div>
+        <div class="kpi-val">${k.avg_compliance_score}%</div>
+        <div class="kpi-sub">Portfolio average</div>
+      </div>
+      <div class="kpi-card warn">
+        <div class="kpi-label">Pending Deadlines</div>
+        <div class="kpi-val">${k.pending_deadlines}</div>
+        <div class="kpi-sub">${k.active_filings} active filings</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Avg Prep Time</div>
+        <div class="kpi-val">${k.avg_prep_time_min}m</div>
+        <div class="kpi-sub">per filing</div>
+      </div>
+      <div class="kpi-card good">
+        <div class="kpi-label">Cost Prevented</div>
+        <div class="kpi-val">$${(k.cost_prevented_usd/1000).toFixed(0)}k</div>
+        <div class="kpi-sub">vs. ship agents</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Rejection Rate</div>
+        <div class="kpi-val">${k.rejection_rate}%</div>
+        <div class="kpi-sub">filings needing revision</div>
+      </div>
+    </div>
+
+    <!-- 30-day trend -->
+    <div class="trend-card">
+      <div class="section-header">
+        <div class="section-title">Filing Volume — Last 30 Days</div>
+        <div class="section-meta">${k.filings_this_month} filings total</div>
+      </div>
+      <div class="trend-chart">
+        ${dashData.filing_trend.map(d => `
+          <div class="trend-bar" title="${d.date}: ${d.filings} filing${d.filings!==1?'s':''}"
+               style="height:${Math.max(8, Math.round((d.filings/trendMax)*56))}px"></div>
+        `).join('')}
+      </div>
+    </div>
+
+    <!-- Two-column: clients + right panel -->
+    <div class="two-col">
+      <!-- Client roster -->
+      <div>
+        <div class="section-header">
+          <div class="section-title">Client Roster</div>
+          <div class="section-meta">Click a client to view details</div>
+        </div>
+        <div class="client-grid">
+          ${dashData.clients.map(c => buildClientCard(c)).join('')}
+        </div>
+      </div>
+
+      <!-- Right panel -->
+      <div class="right-panel">
+        <!-- Upcoming deadlines (top 5) -->
+        <div>
+          <div class="section-header">
+            <div class="section-title">Upcoming Deadlines</div>
+            <button class="section-meta" style="background:none;border:none;cursor:pointer;color:var(--orange);" onclick="showSection('deadlines')">View all</button>
+          </div>
+          <div class="deadline-list">
+            ${dashData.upcoming_deadlines.slice(0,5).map(d => buildDeadlineItem(d)).join('')}
+          </div>
+        </div>
+
+        <!-- Waterway breakdown -->
+        <div class="waterway-breakdown">
+          <div class="section-header" style="margin-bottom:0.75rem;">
+            <div class="section-title">Filings by Waterway</div>
+            <div class="section-meta">this month</div>
+          </div>
+          ${Object.entries(dashData.waterway_breakdown).map(([key, w]) => `
+            <div class="waterway-row">
+              <div class="waterway-flag">${w.icon}</div>
+              <div class="waterway-label">${w.label}</div>
+              <div class="waterway-bar-wrap">
+                <div class="waterway-bar" style="width:${Math.round((w.filings/maxFilings)*100)}%"></div>
+              </div>
+              <div class="waterway-count">${w.filings}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function buildClientCard(c) {
+  const score = c.avg_compliance_score;
+  const scoreColor = score >= 90 ? 'var(--green)' : score >= 75 ? 'var(--yellow)' : 'var(--red)';
+  return `
+    <div class="client-card ${c.status}" onclick="openClientModal(${c.id})">
+      <div class="client-card-top">
+        <div>
+          <div class="client-name">
+            <span class="status-dot ${c.status}"></span>${c.client_name}
+          </div>
+          <div class="client-meta">${c.contact_name} · ${c.contact_email}</div>
+        </div>
+        <div class="client-type-badge">${c.company_type}</div>
+      </div>
+      <div class="client-stats">
+        <div class="client-stat">
+          <div class="client-stat-val">${c.vessel_count}</div>
+          <div class="client-stat-label">Vessels</div>
+        </div>
+        <div class="client-stat">
+          <div class="client-stat-val">${c.filings_this_month}</div>
+          <div class="client-stat-label">Filings</div>
+        </div>
+        <div class="client-stat">
+          <div class="client-stat-val" style="color:${c.pending_deadlines > 2 ? 'var(--yellow)' : 'var(--white)'}">
+            ${c.pending_deadlines}
+          </div>
+          <div class="client-stat-label">Deadlines</div>
+        </div>
+        <div class="client-stat">
+          <div class="client-stat-val" style="color:${scoreColor}">${score}%</div>
+          <div class="client-stat-label">Compliance</div>
+        </div>
+      </div>
+      <div class="compliance-bar-wrap" style="margin-top:0.75rem;">
+        <div class="compliance-bar-track">
+          <div class="compliance-bar-fill" style="width:${score}%;background:${scoreColor}"></div>
+        </div>
+        <div class="score-label" style="color:${scoreColor}">${score}%</div>
+      </div>
+    </div>
+  `;
+}
+
+// ── Deadlines Section ───────────────────────────────────────────────────────
+function buildDeadlinesHTML() {
+  return `
+    <div class="page-header">
+      <div class="page-title">
+        <h1>All Upcoming Deadlines</h1>
+        <p>${dashData.upcoming_deadlines.length} deadlines across your client portfolio</p>
+      </div>
+    </div>
+    <div class="deadline-list">
+      ${dashData.upcoming_deadlines.map(d => buildDeadlineItem(d, true)).join('')}
+    </div>
+  `;
+}
+
+function buildDeadlineItem(d, showClient = false) {
+  const timeStr = formatTimeLeft(d.deadline_at);
+  return `
+    <div class="deadline-item ${d.urgency}">
+      <div class="deadline-info">
+        <div class="deadline-vessel">${d.vessel} — ${d.waterway}</div>
+        ${showClient ? `<div class="deadline-client-row">${d.client}</div>` : ''}
+        <div class="deadline-type">${d.filing_type} · Score: ${d.compliance_score}%</div>
+      </div>
+      <div class="deadline-time ${d.urgency}">${timeStr}</div>
+    </div>
+  `;
+}
+
+// ── Filings Section (mock history) ──────────────────────────────────────────
+function buildFilingsHTML() {
+  const mock = [
+    { vessel: 'NORDIC HAWK',    client: 'Nordic Container Lines', waterway: 'Suez Canal',   type: 'SCNT Filing',     score: 94, at: new Date(Date.now() - 2*60*60*1000) },
+    { vessel: 'PACIFIC GLORY',  client: 'Pacific Tanker Corp',    waterway: 'Malacca',      type: 'STRAITREP',       score: 88, at: new Date(Date.now() - 5*60*60*1000) },
+    { vessel: 'AEGEAN STAR',    client: 'Aegean Bulk Carriers',   waterway: 'Bosporus',     type: 'SP-1 Pre-Arrival', score: 91, at: new Date(Date.now() - 12*60*60*1000) },
+    { vessel: 'GULF ENERGY',    client: 'Gulf LNG Partners',      waterway: 'Panama Canal', type: 'VUMPA Filing',    score: 96, at: new Date(Date.now() - 1*24*60*60*1000) },
+    { vessel: 'NORDIC FALCON',  client: 'Nordic Container Lines', waterway: 'Suez Canal',   type: 'SCA Pre-Arrival', score: 94, at: new Date(Date.now() - 2*24*60*60*1000) },
+    { vessel: 'CAPE PIONEER',   client: 'Southern Cape Shipping', waterway: 'Cape',         type: 'ISPS Pre-Arrival', score: 83, at: new Date(Date.now() - 3*24*60*60*1000) },
+    { vessel: 'AEGEAN ATLAS',   client: 'Aegean Bulk Carriers',  waterway: 'Suez Canal',   type: 'SCNT Filing',     score: 95, at: new Date(Date.now() - 4*24*60*60*1000) },
+    { vessel: 'PACIFIC DAWN',   client: 'Pacific Tanker Corp',   waterway: 'Malacca',      type: 'STRAITREP',       score: 88, at: new Date(Date.now() - 5*24*60*60*1000) },
+  ];
+  return `
+    <div class="page-header">
+      <div class="page-title">
+        <h1>Filing History</h1>
+        <p>Recent filings across your entire portfolio</p>
+      </div>
+      <button class="btn-action secondary" onclick="exportPortfolioReport()">📊 Export CSV</button>
+    </div>
+    <div class="deadline-list">
+      ${mock.map(f => {
+        const c = f.score >= 90 ? 'var(--green)' : f.score >= 75 ? 'var(--yellow)' : 'var(--red)';
+        return `
+          <div class="deadline-item medium">
+            <div class="deadline-info">
+              <div class="deadline-vessel">${f.vessel} — ${f.waterway}</div>
+              <div class="deadline-client-row">${f.client}</div>
+              <div class="deadline-type">${f.type}</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:0.85rem;font-weight:700;color:${c}">${f.score}%</div>
+              <div style="font-size:0.72rem;color:var(--gray)">${formatAgo(f.at)}</div>
+            </div>
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
+}
+
+// ── Client Detail Modal ─────────────────────────────────────────────────────
+async function openClientModal(clientId) {
+  const client = dashData.clients.find(c => c.id === clientId);
+  if (!client) return;
+  const deadlines = dashData.upcoming_deadlines.filter(d => d.client === client.client_name);
+
+  document.getElementById('client-modal-body').innerHTML = `
+    <div class="modal-client-name">${client.client_name}</div>
+    <div class="modal-contact">
+      ${client.contact_name} · <a href="mailto:${client.contact_email}" style="color:var(--orange)">${client.contact_email}</a>
+      · ${client.company_type}
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem;background:var(--muted);border-radius:10px;padding:1rem;border:1px solid var(--border);">
+      <div style="text-align:center;">
+        <div style="font-size:1.4rem;font-weight:700;">${client.vessel_count}</div>
+        <div style="font-size:0.7rem;color:var(--gray);">Vessels</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:1.4rem;font-weight:700;">${client.filings_this_month}</div>
+        <div style="font-size:0.7rem;color:var(--gray);">Filings</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:1.4rem;font-weight:700;color:${client.avg_compliance_score >= 90 ? 'var(--green)' : 'var(--yellow)'};">
+          ${client.avg_compliance_score}%
+        </div>
+        <div style="font-size:0.7rem;color:var(--gray);">Compliance</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:1.4rem;font-weight:700;color:${client.pending_deadlines > 2 ? 'var(--yellow)' : 'var(--white)'};">
+          ${client.pending_deadlines}
+        </div>
+        <div style="font-size:0.7rem;color:var(--gray);">Deadlines</div>
+      </div>
+    </div>
+
+    <div class="modal-section">Vessels (${client.vessels.length})</div>
+    <div class="vessel-list">
+      ${client.vessels.map(v => `
+        <div class="vessel-row">
+          <div>
+            <div class="vessel-name">${v.name}</div>
+            <div class="vessel-sub">${v.type} · ${v.flag} · GT ${v.gt.toLocaleString()}</div>
+          </div>
+          <div class="vessel-waterways">
+            ${v.waterways.map(w => `<span class="waterway-tag">${w}</span>`).join('')}
+          </div>
+        </div>
+      `).join('')}
+    </div>
+
+    ${deadlines.length > 0 ? `
+    <div class="modal-section">Upcoming Deadlines</div>
+    <div class="deadline-list">
+      ${deadlines.map(d => buildDeadlineItem(d)).join('')}
+    </div>` : ''}
+
+    <button class="export-btn" onclick="exportClientReport(${client.id})">
+      📄 Export Client Compliance Report
+    </button>
+  `;
+  document.getElementById('client-modal').classList.add('open');
+}
+
+function closeClientModal(e) {
+  if (e && e.target !== document.getElementById('client-modal')) return;
+  document.getElementById('client-modal').classList.remove('open');
+}
+
+// ── New Filing Modal ────────────────────────────────────────────────────────
+function openNewFiling() {
+  document.getElementById('filing-modal').classList.add('open');
+}
+
+function closeFilingModal(e) {
+  if (e && e.target !== document.getElementById('filing-modal')) return;
+  document.getElementById('filing-modal').classList.remove('open');
+}
+
+function updateVesselOptions() {
+  const clientId = parseInt(document.getElementById('filing-client').value, 10);
+  const vesselSel = document.getElementById('filing-vessel');
+  vesselSel.innerHTML = '';
+  if (!clientId || !dashData) {
+    vesselSel.innerHTML = '<option value="">— Select client first —</option>';
+    return;
+  }
+  const client = dashData.clients.find(c => c.id === clientId);
+  if (!client) return;
+  const blank = document.createElement('option');
+  blank.textContent = '— Select vessel —';
+  vesselSel.appendChild(blank);
+  client.vessels.forEach(v => {
+    const o = document.createElement('option');
+    o.value = v.imo;
+    o.textContent = v.name + ' (' + v.type + ')';
+    vesselSel.appendChild(o);
+  });
+}
+
+function goToFiling() {
+  const waterway = document.getElementById('filing-waterway').value;
+  const waterwayRoutes = { panama: '/demo/panama', suez: '/demo/suez', bosporus: '/demo/bosporus', malacca: '/demo/malacca', cape: '/demo/cape' };
+  if (waterway && waterwayRoutes[waterway]) {
+    window.location.href = waterwayRoutes[waterway];
+  } else {
+    window.location.href = '/filing';
+  }
+}
+
+// ── Export ──────────────────────────────────────────────────────────────────
+function exportClientReport(clientId) {
+  const client = dashData ? dashData.clients.find(c => c.id === clientId) : null;
+  if (!client) return;
+  const lines = [
+    `CanalClear — Client Compliance Report`,
+    `Generated: ${new Date().toISOString().slice(0,10)}`,
+    ``,
+    `Client: ${client.client_name}`,
+    `Contact: ${client.contact_name} (${client.contact_email})`,
+    `Type: ${client.company_type}`,
+    ``,
+    `PORTFOLIO SUMMARY`,
+    `Vessels: ${client.vessel_count}`,
+    `Filings this month: ${client.filings_this_month}`,
+    `Avg compliance score: ${client.avg_compliance_score}%`,
+    `Pending deadlines: ${client.pending_deadlines}`,
+    ``,
+    `VESSEL ROSTER`,
+    ...client.vessels.map(v => `  ${v.name} (IMO ${v.imo}) — ${v.type}, ${v.flag}, GT ${v.gt.toLocaleString()} — Waterways: ${v.waterways.join(', ')}`),
+  ];
+  downloadText('client-report-' + client.client_name.replace(/\s+/g,'-').toLowerCase() + '.txt', lines.join('\n'));
+}
+
+function exportPortfolioReport() {
+  if (!dashData) return;
+  const k = dashData.kpis;
+  const lines = [
+    `CanalClear — Agent Portfolio Report`,
+    `Generated: ${new Date().toISOString().slice(0,10)}`,
+    ``,
+    `PORTFOLIO KPIs`,
+    `Total vessels: ${k.total_vessels}`,
+    `Total clients: ${k.total_clients}`,
+    `Filings this month: ${k.filings_this_month}`,
+    `Avg compliance score: ${k.avg_compliance_score}%`,
+    `Rejection rate: ${k.rejection_rate}%`,
+    `Avg prep time: ${k.avg_prep_time_min} min`,
+    `Cost prevented vs ship agents: $${k.cost_prevented_usd.toLocaleString()}`,
+    ``,
+    `CLIENTS`,
+    ...dashData.clients.map(c =>
+      `  ${c.client_name} | ${c.vessel_count} vessels | ${c.filings_this_month} filings | ${c.avg_compliance_score}% compliance | ${c.pending_deadlines} deadlines pending`
+    ),
+  ];
+  downloadText('portfolio-report-' + new Date().toISOString().slice(0,10) + '.txt', lines.join('\n'));
+}
+
+function downloadText(filename, text) {
+  const a = document.createElement('a');
+  a.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(text);
+  a.download = filename;
+  a.click();
+}
+
+function openBatchUpload() {
+  window.location.href = '/tms-import';
+}
+
+// ── Helpers ─────────────────────────────────────────────────────────────────
+function formatTimeLeft(isoStr) {
+  const diff = new Date(isoStr) - Date.now();
+  if (diff <= 0) return 'Overdue';
+  const h = Math.floor(diff / 3600000);
+  if (h < 24) return h + 'h left';
+  const d = Math.floor(h / 24);
+  return d + 'd left';
+}
+
+function formatAgo(date) {
+  const diff = Date.now() - new Date(date);
+  const h = Math.floor(diff / 3600000);
+  if (h < 1) return 'just now';
+  if (h < 24) return h + 'h ago';
+  const d = Math.floor(h / 24);
+  return d + 'd ago';
+}
+</script>
+</body>
+</html>

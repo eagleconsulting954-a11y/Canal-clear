@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clients — CanalClear</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --navy: #1a2d4a; --deep: #142238; --slate: #243350; --teal: #E85A00;
+      --teal-dim: rgba(232,90,0,0.15); --cyan: #00B4D8; --white: #ffffff;
+      --gray: #6b7c93; --light-gray: #8fa3b8; --red: #FF6B6B;
+      --yellow: #FFD93D; --green: #4CAF50; --border: rgba(255,255,255,0.07);
+    }
+    body { font-family: 'IBM Plex Sans', sans-serif; background: var(--navy); color: var(--white); line-height: 1.6; min-height: 100vh; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      padding: 1rem 2rem;
+      background: rgba(10,22,40,0.92); backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(232,90,0,0.08);
+    }
+    .nav-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .logo { display: flex; align-items: center; text-decoration: none; }
+    .logo img { height: 34px; width: auto; object-fit: contain; }
+    .nav-links { display: flex; gap: 0.5rem; align-items: center; }
+    .nav-links a {
+      color: var(--gray); text-decoration: none; font-size: 0.9rem;
+      padding: 0.5rem 1rem; border-radius: 8px; transition: all 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); background: rgba(232,90,0,0.08); }
+    .nav-links a.active { color: var(--teal); background: rgba(232,90,0,0.08); }
+
+    /* MAIN */
+    .app-container { max-width: 1100px; margin: 0 auto; padding: 5.5rem 2rem 3rem; }
+
+    /* PAGE HEADER */
+    .page-header { margin-bottom: 2rem; display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .page-header h1 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.25rem; }
+    .page-header p { color: var(--gray); font-size: 0.95rem; }
+    .btn-primary {
+      background: var(--teal); color: var(--white); border: none; border-radius: 8px;
+      padding: 0.625rem 1.25rem; font-size: 0.9rem; font-weight: 600;
+      cursor: pointer; transition: opacity 0.2s; white-space: nowrap; font-family: inherit;
+    }
+    .btn-primary:hover { opacity: 0.88; }
+    .btn-secondary {
+      background: transparent; color: var(--gray); border: 1px solid var(--border);
+      border-radius: 8px; padding: 0.5rem 1rem; font-size: 0.85rem; font-weight: 500;
+      cursor: pointer; transition: all 0.2s; font-family: inherit;
+    }
+    .btn-secondary:hover { color: var(--white); border-color: rgba(255,255,255,0.2); }
+    .btn-danger {
+      background: transparent; color: var(--red); border: 1px solid rgba(255,107,107,0.3);
+      border-radius: 8px; padding: 0.5rem 1rem; font-size: 0.85rem; font-weight: 500;
+      cursor: pointer; transition: all 0.2s; font-family: inherit;
+    }
+    .btn-danger:hover { background: rgba(255,107,107,0.1); }
+
+    /* EMPTY STATE */
+    .empty-state {
+      text-align: center; padding: 4rem 2rem;
+      background: var(--slate); border-radius: 16px; border: 1px solid var(--border);
+    }
+    .empty-state .icon { font-size: 3rem; margin-bottom: 1rem; }
+    .empty-state h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .empty-state p { color: var(--gray); font-size: 0.95rem; margin-bottom: 1.5rem; max-width: 400px; margin-left: auto; margin-right: auto; }
+
+    /* CLIENT GRID */
+    .clients-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem;
+    }
+    .client-card {
+      background: var(--slate); border-radius: 14px;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, transform 0.15s; cursor: pointer;
+      overflow: hidden;
+    }
+    .client-card:hover { border-color: rgba(232,90,0,0.3); transform: translateY(-1px); }
+    .client-card-accent { height: 4px; }
+    .client-card-body { padding: 1.25rem; }
+    .client-card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1rem; }
+    .client-avatar {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem; font-weight: 700; flex-shrink: 0;
+      color: #fff;
+    }
+    .client-actions { display: flex; gap: 0.5rem; }
+    .action-btn {
+      background: transparent; border: none; cursor: pointer;
+      color: var(--gray); font-size: 0.85rem; padding: 0.25rem 0.5rem;
+      border-radius: 6px; transition: all 0.2s; font-family: inherit;
+    }
+    .action-btn:hover { color: var(--white); background: rgba(255,255,255,0.08); }
+    .action-btn.delete:hover { color: var(--red); background: rgba(255,107,107,0.1); }
+    .client-name { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.15rem; }
+    .client-short { font-size: 0.8rem; color: var(--gray); }
+    .client-contact { font-size: 0.85rem; color: var(--light-gray); margin-top: 0.5rem; }
+    .client-stats {
+      display: flex; gap: 1rem; margin-top: 1rem; padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+    .stat-item { text-align: center; flex: 1; }
+    .stat-value { font-size: 1.2rem; font-weight: 700; }
+    .stat-label { font-size: 0.7rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.5px; }
+    .badge-default {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      font-size: 0.7rem; background: rgba(232,90,0,0.15); color: var(--teal);
+      border-radius: 20px; padding: 0.15rem 0.5rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: rgba(10,22,40,0.85); backdrop-filter: blur(4px);
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal {
+      background: var(--deep); border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+      width: 100%; max-width: 520px; padding: 2rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      max-height: 90vh; overflow-y: auto;
+    }
+    .modal h2 { font-size: 1.25rem; font-weight: 700; margin-bottom: 1.5rem; }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-label { display: block; font-size: 0.85rem; color: var(--light-gray); margin-bottom: 0.4rem; font-weight: 500; }
+    .form-label span { color: var(--teal); }
+    .form-input {
+      width: 100%; background: var(--slate); border: 1px solid var(--border);
+      border-radius: 8px; padding: 0.625rem 0.875rem; color: var(--white);
+      font-size: 0.9rem; font-family: inherit; transition: border-color 0.2s;
+    }
+    .form-input:focus { outline: none; border-color: rgba(232,90,0,0.5); }
+    .form-input::placeholder { color: var(--gray); }
+    textarea.form-input { resize: vertical; min-height: 80px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .color-row { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+    .color-swatch {
+      width: 28px; height: 28px; border-radius: 50%; cursor: pointer;
+      border: 2px solid transparent; transition: border-color 0.2s; flex-shrink: 0;
+    }
+    .color-swatch.selected { border-color: var(--white); }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem; }
+
+    /* TOAST */
+    #toast {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 300;
+      background: var(--slate); color: var(--white); border-radius: 10px;
+      padding: 0.875rem 1.25rem; font-size: 0.9rem; font-weight: 500;
+      border: 1px solid var(--border); box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+      opacity: 0; transform: translateY(10px); transition: all 0.25s;
+      pointer-events: none;
+    }
+    #toast.show { opacity: 1; transform: translateY(0); }
+    #toast.success { border-color: rgba(76,175,80,0.4); }
+    #toast.error { border-color: rgba(255,107,107,0.4); color: var(--red); }
+
+    /* LOADING */
+    .loading { display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 3rem; color: var(--gray); }
+    .spinner { width: 20px; height: 20px; border: 2px solid rgba(255,255,255,0.1); border-top-color: var(--teal); border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 600px) {
+      .clients-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .modal { margin: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="logo"><img src="/CanalClear_Logo.png" alt="CanalClear"></a>
+      <div class="nav-links">
+        <a href="/dashboard">Fleet</a>
+        <a href="/app">Filing</a>
+        <a href="/clients" class="active">Clients</a>
+        <a href="/voyage">Voyages</a>
+        <a href="/settings/alerts">Alerts</a>
+        <a href="/api/auth/logout" id="logoutLink">Sign out</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="app-container">
+    <div class="page-header">
+      <div>
+        <h1>Client Workspaces</h1>
+        <p>Manage your shipping principals — filter filings and fleet by client</p>
+      </div>
+      <button class="btn-primary" onclick="openCreateModal()">+ New Client</button>
+    </div>
+
+    <div id="clientsContainer">
+      <div class="loading"><div class="spinner"></div> Loading clients…</div>
+    </div>
+  </div>
+
+  <!-- Create / Edit Modal -->
+  <div class="modal-overlay" id="clientModal">
+    <div class="modal">
+      <h2 id="modalTitle">New Client</h2>
+      <form id="clientForm" onsubmit="submitClient(event)">
+        <input type="hidden" id="editClientId">
+
+        <div class="form-group">
+          <label class="form-label" for="fieldName">Company / Principal Name <span>*</span></label>
+          <input class="form-input" id="fieldName" type="text" placeholder="e.g. Pacific Star Shipping Ltd" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="fieldShortName">Short Name</label>
+            <input class="form-input" id="fieldShortName" type="text" placeholder="PSS" maxlength="8">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Accent Color</label>
+            <div class="color-row" id="colorSwatches">
+              <!-- Populated by JS -->
+            </div>
+            <input type="hidden" id="fieldColor" value="#4A90E2">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="fieldContactName">Contact Name</label>
+            <input class="form-input" id="fieldContactName" type="text" placeholder="John Smith">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fieldContactEmail">Contact Email</label>
+            <input class="form-input" id="fieldContactEmail" type="email" placeholder="ops@example.com">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="fieldContactPhone">Contact Phone</label>
+          <input class="form-input" id="fieldContactPhone" type="text" placeholder="+1 555 000 0000">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="fieldNotes">Notes</label>
+          <textarea class="form-input" id="fieldNotes" placeholder="Fleet details, special requirements, billing notes…"></textarea>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" onclick="closeModal()">Cancel</button>
+          <button type="submit" class="btn-primary" id="submitBtn">Save Client</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <script>
+    const COLORS = [
+      '#4A90E2', '#E85A00', '#00B4D8', '#4CAF50', '#FFD93D',
+      '#9C59D1', '#FF6B6B', '#26C6DA', '#66BB6A', '#FFA726',
+    ];
+
+    let clients = [];
+    let selectedColor = '#4A90E2';
+
+    // Build color swatches
+    function buildSwatches() {
+      const container = document.getElementById('colorSwatches');
+      container.innerHTML = COLORS.map(c => `
+        <div class="color-swatch ${c === selectedColor ? 'selected' : ''}"
+          style="background:${c}" data-color="${c}"
+          onclick="selectColor('${c}')"></div>
+      `).join('');
+    }
+
+    function selectColor(c) {
+      selectedColor = c;
+      document.getElementById('fieldColor').value = c;
+      buildSwatches();
+    }
+
+    // Load clients
+    async function loadClients() {
+      try {
+        const res = await fetch('/api/clients');
+        const data = await res.json();
+        if (!data.success) throw new Error(data.message);
+        clients = data.clients || [];
+        renderClients();
+      } catch (err) {
+        document.getElementById('clientsContainer').innerHTML =
+          `<div class="empty-state"><div class="icon">⚠️</div><h2>Failed to load</h2><p>${err.message}</p></div>`;
+      }
+    }
+
+    function renderClients() {
+      const container = document.getElementById('clientsContainer');
+      if (clients.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="icon">🏢</div>
+            <h2>No clients yet</h2>
+            <p>Create your first client workspace to separate filings and vessels by shipping principal.</p>
+            <button class="btn-primary" onclick="openCreateModal()">+ Add First Client</button>
+          </div>`;
+        return;
+      }
+
+      container.innerHTML = `<div class="clients-grid">${clients.map(renderCard).join('')}</div>`;
+    }
+
+    function renderCard(c) {
+      const initials = (c.short_name || c.name.substring(0, 2)).toUpperCase();
+      const totalFilings = parseInt(c.filing_count || 0) + parseInt(c.sp1_count || 0) +
+                           parseInt(c.malacca_count || 0) + parseInt(c.cape_count || 0);
+      const totalVoyages = parseInt(c.voyage_count || 0);
+
+      return `
+        <div class="client-card" onclick="openEditModal(${c.id})">
+          <div class="client-card-accent" style="background:${c.color}"></div>
+          <div class="client-card-body">
+            <div class="client-card-header">
+              <div style="display:flex;align-items:center;gap:0.75rem;">
+                <div class="client-avatar" style="background:${c.color}">${initials}</div>
+                <div>
+                  <div class="client-name">${escHtml(c.name)}</div>
+                  ${c.short_name ? `<div class="client-short">${escHtml(c.short_name)}</div>` : ''}
+                  ${c.is_default ? '<div class="badge-default" style="margin-top:0.25rem;">◉ Default</div>' : ''}
+                </div>
+              </div>
+              <div class="client-actions" onclick="event.stopPropagation()">
+                <button class="action-btn" onclick="openEditModal(${c.id})">Edit</button>
+                ${!c.is_default ? `<button class="action-btn delete" onclick="deleteClient(${c.id}, '${escHtml(c.name).replace(/'/g, "\\'")}')">Delete</button>` : ''}
+              </div>
+            </div>
+            ${c.contact_name ? `<div class="client-contact">👤 ${escHtml(c.contact_name)}${c.contact_email ? ' · ' + escHtml(c.contact_email) : ''}</div>` : ''}
+            <div class="client-stats">
+              <div class="stat-item">
+                <div class="stat-value">${totalFilings}</div>
+                <div class="stat-label">Filings</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value">${totalVoyages}</div>
+                <div class="stat-label">Voyages</div>
+              </div>
+              ${c.notes ? `<div class="stat-item" style="flex:2;text-align:left;">
+                <div style="font-size:0.8rem;color:var(--gray);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escHtml(c.notes)}</div>
+              </div>` : ''}
+            </div>
+          </div>
+        </div>`;
+    }
+
+    function escHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    // Modal
+    function openCreateModal() {
+      document.getElementById('modalTitle').textContent = 'New Client';
+      document.getElementById('editClientId').value = '';
+      document.getElementById('clientForm').reset();
+      selectedColor = '#4A90E2';
+      buildSwatches();
+      document.getElementById('submitBtn').textContent = 'Create Client';
+      document.getElementById('clientModal').classList.add('active');
+    }
+
+    function openEditModal(id) {
+      const c = clients.find(x => x.id === id);
+      if (!c) return;
+      document.getElementById('modalTitle').textContent = 'Edit Client';
+      document.getElementById('editClientId').value = c.id;
+      document.getElementById('fieldName').value = c.name || '';
+      document.getElementById('fieldShortName').value = c.short_name || '';
+      document.getElementById('fieldContactName').value = c.contact_name || '';
+      document.getElementById('fieldContactEmail').value = c.contact_email || '';
+      document.getElementById('fieldContactPhone').value = c.contact_phone || '';
+      document.getElementById('fieldNotes').value = c.notes || '';
+      selectedColor = c.color || '#4A90E2';
+      document.getElementById('fieldColor').value = selectedColor;
+      buildSwatches();
+      document.getElementById('submitBtn').textContent = 'Save Changes';
+      document.getElementById('clientModal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('clientModal').classList.remove('active');
+    }
+
+    // Close modal on overlay click
+    document.getElementById('clientModal').addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) closeModal();
+    });
+
+    async function submitClient(e) {
+      e.preventDefault();
+      const editId = document.getElementById('editClientId').value;
+      const payload = {
+        name:          document.getElementById('fieldName').value.trim(),
+        short_name:    document.getElementById('fieldShortName').value.trim(),
+        contact_name:  document.getElementById('fieldContactName').value.trim(),
+        contact_email: document.getElementById('fieldContactEmail').value.trim(),
+        contact_phone: document.getElementById('fieldContactPhone').value.trim(),
+        notes:         document.getElementById('fieldNotes').value.trim(),
+        color:         document.getElementById('fieldColor').value,
+      };
+
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true; btn.textContent = 'Saving…';
+
+      try {
+        const url    = editId ? `/api/clients/${editId}` : '/api/clients';
+        const method = editId ? 'PATCH' : 'POST';
+        const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        const data = await res.json();
+        if (!data.success) throw new Error(data.message);
+        closeModal();
+        toast(editId ? 'Client updated' : 'Client created', 'success');
+        loadClients();
+      } catch (err) {
+        toast(err.message || 'Save failed', 'error');
+      } finally {
+        btn.disabled = false; btn.textContent = editId ? 'Save Changes' : 'Create Client';
+      }
+    }
+
+    async function deleteClient(id, name) {
+      if (!confirm(`Delete client "${name}"? Their existing filings will be unlinked but not deleted.`)) return;
+      try {
+        const res = await fetch(`/api/clients/${id}`, { method: 'DELETE' });
+        const data = await res.json();
+        if (!data.success) throw new Error(data.message);
+        toast(data.message || 'Client deleted', 'success');
+        loadClients();
+      } catch (err) {
+        toast(err.message || 'Delete failed', 'error');
+      }
+    }
+
+    function toast(msg, type = '') {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.className = `show ${type}`;
+      setTimeout(() => { el.className = ''; }, 3000);
+    }
+
+    // Logout
+    document.getElementById('logoutLink').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.cookie = 'cc_token=; Max-Age=0; path=/';
+      window.location.href = '/login';
+    });
+
+    // Init
+    buildSwatches();
+    loadClients();
+  </script>
+</body>
+</html>

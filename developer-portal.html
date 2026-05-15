@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Developer Portal — CanalClear</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --navy: #1a2d4a; --deep: #142238; --slate: #243350;
+      --orange: #E85A00; --cyan: #00B4D8;
+      --white: #ffffff; --gray: #6b7c93; --light-gray: #8fa3b8;
+      --red: #FF6B6B; --green: #34d399;
+      --code-bg: #0f172a;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'IBM Plex Sans', sans-serif; background: var(--navy); color: var(--white); line-height: 1.6; }
+
+    /* Nav */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      padding: 1rem 2rem;
+      background: rgba(10,22,40,0.92);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(232,90,0,0.08);
+    }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .logo-text { font-size: 1.1rem; font-weight: 700; color: #fff; text-decoration: none; }
+    .logo-text span { color: var(--orange); }
+    .nav-links { display: flex; gap: 0.5rem; align-items: center; }
+    .nav-links a { color: var(--gray); text-decoration: none; font-size: 0.9rem; padding: 0.5rem 1rem; border-radius: 8px; transition: all 0.2s; }
+    .nav-links a:hover { color: var(--white); background: rgba(232,90,0,0.08); }
+    .nav-links a.active { color: var(--orange); }
+
+    /* Layout */
+    .container { max-width: 1000px; margin: 0 auto; padding: 5.5rem 2rem 3rem; }
+
+    h1 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.25rem; }
+    .subtitle { color: var(--gray); font-size: 0.95rem; margin-bottom: 2rem; }
+
+    /* Tabs */
+    .tabs { display: flex; gap: 4px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 2rem; }
+    .tab {
+      padding: 0.6rem 1.25rem; font-size: 0.9rem; font-weight: 500;
+      background: transparent; border: none; cursor: pointer;
+      color: var(--gray); border-bottom: 2px solid transparent;
+      transition: all 0.2s; margin-bottom: -1px;
+    }
+    .tab:hover { color: var(--white); }
+    .tab.active { color: var(--orange); border-bottom-color: var(--orange); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Cards */
+    .card {
+      background: var(--deep);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .card h2 { font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .card p { font-size: 0.875rem; color: var(--gray); margin-bottom: 1rem; }
+
+    /* Form */
+    .form-row { display: flex; gap: 0.75rem; align-items: center; margin-bottom: 0.75rem; }
+    input[type="text"] {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      color: var(--white);
+      padding: 0.55rem 0.9rem;
+      font-size: 0.9rem;
+      font-family: inherit;
+      flex: 1;
+    }
+    input[type="text"]:focus { outline: none; border-color: var(--orange); }
+    input::placeholder { color: var(--gray); }
+
+    button.btn {
+      background: var(--orange);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      padding: 0.55rem 1.25rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-family: inherit;
+    }
+    button.btn:hover { background: #cc4f00; }
+    button.btn-danger {
+      background: transparent;
+      color: var(--red);
+      border: 1px solid rgba(255,107,107,0.3);
+    }
+    button.btn-danger:hover { background: rgba(255,107,107,0.1); }
+    button.btn-sm { padding: 0.35rem 0.75rem; font-size: 0.8rem; }
+
+    /* Key list */
+    .key-row {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .key-row:last-child { border-bottom: none; }
+    .key-prefix {
+      font-family: monospace; font-size: 0.9rem;
+      background: rgba(255,255,255,0.06);
+      padding: 3px 10px; border-radius: 5px;
+      color: var(--cyan);
+    }
+    .key-label { flex: 1; font-size: 0.875rem; color: var(--light-gray); }
+    .key-meta { font-size: 0.75rem; color: var(--gray); white-space: nowrap; }
+    .key-revoked { opacity: 0.45; }
+    .badge {
+      display: inline-block; font-size: 0.7rem; padding: 2px 8px; border-radius: 4px;
+      font-weight: 700; letter-spacing: 0.3px;
+    }
+    .badge-active { background: rgba(52,211,153,0.15); color: var(--green); }
+    .badge-revoked { background: rgba(255,107,107,0.12); color: var(--red); }
+
+    /* New key reveal box */
+    .key-reveal {
+      background: rgba(0,180,216,0.08);
+      border: 1px solid rgba(0,180,216,0.25);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin: 1rem 0;
+      display: none;
+    }
+    .key-reveal.show { display: block; }
+    .key-reveal p { color: var(--light-gray); font-size: 0.85rem; margin-bottom: 0.5rem; }
+    .key-value {
+      font-family: monospace; font-size: 0.95rem; color: var(--cyan);
+      background: rgba(0,180,216,0.08);
+      border: 1px solid rgba(0,180,216,0.2);
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      word-break: break-all;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;
+    }
+    .key-value:hover { background: rgba(0,180,216,0.14); }
+    .warn-badge {
+      display: inline-block; font-size: 0.75rem; font-weight: 700;
+      background: rgba(255,217,61,0.15); color: #FFD93D;
+      padding: 3px 10px; border-radius: 5px; margin-left: 8px;
+    }
+
+    /* Log table */
+    table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    th {
+      text-align: left; padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      color: var(--gray); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    td { padding: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+    .status-ingested { color: var(--green); font-weight: 600; }
+    .status-error { color: var(--red); }
+    .status-received, .status-mapped { color: var(--cyan); }
+    .status-invalid { color: #FFD93D; }
+    .mono { font-family: monospace; font-size: 0.85rem; color: var(--cyan); }
+    .source-badge {
+      background: rgba(255,255,255,0.06);
+      padding: 2px 8px; border-radius: 4px;
+      font-size: 0.75rem; color: var(--light-gray);
+    }
+
+    /* Empty states */
+    .empty {
+      text-align: center; padding: 3rem 1rem;
+      color: var(--gray); font-size: 0.9rem;
+    }
+    .empty .icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+
+    /* Flash */
+    .flash {
+      position: fixed; bottom: 1.5rem; right: 1.5rem;
+      padding: 0.75rem 1.25rem; border-radius: 10px;
+      font-size: 0.875rem; font-weight: 500;
+      z-index: 999; opacity: 0; transition: opacity 0.3s;
+      max-width: 320px;
+    }
+    .flash.show { opacity: 1; }
+    .flash.success { background: rgba(52,211,153,0.15); border: 1px solid rgba(52,211,153,0.3); color: var(--green); }
+    .flash.error { background: rgba(255,107,107,0.12); border: 1px solid rgba(255,107,107,0.25); color: var(--red); }
+
+    /* Docs link box */
+    .docs-link {
+      display: flex; align-items: center; gap: 1rem;
+      background: rgba(232,90,0,0.06);
+      border: 1px solid rgba(232,90,0,0.15);
+      border-radius: 10px; padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem; text-decoration: none;
+      transition: background 0.2s;
+    }
+    .docs-link:hover { background: rgba(232,90,0,0.1); }
+    .docs-link .dl-icon { font-size: 1.5rem; }
+    .docs-link .dl-text h3 { font-size: 0.95rem; font-weight: 600; color: var(--white); }
+    .docs-link .dl-text p { font-size: 0.8rem; color: var(--gray); margin: 0; }
+    .docs-link .dl-arrow { margin-left: auto; color: var(--orange); font-size: 1.1rem; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo-text">Canal<span>Clear</span></a>
+    <div class="nav-links">
+      <a href="/dashboard">Fleet</a>
+      <a href="/developer-portal" class="active">Developer API</a>
+      <a href="/developers">Docs</a>
+      <a href="/settings/alerts">Alerts</a>
+      <a href="#" onclick="logout()">Logout</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <h1>Developer Portal</h1>
+  <p class="subtitle">Manage API keys, inspect webhook deliveries, and monitor inbound data.</p>
+
+  <!-- Docs link -->
+  <a href="/developers" class="docs-link">
+    <div class="dl-icon">📖</div>
+    <div class="dl-text">
+      <h3>API Documentation</h3>
+      <p>Endpoint reference, field mapping guide, curl + Node + Python examples</p>
+    </div>
+    <div class="dl-arrow">→</div>
+  </a>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('keys')">API Keys</button>
+    <button class="tab" onclick="showTab('webhooks')">Webhook Logs</button>
+    <button class="tab" onclick="showTab('activity')">Activity Feed</button>
+  </div>
+
+  <!-- API Keys panel -->
+  <div class="tab-panel active" id="panel-keys">
+    <div class="card">
+      <h2>Create New API Key</h2>
+      <p>Keys start with <code style="color:var(--cyan);font-family:monospace">cc_live_</code> — generated once, shown once. Store it immediately.</p>
+      <div class="form-row">
+        <input type="text" id="key-label" placeholder="Label (e.g. Veson prod)" maxlength="80" />
+        <button class="btn" onclick="createKey()">Generate Key</button>
+      </div>
+      <!-- New key reveal -->
+      <div class="key-reveal" id="key-reveal">
+        <p>🔑 Copy and store this key now. <span class="warn-badge">Not shown again</span></p>
+        <div class="key-value" id="key-value-display" onclick="copyKey(this)" title="Click to copy">
+          <span id="raw-key-text">—</span>
+          <span style="font-size:0.75rem;color:var(--gray);">click to copy</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Your API Keys</h2>
+      <p>Active keys can make requests. Revoked keys are blocked immediately.</p>
+      <div id="keys-list"><div class="empty"><div class="icon">🔑</div>No keys yet. Generate your first key above.</div></div>
+    </div>
+
+    <div class="card">
+      <h2>Webhook Endpoint</h2>
+      <p>Configure your TMS to POST to this URL. Pass your API key as Bearer auth.</p>
+      <div style="font-family:monospace;font-size:0.875rem;background:var(--code-bg);padding:1rem;border-radius:8px;color:#86efac;word-break:break-all;">
+        POST https://canal-clear.polsia.app/api/v1/webhook?source=YOUR_TMS<br>
+        Authorization: Bearer cc_live_YOUR_KEY
+      </div>
+    </div>
+  </div>
+
+  <!-- Webhook logs panel -->
+  <div class="tab-panel" id="panel-webhooks">
+    <div class="card">
+      <h2>Webhook Delivery Log</h2>
+      <p>Every inbound webhook — status, source, and payload preview. Click a row to inspect the full payload.</p>
+      <div id="webhooks-list"><div class="empty"><div class="icon">📡</div>No webhook deliveries yet.</div></div>
+    </div>
+  </div>
+
+  <!-- Activity feed panel -->
+  <div class="tab-panel" id="panel-activity">
+    <div class="card">
+      <h2>Inbound Data Activity</h2>
+      <p>Last 50 vessel, voyage, and crew pushes from all sources (API + webhook).</p>
+      <div id="activity-list"><div class="empty"><div class="icon">📊</div>No activity yet. Push your first vessel via the API.</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="flash" id="flash"></div>
+
+<script>
+// ── Auth ──────────────────────────────────────────────────────────────────────
+function getToken() {
+  const m = document.cookie.match(/cc_token=([^;]+)/);
+  return m ? m[1] : null;
+}
+function authHeaders() {
+  return { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + getToken() };
+}
+function logout() {
+  document.cookie = 'cc_token=; Max-Age=0; path=/';
+  window.location.href = '/login';
+}
+if (!getToken()) window.location.href = '/login?next=/developer-portal';
+
+// ── Tabs ──────────────────────────────────────────────────────────────────────
+const tabLoaded = {};
+function showTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  event.currentTarget.classList.add('active');
+  if (!tabLoaded[name]) { tabLoaded[name] = true; loadTab(name); }
+}
+function loadTab(name) {
+  if (name === 'keys') loadKeys();
+  if (name === 'webhooks') loadWebhooks();
+  if (name === 'activity') loadActivity();
+}
+
+// ── Flash ──────────────────────────────────────────────────────────────────────
+let flashTimer;
+function flash(type, msg) {
+  const el = document.getElementById('flash');
+  el.textContent = msg;
+  el.className = `flash ${type} show`;
+  clearTimeout(flashTimer);
+  flashTimer = setTimeout(() => el.classList.remove('show'), 3500);
+}
+
+// ── API Keys ──────────────────────────────────────────────────────────────────
+async function createKey() {
+  const label = document.getElementById('key-label').value.trim();
+  const res = await fetch('/api/developer/keys', {
+    method: 'POST',
+    headers: authHeaders(),
+    body: JSON.stringify({ label }),
+  });
+  const data = await res.json();
+  if (!data.success) { flash('error', data.message || 'Failed'); return; }
+
+  // Show raw key
+  document.getElementById('raw-key-text').textContent = data.key;
+  document.getElementById('key-reveal').classList.add('show');
+  document.getElementById('key-label').value = '';
+  flash('success', 'Key generated — copy it now!');
+  await loadKeys();
+}
+
+function copyKey(el) {
+  const key = document.getElementById('raw-key-text').textContent;
+  navigator.clipboard.writeText(key).then(() => flash('success', 'Key copied to clipboard'));
+}
+
+async function loadKeys() {
+  const res = await fetch('/api/developer/keys', { headers: authHeaders() });
+  const data = await res.json();
+  const el = document.getElementById('keys-list');
+  if (!data.success || !data.keys || data.keys.length === 0) {
+    el.innerHTML = '<div class="empty"><div class="icon">🔑</div>No keys yet.</div>';
+    return;
+  }
+  el.innerHTML = data.keys.map(k => `
+    <div class="key-row ${k.revoked_at ? 'key-revoked' : ''}">
+      <span class="key-prefix">${escHtml(k.key_prefix)}…</span>
+      <span class="key-label">${escHtml(k.label || '—')}</span>
+      <span class="key-meta">${k.request_count} req · ${k.last_used_at ? 'used ' + fmtDate(k.last_used_at) : 'never used'}</span>
+      <span class="badge ${k.is_active ? 'badge-active' : 'badge-revoked'}">${k.is_active ? 'active' : 'revoked'}</span>
+      ${k.is_active ? `<button class="btn btn-danger btn-sm" onclick="revokeKey(${k.id}, this)">Revoke</button>` : ''}
+    </div>
+  `).join('');
+}
+
+async function revokeKey(id, btn) {
+  if (!confirm('Revoke this API key? All requests using it will fail immediately.')) return;
+  btn.disabled = true;
+  const res = await fetch('/api/developer/keys/' + id, { method: 'DELETE', headers: authHeaders() });
+  const data = await res.json();
+  if (data.success) { flash('success', 'Key revoked'); loadKeys(); }
+  else { flash('error', data.message || 'Failed'); btn.disabled = false; }
+}
+
+// ── Webhook Logs ──────────────────────────────────────────────────────────────
+async function loadWebhooks() {
+  const res = await fetch('/api/developer/webhook-logs', { headers: authHeaders() });
+  const data = await res.json();
+  const el = document.getElementById('webhooks-list');
+  if (!data.success || !data.logs || data.logs.length === 0) {
+    el.innerHTML = '<div class="empty"><div class="icon">📡</div>No webhook deliveries yet.</div>';
+    return;
+  }
+  el.innerHTML = `<table>
+    <thead><tr><th>#</th><th>Source</th><th>Status</th><th>Received</th><th>Payload preview</th></tr></thead>
+    <tbody>
+      ${data.logs.map(l => `
+        <tr style="cursor:pointer" onclick="inspectLog(${l.id})">
+          <td class="mono">${l.id}</td>
+          <td><span class="source-badge">${escHtml(l.source_name || 'unknown')}</span></td>
+          <td><span class="status-${l.status}">${l.status}</span></td>
+          <td class="key-meta">${fmtDate(l.received_at)}</td>
+          <td class="key-meta" style="max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escHtml((l.payload_preview || '').slice(0, 80))}</td>
+        </tr>
+      `).join('')}
+    </tbody>
+  </table>`;
+}
+
+async function inspectLog(id) {
+  const res = await fetch('/api/developer/webhook-logs/' + id, { headers: authHeaders() });
+  const data = await res.json();
+  if (!data.success) { flash('error', 'Could not load log'); return; }
+  const log = data.log;
+  alert(`Delivery #${id}\nStatus: ${log.status}\nSource: ${log.source_name || 'unknown'}\nReceived: ${log.received_at}\n\nPayload:\n${JSON.stringify(log.payload, null, 2).slice(0, 2000)}`);
+}
+
+// ── Activity Feed ─────────────────────────────────────────────────────────────
+async function loadActivity() {
+  const res = await fetch('/api/developer/activity', { headers: authHeaders() });
+  const data = await res.json();
+  const el = document.getElementById('activity-list');
+  if (!data.success || !data.activity || data.activity.length === 0) {
+    el.innerHTML = '<div class="empty"><div class="icon">📊</div>No activity yet. Push your first vessel via the API.</div>';
+    return;
+  }
+  const icons = { vessel: '🚢', voyage: '🗺️', crew: '👤' };
+  el.innerHTML = `<table>
+    <thead><tr><th>Type</th><th>Reference</th><th>Name / Detail</th><th>Source</th><th>Time</th></tr></thead>
+    <tbody>
+      ${data.activity.map(a => `
+        <tr>
+          <td>${icons[a.entity_type] || '•'} ${a.entity_type}</td>
+          <td class="mono">${escHtml(a.ref || '—')}</td>
+          <td class="key-label">${escHtml(a.name || '—')}</td>
+          <td><span class="source-badge">${escHtml(a.source || '—')}</span></td>
+          <td class="key-meta">${fmtDate(a.occurred_at)}</td>
+        </tr>
+      `).join('')}
+    </tbody>
+  </table>`;
+}
+
+// ── Utils ─────────────────────────────────────────────────────────────────────
+function escHtml(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function fmtDate(d) {
+  if (!d) return '—';
+  const dt = new Date(d);
+  return dt.toLocaleDateString() + ' ' + dt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+tabLoaded['keys'] = true;
+loadKeys();
+</script>
+</body>
+</html>

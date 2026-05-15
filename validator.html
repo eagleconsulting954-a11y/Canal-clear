@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compliance Validator — All 5 Waterways | CanalClear</title>
+  <meta name="description" content="Validate vessel filings for Panama Canal, Suez Canal, Bosporus Strait, Strait of Malacca, and Cape of Good Hope. Field-by-field pass/fail with actionable guidance.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://canalclear.org/validator">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://canalclear.org/validator">
+  <meta property="og:title" content="Compliance Validator — All 5 Waterways | CanalClear">
+  <meta property="og:description" content="Instantly validate vessel filings for all major maritime chokepoints. Field-by-field pass/fail, actionable errors, deadline guidance.">
+  <meta property="og:image" content="https://canalclear.org/og-image.png">
+  <meta property="og:site_name" content="CanalClear">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Meta Pixel -->
+  <script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init','972550615207303');fbq('track','PageView');
+  </script>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#1a2d4a">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --navy: #1a2d4a;
+      --deep: #142238;
+      --slate: #243350;
+      --teal: #E85A00;
+      --teal-dim: rgba(232, 90, 0, 0.12);
+      --teal-border: rgba(232, 90, 0, 0.25);
+      --cyan: #00B4D8;
+      --white: #ffffff;
+      --gray: #6b7c93;
+      --light-gray: #8fa3b8;
+      --red: #FF4D6A;
+      --red-dim: rgba(255, 77, 106, 0.1);
+      --yellow: #FFB020;
+      --yellow-dim: rgba(255, 176, 32, 0.1);
+      --green: #22D3A0;
+      --green-dim: rgba(34, 211, 160, 0.1);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'IBM Plex Sans', sans-serif; background: var(--navy); color: var(--white); line-height: 1.6; overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1rem 2rem; background: rgba(10, 22, 40, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(232, 90, 0, 0.08); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .logo { display: flex; align-items: center; gap: .5rem; text-decoration: none; }
+    .logo img { height: 36px; width: auto; object-fit: contain; }
+    .nav-links { display: flex; align-items: center; gap: .5rem; }
+    .nav-link { font-size: .875rem; color: var(--light-gray); text-decoration: none; padding: .45rem .85rem; border-radius: 8px; transition: all .2s; font-weight: 500; }
+    .nav-link:hover { color: var(--white); background: rgba(255,255,255,0.06); }
+    .nav-cta { font-size: .875rem; color: #fff; background: var(--teal); padding: .45rem 1.1rem; border-radius: 8px; text-decoration: none; font-weight: 700; transition: all .2s; }
+    .nav-cta:hover { background: #cf5200; transform: translateY(-1px); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: .4rem; background: none; border: none; }
+    .hamburger span { width: 22px; height: 2px; background: var(--light-gray); border-radius: 2px; transition: all .3s; }
+    @media(max-width: 640px) {
+      .hamburger { display: flex; }
+      .desktop-nav { display: none; }
+      .desktop-nav.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--deep); padding: 1rem 1.5rem; border-bottom: 1px solid rgba(232, 90, 0, 0.12); gap: .25rem; }
+    }
+
+    /* ── HERO ── */
+    .hero { padding: 110px 2rem 40px; text-align: center; position: relative; }
+    .hero::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 1000px; height: 500px; background: radial-gradient(ellipse, rgba(232, 90, 0, 0.06) 0%, transparent 70%); pointer-events: none; }
+    .hero-inner { max-width: 700px; margin: 0 auto; position: relative; }
+    .hero-badge { display: inline-flex; align-items: center; gap: .5rem; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--teal); background: var(--teal-dim); padding: .35rem 1rem; border-radius: 20px; margin-bottom: 1.25rem; border: 1px solid var(--teal-border); }
+    .hero h1 { font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 700; line-height: 1.1; color: var(--white); margin-bottom: 1rem; letter-spacing: -.025em; }
+    .hero h1 span { color: var(--teal); }
+    .hero p { font-size: 1rem; color: var(--light-gray); line-height: 1.65; max-width: 560px; margin: 0 auto; }
+
+    /* ── MAIN LAYOUT ── */
+    .main { max-width: 1160px; margin: 0 auto; padding: 2rem 2rem 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+    @media(max-width: 820px) { .main { grid-template-columns: 1fr; } }
+
+    /* ── CANAL SELECTOR ── */
+    .canal-section { background: var(--deep); border: 1px solid rgba(232, 90, 0, 0.12); border-radius: 18px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    .section-label { font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--teal); margin-bottom: 1rem; }
+    .canal-selector { display: flex; flex-direction: column; gap: .6rem; }
+    .canal-btn { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.1rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; cursor: pointer; text-align: left; width: 100%; transition: all .18s; font-family: 'IBM Plex Sans', sans-serif; color: var(--white); }
+    .canal-btn:hover { background: rgba(232, 90, 0, 0.06); border-color: rgba(232, 90, 0, 0.2); }
+    .canal-btn.active { background: var(--teal-dim); border-color: rgba(232, 90, 0, 0.4); box-shadow: 0 0 0 1px rgba(232, 90, 0, 0.2); }
+    .canal-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .canal-info { flex: 1; min-width: 0; }
+    .canal-name { font-weight: 700; font-size: .95rem; color: var(--white); }
+    .canal-sub { font-size: .75rem; color: var(--gray); margin-top: .1rem; }
+    .canal-badge { font-size: .65rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; padding: .2rem .55rem; border-radius: 6px; flex-shrink: 0; }
+    .badge-green { background: rgba(34, 211, 160, 0.15); color: var(--green); }
+    .badge-orange { background: rgba(232, 90, 0, 0.15); color: var(--teal); }
+
+    /* ── FORM CARD ── */
+    .form-card { background: var(--deep); border: 1px solid rgba(232, 90, 0, 0.12); border-radius: 18px; padding: 1.5rem; }
+    .form-card h2 { font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: .25rem; }
+    .form-subtitle { font-size: .85rem; color: var(--gray); margin-bottom: 1.5rem; }
+    .waterway-form { display: none; }
+    .waterway-form.active { display: block; }
+    .field-group { margin-bottom: 1rem; }
+    .field-group label { display: block; font-size: .8rem; font-weight: 600; color: var(--light-gray); margin-bottom: .4rem; letter-spacing: .01em; }
+    .field-group label .req { color: var(--teal); margin-left: 2px; }
+    .field-group label .opt { color: var(--gray); font-weight: 400; font-size: .75rem; margin-left: 4px; }
+    input[type="text"], input[type="number"], input[type="date"], input[type="datetime-local"], select, textarea {
+      width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 9px; padding: .65rem .9rem; font-size: .9rem; color: var(--white);
+      font-family: 'IBM Plex Sans', sans-serif; transition: all .2s; outline: none;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--teal); background: rgba(255,255,255,0.07); box-shadow: 0 0 0 3px rgba(232, 90, 0, 0.1); }
+    select option { background: var(--slate); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+    .form-row.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+    @media(max-width: 480px) { .form-row, .form-row.cols-3 { grid-template-columns: 1fr; } }
+    .checkbox-group { display: flex; align-items: center; gap: .5rem; }
+    .checkbox-group input[type="checkbox"] { width: auto; }
+    .checkbox-group label { font-size: .85rem; color: var(--light-gray); margin-bottom: 0; }
+    .hint { font-size: .74rem; color: var(--gray); margin-top: .25rem; }
+    .section-divider { font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); border-bottom: 1px solid rgba(232, 90, 0, 0.15); padding-bottom: .4rem; margin: 1.25rem 0 .9rem; }
+    .validate-btn { width: 100%; padding: .85rem 2rem; background: var(--teal); color: #fff; border: none; border-radius: 10px; font-size: 1rem; font-weight: 700; font-family: 'IBM Plex Sans', sans-serif; cursor: pointer; transition: all .2s; margin-top: 1.25rem; display: flex; align-items: center; justify-content: center; gap: .6rem; }
+    .validate-btn:hover { background: #cf5200; transform: translateY(-1px); }
+    .validate-btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+    .validate-btn .spinner { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; display: none; }
+    .validate-btn.loading .spinner { display: inline-block; }
+    .validate-btn.loading .btn-text { display: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── RESULTS PANEL ── */
+    .results-card { background: var(--deep); border: 1px solid rgba(232, 90, 0, 0.12); border-radius: 18px; overflow: hidden; }
+    .results-empty { padding: 3rem 2rem; text-align: center; }
+    .results-empty .empty-icon { font-size: 2.5rem; margin-bottom: 1rem; opacity: .5; }
+    .results-empty p { color: var(--gray); font-size: .9rem; line-height: 1.6; }
+    .results-content { display: none; }
+    .results-content.visible { display: block; }
+
+    /* Score header */
+    .score-header { padding: 1.5rem; display: flex; align-items: center; gap: 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .score-ring { position: relative; width: 70px; height: 70px; flex-shrink: 0; }
+    .score-ring svg { width: 70px; height: 70px; transform: rotate(-90deg); }
+    .score-ring .bg-circle { fill: none; stroke: rgba(255,255,255,0.08); stroke-width: 6; }
+    .score-ring .score-circle { fill: none; stroke-width: 6; stroke-linecap: round; transition: stroke-dashoffset .8s ease, stroke .4s; }
+    .score-ring .score-number { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 700; color: var(--white); }
+    .score-info { flex: 1; }
+    .score-waterway { font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--teal); margin-bottom: .25rem; }
+    .score-status { font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: .35rem; }
+    .score-counts { display: flex; gap: .75rem; font-size: .78rem; flex-wrap: wrap; }
+    .count-pass { color: var(--green); }
+    .count-warn { color: var(--yellow); }
+    .count-fail { color: var(--red); }
+
+    /* Status banner */
+    .status-banner { padding: .85rem 1.25rem; display: flex; align-items: center; gap: .75rem; font-size: .88rem; font-weight: 600; }
+    .status-banner.passed { background: var(--green-dim); color: var(--green); border-bottom: 1px solid rgba(34, 211, 160, 0.15); }
+    .status-banner.warning { background: var(--yellow-dim); color: var(--yellow); border-bottom: 1px solid rgba(255, 176, 32, 0.15); }
+    .status-banner.failed { background: var(--red-dim); color: var(--red); border-bottom: 1px solid rgba(255, 77, 106, 0.15); }
+    .status-icon { font-size: 1.15rem; }
+
+    /* Checklist */
+    .checklist { padding: 1.25rem; display: flex; flex-direction: column; gap: .5rem; max-height: 520px; overflow-y: auto; }
+    .check-item { display: flex; gap: .75rem; padding: .75rem .9rem; border-radius: 10px; font-size: .82rem; align-items: flex-start; border-left: 3px solid transparent; }
+    .check-item.pass { background: rgba(34, 211, 160, 0.06); border-color: var(--green); }
+    .check-item.warning { background: var(--yellow-dim); border-color: var(--yellow); }
+    .check-item.fail { background: var(--red-dim); border-color: var(--red); }
+    .check-icon { font-size: 1rem; flex-shrink: 0; margin-top: .05rem; }
+    .check-body { flex: 1; min-width: 0; }
+    .check-name { font-weight: 600; color: var(--white); margin-bottom: .15rem; line-height: 1.4; }
+    .check-msg { color: var(--light-gray); line-height: 1.5; }
+    .check-req { font-size: .72rem; color: var(--gray); margin-top: .3rem; font-style: italic; }
+
+    /* Filters */
+    .filter-row { display: flex; gap: .5rem; padding: 1rem 1.25rem .25rem; flex-wrap: wrap; }
+    .filter-btn { font-size: .72rem; font-weight: 600; padding: .3rem .7rem; border-radius: 20px; border: 1px solid; cursor: pointer; background: transparent; font-family: 'IBM Plex Sans', sans-serif; transition: all .15s; }
+    .filter-btn.all { color: var(--light-gray); border-color: rgba(255,255,255,0.15); }
+    .filter-btn.all.active { background: rgba(255,255,255,0.1); color: var(--white); }
+    .filter-btn.fail { color: var(--red); border-color: rgba(255, 77, 106, 0.3); }
+    .filter-btn.fail.active { background: var(--red-dim); }
+    .filter-btn.warning { color: var(--yellow); border-color: rgba(255, 176, 32, 0.3); }
+    .filter-btn.warning.active { background: var(--yellow-dim); }
+    .filter-btn.pass { color: var(--green); border-color: rgba(34, 211, 160, 0.3); }
+    .filter-btn.pass.active { background: var(--green-dim); }
+
+    /* CTA strip */
+    .cta-strip { padding: 1rem 1.25rem; border-top: 1px solid rgba(255,255,255,0.05); display: flex; gap: .75rem; align-items: center; flex-wrap: wrap; }
+    .cta-primary { padding: .6rem 1.25rem; background: var(--teal); color: #fff; border-radius: 8px; text-decoration: none; font-size: .85rem; font-weight: 700; transition: all .2s; }
+    .cta-primary:hover { background: #cf5200; }
+    .cta-secondary { padding: .6rem 1.25rem; background: rgba(255,255,255,0.06); color: var(--light-gray); border-radius: 8px; text-decoration: none; font-size: .85rem; font-weight: 600; border: 1px solid rgba(255,255,255,0.1); transition: all .2s; }
+    .cta-secondary:hover { color: var(--white); border-color: rgba(232, 90, 0, 0.3); }
+
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid rgba(255,255,255,0.05); padding: 2rem 2rem; text-align: center; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .footer-left { display: flex; align-items: center; gap: .6rem; }
+    .footer-left img { height: 26px; width: auto; }
+    .footer-links { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+    .footer-links a { font-size: .85rem; color: var(--gray); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--teal); }
+    .footer-right { font-size: .78rem; color: rgba(136,153,170,.4); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">
+      <img src="/CanalClear_Logo.png" alt="CanalClear">
+    </a>
+    <div class="nav-links desktop-nav" id="desktopNav">
+      <a href="/filing" class="nav-link">Filing</a>
+      <a href="/compliance-guide" class="nav-link">Guide</a>
+      <a href="/pricing" class="nav-link">Pricing</a>
+      <a href="/login" class="nav-link">Log In</a>
+      <a href="/request-demo" class="nav-cta">Try the Demo →</a>
+    </div>
+    <button class="hamburger" onclick="document.getElementById('desktopNav').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">✦ Free Compliance Validator</div>
+    <h1>Validate Any Filing,<br><span>Any Waterway</span></h1>
+    <p>Field-by-field compliance checks for all 5 critical maritime chokepoints — Panama, Suez, Bosporus, Malacca, and Cape of Good Hope. No login required.</p>
+  </div>
+</section>
+
+<div class="main">
+  <!-- LEFT: Canal selector + form -->
+  <div>
+    <!-- Canal selector -->
+    <div class="canal-section">
+      <div class="section-label">Select Waterway</div>
+      <div class="canal-selector">
+        <button class="canal-btn active" id="cb-panama" onclick="selectWaterway('panama', this)">
+          <span class="canal-icon">🇵🇦</span>
+          <div class="canal-info">
+            <div class="canal-name">Panama Canal</div>
+            <div class="canal-sub">ACP · VUMPA · PCSOPEP</div>
+          </div>
+          <span class="canal-badge badge-green">96h</span>
+        </button>
+        <button class="canal-btn" id="cb-suez" onclick="selectWaterway('suez', this)">
+          <span class="canal-icon">🇪🇬</span>
+          <div class="canal-info">
+            <div class="canal-name">Suez Canal</div>
+            <div class="canal-sub">SCA · 7 Doc Types · SCNT Tolls</div>
+          </div>
+          <span class="canal-badge badge-orange">48h</span>
+        </button>
+        <button class="canal-btn" id="cb-bosporus" onclick="selectWaterway('bosporus', this)">
+          <span class="canal-icon">🇹🇷</span>
+          <div class="canal-info">
+            <div class="canal-name">Bosporus Strait</div>
+            <div class="canal-sub">KDGM · SP-1 · Montreux Convention</div>
+          </div>
+          <span class="canal-badge badge-orange">24h</span>
+        </button>
+        <button class="canal-btn" id="cb-malacca" onclick="selectWaterway('malacca', this)">
+          <span class="canal-icon">🇲🇾</span>
+          <div class="canal-info">
+            <div class="canal-name">Strait of Malacca</div>
+            <div class="canal-sub">MPA · STRAITREP · TSS/VTIS</div>
+          </div>
+          <span class="canal-badge badge-orange">12h</span>
+        </button>
+        <button class="canal-btn" id="cb-cape" onclick="selectWaterway('cape', this)">
+          <span class="canal-icon">🇿🇦</span>
+          <div class="canal-info">
+            <div class="canal-name">Cape of Good Hope</div>
+            <div class="canal-sub">SAMSA · ISPS Pre-Arrival</div>
+          </div>
+          <span class="canal-badge badge-green">96h</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Validation form -->
+    <div class="form-card">
+      <h2 id="form-title">Panama Canal — VUMPA Validator</h2>
+      <p class="form-subtitle" id="form-subtitle">Check vessel pre-arrival compliance against ACP requirements</p>
+
+      <!-- ── PANAMA FORM ── -->
+      <div class="waterway-form active" id="form-panama">
+        <div class="section-divider">Vessel Identity</div>
+        <div class="form-row">
+          <div class="field-group">
+            <label>IMO Number <span class="req">*</span></label>
+            <input type="text" id="pa-imo" placeholder="e.g. 9074729" maxlength="10">
+          </div>
+          <div class="field-group">
+            <label>Vessel Name <span class="req">*</span></label>
+            <input type="text" id="pa-name" placeholder="Full registered name">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field-group">
+            <label>Flag State <span class="req">*</span></label>
+            <input type="text" id="pa-flag" placeholder="e.g. PA, LR, MH" maxlength="2">
+          </div>
+          <div class="field-group">
+            <label>Vessel Type <span class="req">*</span></label>
+            <select id="pa-type">
+              <option value="">Select type…</option>
+              <option value="bulk_carrier">Bulk Carrier</option>
+              <option value="container">Container</option>
+              <option value="tanker">Tanker</option>
+              <option value="lng_carrier">LNG Carrier</option>
+              <option value="lpg_carrier">LPG Carrier</option>
+              <option value="vehicle_carrier">Vehicle Carrier</option>
+              <option value="general_cargo">General Cargo</option>
+              <option value="reefer">Reefer</option>
+              <option value="cruise">Cruise</option>
+              <option value="ro_ro">RoRo</option>
+              <option value="chemical_tanker">Chemical Tanker</option>
+              <option value="offshore">Offshore</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="section-divider">Dimensions</div>
+        <div class="form-row cols-3">
+          <div class="field-group">
+            <label>LOA (m) <span class="req">*</span></label>
+            <input type="number" id="pa-loa" placeholder="e.g. 294" step="0.1" min="0">
+          </div>
+          <div class="field-group">
+            <label>Beam (m) <span class="req">*</span></label>
+            <input type="number" id="pa-beam" placeholder="e.g. 32" step="0.1" min="0">
+          </div>
+          <div class="field-group">
+            <label>Draft (m) <span class="req">*</span></label>
+            <input type="number" id="pa-draft" placeholder="e.g. 11.5" step="0.01" min="0">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field-group">
+            <label>Gross Tonnage <span class="opt">(recommended)</span></label>
+            <input type="number" id="pa-gt" placeholder="e.g. 45000" min="0">
+          </div>
+          <div class="field-group">
+            <label>ETA at Canal <span class="req">*</span></label>
+            <input type="datetime-local" id="pa-eta">
+          </div>
+        </div>
+        <div class="section-divider">Transit Details</div>
+        <div class="form-row">
+          <div class="field-group">
+            <label>Transit Direction <span class="req">*</span></label>
+            <select id="pa-dir">
+              <option value="">Select…</option>
+              <option value="northbound">Northbound (Atlantic → Pacific)</option>
+              <option value="southbound">Southbound (Pacific → Atlantic)</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Cargo Type <span class="req">*</span></label>
+            <select id="pa-cargo">
+              <option value="">Select…</option>
+              <option value="containerized">Containerized</option>
+              <option value="dry_bulk">Dry Bulk</option>
+              <option value="liquid_bulk">Liquid Bulk</option>
+              <option value="break_bulk">Break Bulk</option>
+              <option value="lng">LNG</option>
+              <option value="lpg">LPG</option>
+              <option value="crude_oil">Crude Oil</option>
+              <option value="petroleum_products">Petroleum Products</option>
+              <option value="chemicals">Chemicals</option>
+              <option value="vehicles">Vehicles</option>
+              <option value="refrigerated">Refrigerated</option>
+              <option value="ballast_only">Ballast Only</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="checkbox-group">
+            <input type="checkbox" id="pa-dg">
+            <label for="pa-dg">Vessel carries Dangerous Goods (IMDG)</label>
+          </div>
+        </div>
+        <div class="field-group" id="pa-dg-class-group" style="display:none">
+          <label>IMDG Class <span class="req">*</span></label>
+          <input type="text" id="pa-dg-class" placeholder="e.g. 3, 6.1, 9">
+        </div>
+        <div class="field-group">
+          <label>ACP Booking Number <span class="opt">(if reserved)</span></label>
+          <input type="text" id="pa-booking" placeholder="e.g. ACP-2026-XXXXX">
+        </div>
+        <button class="validate-btn" id="validate-btn-panama" onclick="runValidation('panama')">
+          <span class="spinner"></span>
+          <span class="btn-text">Run Compliance Check</span>
+        </button>
+      </div>
+
+      <!-- ── SUEZ FORM ── -->
+      <div class="waterway-form" id="form-suez">
+        <div class="section-divider">Vessel Identity</div>
+        <div class="form-row">
+          <div class="field-group">
+            <label>IMO Number <span class="req">*</span></label>
+            <input type="text" id="sz-imo" placeholder="e.g. 9074729" maxlength="10">
+          </div>
+          <div class="field-group">
+            <label>Vessel Name <span class="req">*</span></label>
+            <input type="text" id="sz-name" placeholder="Full registered name">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field-group">
+            <label>Flag State <span class="req">*</span></label>
+            <input type="text" id="sz-flag" placeholder="e.g. PA, LR, MH" maxlength="2">
+          </div>
+          <div class="field-group">
+            <label>Vessel Type <span class="req">*</span></label>
+            <select id="sz-type">
+              <option value="">Select type…</option>
+              <option value="bulk_carrier">Bulk Carrier</option>
+              <option value="container">Container</option>
+              <option value="tanker">Tanker</option>
+              <option value="lng_carrier">LNG Carrier</option>
+              <option value="lpg_carrier">LPG Carrier</option>
+              <option value="vehicle_carrier">Vehicle Carrier</option>
+              <option value="general_cargo">General Cargo</option>
+              <option value="reefer">Reefer</option>
+              <option value="cruise">Cruise</option>
+              <option value="ro_ro">RoRo</option>
+              <option value="chemical_tanker">Chemical Tanker</option>
+              <option value="offshore">Offshore</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="section-divider">Dimensions</div>
+        <div class="form-row cols-3">
+          <div class="field-group">
+            <label>LOA (m) <span class="req">*</span></label>
+            <input type="number" id="sz-loa" placeholder="e.g. 300" step="0.1" min="0">
+          </div>
+          <div class="field-group">
+            <label>Beam (m) <span class="req">*</span></label>
+            <input type="number" id="sz-beam" placeholder="e.g. 50" step="0.1" min="0">
+          </div>
+          <div class="field-group">
+            <label>Air Draft (m) <span class="opt">(optional)</span></label>
+            <input type="number" id="sz-airdraft" placeholder="e.g. 55" step="0.1" min="0">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field-group">
+            <label>Fwd Draft (m) <span class="req">*</span></label>
+            <input type="number" id="sz-draft-fwd" placeholder="e.g. 12.5" step="0.01" min="0">
+          </div>
+          <div class="field-group">
+            <label>Aft Draft (m) <span class="req">*</span></label>
+            <input type="number" id="sz-draft-aft" placeholder="e.g. 13.0" step="0.01" min="0">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field-group">
+            <label>SCNT (Suez Canal Net Tonnage) <span class="req">*</span></label>
+            <input type="number" id="sz-scnt" placeholder="e.g. 32000" min="0">
+          </div>
+          <div class="field-group">
+            <label>ETA at Suez <span class="req">*</span></label>
+            <input type="datetime-local" id="sz-eta">
+          </div>
+        </div>
+        <div class="section-divider">Transit Details</div>
+        <div class="form-row">
+          <div class="field-group">
+            <label>Convoy Preference</label>
+            <select id="sz-convoy">
+              <option value="">Select…</option>
+              <option value="first_northbound">First Northbound (Port Said ~06:00)</option>
+              <option value="second_northbound">Second Northbound (Port Said ~12:00)</option>
+              <option value="southbound">Southbound (Suez ~07:00)</option>
+              <option value="single">Single/Special Arrangement</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Cargo Type <span class="req">*</span></label>
+            <select id="sz-cargo">
+              <option value="">Select…</option>
+              <option value="containerized">Containerized</option>
+              <option value="dry_bulk">Dry Bulk</option>
+              <option value="liquid_bulk">Liquid Bulk</option>
+              <option value="break_bulk">Break Bulk</option>
+              <option value="lng">LNG</option>
+              <option value="lpg">LPG</option>
+              <option value="crude_oil">Crude Oil</option>
+              <option value="petroleum_products">Petroleum Products</option>
+              <option value="chemicals">Chemicals</option>
+              <option value="vehicles">Vehicles</option>
+              <option value="ballast_only">Ballast Only</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="checkbox-group">
+            <input type="checkbox" id="sz-dg">
+            <label for="sz-dg">Vessel carries Dangerous Goods (IMDG)</label>
+          </div>
+        </div>
+        <div class="field-group" id="sz-dg-class-group" style="display:none">
+          <label>IMDG Class <span class="req">*</span></label>
+          <input type="text" id="sz-dg-class" placeholder="e.g. 3, 7, 9">
+        </div>
+        <div class="section-divider">SCNT &amp; BWM</div>
+        <div class="field-group">
+          <label>Ballast Water Management Standard</label>
+          <select id="sz-bwm">
+            <option value="">Not declared</option>
+            <option value="D-1">D-1 (Exchange)</option>
+            <option value="D-2">D-2 (Treatment)</option>
+            <option value="exemption">Exemption</option>
+          </select>
+        </div>
+        <button class="validate-btn" id="validate-btn-suez" onclick="runValidation('suez')">
+          <span class="spinner"></span>
+          <span class="btn-text">Run Compliance Check</span>
+        </button>
+      </div>
+
+      <!-- ── BOSPORUS FORM ── -->
+      <div class="waterway-form" id="form-bosporus">
+        <div class="section-divider">Vessel Identity</div>
+        <div class="form-row">
+          <div class="field-group">
+            <label>IMO Number <span class="req">*</span></label>
+            <input type="text" id="bp-imo" placeholder="e.g. 9074729" maxlength="10">
+          </div>
+          <div class="field-group">
+            <label>Vessel Name <span class="req">*</span></label>
+            <input type="text" id="bp-name" placeholder="Full registered name">
+          </div>
+        </div>
+        <div class="section-divider">Dimensions</div>
+        <div class="form-row cols-3">
+          <div class="field-group">
+            <label>LOA (m) <span class="req">*</span></label>
+            <input type="number" id="bp-loa" placeholder="e.g. 200" step="0.1" min="0">
+            <div class="hint">Vessels &gt;200m: daytime-only transit mandatory</div>
+          </div>
+          <div class="field-group">
+            <label>Gross Tonnage <span class="req">*</span></label>
+            <input type="number" id="bp-gt" placeholder="e.g. 25000" min="0">
+            <div class="hint">GT &gt;10,000: compulsory pilotage</div>
+          </div>
+          <div class="field-group">
+            <label>Draft (m) <span class="req">*</span></label>
+            <input type="number" id="bp-draft" placeholder="e.g. 12.0" step="0.01" min="0">
+          </div>
+        </div>
+        <div class="section-divider">Transit Details</div>
+        <div class="form-row">
+          <div class="field-group">
+            <label>Transit Direction <span class="req">*</span></label>
+            <select id="bp-dir">
+              <option value="">Select…</option>
+              <option value="northbound">Northbound (Black Sea → Mediterranean)</option>
+              <option value="southbound">Southbound (Mediterranean → Black Sea)</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>ETA at Bosporus <span class="req">*</span></label>
+            <input type="datetime-local" id="bp-eta">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field-group">
+            <label>Last Port of Call <span class="req">*</span></label>
+            <input type="text" id="bp-last-port" placeholder="e.g. Novorossiysk">
+          </div>
+          <div class="field-group">
+            <label>Next Port of Call <span class="req">*</span></label>
+            <input type="text" id="bp-next-port" placeholder="e.g. Piraeus">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field-group">
+            <label>Crew Count <span class="req">*</span></label>
+            <input type="number" id="bp-crew" placeholder="e.g. 22" min="1">
+          </div>
+          <div class="field-group">
+            <label>Passenger Count <span class="opt">(if any)</span></label>
+            <input type="number" id="bp-pax" placeholder="0" min="0">
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="checkbox-group">
+            <input type="checkbox" id="bp-dg">
+            <label for="bp-dg">Vessel carries Dangerous Goods (IMDG)</label>
+          </div>
+        </div>
+        <div class="field-group" id="bp-dg-class-group" style="display:none">
+          <label>IMDG Class <span class="req">*</span></label>
+          <input type="text" id="bp-dg-class" placeholder="e.g. 3, 2.3, 6.2">
+        </div>
+        <div class="field-group">
+          <div class="checkbox-group">
+            <input type="checkbox" id="bp-pilot">
+            <label for="bp-pilot">Pilot booked (required if LOA &gt;150m or GT &gt;10,000)</label>
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="checkbox-group">
+            <input type="checkbox" id="bp-notif">
+            <label for="bp-notif">24h advance notification sent to TBSS</label>
+          </div>
+        </div>
+        <button class="validate-btn" id="validate-btn-bosporus" onclick="runValidation('bosporus')">
+          <span class="spinner"></span>
+          <span class="btn-text">Run Compliance Check</span>
+        </button>
+      </div>
+
+      <!-- ── MALACCA FORM ── -->
+      <div class="waterway-form" id="form-malacca">
+        <div class="section-divider">Vessel Identity</div>
+        <div class="form-row">
+          <div class="field-group">
+            <label>IMO Number <span class="req">*</span></label>
+            <input type="text" id="ml-imo" placeholder="e.g. 9074729" maxlength="10">
+          </div>
+          <div class="field-group">
+            <label>Vessel Name <span class="req">*</span></label>
+            <input type="text" id="ml-name" placeholder="Full registered name">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field-group">
+            <label>Flag State <span class="req">*</span></label>
+            <input type="text" id="ml-flag" placeholder="e.g. SG, MY, LR" maxlength="2">
+          </div>
+          <div class="field-group">
+            <label>Vessel Type <span class="req">*</span></label>
+            <select id="ml-type">
+              <option value="">Select type…</option>
+              <option value="bulk_carrier">Bulk Carrier</option>
+              <option value="container">Container</option>
+              <option value="tanker">Tanker</option>
+              <option value="lng_carrier">LNG Carrier</option>
+              <option value="vehicle_carrier">Vehicle Carrier</option>
+              <option value="general_cargo">General Cargo</option>
+              <option value="cruise">Cruise</option>
+              <option value="ro_ro">RoRo</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="section-divider">Dimensions &amp; Voyage</div>
+        <div class="form-row cols-3">
+          <div class="field-group">
+            <label>LOA (m) <span class="req">*</span></label>
+            <input type="number" id="ml-loa" placeholder="e.g. 300" step="0.1" min="0">
+          </div>
+          <div class="field-group">
+            <label>Draft (m) <span class="req">*</span></label>
+            <input type="number" id="ml-draft" placeholder="e.g. 14.5" step="0.01" min="0">
+            <div class="hint">Max 21m · &gt;15m = deep-draft route</div>
+          </div>
+          <div class="field-group">
+            <label>Gross Tonnage <span class="req">*</span></label>
+            <input type="number" id="ml-gt" placeholder="e.g. 80000" min="0">
+            <div class="hint">≥300 GT = STRAITREP required</div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field-group">
+            <label>Transit Direction <span class="req">*</span></label>
+            <select id="ml-dir">
+              <option value="">Select…</option>
+              <option value="eastbound">Eastbound (Indian Ocean → Pacific)</option>
+              <option value="westbound">Westbound (Pacific → Indian Ocean)</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>ETA at Strait <span class="req">*</span></label>
+            <input type="datetime-local" id="ml-eta">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field-group">
+            <label>Speed (knots) <span class="opt">(recommended)</span></label>
+            <input type="number" id="ml-speed" placeholder="e.g. 14" step="0.1" min="0">
+            <div class="hint">Limit 12 kn in Singapore Strait</div>
+          </div>
+          <div class="field-group">
+            <label>Cargo Type</label>
+            <select id="ml-cargo">
+              <option value="">Select…</option>
+              <option value="containerized">Containerized</option>
+              <option value="dry_bulk">Dry Bulk</option>
+              <option value="liquid_bulk">Liquid Bulk</option>
+              <option value="lng">LNG</option>
+              <option value="crude_oil">Crude Oil</option>
+              <option value="petroleum_products">Petroleum Products</option>
+              <option value="chemicals">Chemicals</option>
+              <option value="ballast_only">Ballast Only</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="checkbox-group">
+            <input type="checkbox" id="ml-dg">
+            <label for="ml-dg">Vessel carries Dangerous Goods (IMDG)</label>
+          </div>
+        </div>
+        <div class="field-group" id="ml-dg-class-group" style="display:none">
+          <label>IMDG Class <span class="req">*</span></label>
+          <input type="text" id="ml-dg-class" placeholder="e.g. 3, 8, 9">
+        </div>
+        <div class="field-group">
+          <div class="checkbox-group">
+            <input type="checkbox" id="ml-vhf">
+            <label for="ml-vhf">VHF watch maintained (Ch. 73 / Ch. 16)</label>
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="checkbox-group">
+            <input type="checkbox" id="ml-isps">
+            <label for="ml-isps">ISPS compliant (Security Level 1 minimum)</label>
+          </div>
+        </div>
+        <button class="validate-btn" id="validate-btn-malacca" onclick="runValidation('malacca')">
+          <span class="spinner"></span>
+          <span class="btn-text">Run Compliance Check</span>
+        </button>
+      </div>
+
+      <!-- ── CAPE FORM ── -->
+      <div class="waterway-form" id="form-cape">
+        <div class="section-divider">Vessel Identity</div>
+        <div class="form-row">
+          <div class="field-group">
+            <label>IMO Number <span class="req">*</span></label>
+            <input type="text" id="cp-imo" placeholder="e.g. 9074729" maxlength="10">
+          </div>
+          <div class="field-group">
+            <label>Vessel Name <span class="req">*</span></label>
+            <input type="text" id="cp-name" placeholder="Full registered name">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field-group">
+            <label>Flag State <span class="req">*</span></label>
+            <input type="text" id="cp-flag" placeholder="e.g. ZA, PA, LR" maxlength="4">
+          </div>
+          <div class="field-group">
+            <label>Vessel Type <span class="req">*</span></label>
+            <select id="cp-type">
+              <option value="">Select type…</option>
+              <option value="bulk_carrier">Bulk Carrier</option>
+              <option value="container">Container</option>
+              <option value="tanker">Tanker</option>
+              <option value="lng_carrier">LNG Carrier</option>
+              <option value="vehicle_carrier">Vehicle Carrier</option>
+              <option value="general_cargo">General Cargo</option>
+              <option value="cruise">Cruise</option>
+              <option value="ro_ro">RoRo</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="section-divider">Dimensions &amp; Security</div>
+        <div class="form-row cols-3">
+          <div class="field-group">
+            <label>Gross Tonnage <span class="req">*</span></label>
+            <input type="number" id="cp-gt" placeholder="e.g. 45000" min="0">
+          </div>
+          <div class="field-group">
+            <label>Net Tonnage <span class="opt">(optional)</span></label>
+            <input type="number" id="cp-nt" placeholder="e.g. 22000" min="0">
+          </div>
+          <div class="field-group">
+            <label>Draft (m) <span class="req">*</span></label>
+            <input type="number" id="cp-draft" placeholder="e.g. 13.0" step="0.01" min="0">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field-group">
+            <label>ISPS Security Level <span class="req">*</span></label>
+            <select id="cp-isps">
+              <option value="">Select…</option>
+              <option value="1">Level 1 (Normal)</option>
+              <option value="2">Level 2 (Heightened)</option>
+              <option value="3">Level 3 (Exceptional)</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>ETA at South African Port <span class="req">*</span></label>
+            <input type="datetime-local" id="cp-eta">
+            <div class="hint">SAMSA requires 96h advance notice</div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field-group">
+            <label>Crew Count <span class="req">*</span></label>
+            <input type="number" id="cp-crew" placeholder="e.g. 22" min="1">
+          </div>
+          <div class="field-group">
+            <label>Destination Port <span class="req">*</span></label>
+            <input type="text" id="cp-port" placeholder="e.g. Cape Town, Port Elizabeth">
+          </div>
+        </div>
+        <div class="section-divider">ISPS &amp; Last 10 Ports</div>
+        <div class="field-group">
+          <label>Last 10 Ports of Call <span class="req">*</span></label>
+          <textarea id="cp-ports10" rows="3" placeholder="List each port on a new line&#10;e.g. Singapore SG&#10;Port Klang MY&#10;Colombo LK"></textarea>
+          <div class="hint">Required for ISPS Code Part B §9.38</div>
+        </div>
+        <div class="field-group">
+          <label>Ship Security Officer (SSO) Name <span class="req">*</span></label>
+          <input type="text" id="cp-sso-name" placeholder="e.g. Capt. J. Smith">
+        </div>
+        <div class="field-group">
+          <label>SSO Contact (phone/VHF) <span class="req">*</span></label>
+          <input type="text" id="cp-sso-contact" placeholder="e.g. +1-555-0100 or VHF Ch. 16">
+        </div>
+        <div class="field-group">
+          <div class="checkbox-group">
+            <input type="checkbox" id="cp-dg">
+            <label for="cp-dg">Vessel carries Dangerous Goods (IMDG)</label>
+          </div>
+        </div>
+        <div class="field-group" id="cp-dg-class-group" style="display:none">
+          <label>IMDG Class <span class="req">*</span></label>
+          <input type="text" id="cp-dg-class" placeholder="e.g. 3, 8, 9">
+        </div>
+        <button class="validate-btn" id="validate-btn-cape" onclick="runValidation('cape')">
+          <span class="spinner"></span>
+          <span class="btn-text">Run Compliance Check</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Results panel -->
+  <div>
+    <div class="results-card" id="results-card">
+      <div class="results-empty" id="results-empty">
+        <div class="empty-icon">🔍</div>
+        <p>Select a waterway, fill in the vessel details, and click <strong>Run Compliance Check</strong> to see a field-by-field pass/fail breakdown.</p>
+      </div>
+      <div class="results-content" id="results-content">
+        <!-- Score header -->
+        <div class="score-header">
+          <div class="score-ring">
+            <svg viewBox="0 0 70 70">
+              <circle class="bg-circle" cx="35" cy="35" r="29"/>
+              <circle class="score-circle" id="score-arc" cx="35" cy="35" r="29"
+                stroke-dasharray="182.2" stroke-dashoffset="182.2"/>
+            </svg>
+            <div class="score-number" id="score-number">--</div>
+          </div>
+          <div class="score-info">
+            <div class="score-waterway" id="score-waterway">--</div>
+            <div class="score-status" id="score-status">--</div>
+            <div class="score-counts">
+              <span class="count-pass" id="count-pass">-- passed</span>
+              <span class="count-warn" id="count-warn">-- warnings</span>
+              <span class="count-fail" id="count-fail">-- failed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Status banner -->
+        <div class="status-banner" id="status-banner">
+          <span class="status-icon" id="status-icon"></span>
+          <span id="status-text"></span>
+        </div>
+
+        <!-- Filters -->
+        <div class="filter-row">
+          <button class="filter-btn all active" onclick="setFilter('all', this)">All</button>
+          <button class="filter-btn fail" onclick="setFilter('fail', this)">❌ Errors</button>
+          <button class="filter-btn warning" onclick="setFilter('warning', this)">⚠️ Warnings</button>
+          <button class="filter-btn pass" onclick="setFilter('pass', this)">✅ Passed</button>
+        </div>
+
+        <!-- Checklist -->
+        <div class="checklist" id="checklist"></div>
+
+        <!-- CTA strip -->
+        <div class="cta-strip">
+          <a href="/filing" class="cta-primary">Open Filing Tool →</a>
+          <a href="/request-demo" class="cta-secondary">Book Demo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <img src="/CanalClear_Logo.png" alt="CanalClear">
+    </div>
+    <div class="footer-links">
+      <a href="/how-it-works">How It Works</a>
+      <a href="/compliance-guide">Guide</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </div>
+    <div class="footer-right">© 2026 CanalClear</div>
+  </div>
+</footer>
+
+<script>
+// ── State ─────────────────────────────────────────────────────────────────────
+let currentWaterway = 'panama';
+let activeFilter = 'all';
+let lastChecklist = [];
+
+// Waterway metadata
+const WATERWAYS = {
+  panama:   { name: 'Panama Canal', flag: '🇵🇦', authority: 'ACP · VUMPA' },
+  suez:     { name: 'Suez Canal',   flag: '🇪🇬', authority: 'SCA · Transit Application' },
+  bosporus: { name: 'Bosporus Strait', flag: '🇹🇷', authority: 'KDGM · SP-1' },
+  malacca:  { name: 'Strait of Malacca', flag: '🇲🇾', authority: 'MPA · STRAITREP' },
+  cape:     { name: 'Cape of Good Hope', flag: '🇿🇦', authority: 'SAMSA · ISPS Pre-Arrival' },
+};
+
+const FORM_TITLES = {
+  panama:   'Panama Canal — VUMPA Validator',
+  suez:     'Suez Canal — Transit Application Validator',
+  bosporus: 'Bosporus Strait — SP-1 Validator',
+  malacca:  'Strait of Malacca — STRAITREP Validator',
+  cape:     'Cape of Good Hope — ISPS Pre-Arrival Validator',
+};
+
+const FORM_SUBTITLES = {
+  panama:   'Check vessel pre-arrival compliance against ACP (Panama Canal Authority) requirements',
+  suez:     'Validate your Suez Canal Transit Application against SCA (Suez Canal Authority) requirements',
+  bosporus: 'Validate your Turkish Straits SP-1 notification against KDGM / TBSS requirements',
+  malacca:  'Validate your STRAITREP notification against MPA and IMO Resolution A.982(24)',
+  cape:     'Validate your SAMSA ISPS Pre-Arrival notification — 96h advance required under Marine Notice 12/2008',
+};
+
+// ── Waterway switcher ─────────────────────────────────────────────────────────
+function selectWaterway(waterway, btn) {
+  if (currentWaterway === waterway) return;
+  currentWaterway = waterway;
+
+  // Update canal buttons
+  document.querySelectorAll('.canal-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  // Switch form
+  document.querySelectorAll('.waterway-form').forEach(f => f.classList.remove('active'));
+  document.getElementById('form-' + waterway).classList.add('active');
+
+  // Update form header
+  document.getElementById('form-title').textContent = FORM_TITLES[waterway];
+  document.getElementById('form-subtitle').textContent = FORM_SUBTITLES[waterway];
+
+  // Clear results
+  resetResults();
+}
+
+// ── DG toggle helpers ─────────────────────────────────────────────────────────
+['pa', 'sz', 'bp', 'ml', 'cp'].forEach(prefix => {
+  document.addEventListener('DOMContentLoaded', () => {
+    const checkbox = document.getElementById(prefix + '-dg');
+    const group = document.getElementById(prefix + '-dg-class-group');
+    if (checkbox && group) {
+      checkbox.addEventListener('change', () => {
+        group.style.display = checkbox.checked ? 'block' : 'none';
+      });
+    }
+  });
+});
+
+// ── Build validation payload per waterway ─────────────────────────────────────
+function buildPayload(waterway) {
+  const g = id => (document.getElementById(id) || {}).value || '';
+  const gb = id => (document.getElementById(id) || {}).checked || false;
+  const gn = id => { const v = parseFloat(g(id)); return isNaN(v) ? undefined : v; };
+
+  switch (waterway) {
+    case 'panama':
+      return {
+        imo_number: g('pa-imo'),
+        vessel_name: g('pa-name'),
+        flag_state: g('pa-flag'),
+        vessel_type: g('pa-type'),
+        loa: gn('pa-loa'),
+        beam: gn('pa-beam'),
+        draft: gn('pa-draft'),
+        gross_tonnage: gn('pa-gt'),
+        eta: g('pa-eta') || undefined,
+        transit_direction: g('pa-dir'),
+        cargo_type: g('pa-cargo'),
+        has_dangerous_goods: gb('pa-dg'),
+        dangerous_goods_class: gb('pa-dg') ? g('pa-dg-class') : undefined,
+        booking_number: g('pa-booking'),
+      };
+
+    case 'suez':
+      return {
+        imo_number: g('sz-imo'),
+        vessel_name: g('sz-name'),
+        flag_state: g('sz-flag'),
+        vessel_type: g('sz-type'),
+        loa: gn('sz-loa'),
+        beam: gn('sz-beam'),
+        air_draft: gn('sz-airdraft'),
+        draft_forward: gn('sz-draft-fwd'),
+        draft_aft: gn('sz-draft-aft'),
+        scnt: gn('sz-scnt'),
+        eta: g('sz-eta') || undefined,
+        convoy_preference: g('sz-convoy'),
+        cargo_type: g('sz-cargo'),
+        has_dangerous_goods: gb('sz-dg'),
+        dangerous_goods_class: gb('sz-dg') ? g('sz-dg-class') : undefined,
+        ballast_water_standard: g('sz-bwm') || undefined,
+        document_type: 'sca_transit_application',
+      };
+
+    case 'bosporus':
+      return {
+        imo_number: g('bp-imo'),
+        vessel_name: g('bp-name'),
+        loa: gn('bp-loa'),
+        gross_tonnage: gn('bp-gt'),
+        draft: gn('bp-draft'),
+        transit_direction: g('bp-dir'),
+        estimated_arrival: g('bp-eta') || undefined,
+        last_port: g('bp-last-port'),
+        next_port: g('bp-next-port'),
+        crew_count: gn('bp-crew'),
+        passenger_count: gn('bp-pax'),
+        document_data: {
+          has_dangerous_goods: gb('bp-dg'),
+          dangerous_goods_class: gb('bp-dg') ? g('bp-dg-class') : undefined,
+          pilot_booked: gb('bp-pilot'),
+          advance_notification_sent: gb('bp-notif'),
+          transit_direction: g('bp-dir'),
+        },
+      };
+
+    case 'malacca':
+      return {
+        imo_number: g('ml-imo'),
+        vessel_name: g('ml-name'),
+        flag_state: g('ml-flag'),
+        vessel_type: g('ml-type'),
+        loa: gn('ml-loa'),
+        draft: gn('ml-draft'),
+        gross_tonnage: gn('ml-gt'),
+        transit_direction: g('ml-dir'),
+        eta: g('ml-eta') || undefined,
+        speed_knots: gn('ml-speed'),
+        cargo_type: g('ml-cargo'),
+        has_dangerous_goods: gb('ml-dg'),
+        dangerous_goods_class: gb('ml-dg') ? g('ml-dg-class') : undefined,
+        vhf_watch: gb('ml-vhf'),
+        isps_compliant: gb('ml-isps'),
+      };
+
+    case 'cape':
+      // Parse last 10 ports textarea
+      const portsRaw = g('cp-ports10');
+      const portsArr = portsRaw.split('\n').map(s => s.trim()).filter(Boolean);
+      return {
+        imo_number: g('cp-imo'),
+        vessel_name: g('cp-name'),
+        flag_state: g('cp-flag'),
+        vessel_type: g('cp-type'),
+        gross_tonnage: gn('cp-gt'),
+        net_tonnage: gn('cp-nt'),
+        draft: gn('cp-draft'),
+        isps_security_level: gn('cp-isps'),
+        eta: g('cp-eta') || undefined,
+        crew_count: gn('cp-crew'),
+        destination_port: g('cp-port'),
+        last_10_ports: portsArr,
+        sso_name: g('cp-sso-name'),
+        sso_contact: g('cp-sso-contact'),
+        has_dangerous_goods: gb('cp-dg'),
+        dangerous_goods_class: gb('cp-dg') ? g('cp-dg-class') : undefined,
+      };
+
+    default:
+      return {};
+  }
+}
+
+// ── Run validation ─────────────────────────────────────────────────────────────
+async function runValidation(waterway) {
+  const btn = document.getElementById('validate-btn-' + waterway);
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  try {
+    const payload = buildPayload(waterway);
+    const resp = await fetch('/api/validate/' + waterway, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    if (!resp.ok) {
+      const err = await resp.json().catch(() => ({}));
+      showError(err.error || 'Validation request failed. Please try again.');
+      return;
+    }
+
+    const result = await resp.json();
+    renderResults(waterway, result);
+
+    // GA4 event
+    if (typeof gtag === 'function') {
+      gtag('event', 'validation_run', {
+        event_category: 'validator',
+        event_label: waterway,
+        value: result.compliance_score || 0,
+      });
+    }
+
+  } catch (err) {
+    showError('Network error. Please check your connection and try again.');
+  } finally {
+    btn.classList.remove('loading');
+    btn.disabled = false;
+  }
+}
+
+// ── Render results ─────────────────────────────────────────────────────────────
+function renderResults(waterway, result) {
+  const wInfo = WATERWAYS[waterway] || {};
+  const score = result.compliance_score || 0;
+  const status = result.overall_status || 'failed';
+  const checklist = result.checklist || [];
+  lastChecklist = checklist;
+  activeFilter = 'all';
+
+  // Show results pane
+  document.getElementById('results-empty').style.display = 'none';
+  const content = document.getElementById('results-content');
+  content.classList.add('visible');
+
+  // Score ring
+  const arc = document.getElementById('score-arc');
+  const circumference = 182.2;
+  const offset = circumference - (score / 100) * circumference;
+  const strokeColor = score >= 70 ? '#22D3A0' : score >= 40 ? '#FFB020' : '#FF4D6A';
+  arc.style.strokeDashoffset = offset;
+  arc.style.stroke = strokeColor;
+  document.getElementById('score-number').textContent = score;
+
+  // Metadata
+  document.getElementById('score-waterway').textContent = wInfo.flag + ' ' + (wInfo.authority || waterway);
+  document.getElementById('score-status').textContent =
+    status === 'passed' ? '✅ Compliant' :
+    status === 'warning' ? '⚠️ Issues Found' :
+    '❌ Compliance Failures';
+
+  document.getElementById('count-pass').textContent = (result.passed_checks || 0) + ' passed';
+  document.getElementById('count-warn').textContent = (result.warning_checks || 0) + ' warnings';
+  document.getElementById('count-fail').textContent = (result.failed_checks || 0) + ' failed';
+
+  // Status banner
+  const banner = document.getElementById('status-banner');
+  banner.className = 'status-banner ' + (status === 'passed' ? 'passed' : status === 'warning' ? 'warning' : 'failed');
+  document.getElementById('status-icon').textContent = status === 'passed' ? '✅' : status === 'warning' ? '⚠️' : '❌';
+  document.getElementById('status-text').textContent =
+    status === 'passed' ? 'All critical checks passed. Review warnings before filing.' :
+    status === 'warning' ? 'No critical failures. Address warnings to improve compliance score.' :
+    result.failed_checks + ' critical failure(s) must be resolved before filing.';
+
+  // Reset filter buttons
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.filter-btn.all').classList.add('active');
+
+  renderChecklist(checklist, 'all');
+}
+
+// ── Render checklist ───────────────────────────────────────────────────────────
+function renderChecklist(checklist, filter) {
+  const container = document.getElementById('checklist');
+  const filtered = filter === 'all' ? checklist : checklist.filter(c => c.status === filter);
+  container.innerHTML = '';
+
+  if (filtered.length === 0) {
+    container.innerHTML = '<p style="color:var(--gray);font-size:.85rem;text-align:center;padding:1.5rem 0;">No items in this category.</p>';
+    return;
+  }
+
+  filtered.forEach(item => {
+    const icon = item.status === 'pass' ? '✅' : item.status === 'warning' ? '⚠️' : '❌';
+    const div = document.createElement('div');
+    div.className = 'check-item ' + (item.status === 'pass' ? 'pass' : item.status === 'warning' ? 'warning' : 'fail');
+    div.innerHTML = [
+      '<span class="check-icon">' + icon + '</span>',
+      '<div class="check-body">',
+      '  <div class="check-name">' + escHtml(item.name || item.id || '') + '</div>',
+      '  <div class="check-msg">' + escHtml(item.message || '') + '</div>',
+      item.requirement ? '  <div class="check-req">Reg: ' + escHtml(item.requirement) + '</div>' : '',
+      '</div>',
+    ].join('');
+    container.appendChild(div);
+  });
+}
+
+// ── Filter handler ─────────────────────────────────────────────────────────────
+function setFilter(filter, btn) {
+  activeFilter = filter;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderChecklist(lastChecklist, filter);
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function resetResults() {
+  document.getElementById('results-empty').style.display = 'block';
+  document.getElementById('results-content').classList.remove('visible');
+  lastChecklist = [];
+}
+
+function showError(msg) {
+  resetResults();
+  document.getElementById('results-empty').innerHTML =
+    '<div class="empty-icon">⚠️</div><p style="color:var(--red)">' + escHtml(msg) + '</p>';
+  document.getElementById('results-empty').style.display = 'block';
+}
+
+function escHtml(s) {
+  return String(s || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+// ── Init DG toggles ───────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  [['pa-dg', 'pa-dg-class-group'],
+   ['sz-dg', 'sz-dg-class-group'],
+   ['bp-dg', 'bp-dg-class-group'],
+   ['ml-dg', 'ml-dg-class-group'],
+   ['cp-dg', 'cp-dg-class-group']].forEach(([cbId, groupId]) => {
+    const cb = document.getElementById(cbId);
+    const grp = document.getElementById(groupId);
+    if (cb && grp) {
+      cb.addEventListener('change', () => {
+        grp.style.display = cb.checked ? 'block' : 'none';
+      });
+    }
+  });
+});
+</script>
+</body>
+</html>

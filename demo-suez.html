@@ -1,0 +1,2971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Demo — Suez Canal SCA Filing | CanalClear</title>
+  <meta name="description" content="Try CanalClear's Suez Canal SCA filing automation live. AI auto-fill, real-time SCA validation, SCNT toll calculator, and watermarked PDF preview — no account required.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://canalclear.org/demo/suez">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://canalclear.org/demo/suez">
+  <meta property="og:title" content="Live Demo — CanalClear Suez Canal Filing">
+  <meta property="og:description" content="AI auto-fill, real-time SCA validation, SCNT calculator and watermarked PDF preview — no account required.">
+  <meta property="og:image" content="https://pub-629428d185ca4960a0a73c850d32294b.r2.dev/company_47541/images/40e0ebc5-0000-0000-0000-000000000000.png">
+  <meta property="og:site_name" content="CanalClear">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/visual-polish.css">
+  <link rel="icon" type="image/png" href="/icons/icon-192.png">
+
+  <!-- Schema: SoftwareApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "CanalClear",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "image": "https://canalclear.org/og-image.png",
+    "description": "Customs compliance automation for Panama Canal and Suez Canal transits",
+    "offers": {
+      "@type": "Offer",
+      "price": "49",
+      "priceCurrency": "USD",
+      "hasMerchantReturnPolicy": {
+        "@type": "MerchantReturnPolicy",
+        "applicableCountry": "US",
+        "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted",
+        "merchantReturnDays": 0,
+        "returnMethod": "https://schema.org/ReturnByMail",
+        "returnFees": "https://schema.org/FreeReturn"
+      },
+      "shippingDetails": {
+        "@type": "OfferShippingDetails",
+        "shippingRate": { "@type": "MonetaryAmount", "value": "0", "currency": "USD" },
+        "deliveryTime": {
+          "@type": "ShippingDeliveryTime",
+          "handlingTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "DAY" },
+          "transitTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "DAY" }
+        },
+        "doesNotShip": true
+      }
+    }
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #1a2d4a;
+      --deep: #142238;
+      --slate: #243350;
+      --slate-2: #1e2f4a;
+      --blue: #2563EB;
+      --blue-dim: rgba(37, 99, 235, 0.1);
+      --blue-border: rgba(37, 99, 235, 0.25);
+      --teal: #E85A00;
+      --teal-dim: rgba(232, 90, 0, 0.1);
+      --teal-border: rgba(232, 90, 0, 0.22);
+      --white: #ffffff;
+      --gray: #6b7c93;
+      --light: #8fa3b8;
+      --red: #FF6B6B;
+      --red-dim: rgba(255, 107, 107, 0.12);
+      --yellow: #FFD93D;
+      --yellow-dim: rgba(255, 217, 61, 0.12);
+      --green: #E85A00;
+      --green-dim: rgba(232, 90, 0, 0.12);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 0.9rem 2rem;
+      background: rgba(10, 22, 40, 0.94);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(37, 99, 235, 0.12);
+    }
+    .nav-inner {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo img { height: 32px; width: auto; display: block; }
+    .nav-links { display: flex; gap: 0.25rem; align-items: center; }
+    .nav-links a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.875rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      transition: all 0.2s;
+      font-weight: 500;
+    }
+    .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+    .nav-links a.active { color: var(--teal); background: var(--teal-dim); }
+    .nav-links .nav-cta {
+      background: var(--teal);
+      color: var(--navy);
+      font-weight: 700;
+      margin-left: 0.5rem;
+    }
+    .nav-links .nav-cta:hover { background: #CC4F00; color: var(--navy); }
+    .hamburger-btn {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger-btn span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+    }
+
+    /* HERO BANNER */
+    .demo-hero {
+      padding: 6rem 2rem 3rem;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(37,99,235,0.06) 0%, transparent 100%);
+      border-bottom: 1px solid var(--blue-border);
+    }
+    .demo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--blue-dim);
+      border: 1px solid var(--blue-border);
+      color: #60a5fa;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.9rem;
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+    }
+    .demo-hero h1 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .demo-hero h1 span { color: var(--teal); }
+    .demo-hero p {
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      color: var(--gray);
+      max-width: 620px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+
+    /* MODE TOGGLE */
+    .mode-toggle-wrap {
+      max-width: 520px;
+      margin: 0 auto 0.5rem;
+      display: flex;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 4px;
+      gap: 4px;
+    }
+    .mode-btn {
+      flex: 1;
+      padding: 0.65rem 1rem;
+      border: none;
+      border-radius: 9px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--gray);
+      background: transparent;
+    }
+    .mode-btn.active {
+      background: var(--teal);
+      color: var(--navy);
+    }
+    .mode-hint {
+      font-size: 0.8rem;
+      color: var(--gray);
+      text-align: center;
+      margin-bottom: 0;
+    }
+
+    /* MAIN DEMO CONTAINER */
+    .demo-main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 6rem;
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    /* FORM PANEL */
+    .form-panel {
+      background: var(--slate-2);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .form-panel-header {
+      padding: 1.25rem 1.75rem;
+      background: rgba(37,99,235,0.06);
+      border-bottom: 1px solid var(--blue-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .form-panel-title {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .form-panel-subtitle {
+      font-size: 0.78rem;
+      color: var(--gray);
+      margin-top: 0.15rem;
+    }
+    .autofill-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--teal-dim);
+      border: 1px solid var(--teal-border);
+      color: var(--teal);
+      border-radius: 8px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .autofill-btn:hover { background: var(--teal); color: var(--navy); }
+    .autofill-btn .ai-icon { font-size: 1rem; }
+
+    .form-body { padding: 1.75rem; }
+
+    /* TABS — scrollable for 7 tabs */
+    .form-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 1.75rem;
+      background: rgba(255,255,255,0.03);
+      border-radius: 10px;
+      padding: 3px;
+      border: 1px solid rgba(255,255,255,0.07);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .form-tabs::-webkit-scrollbar { display: none; }
+    .form-tab {
+      flex-shrink: 0;
+      padding: 0.5rem 0.7rem;
+      border: none;
+      background: transparent;
+      color: var(--gray);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .form-tab.active { background: var(--slate); color: var(--white); }
+    .form-tab.has-warn { color: var(--yellow); }
+    .form-tab.has-error { color: var(--red); }
+    .form-tab-content { display: none; }
+    .form-tab-content.active { display: block; }
+
+    /* FORM GROUPS */
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-row.thirds { grid-template-columns: 1fr 1fr 1fr; }
+    .form-row.full { grid-template-columns: 1fr; }
+    .form-row.quad { grid-template-columns: 1fr 1fr 1fr 1fr; }
+    .form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+    .form-group label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--light);
+      letter-spacing: 0.02em;
+    }
+    .form-group label .req { color: var(--red); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 0.65rem 0.9rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      color: var(--white);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: all 0.2s;
+      width: 100%;
+    }
+    .form-group input::placeholder { color: var(--gray); }
+    .form-group input:focus,
+    .form-group select:focus { border-color: var(--teal); background: rgba(232, 90, 0,0.04); }
+    .form-group input.has-value { border-color: rgba(232, 90, 0,0.35); }
+    .form-group select option { background: var(--deep); color: var(--white); }
+    .form-group .hint { font-size: 0.75rem; color: var(--gray); }
+
+    /* Section heading inside a form */
+    .form-section-title {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #60a5fa;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(37,99,235,0.2);
+      margin-bottom: 1rem;
+    }
+
+    /* Autofill animation */
+    @keyframes autofillFlash {
+      0% { background: rgba(232, 90, 0,0.2); border-color: var(--teal); }
+      100% { background: rgba(255,255,255,0.04); border-color: rgba(232, 90, 0,0.35); }
+    }
+    .field-autofilled {
+      animation: autofillFlash 0.6s ease-out forwards;
+    }
+
+    /* Validation feedback inline */
+    .field-error { border-color: var(--red) !important; }
+    .field-warning { border-color: var(--yellow) !important; }
+    .field-ok { border-color: rgba(232, 90, 0,0.45) !important; }
+    .field-hint {
+      font-size: 0.73rem;
+      margin-top: 0.2rem;
+    }
+    .field-hint.err { color: var(--red); }
+    .field-hint.warn { color: var(--yellow); }
+    .field-hint.ok { color: var(--teal); }
+
+    /* Checkbox row */
+    .check-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 8px;
+      margin-bottom: 0.75rem;
+      cursor: pointer;
+    }
+    .check-row input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--teal); cursor: pointer; flex-shrink: 0; }
+    .check-row label { font-size: 0.875rem; color: var(--white); cursor: pointer; }
+
+    /* Dangerous goods table */
+    .dg-item {
+      background: rgba(255,107,107,0.06);
+      border: 1px solid rgba(255,107,107,0.18);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      margin-bottom: 0.75rem;
+    }
+    .dg-item-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.6rem;
+    }
+    .dg-item-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--red);
+      letter-spacing: 0.04em;
+    }
+    .dg-remove-btn {
+      background: none;
+      border: none;
+      color: var(--gray);
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      transition: color 0.2s;
+    }
+    .dg-remove-btn:hover { color: var(--red); }
+    .add-dg-btn {
+      width: 100%;
+      padding: 0.7rem;
+      background: rgba(255,107,107,0.07);
+      color: var(--red);
+      border: 1px dashed rgba(255,107,107,0.3);
+      border-radius: 8px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 0.5rem;
+    }
+    .add-dg-btn:hover { background: rgba(255,107,107,0.12); border-color: rgba(255,107,107,0.5); }
+
+    /* SCNT Calculator result box */
+    .scnt-result-box {
+      background: rgba(232, 90, 0,0.05);
+      border: 1px solid var(--teal-border);
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-top: 1.25rem;
+    }
+    .scnt-result-title {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--teal);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 0.85rem;
+    }
+    .scnt-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    .scnt-item {
+      background: rgba(255,255,255,0.03);
+      border-radius: 7px;
+      padding: 0.65rem 0.75rem;
+    }
+    .scnt-item .scnt-label { font-size: 0.72rem; color: var(--gray); margin-bottom: 0.2rem; }
+    .scnt-item .scnt-value {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .scnt-item.highlight .scnt-value { color: var(--teal); font-size: 1.2rem; }
+    .scnt-disclaimer {
+      font-size: 0.72rem;
+      color: var(--gray);
+      margin-top: 0.85rem;
+      line-height: 1.5;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 0.75rem;
+    }
+
+    /* Crew table */
+    .crew-table-wrap {
+      overflow-x: auto;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    .crew-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+    .crew-table th {
+      padding: 0.6rem 0.75rem;
+      background: rgba(255,255,255,0.04);
+      color: var(--light);
+      font-weight: 600;
+      text-align: left;
+      white-space: nowrap;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .crew-table td {
+      padding: 0.55rem 0.75rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: var(--white);
+    }
+    .crew-table tr:last-child td { border-bottom: none; }
+    .crew-table .rank-badge {
+      background: rgba(37,99,235,0.12);
+      color: #93c5fd;
+      border-radius: 4px;
+      padding: 0.1rem 0.45rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    /* Action bar */
+    .form-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      padding: 1.25rem 1.75rem;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      background: rgba(0,0,0,0.15);
+    }
+    .btn-validate {
+      flex: 1;
+      min-width: 140px;
+      padding: 0.75rem 1.25rem;
+      background: var(--teal);
+      color: var(--navy);
+      border: none;
+      border-radius: 9px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-validate:hover { background: #CC4F00; }
+    .btn-validate:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-pdf {
+      padding: 0.75rem 1.25rem;
+      background: rgba(255,255,255,0.05);
+      color: var(--light);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 9px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .btn-pdf:hover { border-color: var(--teal); color: var(--teal); background: var(--teal-dim); }
+
+    /* RESULTS PANEL */
+    .results-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      position: sticky;
+      top: 5rem;
+    }
+
+    .status-card {
+      background: var(--slate-2);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .status-header {
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .status-title {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .status-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.65rem;
+      border-radius: 100px;
+    }
+    .badge-pass { background: rgba(232, 90, 0,0.15); color: var(--teal); border: 1px solid var(--teal-border); }
+    .badge-warn { background: var(--yellow-dim); color: var(--yellow); border: 1px solid rgba(255,217,61,0.3); }
+    .badge-fail { background: var(--red-dim); color: var(--red); border: 1px solid rgba(255,107,107,0.3); }
+    .badge-idle { background: rgba(255,255,255,0.05); color: var(--gray); border: 1px solid rgba(255,255,255,0.1); }
+
+    .status-checks {
+      padding: 0 1.25rem 1rem;
+      display: flex;
+      gap: 0.75rem;
+    }
+    .check-stat {
+      flex: 1;
+      text-align: center;
+      padding: 0.6rem 0.4rem;
+      background: rgba(255,255,255,0.03);
+      border-radius: 8px;
+    }
+    .check-stat .num {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.4rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 0.2rem;
+    }
+    .check-stat .lbl { font-size: 0.7rem; color: var(--gray); }
+    .num-pass { color: var(--teal); }
+    .num-warn { color: var(--yellow); }
+    .num-fail { color: var(--red); }
+
+    /* Checklist items */
+    .checklist-section {
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .checklist-group-title {
+      padding: 0.75rem 1.25rem 0.4rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .checklist-group-title.crit { color: var(--red); }
+    .checklist-group-title.warn { color: var(--yellow); }
+    .checklist-group-title.pass { color: var(--teal); }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.5rem 1.25rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: background 0.15s;
+    }
+    .check-item:hover { background: rgba(255,255,255,0.02); }
+    .check-item:last-child { border-bottom: none; }
+    .check-icon { font-size: 0.9rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .check-text .check-name { font-size: 0.82rem; font-weight: 600; color: var(--white); }
+    .check-text .check-msg { font-size: 0.77rem; color: var(--gray); margin-top: 0.1rem; }
+
+    .idle-state {
+      padding: 2rem 1.25rem;
+      text-align: center;
+      color: var(--gray);
+    }
+    .idle-state .idle-icon { font-size: 2.5rem; margin-bottom: 0.75rem; opacity: 0.5; }
+    .idle-state p { font-size: 0.85rem; line-height: 1.5; }
+
+    /* Loading spinner */
+    .spinner {
+      width: 20px; height: 20px;
+      border: 2px solid rgba(232, 90, 0,0.2);
+      border-top-color: var(--teal);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: inline-block;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* CTA CARD */
+    .cta-card {
+      background: linear-gradient(135deg, rgba(232, 90, 0,0.12) 0%, rgba(15,29,50,0.95) 100%);
+      border: 1px solid var(--teal-border);
+      border-radius: 14px;
+      padding: 1.5rem 1.25rem;
+      text-align: center;
+    }
+    .cta-card .cta-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.5rem;
+    }
+    .cta-card h3 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      line-height: 1.3;
+    }
+    .cta-card .cta-price {
+      font-size: 0.78rem;
+      color: var(--light);
+      margin-bottom: 0.85rem;
+    }
+    .cta-card .cta-price strong { color: var(--white); }
+    .cta-card p { font-size: 0.82rem; color: var(--gray); margin-bottom: 1rem; line-height: 1.5; }
+    .cta-card a.cta-primary {
+      display: block;
+      padding: 0.75rem 1rem;
+      background: var(--teal);
+      color: var(--navy);
+      font-weight: 700;
+      font-size: 0.9rem;
+      border-radius: 9px;
+      text-decoration: none;
+      transition: all 0.2s;
+      margin-bottom: 0.75rem;
+    }
+    .cta-card a.cta-primary:hover { background: #CC4F00; }
+    .cta-trust {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+    .cta-trust span {
+      font-size: 0.72rem;
+      color: var(--gray);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .cta-trust span::before { content: '✓'; color: var(--teal); font-weight: 700; }
+
+    /* Lead capture card */
+    .lead-card {
+      background: var(--slate-2);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 1.25rem;
+    }
+    .lead-card h4 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+      color: var(--white);
+    }
+    .lead-card p { font-size: 0.78rem; color: var(--gray); margin-bottom: 0.85rem; }
+    .lead-card input {
+      width: 100%;
+      padding: 0.6rem 0.85rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      color: var(--white);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.875rem;
+      outline: none;
+      margin-bottom: 0.6rem;
+      transition: border-color 0.2s;
+    }
+    .lead-card input:focus { border-color: var(--teal); }
+    .lead-card button {
+      width: 100%;
+      padding: 0.6rem;
+      background: rgba(232, 90, 0,0.12);
+      color: var(--teal);
+      border: 1px solid var(--teal-border);
+      border-radius: 8px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .lead-card button:hover { background: var(--teal); color: var(--navy); }
+    .lead-success { font-size: 0.82rem; color: var(--teal); text-align: center; padding: 0.5rem 0; display: none; }
+
+    /* IMO LOOKUP BANNER */
+    .imo-lookup-banner {
+      max-width: 1200px;
+      margin: 1.5rem auto 0;
+      padding: 0 2rem;
+    }
+    .imo-lookup-card {
+      background: linear-gradient(135deg, rgba(232,90,0,0.08) 0%, rgba(26,45,74,0.95) 100%);
+      border: 1px solid var(--teal-border);
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .imo-lookup-icon { font-size: 1.75rem; flex-shrink: 0; }
+    .imo-lookup-text { flex: 1; min-width: 200px; }
+    .imo-lookup-text strong { display: block; font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 0.2rem; }
+    .imo-lookup-text span { font-size: 0.8rem; color: var(--gray); }
+    .imo-lookup-input-wrap { display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0; }
+    .imo-lookup-input {
+      width: 160px; padding: 0.65rem 0.9rem;
+      background: rgba(255,255,255,0.06); border: 1.5px solid rgba(255,255,255,0.15);
+      border-radius: 8px; color: var(--white);
+      font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; font-weight: 600;
+      letter-spacing: 0.04em; outline: none; transition: all 0.2s;
+    }
+    .imo-lookup-input::placeholder { color: var(--gray); font-weight: 400; font-size: 0.875rem; letter-spacing: 0; }
+    .imo-lookup-input:focus { border-color: var(--teal); background: rgba(232,90,0,0.06); }
+    .imo-lookup-input.imo-valid { border-color: rgba(232,90,0,0.6); }
+    .imo-lookup-input.imo-error { border-color: var(--red); }
+    .imo-lookup-btn {
+      padding: 0.65rem 1.1rem; background: var(--teal); color: var(--navy);
+      border: none; border-radius: 8px;
+      font-family: 'IBM Plex Sans', sans-serif; font-size: 0.875rem; font-weight: 700;
+      cursor: pointer; transition: all 0.2s; white-space: nowrap;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .imo-lookup-btn:hover { background: #CC4F00; }
+    .imo-lookup-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .imo-lookup-status {
+      font-size: 0.82rem; min-height: 1.2em;
+      display: flex; align-items: center; gap: 0.4rem; transition: all 0.2s;
+    }
+    .imo-status-loading { color: var(--gray); }
+    .imo-status-success { color: var(--teal); font-weight: 600; }
+    .imo-status-error   { color: var(--red); }
+    .imo-status-hint    { color: var(--gray); }
+    @media (max-width: 640px) {
+      .imo-lookup-card { flex-direction: column; align-items: flex-start; gap: 0.9rem; }
+      .imo-lookup-input-wrap { width: 100%; }
+      .imo-lookup-input { flex: 1; width: auto; }
+    }
+
+    /* STICKY BOTTOM CTA */
+    .sticky-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 90;
+      background: rgba(10,22,40,0.96);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid var(--teal-border);
+      padding: 0.9rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .sticky-cta-text { font-size: 0.875rem; color: var(--light); }
+    .sticky-cta-text strong { color: var(--white); }
+    .sticky-cta a {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.65rem 1.5rem;
+      background: var(--teal);
+      color: var(--navy);
+      font-weight: 700;
+      font-size: 0.9rem;
+      border-radius: 9px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .sticky-cta a:hover { background: #CC4F00; }
+    .sticky-cta-close {
+      background: none;
+      border: none;
+      color: var(--gray);
+      font-size: 1.1rem;
+      cursor: pointer;
+      padding: 0.3rem;
+    }
+
+    /* PDF preview modal */
+    .pdf-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+    }
+    .pdf-modal-overlay.open { display: flex; }
+    .pdf-modal {
+      background: var(--deep);
+      border: 1px solid var(--teal-border);
+      border-radius: 16px;
+      width: min(95vw, 860px);
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .pdf-modal-header {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .pdf-modal-header h3 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    .pdf-modal-header .demo-tag {
+      background: var(--red-dim);
+      color: var(--red);
+      border: 1px solid rgba(255,107,107,0.25);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .pdf-modal-close {
+      background: none;
+      border: none;
+      color: var(--gray);
+      font-size: 1.4rem;
+      cursor: pointer;
+      padding: 0.2rem 0.5rem;
+      line-height: 1;
+      border-radius: 6px;
+      transition: color 0.2s;
+    }
+    .pdf-modal-close:hover { color: var(--white); }
+    .pdf-modal-body {
+      flex: 1;
+      overflow: auto;
+      padding: 0;
+      background: #525659;
+    }
+    .pdf-modal-body iframe {
+      width: 100%;
+      height: 70vh;
+      border: none;
+      display: block;
+    }
+    .pdf-loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      height: 60vh;
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+    .pdf-modal-footer {
+      padding: 0.9rem 1.25rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .pdf-modal-footer p { font-size: 0.78rem; color: var(--gray); }
+    .pdf-modal-footer a {
+      padding: 0.6rem 1.25rem;
+      background: var(--teal);
+      color: var(--navy);
+      font-weight: 700;
+      font-size: 0.85rem;
+      border-radius: 8px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    /* MOBILE */
+    @media (max-width: 900px) {
+      .demo-main {
+        grid-template-columns: 1fr;
+        padding: 1.5rem 1rem 6rem;
+      }
+      .results-panel { position: static; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-row.thirds { grid-template-columns: 1fr 1fr; }
+      .form-row.quad { grid-template-columns: 1fr 1fr; }
+      nav { padding: 0.75rem 1rem; }
+      .nav-links { display: none; }
+      .hamburger-btn { display: flex; }
+      .demo-hero { padding: 5.5rem 1.25rem 2.5rem; }
+      .mode-toggle-wrap { margin: 0 1rem 0.5rem; }
+      .sticky-cta { padding: 0.75rem 1rem; flex-wrap: wrap; }
+      .sticky-cta-text { font-size: 0.78rem; }
+      .sticky-cta-text .sticky-cta-sub { display: none; }
+      .sticky-cta a { flex: 1; text-align: center; }
+      .scnt-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .form-row.thirds { grid-template-columns: 1fr; }
+      .form-row.quad { grid-template-columns: 1fr 1fr; }
+      .form-actions { flex-direction: column; }
+      .btn-validate, .btn-pdf { width: 100%; justify-content: center; }
+      .mode-toggle-wrap { margin: 0 0.75rem 0.5rem; }
+      .scnt-grid { grid-template-columns: 1fr; }
+      .sticky-cta { flex-direction: column; gap: 0.5rem; align-items: stretch; text-align: center; padding: 0.65rem 1rem; }
+      .sticky-cta-text { display: none; }
+      .sticky-cta a { padding: 0.7rem 1rem; font-size: 0.9rem; }
+    }
+
+    /* Mobile nav overlay */
+    .mobile-nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 99;
+      background: rgba(10,22,40,0.97);
+      backdrop-filter: blur(20px);
+      flex-direction: column;
+      padding: 5rem 2rem 2rem;
+      gap: 0.25rem;
+    }
+    .mobile-nav-overlay.open { display: flex; }
+    .mobile-nav-overlay a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 0.85rem 1rem;
+      border-radius: 10px;
+      transition: background 0.15s;
+    }
+    .mobile-nav-overlay a:hover { background: rgba(255,255,255,0.05); }
+    .mobile-nav-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: var(--gray);
+      font-size: 1.6rem;
+      cursor: pointer;
+    }
+    /* EXPORT DEMO CARD */
+    .export-demo-card {
+      background: rgba(0, 196, 154, 0.06);
+      border: 1px solid rgba(0, 196, 154, 0.25);
+      border-radius: 12px;
+      padding: 1.2rem 1.25rem 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .export-demo-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem; }
+    .export-demo-icon { font-size: 1.3rem; }
+    .export-demo-card h4 { font-size: 0.9rem; font-weight: 700; color: #00C49A; }
+    .export-demo-card p { font-size: 0.78rem; color: var(--gray); margin-bottom: 0.9rem; line-height: 1.5; }
+    .export-demo-btns { display: flex; gap: 0.6rem; margin-bottom: 0.65rem; }
+    .export-demo-btn {
+      display: flex; align-items: center; gap: 0.4rem;
+      padding: 0.55rem 1rem; border-radius: 8px;
+      font-size: 0.82rem; font-weight: 600; cursor: pointer;
+      border: none; transition: all 0.18s; flex: 1; justify-content: center;
+    }
+    .export-demo-btn.primary { background: #00C49A; color: #0A1628; }
+    .export-demo-btn.primary:hover { background: #00a882; }
+    .export-demo-btn.secondary {
+      background: rgba(0, 196, 154, 0.1);
+      border: 1px solid rgba(0, 196, 154, 0.3);
+      color: #00C49A;
+    }
+    .export-demo-btn.secondary:hover { background: rgba(0, 196, 154, 0.18); }
+    .export-demo-note { font-size: 0.7rem; color: rgba(143,163,184,0.7); }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://canalclear.org/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Demo",
+        "item": "https://canalclear.org/demo"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Suez Canal Filing",
+        "item": "https://canalclear.org/demo/suez"
+      }
+    ]
+  }
+  </script>
+  <link rel="stylesheet" href="/css/mobile.css">
+  <style>
+    /* Override: this page has its own full-screen mobile nav overlay */
+    .mobile-nav-overlay { top: 0 !important; background: rgba(10,22,40,0.97) !important; border-top: none !important; }
+    @media (max-width: 900px) { .hamburger-btn { display: flex !important; } }
+    @media (min-width: 901px) { .hamburger-btn { display: none !important; } }
+  </style>
+    <link rel="stylesheet" href="/css/nav.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="nav-logo">
+            <img src="https://pub-629428d185ca4960a0a73c850d32294b.r2.dev/company_47541/images/9d5d2ef6-d9e0-40eb-ad15-df5e737cefc1.png" alt="CanalClear" width="140" height="35">
+        </a>
+        <div class="nav-links">
+            <a href="/panama">🇵🇦 Panama</a>
+            <a href="/suez">🇪🇬 Suez</a>
+            <a href="/bosporus">🇹🇷 Bosporus</a>
+            <a href="/malacca">🇸🇬 Malacca</a>
+            <a href="/cape-of-good-hope">🌍 Cape</a>
+            <a href="/pricing">Pricing</a>
+            <a href="/demo" class="active">Demo</a>
+            <a href="/blog">Blog</a>
+            <a href="/knowledge-base">Knowledge Base</a>
+            <a href="/about">About</a>
+            <a href="/app" class="nav-cta">Open Validator <span class="nav-cta-sub">(Paid Plans)</span></a>
+        </div>
+    </div>
+</nav>
+
+<!-- Mobile nav overlay -->
+<div class="mobile-nav-overlay" id="mobile-nav">
+  <button class="mobile-nav-close" onclick="toggleMobileNav()">&times;</button>
+  <a href="/">Home</a>
+  <a href="/panama">🇵🇦 Panama Canal</a>
+  <a href="/suez">🇪🇬 Suez Canal</a>
+  <a href="/bosporus">🇹🇷 Bosporus</a>
+  <a href="/pricing">Pricing</a>
+  <a href="/demo/panama">🎬 Panama Demo</a>
+  <a href="/demo/suez">🎬 Suez Demo</a>
+  <a href="/demo/bosporus">🎬 Bosporus Demo</a>
+  <a href="/demo/malacca">🎬 Malacca Demo</a>
+  <a href="/demo/dashboard">📊 Fleet Dashboard</a>
+  <a href="/filing">Start Filing →</a>
+</div>
+
+<!-- HERO BANNER -->
+<div class="demo-hero">
+  <div class="demo-badge">🎬 Live Interactive Demo</div>
+  <h1>See CanalClear in Action —<br><span>Suez Canal Filing Demo</span></h1>
+  <p>AI auto-fills all 7 SCA forms, validates against SCA specs, calculates SCNT tolls, and exports submission-ready PDFs. Try it now — no account required.</p>
+
+  <!-- Mode toggle -->
+  <div class="mode-toggle-wrap">
+    <button class="mode-btn active" id="btn-sample" onclick="setMode('sample')">
+      🚢 Explore Sample Data
+    </button>
+    <button class="mode-btn" id="btn-own" onclick="setMode('own')">
+      ✏️ Try With Your Data →
+    </button>
+  </div>
+  <p class="mode-hint" id="mode-hint">Pre-filled with realistic vessel data — click any field to edit</p>
+</div>
+
+<!-- IMO LOOKUP BANNER -->
+<div class="imo-lookup-banner" id="imo-lookup-banner">
+  <div class="imo-lookup-card">
+    <div class="imo-lookup-icon">🔍</div>
+    <div class="imo-lookup-text">
+      <strong>Know your IMO number? Auto-fill your vessel details instantly.</strong>
+      <span>Enter your vessel's 7-digit IMO number and we'll fill in name, dimensions, tonnage, flag, and more.</span>
+    </div>
+    <div>
+      <div class="imo-lookup-input-wrap">
+        <input
+          type="text"
+          class="imo-lookup-input"
+          id="imo-lookup-input"
+          placeholder="e.g. 9765432"
+          maxlength="10"
+          autocomplete="off"
+          oninput="onIMOLookupInput(this)"
+          onkeydown="if(event.key==='Enter') doIMOLookup()"
+        >
+        <button class="imo-lookup-btn" id="imo-lookup-btn" onclick="doIMOLookup()" disabled>
+          <span id="imo-lookup-btn-label">Look Up →</span>
+        </button>
+      </div>
+      <div class="imo-lookup-status imo-status-hint" id="imo-lookup-status">
+        Enter your 7-digit IMO number above
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN DEMO AREA -->
+<div class="demo-main">
+
+  <!-- LEFT: FORM PANEL -->
+  <div class="form-panel">
+    <div class="form-panel-header">
+      <div>
+        <div class="form-panel-title" id="form-panel-title">Suez Canal Transit Application</div>
+        <div class="form-panel-subtitle" id="form-panel-subtitle">Suez Canal Authority (SCA) — SCA/TA-01/2024</div>
+      </div>
+      <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+        <button class="autofill-btn" id="autofill-btn" onclick="triggerAutoFill()">
+          <span class="ai-icon">✨</span>
+          <span id="autofill-label">AI Auto-Fill</span>
+        </button>
+        <button id="ocr-upload-btn" onclick="window.openOCRModal()" title="Upload a certificate or manifest to auto-fill this form">
+          📄 Upload Document
+        </button>
+      </div>
+    </div>
+
+    <div class="form-body">
+      <!-- Form tabs: 7 Suez forms -->
+      <div class="form-tabs" id="form-tabs">
+        <button class="form-tab active" onclick="showTab('transit')" id="tab-transit">E-Transit</button>
+        <button class="form-tab" onclick="showTab('crew')" id="tab-crew">Crew List</button>
+        <button class="form-tab" onclick="showTab('ship')" id="tab-ship">Ship Particulars</button>
+        <button class="form-tab" onclick="showTab('cargo')" id="tab-cargo">Cargo Decl.</button>
+        <button class="form-tab" onclick="showTab('dg')" id="tab-dg">Dangerous Goods</button>
+        <button class="form-tab" onclick="showTab('pilotage')" id="tab-pilotage">Pilotage</button>
+        <button class="form-tab" onclick="showTab('scnt')" id="tab-scnt">SCNT Calc.</button>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════════════ -->
+      <!-- TAB 1: E-TRANSIT APPLICATION -->
+      <!-- ══════════════════════════════════════════════════════════════ -->
+      <div class="form-tab-content active" id="tab-content-transit">
+        <div class="form-section-title">Vessel Identity</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Vessel Name <span class="req">*</span></label>
+            <input type="text" id="f-vessel-name" placeholder="e.g. MV Mediterranean Star" oninput="onFieldChange(event)" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label>IMO Number <span class="req">*</span></label>
+            <input type="text" id="f-imo" placeholder="e.g. 9765432" oninput="onFieldChange(event)" autocomplete="off">
+            <span class="hint">7-digit IMO number</span>
+          </div>
+        </div>
+
+        <div class="form-row thirds">
+          <div class="form-group">
+            <label>Flag State <span class="req">*</span></label>
+            <select id="f-flag" onchange="onFieldChange(event)">
+              <option value="">Select flag...</option>
+              <option value="GR">🇬🇷 Greece (GR)</option>
+              <option value="PA">🇵🇦 Panama (PA)</option>
+              <option value="LR">🇱🇷 Liberia (LR)</option>
+              <option value="MH">🇲🇭 Marshall Islands (MH)</option>
+              <option value="BS">🇧🇸 Bahamas (BS)</option>
+              <option value="MT">🇲🇹 Malta (MT)</option>
+              <option value="SG">🇸🇬 Singapore (SG)</option>
+              <option value="GB">🇬🇧 UK (GB)</option>
+              <option value="NO">🇳🇴 Norway (NO)</option>
+              <option value="JP">🇯🇵 Japan (JP)</option>
+              <option value="CN">🇨🇳 China (CN)</option>
+              <option value="KR">🇰🇷 South Korea (KR)</option>
+              <option value="US">🇺🇸 USA (US)</option>
+              <option value="HK">🇭🇰 Hong Kong (HK)</option>
+              <option value="CY">🇨🇾 Cyprus (CY)</option>
+              <option value="BM">🇧🇲 Bermuda (BM)</option>
+              <option value="IM">🇮🇲 Isle of Man (IM)</option>
+              <option value="MV">🇲🇻 Maldives (MV)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Vessel Type <span class="req">*</span></label>
+            <select id="f-vessel-type" onchange="onFieldChange(event)">
+              <option value="">Select type...</option>
+              <option value="container">Container Ship</option>
+              <option value="bulk_carrier">Bulk Carrier</option>
+              <option value="tanker">Tanker</option>
+              <option value="lng_carrier">LNG Carrier</option>
+              <option value="lpg_carrier">LPG Carrier</option>
+              <option value="vehicle_carrier">Vehicle Carrier</option>
+              <option value="general_cargo">General Cargo</option>
+              <option value="reefer">Reefer</option>
+              <option value="cruise">Cruise Ship</option>
+              <option value="ro_ro">Ro-Ro</option>
+              <option value="chemical_tanker">Chemical Tanker</option>
+              <option value="offshore">Offshore Vessel</option>
+              <option value="naval">Naval Vessel</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Convoy Direction <span class="req">*</span></label>
+            <select id="f-convoy" onchange="onFieldChange(event)">
+              <option value="">Select convoy...</option>
+              <option value="first_northbound">1st Northbound — Port Said ~06:00</option>
+              <option value="second_northbound">2nd Northbound — Port Said ~12:00</option>
+              <option value="southbound">Southbound — Suez ~07:00</option>
+              <option value="single">Single Transit (special arrangement)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-section-title" style="margin-top:0.5rem;">Transit Details</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>ETA Port Said / Suez <span class="req">*</span></label>
+            <input type="datetime-local" id="f-eta" oninput="onFieldChange(event)">
+            <span class="hint">Min. 48h advance notice required by SCA</span>
+          </div>
+          <div class="form-group">
+            <label>Port of Last Call</label>
+            <input type="text" id="f-last-port" placeholder="e.g. Piraeus, Greece" oninput="onFieldChange(event)">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Port of Destination</label>
+            <input type="text" id="f-destination" placeholder="e.g. Jeddah, Saudi Arabia" oninput="onFieldChange(event)">
+          </div>
+          <div class="form-group">
+            <label>Agent at Port Said</label>
+            <input type="text" id="f-agent" placeholder="e.g. Suez Canal Agency Co." oninput="onFieldChange(event)">
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════════════ -->
+      <!-- TAB 2: CREW LIST -->
+      <!-- ══════════════════════════════════════════════════════════════ -->
+      <div class="form-tab-content" id="tab-content-crew">
+        <div class="form-section-title">Master &amp; Officer Details</div>
+        <div class="form-row thirds">
+          <div class="form-group">
+            <label>Master Name <span class="req">*</span></label>
+            <input type="text" id="f-master" placeholder="Capt. Nikos Papadopoulos" oninput="onFieldChange(event)">
+          </div>
+          <div class="form-group">
+            <label>Master Nationality</label>
+            <select id="f-master-nat" onchange="onFieldChange(event)">
+              <option value="">Select...</option>
+              <option value="GR">Greece</option>
+              <option value="PH">Philippines</option>
+              <option value="IN">India</option>
+              <option value="RU">Russia</option>
+              <option value="UA">Ukraine</option>
+              <option value="CN">China</option>
+              <option value="TR">Turkey</option>
+              <option value="HR">Croatia</option>
+              <option value="ID">Indonesia</option>
+              <option value="MY">Malaysia</option>
+              <option value="GB">UK</option>
+              <option value="NO">Norway</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Total Crew Count <span class="req">*</span></label>
+            <input type="number" id="f-crew-count" placeholder="e.g. 25" oninput="onFieldChange(event)" min="1" max="5000">
+            <span class="hint">Including master and officers</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>STCW Certification Status</label>
+            <select id="f-stcw" onchange="onFieldChange(event)">
+              <option value="valid">All crew — certificates valid</option>
+              <option value="partial">Partial — some pending renewal</option>
+              <option value="pending">Full renewal pending</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Chief Engineer Name</label>
+            <input type="text" id="f-chief-engineer" placeholder="e.g. Capt. Dimitris Alexiou" oninput="onFieldChange(event)">
+          </div>
+        </div>
+
+        <div class="form-section-title">Sample Crew List (MV Mediterranean Star)</div>
+        <div class="crew-table-wrap">
+          <table class="crew-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Rank</th>
+                <th>Nationality</th>
+                <th>Passport</th>
+              </tr>
+            </thead>
+            <tbody id="crew-table-body">
+              <tr><td>1</td><td>Nikos Papadopoulos</td><td><span class="rank-badge">Master</span></td><td>Greek</td><td>AE1234567</td></tr>
+              <tr><td>2</td><td>Dimitris Alexiou</td><td><span class="rank-badge">C/E</span></td><td>Greek</td><td>AE2345678</td></tr>
+              <tr><td>3</td><td>Roberto Gonzalez</td><td><span class="rank-badge">C/O</span></td><td>Filipino</td><td>PH3456789</td></tr>
+              <tr><td>4</td><td>Priya Sharma</td><td><span class="rank-badge">2/O</span></td><td>Indian</td><td>IN4567890</td></tr>
+              <tr><td>5</td><td>Ivan Petrenko</td><td><span class="rank-badge">2/E</span></td><td>Ukrainian</td><td>UA5678901</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:0.78rem;color:var(--gray)">Showing 5 of 25 crew. Full manifest exports in PDF.</p>
+
+        <div class="check-row" style="margin-top:1rem;">
+          <input type="checkbox" id="f-yellow-fever" onchange="onFieldChange(event)">
+          <label for="f-yellow-fever">Yellow fever vaccination certificates available (required for crew from endemic countries)</label>
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="f-crew-list-complete" onchange="onFieldChange(event)">
+          <label for="f-crew-list-complete">Complete crew list with passport details and STCW documents prepared</label>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════════════ -->
+      <!-- TAB 3: SHIP PARTICULARS -->
+      <!-- ══════════════════════════════════════════════════════════════ -->
+      <div class="form-tab-content" id="tab-content-ship">
+        <div class="form-section-title">Dimensions &amp; Tonnage</div>
+        <div class="form-row quad">
+          <div class="form-group">
+            <label>Gross Tonnage (GT) <span class="req">*</span></label>
+            <input type="number" id="f-gt" placeholder="e.g. 68000" oninput="onFieldChange(event)" min="1">
+          </div>
+          <div class="form-group">
+            <label>Net Tonnage (NT)</label>
+            <input type="number" id="f-nt" placeholder="e.g. 42000" oninput="onFieldChange(event)" min="1">
+          </div>
+          <div class="form-group">
+            <label>DWT</label>
+            <input type="number" id="f-dwt" placeholder="e.g. 75000" oninput="onFieldChange(event)" min="1">
+          </div>
+          <div class="form-group">
+            <label>SCNT <span class="req">*</span></label>
+            <input type="number" id="f-scnt" placeholder="e.g. 58000" oninput="onFieldChange(event)" min="1">
+            <span class="hint">Suez Canal Net Tonnage</span>
+          </div>
+        </div>
+
+        <div class="form-row thirds">
+          <div class="form-group">
+            <label>LOA (meters) <span class="req">*</span></label>
+            <input type="number" id="f-loa" placeholder="e.g. 294" oninput="onFieldChange(event)" step="0.1" min="1">
+            <span class="hint">Max: 400m (solo); SCA approval ≥400m</span>
+          </div>
+          <div class="form-group">
+            <label>Beam (meters) <span class="req">*</span></label>
+            <input type="number" id="f-beam" placeholder="e.g. 32.2" oninput="onFieldChange(event)" step="0.1" min="1">
+            <span class="hint">Max: 77.5m post-2015 expansion</span>
+          </div>
+          <div class="form-group">
+            <label>Air Draft (meters)</label>
+            <input type="number" id="f-air-draft" placeholder="e.g. 48.5" oninput="onFieldChange(event)" step="0.1" min="1">
+            <span class="hint">Max: 70m (El-Ferdan Bridge)</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Forward Draft (meters) <span class="req">*</span></label>
+            <input type="number" id="f-draft-fwd" placeholder="e.g. 14.2" oninput="onFieldChange(event)" step="0.01" min="0.1">
+            <span class="hint">Max: 18.90m (hard limit)</span>
+          </div>
+          <div class="form-group">
+            <label>Aft Draft (meters) <span class="req">*</span></label>
+            <input type="number" id="f-draft-aft" placeholder="e.g. 14.8" oninput="onFieldChange(event)" step="0.01" min="0.1">
+            <span class="hint">Max: 18.90m (hard limit)</span>
+          </div>
+        </div>
+
+        <div class="form-section-title">Classification &amp; Certificates</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Classification Society</label>
+            <select id="f-class-society" onchange="onFieldChange(event)">
+              <option value="">Select...</option>
+              <option value="LR">Lloyd's Register (LR)</option>
+              <option value="DNV">DNV</option>
+              <option value="BV">Bureau Veritas (BV)</option>
+              <option value="ABS">American Bureau of Shipping (ABS)</option>
+              <option value="ClassNK">ClassNK</option>
+              <option value="RINA">RINA</option>
+              <option value="KR">Korean Register (KR)</option>
+              <option value="CCS">China Classification Society (CCS)</option>
+              <option value="SCA">Suez Canal Authority (SCA)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>SCNT Certificate Number</label>
+            <input type="text" id="f-scnt-cert" placeholder="e.g. SCA-SCNT-2024-68432" oninput="onFieldChange(event)">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>SCNT Certificate Issue Date</label>
+            <input type="date" id="f-scnt-issue" oninput="onFieldChange(event)">
+          </div>
+          <div class="form-group">
+            <label>Certificate Valid Until</label>
+            <input type="date" id="f-scnt-expiry" oninput="onFieldChange(event)">
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════════════ -->
+      <!-- TAB 4: CARGO DECLARATION -->
+      <!-- ══════════════════════════════════════════════════════════════ -->
+      <div class="form-tab-content" id="tab-content-cargo">
+        <div class="form-section-title">Cargo Details</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Cargo Type <span class="req">*</span></label>
+            <select id="f-cargo-type" onchange="onFieldChange(event)">
+              <option value="">Select cargo...</option>
+              <option value="container">Containerized (TEU)</option>
+              <option value="dry_bulk">Dry Bulk</option>
+              <option value="liquid_bulk">Liquid Bulk</option>
+              <option value="break_bulk">Break Bulk</option>
+              <option value="vehicles">Vehicles / RoRo</option>
+              <option value="refrigerated">Refrigerated</option>
+              <option value="ballast_only">Ballast Only</option>
+              <option value="lng">LNG</option>
+              <option value="lpg">LPG</option>
+              <option value="chemicals">Chemicals</option>
+              <option value="crude_oil">Crude Oil</option>
+              <option value="petroleum_products">Petroleum Products</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Total Cargo Weight (MT)</label>
+            <input type="number" id="f-cargo-weight" placeholder="e.g. 68000" oninput="onFieldChange(event)" min="0">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Cargo Description</label>
+            <input type="text" id="f-cargo-desc" placeholder="e.g. Mixed containers — 4,200 TEU" oninput="onFieldChange(event)">
+          </div>
+          <div class="form-group">
+            <label>Bill of Lading Number</label>
+            <input type="text" id="f-bol" placeholder="e.g. BOL-MED-2024-98765" oninput="onFieldChange(event)">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Port of Loading</label>
+            <input type="text" id="f-pol" placeholder="e.g. Rotterdam, Netherlands" oninput="onFieldChange(event)">
+          </div>
+          <div class="form-group">
+            <label>Port of Discharge</label>
+            <input type="text" id="f-pod" placeholder="e.g. Singapore" oninput="onFieldChange(event)">
+          </div>
+        </div>
+
+        <div class="form-section-title">Compliance Declarations</div>
+        <div class="check-row">
+          <input type="checkbox" id="f-cargo-manifest" onchange="onFieldChange(event)">
+          <label for="f-cargo-manifest">Cargo manifest and Bill of Lading prepared and available for SCA inspection</label>
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="f-no-prohibited" onchange="onFieldChange(event)">
+          <label for="f-no-prohibited">Confirm: cargo contains no prohibited goods under Egyptian law or SCA regulations</label>
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="f-imdg-compliant" onchange="onFieldChange(event)">
+          <label for="f-imdg-compliant">All dangerous goods declared and packaged per IMDG Amendment 42-24</label>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════════════ -->
+      <!-- TAB 5: DANGEROUS GOODS DECLARATION -->
+      <!-- ══════════════════════════════════════════════════════════════ -->
+      <div class="form-tab-content" id="tab-content-dg">
+        <div class="form-section-title">IMDG Amendment 42-24 — Dangerous Goods</div>
+
+        <div id="dg-items-container">
+          <!-- DG Item 1 (pre-filled) -->
+          <div class="dg-item" id="dg-item-0">
+            <div class="dg-item-header">
+              <div class="dg-item-title">DG Item 1 — IMDG Class 3</div>
+              <button class="dg-remove-btn" onclick="removeDgItem(0)" title="Remove">✕</button>
+            </div>
+            <div class="form-row thirds">
+              <div class="form-group">
+                <label>IMDG Class <span class="req">*</span></label>
+                <select class="dg-class" onchange="onDgChange(this)">
+                  <option value="">Select class...</option>
+                  <option value="1">Class 1 — Explosives</option>
+                  <option value="2.1">Class 2.1 — Flammable Gases</option>
+                  <option value="2.3">Class 2.3 — Toxic Gases</option>
+                  <option value="3" selected>Class 3 — Flammable Liquids</option>
+                  <option value="4.1">Class 4.1 — Flammable Solids</option>
+                  <option value="6.1">Class 6.1 — Toxic Substances</option>
+                  <option value="7">Class 7 — Radioactive Material</option>
+                  <option value="8">Class 8 — Corrosive Substances</option>
+                  <option value="9">Class 9 — Misc. (incl. Lithium Batteries)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>UN Number</label>
+                <input type="text" class="dg-un" placeholder="e.g. UN1203" oninput="onFieldChange(event)" value="UN1203">
+              </div>
+              <div class="form-group">
+                <label>Proper Shipping Name</label>
+                <input type="text" class="dg-name" placeholder="e.g. Motor Spirit" oninput="onFieldChange(event)" value="Motor Spirit (Gasoline)">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Quantity (MT)</label>
+                <input type="number" class="dg-qty" placeholder="e.g. 120" oninput="onFieldChange(event)" value="120">
+              </div>
+              <div class="form-group">
+                <label>Stowage Location</label>
+                <input type="text" class="dg-stow" placeholder="e.g. Bay 01, Row 2, Tier 82" oninput="onFieldChange(event)" value="Bay 01, Row 2, Tier 82">
+              </div>
+            </div>
+            <div id="dg-flag-0" style="display:none;" class="field-hint err"></div>
+          </div>
+
+          <!-- DG Item 2 (pre-filled) -->
+          <div class="dg-item" id="dg-item-1">
+            <div class="dg-item-header">
+              <div class="dg-item-title">DG Item 2 — IMDG Class 8</div>
+              <button class="dg-remove-btn" onclick="removeDgItem(1)" title="Remove">✕</button>
+            </div>
+            <div class="form-row thirds">
+              <div class="form-group">
+                <label>IMDG Class <span class="req">*</span></label>
+                <select class="dg-class" onchange="onDgChange(this)">
+                  <option value="">Select class...</option>
+                  <option value="1">Class 1 — Explosives</option>
+                  <option value="2.1">Class 2.1 — Flammable Gases</option>
+                  <option value="2.3">Class 2.3 — Toxic Gases</option>
+                  <option value="3">Class 3 — Flammable Liquids</option>
+                  <option value="4.1">Class 4.1 — Flammable Solids</option>
+                  <option value="6.1">Class 6.1 — Toxic Substances</option>
+                  <option value="7">Class 7 — Radioactive Material</option>
+                  <option value="8" selected>Class 8 — Corrosive Substances</option>
+                  <option value="9">Class 9 — Misc. (incl. Lithium Batteries)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>UN Number</label>
+                <input type="text" class="dg-un" placeholder="e.g. UN2794" oninput="onFieldChange(event)" value="UN2794">
+              </div>
+              <div class="form-group">
+                <label>Proper Shipping Name</label>
+                <input type="text" class="dg-name" placeholder="e.g. Batteries, wet, filled with acid" oninput="onFieldChange(event)" value="Batteries, wet, filled with acid">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Quantity (MT)</label>
+                <input type="number" class="dg-qty" placeholder="e.g. 45" oninput="onFieldChange(event)" value="45">
+              </div>
+              <div class="form-group">
+                <label>Stowage Location</label>
+                <input type="text" class="dg-stow" placeholder="e.g. Bay 12, Row 4, Tier 84" oninput="onFieldChange(event)" value="Bay 12, Row 4, Tier 84">
+              </div>
+            </div>
+            <div id="dg-flag-1" style="display:none;" class="field-hint err"></div>
+          </div>
+        </div>
+
+        <button class="add-dg-btn" onclick="addDgItem()">+ Add Another Dangerous Goods Item</button>
+
+        <div class="check-row" style="margin-top:1rem;">
+          <input type="checkbox" id="f-imdg-cert" onchange="onFieldChange(event)">
+          <label for="f-imdg-cert">Dangerous Goods Declarations certified and signed by master</label>
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="f-segregation-ok" onchange="onFieldChange(event)">
+          <label for="f-segregation-ok">IMDG segregation requirements verified and implemented in stowage plan</label>
+        </div>
+
+        <div id="dg-lithium-warning" style="display:none; margin-top:1rem; padding:0.9rem 1rem; background:rgba(255,217,61,0.08); border:1px solid rgba(255,217,61,0.25); border-radius:8px;">
+          <p style="font-size:0.82rem; color:var(--yellow);"><strong>⚠ IMDG 42-24 Alert:</strong> Lithium batteries detected (UN3090/3091/3480/3481). New IMDG Amendment 42-24 regulations apply — enhanced stowage segregation and updated documentation requirements. Ensure IMDG 42-24 compliance before filing.</p>
+        </div>
+
+        <div id="dg-class7-warning" style="display:none; margin-top:0.75rem; padding:0.9rem 1rem; background:rgba(255,107,107,0.08); border:1px solid rgba(255,107,107,0.25); border-radius:8px;">
+          <p style="font-size:0.82rem; color:var(--red);"><strong>⛔ ENRRA Permit Required:</strong> Class 7 (Radioactive) detected. SCA approval + ENRRA (Egyptian Nuclear and Radiological Regulatory Authority) permit required. Minimum 30-day lead time. Do not attempt transit without approval.</p>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════════════ -->
+      <!-- TAB 6: PILOTAGE ARRANGEMENTS -->
+      <!-- ══════════════════════════════════════════════════════════════ -->
+      <div class="form-tab-content" id="tab-content-pilotage">
+        <div class="form-section-title">SCA Compulsory Pilotage</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Pilot Boarding Station <span class="req">*</span></label>
+            <select id="f-pilot-station" onchange="onFieldChange(event)">
+              <option value="">Select...</option>
+              <option value="port_said_inner">Port Said Inner Roads (Northbound)</option>
+              <option value="port_said_outer">Port Said Outer Anchorage (Northbound)</option>
+              <option value="suez_roads">Suez Roads / Great Bitter Lake (Southbound)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Number of Pilots Required</label>
+            <input type="number" id="f-pilot-count" placeholder="1" oninput="onFieldChange(event)" min="1" max="4" value="">
+            <span class="hint">LOA &gt;270m or Beam &gt;40m → 2 pilots minimum</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Pilot Ladder Condition</label>
+            <select id="f-pilot-ladder" onchange="onFieldChange(event)">
+              <option value="">Select...</option>
+              <option value="ok">Compliant — SOLAS regulation II-1/23</option>
+              <option value="needs_check">Needs inspection before transit</option>
+              <option value="requires_replacement">Replacement required</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Max Engine Speed (RPM)</label>
+            <input type="number" id="f-engine-rpm" placeholder="e.g. 120" oninput="onFieldChange(event)" min="1">
+          </div>
+        </div>
+
+        <div class="form-section-title">Maneuverability Declaration</div>
+        <div class="form-row thirds">
+          <div class="form-group">
+            <label>Anchor Ready (P&amp;S)</label>
+            <select id="f-anchor" onchange="onFieldChange(event)">
+              <option value="">Select...</option>
+              <option value="yes">Yes — both anchors ready</option>
+              <option value="one_only">Port anchor only</option>
+              <option value="no">No — defect logged</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Bow Thruster</label>
+            <select id="f-bow-thruster" onchange="onFieldChange(event)">
+              <option value="">Select...</option>
+              <option value="yes">Operational</option>
+              <option value="no">Not fitted</option>
+              <option value="defect">Defective</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Steering Gear Tests</label>
+            <select id="f-steering" onchange="onFieldChange(event)">
+              <option value="">Select...</option>
+              <option value="completed">Completed within 12h</option>
+              <option value="pending">Pending</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="check-row">
+          <input type="checkbox" id="f-pilot-comms" onchange="onFieldChange(event)">
+          <label for="f-pilot-comms">VHF communications on all required channels (Ch 12, 16, 74) — tested and operational</label>
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="f-ais-active" onchange="onFieldChange(event)">
+          <label for="f-ais-active">AIS transponder active and transmitting correct vessel data</label>
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="f-convoy-rules" onchange="onFieldChange(event)">
+          <label for="f-convoy-rules">Master has reviewed SCA convoy separation and speed requirements</label>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════════════ -->
+      <!-- TAB 7: SCNT CALCULATOR -->
+      <!-- ══════════════════════════════════════════════════════════════ -->
+      <div class="form-tab-content" id="tab-content-scnt">
+        <div class="form-section-title">SCNT Toll Estimator — SCA SDR Calculation</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>SCNT (Suez Canal Net Tonnage) <span class="req">*</span></label>
+            <input type="number" id="f-scnt-calc" placeholder="e.g. 58000" oninput="calculateScnt()" min="1">
+            <span class="hint">From vessel's SCNT certificate. Enter above and click Calculate.</span>
+          </div>
+          <div class="form-group">
+            <label>Vessel Category (for toll rate)</label>
+            <select id="f-scnt-category" onchange="calculateScnt()">
+              <option value="">Auto-detect from vessel type</option>
+              <option value="container">Container Ship</option>
+              <option value="bulk_carrier">Bulk Carrier</option>
+              <option value="tanker">Tanker</option>
+              <option value="lng_carrier">LNG Carrier</option>
+              <option value="lpg_carrier">LPG Carrier</option>
+              <option value="general_cargo">General Cargo</option>
+              <option value="ro_ro">Ro-Ro</option>
+              <option value="chemical_tanker">Chemical Tanker</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>SDR/USD Rate (current estimate)</label>
+            <input type="number" id="f-sdr-rate" value="1.34" step="0.001" oninput="calculateScnt()">
+            <span class="hint">IMF SDR rate as of May 2026. SCA invoices at payment-date rate.</span>
+          </div>
+          <div class="form-group">
+            <label>Rebate Program (if applicable)</label>
+            <select id="f-rebate" onchange="calculateScnt()">
+              <option value="0">None / Standard tariff</option>
+              <option value="0.10">10% — Bulk carrier volume discount</option>
+              <option value="0.20">20% — Container frequency rebate</option>
+              <option value="0.30">30% — Tanker program rebate</option>
+              <option value="0.50">50% — Special arrangement</option>
+              <option value="0.75">75% — Max rebate (eligible bulk only)</option>
+            </select>
+          </div>
+        </div>
+
+        <button onclick="calculateScnt()" style="padding:0.7rem 1.5rem; background:var(--teal); color:var(--navy); border:none; border-radius:9px; font-family:'IBM Plex Sans', sans-serif; font-size:0.9rem; font-weight:700; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.background='#CC4F00'" onmouseout="this.style.background='var(--teal)'">
+          Calculate SCNT Toll →
+        </button>
+
+        <div class="scnt-result-box" id="scnt-result-box" style="display:none;">
+          <div class="scnt-result-title">📊 Estimated SCA Toll Breakdown</div>
+          <div class="scnt-grid">
+            <div class="scnt-item">
+              <div class="scnt-label">SCNT Used</div>
+              <div class="scnt-value" id="sr-scnt">—</div>
+            </div>
+            <div class="scnt-item">
+              <div class="scnt-label">Base Rate (SDR/SCNT)</div>
+              <div class="scnt-value" id="sr-rate">—</div>
+            </div>
+            <div class="scnt-item">
+              <div class="scnt-label">Gross Toll (SDR)</div>
+              <div class="scnt-value" id="sr-gross-sdr">—</div>
+            </div>
+            <div class="scnt-item">
+              <div class="scnt-label">Rebate Applied</div>
+              <div class="scnt-value" id="sr-rebate">—</div>
+            </div>
+            <div class="scnt-item highlight">
+              <div class="scnt-label">Net Toll (SDR)</div>
+              <div class="scnt-value" id="sr-net-sdr">—</div>
+            </div>
+            <div class="scnt-item highlight">
+              <div class="scnt-label">Estimated USD</div>
+              <div class="scnt-value" id="sr-usd">—</div>
+            </div>
+          </div>
+          <div class="scnt-disclaimer" id="sr-disclaimer">
+            Estimate only. SCA invoices at IMF SDR/USD rate on payment date. Rebates (up to 75%) may apply based on vessel class and transit frequency programs. Contact SCA directly for confirmed toll invoice.
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /form-body -->
+
+    <!-- ACTIONS -->
+    <div class="form-actions">
+      <button class="btn-validate" id="btn-validate" onclick="runValidation()">
+        ✓ Validate All Forms
+      </button>
+      <button class="btn-pdf" id="btn-pdf" onclick="openPdfPreview()">
+        📄 Preview PDF Package
+      </button>
+    </div>
+  </div>
+
+  <!-- RIGHT: RESULTS PANEL -->
+  <div class="results-panel">
+
+    <!-- Validation Status Card -->
+    <div class="status-card" id="status-card">
+      <div class="status-header">
+        <div class="status-title">SCA Validation Status</div>
+        <div class="status-badge badge-idle" id="status-badge">Waiting</div>
+      </div>
+      <div id="validation-idle" class="idle-state">
+        <div class="idle-icon">🛡️</div>
+        <p>Click <strong>Validate All Forms</strong> to run SCA compliance checks across all 7 Suez filing forms.</p>
+      </div>
+      <div id="validation-loading" style="display:none;" class="idle-state">
+        <div class="spinner"></div>
+        <p style="margin-top:1rem;">Running SCA validation checks...</p>
+      </div>
+      <div id="validation-results" style="display:none;">
+        <div class="status-checks" id="status-checks">
+          <div class="check-stat">
+            <div class="num num-pass" id="count-pass">—</div>
+            <div class="lbl">Passed</div>
+          </div>
+          <div class="check-stat">
+            <div class="num num-warn" id="count-warn">—</div>
+            <div class="lbl">Warnings</div>
+          </div>
+          <div class="check-stat">
+            <div class="num num-fail" id="count-fail">—</div>
+            <div class="lbl">Issues</div>
+          </div>
+        </div>
+        <div class="checklist-section" id="checklist-container"></div>
+      </div>
+    </div>
+
+    <!-- Export Demo Card — visible after validation runs -->
+    <div class="export-demo-card" id="export-demo-card" style="display:none;">
+      <div class="export-demo-header">
+        <span class="export-demo-icon">📥</span>
+        <h4>Download This Validation</h4>
+      </div>
+      <p>Take the SCA compliance report to your team. PDF includes form validation results, vessel summary, and toll estimate.</p>
+      <div class="export-demo-btns">
+        <button class="export-demo-btn primary" onclick="downloadDemoPDF()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download PDF
+        </button>
+        <button class="export-demo-btn secondary" onclick="downloadDemoCSV()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          Export CSV
+        </button>
+      </div>
+      <div class="export-demo-note">Demo downloads — no account required. Full SCA-compliant PDFs available with a CanalClear account.</div>
+    </div>
+
+    <!-- CTA Card -->
+    <div class="cta-card">
+      <div class="cta-eyebrow">Suez Canal Filing</div>
+      <h3>7 SCA documents in minutes, not hours</h3>
+      <div class="cta-price">from <strong>$899/mo</strong> · unlimited transits</div>
+      <p>E-Transit, Crew List, Cargo Declaration, Dangerous Goods, Pilotage — all validated against SCA rules with real-time feedback.</p>
+      <a href="/pricing" class="cta-primary">Start Filing — from $899/mo →</a>
+      <div class="cta-trust">
+        <span>Cancel anytime</span>
+        <span>No setup fees</span>
+        <span>No agent needed</span>
+      </div>
+    </div>
+
+    <!-- Lead capture card -->
+    <div class="lead-card">
+      <h4>Save Your Test Filing</h4>
+      <p>Enter your email and vessel name to receive a copy of this demo session + the PDF preview.</p>
+      <input type="text" id="lead-vessel" placeholder="Vessel name (optional)">
+      <input type="email" id="lead-email" placeholder="your@company.com">
+      <button onclick="submitLead()">Send Me the PDF →</button>
+      <div class="lead-success" id="lead-success">✓ Sent! Check your inbox.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PDF PREVIEW MODAL -->
+<div class="pdf-modal-overlay" id="pdf-modal">
+  <div class="pdf-modal">
+    <div class="pdf-modal-header">
+      <h3>Suez Canal SCA Filing Package Preview</h3>
+      <div style="display:flex;align-items:center;gap:0.75rem;">
+        <span class="demo-tag">DEMO — Not for SCA submission</span>
+        <button class="pdf-modal-close" onclick="closePdfModal()">&times;</button>
+      </div>
+    </div>
+    <div class="pdf-modal-body" id="pdf-modal-body">
+      <div class="pdf-loading" id="pdf-loading">
+        <div class="spinner"></div>
+        <p>Generating SCA PDF package preview...</p>
+      </div>
+      <iframe id="pdf-iframe" style="display:none;" title="SCA Filing PDF Preview"></iframe>
+    </div>
+    <div class="pdf-modal-footer">
+      <p>Watermarked "DEMO" — not valid for SCA submission. <a href="/pricing" style="color:var(--teal);">Upgrade for real PDFs →</a></p>
+      <a href="/pricing">Start Filing — $899/mo</a>
+    </div>
+  </div>
+</div>
+
+<!-- STICKY BOTTOM CTA -->
+<div class="sticky-cta" id="sticky-cta">
+  <p class="sticky-cta-text"><strong>File 7 SCA docs in minutes.</strong><span class="sticky-cta-sub"> Replace your Suez agent with CanalClear — real-time validation, instant PDF package.</span></p>
+  <a href="/pricing">Start at $899/mo →</a>
+  <button class="sticky-cta-close" onclick="document.getElementById('sticky-cta').style.display='none'" aria-label="Close">×</button>
+</div>
+
+<script>
+// ─── DEMO STATE ────────────────────────────────────────────────────────────────
+var currentMode = 'sample';
+var lastValidation = null;
+var dgItemCount = 2; // already have 2 pre-filled items
+
+// ─── SAMPLE DATA (MV Mediterranean Star) ──────────────────────────────────────
+var SAMPLE_DATA = {
+  // Transit Application
+  vessel_name:    'MV Mediterranean Star',
+  imo:            '9765432',
+  flag:           'GR',
+  vessel_type:    'container',
+  convoy:         'first_northbound',
+  eta: (function(){
+    var d = new Date(Date.now() + 72 * 3600 * 1000);
+    var pad = function(n){ return String(n).padStart(2,'0'); };
+    return d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate()) + 'T' + pad(d.getHours()) + ':' + pad(d.getMinutes());
+  })(),
+  last_port:      'Piraeus, Greece',
+  destination:    'Jeddah, Saudi Arabia',
+  agent:          'Suez Canal Agency Co. (Port Said)',
+
+  // Crew
+  master:          'Capt. Nikos Papadopoulos',
+  master_nat:      'GR',
+  crew_count:      '25',
+  stcw:            'valid',
+  chief_engineer:  'Eng. Dimitris Alexiou',
+  yellow_fever:    true,
+  crew_list_complete: true,
+
+  // Ship Particulars
+  gt:           '68000',
+  nt:           '42500',
+  dwt:          '75000',
+  scnt:         '58000',
+  loa:          '294',
+  beam:         '32.2',
+  air_draft:    '48.5',
+  draft_fwd:    '14.2',
+  draft_aft:    '14.8',
+  class_society: 'LR',
+  scnt_cert:    'SCA-SCNT-2024-68432',
+  scnt_issue:   '2024-03-10',
+  scnt_expiry:  '2027-03-09',
+
+  // Cargo
+  cargo_type:    'container',
+  cargo_weight:  '68000',
+  cargo_desc:    'Mixed containers — 4,200 TEU incl. 2 DG items',
+  bol:           'BOL-MED-2024-98765',
+  pol:           'Rotterdam, Netherlands',
+  pod:           'Singapore',
+  cargo_manifest: true,
+  no_prohibited:  true,
+  imdg_compliant: true,
+
+  // Pilotage
+  pilot_station: 'port_said_inner',
+  pilot_count:   '1',
+  pilot_ladder:  'ok',
+  engine_rpm:    '115',
+  anchor:        'yes',
+  bow_thruster:  'yes',
+  steering:      'completed',
+  pilot_comms:   true,
+  ais_active:    true,
+  convoy_rules:  true,
+
+  // SCNT
+  scnt_calc:     '58000',
+  scnt_category: 'container',
+  sdr_rate:      '1.34',
+  rebate:        '0',
+
+  // Checkboxes
+  imdg_cert:      true,
+  segregation_ok: true,
+};
+
+// ─── MODE SWITCHING ────────────────────────────────────────────────────────────
+function setMode(mode) {
+  currentMode = mode;
+  var btnSample = document.getElementById('btn-sample');
+  var btnOwn = document.getElementById('btn-own');
+  var hint = document.getElementById('mode-hint');
+
+  if (mode === 'sample') {
+    btnSample.classList.add('active');
+    btnOwn.classList.remove('active');
+    hint.textContent = 'Pre-filled with realistic vessel data — click any field to edit';
+    fillSampleData();
+  } else {
+    btnOwn.classList.add('active');
+    btnSample.classList.remove('active');
+    hint.textContent = 'Enter your real vessel data — AI can auto-fill from vessel name or IMO';
+    clearForm();
+  }
+  resetValidation();
+}
+
+// ─── FILL SAMPLE DATA ──────────────────────────────────────────────────────────
+var fillTimer = null;
+function fillSampleData() {
+  clearTimeout(fillTimer);
+  var d = SAMPLE_DATA;
+
+  // Transit Application
+  setFieldAnimated('f-vessel-name', d.vessel_name, 0);
+  setFieldAnimated('f-imo', d.imo, 60);
+  setSelect('f-flag', d.flag, 80);
+  setSelect('f-vessel-type', d.vessel_type, 100);
+  setSelect('f-convoy', d.convoy, 120);
+  setField('f-eta', d.eta);
+  setFieldAnimated('f-last-port', d.last_port, 140);
+  setFieldAnimated('f-destination', d.destination, 160);
+  setFieldAnimated('f-agent', d.agent, 180);
+
+  // Crew
+  setFieldAnimated('f-master', d.master, 60);
+  setSelect('f-master-nat', d.master_nat, 80);
+  setFieldAnimated('f-crew-count', d.crew_count, 100);
+  setSelect('f-stcw', d.stcw, 120);
+  setFieldAnimated('f-chief-engineer', d.chief_engineer, 140);
+  setCheckbox('f-yellow-fever', d.yellow_fever);
+  setCheckbox('f-crew-list-complete', d.crew_list_complete);
+
+  // Ship Particulars
+  setFieldAnimated('f-gt', d.gt, 80);
+  setFieldAnimated('f-nt', d.nt, 100);
+  setFieldAnimated('f-dwt', d.dwt, 120);
+  setFieldAnimated('f-scnt', d.scnt, 140);
+  setFieldAnimated('f-loa', d.loa, 160);
+  setFieldAnimated('f-beam', d.beam, 180);
+  setFieldAnimated('f-air-draft', d.air_draft, 200);
+  setFieldAnimated('f-draft-fwd', d.draft_fwd, 220);
+  setFieldAnimated('f-draft-aft', d.draft_aft, 240);
+  setSelect('f-class-society', d.class_society, 260);
+  setFieldAnimated('f-scnt-cert', d.scnt_cert, 280);
+  setField('f-scnt-issue', d.scnt_issue);
+  setField('f-scnt-expiry', d.scnt_expiry);
+
+  // Cargo
+  setSelect('f-cargo-type', d.cargo_type, 80);
+  setFieldAnimated('f-cargo-weight', d.cargo_weight, 100);
+  setFieldAnimated('f-cargo-desc', d.cargo_desc, 120);
+  setFieldAnimated('f-bol', d.bol, 140);
+  setFieldAnimated('f-pol', d.pol, 160);
+  setFieldAnimated('f-pod', d.pod, 180);
+  setCheckbox('f-cargo-manifest', d.cargo_manifest);
+  setCheckbox('f-no-prohibited', d.no_prohibited);
+  setCheckbox('f-imdg-compliant', d.imdg_compliant);
+
+  // Pilotage
+  setSelect('f-pilot-station', d.pilot_station, 80);
+  setFieldAnimated('f-pilot-count', d.pilot_count, 100);
+  setSelect('f-pilot-ladder', d.pilot_ladder, 120);
+  setFieldAnimated('f-engine-rpm', d.engine_rpm, 140);
+  setSelect('f-anchor', d.anchor, 160);
+  setSelect('f-bow-thruster', d.bow_thruster, 180);
+  setSelect('f-steering', d.steering, 200);
+  setCheckbox('f-pilot-comms', d.pilot_comms);
+  setCheckbox('f-ais-active', d.ais_active);
+  setCheckbox('f-convoy-rules', d.convoy_rules);
+
+  // SCNT Calculator
+  setFieldAnimated('f-scnt-calc', d.scnt_calc, 100);
+  setSelect('f-scnt-category', d.scnt_category, 120);
+  setField('f-sdr-rate', d.sdr_rate);
+  setSelect('f-rebate', d.rebate, 140);
+
+  // DG checkboxes
+  setCheckbox('f-imdg-cert', d.imdg_cert);
+  setCheckbox('f-segregation-ok', d.segregation_ok);
+
+  markAllFilled();
+
+  // Auto-calculate SCNT + run validation
+  fillTimer = setTimeout(function() {
+    calculateScnt();
+    runValidation();
+  }, 900);
+}
+
+// ─── HELPERS ──────────────────────────────────────────────────────────────────
+function setFieldAnimated(id, val, delay) {
+  delay = delay || 0;
+  setTimeout(function() {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.value = val;
+    el.classList.add('field-autofilled', 'has-value');
+    setTimeout(function() { el.classList.remove('field-autofilled'); }, 700);
+  }, delay);
+}
+function setField(id, val) {
+  var el = document.getElementById(id);
+  if (el) { el.value = val; el.classList.add('has-value'); }
+}
+function setSelect(id, val, delay) {
+  delay = delay || 0;
+  setTimeout(function() {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.value = val;
+    el.classList.add('field-autofilled');
+    setTimeout(function() { el.classList.remove('field-autofilled'); }, 700);
+  }, delay);
+}
+function setCheckbox(id, val) {
+  var el = document.getElementById(id);
+  if (el) el.checked = !!val;
+}
+function markAllFilled() {
+  setTimeout(function() {
+    document.querySelectorAll('.form-group input, .form-group select').forEach(function(el) {
+      if (el.value) el.classList.add('has-value');
+    });
+  }, 400);
+}
+function clearForm() {
+  document.querySelectorAll('.form-group input, .form-group select, .form-group textarea').forEach(function(el) {
+    if (el.type === 'checkbox') el.checked = false;
+    else el.value = '';
+    el.classList.remove('has-value', 'field-error', 'field-ok', 'field-warning');
+  });
+  document.getElementById('scnt-result-box').style.display = 'none';
+}
+
+// ─── IMO LOOKUP ───────────────────────────────────────────────────────────────
+// Validate IMO checksum in JS (mirrors server validation)
+function imoChecksumValid(cleaned) {
+  if (!/^\d{7}$/.test(cleaned)) return false;
+  var d = cleaned.split('').map(Number);
+  var sum = d[0]*7 + d[1]*6 + d[2]*5 + d[3]*4 + d[4]*3 + d[5]*2;
+  return sum % 10 === d[6];
+}
+
+// Called on input in the banner's IMO field
+function onIMOLookupInput(el) {
+  var raw = el.value.trim();
+  var cleaned = raw.replace(/^IMO\s*/i, '').trim();
+  var btn = document.getElementById('imo-lookup-btn');
+
+  el.classList.remove('imo-valid', 'imo-error');
+
+  if (!cleaned) {
+    btn.disabled = true;
+    setLookupStatus('hint', 'Enter your 7-digit IMO number above');
+    return;
+  }
+  if (!/^\d{1,7}$/.test(cleaned)) {
+    el.classList.add('imo-error');
+    btn.disabled = true;
+    setLookupStatus('error', 'Digits only, 7 characters');
+    return;
+  }
+  if (cleaned.length < 7) {
+    btn.disabled = true;
+    setLookupStatus('hint', (7 - cleaned.length) + ' more digits needed');
+    return;
+  }
+  if (!imoChecksumValid(cleaned)) {
+    el.classList.add('imo-error');
+    btn.disabled = true;
+    setLookupStatus('error', 'Invalid IMO number — check and re-enter');
+    return;
+  }
+
+  // Valid checksum — enable button and auto-trigger lookup
+  el.classList.add('imo-valid');
+  btn.disabled = false;
+  setLookupStatus('hint', '✓ Valid format — press Look Up or hit Enter');
+
+  // Auto-lookup after 400ms debounce
+  clearTimeout(window._imoLookupTimer);
+  window._imoLookupTimer = setTimeout(function() {
+    doIMOLookup();
+  }, 400);
+}
+
+function setLookupStatus(type, msg) {
+  var el = document.getElementById('imo-lookup-status');
+  if (!el) return;
+  el.className = 'imo-lookup-status imo-status-' + type;
+  el.textContent = msg;
+}
+
+// Sync form's f-imo field into the banner input
+function syncIMOLookupFromForm() {
+  var formImo = document.getElementById('f-imo');
+  var bannerImo = document.getElementById('imo-lookup-input');
+  if (!formImo || !bannerImo) return;
+  var val = formImo.value.trim().replace(/^IMO\s*/i, '').trim();
+  if (bannerImo.value !== val) {
+    bannerImo.value = val;
+    onIMOLookupInput(bannerImo);
+  }
+}
+
+// Sync banner value into form field
+function syncFormFromLookupBanner() {
+  var bannerImo = document.getElementById('imo-lookup-input');
+  var formImo = document.getElementById('f-imo');
+  if (!bannerImo || !formImo) return;
+  var cleaned = bannerImo.value.trim().replace(/^IMO\s*/i, '').trim();
+  if (formImo.value !== cleaned && cleaned) {
+    formImo.value = cleaned;
+    formImo.classList.add('has-value');
+  }
+}
+
+// Main IMO lookup — fires on button click or debounce
+var _imoLookupInFlight = false;
+function doIMOLookup() {
+  clearTimeout(window._imoLookupTimer);
+  if (_imoLookupInFlight) return;
+
+  var bannerInput = document.getElementById('imo-lookup-input');
+  var btn = document.getElementById('imo-lookup-btn');
+  var btnLabel = document.getElementById('imo-lookup-btn-label');
+  if (!bannerInput) return;
+
+  var raw = bannerInput.value.trim();
+  var cleaned = raw.replace(/^IMO\s*/i, '').trim();
+  if (!imoChecksumValid(cleaned)) return;
+
+  _imoLookupInFlight = true;
+  btn.disabled = true;
+  btnLabel.textContent = 'Looking up…';
+  setLookupStatus('loading', '⏳ Searching vessel registry…');
+
+  // Sync the form IMO field
+  syncFormFromLookupBanner();
+
+  fetch('/api/demo/vessel-lookup?imo=' + encodeURIComponent(cleaned))
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      _imoLookupInFlight = false;
+      btn.disabled = false;
+      btnLabel.textContent = 'Look Up →';
+
+      if (data.success && data.vessel) {
+        applyVesselLookupData(data.vessel);
+        setLookupStatus('success', '✓ ' + data.vessel.name + ' — vessel data populated');
+        bannerInput.classList.remove('imo-error');
+        bannerInput.classList.add('imo-valid');
+      } else {
+        setLookupStatus('hint', 'Vessel not in registry — fill fields manually below');
+        bannerInput.classList.remove('imo-valid');
+      }
+    })
+    .catch(function() {
+      _imoLookupInFlight = false;
+      btn.disabled = false;
+      btnLabel.textContent = 'Look Up →';
+      setLookupStatus('hint', 'Lookup unavailable — fill fields manually below');
+    });
+}
+
+// Map vessel type codes to Suez select option values
+var VESSEL_TYPE_MAP = {
+  'bulk_carrier': 'bulk_carrier', 'container': 'container', 'tanker': 'tanker',
+  'lng_carrier': 'lng_carrier', 'lpg_carrier': 'lpg_carrier', 'general_cargo': 'general_cargo',
+  'ro_ro': 'ro_ro', 'chemical_tanker': 'chemical_tanker', 'passenger': 'passenger',
+};
+
+// Apply fetched vessel data to the Suez SCA form fields with animation
+function applyVesselLookupData(v) {
+  // Switch to "own data" mode so fields aren't overwritten by sample data
+  if (currentMode === 'sample') {
+    currentMode = 'own';
+    var btnSample = document.getElementById('btn-sample');
+    var btnOwn = document.getElementById('btn-own');
+    if (btnSample) btnSample.classList.remove('active');
+    if (btnOwn) btnOwn.classList.add('active');
+  }
+
+  // Clear form first for visible animation effect
+  clearForm();
+
+  // Animate each field in sequence — Transit Application tab
+  if (v.name)  setFieldAnimated('f-vessel-name', v.name, 0);
+  if (v.imo)   setFieldAnimated('f-imo', v.imo, 60);
+  if (v.flag)  setSelect('f-flag', v.flag, 100);
+  if (v.type && VESSEL_TYPE_MAP[v.type]) setSelect('f-vessel-type', VESSEL_TYPE_MAP[v.type], 140);
+
+  // Ship Particulars tab
+  if (v.gt)    setFieldAnimated('f-gt', String(v.gt), 180);
+  if (v.nt)    setFieldAnimated('f-nt', String(v.nt), 220);
+  if (v.loa)   setFieldAnimated('f-loa', String(v.loa), 260);
+  if (v.beam)  setFieldAnimated('f-beam', String(v.beam), 300);
+  if (v.draft) setFieldAnimated('f-draft-fwd', String(v.draft), 340);
+
+  // After fields animate, update UI indicators
+  setTimeout(function() {
+    var label = document.getElementById('autofill-label');
+    if (label) label.textContent = '✓ Vessel loaded';
+    setTimeout(function() {
+      if (label) label.textContent = 'AI Auto-Fill';
+    }, 3000);
+  }, 400);
+
+  // Track analytics
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'imo_lookup_success', { page: 'suez', imo: v.imo, vessel_type: v.type });
+  }
+}
+
+// ─── AUTOFILL ─────────────────────────────────────────────────────────────────
+function triggerAutoFill() {
+  var btn = document.getElementById('autofill-btn');
+  var label = document.getElementById('autofill-label');
+
+  if (currentMode === 'own') {
+    // In own-data mode, check for IMO in the banner first
+    var bannerImo = document.getElementById('imo-lookup-input');
+    var formImo = document.getElementById('f-imo').value.trim();
+    var imoVal = (bannerImo && bannerImo.value.trim()) || formImo;
+
+    if (imoVal) {
+      // Has an IMO — trigger the lookup flow
+      var cleaned = imoVal.replace(/^IMO\s*/i, '').trim();
+      if (imoChecksumValid(cleaned)) {
+        if (bannerImo) bannerImo.value = cleaned;
+        doIMOLookup();
+        return;
+      }
+    }
+
+    var vesselName = document.getElementById('f-vessel-name').value.trim();
+    if (!vesselName && !formImo) {
+      var el = document.getElementById('f-vessel-name');
+      el.focus();
+      el.placeholder = '← Enter vessel name or IMO first';
+      setTimeout(function() { el.placeholder = 'e.g. MV Mediterranean Star'; }, 3000);
+      return;
+    }
+  }
+
+  // Clear form briefly so re-fill animation is visible
+  label.textContent = 'Looking up vessel...';
+  btn.disabled = true;
+
+  // Clear all fields briefly so the re-fill animation is visible
+  document.querySelectorAll('.form-group input, .form-group select').forEach(function(el) {
+    if (el.type !== 'checkbox' && el.type !== 'hidden') {
+      el.value = '';
+      el.classList.remove('has-value');
+    }
+  });
+
+  setTimeout(function() {
+    label.textContent = 'Auto-filling...';
+    fillSampleData();
+    setTimeout(function() {
+      label.textContent = '✓ Auto-filled!';
+      btn.disabled = false;
+      setTimeout(function() { label.textContent = 'AI Auto-Fill'; }, 2500);
+    }, 800);
+  }, 600);
+}
+
+// ─── FIELD CHANGE HANDLERS ────────────────────────────────────────────────────
+function onFieldChange(e) {
+  if (e && e.target && e.target.value) e.target.classList.add('has-value');
+}
+
+function onDgChange(selectEl) {
+  var val = selectEl.value;
+  // Check for class 7 → ENRRA warning
+  checkDgWarnings();
+}
+
+function checkDgWarnings() {
+  var classes = Array.from(document.querySelectorAll('.dg-class')).map(function(s){ return s.value; });
+  var uns = Array.from(document.querySelectorAll('.dg-un')).map(function(i){ return (i.value || '').toUpperCase(); });
+
+  var lithiumUns = ['UN3090','UN3091','UN3480','UN3481'];
+  var hasLithium = uns.some(function(u){ return lithiumUns.indexOf(u) >= 0; });
+  var hasClass7 = classes.indexOf('7') >= 0;
+
+  document.getElementById('dg-lithium-warning').style.display = hasLithium ? '' : 'none';
+  document.getElementById('dg-class7-warning').style.display = hasClass7 ? '' : 'none';
+}
+
+// ─── TABS ─────────────────────────────────────────────────────────────────────
+var TAB_META = {
+  transit:  { title: 'Suez Canal Transit Application',       subtitle: 'Suez Canal Authority (SCA) — SCA/TA-01/2024' },
+  crew:     { title: 'Crew Manifest',                         subtitle: 'SCA Crew List — SCA/CM-02/2024' },
+  ship:     { title: 'Ship Particulars',                      subtitle: 'Vessel Dimensions, Tonnage & Classification' },
+  cargo:    { title: 'Cargo Declaration',                     subtitle: 'IMDG Amendment 42-24 Compliant — SCA/CD-03/2024' },
+  dg:       { title: 'Dangerous Goods Declaration',           subtitle: 'IMDG Amendment 42-24 — Class / UN / Stowage' },
+  pilotage: { title: 'Pilotage Arrangements',                 subtitle: 'SCA Compulsory Pilotage — SCA/PA-10/2024' },
+  scnt:     { title: 'SCNT Calculator',                       subtitle: 'Suez Canal Net Tonnage — Toll Estimation' },
+};
+
+var TABS = ['transit','crew','ship','cargo','dg','pilotage','scnt'];
+
+function showTab(tab) {
+  TABS.forEach(function(t) {
+    var btn = document.getElementById('tab-' + t);
+    var content = document.getElementById('tab-content-' + t);
+    btn.classList.toggle('active', t === tab);
+    content.classList.toggle('active', t === tab);
+  });
+  var meta = TAB_META[tab] || {};
+  document.getElementById('form-panel-title').textContent = meta.title || tab;
+  document.getElementById('form-panel-subtitle').textContent = meta.subtitle || '';
+}
+
+// ─── DANGEROUS GOODS — ADD/REMOVE ────────────────────────────────────────────
+function addDgItem() {
+  var idx = dgItemCount++;
+  var container = document.getElementById('dg-items-container');
+  var div = document.createElement('div');
+  div.className = 'dg-item';
+  div.id = 'dg-item-' + idx;
+  div.innerHTML =
+    '<div class="dg-item-header">' +
+      '<div class="dg-item-title">DG Item ' + (idx+1) + '</div>' +
+      '<button class="dg-remove-btn" onclick="removeDgItem(' + idx + ')" title="Remove">\u2715</button>' +
+    '</div>' +
+    '<div class="form-row thirds">' +
+      '<div class="form-group"><label>IMDG Class <span class="req">*</span></label>' +
+        '<select class="dg-class" onchange="onDgChange(this)">' +
+          '<option value="">Select class...</option>' +
+          '<option value="1">Class 1 — Explosives</option>' +
+          '<option value="2.1">Class 2.1 — Flammable Gases</option>' +
+          '<option value="2.3">Class 2.3 — Toxic Gases</option>' +
+          '<option value="3">Class 3 — Flammable Liquids</option>' +
+          '<option value="4.1">Class 4.1 — Flammable Solids</option>' +
+          '<option value="6.1">Class 6.1 — Toxic Substances</option>' +
+          '<option value="7">Class 7 — Radioactive Material</option>' +
+          '<option value="8">Class 8 — Corrosive Substances</option>' +
+          '<option value="9">Class 9 — Misc. (incl. Lithium Batteries)</option>' +
+        '</select>' +
+      '</div>' +
+      '<div class="form-group"><label>UN Number</label>' +
+        '<input type="text" class="dg-un" placeholder="e.g. UN1234" oninput="checkDgWarnings()">' +
+      '</div>' +
+      '<div class="form-group"><label>Proper Shipping Name</label>' +
+        '<input type="text" class="dg-name" placeholder="e.g. Flammable Liquid">' +
+      '</div>' +
+    '</div>' +
+    '<div class="form-row">' +
+      '<div class="form-group"><label>Quantity (MT)</label><input type="number" class="dg-qty" placeholder="e.g. 50"></div>' +
+      '<div class="form-group"><label>Stowage Location</label><input type="text" class="dg-stow" placeholder="e.g. Bay 04, Row 1, Tier 82"></div>' +
+    '</div>';
+  container.appendChild(div);
+}
+
+function removeDgItem(idx) {
+  var el = document.getElementById('dg-item-' + idx);
+  if (el) el.remove();
+  checkDgWarnings();
+}
+
+// ─── SCNT CALCULATOR ──────────────────────────────────────────────────────────
+function calculateScnt() {
+  var scntVal = parseFloat(document.getElementById('f-scnt-calc').value);
+  if (!scntVal || scntVal <= 0) {
+    document.getElementById('scnt-result-box').style.display = 'none';
+    return;
+  }
+
+  // Get vessel category — from dropdown or auto-detect from vessel type
+  var category = document.getElementById('f-scnt-category').value;
+  if (!category) {
+    var vtype = document.getElementById('f-vessel-type').value;
+    category = vtype || 'other';
+  }
+
+  var sdrRate = parseFloat(document.getElementById('f-sdr-rate').value) || 1.34;
+  var rebate = parseFloat(document.getElementById('f-rebate').value) || 0;
+
+  // SCA toll rates (SDR per SCNT) by vessel category
+  var RATES = {
+    container:      9.10,
+    bulk_carrier:   5.60,
+    tanker:         8.20,
+    lng_carrier:    9.50,
+    lpg_carrier:    8.50,
+    general_cargo:  scntVal <= 5000 ? 5.20 : 4.80,
+    ro_ro:          6.80,
+    passenger:      3.00,
+    chemical_tanker: 7.50,
+    other:          5.00,
+  };
+
+  var MINIMUM_TOLLS_SDR = {
+    container: 10000, tanker: 12000, lng_carrier: 20000, passenger: 5000,
+    ro_ro: 10000, general_cargo: 6000, bulk_carrier: 8000,
+  };
+
+  var rate = RATES[category] || RATES.other;
+  var grossSdr = scntVal * rate;
+  var minSdr = MINIMUM_TOLLS_SDR[category] || 0;
+  var grossSdrFinal = Math.max(grossSdr, minSdr);
+  var rebateAmt = grossSdrFinal * rebate;
+  var netSdr = grossSdrFinal - rebateAmt;
+  var netUsd = netSdr * sdrRate;
+
+  function fmt(n) { return Number(Math.round(n)).toLocaleString(); }
+  function fmtDec(n, d) { return n.toFixed(d); }
+
+  document.getElementById('sr-scnt').textContent = fmt(scntVal);
+  document.getElementById('sr-rate').textContent = fmtDec(rate, 2) + ' SDR/SCNT';
+  document.getElementById('sr-gross-sdr').textContent = 'SDR ' + fmt(grossSdrFinal);
+  document.getElementById('sr-rebate').textContent = rebate > 0 ? (rebate * 100).toFixed(0) + '% (SDR ' + fmt(rebateAmt) + ')' : 'None';
+  document.getElementById('sr-net-sdr').textContent = 'SDR ' + fmt(netSdr);
+  document.getElementById('sr-usd').textContent = '$' + fmt(netUsd);
+
+  document.getElementById('scnt-result-box').style.display = '';
+}
+
+// ─── VALIDATION ───────────────────────────────────────────────────────────────
+function getFormData() {
+  // Collect DG items
+  var dgItems = [];
+  document.querySelectorAll('#dg-items-container .dg-item').forEach(function(item) {
+    var cls = item.querySelector('.dg-class');
+    var un = item.querySelector('.dg-un');
+    var name = item.querySelector('.dg-name');
+    var qty = item.querySelector('.dg-qty');
+    var stow = item.querySelector('.dg-stow');
+    if (cls && cls.value) {
+      dgItems.push({
+        imdg_class: cls.value,
+        un_number: un ? un.value : '',
+        proper_shipping_name: name ? name.value : '',
+        quantity_mt: qty ? parseFloat(qty.value) || null : null,
+        stowage: stow ? stow.value : '',
+      });
+    }
+  });
+
+  return {
+    // Identity
+    vessel_name:    document.getElementById('f-vessel-name').value.trim(),
+    imo_number:     document.getElementById('f-imo').value.trim(),
+    flag_state:     document.getElementById('f-flag').value,
+    vessel_type:    document.getElementById('f-vessel-type').value,
+    convoy:         document.getElementById('f-convoy').value,
+    eta:            document.getElementById('f-eta').value,
+    // Dimensions
+    gross_tonnage:  parseFloat(document.getElementById('f-gt').value) || null,
+    loa:            parseFloat(document.getElementById('f-loa').value) || null,
+    beam:           parseFloat(document.getElementById('f-beam').value) || null,
+    air_draft:      parseFloat(document.getElementById('f-air-draft').value) || null,
+    forward_draft:  parseFloat(document.getElementById('f-draft-fwd').value) || null,
+    aft_draft:      parseFloat(document.getElementById('f-draft-aft').value) || null,
+    scnt:           parseFloat(document.getElementById('f-scnt').value) || null,
+    // Crew
+    crew_count:     parseInt(document.getElementById('f-crew-count').value) || null,
+    // Cargo
+    cargo_type:     document.getElementById('f-cargo-type').value,
+    has_dangerous_goods: dgItems.length > 0,
+    dangerous_goods: dgItems,
+  };
+}
+
+function resetValidation() {
+  document.getElementById('validation-idle').style.display = '';
+  document.getElementById('validation-loading').style.display = 'none';
+  document.getElementById('validation-results').style.display = 'none';
+  document.getElementById('status-badge').className = 'status-badge badge-idle';
+  document.getElementById('status-badge').textContent = 'Waiting';
+  lastValidation = null;
+}
+
+function runValidation() {
+  var data = getFormData();
+  document.getElementById('validation-idle').style.display = 'none';
+  document.getElementById('validation-loading').style.display = '';
+  document.getElementById('validation-results').style.display = 'none';
+  document.getElementById('status-badge').className = 'status-badge badge-idle';
+  document.getElementById('status-badge').textContent = 'Checking...';
+
+  fetch('/api/demo/suez-validate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(resp) {
+    document.getElementById('validation-loading').style.display = 'none';
+    if (!resp.success) throw new Error(resp.message || 'Validation error');
+    displayValidation(resp.validation);
+    lastValidation = resp.validation;
+    // Show export card after validation
+    var exportCard = document.getElementById('export-demo-card');
+    if (exportCard) exportCard.style.display = 'block';
+  })
+  .catch(function(err) {
+    document.getElementById('validation-loading').style.display = 'none';
+    document.getElementById('validation-idle').style.display = '';
+    document.getElementById('status-badge').className = 'status-badge badge-idle';
+    document.getElementById('status-badge').textContent = 'Error';
+    console.error('Validation error:', err);
+  });
+}
+
+function displayValidation(v) {
+  var badge = document.getElementById('status-badge');
+  var statusMap = {
+    'passed':  { cls: 'badge-pass', label: '✓ Ready to File' },
+    'warning': { cls: 'badge-warn', label: '⚠ Warnings' },
+    'failed':  { cls: 'badge-fail', label: '✗ Issues Found' },
+  };
+  var s = statusMap[v.overall_status] || { cls: 'badge-idle', label: v.overall_status };
+  badge.className = 'status-badge ' + s.cls;
+  badge.textContent = s.label;
+
+  document.getElementById('count-pass').textContent = v.passed_checks || 0;
+  document.getElementById('count-warn').textContent = v.warning_checks || 0;
+  document.getElementById('count-fail').textContent = v.failed_checks || 0;
+
+  var container = document.getElementById('checklist-container');
+  container.innerHTML = '';
+  var cats = v.categories || {};
+
+  function renderGroup(title, items, cls, icon) {
+    if (!items || items.length === 0) return;
+    var groupTitle = document.createElement('div');
+    groupTitle.className = 'checklist-group-title ' + cls;
+    groupTitle.textContent = title + ' (' + items.length + ')';
+    container.appendChild(groupTitle);
+    var limit = cls === 'pass' ? 5 : 20;
+    items.slice(0, limit).forEach(function(item) {
+      var el = document.createElement('div');
+      el.className = 'check-item';
+      el.innerHTML =
+        '<span class="check-icon">' + icon + '</span>' +
+        '<div class="check-text">' +
+          '<div class="check-name">' + escHtml(item.name || item.id || '') + '</div>' +
+          '<div class="check-msg">' + escHtml(item.message || item.requirement || '') + '</div>' +
+        '</div>';
+      container.appendChild(el);
+    });
+    if (items.length > limit) {
+      var more = document.createElement('div');
+      more.className = 'check-item';
+      more.innerHTML =
+        '<span class="check-icon" style="color:var(--gray)">...</span>' +
+        '<div class="check-text"><div class="check-msg" style="color:var(--gray)">' + (items.length - limit) + ' more checks</div></div>';
+      container.appendChild(more);
+    }
+  }
+
+  renderGroup('Critical Issues', cats.critical, 'crit', '✗');
+  renderGroup('Warnings', cats.warnings, 'warn', '⚠');
+  renderGroup('Passed Checks', cats.passed, 'pass', '✓');
+
+  if (!cats.critical && !cats.warnings && !cats.passed && v.checklist) {
+    var all = v.checklist || [];
+    renderGroup('Issues', all.filter(function(c){ return c.status === 'fail'; }), 'crit', '✗');
+    renderGroup('Warnings', all.filter(function(c){ return c.status === 'warning'; }), 'warn', '⚠');
+    renderGroup('Passed', all.filter(function(c){ return c.status === 'pass'; }), 'pass', '✓');
+  }
+
+  document.getElementById('validation-results').style.display = '';
+}
+
+function escHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ─── PDF PREVIEW ──────────────────────────────────────────────────────────────
+function openPdfPreview() {
+  document.getElementById('pdf-modal').classList.add('open');
+  document.getElementById('pdf-loading').style.display = '';
+  document.getElementById('pdf-iframe').style.display = 'none';
+
+  var data = getFormData();
+  if (lastValidation) data.validationResult = lastValidation;
+
+  fetch('/api/demo/suez-pdf-preview', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
+  .then(function(r) {
+    if (!r.ok) throw new Error('PDF generation failed');
+    return r.blob();
+  })
+  .then(function(blob) {
+    var url = URL.createObjectURL(blob);
+    var iframe = document.getElementById('pdf-iframe');
+    iframe.src = url;
+    iframe.style.display = '';
+    document.getElementById('pdf-loading').style.display = 'none';
+  })
+  .catch(function(err) {
+    document.getElementById('pdf-loading').innerHTML =
+      '<p style="color:var(--red)">PDF generation failed. <a href="/pricing" style="color:var(--teal)">Upgrade for real PDFs →</a></p>';
+    console.error('PDF error:', err);
+  });
+}
+
+function closePdfModal() {
+  document.getElementById('pdf-modal').classList.remove('open');
+  var iframe = document.getElementById('pdf-iframe');
+  if (iframe.src && iframe.src.startsWith('blob:')) URL.revokeObjectURL(iframe.src);
+  iframe.src = '';
+}
+
+document.getElementById('pdf-modal').addEventListener('click', function(e) {
+  if (e.target === this) closePdfModal();
+});
+
+// ─── LEAD CAPTURE ─────────────────────────────────────────────────────────────
+function submitLead() {
+  var email = document.getElementById('lead-email').value.trim();
+  var vessel = document.getElementById('lead-vessel').value.trim();
+  if (!email || !email.includes('@')) {
+    document.getElementById('lead-email').style.borderColor = 'var(--red)';
+    return;
+  }
+  document.getElementById('lead-email').style.borderColor = '';
+  fetch('/api/cc/demo-contact', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: email, vessel_name: vessel, canal: 'suez' })
+  })
+  .then(function() {
+    document.getElementById('lead-success').style.display = '';
+    document.getElementById('lead-email').value = '';
+    document.getElementById('lead-vessel').value = '';
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'demo_lead_capture', { canal: 'suez', vessel_name: vessel, email_domain: email.split('@')[1] });
+    }
+  })
+  .catch(function() {
+    document.getElementById('lead-success').textContent = '✓ We\'ll follow up shortly.';
+    document.getElementById('lead-success').style.display = '';
+  });
+}
+
+// ─── MOBILE NAV ───────────────────────────────────────────────────────────────
+function toggleMobileNav() {
+  document.getElementById('mobile-nav').classList.toggle('open');
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+(function init() {
+  fillSampleData();
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closePdfModal();
+  });
+
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'demo_page_view', { page: 'demo/suez' });
+  }
+})();
+
+// ── DEMO EXPORT FUNCTIONS ─────────────────────────────────────────────────────
+function downloadDemoPDF() {
+  var vessel  = document.getElementById('f-vessel-name')?.value || 'Demo Vessel';
+  var imo     = document.getElementById('f-imo')?.value         || '—';
+  var loa     = document.getElementById('f-loa')?.value         || '—';
+  var gt      = document.getElementById('f-gt')?.value          || '—';
+  var pass    = document.getElementById('count-pass')?.textContent || '—';
+  var warn    = document.getElementById('count-warn')?.textContent || '—';
+  var fail    = document.getElementById('count-fail')?.textContent || '—';
+  var dateStr = new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+
+  var w = window.open('', '_blank', 'width=800,height=1050');
+  if (!w) { alert('Pop-up blocked. Please allow pop-ups to download the demo PDF.'); return; }
+
+  w.document.write('<!DOCTYPE html><html><head><title>SCA Demo — ' + vessel + '</title>' +
+  '<style>body{font-family:Arial,sans-serif;max-width:740px;margin:0 auto;padding:30px;color:#1a2332;}' +
+  '.hdr{background:#0A1628;color:#00C49A;padding:18px 24px;border-radius:6px 6px 0 0;margin:-30px -30px 20px;}' +
+  '.hdr h1{font-size:1.1rem;margin:0;}.hdr p{font-size:0.75rem;color:#8fa3b8;margin:4px 0 0;}' +
+  '.score-row{display:flex;gap:16px;margin-bottom:16px;}' +
+  '.score-box{flex:1;text-align:center;padding:12px;border-radius:6px;font-weight:700;}' +
+  '.score-box.pass{background:#f0fdf8;border:1px solid #00C49A;color:#00C49A;}' +
+  '.score-box.warn{background:#fffbeb;border:1px solid #d69e2e;color:#b7791f;}' +
+  '.score-box.fail{background:#fff5f5;border:1px solid #fc8181;color:#9b2c2c;}' +
+  '.score-box .num{font-size:1.8rem;}.score-box .lbl{font-size:0.72rem;}' +
+  'table{width:100%;border-collapse:collapse;margin-bottom:16px;}' +
+  'th{background:#0A1628;color:#00C49A;text-align:left;padding:7px 10px;font-size:0.78rem;}' +
+  'td{padding:6px 10px;font-size:0.8rem;border-bottom:1px solid #e5e7eb;}' +
+  'tr:nth-child(even) td{background:#f9fafb;}' +
+  '.footer{margin-top:24px;padding-top:12px;border-top:1px solid #e5e7eb;font-size:0.68rem;color:#8fa3b8;text-align:center;}' +
+  '</style></head><body>' +
+  '<div class="hdr"><h1>CanalClear — Suez Canal SCA Demo Validation</h1>' +
+  '<p>Generated ' + dateStr + ' · Demo filing — not for official submission</p></div>' +
+  '<div class="score-row">' +
+  '<div class="score-box pass"><div class="num">' + pass + '</div><div class="lbl">PASSED</div></div>' +
+  '<div class="score-box warn"><div class="num">' + warn + '</div><div class="lbl">WARNINGS</div></div>' +
+  '<div class="score-box fail"><div class="num">' + fail + '</div><div class="lbl">FAILED</div></div>' +
+  '</div>' +
+  '<table><tr><th colspan="2">VESSEL PARTICULARS</th></tr>' +
+  '<tr><td>Vessel Name</td><td>' + vessel + '</td></tr>' +
+  '<tr><td>IMO Number</td><td>' + imo + '</td></tr>' +
+  '<tr><td>LOA (m)</td><td>' + loa + '</td></tr>' +
+  '<tr><td>Gross Tonnage</td><td>' + gt + '</td></tr>' +
+  '<tr><td>Canal</td><td>Suez Canal (SCA)</td></tr>' +
+  '</table>' +
+  '<p style="font-size:0.78rem;color:#555;margin-bottom:8px;"><strong>Want port-authority-ready SCA PDFs with your real filing?</strong><br>' +
+  'CanalClear generates all 7 SCA documents — branded, compliant, with signature blocks — in minutes.</p>' +
+  '<a href="https://canalclear.org/pricing" style="display:inline-block;background:#E85A00;color:#fff;padding:9px 18px;border-radius:6px;text-decoration:none;font-weight:700;font-size:0.85rem;margin-bottom:20px;">Get Filing Access →</a>' +
+  '<div class="footer">CanalClear · canalclear.org · This is a demo document — not for regulatory submission.</div>' +
+  '<script>window.onload=function(){window.print();}<\/script>' +
+  '</body></html>');
+  w.document.close();
+
+  if (typeof gtag !== 'undefined') gtag('event', 'demo_pdf_download', { canal: 'suez' });
+}
+
+function downloadDemoCSV() {
+  var vessel  = document.getElementById('f-vessel-name')?.value || 'Demo Vessel';
+  var imo     = document.getElementById('f-imo')?.value         || '';
+  var loa     = document.getElementById('f-loa')?.value         || '';
+  var gt      = document.getElementById('f-gt')?.value          || '';
+  var scnt    = document.getElementById('f-scnt')?.value        || '';
+  var cargo   = document.getElementById('f-cargo-type')?.value  || '';
+  var convoy  = document.getElementById('f-convoy')?.value      || '';
+  var eta     = document.getElementById('f-eta')?.value         || '';
+  var pass    = document.getElementById('count-pass')?.textContent || '';
+  var warn    = document.getElementById('count-warn')?.textContent || '';
+  var fail    = document.getElementById('count-fail')?.textContent || '';
+  var dateStr = new Date().toISOString().slice(0,10);
+
+  var csv = [
+    ['Field','Value'],
+    ['Vessel Name', vessel],
+    ['IMO Number', imo],
+    ['LOA (m)', loa],
+    ['Gross Tonnage', gt],
+    ['SCNT', scnt],
+    ['Cargo Type', cargo],
+    ['Convoy', convoy],
+    ['ETA', eta],
+    ['SCA Checks Passed', pass],
+    ['SCA Warnings', warn],
+    ['SCA Failed', fail],
+    ['Demo Date', dateStr],
+    ['Canal', 'Suez Canal (SCA)'],
+  ].map(function(r) { return r.map(function(c) { return JSON.stringify(String(c)); }).join(','); }).join('\r\n');
+
+  var blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'canalclear-suez-demo-' + dateStr + '.csv';
+  a.click();
+
+  if (typeof gtag !== 'undefined') gtag('event', 'demo_csv_download', { canal: 'suez' });
+}
+</script>
+
+    <script src="/js/mobile-nav.js"></script>
+<script src="/js/whatsapp-button.js"></script>
+<script src="/js/ocr-upload.js"></script>
+<script>
+  window.initOCRUpload({
+    waterway: 'suez',
+    onFieldsExtracted: function(data) {
+      var fields = data.fields || {};
+      Object.keys(fields).forEach(function(formId) {
+        var el = document.getElementById(formId);
+        if (!el) return;
+        var val = fields[formId].value;
+        if (el.tagName === 'SELECT') {
+          for (var i = 0; i < el.options.length; i++) {
+            if (el.options[i].value.toLowerCase() === String(val).toLowerCase() ||
+                el.options[i].text.toLowerCase().indexOf(String(val).toLowerCase()) !== -1) {
+              el.selectedIndex = i; break;
+            }
+          }
+        } else { el.value = val; }
+        el.classList.add('has-value');
+        el.dispatchEvent(new Event('input', { bubbles: true }));
+        el.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+      if (typeof onFieldChange === 'function') onFieldChange();
+    }
+  });
+</script>
+</body>
+</html>

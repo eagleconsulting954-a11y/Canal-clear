@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Authority Integration Status — Canal Filing Automation | CanalClear</title>
+  <meta name="description" content="CanalClear automates filings to 5 major maritime chokepoints: Panama Canal (ACP VUMPA), Suez Canal (SCA), Malacca MPA digitalPORT@SG, Turkish VTSC Bosporus, and SAMSA Cape of Good Hope. See which authorities support API auto-file vs. portal-assist.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://canalclear.org/authorities">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://canalclear.org/authorities">
+  <meta property="og:title" content="Authority Integration Status — Canal Filing Automation | CanalClear">
+  <meta property="og:description" content="Auto-file to 5 maritime chokepoints. See which canal authorities support API auto-file, email auto-file, or portal-assist — and what CanalClear does for each.">
+  <meta property="og:image" content="https://canalclear.org/images/og-default.png">
+  <meta property="og:site_name" content="CanalClear">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://canalclear.org/authorities">
+  <meta name="twitter:title" content="Authority Integration Status — Canal Filing Automation | CanalClear">
+  <meta name="twitter:description" content="Auto-file to 5 maritime chokepoints. See which canal authorities support API auto-file, email auto-file, or portal-assist.">
+  <meta name="twitter:image" content="https://canalclear.org/images/og-default.png">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Authority Integration Status",
+    "url": "https://canalclear.org/authorities",
+    "description": "CanalClear automates maritime canal compliance filings to Panama, Suez, Malacca, Bosporus, and Cape of Good Hope authorities.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "CanalClear",
+      "url": "https://canalclear.org"
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/nav.css">
+  <link rel="stylesheet" href="/css/mobile.css">
+  <link rel="stylesheet" href="/css/visual-polish.css">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy:           #1a2d4a;
+      --deep:           #0f1e33;
+      --slate:          #243350;
+      --orange:         #E85A00;
+      --orange-dim:     rgba(232, 90, 0, 0.12);
+      --orange-border:  rgba(232, 90, 0, 0.30);
+      --white:          #ffffff;
+      --gray:           #6b7c93;
+      --light:          #8fa3b8;
+      --muted:          rgba(255,255,255,0.55);
+      --card-bg:        rgba(255,255,255,0.04);
+      --card-border:    rgba(255,255,255,0.08);
+      --green:          #10b981;
+      --green-dim:      rgba(16, 185, 129, 0.12);
+      --green-border:   rgba(16, 185, 129, 0.28);
+      --blue:           #3b82f6;
+      --blue-dim:       rgba(59, 130, 246, 0.12);
+      --blue-border:    rgba(59, 130, 246, 0.28);
+      --yellow:         #f59e0b;
+      --yellow-dim:     rgba(245, 158, 11, 0.10);
+      --yellow-border:  rgba(245, 158, 11, 0.28);
+      --mono:           'IBM Plex Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--deep);
+      color: var(--white);
+      min-height: 100vh;
+    }
+
+    /* ── TOP NAV ──────────────────────────────────────────────────────── */
+    .top-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: sticky;
+      top: 0;
+      background: rgba(15, 30, 51, 0.95);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+    .top-nav .logo {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .top-nav .logo span { color: var(--orange); }
+    .top-nav .nav-links { display: flex; align-items: center; gap: 1.75rem; }
+    .top-nav .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--light);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .top-nav .nav-links a:hover { color: var(--white); }
+    .top-nav .nav-links a.active { color: var(--orange); }
+    .top-nav .nav-cta {
+      background: var(--orange);
+      color: var(--white) !important;
+      padding: 0.5rem 1.25rem;
+      border-radius: 6px;
+      font-weight: 600 !important;
+      transition: background 0.2s ease;
+    }
+    .top-nav .nav-cta:hover { background: #CC4F00; }
+
+    /* ── HERO ────────────────────────────────────────────────────────── */
+    .hero {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 5rem 2rem 3rem;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--green-dim);
+      border: 1px solid var(--green-border);
+      color: var(--green);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.35rem 0.9rem;
+      border-radius: 100px;
+      margin-bottom: 1.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .hero-badge .dot {
+      width: 7px;
+      height: 7px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+    .hero h1 {
+      font-size: 2.85rem;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.025em;
+      color: var(--white);
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--orange);
+    }
+    .hero-claim {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--green);
+      background: var(--green-dim);
+      border: 1px solid var(--green-border);
+      padding: 0.55rem 1.1rem;
+      border-radius: 6px;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.01em;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--light);
+      line-height: 1.65;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    /* ── LEGEND ─────────────────────────────────────────────────────── */
+    .legend {
+      max-width: 900px;
+      margin: 3rem auto 0;
+      padding: 0 2rem;
+    }
+    .legend-inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      padding: 1.25rem 1.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+    }
+    .legend-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--gray);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      width: 100%;
+      margin-bottom: 0.25rem;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      color: var(--light);
+    }
+
+    /* ── BADGE TYPES ──────────────────────────────────────────────────── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.28rem 0.7rem;
+      border-radius: 100px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .badge-autofile-api {
+      background: var(--green-dim);
+      border: 1px solid var(--green-border);
+      color: var(--green);
+    }
+    .badge-autofile-email {
+      background: var(--blue-dim);
+      border: 1px solid var(--blue-border);
+      color: var(--blue);
+    }
+    .badge-portal {
+      background: var(--orange-dim);
+      border: 1px solid var(--orange-border);
+      color: var(--orange);
+    }
+    .badge-coming {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--gray);
+    }
+
+    /* ── WATERWAY SECTIONS ────────────────────────────────────────────── */
+    .waterways {
+      max-width: 900px;
+      margin: 3.5rem auto 0;
+      padding: 0 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .waterway-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s ease;
+    }
+    .waterway-card:hover { border-color: rgba(255,255,255,0.15); }
+    .waterway-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .waterway-flag {
+      font-size: 1.75rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .waterway-meta { flex: 1; min-width: 0; }
+    .waterway-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+    .waterway-region {
+      font-size: 0.78rem;
+      color: var(--gray);
+      font-family: var(--mono);
+      letter-spacing: 0.04em;
+    }
+    .waterway-status-badge {
+      flex-shrink: 0;
+    }
+
+    /* ── AUTHORITY TABLE ──────────────────────────────────────────────── */
+    .authority-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .authority-table thead tr {
+      background: rgba(255,255,255,0.02);
+      border-bottom: 1px solid var(--card-border);
+    }
+    .authority-table th {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--gray);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 0.65rem 1.5rem;
+      text-align: left;
+    }
+    .authority-table th:last-child { text-align: right; }
+    .authority-table tbody tr {
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: background 0.15s ease;
+    }
+    .authority-table tbody tr:last-child { border-bottom: none; }
+    .authority-table tbody tr:hover { background: rgba(255,255,255,0.025); }
+    .authority-table td {
+      padding: 1rem 1.5rem;
+      vertical-align: top;
+    }
+    .auth-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--white);
+      margin-bottom: 0.25rem;
+    }
+    .auth-abbrev {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--gray);
+      letter-spacing: 0.04em;
+    }
+    .auth-docs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+    .doc-tag {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--light);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 0.18rem 0.5rem;
+      border-radius: 4px;
+      letter-spacing: 0.03em;
+    }
+    .auth-desc {
+      font-size: 0.83rem;
+      color: var(--light);
+      line-height: 1.55;
+      max-width: 320px;
+    }
+    .auth-method { text-align: right; padding-top: 1rem; }
+
+    /* ── PROGRESS BANNER ─────────────────────────────────────────────── */
+    .progress-section {
+      max-width: 900px;
+      margin: 3rem auto 0;
+      padding: 0 2rem;
+    }
+    .progress-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 2rem;
+    }
+    .progress-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .progress-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+    .progress-count {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--green);
+      background: var(--green-dim);
+      border: 1px solid var(--green-border);
+      padding: 0.25rem 0.7rem;
+      border-radius: 100px;
+    }
+    .progress-bar-wrap {
+      background: rgba(255,255,255,0.07);
+      border-radius: 100px;
+      height: 8px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      border-radius: 100px;
+      background: linear-gradient(90deg, var(--green) 0%, #0ea5e9 100%);
+      transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .progress-desc {
+      font-size: 0.83rem;
+      color: var(--light);
+      line-height: 1.6;
+    }
+    .progress-desc strong { color: var(--white); }
+
+    /* ── CTA ─────────────────────────────────────────────────────────── */
+    .cta-section {
+      max-width: 680px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+      text-align: center;
+    }
+    .cta-box {
+      background: linear-gradient(135deg, rgba(232,90,0,0.10) 0%, rgba(232,90,0,0.04) 100%);
+      border: 1px solid var(--orange-border);
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+    }
+    .cta-box h2 {
+      font-size: 1.65rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+    .cta-box p {
+      font-size: 0.95rem;
+      color: var(--light);
+      line-height: 1.65;
+      margin-bottom: 1.75rem;
+    }
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--orange);
+      color: var(--white);
+      text-decoration: none;
+      padding: 0.7rem 1.6rem;
+      border-radius: 7px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .btn-primary:hover { background: #CC4F00; }
+    .btn-secondary {
+      color: var(--light);
+      text-decoration: none;
+      padding: 0.7rem 1.6rem;
+      border-radius: 7px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      border: 1px solid rgba(255,255,255,0.15);
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .btn-secondary:hover { color: var(--white); border-color: rgba(255,255,255,0.30); }
+
+    /* ── FOOTER ──────────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 2rem;
+      text-align: center;
+      margin-top: 3rem;
+    }
+    footer p { font-size: 0.8rem; color: var(--gray); line-height: 1.6; }
+    footer a { color: var(--gray); text-decoration: none; transition: color 0.2s ease; }
+    footer a:hover { color: var(--orange); }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 0;
+      justify-content: center;
+      margin-top: 0.75rem;
+    }
+    .footer-links a { padding: 0 0.6rem; }
+    .footer-links .separator { color: rgba(255,255,255,0.15); }
+
+    /* ── MOBILE ──────────────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .top-nav { padding: 1rem 1.25rem; }
+      .top-nav .nav-links { gap: 1rem; }
+      .top-nav .nav-links a:not(.nav-cta) { display: none; }
+      .hero { padding: 3.5rem 1.25rem 2rem; }
+      .hero h1 { font-size: 2rem; }
+      .legend { padding: 0 1.25rem; }
+      .waterways { padding: 0 1.25rem; }
+      .progress-section { padding: 0 1.25rem; }
+      .cta-section { padding: 0 1.25rem; }
+
+      .authority-table thead { display: none; }
+      .authority-table tbody tr {
+        display: block;
+        padding: 1rem 0;
+      }
+      .authority-table td {
+        display: block;
+        padding: 0.4rem 1.25rem;
+      }
+      .auth-method { text-align: left; }
+      .waterway-header { padding: 1rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP NAV -->
+  <nav class="top-nav">
+    <a href="/" class="logo">Canal<span>Clear</span></a>
+    <div class="nav-links">
+      <a href="/authorities" class="active">Authorities</a>
+      <a href="/how-it-works">How It Works</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/integrations">Integrations</a>
+      <a href="/blog">Blog</a>
+      <a href="/request-demo" class="nav-cta">Try the Demo</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Live Integration Status
+    </div>
+    <h1>CanalClear files directly to<br><em>5 major maritime authorities</em></h1>
+    <div class="hero-claim">✓ CanalClear auto-files to 3 of 5 major maritime chokepoints</div>
+    <p>Every authority, every document type, every submission method — laid out without marketing language. When a new authority goes live, this page updates first.</p>
+  </section>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="legend-inner">
+      <div class="legend-label">Submission method key</div>
+      <div class="legend-item">
+        <span class="badge badge-autofile-api">⚡ Auto-file API</span>
+        <span>CanalClear submits directly via authority API — no manual steps</span>
+      </div>
+      <div class="legend-item">
+        <span class="badge badge-autofile-email">✉ Auto-file Email</span>
+        <span>CanalClear formats and sends the filing email to the authority</span>
+      </div>
+      <div class="legend-item">
+        <span class="badge badge-portal">⟶ Portal-assist</span>
+        <span>Deep link + pre-filled form — one click to submit in the authority portal</span>
+      </div>
+      <div class="legend-item">
+        <span class="badge badge-coming">○ Coming Soon</span>
+        <span>Integration in development</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- WATERWAYS -->
+  <div class="waterways">
+
+    <!-- MALACCA / SINGAPORE -->
+    <div class="waterway-card">
+      <div class="waterway-header">
+        <div class="waterway-flag">🇸🇬</div>
+        <div class="waterway-meta">
+          <div class="waterway-name">Strait of Malacca &amp; Singapore</div>
+          <div class="waterway-region">MALACCA · Southeast Asia · ~900 vessels/day</div>
+        </div>
+        <div class="waterway-status-badge">
+          <span class="badge badge-autofile-api">⚡ Auto-file API</span>
+        </div>
+      </div>
+      <table class="authority-table">
+        <thead>
+          <tr>
+            <th>Authority</th>
+            <th>Documents</th>
+            <th>What CanalClear does</th>
+            <th>Method</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="auth-name">Maritime and Port Authority of Singapore</div>
+              <div class="auth-abbrev">MPA · digitalPORT@SG</div>
+            </td>
+            <td>
+              <div class="auth-docs">
+                <span class="doc-tag">STRAITREP</span>
+                <span class="doc-tag">VTIS Report</span>
+                <span class="doc-tag">ISPS Notice</span>
+              </div>
+            </td>
+            <td>
+              <div class="auth-desc">Validates all STRAITREP fields against MPA requirements, generates the structured transmission, and auto-submits via digitalPORT@SG API. Compliance score returned before submission.</div>
+            </td>
+            <td class="auth-method">
+              <span class="badge badge-autofile-api">⚡ Auto-file API</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- BOSPORUS / DARDANELLES -->
+    <div class="waterway-card">
+      <div class="waterway-header">
+        <div class="waterway-flag">🇹🇷</div>
+        <div class="waterway-meta">
+          <div class="waterway-name">Bosporus &amp; Dardanelles (Turkish Straits)</div>
+          <div class="waterway-region">BOSPORUS · Türkiye · ~48,000 vessels/year</div>
+        </div>
+        <div class="waterway-status-badge">
+          <span class="badge badge-autofile-email">✉ Auto-file Email</span>
+        </div>
+      </div>
+      <table class="authority-table">
+        <thead>
+          <tr>
+            <th>Authority</th>
+            <th>Documents</th>
+            <th>What CanalClear does</th>
+            <th>Method</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="auth-name">Turkish Vessel Traffic Service Centre</div>
+              <div class="auth-abbrev">VTSC · KDGM Directive</div>
+            </td>
+            <td>
+              <div class="auth-docs">
+                <span class="doc-tag">SP-1 Notice</span>
+                <span class="doc-tag">Montreux Annex</span>
+                <span class="doc-tag">Hazmat Declaration</span>
+              </div>
+            </td>
+            <td>
+              <div class="auth-desc">Validates SP-1 form against KDGM directive fields (vessel particulars, cargo classification, transit direction, VHF channel), then auto-sends the completed filing email to the VTSC authority inbox with correct subject format.</div>
+            </td>
+            <td class="auth-method">
+              <span class="badge badge-autofile-email">✉ Auto-file Email</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- CAPE OF GOOD HOPE -->
+    <div class="waterway-card">
+      <div class="waterway-header">
+        <div class="waterway-flag">🇿🇦</div>
+        <div class="waterway-meta">
+          <div class="waterway-name">Cape of Good Hope</div>
+          <div class="waterway-region">CAPE · South Africa · 96h pre-arrival window</div>
+        </div>
+        <div class="waterway-status-badge">
+          <span class="badge badge-autofile-email">✉ Auto-file Email</span>
+        </div>
+      </div>
+      <table class="authority-table">
+        <thead>
+          <tr>
+            <th>Authority</th>
+            <th>Documents</th>
+            <th>What CanalClear does</th>
+            <th>Method</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="auth-name">South African Maritime Safety Authority</div>
+              <div class="auth-abbrev">SAMSA · Cape Town Radio</div>
+            </td>
+            <td>
+              <div class="auth-docs">
+                <span class="doc-tag">ISPS Pre-Arrival</span>
+                <span class="doc-tag">Last 10 Ports</span>
+                <span class="doc-tag">DG Declaration</span>
+                <span class="doc-tag">SSO Details</span>
+              </div>
+            </td>
+            <td>
+              <div class="auth-desc">Validates ISPS pre-arrival notification fields against SAMSA requirements, enforces the 96-hour deadline, then auto-sends the completed filing to Cape Town Radio with correct MRCC notification format.</div>
+            </td>
+            <td class="auth-method">
+              <span class="badge badge-autofile-email">✉ Auto-file Email</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- PANAMA CANAL -->
+    <div class="waterway-card">
+      <div class="waterway-header">
+        <div class="waterway-flag">🇵🇦</div>
+        <div class="waterway-meta">
+          <div class="waterway-name">Panama Canal</div>
+          <div class="waterway-region">PANAMA · Central America · ~14,000 transits/year</div>
+        </div>
+        <div class="waterway-status-badge">
+          <span class="badge badge-portal">⟶ Portal-assist</span>
+        </div>
+      </div>
+      <table class="authority-table">
+        <thead>
+          <tr>
+            <th>Authority</th>
+            <th>Documents</th>
+            <th>What CanalClear does</th>
+            <th>Method</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="auth-name">Panama Canal Authority</div>
+              <div class="auth-abbrev">ACP · VUMPA Portal</div>
+            </td>
+            <td>
+              <div class="auth-docs">
+                <span class="doc-tag">VUMPA</span>
+                <span class="doc-tag">PCSOPEP</span>
+                <span class="doc-tag">Admeasurement</span>
+              </div>
+            </td>
+            <td>
+              <div class="auth-desc">Validates all VUMPA and PCSOPEP fields against ACP regulations with field-by-field pass/fail checklist. Generates a deep link to the ACP portal with form pre-filled from vessel data. One click to submit.</div>
+            </td>
+            <td class="auth-method">
+              <span class="badge badge-portal">⟶ Portal-assist</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SUEZ CANAL -->
+    <div class="waterway-card">
+      <div class="waterway-header">
+        <div class="waterway-flag">🇪🇬</div>
+        <div class="waterway-meta">
+          <div class="waterway-name">Suez Canal</div>
+          <div class="waterway-region">SUEZ · Egypt · ~26,000 transits/year</div>
+        </div>
+        <div class="waterway-status-badge">
+          <span class="badge badge-portal">⟶ Portal-assist</span>
+        </div>
+      </div>
+      <table class="authority-table">
+        <thead>
+          <tr>
+            <th>Authority</th>
+            <th>Documents</th>
+            <th>What CanalClear does</th>
+            <th>Method</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="auth-name">Suez Canal Authority E-Services</div>
+              <div class="auth-abbrev">SCA · E-Services Portal</div>
+            </td>
+            <td>
+              <div class="auth-docs">
+                <span class="doc-tag">SCA UMS Pre-Arrival</span>
+                <span class="doc-tag">SCNT</span>
+                <span class="doc-tag">ISPS Notification</span>
+              </div>
+            </td>
+            <td>
+              <div class="auth-desc">Validates SCA pre-arrival notification fields and UMS requirements. Deep links to SCA E-Services with pre-filled vessel data. Tracks convoy slot deadlines with automated alerts.</div>
+            </td>
+            <td class="auth-method">
+              <span class="badge badge-portal">⟶ Portal-assist</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- PROGRESS SECTION -->
+  <div class="progress-section">
+    <div class="progress-card">
+      <div class="progress-header">
+        <div class="progress-title">Integration roadmap — auto-file coverage expanding</div>
+        <div class="progress-count">3 of 5 auto-file live</div>
+      </div>
+      <div class="progress-bar-wrap">
+        <!-- 3 auto-file (Malacca API + Bosporus email + Cape email) out of 5 total = 60% -->
+        <div class="progress-bar-fill" style="width: 60%;"></div>
+      </div>
+      <div class="progress-desc">
+        <strong>Malacca, Bosporus, and Cape</strong> are fully auto-filed — CanalClear submits directly to the authority, no manual steps. <strong>Panama and Suez</strong> use portal-assist today: we validate and pre-fill, you submit with one click.
+        <br><br>
+        ACP API integration (Panama full auto-file) and SCA API integration (Suez full auto-file) are in the engineering queue. Each authority that ships turns portal-assist into fully hands-off submission — and this badge updates the same day.
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-box">
+      <h2>Ready to cut your filing costs?</h2>
+      <p>Ship operators replace $2,000–$5,000 per-transit agent fees with CanalClear. Live demo takes 10 minutes — see a real filing validated and submitted end-to-end.</p>
+      <div class="cta-buttons">
+        <a href="/request-demo" class="btn-primary">
+          Book a demo
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="/pricing" class="btn-secondary">View pricing</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 CanalClear. Canal compliance automation for the Panama Canal, Suez Canal, Bosporus, Malacca Strait, and Cape of Good Hope.</p>
+    <div class="footer-links">
+      <a href="/panama">Panama</a>
+      <span class="separator">·</span>
+      <a href="/suez">Suez</a>
+      <span class="separator">·</span>
+      <a href="/bosporus">Bosporus</a>
+      <span class="separator">·</span>
+      <a href="/malacca.html">Malacca</a>
+      <span class="separator">·</span>
+      <a href="/authorities" style="color:var(--orange);">Authorities</a>
+      <span class="separator">·</span>
+      <a href="/pricing">Pricing</a>
+      <span class="separator">·</span>
+      <a href="/how-it-works">How It Works</a>
+      <span class="separator">·</span>
+      <a href="/integrations">Integrations</a>
+      <span class="separator">·</span>
+      <a href="/blog">Blog</a>
+      <span class="separator">·</span>
+      <a href="/security">Security</a>
+      <span class="separator">·</span>
+      <a href="/privacy">Privacy</a>
+      <span class="separator">·</span>
+      <a href="/terms">Terms</a>
+    </div>
+  </footer>
+
+</body>
+</html>

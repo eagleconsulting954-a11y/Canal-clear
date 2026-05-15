@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clear Passage Podcast — Shipping, Logistics & Canal Operations</title>
+    <meta name="description" content="Clear Passage by CanalClear: deep-dive conversations on shipping industry insights, Panama Canal compliance, cargo logistics, and maritime operations. New episodes monthly.">
+    <meta name="keywords" content="shipping podcast, logistics podcast, Panama Canal podcast, maritime compliance, canal operations, VUMPA, shipping industry insights">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://canalclear.org/podcast">
+    <link rel="alternate" type="application/rss+xml" title="CanalClear: Panama Canal Compliance Podcast" href="https://canalclear.org/podcast/feed.xml">
+    <link rel="alternate" hreflang="en" href="https://canalclear.org/podcast">
+    <link rel="alternate" hreflang="es" href="https://canalclear.org/podcast">
+    <link rel="alternate" hreflang="zh" href="https://canalclear.org/podcast">
+    <link rel="alternate" hreflang="el" href="https://canalclear.org/podcast">
+    <link rel="alternate" hreflang="ja" href="https://canalclear.org/podcast">
+    <link rel="alternate" hreflang="x-default" href="https://canalclear.org/podcast">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://canalclear.org/podcast">
+    <meta property="og:title" content="Clear Passage — The Shipping & Logistics Podcast by CanalClear">
+    <meta property="og:description" content="Deep-dive conversations on Panama Canal compliance, cargo logistics, and the business of global shipping. Hosted by CanalClear.">
+    <meta property="og:image" content="https://canalclear.org/og-image.png">
+    <meta property="og:site_name" content="CanalClear">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://canalclear.org/podcast">
+    <meta name="twitter:title" content="Clear Passage — The Shipping & Logistics Podcast">
+    <meta name="twitter:description" content="Deep-dive conversations on Panama Canal compliance, cargo logistics, and maritime operations.">
+    <meta name="twitter:image" content="https://canalclear.org/og-image.png">
+
+    <!-- Structured Data: PodcastSeries -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "PodcastSeries",
+      "name": "Clear Passage",
+      "description": "Deep-dive conversations on shipping industry insights, Panama Canal compliance challenges, canal operations, and the future of maritime logistics.",
+      "url": "https://canalclear.org/podcast",
+      "publisher": {
+        "@type": "Organization",
+        "name": "CanalClear",
+        "url": "https://canalclear.org"
+      },
+      "inLanguage": ["en", "es", "zh", "el", "ja"],
+      "genre": ["Business", "Technology", "Transportation"],
+      "image": "https://canalclear.org/og-image.png"
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="/css/visual-polish.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --navy: #1a2d4a;
+            --deep: #142238;
+            --slate: #243350;
+            --teal: #E85A00;
+            --teal-dim: rgba(232, 90, 0, 0.15);
+            --cyan: #00B4D8;
+            --white: #ffffff;
+            --gray: #6b7c93;
+            --light-gray: #8fa3b8;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: var(--navy);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ── NAV ───────────────────────────────────── */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 1.25rem 2rem;
+            background: rgba(10, 22, 40, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(232, 90, 0, 0.08);
+        }
+        nav .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        .logo img {
+            height: 38px;
+            width: auto;
+            object-fit: contain;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-link {
+            color: var(--gray);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .nav-link:hover {
+            color: var(--white);
+            background: rgba(232, 90, 0, 0.08);
+        }
+        .nav-link.active {
+            color: var(--teal);
+            background: var(--teal-dim);
+        }
+        .nav-cta {
+            background: var(--teal);
+            color: var(--navy);
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .nav-cta:hover {
+            background: #CC4F00;
+        }
+
+        /* ── HERO ───────────────────────────────────── */
+        .podcast-hero {
+            padding: 8rem 2rem 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .podcast-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 900px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(232, 90, 0, 0.07) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .podcast-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(232, 90, 0, 0.2), transparent);
+        }
+        .hero-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Podcast artwork */
+        .podcast-artwork {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 2rem;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #142238 0%, #243350 100%);
+            border: 1.5px solid rgba(232, 90, 0, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 40px rgba(232, 90, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        .podcast-artwork::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 20%;
+            right: 20%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--teal), transparent);
+        }
+        .podcast-artwork-inner {
+            text-align: center;
+        }
+        .podcast-artwork-icon {
+            font-size: 3rem;
+            line-height: 1;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        .podcast-artwork-brand {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 0.6rem;
+            font-weight: 700;
+            color: var(--teal);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .episode-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--teal);
+            background: var(--teal-dim);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+        .episode-badge::before {
+            content: '🎙️';
+            font-size: 0.85rem;
+        }
+
+        .podcast-hero h1 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.25rem;
+        }
+        .podcast-hero h1 em {
+            font-style: normal;
+            color: var(--teal);
+        }
+        .podcast-hero .tagline {
+            font-size: 1.1rem;
+            color: var(--light-gray);
+            max-width: 620px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+        }
+
+        /* Subscribe row */
+        .subscribe-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        .subscribe-label {
+            font-size: 0.85rem;
+            color: var(--gray);
+            font-weight: 500;
+        }
+        .platform-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.55rem 1.1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(136, 153, 170, 0.2);
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--light-gray);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .platform-btn:hover {
+            border-color: rgba(232, 90, 0, 0.3);
+            background: rgba(232, 90, 0, 0.06);
+            color: var(--white);
+        }
+        .platform-btn.rss-btn:hover {
+            border-color: rgba(244, 162, 97, 0.4);
+            background: rgba(244, 162, 97, 0.08);
+        }
+        .platform-btn .platform-icon {
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        /* ── EPISODES ───────────────────────────────── */
+        .episodes-section {
+            padding: 5rem 2rem;
+        }
+        .episodes-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+        .section-label {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--teal);
+        }
+        .episodes-section h2 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Episode card */
+        .episode-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        .episode-card {
+            background: var(--deep);
+            border: 1px solid rgba(136, 153, 170, 0.1);
+            border-radius: 16px;
+            padding: 1.75rem 2rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            transition: border-color 0.25s, background 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
+        .episode-card::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 2rem;
+            right: 2rem;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(232, 90, 0, 0.15), transparent);
+            opacity: 0;
+            transition: opacity 0.25s;
+        }
+        .episode-card:hover {
+            border-color: rgba(232, 90, 0, 0.2);
+            background: rgba(15, 29, 50, 0.85);
+        }
+        .episode-card:hover::before {
+            opacity: 1;
+        }
+        .episode-card.upcoming {
+            opacity: 0.75;
+        }
+        .episode-card.upcoming:hover {
+            opacity: 0.9;
+        }
+
+        /* Play button */
+        .play-btn {
+            flex-shrink: 0;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: var(--teal-dim);
+            border: 1.5px solid rgba(232, 90, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--teal);
+        }
+        .play-btn:hover {
+            background: rgba(232, 90, 0, 0.25);
+            border-color: var(--teal);
+            transform: scale(1.05);
+        }
+        .play-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+            margin-left: 3px;
+        }
+        .play-btn.coming-soon {
+            cursor: default;
+            opacity: 0.5;
+        }
+        .play-btn.coming-soon:hover {
+            transform: none;
+            background: var(--teal-dim);
+        }
+
+        .episode-body {
+            flex: 1;
+            min-width: 0;
+        }
+        .episode-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.6rem;
+        }
+        .episode-number {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--teal);
+            background: var(--teal-dim);
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            letter-spacing: 0.05em;
+        }
+        .episode-date {
+            font-size: 0.82rem;
+            color: var(--gray);
+        }
+        .episode-duration {
+            font-size: 0.82rem;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .episode-duration::before {
+            content: '·';
+        }
+        .coming-soon-tag {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: #F4A261;
+            background: rgba(244, 162, 97, 0.12);
+            border: 1px solid rgba(244, 162, 97, 0.2);
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+        .episode-title {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            line-height: 1.35;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+        }
+        .episode-description {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* ── NEWSLETTER / NOTIFY ────────────────────── */
+        .notify-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(180deg, var(--navy) 0%, var(--deep) 50%, var(--navy) 100%);
+            position: relative;
+        }
+        .notify-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 700px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(232, 90, 0, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .notify-inner {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+        }
+        .notify-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.25rem;
+            display: block;
+        }
+        .notify-inner h2 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.75rem;
+        }
+        .notify-inner p {
+            font-size: 1rem;
+            color: var(--light-gray);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        .notify-form {
+            display: flex;
+            gap: 0.75rem;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        .notify-input {
+            flex: 1;
+            padding: 0.8rem 1.1rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--white);
+            font-size: 0.95rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .notify-input:focus {
+            border-color: rgba(232, 90, 0, 0.4);
+        }
+        .notify-input::placeholder {
+            color: var(--gray);
+        }
+        .notify-btn {
+            padding: 0.8rem 1.5rem;
+            background: var(--teal);
+            color: var(--navy);
+            border: none;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+        .notify-btn:hover {
+            background: #CC4F00;
+        }
+        .notify-btn:disabled {
+            opacity: 0.7;
+            cursor: default;
+        }
+        .notify-success {
+            display: none;
+            padding: 1rem 1.5rem;
+            background: rgba(232, 90, 0, 0.1);
+            border: 1px solid rgba(232, 90, 0, 0.2);
+            border-radius: 12px;
+            color: var(--teal);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        .notify-disclaimer {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 0.75rem;
+        }
+
+        /* ── ABOUT SHOW ─────────────────────────────── */
+        .about-section {
+            padding: 5rem 2rem;
+        }
+        .about-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        .about-section h2 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+        .about-section p {
+            font-size: 0.95rem;
+            color: var(--light-gray);
+            line-height: 1.75;
+            margin-bottom: 1rem;
+        }
+        .topics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+        .topic-tag {
+            background: var(--deep);
+            border: 1px solid rgba(136, 153, 170, 0.1);
+            border-radius: 8px;
+            padding: 0.6rem 1rem;
+            font-size: 0.85rem;
+            color: var(--light-gray);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .topic-tag .topic-icon {
+            font-size: 1rem;
+        }
+
+        /* ── FOOTER ─────────────────────────────────── */
+        footer {
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(136, 153, 170, 0.08);
+            text-align: center;
+        }
+        .footer-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .footer-logo {
+            margin-bottom: 1.25rem;
+            display: inline-block;
+        }
+        .footer-logo img {
+            height: 32px;
+            width: auto;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover {
+            color: var(--teal);
+        }
+        .footer-copy {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* ── RESPONSIVE ─────────────────────────────── */
+        @media (max-width: 768px) {
+            .episode-card {
+                padding: 1.25rem 1.25rem;
+                gap: 1rem;
+            }
+            .play-btn {
+                width: 44px;
+                height: 44px;
+            }
+            .play-btn svg {
+                width: 18px;
+                height: 18px;
+            }
+            .notify-form {
+                flex-direction: column;
+            }
+            .about-inner {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .subscribe-row {
+                gap: 0.5rem;
+            }
+            .platform-btn {
+                font-size: 0.8rem;
+                padding: 0.5rem 0.85rem;
+            }
+            nav {
+                padding: 1rem 1.25rem;
+            }
+        }
+
+        /* ── MOBILE STYLES ≤768px ── */
+        @media (max-width: 768px) {
+            /* Hero: reduce padding */
+            .podcast-hero { padding: 6rem 1.25rem 3.5rem; }
+            .hero-inner { max-width: 100%; }
+
+            /* Podcast artwork: responsive sizing */
+            .podcast-artwork {
+                width: 110px;
+                height: 110px;
+                border-radius: 18px;
+                margin-bottom: 1.5rem;
+            }
+            .podcast-artwork-icon { font-size: 2.4rem; }
+            .podcast-artwork-brand { font-size: 0.55rem; }
+
+            /* Hero text */
+            .podcast-hero h1 { font-size: clamp(1.8rem, 6vw, 2.6rem); }
+            .podcast-hero .tagline { font-size: 0.97rem; margin-bottom: 2rem; }
+
+            /* Subscribe row: wrap platform buttons */
+            .subscribe-row {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            .subscribe-label { width: 100%; text-align: center; margin-bottom: 0.25rem; }
+            .platform-btn { font-size: 0.82rem; padding: 0.55rem 0.95rem; min-height: 44px; }
+
+            /* Episodes section */
+            .episodes-section { padding: 3.5rem 1.25rem; }
+            .episodes-inner { max-width: 100%; }
+            .section-header { margin-bottom: 1.75rem; }
+            .episodes-section h2 { font-size: 1.6rem; }
+
+            /* Episode list: single column already via flex-col */
+            .episode-list { gap: 0.85rem; }
+
+            /* Episode card: full width with comfortable padding */
+            .episode-card {
+                padding: 1.1rem 1.1rem;
+                gap: 0.85rem;
+                border-radius: 14px;
+            }
+
+            /* Play button: ensure 44px minimum tap target */
+            .play-btn {
+                width: 48px;
+                height: 48px;
+                flex-shrink: 0;
+            }
+            .play-btn svg { width: 20px; height: 20px; }
+
+            /* Episode body */
+            .episode-meta { gap: 0.5rem; margin-bottom: 0.45rem; }
+            .episode-title { font-size: 0.97rem; line-height: 1.3; }
+            .episode-description { font-size: 0.85rem; line-height: 1.55; }
+            .episode-number { font-size: 0.7rem; }
+            .episode-date, .episode-duration { font-size: 0.78rem; }
+
+            /* Notify/newsletter section */
+            .notify-section { padding: 3.5rem 1.25rem; }
+            .notify-inner { max-width: 100%; }
+            .notify-inner h2 { font-size: 1.6rem; }
+            .notify-inner p { font-size: 0.95rem; }
+            .notify-form {
+                flex-direction: column;
+                gap: 0.6rem;
+                max-width: 100%;
+            }
+            .notify-input {
+                width: 100%;
+                padding: 0.85rem 1rem;
+                font-size: 1rem; /* prevent zoom on iOS */
+                min-height: 48px;
+            }
+            .notify-btn {
+                width: 100%;
+                padding: 0.85rem 1.5rem;
+                min-height: 48px;
+                font-size: 1rem;
+            }
+
+            /* About section: stack columns */
+            .about-section { padding: 3.5rem 1.25rem; }
+            .about-inner {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .about-section h2 { font-size: 1.4rem; }
+            .about-section p { font-size: 0.92rem; }
+
+            /* Topics grid: 2 columns on mobile */
+            .topics-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+            .topic-tag { font-size: 0.8rem; padding: 0.55rem 0.85rem; }
+
+            /* Footer */
+            footer { padding: 2.5rem 1.25rem; }
+            .footer-links { gap: 1rem; }
+            .footer-links a { font-size: 0.82rem; }
+        }
+
+        @media (max-width: 420px) {
+            .podcast-hero { padding: 5.5rem 1rem 3rem; }
+            .topics-grid { grid-template-columns: 1fr; }
+            .episode-card { padding: 0.9rem 0.9rem; }
+            .episode-title { font-size: 0.93rem; }
+            /* Platform buttons: wrap into two per row */
+            .platform-btn { flex: 1 1 calc(50% - 0.5rem); justify-content: center; }
+        }
+    </style>
+    <link rel="stylesheet" href="/css/mobile.css">
+
+    <!-- Schema: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://canalclear.org/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Podcast",
+          "item": "https://canalclear.org/podcast"
+        }
+      ]
+    }
+    </script>
+
+    <!-- PWA / Add to Home Screen -->
+    <meta name="theme-color" content="#1a2d4a">
+    <link rel="manifest" href="/manifest.json">
+    <!-- iOS PWA -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="CanalClear">
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512.png">
+  </head>
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="nav-inner">
+            <a href="/" class="logo">
+                <img src="https://pub-629428d185ca4960a0a73c850d32294b.r2.dev/company_47541/images/9d5d2ef6-d9e0-40eb-ad15-df5e737cefc1.png" alt="Canal Clear - One Platform, Zero Surprises">
+            </a>
+            <div class="nav-links">
+                <a href="/demo" class="nav-link" data-i18n="nav.watch_demo">▶ Watch Demo</a>
+                <a href="/podcast" class="nav-link active" data-i18n="nav.podcast">Podcast</a>
+                <a href="/filing" class="nav-link" data-i18n="nav.open_filing">Filing</a>
+                <a href="/app" class="nav-cta" data-i18n="nav.open_validator">Open Validator <span style="font-size:0.75rem;opacity:0.8;font-weight:500;">(Paid Plans)</span></a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="podcast-hero">
+        <div class="hero-inner">
+            <div class="podcast-artwork">
+                <div class="podcast-artwork-inner">
+                    <span class="podcast-artwork-icon">⚓</span>
+                    <span class="podcast-artwork-brand" data-i18n="podcast.show_name">Clear Passage</span>
+                </div>
+            </div>
+
+            <div class="episode-badge" data-i18n="podcast.hero_badge">A Podcast by CanalClear</div>
+
+            <h1 data-i18n-html="podcast.hero_h1">The shipping &amp; logistics podcast for people who move the world's <em>cargo</em></h1>
+            <p class="tagline" data-i18n="podcast.hero_tagline">Deep-dive conversations on Panama Canal operations, compliance challenges, maritime regulation, and the business of global shipping. New episodes monthly.</p>
+
+            <!-- Platform subscribe CTAs -->
+            <div class="subscribe-row">
+                <span class="subscribe-label" data-i18n="podcast.subscribe_on">Listen &amp; subscribe on:</span>
+                <a href="#" class="platform-btn" title="Apple Podcasts — Coming Soon" data-i18n-title="podcast.apple_title">
+                    <span class="platform-icon">🎵</span>
+                    <span data-i18n="podcast.apple_label">Apple Podcasts</span>
+                </a>
+                <a href="#" class="platform-btn" title="Spotify — Coming Soon" data-i18n-title="podcast.spotify_title">
+                    <span class="platform-icon">🎧</span>
+                    <span data-i18n="podcast.spotify_label">Spotify</span>
+                </a>
+                <a href="/podcast/youtube" class="platform-btn" title="Watch on YouTube" data-i18n-title="podcast.youtube_title">
+                    <span class="platform-icon">▶️</span>
+                    <span data-i18n="podcast.youtube_label">YouTube</span>
+                </a>
+                <a href="/podcast/feed.xml" class="platform-btn" title="Subscribe via RSS" target="_blank" rel="noopener">
+                    <span class="platform-icon">📡</span>
+                    <span>RSS</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- EPISODES -->
+    <section class="episodes-section">
+        <div class="episodes-inner">
+            <div>
+                <div class="section-label">Episodes</div>
+                <h2>All Episodes — Season 1</h2>
+            </div>
+            <div style="height:2rem;"></div>
+
+            <div class="episode-list">
+
+                <!-- Episode 1 -->
+                <a href="/podcast/episode-1" class="episode-card" style="text-decoration:none;color:inherit;">
+                    <div class="play-btn" title="Listen to Episode 1" aria-label="Listen to Episode 1">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                    <div class="episode-body">
+                        <div class="episode-meta">
+                            <span class="episode-number">EP 01</span>
+                            <span class="episode-duration">13 min read</span>
+                            <span style="font-size:0.75rem;color:var(--teal);font-weight:500;">Apr 1, 2026</span>
+                        </div>
+                        <div class="episode-title">Why Ships Get Stuck at the Panama Canal (And It's Not the Water Level)</div>
+                        <div class="episode-description">The single most common reason ships miss their Panama Canal slots has nothing to do with water levels. It's paperwork. We break down the $65K/day cost of compliance errors and how fleet operators are fixing it.</div>
+                    </div>
+                </a>
+
+                <!-- Episode 2 -->
+                <a href="/podcast/episode-2" class="episode-card" style="text-decoration:none;color:inherit;">
+                    <div class="play-btn" title="Listen to Episode 2" aria-label="Listen to Episode 2">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                    <div class="episode-body">
+                        <div class="episode-meta">
+                            <span class="episode-number">EP 02</span>
+                            <span class="episode-duration">13 min read</span>
+                            <span style="font-size:0.75rem;color:var(--teal);font-weight:500;">Apr 1, 2026</span>
+                        </div>
+                        <div class="episode-title">The $2 Billion Paperwork Problem in Global Shipping</div>
+                        <div class="episode-description">Documentation errors cost the shipping industry $2–3 billion per year. But the real impact is what happens downstream: how one manifest conflict at a canal can stop an automotive assembly line halfway around the world.</div>
+                    </div>
+                </a>
+
+                <!-- Episode 3 -->
+                <a href="/podcast/episode-3" class="episode-card" style="text-decoration:none;color:inherit;">
+                    <div class="play-btn" title="Listen to Episode 3" aria-label="Listen to Episode 3">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                    <div class="episode-body">
+                        <div class="episode-meta">
+                            <span class="episode-number">EP 03</span>
+                            <span class="episode-duration">13 min read</span>
+                            <span style="font-size:0.75rem;color:var(--teal);font-weight:500;">Apr 1, 2026</span>
+                        </div>
+                        <div class="episode-title">VUMPA, PCSOPEP, and the Alphabet Soup of Canal Compliance</div>
+                        <div class="episode-description">VUMPA. PCSOPEP. IMDG. DGD. ISM. We untangle the forms — and explain why getting the relationships between them wrong is more expensive than getting any single form wrong.</div>
+                    </div>
+                </a>
+
+                <!-- Episode 4 -->
+                <a href="/podcast/episode-4" class="episode-card" style="text-decoration:none;color:inherit;">
+                    <div class="play-btn" title="Listen to Episode 4" aria-label="Listen to Episode 4">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                    <div class="episode-body">
+                        <div class="episode-meta">
+                            <span class="episode-number">EP 04</span>
+                            <span class="episode-duration">13 min read</span>
+                            <span style="font-size:0.75rem;color:var(--teal);font-weight:500;">Apr 1, 2026</span>
+                        </div>
+                        <div class="episode-title">Ship Agents Are Charging You $5,000 for Something Software Can Do</div>
+                        <div class="episode-description">The traditional ship agent charges $2,000–$5,000 per Panama Canal transit to handle compliance paperwork. The actual labor cost of that work? $480–$860. We break down the economics — and why the math has permanently shifted.</div>
+                    </div>
+                </a>
+
+                <!-- Episode 5 -->
+                <a href="/podcast/episode-5" class="episode-card" style="text-decoration:none;color:inherit;">
+                    <div class="play-btn" title="Listen to Episode 5" aria-label="Listen to Episode 5">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                    <div class="episode-body">
+                        <div class="episode-meta">
+                            <span class="episode-number">EP 05</span>
+                            <span class="episode-duration">13 min read</span>
+                            <span style="font-size:0.75rem;color:var(--teal);font-weight:500;">Apr 1, 2026</span>
+                        </div>
+                        <div class="episode-title">Dangerous Goods, Lithium Batteries, and the Filings Nobody Gets Right</div>
+                        <div class="episode-description">18–24% of vessels carrying dangerous goods encounter compliance issues at the Panama Canal. Lithium batteries alone account for 45% of hazmat declaration conflicts. Here's why — and how to get it right every time.</div>
+                    </div>
+                </a>
+
+                <!-- Episode 6 -->
+                <a href="/podcast/episode-6" class="episode-card" style="text-decoration:none;color:inherit;">
+                    <div class="play-btn" title="Listen to Episode 6" aria-label="Listen to Episode 6">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                    <div class="episode-body">
+                        <div class="episode-meta">
+                            <span class="episode-number">EP 06</span>
+                            <span class="episode-duration">12 min read</span>
+                            <span style="font-size:0.75rem;color:var(--teal);font-weight:500;">Apr 1, 2026</span>
+                        </div>
+                        <div class="episode-title">Why Global Shipping Is Still Running on Fax Machines and Excel</div>
+                        <div class="episode-description">25% of cargo owners still use email as their primary shipping tool. The industry moving $2.5 trillion in annual trade processes 80% of documentation manually. Here's why — and why it's finally starting to change.</div>
+                    </div>
+                </a>
+
+                <!-- Episode 7 -->
+                <a href="/podcast/episode-7" class="episode-card" style="text-decoration:none;color:inherit;">
+                    <div class="play-btn" title="Listen to Episode 7" aria-label="Listen to Episode 7">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                    <div class="episode-body">
+                        <div class="episode-meta">
+                            <span class="episode-number">EP 07</span>
+                            <span class="episode-duration">13 min read</span>
+                            <span style="font-size:0.75rem;color:var(--teal);font-weight:500;">Apr 1, 2026</span>
+                        </div>
+                        <div class="episode-title">Panama vs Suez: Two Canals, Two Compliance Nightmares</div>
+                        <div class="episode-description">Panama Canal and Suez Canal together handle ~25% of world maritime traffic. Their compliance regimes couldn't be more different. Panama is bureaucratic and environmental. Suez is geopolitical and military.</div>
+                    </div>
+                </a>
+
+                <!-- Episode 8 -->
+                <a href="/podcast/episode-8" class="episode-card" style="text-decoration:none;color:inherit;">
+                    <div class="play-btn" title="Listen to Episode 8" aria-label="Listen to Episode 8">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                    <div class="episode-body">
+                        <div class="episode-meta">
+                            <span class="episode-number">EP 08</span>
+                            <span class="episode-duration">12 min read</span>
+                            <span style="font-size:0.75rem;color:var(--teal);font-weight:500;">Apr 1, 2026</span>
+                        </div>
+                        <div class="episode-title">The Hidden Cost of Port State Control Inspections</div>
+                        <div class="episode-description">PSC inspectors detain about 150 vessels per year at $30,000–$50,000 per day. The counter-intuitive truth: 87% of detentions are preventable with a single pre-arrival audit.</div>
+                    </div>
+                </a>
+
+                <!-- Episode 9 -->
+                <a href="/podcast/episode-9" class="episode-card" style="text-decoration:none;color:inherit;">
+                    <div class="play-btn" title="Listen to Episode 9" aria-label="Listen to Episode 9">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                    <div class="episode-body">
+                        <div class="episode-meta">
+                            <span class="episode-number">EP 09</span>
+                            <span class="episode-duration">13 min read</span>
+                            <span style="font-size:0.75rem;color:var(--teal);font-weight:500;">Apr 1, 2026</span>
+                        </div>
+                        <div class="episode-title">Red Sea Diversions and the Compliance Chaos They Create</div>
+                        <div class="episode-description">When geopolitics forces a reroute, compliance cascades immediately: new port jurisdictions, new documentation requirements, insurance policy gaps. Here's what Red Sea diversions actually cost — and how to prepare.</div>
+                    </div>
+                </a>
+
+                <!-- Episode 10 -->
+                <a href="/podcast/episode-10" class="episode-card" style="text-decoration:none;color:inherit;">
+                    <div class="play-btn" title="Listen to Episode 10" aria-label="Listen to Episode 10">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                    <div class="episode-body">
+                        <div class="episode-meta">
+                            <span class="episode-number">EP 10</span>
+                            <span class="episode-duration">12 min read</span>
+                            <span style="font-size:0.75rem;color:var(--teal);font-weight:500;">Apr 1, 2026</span>
+                        </div>
+                        <div class="episode-title">The Future of Maritime Compliance: AI, Blockchain, and What Actually Works</div>
+                        <div class="episode-description">Every conference has a blockchain panel. Every vendor promises AI will revolutionize compliance. Most of it is hype. Here's what's actually working today, what's 5–10 years away, and what to invest in for 2026.</div>
+                    </div>
+                </a>
+
+                <!-- Episode 11 -->
+                <a href="/podcast/episode-11" class="episode-card" style="text-decoration:none;color:inherit;">
+                    <div class="play-btn" title="Listen to Episode 11" aria-label="Listen to Episode 11">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                    <div class="episode-body">
+                        <div class="episode-meta">
+                            <span class="episode-number">EP 11</span>
+                            <span class="episode-duration">11 min read</span>
+                            <span style="font-size:0.75rem;color:var(--teal);font-weight:500;">Apr 8, 2026</span>
+                        </div>
+                        <div class="episode-title">Digital Ship Agency: How Technology is Changing the Transit Game</div>
+                        <div class="episode-description">The ship agency model hasn't changed in 60 years. Digital-first agencies now handle ACP submissions via API, real-time status tracking, and automated document routing — at 60–80% lower cost than the traditional model.</div>
+                    </div>
+                </a>
+
+                <!-- Episode 12 -->
+                <a href="/podcast/episode-12" class="episode-card" style="text-decoration:none;color:inherit;">
+                    <div class="play-btn" title="Listen to Episode 12" aria-label="Listen to Episode 12">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                    <div class="episode-body">
+                        <div class="episode-meta">
+                            <span class="episode-number">EP 12</span>
+                            <span class="episode-duration">12 min read</span>
+                            <span style="font-size:0.75rem;color:var(--teal);font-weight:500;">Apr 10, 2026</span>
+                        </div>
+                        <div class="episode-title">Understanding Panama Canal Slot Booking and Transit Scheduling</div>
+                        <div class="episode-description">The NEAC booking system is one of the most consequential scheduling mechanisms in global trade. Miss your slot and the $65K+ cancellation fee is just the beginning. Here's how to never miss a slot again.</div>
+                    </div>
+                </a>
+
+                <!-- Episode 13 -->
+                <a href="/podcast/episode-13" class="episode-card" style="text-decoration:none;color:inherit;">
+                    <div class="play-btn" title="Listen to Episode 13" aria-label="Listen to Episode 13">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                    <div class="episode-body">
+                        <div class="episode-meta">
+                            <span class="episode-number">EP 13</span>
+                            <span class="episode-duration">12 min read</span>
+                            <span style="font-size:0.75rem;color:var(--teal);font-weight:500;">Apr 12, 2026</span>
+                        </div>
+                        <div class="episode-title">From Paper to Digital: Modernizing VUMPA and PCSOPEP Workflows</div>
+                        <div class="episode-description">Most shipping companies still manage VUMPA and PCSOPEP filings the same way they did in 1995. Here's what genuine workflow modernization looks like — and why doing it now, before digital deadlines make it mandatory, is worth it.</div>
+                    </div>
+                </a>
+
+                <!-- Episode 14 -->
+                <a href="/podcast/episode-14" class="episode-card" style="text-decoration:none;color:inherit;">
+                    <div class="play-btn" title="Listen to Episode 14" aria-label="Listen to Episode 14">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                    <div class="episode-body">
+                        <div class="episode-meta">
+                            <span class="episode-number">EP 14</span>
+                            <span class="episode-duration">10 min read</span>
+                            <span style="font-size:0.75rem;color:var(--teal);font-weight:500;">Apr 15, 2026</span>
+                        </div>
+                        <div class="episode-title">Ship Agent vs Software: The Future of Panama Canal Compliance</div>
+                        <div class="episode-description">Traditional ship agents charge $2,000–$5,000 per transit for compliance work. CanalClear automates the data-entry layer. We look at what each does best — and why the best operators use both.</div>
+                    </div>
+                </a>
+
+                <!-- Episode 15 -->
+                <a href="/podcast/episode-15" class="episode-card" style="text-decoration:none;color:inherit;">
+                    <div class="play-btn" title="Listen to Episode 15" aria-label="Listen to Episode 15">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                    <div class="episode-body">
+                        <div class="episode-meta">
+                            <span class="episode-number">EP 15</span>
+                            <span class="episode-duration">10 min read</span>
+                            <span style="font-size:0.75rem;color:var(--teal);font-weight:500;">Apr 22, 2026</span>
+                        </div>
+                        <div class="episode-title">Panama Canal Shipping Costs Breakdown — Where Your Money Actually Goes</div>
+                        <div class="episode-description">Canal tolls, booking fees, tugboat charges, pilot fees, agent fees, and penalties. A full breakdown of every cost layer in a Panama Canal transit — and how to avoid surprise charges.</div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- NOTIFY / NEWSLETTER -->
+    <section class="notify-section" id="notify">
+        <div class="notify-inner">
+            <span class="notify-icon">🔔</span>
+            <h2 data-i18n="podcast.notify_h2">Be first to hear new episodes</h2>
+            <p data-i18n="podcast.notify_p">Drop your email and we'll notify you the moment a new episode drops. No spam — just shipping intelligence, once a month.</p>
+
+            <div class="notify-form" id="notify-form">
+                <input
+                    type="email"
+                    class="notify-input"
+                    id="notify-email"
+                    placeholder="you@shipcompany.com"
+                    autocomplete="email"
+                    data-i18n-placeholder="podcast.notify_placeholder"
+                >
+                <button class="notify-btn" id="notify-btn" onclick="submitNotify()" data-i18n="podcast.notify_cta">
+                    Notify Me
+                </button>
+            </div>
+            <div class="notify-success" id="notify-success" data-i18n="podcast.notify_success">
+                ✓ You're on the list. We'll reach out when we go live.
+            </div>
+            <p class="notify-disclaimer" data-i18n="podcast.notify_disclaimer">One email per episode. Unsubscribe anytime.</p>
+        </div>
+    </section>
+
+    <!-- ABOUT THE SHOW -->
+    <section class="about-section">
+        <div class="about-inner">
+            <div>
+                <div class="section-label" data-i18n="podcast.about_label">About the Show</div>
+                <h2 data-i18n="podcast.about_h2">Real conversations from inside the industry</h2>
+                <p data-i18n="podcast.about_p1">Clear Passage is produced by CanalClear — built by people who got tired of watching vessel operators lose six figures on preventable paperwork errors. Every episode features practitioners: captains, compliance officers, port officials, and operators with skin in the game.</p>
+                <p data-i18n="podcast.about_p2">No fluff. No generic supply chain takes. Each episode runs 35–55 minutes and goes deep on a single operational topic that actually affects your bottom line.</p>
+            </div>
+            <div>
+                <div class="section-label" data-i18n="podcast.topics_label">Topics We Cover</div>
+                <div style="height:1.25rem;"></div>
+                <div class="topics-grid">
+                    <div class="topic-tag"><span class="topic-icon">📋</span> <span data-i18n="podcast.topic1">VUMPA Filing</span></div>
+                    <div class="topic-tag"><span class="topic-icon">⚓</span> <span data-i18n="podcast.topic2">Canal Operations</span></div>
+                    <div class="topic-tag"><span class="topic-icon">🛢️</span> <span data-i18n="podcast.topic3">PCSOPEP & MARPOL</span></div>
+                    <div class="topic-tag"><span class="topic-icon">📦</span> <span data-i18n="podcast.topic4">Cargo Compliance</span></div>
+                    <div class="topic-tag"><span class="topic-icon">🌊</span> <span data-i18n="podcast.topic5">Draft Restrictions</span></div>
+                    <div class="topic-tag"><span class="topic-icon">💡</span> <span data-i18n="podcast.topic6">Fleet Technology</span></div>
+                    <div class="topic-tag"><span class="topic-icon">⚖️</span> <span data-i18n="podcast.topic7">Maritime Law</span></div>
+                    <div class="topic-tag"><span class="topic-icon">🗺️</span> <span data-i18n="podcast.topic8">Route Planning</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <a href="/" class="footer-logo">
+                <img loading="lazy" src="https://pub-629428d185ca4960a0a73c850d32294b.r2.dev/company_47541/images/9d5d2ef6-d9e0-40eb-ad15-df5e737cefc1.png" alt="CanalClear">
+            </a>
+            <div class="footer-links">
+                <a href="/" data-i18n="footer.home">Home</a>
+                <a href="/bosporus">Bosporus</a>
+                <a href="/pricing" data-i18n="footer.pricing">Pricing</a>
+                <a href="/filing" data-i18n="footer.filing">Filing</a>
+                <a href="/podcast" data-i18n="footer.podcast">Podcast</a>
+                <a href="/blog" data-i18n="footer.blog">Blog</a>
+                <a href="/app" data-i18n="footer.validator">Validator</a>
+                <a href="https://www.youtube.com/@CanalClear" target="_blank" rel="noopener" style="color:#FF6B6B;" data-i18n="footer.youtube">YouTube</a>
+            </div>
+            <p class="footer-copy" data-i18n="footer.copy">&copy; 2026 CanalClear. All rights reserved.</p>
+        </div>
+    
+        <p style="margin-top:0.4rem;font-size:0.8rem;"><a href="https://www.google.com/maps/search/?api=1&query=2094+NW+87th+Ter+Coral+Springs+FL+33071" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">&#128205; 2094 NW 87th Ter, Coral Springs, FL 33071</a></p>
+</footer>
+
+    <!-- i18n language switcher -->
+    <script src="/js/i18n.js"></script>
+
+    <!-- CanalClear Analytics -->
+    <script src="/js/analytics.js"></script>
+
+    <!-- Notify form handler -->
+    <script>
+    async function submitNotify() {
+        var email = document.getElementById('notify-email').value.trim();
+        if (!email || !email.includes('@')) {
+            document.getElementById('notify-email').focus();
+            return;
+        }
+        var btn = document.getElementById('notify-btn');
+        btn.disabled = true;
+        btn.textContent = '…';
+        try {
+            var res = await fetch('/api/cc/assessment', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email, source: 'podcast_notify' })
+            });
+            var data = await res.json();
+            if (data.success || res.ok) {
+                document.getElementById('notify-form').style.display = 'none';
+                document.getElementById('notify-success').style.display = 'block';
+                if (typeof fbq !== 'undefined') fbq('track', 'Lead', { content_name: 'Podcast Notification Signup', content_category: 'podcast' });
+            } else {
+                btn.disabled = false;
+                btn.textContent = document.documentElement.lang === 'es' ? 'Intentar de nuevo' : 'Try Again';
+            }
+        } catch(err) {
+            btn.disabled = false;
+            btn.textContent = 'Try Again';
+        }
+    }
+
+    // Allow Enter key in email input
+    document.addEventListener('DOMContentLoaded', function() {
+        var inp = document.getElementById('notify-email');
+        if (inp) {
+            inp.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') submitNotify();
+            });
+        }
+
+        var ccTrack = window._ccTrack || function(){};
+
+        // Track podcast page view
+        ccTrack('podcast_page_view', {});
+
+        // Track episode card clicks
+        document.querySelectorAll('.episode-card, a[href^="/podcast/episode-"]').forEach(function(card) {
+            card.addEventListener('click', function() {
+                var href = card.getAttribute('href') || '';
+                var epMatch = href.match(/episode-(\d+)/);
+                ccTrack('podcast_episode_click', {
+                    episode: epMatch ? parseInt(epMatch[1]) : 0,
+                    href: href
+                });
+            });
+        });
+
+        // Track platform link clicks (Apple, Spotify, YouTube)
+        document.querySelectorAll('.platform-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                ccTrack('podcast_platform_click', { platform: btn.title || btn.textContent.trim() });
+            });
+        });
+
+        // Track CTA links (pricing/app)
+        document.querySelectorAll('a[href="/app"], a[href="/pricing"]').forEach(function(a) {
+            a.addEventListener('click', function() {
+                ccTrack('cta_click', { label: a.textContent.trim(), href: a.getAttribute('href'), context: 'podcast_page' });
+            });
+        });
+    });
+
+    // Track email notify submission
+    var _origSubmitNotify = submitNotify;
+    submitNotify = async function() {
+        var email = document.getElementById('notify-email')?.value?.trim();
+        if (email && email.includes('@') && window._ccTrack) {
+            window._ccTrack('podcast_email_signup', { source: 'podcast_notify' });
+        }
+        return _origSubmitNotify();
+    };
+    </script>
+
+    <script src="/js/mobile-nav.js"></script>
+<script src="/js/pwa-manager.js"></script>
+<script src="/js/whatsapp-button.js"></script>
+</body>
+</html>
