@@ -1,0 +1,371 @@
+/*
+ * CanalClear — Shared Mobile Responsiveness
+ * Injected into all pages via <link rel="stylesheet" href="/css/mobile.css">
+ */
+
+/* ── Hamburger Button ─────────────────────────────────────────────── */
+.hamburger-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: 1px solid rgba(232, 90, 0, 0.35);
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 8px;
+    gap: 5px;
+    flex-shrink: 0;
+    z-index: 9999;
+}
+.hamburger-btn span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #E85A00;
+    border-radius: 2px;
+    transition: all 0.25s ease;
+    transform-origin: center;
+}
+.hamburger-btn.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+.hamburger-btn.open span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+.hamburger-btn.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ── Mobile Nav Overlay ───────────────────────────────────────────── */
+.mobile-nav-overlay {
+    display: none;
+    position: fixed;
+    top: 62px; /* start below nav, so hamburger stays clickable */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(26, 45, 74, 0.98);
+    z-index: 9000;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 1rem;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    border-top: 2px solid #E85A00;
+}
+
+/* Nav stays above overlay */
+nav {
+    z-index: 9999 !important;
+}
+.mobile-nav-overlay.open {
+    display: flex;
+}
+.mobile-nav-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+    max-width: 320px;
+}
+.mobile-nav-links a {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 1rem 1.5rem;
+    color: #C4D0DC;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    font-family: 'IBM Plex Sans', 'DM Sans', sans-serif;
+    border-bottom: 1px solid rgba(136, 153, 170, 0.1);
+    transition: color 0.15s;
+}
+.mobile-nav-links a:first-child {
+    border-top: 1px solid rgba(136, 153, 170, 0.1);
+}
+.mobile-nav-links a:hover,
+.mobile-nav-links a:active {
+    color: #FF8533;
+    background: rgba(232, 90, 0, 0.08);
+}
+.mobile-nav-links a.mobile-cta {
+    background: #E85A00;
+    color: #ffffff;
+    font-weight: 700;
+    border-radius: 10px;
+    margin-top: 1.5rem;
+    border: none;
+    padding: 0.9rem 2rem;
+}
+.mobile-nav-links a.mobile-cta:hover {
+    background: #CC4F00;
+    color: #ffffff;
+}
+
+/* ── Hide desktop nav links on mobile ────────────────────────────── */
+@media (max-width: 768px) {
+    .hamburger-btn {
+        display: flex !important;
+    }
+    /* Hide nav link <a> elements — show only critical UI (bell, logout) */
+    .nav-links > a,
+    .nav-links-inline > a {
+        display: none !important;
+    }
+    /* Also hide nav-links-inline container's non-essential items */
+    .nav-links-inline {
+        display: none !important;
+    }
+    /* Keep nav-links container itself but compact it (only bell + logout remain) */
+    .nav-links {
+        gap: 0.25rem !important;
+        align-items: center;
+    }
+    /* Hide admin nav link (always hidden anyway) */
+    #admin-nav-link {
+        display: none !important;
+    }
+    /* Hide vessel chip on mobile */
+    #vessel-count-chip {
+        display: none !important;
+    }
+    nav {
+        padding: 0.85rem 1.25rem !important;
+    }
+}
+
+/* ── Common Mobile Layout Fixes ──────────────────────────────────── */
+@media (max-width: 768px) {
+    /* Typography */
+    body {
+        font-size: 16px;
+    }
+
+    /* Prevent horizontal overflow globally */
+    html, body {
+        overflow-x: hidden;
+        max-width: 100vw;
+    }
+
+    /* Prevent iOS auto-zoom on form inputs (must be ≥16px) */
+    input, select, textarea {
+        font-size: 16px !important;
+    }
+
+    /* Nav overflow prevention — ensure nav-inner never overflows */
+    nav .nav-inner,
+    .funnel-nav {
+        flex-wrap: nowrap;
+        min-width: 0; /* allow shrinking */
+    }
+
+    /* Canal selector — stack on mobile */
+    .canal-selector {
+        flex-direction: column !important;
+        gap: 0.75rem !important;
+    }
+
+    /* Logout / action buttons in nav — keep visible on mobile (touch targets) */
+    #logout-btn {
+        min-height: 44px !important;
+    }
+
+    /* Notification bell — keep visible on mobile, 44px tap target */
+    .notif-bell-btn {
+        min-width: 44px !important;
+        min-height: 44px !important;
+    }
+
+    /* Sections */
+    section, .section {
+        padding-left: 1.25rem !important;
+        padding-right: 1.25rem !important;
+    }
+
+    /* Grids → single column */
+    .grid-2,
+    .grid-3,
+    .grid-4,
+    [style*="grid-template-columns: 1fr 1fr"],
+    [style*="grid-template-columns: repeat(2"],
+    [style*="grid-template-columns: repeat(3"],
+    [style*="grid-template-columns: repeat(4"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Tables → scrollable */
+    table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        max-width: 100%;
+    }
+
+    /* Buttons — minimum 44px tap target */
+    button, .btn, [role="button"],
+    a[style*="border-radius"][style*="padding"] {
+        min-height: 44px;
+    }
+
+    /* Images */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Modals */
+    .modal-content, .modal-box, .modal-panel, [class*="modal"] {
+        width: 95vw !important;
+        max-width: 95vw !important;
+        margin: 0 auto;
+    }
+
+    /* ── Tabs — horizontal scroll on overflow ────────────────────── */
+    .tabs {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        flex-wrap: nowrap;
+    }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab {
+        flex-shrink: 0;
+        white-space: nowrap;
+        padding: 0.65rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    /* ── Notification / dropdown panels — cap width ──────────────── */
+    .notif-panel {
+        width: calc(100vw - 2rem) !important;
+        max-width: 340px;
+        right: -0.5rem !important;
+    }
+
+    /* ── Savings strip / banner — wrap items ─────────────────────── */
+    .savings-strip,
+    .savings-banner {
+        flex-wrap: wrap;
+        gap: 1rem !important;
+        padding: 1rem !important;
+    }
+    .strip-stat, .savings-stat {
+        flex: 1 1 40%;
+        text-align: center;
+    }
+
+    /* ── Hero CTA rows with nowrap buttons — allow stacking ─────── */
+    .hero-cta-row,
+    [style*="display:flex"][style*="flex-wrap:wrap"],
+    [style*="display: flex"][style*="flex-wrap: wrap"] {
+        flex-direction: column;
+        align-items: stretch !important;
+    }
+
+    /* ── App stats bar — 2-col on mobile ─────────────────────────── */
+    .stats-bar {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 0.75rem !important;
+    }
+
+    /* ── Pricing & plan card fixes ────────────────────────────────── */
+    .pricing-grid,
+    .plans-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* ── Canal columns layout ─────────────────────────────────────── */
+    .canal-columns,
+    .hp-canal-columns {
+        grid-template-columns: 1fr !important;
+    }
+    .canal-column.best-value,
+    .hp-canal-column.best-value {
+        transform: none !important;
+    }
+
+    /* ── Form actions row — wrap on small screens ─────────────────── */
+    .form-actions {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    /* ── Demo page sticky CTA ─────────────────────────────────────── */
+    .sticky-cta {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    .sticky-cta a {
+        flex: 1;
+        text-align: center;
+        min-width: 120px;
+    }
+    .sticky-cta-text .sticky-cta-sub { display: none; }
+}
+
+@media (max-width: 480px) {
+    section, .section {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    /* Stats bar → single column on very small screens */
+    .stats-bar {
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    /* Reduce stat card size */
+    .stat-card {
+        padding: 1rem !important;
+    }
+    .stat-card .value {
+        font-size: 1.4rem !important;
+    }
+}
+
+/* ── 375px specific fixes ─────────────────────────────────────────── */
+@media (max-width: 390px) {
+    /* Tab labels even smaller */
+    .tab { font-size: 0.78rem; padding: 0.6rem 0.75rem; }
+
+    /* Strip stats single column */
+    .strip-stat, .savings-stat { flex: 1 1 100%; }
+
+    /* Plan badges — prevent overflow */
+    .plan-badge {
+        font-size: 0.65rem !important;
+        white-space: nowrap;
+    }
+
+    /* ── Button text truncation fixes ────────────────────────────────── */
+    /* Nav CTA button — reduce padding and font size on ultra-small screens */
+    .nav-cta {
+        padding: 0.5rem 0.9rem !important;
+        font-size: 0.85rem !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        flex-shrink: 1;
+    }
+
+    /* Submit buttons — ensure full visibility */
+    button[type="submit"],
+    .btn-primary,
+    .btn-outline,
+    .btn-ghost,
+    .price-cta {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 0;
+        flex-shrink: 1;
+    }
+}

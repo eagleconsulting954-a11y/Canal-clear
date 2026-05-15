@@ -1,0 +1,133 @@
+/*
+ * CanalClear — Unified Navigation
+ * Single nav bar applied across all public pages.
+ * Injected via <link rel="stylesheet" href="/css/nav.css"> in every page <head>.
+ */
+
+/* ── Nav Bar ─────────────────────────────────────────────────────── */
+nav {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 9999 !important;
+    background: rgba(10, 22, 40, 0.97) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-bottom: 1px solid rgba(232, 90, 0, 0.18) !important;
+    padding: 0 2rem !important;
+    height: 64px !important;
+    display: flex !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+}
+
+.nav-inner {
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+/* Logo */
+.nav-logo {
+    display: flex !important;
+    align-items: center !important;
+    text-decoration: none !important;
+    flex-shrink: 0 !important;
+}
+.nav-logo img {
+    height: 32px !important;
+    width: auto !important;
+    display: block !important;
+}
+
+/* Nav links container */
+.nav-links {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.15rem !important;
+    flex-shrink: 1 !important;
+    min-width: 0 !important;
+}
+
+/* Individual links */
+.nav-links a {
+    color: #8899aa !important;
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+    text-decoration: none !important;
+    padding: 0.4rem 0.75rem !important;
+    border-radius: 6px !important;
+    transition: color 0.15s, background 0.15s !important;
+    white-space: nowrap !important;
+    background: transparent !important;
+    border: none !important;
+    /* Reset any inline styles from individual pages */
+    opacity: 1 !important;
+}
+
+.nav-links a:hover {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Active page highlight */
+.nav-links a.active {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* CTA button */
+.nav-links a.nav-cta {
+    background: #E85A00 !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    padding: 0.45rem 1.1rem !important;
+    border-radius: 8px !important;
+    margin-left: 0.5rem !important;
+}
+
+.nav-links a.nav-cta:hover {
+    background: #CC4F00 !important;
+    color: #ffffff !important;
+}
+
+.nav-cta-sub {
+    font-size: 0.72rem !important;
+    opacity: 0.8 !important;
+    font-weight: 500 !important;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+    .nav-links a:not(.nav-cta) {
+        padding: 0.4rem 0.55rem !important;
+        font-size: 0.82rem !important;
+    }
+}
+
+@media (max-width: 768px) {
+    nav {
+        padding: 0 1.25rem !important;
+    }
+    /* Desktop links hidden on mobile — mobile-nav.js injects overlay */
+    .nav-links a:not(.nav-cta) {
+        display: none !important;
+    }
+    .nav-links a.nav-cta {
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.35rem !important;
+    }
+}
+
+@media (max-width: 390px) {
+    .nav-links a.nav-cta {
+        padding: 0.4rem 0.7rem !important;
+        font-size: 0.82rem !important;
+    }
+    .nav-cta-sub {
+        display: none !important;
+    }
+}

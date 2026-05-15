@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJXEY6H3G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HYJXEY6H3G');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suez Canal Convoy Scheduling: How to Avoid Delays and Optimize Transit Timing | CanalClear</title>
+ <meta name="description" content="How the SCA convoy system works, northbound vs southbound schedules, optimal slot booking strategies, and common convoy scheduling mistakes that cause costly transit delays.">
+ <meta name="keywords" content="suez canal convoy scheduling, SCA convoy system, northbound convoy suez, southbound convoy suez, suez canal transit timing, suez canal slot booking, suez canal transit schedule">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://canalclear.org/blog/suez-canal-convoy-scheduling">
+  <link rel="alternate" hreflang="en" href="https://canalclear.org/blog/suez-canal-convoy-scheduling">
+  <link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/suez-canal-convoy-scheduling">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Suez Canal Convoy Scheduling: How to Avoid Delays and Optimize Transit Timing">
+ <meta property="og:description" content="How the SCA convoy system works, northbound vs southbound schedules, optimal slot booking strategies, and common scheduling mistakes that cause costly transit delays.">
+  <meta property="og:url" content="https://canalclear.org/blog/suez-canal-convoy-scheduling">
+  <meta property="og:image" content="https://canal-clear.polsia.app/images/og/suez-canal-convoy-scheduling.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="CanalClear">
+  <meta property="article:published_time" content="2026-03-24T00:00:00Z">
+    <meta property="article:modified_time" content="2026-04-28T00:00:00Z">
+  <meta property="article:author" content="Francis">
+    <meta property="author" content="Francis">
+  <meta property="article:tag" content="Suez Canal Compliance">
+  <meta property="article:tag" content="Convoy Scheduling">
+  <meta property="article:tag" content="SCA Transit">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Suez Canal Convoy Scheduling: How to Avoid Delays and Optimize Transit Timing">
+ <meta name="twitter:description" content="How the SCA convoy system works, northbound vs southbound schedules, optimal slot booking strategies, and common scheduling mistakes.">
+  <meta name="twitter:image" content="https://canal-clear.polsia.app/images/og/suez-canal-convoy-scheduling.png">
+  <meta name="twitter:site" content="@CanalClear">
+
+  <!-- PWA -->
+  <meta name="theme-color" content="#1a2d4a">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CanalClear">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="/css/visual-polish.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/mobile.css">
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Suez Canal Convoy Scheduling: How to Avoid Delays and Optimize Transit Timing",
+ "description": "How the SCA convoy system works, northbound vs southbound schedules, optimal slot booking strategies, and common convoy scheduling mistakes that cause costly transit delays.",
+    "datePublished": "2026-03-24",
+    "dateModified": "2026-04-28",
+    "author": { "@type": "Person", "name": "Francis", "url": "https://canalclear.org/about/francis" },
+    "publisher": {"@type": "Organization", "name": "CanalClear", "url": "https://canalclear.org"},
+    "url": "https://canalclear.org/blog/suez-canal-convoy-scheduling",
+    "mainEntityOfPage": "https://canalclear.org/blog/suez-canal-convoy-scheduling"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How many convoys does the Suez Canal run per day?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Suez Canal typically operates two northbound convoys and one southbound convoy per day, though the exact number varies based on traffic volume and SCA operational decisions. The first northbound convoy departs Port Said in the early morning hours. A second northbound group follows later in the day. The southbound convoy departs Suez around midday. On high-traffic days, SCA may organize additional groupings, but operators should plan around the standard two-plus-one structure."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How far in advance must I book a Suez Canal convoy slot?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "SCA recommends submitting convoy booking requests at least 48 hours before the desired transit date. During peak periods — typically Q4 (October–December) and following major traffic disruptions — demand for early convoy slots can spike significantly, so experienced operators submit booking requests 72–96 hours in advance to secure priority groupings. Last-minute bookings (under 24 hours) often result in assignment to later convoy groups with extended anchorage wait times."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between northbound and southbound Suez Canal convoys?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Northbound convoys enter from the southern entrance near Port Suez and transit toward Port Said in the Mediterranean. Southbound convoys enter from Port Said and exit near Suez. The main operational difference is timing: northbound convoys are typically organized into two daily groups (first convoy departing early morning, second mid-morning), while southbound typically runs as one main group. Northbound is generally higher-volume due to the Asia-Europe trade lane direction, so northbound slot competition is more intense during peak periods."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens if a vessel misses its assigned convoy slot?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Missing an assigned convoy slot typically results in reassignment to the next available convoy, which means waiting at least until the following day. SCA does not guarantee slot recovery on the same day. For vessels with tight port-to-port schedules, a missed slot can translate directly into demurrage costs, berth pre-booking fees at the destination port, and cargo delay penalties. SCA may also apply a missed-slot fee under certain circumstances. Operators should build a minimum 12-hour buffer before any hard downstream commitment when scheduling Suez transits."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can vessels request priority convoy placement at Suez?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. SCA operates a tiered priority system for convoy placement. Priority Class A (or High Priority) vessels — typically those carrying time-sensitive cargo, hazardous materials under specific classifications, or vessels with documented schedule constraints — may be assigned earlier convoy positions for an additional fee. Priority classification must be requested and justified during the booking process. Not all requests are granted; SCA evaluates priority claims based on cargo type, vessel condition, and available convoy capacity."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- JSON-LD: BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://canalclear.org/"},
+      {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://canalclear.org/blog"},
+      {"@type": "ListItem", "position": 3, "name": "Suez Canal Convoy Scheduling", "item": "https://canalclear.org/blog/suez-canal-convoy-scheduling"}
+    ]
+  }
+  </script>
+
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{--navy:#1a2d4a;--deep:#142238;--slate:#243350;--teal:#E85A00;--teal-dim:rgba(232, 90, 0,0.15);--teal-border:rgba(232, 90, 0,0.25);--cyan:#00B4D8;--white:#ffffff;--gray:#6b7c93;--light-gray:#8fa3b8}
+    html{scroll-behavior:smooth}
+    body{font-family:'IBM Plex Sans', sans-serif;background:var(--navy);color:var(--white);line-height:1.7;overflow-x:hidden}
+    nav{position:fixed;top:0;width:100%;z-index:100;padding:1.25rem 2rem;background:rgba(10,22,40,0.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(232, 90, 0,0.08)}
+    nav .nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+    .logo{display:flex;align-items:center;gap:0.6rem;text-decoration:none}
+    .logo img{height:38px;width:auto;object-fit:contain}
+    .nav-tag{font-size:.75rem;color:var(--teal);background:var(--teal-dim);padding:.3rem .75rem;border-radius:20px;font-weight:500}
+    .nav-links{display:flex;align-items:center;gap:.5rem}
+    .article-hero{padding:140px 2rem 60px;text-align:center;position:relative;overflow:hidden}
+    .article-hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:900px;height:500px;background:radial-gradient(ellipse,rgba(232, 90, 0,0.06) 0%,transparent 70%);pointer-events:none}
+    .article-hero-inner{max-width:800px;margin:0 auto;position:relative}
+    .article-tag{display:inline-block;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);background:var(--teal-dim);padding:.35rem 1rem;border-radius:20px;margin-bottom:1.5rem}
+    .article-hero h1{font-family:'IBM Plex Sans', sans-serif;font-size:clamp(2rem,5vw,3.25rem);font-weight:700;line-height:1.15;color:var(--white);margin-bottom:1.25rem;letter-spacing:-.02em}
+    .article-hero h1 span{color:var(--teal)}
+    .article-hero .subtitle{font-size:1.2rem;color:var(--light-gray);line-height:1.6;margin-bottom:2rem}
+    .article-meta{display:flex;align-items:center;justify-content:center;gap:1.5rem;font-size:.875rem;color:var(--gray)}
+    .article-meta .dot{width:3px;height:3px;background:var(--gray);border-radius:50%}
+    .article-body{max-width:760px;margin:0 auto;padding:0 2rem 80px}
+    .article-body h2{font-family:'IBM Plex Sans', sans-serif;font-size:1.65rem;font-weight:700;color:var(--white);margin:3rem 0 1rem;letter-spacing:-.02em;line-height:1.3}
+    .article-body h3{font-family:'IBM Plex Sans', sans-serif;font-size:1.2rem;font-weight:600;color:var(--light-gray);margin:2rem 0 .75rem}
+    .article-body p{font-size:1.05rem;color:#B8C8D8;margin-bottom:1.25rem;line-height:1.75}
+    .article-body a{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal-border);transition:border-color .2s}
+    .article-body a:hover{border-color:var(--teal)}
+    .article-body strong{color:var(--white);font-weight:600}
+    .article-body ul,.article-body ol{margin:1rem 0 1.5rem 1.5rem}
+    .article-body li{font-size:1.05rem;color:#B8C8D8;margin-bottom:.6rem;line-height:1.7}
+    .article-body li strong{color:var(--white)}
+    .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem;margin:2rem 0}
+    .stat-card{background:var(--slate);border:1px solid rgba(232, 90, 0,0.15);border-radius:12px;padding:1.5rem;text-align:center}
+    .stat-card .stat-number{font-family:'IBM Plex Sans', sans-serif;font-size:2rem;font-weight:700;color:var(--teal);line-height:1;margin-bottom:.4rem}
+    .stat-card .stat-label{font-size:.875rem;color:var(--gray);line-height:1.4}
+    .callout{background:linear-gradient(135deg,rgba(232, 90, 0,0.08),rgba(0,180,216,0.05));border:1px solid var(--teal-border);border-left:3px solid var(--teal);border-radius:0 12px 12px 0;padding:1.5rem 1.75rem;margin:2rem 0}
+    .callout p{margin:0;font-size:1.05rem;color:var(--light-gray);font-style:italic}
+    .callout p strong{color:var(--teal)}
+    .doc-table{width:100%;border-collapse:collapse;margin:1.5rem 0}
+    .doc-table th{font-family:'IBM Plex Sans', sans-serif;font-size:.85rem;font-weight:600;color:var(--teal);text-align:left;padding:.75rem 1rem;border-bottom:1px solid rgba(232, 90, 0,0.2);background:rgba(232, 90, 0,0.05)}
+    .doc-table td{font-size:.95rem;color:#B8C8D8;padding:.75rem 1rem;border-bottom:1px solid rgba(255,255,255,0.05);vertical-align:top}
+    .doc-table td strong{color:var(--white)}
+    .article-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(232, 90, 0,0.2),transparent);margin:3rem 0}
+    .cta-section{background:linear-gradient(135deg,var(--deep) 0%,var(--slate) 100%);border:1px solid var(--teal-border);border-radius:16px;padding:3rem;text-align:center;margin:3rem 0}
+    .cta-section h2{font-family:'IBM Plex Sans', sans-serif;font-size:1.75rem;font-weight:700;color:var(--white);margin:0 0 1rem;letter-spacing:-.02em}
+    .cta-section p{font-size:1.05rem;color:var(--light-gray);max-width:520px;margin:0 auto 2rem}
+    .cta-btn{display:inline-block;background:var(--teal);color:var(--navy);padding:.9rem 2.25rem;border-radius:10px;text-decoration:none;font-size:1rem;font-weight:700;border:none;transition:all .2s;font-family:'IBM Plex Sans', sans-serif}
+    .cta-btn:hover{background:#00E8BB;transform:translateY(-2px);box-shadow:0 8px 24px rgba(232, 90, 0,0.25)}
+    .breadcrumb{display:flex;align-items:center;gap:.5rem;font-size:.85rem;color:var(--gray);max-width:760px;margin:0 auto;padding:0 2rem 2rem}
+    .breadcrumb a{color:var(--gray);text-decoration:none;transition:color .2s}
+    .breadcrumb a:hover{color:var(--teal)}
+    .breadcrumb .sep{color:rgba(136,153,170,0.4)}
+    .faq-section{margin:3rem 0}
+    .faq-item{background:rgba(26,43,69,0.5);border:1px solid rgba(232, 90, 0,0.1);border-radius:12px;padding:1.5rem;margin-bottom:1rem}
+    .faq-item h3{font-family:'IBM Plex Sans', sans-serif;font-size:1.05rem;font-weight:600;color:var(--white);margin:0 0 .75rem}
+    .faq-item p{font-size:.95rem;color:#B8C8D8;margin:0;line-height:1.7}
+    footer{background:var(--deep);border-top:1px solid rgba(232, 90, 0,0.08);padding:3rem 2rem;text-align:center}
+    footer p{font-size:.875rem;color:var(--gray)}
+    footer a{color:var(--teal);text-decoration:none}
+    @media(max-width:768px){nav{padding:1rem 1.25rem}.article-hero{padding:110px 1.25rem 40px}.article-body{padding:0 1.25rem 60px}.cta-section{padding:2rem 1.5rem}.breadcrumb{padding:0 1.25rem 1.5rem}}
+  </style>
+    <link rel="stylesheet" href="/css/nav.css">
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="nav-logo">
+            <img src="https://pub-629428d185ca4960a0a73c850d32294b.r2.dev/company_47541/images/9d5d2ef6-d9e0-40eb-ad15-df5e737cefc1.png" alt="CanalClear" width="140" height="35">
+        </a>
+        <div class="nav-links">
+            <a href="/panama">🇵🇦 Panama</a>
+            <a href="/suez">🇪🇬 Suez</a>
+            <a href="/bosporus">🇹🇷 Bosporus</a>
+            <a href="/pricing">Pricing</a>
+            <a href="/demo">Demo</a>
+            <a href="/blog" class="active">Blog</a>
+            <a href="/knowledge-base">Knowledge Base</a>
+            <a href="/about">About</a>
+            <a href="/app" class="nav-cta">Open Validator <span class="nav-cta-sub">(Paid Plans)</span></a>
+        </div>
+    </div>
+</nav>
+
+<section class="article-hero">
+  <div class="article-hero-inner">
+    <span class="article-tag">Suez Canal Operations</span>
+    <h1>Suez Canal <span>Convoy Scheduling</span>: How to Avoid Delays and Optimize Transit Timing</h1>
+    <p class="subtitle">The SCA runs a structured daily convoy system that governs when every vessel enters the canal. Understanding how slots are allocated, how priority tiers work, and where operators lose time is the difference between a smooth transit and a 24-hour anchorage wait.</p>
+    <div class="article-meta">
+      <span>April 28, 2026</span>
+      <span class="dot"></span>
+      <span>12 min read</span>
+      <span class="dot"></span>
+      <span>By <a href="/about/francis" style="color:inherit;text-decoration:none;font-weight:600;">Francis</a></span>
+    </div>
+  </div>
+</section>
+
+<div class="breadcrumb">
+  <a href="/">Home</a>
+  <span class="sep">/</span>
+  <a href="/blog">Blog</a>
+  <span class="sep">/</span>
+  <span>Suez Canal Convoy Scheduling</span>
+</div>
+
+<article class="article-body">
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-number">2–3</div>
+      <div class="stat-label">Daily convoy groups through the Suez Canal</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">48 hr</div>
+      <div class="stat-label">Recommended advance booking window for standard slots</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">24 hr</div>
+      <div class="stat-label">Anchorage wait penalty for a missed convoy slot</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">~35</div>
+      <div class="stat-label">Average vessels per convoy group during peak periods</div>
+    </div>
+  </div>
+
+  <p>The Suez Canal does not operate as an open waterway where vessels transit on demand. Every vessel that passes through the canal is assigned to a convoy — an organized group of ships that transits the canal in sequence under SCA coordination. Getting into the right convoy, at the right time, with the correct priority classification is one of the most commercially significant compliance tasks a fleet operator faces before a Suez transit.</p>
+
+  <p>Miss your assigned convoy and you wait at anchor — typically until the following day's equivalent slot. In an industry where demurrage alone can run $20,000–$80,000 per day depending on vessel type, convoy scheduling is not an administrative afterthought. It is a revenue-critical operation.</p>
+
+  <h2>How the Suez Canal Convoy System Works</h2>
+
+  <p>The Suez Canal Authority organizes all transiting vessels into convoy groups that move through the canal in a controlled sequence. The system exists because the canal's single-lane sections — particularly the Great Bitter Lake bypass area — cannot accommodate simultaneous two-way traffic. Convoys alternate direction: northbound groups transit while southbound vessels wait at designated holding anchorages, and vice versa.</p>
+
+  <h3>The Standard Daily Convoy Structure</h3>
+
+  <p>On a typical operational day, SCA runs the following convoy pattern:</p>
+
+  <ul>
+    <li><strong>Northbound Convoy 1 (NC1):</strong> Departs Port Suez in the early morning (typically around 04:00–06:00 local time). This is the most desirable northbound convoy for vessels connecting to Mediterranean or European ports on tight schedules. NC1 slots are allocated first and fill earliest.</li>
+    <li><strong>Northbound Convoy 2 (NC2):</strong> A second northbound group departs Port Suez later in the morning (approximately 10:00–12:00). NC2 typically handles overflow from NC1 or vessels that arrived after the NC1 cutoff.</li>
+    <li><strong>Southbound Convoy (SC):</strong> Departs Port Said around midday to early afternoon (approximately 12:00–14:00). Southbound traffic volume is generally lower than northbound, but during peak Asia-Europe trade lane periods, SC slots can also fill quickly.</li>
+  </ul>
+
+  <div class="callout">
+    <p><strong>Important:</strong> SCA publishes official convoy schedules through its Notices to Shipping (NtS). These times are operational guidelines, not guarantees — actual departure times shift based on traffic conditions, weather, vessel readiness, and priority vessel insertions. Always verify the current schedule with your SCA-registered ship agent within 24 hours of the transit.</p>
+  </div>
+
+  <h2>Northbound vs. Southbound: Key Scheduling Differences</h2>
+
+  <p>Northbound and southbound convoys differ in more than just direction. Understanding these structural differences helps operators book smarter and avoid the most common scheduling errors.</p>
+
+  <table class="doc-table">
+    <thead>
+      <tr>
+        <th>Factor</th>
+        <th>Northbound (Asia → Europe/Med)</th>
+        <th>Southbound (Europe/Med → Asia)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Daily convoy groups</strong></td>
+        <td>2 (NC1 + NC2)</td>
+        <td>1 (occasionally 2 on peak days)</td>
+      </tr>
+      <tr>
+        <td><strong>Demand level</strong></td>
+        <td>Higher — Asia-Europe trade dominates</td>
+        <td>Moderate — lower but spikes Q4</td>
+      </tr>
+      <tr>
+        <td><strong>Early slot competition</strong></td>
+        <td>Intense — NC1 books out 72+ hours ahead in peak</td>
+        <td>Less intense — 48-hour booking generally sufficient</td>
+      </tr>
+      <tr>
+        <td><strong>Holding anchorage</strong></td>
+        <td>Port Suez anchorage or Great Bitter Lake</td>
+        <td>Port Said anchorage (Port Fouad area)</td>
+      </tr>
+      <tr>
+        <td><strong>Seasonal peak</strong></td>
+        <td>Q4 (Oct–Dec), post-Chinese New Year (Feb)</td>
+        <td>Q2–Q3 (Europe outbound summer)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>The Convoy Booking Process: Step by Step</h2>
+
+  <p>Booking a Suez Canal convoy slot is not a self-service operation in the way that some digital port booking systems work. The process runs through SCA's Maritime Portal and typically involves an SCA-registered ship agent. Here is the standard flow:</p>
+
+  <h3>Step 1: Establish Agent Representation</h3>
+  <p>Every vessel transiting the Suez Canal must be represented by an SCA-licensed ship agent. The agent submits convoy booking requests on the operator's behalf, manages the pre-arrival documentation, and serves as the SCA's direct point of contact. Agents have portal access that individual operators do not have directly.</p>
+
+  <h3>Step 2: Submit ETA and Vessel Details</h3>
+  <p>Your agent submits an Estimated Time of Arrival (ETA) notification to SCA's Maritime Services Directorate as soon as the vessel's arrival timeline is confirmed — typically 72–96 hours before arrival at the canal approach area. This ETA establishes your vessel's position in the queue for convoy slot allocation.</p>
+
+  <h3>Step 3: Submit Full Pre-Arrival Documentation</h3>
+  <p>Alongside the ETA, the agent submits the full pre-arrival documentation package through SCA's portal. This includes: vessel certificates, cargo declaration, draft and tonnage data, ISPS notification, and the SCNT (Suez Canal Net Tonnage) measurement used for toll calculation. Missing or deficient documentation blocks slot confirmation. See our guide to <a href="/blog/suez-canal-transit-requirements-complete-guide-2026">Suez Canal transit requirements</a> for the full document list.</p>
+
+  <h3>Step 4: Receive Convoy Assignment</h3>
+  <p>Once documentation is accepted and the vessel's position in the queue is established, SCA assigns the vessel to a convoy group. The assignment specifies the convoy date, convoy number (NC1, NC2, or SC), and the vessel's assigned position within the convoy (which affects transit order and berthing sequencing at the far end).</p>
+
+  <h3>Step 5: Confirm Arrival at Designated Anchorage</h3>
+  <p>The vessel must arrive at the designated holding anchorage before the convoy cutoff time. Late arrivals at the anchorage — even by a few hours — typically result in reassignment to the next available convoy.</p>
+
+  <h2>Priority Classes: How to Secure an Earlier Slot</h2>
+
+  <p>SCA uses a priority classification system to manage convoy slot allocation. Not all vessels are equal in the queue — certain vessel types and cargo categories receive preferential placement.</p>
+
+  <h3>Standard Priority</h3>
+  <p>The majority of transiting vessels receive standard priority. Assignment follows first-come, first-served queue logic based on ETA arrival order and documentation completion timestamp. Vessels with complete documentation submitted 48+ hours in advance generally receive the convoy group corresponding to their arrival date.</p>
+
+  <h3>High Priority (Priority Class A)</h3>
+  <p>High priority placement is available for vessels that can demonstrate a qualifying condition:</p>
+  <ul>
+    <li><strong>Vessels carrying time-sensitive cargo:</strong> Perishables, live animals, or cargo with documented contractual delivery windows</li>
+    <li><strong>Vessels with medical or crew emergency situations</strong></li>
+    <li><strong>Vessels carrying certain categories of hazardous materials</strong> where extended anchorage increases risk</li>
+    <li><strong>Naval and government vessels</strong> with diplomatic or operational priority</li>
+  </ul>
+  <p>Priority Class A requests must be submitted with supporting documentation through the agent. SCA evaluates requests and may approve, partially approve (e.g., bump from NC2 to NC1), or deny priority placement. Approval is not guaranteed, and high-priority fees apply when granted.</p>
+
+  <h3>Economy Class</h3>
+  <p>Vessels that submit late ETA notifications or have documentation deficiencies that are resolved close to the transit date may be assigned Economy class status — meaning they are placed at the back of available convoy slots and transit on a "fill" basis when space is available. Economy class vessels face the highest risk of multi-day anchorage waits during congested periods.</p>
+
+  <h2>Common Convoy Scheduling Mistakes That Cause Delays</h2>
+
+  <p>Most convoy-related delays are preventable. Here are the errors that show up most frequently:</p>
+
+  <h3>1. Late ETA Submission</h3>
+  <p>The most common mistake. Submitting an ETA within 24 hours of arrival — or after arrival at the anchorage — places the vessel at the back of the queue regardless of documentation completeness. SCA allocates convoy slots in batches 48–72 hours in advance; late ETA submissions miss those allocation windows entirely.</p>
+
+  <h3>2. Documentation Deficiencies That Delay Slot Confirmation</h3>
+  <p>A convoy booking request is not confirmed until SCA accepts the underlying documentation. If the cargo declaration is incomplete, the SCNT certificate is pending, or the ISPS pre-arrival notification has not been submitted, the booking request sits in "pending review" status and does not generate a confirmed slot. By the time the deficiency is resolved, the desired convoy may be full.</p>
+
+  <h3>3. Incorrect Tonnage Data</h3>
+  <p>SCA uses SCNT (Suez Canal Net Tonnage) for both toll calculation and convoy slot sizing. Submitting incorrect gross tonnage or net tonnage data — a common error when operators confuse SCNT with PC/UMS tonnage used at Panama — creates portal validation errors that hold up slot confirmation. See our <a href="/blog/suez-canal-tonnage-certificate">Suez Canal Tonnage Certificate guide</a> for the correct measurement methodology.</p>
+
+  <h3>4. Underestimating Peak Season Wait Times</h3>
+  <p>Operators familiar with off-peak Suez scheduling often apply the same lead times to Q4 transits — and are surprised by multi-day anchorage waits. Peak periods (especially November–December when year-end cargo surges) can see NC1 slots filling 4–5 days in advance. Build additional buffer into voyage plans for any transit scheduled between late October and December.</p>
+
+  <h3>5. Arriving at the Wrong Anchorage</h3>
+  <p>Northbound and southbound vessels use different anchorage areas. Arriving at the Port Said anchorage for a southbound convoy, or anchoring in an unauthorized waiting area, creates coordination problems with SCA's vessel traffic service and can result in the vessel being treated as a late arrival. Confirm anchorage coordinates with your agent before arrival.</p>
+
+  <h2>How to Optimize Your Convoy Booking</h2>
+
+  <p>Experienced Suez operators use these strategies to consistently secure preferred convoy slots:</p>
+
+  <ul>
+    <li><strong>Submit ETA as early as possible:</strong> As soon as the vessel's departure port confirms a departure time with reasonable confidence, get the ETA to your agent. An early ETA — even one that will be revised later — establishes queue position.</li>
+    <li><strong>Complete documentation before ETA submission:</strong> Have all certificates current and the cargo declaration finalized before the ETA goes in. Documentation-complete bookings process faster and secure slots ahead of vessels whose documentation is still pending.</li>
+    <li><strong>Maintain a standing relationship with an SCA-licensed agent:</strong> Agents with high transaction volumes at SCA have better visibility into convoy availability and can advise on real-time slot pressure. A good agent is not a commodity — they are an operational asset for Suez transits.</li>
+    <li><strong>Track SCA Notices to Shipping:</strong> SCA publishes NtS documents that announce changes to convoy schedules, temporary modifications due to maintenance, and priority arrangement changes. Operators who monitor NtS avoid surprises.</li>
+    <li><strong>Use CanalClear's convoy booking module:</strong> CanalClear automates the convoy booking workflow — from ETA submission to documentation package assembly to real-time slot status tracking. All from a single dashboard, without the back-and-forth with multiple parties.</li>
+  </ul>
+
+  <div class="article-divider"></div>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+      <h3>How many convoys does the Suez Canal run per day?</h3>
+      <p>The Suez Canal typically operates two northbound convoys and one southbound convoy per day, though the exact number varies based on traffic volume and SCA operational decisions. The first northbound convoy departs Port Said in the early morning hours. On high-traffic days, SCA may organize additional groupings, but operators should plan around the standard two-plus-one structure.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>How far in advance must I book a Suez Canal convoy slot?</h3>
+      <p>SCA recommends submitting convoy booking requests at least 48 hours before the desired transit date. During peak periods — typically Q4 (October–December) — demand for early convoy slots can spike significantly, so experienced operators submit booking requests 72–96 hours in advance. Last-minute bookings (under 24 hours) often result in assignment to later convoy groups with extended anchorage wait times.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>What is the difference between northbound and southbound Suez Canal convoys?</h3>
+      <p>Northbound convoys enter from Port Suez and transit toward Port Said in the Mediterranean. Southbound convoys enter from Port Said and exit near Suez. Northbound is generally higher-volume due to the Asia-Europe trade lane direction, so northbound slot competition is more intense during peak periods. Southbound typically runs as one main group per day versus two northbound groups.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>What happens if a vessel misses its assigned convoy slot?</h3>
+      <p>Missing an assigned convoy slot typically results in reassignment to the next available convoy — meaning at least a 24-hour anchorage wait. SCA does not guarantee same-day slot recovery. For vessels with tight downstream commitments, a missed slot directly causes demurrage costs, berth pre-booking fees at the destination port, and cargo delay penalties.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Can vessels request priority convoy placement at Suez?</h3>
+      <p>Yes. SCA operates a tiered priority system. Priority Class A vessels — typically those carrying time-sensitive cargo, hazardous materials under specific classifications, or vessels with documented schedule constraints — may be assigned earlier convoy positions for an additional fee. Priority classification must be requested and justified during the booking process; approval is not guaranteed.</p>
+    </div>
+  </div>
+
+  <div class="article-divider"></div>
+
+  <div class="cta-section">
+    <h2>Automate Your Suez Canal Convoy Booking</h2>
+    <p>CanalClear automates Suez Canal compliance — from filing to convoy booking. Stop managing convoy slots manually across email and agent calls. Get started at canalclear.org/suez.</p>
+    <a href="https://canalclear.org/suez" class="cta-btn">Get Started at CanalClear</a>
+  </div>
+<!-- blog-product-link-injected -->
+<p style="margin-top:1rem;"><a href="/suez" style="color:#2563eb;font-weight:600;text-decoration:underline;">→ Check your Suez Canal Transit Readiness Score — free at CanalClear</a></p>
+
+  <div class="article-divider"></div>
+
+  <h2>Related Reading</h2>
+  <ul>
+    <li><a href="/blog/suez-canal-transit-requirements-complete-guide-2026">Suez Canal Transit Requirements 2026: Complete SCA Compliance Guide</a></li>
+    <li><a href="/blog/suez-canal-tonnage-certificate">Suez Canal Tonnage Certificate (SCNT): Everything Ship Operators Need to Know</a></li>
+    <li><a href="/blog/suez-canal-pilotage-requirements">Suez Canal Pilotage Requirements: Costs, Rules, and What to Expect</a></li>
+    <li><a href="/blog/suez-canal-transit-cost-2026">How Much Does a Suez Canal Transit Cost in 2026? Full Fee Breakdown</a></li>
+    <li><a href="/blog/suez-canal-transit-checklist-fleet-operators">Suez Canal Transit Checklist for Fleet Operators 2026</a></li>
+    <li><a href="/suez">CanalClear Suez Canal Compliance Platform</a></li>
+  </ul>
+
+
+<!-- Internal links: Suez product + lead magnets -->
+<div style="margin:2.5rem 0;padding:1.5rem 1.75rem;background:rgba(37,99,235,0.05);border:1px solid rgba(37,99,235,0.2);border-radius:12px;">
+  <p style="font-weight:700;color:#2563eb;margin:0 0 0.75rem;font-size:0.95rem;letter-spacing:0.02em;">RELATED RESOURCES</p>
+  <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.6rem;font-size:0.95rem;line-height:1.5;">
+    <li>🎯 <a href="/demo/suez" style="color:#2563eb;font-weight:600;text-decoration:underline;">Try the Live Suez Demo</a> — validate a real filing in 90 seconds, no account required</li>
+    <li>📥 <a href="/get/suez-cheatsheet" style="color:#2563eb;font-weight:600;text-decoration:underline;">Download the Suez Deadline Cheatsheet</a> — free PDF with every SCA submission window and cutoff</li>
+    <li>🧮 <a href="/get/calculator" style="color:#2563eb;font-weight:600;text-decoration:underline;">Suez Convoy Calculator</a> — estimate your slot, transit time, and filing window</li>
+    <li>💳 <a href="/pricing" style="color:#2563eb;font-weight:600;text-decoration:underline;">View Plans &amp; Pricing</a> — see plans for ship agents, fleet managers, and operators</li>
+  </ul>
+</div>
+</article>
+
+<footer><p>&#169; 2026 <a href="/">CanalClear</a> &middot; Suez Canal AI Compliance Platform &middot; <a href="/blog">Blog</a> &middot; <a href="/bosporus">Bosporus</a> &middot;
+<a href="/podcast">Podcast</a> &middot; <a href="/pricing">Pricing</a> &middot; <a href="/demo">Demo</a></p>
+        <p style="margin-top:0.4rem;font-size:0.8rem;"><a href="https://www.google.com/maps/search/?api=1&query=2094+NW+87th+Ter+Coral+Springs+FL+33071" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">&#128205; 2094 NW 87th Ter, Coral Springs, FL 33071</a></p></footer>
+<script src="/js/analytics.js"></script>
+<script>document.addEventListener('DOMContentLoaded',function(){var t=window._ccTrack||function(){};t('blog_article_view',{slug:location.pathname.replace('/blog/','')});});</script>
+<script src="/js/blog-audio-player.js"></script>
+<script src="/js/pwa-manager.js"></script>
+<!-- Blog sticky CTA banner — injected by inject-blog-cta.js -->
+<div id="blog-cta-banner" style="
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  z-index:9999;
+  background:#111827;
+  border-top:1px solid rgba(37,99,235,0.25);
+  padding:12px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  box-shadow:0 -4px 24px rgba(0,0,0,0.4);
+">
+  <p style="margin:0;color:#e5e7eb;font-size:0.92rem;line-height:1.3;flex:1;min-width:0;">
+    Check your vessel's compliance score — <strong style="color:#2563eb;">free in 60 seconds</strong>
+  </p>
+  <a href="/suez" id="blog-cta-btn" style="
+    display:inline-block;
+    white-space:nowrap;
+    padding:9px 18px;
+    background:#2563eb;
+    color:#ffffff;
+    font-weight:700;
+    font-size:0.88rem;
+    border-radius:8px;
+    text-decoration:none;
+    flex-shrink:0;
+    transition:opacity 0.15s;
+  " onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+    Get Transit Readiness Score
+  </a>
+  <button onclick="
+    document.getElementById('blog-cta-banner').style.display='none';
+    try{localStorage.setItem('cc_cta_dismissed','1');}catch(e){}
+  " aria-label="Dismiss" style="
+    background:none;
+    border:none;
+    color:#9ca3af;
+    cursor:pointer;
+    font-size:1.25rem;
+    padding:4px 6px;
+    line-height:1;
+    flex-shrink:0;
+  ">✕</button>
+</div>
+<script>
+(function(){
+  try{
+    if(localStorage.getItem('cc_cta_dismissed')==='1'){
+      var b=document.getElementById('blog-cta-banner');
+      if(b) b.style.display='none';
+    }
+  }catch(e){}
+})();
+</script>
+
+    <!-- 3-Step Lead Funnel Modal -->
+    <div id="lead-funnel-modal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.72);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:1.5rem;overflow-y:auto;">
+      <div style="background:#142238;border:1px solid rgba(232, 90, 0,0.22);border-radius:20px;padding:2.25rem;max-width:480px;width:100%;position:relative;margin:auto;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;">
+          <span class="lf-step-indicator" style="font-size:0.78rem;font-weight:600;color:#00D4AA;letter-spacing:0.08em;text-transform:uppercase;">Step 1 of 3</span>
+          <div style="display:flex;gap:0.5rem;align-items:center;">
+            <button class="lf-back-btn" onclick="lfBack()" style="display:none;background:none;border:1px solid rgba(255,255,255,0.12);color:#6b7c93;font-size:0.8rem;padding:0.35rem 0.75rem;border-radius:6px;cursor:pointer;font-family:inherit;transition:all 0.15s;">&#8592; Back</button>
+            <button onclick="closeLeadFunnelModal()" style="background:none;border:none;cursor:pointer;color:#6b7c93;font-size:1.4rem;line-height:1;padding:0.2rem 0.5rem;border-radius:6px;">&times;</button>
+          </div>
+        </div>
+        <h3 class="lf-modal-title" style="font-family:system-ui,sans-serif;font-size:1.25rem;font-weight:700;color:#ffffff;margin-bottom:1.5rem;line-height:1.3;"></h3>
+        <div class="lf-step1">
+          <p style="font-size:0.9rem;color:#6b7c93;margin-bottom:1.25rem;line-height:1.5;">Which canal do you need compliance for?</p>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;">
+            <button onclick="lfSelectCanal('panama')" class="lf-canal-card" style="background:rgba(255,255,255,0.04);border:2px solid rgba(232,90,0,0.18);border-radius:14px;padding:1.25rem 0.75rem;cursor:pointer;font-family:inherit;transition:all 0.2s;display:flex;flex-direction:column;align-items:center;gap:0.5rem;">
+              <span style="font-size:1.8rem;">&#127754;</span>
+              <span style="color:#ffffff;font-size:0.85rem;font-weight:600;">Panama Canal</span>
+            </button>
+            <button onclick="lfSelectCanal('suez')" class="lf-canal-card" style="background:rgba(255,255,255,0.04);border:2px solid rgba(232,90,0,0.18);border-radius:14px;padding:1.25rem 0.75rem;cursor:pointer;font-family:inherit;transition:all 0.2s;display:flex;flex-direction:column;align-items:center;gap:0.5rem;">
+              <span style="font-size:1.8rem;">&#127754;</span>
+              <span style="color:#ffffff;font-size:0.85rem;font-weight:600;">Suez Canal</span>
+            </button>
+            <button onclick="lfSelectCanal('both')" class="lf-canal-card" style="background:rgba(255,255,255,0.04);border:2px solid rgba(232,90,0,0.18);border-radius:14px;padding:1.25rem 0.75rem;cursor:pointer;font-family:inherit;transition:all 0.2s;display:flex;flex-direction:column;align-items:center;gap:0.5rem;">
+              <span style="font-size:1.8rem;">&#127760;</span>
+              <span style="color:#ffffff;font-size:0.85rem;font-weight:600;">Both</span>
+            </button>
+          </div>
+        </div>
+        <div class="lf-step2" style="display:none;">
+          <p style="font-size:0.9rem;color:#6b7c93;margin-bottom:1.25rem;line-height:1.5;">How many vessels transit per year?</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;">
+            <button onclick="lfSelectFleet('1-5')" class="lf-fleet-btn" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.85rem 1rem;color:#ffffff;font-size:0.9rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.15s;">1&#8211;5 vessels</button>
+            <button onclick="lfSelectFleet('6-15')" class="lf-fleet-btn" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.85rem 1rem;color:#ffffff;font-size:0.9rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.15s;">6&#8211;15 vessels</button>
+            <button onclick="lfSelectFleet('16-50')" class="lf-fleet-btn" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.85rem 1rem;color:#ffffff;font-size:0.9rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.15s;">16&#8211;50 vessels</button>
+            <button onclick="lfSelectFleet('50+')" class="lf-fleet-btn" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.85rem 1rem;color:#ffffff;font-size:0.9rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.15s;">50+ vessels</button>
+          </div>
+        </div>
+        <div class="lf-step3" style="display:none;">
+          <div style="display:flex;flex-direction:column;gap:0.85rem;">
+            <div>
+              <label style="display:block;font-size:0.82rem;color:#8fa3b8;margin-bottom:0.35rem;font-weight:500;">Full Name <span style="color:#FF6B6B;">*</span></label>
+              <input type="text" id="lf-name" class="lf-name-input" placeholder="Captain John Smith" autocomplete="name" style="width:100%;padding:0.75rem 1rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:#ffffff;font-size:0.95rem;font-family:inherit;outline:none;box-sizing:border-box;">
+            </div>
+            <div>
+              <label style="display:block;font-size:0.82rem;color:#8fa3b8;margin-bottom:0.35rem;font-weight:500;">Work Email <span style="color:#FF6B6B;">*</span></label>
+              <input type="email" id="lf-email" placeholder="you@shipcompany.com" autocomplete="email" style="width:100%;padding:0.75rem 1rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:#ffffff;font-size:0.95rem;font-family:inherit;outline:none;box-sizing:border-box;">
+            </div>
+            <div>
+              <label style="display:block;font-size:0.82rem;color:#8fa3b8;margin-bottom:0.35rem;font-weight:500;">Company</label>
+              <input type="text" id="lf-company" placeholder="Acme Shipping Co." autocomplete="organization" style="width:100%;padding:0.75rem 1rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:#ffffff;font-size:0.95rem;font-family:inherit;outline:none;box-sizing:border-box;">
+            </div>
+            <div>
+              <label style="display:block;font-size:0.82rem;color:#8fa3b8;margin-bottom:0.35rem;font-weight:500;">Phone</label>
+              <input type="tel" id="lf-phone" placeholder="+1 (555) 000-0000" autocomplete="tel" style="width:100%;padding:0.75rem 1rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:#ffffff;font-size:0.95rem;font-family:inherit;outline:none;box-sizing:border-box;">
+            </div>
+          </div>
+          <button id="lf-submit" onclick="lfSubmit()" style="width:100%;padding:0.9rem;background:#E85A00;color:#ffffff;border:none;border-radius:10px;cursor:pointer;font-family:inherit;font-size:0.95rem;font-weight:700;margin-top:1rem;transition:all 0.2s;">Get My Transit Readiness Score</button>
+          <p style="text-align:center;font-size:0.78rem;color:#6b7c93;margin-top:0.75rem;">We&#8217;ll send your personalized assessment within 24 hours.</p>
+        </div>
+        <div class="lf-success" style="display:none;text-align:center;padding:1rem 0;">
+          <div style="font-size:3rem;margin-bottom:0.75rem;">&#x2705;</div>
+          <h4 class="lf-success-heading" style="font-family:system-ui,sans-serif;font-size:1.1rem;color:#ffffff;margin-bottom:0.5rem;">We&#8217;ll be in touch within 24 hours.</h4>
+          <p class="lf-success-body" style="font-size:0.9rem;color:#6b7c93;">A personalized compliance assessment is on its way. Check your inbox.</p>
+        </div>
+      </div>
+    </div>
+    <script src="/js/lead-funnel.js"></script>
+    <script src="/js/mobile-nav.js"></script>
+<script src="/js/whatsapp-button.js"></script>
+</body>
+</html>
