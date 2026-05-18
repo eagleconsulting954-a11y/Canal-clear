@@ -368,4 +368,265 @@ nav {
         min-width: 0;
         flex-shrink: 1;
     }
+
+    /* ── Fleet dashboard — vessel table responsive ──────────────────────── */
+    table thead th {
+        font-size: 0.7rem;
+        padding: 0.6rem 0.75rem;
+    }
+    table tbody td {
+        font-size: 0.85rem;
+        padding: 0.75rem;
+    }
+
+    /* ── Calculator — input fields responsive ──────────────────────────── */
+    .field input[type="number"],
+    .field input[type="text"],
+    .field select {
+        font-size: 16px !important; /* prevent iOS zoom on focus */
+        min-height: 44px;
+    }
+
+    /* ── Form actions — full-width buttons on mobile ──────────────────── */
+    .form-actions button,
+    .form-actions .btn,
+    .modal-footer button {
+        width: 100% !important;
+        text-align: center;
+    }
+
+    /* ── Vessel cards / dashboard panels ──────────────────────────────── */
+    .vessel-card,
+    .dashboard-card,
+    .panel {
+        padding: 1rem !important;
+    }
+
+    /* ── Text truncation — prevent overflow on labels ─────────────────── */
+    label {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+    }
+
+    /* ── Sticky headers / footers — mobile safe ──────────────────────── */
+    .sticky-header,
+    .sticky-footer {
+        position: relative !important;
+        top: auto !important;
+    }
+
+    /* ── Validation error messages — stack properly ────────────────────── */
+    .error-msg,
+    .form-error,
+    [role="alert"] {
+        margin-bottom: 1rem;
+        padding: 0.85rem 1rem;
+        font-size: 0.85rem;
+        width: 100%;
+    }
+
+    /* ── Demo page compliance gauge — scale on mobile ──────────────────── */
+    .compliance-gauge,
+    .score-circle,
+    [class*="score"] {
+        width: 100px !important;
+        height: 100px !important;
+        font-size: 2rem !important;
+    }
+
+    /* ── Authority portals cards — stack properly ────────────────────── */
+    .portal-card,
+    .authority-card {
+        margin-bottom: 1rem;
+    }
+
+    /* ── Modals — ensure they don't overflow ────────────────────────── */
+    .modal-content,
+    .modal {
+        padding: 1.25rem !important;
+        border-radius: 12px !important;
+    }
+
+    /* ── Prevent text from being too small on ultra-small screens ──────── */
+    body { font-size: 15px; }
+    p, .text, span { font-size: 14px; }
+    h3, h4 { font-size: 1.1rem; }
+    h2 { font-size: 1.4rem; }
+}
+
+/* ── iPad (768px) specific adjustments ────────────────────────────────── */
+@media (min-width: 481px) and (max-width: 900px) {
+    /* Tablet optimizations — use 2-column grids where applicable */
+    .grid-4,
+    .grid-3 {
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    /* Stats bar — 2 columns on tablet */
+    .stats-bar {
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    /* Pricing — 2 columns on tablet */
+    .pricing-grid,
+    .canal-columns {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* Vessel table — horizontal scroll still works */
+    table {
+        font-size: 0.9rem;
+    }
+
+    /* Form grid — 2 columns on tablet */
+    .form-grid {
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    /* Compliance score gauge — scale on tablet */
+    .compliance-gauge,
+    .score-circle {
+        width: 120px !important;
+        height: 120px !important;
+        font-size: 2.2rem !important;
+    }
+}
+
+/* ── Specific page fixes ─────────────────────────────────────────────── */
+
+/* Fleet dashboard — responsive vessel grid */
+.vessel-grid,
+.vessel-cards {
+    grid-template-columns: 1fr !important;
+    gap: 1rem;
+}
+
+@media (min-width: 481px) {
+    .vessel-grid,
+    .vessel-cards {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+@media (min-width: 900px) {
+    .vessel-grid,
+    .vessel-cards {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+
+/* ── Nav bar visibility on mobile — priority items only ────────────────── */
+@media (max-width: 640px) {
+    nav .logo-text,
+    nav .nav-company-name {
+        max-width: 120px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Ensure search bar doesn't overflow fleet page */
+    .search-bar {
+        min-width: 160px !important;
+        width: calc(100% - 1rem);
+        max-width: 200px;
+    }
+}
+
+/* ── Demo page specific fixes ────────────────────────────────────────── */
+.demo-form,
+.filing-form {
+    margin: 0;
+    padding: 1.5rem 1rem;
+}
+
+.demo-form .form-row,
+.filing-form .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.demo-form .form-row.two-col,
+.filing-form .form-row.two-col {
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.demo-form .form-row.two-col > *,
+.filing-form .form-row.two-col > * {
+    flex: 1;
+    min-width: 0;
+}
+
+@media (max-width: 640px) {
+    .demo-form .form-row.two-col,
+    .filing-form .form-row.two-col {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .demo-form .form-row.two-col > *,
+    .filing-form .form-row.two-col > * {
+        flex: 1 1 100%;
+    }
+}
+
+/* ── Compliance score display — mobile friendly ──────────────────────── */
+.compliance-result,
+.score-display {
+    text-align: center;
+    padding: 1.5rem 1rem;
+}
+
+/* ── Authority portals — responsive card layout ──────────────────────── */
+.portal-grid,
+.authority-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem;
+}
+
+@media (min-width: 481px) {
+    .portal-grid,
+    .authority-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+@media (min-width: 900px) {
+    .portal-grid,
+    .authority-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+
+/* ── Hero text overflow prevention ───────────────────────────────────── */
+.hero h1,
+.hero h2 {
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+/* ── CTA buttons — full width on mobile ──────────────────────────────── */
+.sticky-cta a,
+.hero-cta,
+.primary-cta {
+    display: block;
+    width: 100%;
+    text-align: center;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (min-width: 641px) {
+    .sticky-cta a,
+    .hero-cta,
+    .primary-cta {
+        display: inline-flex;
+        width: auto;
+    }
 }

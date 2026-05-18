@@ -698,7 +698,7 @@
             </div>
             <div class="success-title">Guide is on its way.</div>
             <div class="success-body">
-              Check your inbox for the Cape SAMSA ISPS compliance guide. We also triggered the download below — check your downloads folder.
+              Check your inbox for the Cape SAMSA ISPS compliance guide. It also contains a direct download link.
             </div>
             <div class="success-ctas">
               <a href="/demo/cape" class="success-link">
@@ -811,6 +811,14 @@
         if (typeof fbq !== 'undefined') {
           fbq('track', 'Lead', { content_name: 'cape_primer' });
         }
+
+        // Trigger PDF download
+        var a = document.createElement('a');
+        a.href = '/assets/cape-samsa-isps-guide.pdf';
+        a.download = 'cape-samsa-isps-guide.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
 
         // Show success state
         document.getElementById('form-view').style.display = 'none';

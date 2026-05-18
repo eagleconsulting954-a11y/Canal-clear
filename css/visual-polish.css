@@ -977,6 +977,127 @@ footer .footer-inner {
 }
 
 /* ───────────────────────────────────────────────────────────────────────────── */
+/* DESKTOP LAYOUT CONSTRAINTS (1200px+) */
+/* ───────────────────────────────────────────────────────────────────────────── */
+
+/* Standard desktop (1200-1400px) */
+@media (min-width: 1200px) {
+    main {
+        max-width: 1350px;
+        margin: 0 auto;
+        padding: 7rem 2rem var(--space-5xl);
+    }
+
+    section,
+    .section {
+        max-width: 1350px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: var(--space-3xl) 2rem;
+    }
+
+    /* Pricing and product cards — 3-4 columns at wide screen */
+    .pricing-grid {
+        max-width: 1350px;
+        margin-left: auto;
+        margin-right: auto;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .grid-4 {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    /* Hero section — constrain heading width for readability */
+    .hero {
+        max-width: 1350px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero h1 {
+        max-width: 850px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero p {
+        max-width: 680px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Form maximum width for readability */
+    form {
+        max-width: 650px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    input,
+    textarea,
+    select {
+        max-width: 100%;
+    }
+
+    /* Table responsiveness */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    /* Ensure footer uses available width properly */
+    footer .footer-inner {
+        max-width: 1350px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* Ultra-wide screens (1920px+) — enforce max-width strictly */
+@media (min-width: 1920px) {
+    main {
+        max-width: 1400px;
+        padding: 7rem 3rem var(--space-5xl);
+    }
+
+    section,
+    .section {
+        max-width: 1400px;
+        padding: var(--space-3xl) 3rem;
+    }
+
+    .pricing-grid {
+        max-width: 1400px;
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .hero {
+        max-width: 1400px;
+    }
+
+    .hero h1 {
+        max-width: 900px;
+    }
+
+    .hero p {
+        max-width: 750px;
+    }
+
+    form {
+        max-width: 700px;
+    }
+
+    footer .footer-inner {
+        max-width: 1400px;
+    }
+}
+
+/* ───────────────────────────────────────────────────────────────────────────── */
 /* RESPONSIVE DESIGN */
 /* ───────────────────────────────────────────────────────────────────────────── */
 
