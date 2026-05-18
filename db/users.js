@@ -483,6 +483,59 @@ async function setPasswordById(pool, userId, passwordHash) {
   );
 }
 
+/**
+ * Returns progress flags for the onboarding checklist.
+ * Aggregates across vessels, filings (all types), and portal credentials.
+ * Does NOT own filing logic — this is a read-only cross-table projection
+ * for the getting-started checklist.
+ */
+async function getOnboardingProgress(pool, userId) {
+  const [vesselRes, filingRes, submittedRes, portalRes] = await Promise.allSettled([
+    pool.query(
+      'SELECT COUNT(*) AS cnt FROM vessels WHERE user_id = $1 AND is_sample IS NOT TRUE',
+      [userId]
+    ),
+    pool.query(
+      `SELECT COUNT(*) AS cnt FROM (
+         SELECT id FROM filings WHERE user_id = $1 AND status != 'draft'
+         UNION ALL
+         SELECT id FROM sp1_filings WHERE user_id = $1 AND deleted_at IS NULL
+         UNION ALL
+         SELECT id FROM malacca_filings WHERE user_id = $1 AND deleted_at IS NULL
+         UNION ALL
+         SELECT id FROM cape_filings WHERE user_id = $1 AND deleted_at IS NULL
+       ) f`,
+      [userId]
+    ),
+    pool.query(
+      `SELECT 1 FROM (
+         SELECT status FROM filings WHERE user_id = $1 AND status IN ('submitted','validated','approved')
+         UNION ALL
+         SELECT filing_status AS status FROM sp1_filings WHERE user_id = $1 AND filing_status IN ('submitted','approved') AND deleted_at IS NULL
+         UNION ALL
+         SELECT filing_status AS status FROM malacca_filings WHERE user_id = $1 AND filing_status IN ('submitted','approved') AND deleted_at IS NULL
+         UNION ALL
+         SELECT filing_status AS status FROM cape_filings WHERE user_id = $1 AND filing_status IN ('submitted','approved') AND deleted_at IS NULL
+       ) s LIMIT 1`,
+      [userId]
+    ),
+    pool.query(
+      `SELECT 1 FROM sca_credentials WHERE user_id = $1
+       UNION ALL
+       SELECT 1 FROM mpa_credentials WHERE user_id = $1
+       LIMIT 1`,
+      [userId]
+    ),
+  ]);
+
+  return {
+    hasVessel:    vesselRes.status    === 'fulfilled' && parseInt(vesselRes.value.rows[0]?.cnt, 10) > 0,
+    hasFiling:    filingRes.status    === 'fulfilled' && parseInt(filingRes.value.rows[0]?.cnt, 10) > 0,
+    hasSubmitted: submittedRes.status === 'fulfilled' && submittedRes.value.rows.length > 0,
+    hasPortal:    portalRes.status    === 'fulfilled' && portalRes.value.rows.length > 0,
+  };
+}
+
 module.exports = {
   getUserByEmail,
   getUserById,
@@ -523,4 +576,5 @@ module.exports = {
   getAdminSeedCandidate,
   createAdminUser,
   setPasswordById,
+  getOnboardingProgress,
 };
