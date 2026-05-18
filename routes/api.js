@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 const path = require('path');
+const stripeService = require('../services/stripe');
 const { validateVUMPA, VALID_VESSEL_TYPES, VALID_CARGO_TYPES, VALID_DG_CLASSES, TRANSIT_DIRECTIONS } = require('../services/vumpa-validator');
 const { validateSuezFiling } = require('../services/suez-validator');
 const { hashPassword, verifyPassword, signToken, isSubscriptionActive, requireAuth, requireAdmin, canalsForPlan, requireWaterway } = require('../middleware/auth');
@@ -328,34 +329,50 @@ router.post('/auth/post-payment-register', async (req, res) => {
 
     const normalized = email.toLowerCase().trim();
 
-    // ── Step 1: Verify payment with Polsia ──────────────────────────────────
+    // ── Step 1: Verify payment directly with Stripe ─────────────────────────
+    // Uses owner's STRIPE_SECRET_KEY — no Polsia payment proxy.
+    // Falls back gracefully if STRIPE_SECRET_KEY is not set (allows legacy Polsia path).
     let paymentVerified = false;
     let stripeSubscriptionId = null;
     let paymentEmail = null;
     let paymentProductName = null;
-    let verifyData = null; // full Polsia payment response (used below for vessel count)
+    let stripeVesselCountDirect = null; // vessel count from direct Stripe verification
 
-    const polsiaApiUrl = process.env.POLSIA_API_URL;
-    const polsiaApiKey = process.env.POLSIA_API_KEY;
-
-    if (session_id && polsiaApiUrl && polsiaApiKey) {
+    if (session_id && process.env.STRIPE_SECRET_KEY) {
+      try {
+        const verifyResult = await stripeService.verifyCheckoutSession(session_id);
+        if (verifyResult.verified) {
+          paymentVerified = true;
+          stripeSubscriptionId = verifyResult.subscriptionId || session_id;
+          paymentEmail = verifyResult.email || null;
+          paymentProductName = verifyResult.productName || plan_id || null;
+          stripeVesselCountDirect = verifyResult.quantity || null;
+        }
+      } catch (verifyErr) {
+        console.error('[PostPaymentRegister] Stripe verify error:', verifyErr.message);
+        // Non-fatal — proceed with user-provided email and plan_id as fallback
+      }
+    } else if (session_id && process.env.POLSIA_API_URL && process.env.POLSIA_API_KEY) {
+      // Legacy fallback: verify via Polsia proxy (used if owner hasn't set STRIPE_SECRET_KEY yet)
+      const polsiaApiUrl = process.env.POLSIA_API_URL;
+      const polsiaApiKey = process.env.POLSIA_API_KEY;
       try {
         const verifyRes = await fetch(
           `${polsiaApiUrl}/api/company-payments/verify?session_id=${encodeURIComponent(session_id)}`,
           { headers: { Authorization: `Bearer ${polsiaApiKey}` } }
         );
         if (verifyRes.ok) {
-          verifyData = await verifyRes.json();
+          const verifyData = await verifyRes.json();
           if (verifyData.verified) {
             paymentVerified = true;
             stripeSubscriptionId = verifyData.payment?.subscription_id || verifyData.payment?.session_id || session_id;
             paymentEmail = verifyData.payment?.customer_email || null;
             paymentProductName = verifyData.payment?.product_name || plan_id || null;
+            stripeVesselCountDirect = parseInt(verifyData.payment?.quantity || verifyData.payment?.line_items?.[0]?.quantity, 10) || null;
           }
         }
       } catch (verifyErr) {
-        console.error('[PostPaymentRegister] Payment verify error:', verifyErr.message);
-        // Non-fatal — proceed with user-provided email as fallback
+        console.error('[PostPaymentRegister] Polsia payment verify error:', verifyErr.message);
       }
     }
 
@@ -404,12 +421,11 @@ router.post('/auth/post-payment-register', async (req, res) => {
 
     // Derive vessel_limit for this plan.
     // Agent Pro → null (unlimited). Ops Manager → vessel count from Stripe session.
-    // verifyData.payment.quantity contains the line-item quantity set by Stripe Checkout.
     const stripeVesselCount = (() => {
-      try {
-        const qty = parseInt(verifyData?.payment?.quantity || verifyData?.payment?.line_items?.[0]?.quantity, 10);
-        return Number.isFinite(qty) && qty > 0 ? qty : null;
-      } catch (_) { return null; }
+      if (stripeVesselCountDirect && Number.isFinite(Number(stripeVesselCountDirect)) && Number(stripeVesselCountDirect) > 0) {
+        return Number(stripeVesselCountDirect);
+      }
+      return null;
     })();
     const vesselLimit = deriveVesselLimit(plan_id, stripeVesselCount);
 
@@ -1026,6 +1042,7 @@ router.post('/stripe/subscription-sync', async (req, res) => {
  * Return pricing plan info — 6 variants: Panama, Suez, and Both Canals Bundle
  */
 router.get('/plans', (req, res) => {
+  const { getPaymentLink: _gpl } = require('../services/stripe');
   res.json({
     success: true,
     plans: [
@@ -1048,7 +1065,7 @@ router.get('/plans', (req, res) => {
         ],
         badge: 'Panama Canal',
         cta: 'Get Started',
-        stripe_url: 'https://buy.stripe.com/28EeVecSa60Ldxa4p35ZC08'
+        stripe_url: _gpl('AGENT_PRO_PANAMA', 'https://buy.stripe.com/28EeVecSa60Ldxa4p35ZC08')
       },
       {
         id: 'panama_compliance',
@@ -1090,7 +1107,7 @@ router.get('/plans', (req, res) => {
         ],
         badge: 'Suez Canal',
         cta: 'Get Started',
-        stripe_url: 'https://buy.stripe.com/7sYeVeaK2fBl8cQ8Fj5ZC09'
+        stripe_url: _gpl('AGENT_PRO_SUEZ', 'https://buy.stripe.com/7sYeVeaK2fBl8cQ8Fj5ZC09')
       },
       {
         id: 'suez_compliance',
@@ -1133,7 +1150,7 @@ router.get('/plans', (req, res) => {
         ],
         badge: 'Best Value',
         cta: 'Get the Bundle',
-        stripe_url: 'https://buy.stripe.com/fZu6oI8BU4WH2SwaNr5ZC0c'
+        stripe_url: _gpl('AGENT_PRO_BUNDLE', 'https://buy.stripe.com/fZu6oI8BU4WH2SwaNr5ZC0c')
       },
       {
         id: 'bundle_compliance',
@@ -1209,138 +1226,138 @@ router.post('/checkout/ops-manager', async (req, res) => {
     const discountPct = (normalizedPromo && VALID_PROMO_CODES[normalizedPromo]) || 0;
 
     // Pre-created Stripe subscription links for each canal × vessel count (1–10).
-    // Full-price links — used when no promo code is active.
+    // Full-price links — env-var-driven (STRIPE_LINK_OPS_<CANAL>_<N>), fall back to legacy links.
+    // Owner: replace these by setting STRIPE_LINK_OPS_PANAMA_1=https://buy.stripe.com/... etc.
+    const { getPaymentLink } = require('../services/stripe');
     const SUBSCRIPTION_LINKS = {
       panama: {
-        1:  'https://buy.stripe.com/6oU6oIdWedtd1OsbRv5ZC0a',
-        2:  'https://buy.stripe.com/3cIcN605oexhdxaaNr5ZC0i',
-        3:  'https://buy.stripe.com/00w6oI7xQfBl0KocVz5ZC0j',
-        4:  'https://buy.stripe.com/4gM00k4lE74P3WA9Jn5ZC0k',
-        5:  'https://buy.stripe.com/7sY28s7xQah19gUdZD5ZC0l',
-        6:  'https://buy.stripe.com/fZueVeg4m1Kv9gU08N5ZC0m',
-        7:  'https://buy.stripe.com/eVqbJ29FY9cX64IbRv5ZC0n',
-        8:  'https://buy.stripe.com/cNi8wQaK2exheBeaNr5ZC0o',
-        9:  'https://buy.stripe.com/4gM4gA3hAcp964Ig7L5ZC0p',
-        10: 'https://buy.stripe.com/bJeeVe6tMfBl0Ko08N5ZC0q',
+        1:  getPaymentLink('OPS_PANAMA_1',  'https://buy.stripe.com/6oU6oIdWedtd1OsbRv5ZC0a'),
+        2:  getPaymentLink('OPS_PANAMA_2',  'https://buy.stripe.com/3cIcN605oexhdxaaNr5ZC0i'),
+        3:  getPaymentLink('OPS_PANAMA_3',  'https://buy.stripe.com/00w6oI7xQfBl0KocVz5ZC0j'),
+        4:  getPaymentLink('OPS_PANAMA_4',  'https://buy.stripe.com/4gM00k4lE74P3WA9Jn5ZC0k'),
+        5:  getPaymentLink('OPS_PANAMA_5',  'https://buy.stripe.com/7sY28s7xQah19gUdZD5ZC0l'),
+        6:  getPaymentLink('OPS_PANAMA_6',  'https://buy.stripe.com/fZueVeg4m1Kv9gU08N5ZC0m'),
+        7:  getPaymentLink('OPS_PANAMA_7',  'https://buy.stripe.com/eVqbJ29FY9cX64IbRv5ZC0n'),
+        8:  getPaymentLink('OPS_PANAMA_8',  'https://buy.stripe.com/cNi8wQaK2exheBeaNr5ZC0o'),
+        9:  getPaymentLink('OPS_PANAMA_9',  'https://buy.stripe.com/4gM4gA3hAcp964Ig7L5ZC0p'),
+        10: getPaymentLink('OPS_PANAMA_10', 'https://buy.stripe.com/bJeeVe6tMfBl0Ko08N5ZC0q'),
       },
       suez: {
-        1:  'https://buy.stripe.com/cNi28s19sbl58cQbRv5ZC0b',
-        2:  'https://buy.stripe.com/cNi4gAaK2fBl78M9Jn5ZC0r',
-        3:  'https://buy.stripe.com/bJe7sMaK20Grdxa4p35ZC0s',
-        4:  'https://buy.stripe.com/aFafZi05o74P3WAg7L5ZC0t',
-        5:  'https://buy.stripe.com/eVq3cw4lE2OzeBef3H5ZC0u',
-        6:  'https://buy.stripe.com/bJe00k3hAbl58cQ9Jn5ZC0v',
-        7:  'https://buy.stripe.com/9B63cwcSaexhgJmcVz5ZC0w',
-        8:  'https://buy.stripe.com/8x200kdWebl52Sw8Fj5ZC0x',
-        9:  'https://buy.stripe.com/9B6dRa8BUexh0Ko2gV5ZC0y',
-        10: 'https://buy.stripe.com/00wcN6g4m4WHct62gV5ZC0z',
+        1:  getPaymentLink('OPS_SUEZ_1',  'https://buy.stripe.com/cNi28s19sbl58cQbRv5ZC0b'),
+        2:  getPaymentLink('OPS_SUEZ_2',  'https://buy.stripe.com/cNi4gAaK2fBl78M9Jn5ZC0r'),
+        3:  getPaymentLink('OPS_SUEZ_3',  'https://buy.stripe.com/bJe7sMaK20Grdxa4p35ZC0s'),
+        4:  getPaymentLink('OPS_SUEZ_4',  'https://buy.stripe.com/aFafZi05o74P3WAg7L5ZC0t'),
+        5:  getPaymentLink('OPS_SUEZ_5',  'https://buy.stripe.com/eVq3cw4lE2OzeBef3H5ZC0u'),
+        6:  getPaymentLink('OPS_SUEZ_6',  'https://buy.stripe.com/bJe00k3hAbl58cQ9Jn5ZC0v'),
+        7:  getPaymentLink('OPS_SUEZ_7',  'https://buy.stripe.com/9B63cwcSaexhgJmcVz5ZC0w'),
+        8:  getPaymentLink('OPS_SUEZ_8',  'https://buy.stripe.com/8x200kdWebl52Sw8Fj5ZC0x'),
+        9:  getPaymentLink('OPS_SUEZ_9',  'https://buy.stripe.com/9B6dRa8BUexh0Ko2gV5ZC0y'),
+        10: getPaymentLink('OPS_SUEZ_10', 'https://buy.stripe.com/00wcN6g4m4WHct62gV5ZC0z'),
       },
       bundle: {
-        1:  'https://buy.stripe.com/5kQfZidWedtd78M2gV5ZC2f',
-        2:  'https://buy.stripe.com/cNieVef0i9cXdxa3kZ5ZC2g',
-        3:  'https://buy.stripe.com/bJe28s3hAah19gU2gV5ZC2h',
-        4:  'https://buy.stripe.com/6oU00kaK274P0Kof3H5ZC2i',
-        5:  'https://buy.stripe.com/3cI4gA9FY1Kv3WA8Fj5ZC2j',
-        6:  'https://buy.stripe.com/eVqaEY5pI0Gr78MdZD5ZC2k',
-        7:  'https://buy.stripe.com/eVqfZi5pI3SD1Os5t75ZC2l',
-        8:  'https://buy.stripe.com/7sY7sM9FY74Pct6bRv5ZC2m',
-        9:  'https://buy.stripe.com/4gMfZi2dw74P8cQcVz5ZC2n',
-        10: 'https://buy.stripe.com/8x23cw19s0Grct65t75ZC2o',
+        1:  getPaymentLink('OPS_BUNDLE_1',  'https://buy.stripe.com/5kQfZidWedtd78M2gV5ZC2f'),
+        2:  getPaymentLink('OPS_BUNDLE_2',  'https://buy.stripe.com/cNieVef0i9cXdxa3kZ5ZC2g'),
+        3:  getPaymentLink('OPS_BUNDLE_3',  'https://buy.stripe.com/bJe28s3hAah19gU2gV5ZC2h'),
+        4:  getPaymentLink('OPS_BUNDLE_4',  'https://buy.stripe.com/6oU00kaK274P0Kof3H5ZC2i'),
+        5:  getPaymentLink('OPS_BUNDLE_5',  'https://buy.stripe.com/3cI4gA9FY1Kv3WA8Fj5ZC2j'),
+        6:  getPaymentLink('OPS_BUNDLE_6',  'https://buy.stripe.com/eVqaEY5pI0Gr78MdZD5ZC2k'),
+        7:  getPaymentLink('OPS_BUNDLE_7',  'https://buy.stripe.com/eVqfZi5pI3SD1Os5t75ZC2l'),
+        8:  getPaymentLink('OPS_BUNDLE_8',  'https://buy.stripe.com/7sY7sM9FY74Pct6bRv5ZC2m'),
+        9:  getPaymentLink('OPS_BUNDLE_9',  'https://buy.stripe.com/4gMfZi2dw74P8cQcVz5ZC2n'),
+        10: getPaymentLink('OPS_BUNDLE_10', 'https://buy.stripe.com/8x23cw19s0Grct65t75ZC2o'),
       },
       bosporus: {
-        1:  'https://buy.stripe.com/fZubJ2g4mgFpfFi3kZ5ZC1i',
-        2:  'https://buy.stripe.com/eVq00k19s3SD2Sw2gV5ZC1j',
-        3:  'https://buy.stripe.com/6oU5kE4lE74PakY2gV5ZC1k',
-        4:  'https://buy.stripe.com/dRm00kcSa88T3WA5t75ZC1l',
-        5:  'https://buy.stripe.com/5kQ5kEg4m2Ozbp24p35ZC1m',
-        6:  'https://buy.stripe.com/bJe4gA4lEbl59gUaNr5ZC1n',
-        7:  'https://buy.stripe.com/aFa7sMg4m3SDfFicVz5ZC1o',
-        8:  'https://buy.stripe.com/6oUdRa3hAdtd64I8Fj5ZC1p',
-        9:  'https://buy.stripe.com/8x2bJ27xQ4WH1OsaNr5ZC1q',
-        10: 'https://buy.stripe.com/4gM3cw6tMdtd8cQf3H5ZC1r',
+        1:  getPaymentLink('OPS_BOSPORUS_1',  'https://buy.stripe.com/fZubJ2g4mgFpfFi3kZ5ZC1i'),
+        2:  getPaymentLink('OPS_BOSPORUS_2',  'https://buy.stripe.com/eVq00k19s3SD2Sw2gV5ZC1j'),
+        3:  getPaymentLink('OPS_BOSPORUS_3',  'https://buy.stripe.com/6oU5kE4lE74PakY2gV5ZC1k'),
+        4:  getPaymentLink('OPS_BOSPORUS_4',  'https://buy.stripe.com/dRm00kcSa88T3WA5t75ZC1l'),
+        5:  getPaymentLink('OPS_BOSPORUS_5',  'https://buy.stripe.com/5kQ5kEg4m2Ozbp24p35ZC1m'),
+        6:  getPaymentLink('OPS_BOSPORUS_6',  'https://buy.stripe.com/bJe4gA4lEbl59gUaNr5ZC1n'),
+        7:  getPaymentLink('OPS_BOSPORUS_7',  'https://buy.stripe.com/aFa7sMg4m3SDfFicVz5ZC1o'),
+        8:  getPaymentLink('OPS_BOSPORUS_8',  'https://buy.stripe.com/6oUdRa3hAdtd64I8Fj5ZC1p'),
+        9:  getPaymentLink('OPS_BOSPORUS_9',  'https://buy.stripe.com/8x2bJ27xQ4WH1OsaNr5ZC1q'),
+        10: getPaymentLink('OPS_BOSPORUS_10', 'https://buy.stripe.com/4gM3cw6tMdtd8cQf3H5ZC1r'),
       },
-      // Cape of Good Hope — uses dynamic checkout (Strategy 2) for all vessel counts.
-      // Pre-built links to be added once Stripe products are created.
+      // Cape of Good Hope — no pre-created links; always uses dynamic Stripe Checkout.
       cape: {},
       malacca: {
-        1:  'https://buy.stripe.com/00w9AU6tM1Kv78MdZD5ZC1D',
-        2:  'https://buy.stripe.com/cNi28sbO6dtd64IaNr5ZC1E',
-        3:  'https://buy.stripe.com/5kQ9AU19sfBlct6aNr5ZC1F',
-        4:  'https://buy.stripe.com/cNicN68BU0GrfFidZD5ZC1G',
-        5:  'https://buy.stripe.com/8x2cN6g4mbl578M8Fj5ZC1H',
-        6:  'https://buy.stripe.com/cNidRa3hA4WHakYdZD5ZC1I',
-        7:  'https://buy.stripe.com/28EbJ28BU60LfFig7L5ZC1J',
-        8:  'https://buy.stripe.com/4gMeVebO6ah1eBe1cR5ZC1K',
-        9:  'https://buy.stripe.com/cNi8wQbO6bl5gJm3kZ5ZC1L',
-        10: 'https://buy.stripe.com/fZudRa6tM74PdxabRv5ZC1M',
+        1:  getPaymentLink('OPS_MALACCA_1',  'https://buy.stripe.com/00w9AU6tM1Kv78MdZD5ZC1D'),
+        2:  getPaymentLink('OPS_MALACCA_2',  'https://buy.stripe.com/cNi28sbO6dtd64IaNr5ZC1E'),
+        3:  getPaymentLink('OPS_MALACCA_3',  'https://buy.stripe.com/5kQ9AU19sfBlct6aNr5ZC1F'),
+        4:  getPaymentLink('OPS_MALACCA_4',  'https://buy.stripe.com/cNicN68BU0GrfFidZD5ZC1G'),
+        5:  getPaymentLink('OPS_MALACCA_5',  'https://buy.stripe.com/8x2cN6g4mbl578M8Fj5ZC1H'),
+        6:  getPaymentLink('OPS_MALACCA_6',  'https://buy.stripe.com/cNidRa3hA4WHakYdZD5ZC1I'),
+        7:  getPaymentLink('OPS_MALACCA_7',  'https://buy.stripe.com/28EbJ28BU60LfFig7L5ZC1J'),
+        8:  getPaymentLink('OPS_MALACCA_8',  'https://buy.stripe.com/4gMeVebO6ah1eBe1cR5ZC1K'),
+        9:  getPaymentLink('OPS_MALACCA_9',  'https://buy.stripe.com/cNi8wQbO6bl5gJm3kZ5ZC1L'),
+        10: getPaymentLink('OPS_MALACCA_10', 'https://buy.stripe.com/fZudRa6tM74PdxabRv5ZC1M'),
       },
     };
 
-    // SEAS promo: pre-created links at 20% off (vessels × per-vessel × 0.8, rounded down).
-    // Panama: $319/v, Suez: $479/v, Bosporus: $399/v, Bundle: $1,039/v (SEAS 20% off $1,299).
+    // SEAS promo: pre-created links at 20% off.
+    // Env-var-driven: STRIPE_LINK_OPS_SEAS_<CANAL>_<N>. Falls back to legacy Polsia links.
     const SEAS_SUBSCRIPTION_LINKS = {
       panama: {
-        1:  'https://buy.stripe.com/fZu9AUg4m60L8cQcVz5ZC0K',
-        2:  'https://buy.stripe.com/bJe5kE19s74Pbp25t75ZC0L',
-        3:  'https://buy.stripe.com/bJe4gAaK24WH50EbRv5ZC0M',
-        4:  'https://buy.stripe.com/00wdRa3hA74Pct65t75ZC0N',
-        5:  'https://buy.stripe.com/cNicN69FY60LakY9Jn5ZC0O',
-        6:  'https://buy.stripe.com/8x26oI19sgFp50E1cR5ZC0P',
-        7:  'https://buy.stripe.com/dRm6oIaK29cXct61cR5ZC0Q',
-        8:  'https://buy.stripe.com/9B63cw9FY2Oz9gU6xb5ZC0R',
-        9:  'https://buy.stripe.com/fZudRa2dwfBlgJmbRv5ZC0S',
-        10: 'https://buy.stripe.com/bJefZig4mah11Os5t75ZC0T',
+        1:  getPaymentLink('OPS_SEAS_PANAMA_1',  'https://buy.stripe.com/fZu9AUg4m60L8cQcVz5ZC0K'),
+        2:  getPaymentLink('OPS_SEAS_PANAMA_2',  'https://buy.stripe.com/bJe5kE19s74Pbp25t75ZC0L'),
+        3:  getPaymentLink('OPS_SEAS_PANAMA_3',  'https://buy.stripe.com/bJe4gAaK24WH50EbRv5ZC0M'),
+        4:  getPaymentLink('OPS_SEAS_PANAMA_4',  'https://buy.stripe.com/00wdRa3hA74Pct65t75ZC0N'),
+        5:  getPaymentLink('OPS_SEAS_PANAMA_5',  'https://buy.stripe.com/cNicN69FY60LakY9Jn5ZC0O'),
+        6:  getPaymentLink('OPS_SEAS_PANAMA_6',  'https://buy.stripe.com/8x26oI19sgFp50E1cR5ZC0P'),
+        7:  getPaymentLink('OPS_SEAS_PANAMA_7',  'https://buy.stripe.com/dRm6oIaK29cXct61cR5ZC0Q'),
+        8:  getPaymentLink('OPS_SEAS_PANAMA_8',  'https://buy.stripe.com/9B63cw9FY2Oz9gU6xb5ZC0R'),
+        9:  getPaymentLink('OPS_SEAS_PANAMA_9',  'https://buy.stripe.com/fZudRa2dwfBlgJmbRv5ZC0S'),
+        10: getPaymentLink('OPS_SEAS_PANAMA_10', 'https://buy.stripe.com/bJefZig4mah11Os5t75ZC0T'),
       },
       suez: {
-        1:  'https://buy.stripe.com/dRm5kE5pI3SDfFibRv5ZC0U',
-        2:  'https://buy.stripe.com/9B6bJ2bO6cp91Os4p35ZC0V',
-        3:  'https://buy.stripe.com/aFa8wQ9FY0GrfFibRv5ZC0W',
-        4:  'https://buy.stripe.com/eVq8wQ8BUfBl8cQ2gV5ZC0X',
-        5:  'https://buy.stripe.com/6oUdRa3hA3SD0Ko9Jn5ZC0Y',
-        6:  'https://buy.stripe.com/dRm6oI19s1KvgJm9Jn5ZC0Z',
-        7:  'https://buy.stripe.com/cNidRa5pI74PgJmcVz5ZC10',
-        8:  'https://buy.stripe.com/6oU7sM9FY3SD64IcVz5ZC11',
-        9:  'https://buy.stripe.com/7sY9AUcSacp9akYdZD5ZC12',
-        10: 'https://buy.stripe.com/3cIbJ2g4mexh8cQ9Jn5ZC13',
+        1:  getPaymentLink('OPS_SEAS_SUEZ_1',  'https://buy.stripe.com/dRm5kE5pI3SDfFibRv5ZC0U'),
+        2:  getPaymentLink('OPS_SEAS_SUEZ_2',  'https://buy.stripe.com/9B6bJ2bO6cp91Os4p35ZC0V'),
+        3:  getPaymentLink('OPS_SEAS_SUEZ_3',  'https://buy.stripe.com/aFa8wQ9FY0GrfFibRv5ZC0W'),
+        4:  getPaymentLink('OPS_SEAS_SUEZ_4',  'https://buy.stripe.com/eVq8wQ8BUfBl8cQ2gV5ZC0X'),
+        5:  getPaymentLink('OPS_SEAS_SUEZ_5',  'https://buy.stripe.com/6oUdRa3hA3SD0Ko9Jn5ZC0Y'),
+        6:  getPaymentLink('OPS_SEAS_SUEZ_6',  'https://buy.stripe.com/dRm6oI19s1KvgJm9Jn5ZC0Z'),
+        7:  getPaymentLink('OPS_SEAS_SUEZ_7',  'https://buy.stripe.com/cNidRa5pI74PgJmcVz5ZC10'),
+        8:  getPaymentLink('OPS_SEAS_SUEZ_8',  'https://buy.stripe.com/6oU7sM9FY3SD64IcVz5ZC11'),
+        9:  getPaymentLink('OPS_SEAS_SUEZ_9',  'https://buy.stripe.com/7sY9AUcSacp9akYdZD5ZC12'),
+        10: getPaymentLink('OPS_SEAS_SUEZ_10', 'https://buy.stripe.com/3cIbJ2g4mexh8cQ9Jn5ZC13'),
       },
       bundle: {
-        1:  'https://buy.stripe.com/7sYfZi4lEdtdeBe4p35ZC2p',
-        2:  'https://buy.stripe.com/9B600kcSa88T9gUbRv5ZC2q',
-        3:  'https://buy.stripe.com/14A4gAcSa88TeBe6xb5ZC2r',
-        4:  'https://buy.stripe.com/8x2bJ23hAah1dxa08N5ZC2s',
-        5:  'https://buy.stripe.com/00w14of0i2Oz3WAdZD5ZC2t',
-        6:  'https://buy.stripe.com/5kQ6oI05ofBlbp24p35ZC2u',
-        7:  'https://buy.stripe.com/14AeVeg4m74Pdxa9Jn5ZC2v',
-        8:  'https://buy.stripe.com/4gM7sMdWe3SDbp29Jn5ZC2w',
-        9:  'https://buy.stripe.com/14AfZi19s74P64I6xb5ZC2x',
-        10: 'https://buy.stripe.com/cNieVeaK2exhdxacVz5ZC2y',
+        1:  getPaymentLink('OPS_SEAS_BUNDLE_1',  'https://buy.stripe.com/7sYfZi4lEdtdeBe4p35ZC2p'),
+        2:  getPaymentLink('OPS_SEAS_BUNDLE_2',  'https://buy.stripe.com/9B600kcSa88T9gUbRv5ZC2q'),
+        3:  getPaymentLink('OPS_SEAS_BUNDLE_3',  'https://buy.stripe.com/14A4gAcSa88TeBe6xb5ZC2r'),
+        4:  getPaymentLink('OPS_SEAS_BUNDLE_4',  'https://buy.stripe.com/8x2bJ23hAah1dxa08N5ZC2s'),
+        5:  getPaymentLink('OPS_SEAS_BUNDLE_5',  'https://buy.stripe.com/00w14of0i2Oz3WAdZD5ZC2t'),
+        6:  getPaymentLink('OPS_SEAS_BUNDLE_6',  'https://buy.stripe.com/5kQ6oI05ofBlbp24p35ZC2u'),
+        7:  getPaymentLink('OPS_SEAS_BUNDLE_7',  'https://buy.stripe.com/14AeVeg4m74Pdxa9Jn5ZC2v'),
+        8:  getPaymentLink('OPS_SEAS_BUNDLE_8',  'https://buy.stripe.com/4gM7sMdWe3SDbp29Jn5ZC2w'),
+        9:  getPaymentLink('OPS_SEAS_BUNDLE_9',  'https://buy.stripe.com/14AfZi19s74P64I6xb5ZC2x'),
+        10: getPaymentLink('OPS_SEAS_BUNDLE_10', 'https://buy.stripe.com/cNieVeaK2exhdxacVz5ZC2y'),
       },
       bosporus: {
-        1:  'https://buy.stripe.com/9B600k19sdtd78M2gV5ZC1s',
-        2:  'https://buy.stripe.com/7sY9AU2dw3SD9gU8Fj5ZC1t',
-        3:  'https://buy.stripe.com/9B68wQ19s74P3WA8Fj5ZC1u',
-        4:  'https://buy.stripe.com/cNiaEY6tM88Tdxa2gV5ZC1v',
-        5:  'https://buy.stripe.com/aFa9AUg4m4WH78M2gV5ZC1w',
-        6:  'https://buy.stripe.com/eVq3cw6tMgFpakY8Fj5ZC1x',
-        7:  'https://buy.stripe.com/4gM28s7xQfBl64I4p35ZC1y',
-        8:  'https://buy.stripe.com/9B69AU7xQ74Pbp2bRv5ZC1z',
-        9:  'https://buy.stripe.com/9B69AUaK2gFp1Osg7L5ZC1A',
-        10: 'https://buy.stripe.com/dRm00kf0i4WH50E3kZ5ZC1B',
+        1:  getPaymentLink('OPS_SEAS_BOSPORUS_1',  'https://buy.stripe.com/9B600k19sdtd78M2gV5ZC1s'),
+        2:  getPaymentLink('OPS_SEAS_BOSPORUS_2',  'https://buy.stripe.com/7sY9AU2dw3SD9gU8Fj5ZC1t'),
+        3:  getPaymentLink('OPS_SEAS_BOSPORUS_3',  'https://buy.stripe.com/9B68wQ19s74P3WA8Fj5ZC1u'),
+        4:  getPaymentLink('OPS_SEAS_BOSPORUS_4',  'https://buy.stripe.com/cNiaEY6tM88Tdxa2gV5ZC1v'),
+        5:  getPaymentLink('OPS_SEAS_BOSPORUS_5',  'https://buy.stripe.com/aFa9AUg4m4WH78M2gV5ZC1w'),
+        6:  getPaymentLink('OPS_SEAS_BOSPORUS_6',  'https://buy.stripe.com/eVq3cw6tMgFpakY8Fj5ZC1x'),
+        7:  getPaymentLink('OPS_SEAS_BOSPORUS_7',  'https://buy.stripe.com/4gM28s7xQfBl64I4p35ZC1y'),
+        8:  getPaymentLink('OPS_SEAS_BOSPORUS_8',  'https://buy.stripe.com/9B69AU7xQ74Pbp2bRv5ZC1z'),
+        9:  getPaymentLink('OPS_SEAS_BOSPORUS_9',  'https://buy.stripe.com/9B69AUaK2gFp1Osg7L5ZC1A'),
+        10: getPaymentLink('OPS_SEAS_BOSPORUS_10', 'https://buy.stripe.com/dRm00kf0i4WH50E3kZ5ZC1B'),
       },
-      // SEAS 20% off Cape: $349 × 0.8 = $279/vessel/mo (floor)
-      // Uses dynamic checkout (Strategy 2) for all vessel counts.
+      // Cape SEAS — always dynamic
       cape: {},
       malacca: {
-        1:  'https://buy.stripe.com/4gM14o4lE60LeBeaNr5ZC1N',
-        2:  'https://buy.stripe.com/5kQbJ25pI88TfFicVz5ZC1O',
-        3:  'https://buy.stripe.com/6oU6oI7xQcp92SwbRv5ZC1P',
-        4:  'https://buy.stripe.com/6oU9AU3hA60Lbp28Fj5ZC1Q',
-        5:  'https://buy.stripe.com/fZucN66tM88Tct6cVz5ZC1R',
-        6:  'https://buy.stripe.com/7sY9AU9FY88TfFi9Jn5ZC1S',
-        7:  'https://buy.stripe.com/8x25kE7xQ2Ozdxa6xb5ZC1T',
-        8:  'https://buy.stripe.com/dRmbJ24lE74P2SwcVz5ZC1U',
-        9:  'https://buy.stripe.com/dRmdRacSabl52Sw5t75ZC1V',
-        10: 'https://buy.stripe.com/00wcN62dwcp950EdZD5ZC1W',
+        1:  getPaymentLink('OPS_SEAS_MALACCA_1',  'https://buy.stripe.com/4gM14o4lE60LeBeaNr5ZC1N'),
+        2:  getPaymentLink('OPS_SEAS_MALACCA_2',  'https://buy.stripe.com/5kQbJ25pI88TfFicVz5ZC1O'),
+        3:  getPaymentLink('OPS_SEAS_MALACCA_3',  'https://buy.stripe.com/6oU6oI7xQcp92SwbRv5ZC1P'),
+        4:  getPaymentLink('OPS_SEAS_MALACCA_4',  'https://buy.stripe.com/6oU9AU3hA60Lbp28Fj5ZC1Q'),
+        5:  getPaymentLink('OPS_SEAS_MALACCA_5',  'https://buy.stripe.com/fZucN66tM88Tct6cVz5ZC1R'),
+        6:  getPaymentLink('OPS_SEAS_MALACCA_6',  'https://buy.stripe.com/7sY9AU9FY88TfFi9Jn5ZC1S'),
+        7:  getPaymentLink('OPS_SEAS_MALACCA_7',  'https://buy.stripe.com/8x25kE7xQ2Ozdxa6xb5ZC1T'),
+        8:  getPaymentLink('OPS_SEAS_MALACCA_8',  'https://buy.stripe.com/dRmbJ24lE74P2SwcVz5ZC1U'),
+        9:  getPaymentLink('OPS_SEAS_MALACCA_9',  'https://buy.stripe.com/dRmdRacSabl52Sw5t75ZC1V'),
+        10: getPaymentLink('OPS_SEAS_MALACCA_10', 'https://buy.stripe.com/00wcN62dwcp950EdZD5ZC1W'),
       },
     };
 
@@ -1355,7 +1372,6 @@ router.post('/checkout/ops-manager', async (req, res) => {
       // Pre-created links don't have a per-session ID, so the URL itself is the dedup key.
       if (normalizedPromo) {
         const pool = req.app.locals.pool;
-        // Use link URL + canal + vessels as dedup key to allow same link for different vessel counts
         const dedupKey = `${normalizedPromo}:${checkoutUrl}`;
         promoRedemptionsDb.recordRedemption(pool, normalizedPromo, dedupKey, canal, numVessels)
           .catch(err => console.error('[checkout/ops-manager] promo redemption record failed:', err.message));
@@ -1363,12 +1379,50 @@ router.post('/checkout/ops-manager', async (req, res) => {
       return res.json({ success: true, url: checkoutUrl });
     }
 
-    // ── Strategy 2: Dynamically create checkout session for vessel counts 11+ ──
+    // ── Strategy 2: Dynamically create checkout session via owner's Stripe account ──
+    // Used for vessel counts 11+ (no pre-created links) and Cape of Good Hope (all counts).
+    // Requires STRIPE_SECRET_KEY + per-canal price IDs (STRIPE_PRICE_OPS_<CANAL>).
+    // Falls back to Polsia API proxy if owner hasn't configured direct Stripe yet.
+    const BASE_URL_CHECKOUT = process.env.BASE_URL || 'https://canalclear.org';
+
+    // Look up the Stripe Price ID for this canal (set via env var by owner)
+    const priceIdEnvKey = `STRIPE_PRICE_OPS_${canal.toUpperCase()}`;
+    const priceId = process.env[priceIdEnvKey];
+
+    if (priceId && process.env.STRIPE_SECRET_KEY) {
+      // Direct Stripe checkout using owner's account
+      const couponId = (normalizedPromo === 'SEAS') ? process.env.STRIPE_COUPON_SEAS : null;
+
+      console.log(`[checkout/ops-manager] Creating direct Stripe checkout: ${canal}, ${numVessels} vessels, price: ${priceId}${couponId ? `, coupon: ${couponId}` : ''}`);
+
+      try {
+        const { url: sessionUrl, sessionId: newSessionId } = await stripeService.createCheckoutSession({
+          priceId,
+          quantity: numVessels,
+          successUrl: `${BASE_URL_CHECKOUT}/login?payment=success&plan=ops_manager_${canal}&vessels=${numVessels}&session_id={CHECKOUT_SESSION_ID}`,
+          cancelUrl: `${BASE_URL_CHECKOUT}/pricing`,
+          couponId,
+        });
+
+        if (normalizedPromo) {
+          const pool = req.app.locals.pool;
+          promoRedemptionsDb.recordRedemption(pool, normalizedPromo, newSessionId, canal, numVessels)
+            .catch(err => console.error('[checkout/ops-manager] promo redemption record failed (direct):', err.message));
+        }
+
+        return res.json({ success: true, url: sessionUrl });
+      } catch (stripeErr) {
+        console.error('[checkout/ops-manager] Direct Stripe checkout error:', stripeErr.message);
+        return res.status(500).json({ success: false, message: 'Unable to create checkout session. Please try again or contact support@canalclear.org' });
+      }
+    }
+
+    // Fallback: Polsia API proxy (used during transition period before owner sets STRIPE_SECRET_KEY + price IDs)
     const polsiaApiUrl = process.env.POLSIA_API_URL;
     const polsiaApiKey = process.env.POLSIA_API_KEY;
 
     if (!polsiaApiUrl || !polsiaApiKey) {
-      console.error('[checkout/ops-manager] POLSIA_API_URL or POLSIA_API_KEY not configured — cannot create dynamic checkout for', numVessels, 'vessels');
+      console.error('[checkout/ops-manager] No direct Stripe config (STRIPE_SECRET_KEY + ' + priceIdEnvKey + ') and no Polsia API config — cannot create checkout for', numVessels, 'vessels');
       return res.status(500).json({
         success: false,
         message: 'Unable to create checkout session. Please try again or contact support@canalclear.org',
@@ -1382,50 +1436,38 @@ router.post('/checkout/ops-manager', async (req, res) => {
     const promoSuffix = discountPct > 0 ? ` — SEAS ${discountPct}% off` : '';
     const productName = `Ops Manager — ${canalName} (${numVessels} vessels)${promoSuffix}`;
 
-    // Create a one-time checkout session via Polsia's Stripe API.
-    // This generates a unique Stripe checkout URL for this specific order.
     const checkoutPayload = {
-      line_items: [{
-        name: productName,
-        amount: totalMonthly,
-        quantity: 1,
-      }],
-      success_url: `https://canal-clear.polsia.app/login?payment=success&plan=ops_manager_${canal}&vessels=${numVessels}&session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: 'https://canal-clear.polsia.app/pricing',
+      line_items: [{ name: productName, amount: totalMonthly, quantity: 1 }],
+      success_url: `${BASE_URL_CHECKOUT}/login?payment=success&plan=ops_manager_${canal}&vessels=${numVessels}&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${BASE_URL_CHECKOUT}/pricing`,
     };
 
-    console.log(`[checkout/ops-manager] Creating dynamic checkout: ${canal}, ${numVessels} vessels, $${totalMonthly}/mo${discountPct ? ` (promo: ${normalizedPromo}, ${discountPct}% off)` : ''}`);
+    console.log(`[checkout/ops-manager] Polsia fallback checkout: ${canal}, ${numVessels} vessels, $${totalMonthly}/mo${discountPct ? ` (promo: ${normalizedPromo})` : ''}`);
 
     const polsiaRes = await fetch(`${polsiaApiUrl}/api/company-payments/create-checkout-session`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${polsiaApiKey}`,
-      },
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${polsiaApiKey}` },
       body: JSON.stringify(checkoutPayload),
     });
 
     if (polsiaRes.ok) {
       const polsiaData = await polsiaRes.json();
       if (polsiaData.url) {
-        console.log(`[checkout/ops-manager] Dynamic checkout created for ${numVessels} vessels (${canal})`);
-        // Record promo redemption — extract session ID from URL for dedup
         if (normalizedPromo && polsiaData.url) {
           const pool = req.app.locals.pool;
           const sessionMatch = polsiaData.url.match(/\/([A-Za-z0-9_]+)(?:\?|$)/);
           const sessionId = sessionMatch ? sessionMatch[1] : polsiaData.url;
           promoRedemptionsDb.recordRedemption(pool, normalizedPromo, sessionId, canal, numVessels)
-            .catch(err => console.error('[checkout/ops-manager] promo redemption record failed (dynamic):', err.message));
+            .catch(err => console.error('[checkout/ops-manager] promo redemption record failed (polsia):', err.message));
         }
         return res.json({ success: true, url: polsiaData.url });
       }
     }
 
-    // If Polsia API didn't return a URL, log the issue and fall back to a helpful error
     const polsiaStatus = polsiaRes.status;
     let polsiaBody = '';
     try { polsiaBody = await polsiaRes.text(); } catch (_) {}
-    console.error(`[checkout/ops-manager] Polsia API returned ${polsiaStatus} for dynamic checkout:`, polsiaBody);
+    console.error(`[checkout/ops-manager] Polsia fallback returned ${polsiaStatus}:`, polsiaBody);
 
     return res.status(500).json({
       success: false,
@@ -1450,13 +1492,14 @@ function handleSubscribeCheckout(req, res) {
     const { plan, canal } = req.body;
 
     // Pre-created Stripe subscription links for Agent Pro (flat-rate monthly).
-    // Created via Polsia Stripe MCP — each is a reusable subscription URL.
+    // Env-var-driven: set STRIPE_LINK_AGENT_PRO_<CANAL> to override legacy links.
+    const { getPaymentLink } = require('../services/stripe');
     const AGENT_PRO_LINKS = {
-      panama:  'https://buy.stripe.com/00w4gAg4m74PgJm9Jn5ZC1e',
-      suez:    'https://buy.stripe.com/7sYcN6dWe4WH2SwdZD5ZC1f',
-      bosporus:'https://buy.stripe.com/eVq3cw6tMcp92Sw7Bf5ZC1g',
-      bundle:  'https://buy.stripe.com/eVq9AU3hA1Kvbp27Bf5ZC1h',
-      malacca: 'https://buy.stripe.com/14AcN6g4m88Tdxa1cR5ZC1C',
+      panama:  getPaymentLink('AGENT_PRO_PANAMA',   'https://buy.stripe.com/00w4gAg4m74PgJm9Jn5ZC1e'),
+      suez:    getPaymentLink('AGENT_PRO_SUEZ',     'https://buy.stripe.com/7sYcN6dWe4WH2SwdZD5ZC1f'),
+      bosporus:getPaymentLink('AGENT_PRO_BOSPORUS', 'https://buy.stripe.com/eVq3cw6tMcp92Sw7Bf5ZC1g'),
+      bundle:  getPaymentLink('AGENT_PRO_BUNDLE',   'https://buy.stripe.com/eVq9AU3hA1Kvbp27Bf5ZC1h'),
+      malacca: getPaymentLink('AGENT_PRO_MALACCA',  'https://buy.stripe.com/14AcN6g4m88Tdxa1cR5ZC1C'),
     };
 
     if (!canal || !AGENT_PRO_LINKS[canal]) {
@@ -1494,22 +1537,53 @@ router.post('/checkout/agency', (req, res) => {
   try {
     const { tier, waterway } = req.body;
 
-    // Pre-created Stripe payment links for Agency tiers.
-    // All tiers have the same price regardless of waterway selection —
-    // waterway controls which canals are provisioned, not the price.
-    const AGENCY_LINKS = {
-      agency_starter:    'https://buy.stripe.com/dRmaEY19s60L78Mf3H5ZC1X',
-      agency_pro:        'https://buy.stripe.com/4gM8wQdWe2Oz0Ko3kZ5ZC1Y',
-      agency_enterprise: 'https://buy.stripe.com/cNifZidWegFpbp2dZD5ZC1Z',
-    };
+    // Pre-created Stripe payment links for Agency tiers × waterway combinations.
+    // Env-var-driven: STRIPE_LINK_AGENCY_<TIER>_<WATERWAY> (e.g. STRIPE_LINK_AGENCY_STARTER_PANAMA).
+    // For bundle ('all'), use STRIPE_LINK_AGENCY_STARTER / _PRO / _ENTERPRISE.
+    // Falls back to legacy Polsia-created links until owner sets their own.
+    const { getPaymentLink: _getPaymentLink } = require('../services/stripe');
 
+    const VALID_TIERS = ['agency_starter', 'agency_pro', 'agency_enterprise'];
     const VALID_WATERWAYS = ['all', 'panama', 'suez', 'bosporus', 'malacca', 'cape'];
 
-    if (!tier || !AGENCY_LINKS[tier]) {
+    if (!tier || !VALID_TIERS.includes(tier)) {
       return res.status(400).json({ success: false, message: 'Invalid tier. Use agency_starter, agency_pro, or agency_enterprise.' });
     }
     if (!waterway || !VALID_WATERWAYS.includes(waterway)) {
       return res.status(400).json({ success: false, message: 'Invalid waterway selection.' });
+    }
+
+    // Build env key: AGENCY_STARTER_PANAMA, AGENCY_PRO_ALL, etc.
+    // Tier: agency_starter → AGENCY_STARTER, agency_pro → AGENCY_PRO, agency_enterprise → AGENCY_ENTERPRISE
+    const tierKey = tier.replace('agency_', 'AGENCY_').toUpperCase(); // AGENCY_STARTER
+    const wwKey   = waterway.toUpperCase();                           // PANAMA or ALL
+    const envKey  = waterway === 'all' ? tierKey : `${tierKey}_${wwKey}`; // AGENCY_STARTER or AGENCY_STARTER_PANAMA
+
+    // Legacy fallback links (Polsia-created, used until owner sets STRIPE_LINK_* env vars)
+    const LEGACY_LINKS = {
+      AGENCY_STARTER:          'https://buy.stripe.com/dRmaEY19s60L78Mf3H5ZC1X',
+      AGENCY_PRO:              'https://buy.stripe.com/4gM8wQdWe2Oz0Ko3kZ5ZC1Y',
+      AGENCY_ENTERPRISE:       'https://buy.stripe.com/cNifZidWegFpbp2dZD5ZC1Z',
+      AGENCY_STARTER_PANAMA:   'https://buy.stripe.com/dRmaEYcSa74P3WA8Fj5ZC20',
+      AGENCY_PRO_PANAMA:       'https://buy.stripe.com/14AdRa8BUexh78M2gV5ZC21',
+      AGENCY_ENTERPRISE_PANAMA:'https://buy.stripe.com/7sYcN69FY4WHfFi7Bf5ZC22',
+      AGENCY_STARTER_SUEZ:     'https://buy.stripe.com/4gM14o19s3SD2Sw7Bf5ZC23',
+      AGENCY_PRO_SUEZ:         'https://buy.stripe.com/3cI14odWe9cX8cQdZD5ZC24',
+      AGENCY_ENTERPRISE_SUEZ:  'https://buy.stripe.com/4gMdRa6tMfBl78McVz5ZC25',
+      AGENCY_STARTER_BOSPORUS: 'https://buy.stripe.com/cNi7sM3hA3SD50E9Jn5ZC26',
+      AGENCY_PRO_BOSPORUS:     'https://buy.stripe.com/6oU8wQ3hAgFpct66xb5ZC27',
+      AGENCY_ENTERPRISE_BOSPORUS: 'https://buy.stripe.com/8x2dRa4lEcp93WA8Fj5ZC28',
+      AGENCY_STARTER_MALACCA:  'https://buy.stripe.com/dRmcN6f0i88TakY4p35ZC29',
+      AGENCY_PRO_MALACCA:      'https://buy.stripe.com/4gMfZi19s88TfFif3H5ZC2a',
+      AGENCY_ENTERPRISE_MALACCA: 'https://buy.stripe.com/aFa9AU5pI4WHct65t75ZC2b',
+      AGENCY_STARTER_CAPE:     'https://buy.stripe.com/eVq3cw3hAcp91Os6xb5ZC2c',
+      AGENCY_PRO_CAPE:         'https://buy.stripe.com/6oU00k8BUbl5gJm8Fj5ZC2d',
+      AGENCY_ENTERPRISE_CAPE:  'https://buy.stripe.com/fZuaEY05o3SD9gUbRv5ZC2e',
+    };
+
+    const url = _getPaymentLink(envKey, LEGACY_LINKS[envKey]);
+    if (!url) {
+      return res.status(500).json({ success: false, message: 'Checkout link not configured for this tier/waterway combination.' });
     }
 
     // Store the waterway selection in a short-lived cookie so the
@@ -1522,7 +1596,6 @@ router.post('/checkout/agency', (req, res) => {
       secure: process.env.NODE_ENV === 'production',
     });
 
-    const url = AGENCY_LINKS[tier];
     return res.json({ success: true, url });
 
   } catch (err) {
@@ -3804,7 +3877,7 @@ async function sendLeadConfirmationEmail(email, companyName, leadData) {
       The 2024 edition covers Montreux Convention rules, all 4 SP-1 forms, filing deadlines, the 5 rejection mistakes, pilot thresholds, and the full fees breakdown.
     </p>
     <p style="text-align:center;margin:24px 0;">
-      <a href="https://canal-clear.polsia.app/assets/bosporus-sp1-primer.pdf" style="background:#d4622b;color:#ffffff;padding:14px 32px;border-radius:8px;text-decoration:none;font-weight:700;font-size:0.95rem;display:inline-block;">Download SP-1 Primer PDF →</a>
+      <a href="https://canalclear.org/assets/bosporus-sp1-primer.pdf" style="background:#d4622b;color:#ffffff;padding:14px 32px;border-radius:8px;text-decoration:none;font-weight:700;font-size:0.95rem;display:inline-block;">Download SP-1 Primer PDF →</a>
     </p>
     <p style="color:#b8c8d8;line-height:1.7;margin:0 0 16px;">
       <strong style="color:#e8eef4;">Want to eliminate SP-1 rejections entirely?</strong><br>
@@ -3822,7 +3895,7 @@ async function sendLeadConfirmationEmail(email, companyName, leadData) {
         body: JSON.stringify({
           to: email,
           subject: 'Your Bosporus SP-1 Compliance Primer — 2024 Edition',
-          body: 'Your Bosporus SP-1 Compliance Primer is ready. Download it at: https://canal-clear.polsia.app/assets/bosporus-sp1-primer.pdf',
+          body: 'Your Bosporus SP-1 Compliance Primer is ready. Download it at: https://canalclear.org/assets/bosporus-sp1-primer.pdf',
           html: primerHtml,
         }),
       });
@@ -3833,10 +3906,98 @@ async function sendLeadConfirmationEmail(email, companyName, leadData) {
     // Still send admin notification below (falls through)
   }
 
+  // ── Malacca Primer: deliver PDF link immediately ─────────────────────────
+  if (source === 'malacca_primer') {
+    try {
+      const primerHtml = `
+<div style="font-family:sans-serif;max-width:600px;margin:0 auto;color:#1a2332;">
+  <div style="background:#0d1b2e;padding:28px 36px;border-radius:12px 12px 0 0;border-bottom:3px solid #d4622b;">
+    <span style="font-size:1.25rem;font-weight:700;color:#d4622b;letter-spacing:-0.3px;">CanalClear</span>
+    <span style="font-size:0.75rem;color:#8fa3b8;margin-left:10px;">Maritime Compliance Automation</span>
+  </div>
+  <div style="background:#142238;padding:36px;border-radius:0 0 12px 12px;">
+    <h2 style="color:#ffffff;font-size:1.1rem;margin:0 0 14px;font-weight:700;">Your Strait of Malacca STRAITREP Compliance Primer is ready ✅</h2>
+    <p style="color:#b8c8d8;line-height:1.7;margin:0 0 20px;">
+      The 2025 edition covers the 3-authority jurisdiction maze (MPA/MMEA/Hubla), VTIS reporting zones, STRAITREP format, 19 compliance checks, and the MARPOL Special Area rules for the Straits.
+    </p>
+    <p style="text-align:center;margin:24px 0;">
+      <a href="https://canalclear.org/assets/malacca-straitrep-primer.pdf" style="background:#d4622b;color:#ffffff;padding:14px 32px;border-radius:8px;text-decoration:none;font-weight:700;font-size:0.95rem;display:inline-block;">Download STRAITREP Primer PDF →</a>
+    </p>
+    <p style="color:#b8c8d8;line-height:1.7;margin:0 0 16px;">
+      <strong style="color:#e8eef4;">Want to eliminate STRAITREP rejections entirely?</strong><br>
+      CanalClear auto-fills every STRAITREP field, validates against 3-authority rules, and integrates with MPA OCEANS-X — so you never miss a VTIS check-in or get flagged at Singapore PSC.
+    </p>
+    <a href="https://canalclear.org/demo/malacca" style="display:inline-block;border:1px solid #d4622b;color:#d4622b;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:0.875rem;margin-bottom:24px;">Try the Malacca demo →</a>
+    <p style="color:#8fa3b8;font-size:0.75rem;margin-top:24px;border-top:1px solid rgba(255,255,255,0.06);padding-top:16px;">
+      Questions? Reply to this email or visit <a href="https://canalclear.org/malacca" style="color:#d4622b;">canalclear.org/malacca</a>
+    </p>
+  </div>
+</div>`;
+      await fetch('https://polsia.com/api/proxy/email/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+        body: JSON.stringify({
+          to: email,
+          subject: 'Your Strait of Malacca STRAITREP Compliance Primer — 2025 Edition',
+          body: 'Your Strait of Malacca STRAITREP Compliance Primer is ready. Download it at: https://canalclear.org/assets/malacca-straitrep-primer.pdf',
+          html: primerHtml,
+        }),
+      });
+      console.log('[Leads] Malacca primer email sent to', email);
+    } catch (err) {
+      console.error('[Leads] Malacca primer email error:', err.message);
+    }
+    // Still send admin notification below (falls through)
+  }
+
+  // ── Cape Primer: deliver PDF link immediately ─────────────────────────
+  if (source === 'cape_primer') {
+    try {
+      const primerHtml = `
+<div style="font-family:sans-serif;max-width:600px;margin:0 auto;color:#1a2332;">
+  <div style="background:#0d1b2e;padding:28px 36px;border-radius:12px 12px 0 0;border-bottom:3px solid #d4622b;">
+    <span style="font-size:1.25rem;font-weight:700;color:#d4622b;letter-spacing:-0.3px;">CanalClear</span>
+    <span style="font-size:0.75rem;color:#8fa3b8;margin-left:10px;">Maritime Compliance Automation</span>
+  </div>
+  <div style="background:#142238;padding:36px;border-radius:0 0 12px 12px;">
+    <h2 style="color:#ffffff;font-size:1.1rem;margin:0 0 14px;font-weight:700;">Your Cape of Good Hope SAMSA ISPS Compliance Guide is ready ✅</h2>
+    <p style="color:#b8c8d8;line-height:1.7;margin:0 0 20px;">
+      The 2025 edition covers SAMSA Marine Notice 12 of 2008, ISPS Level 1–3 enforcement at SA ports, 96-hour advance filing requirements, and the PSC detention triggers at Durban and Cape Town.
+    </p>
+    <p style="text-align:center;margin:24px 0;">
+      <a href="https://canalclear.org/assets/cape-samsa-isps-guide.pdf" style="background:#d4622b;color:#ffffff;padding:14px 32px;border-radius:8px;text-decoration:none;font-weight:700;font-size:0.95rem;display:inline-block;">Download SAMSA ISPS Guide PDF →</a>
+    </p>
+    <p style="color:#b8c8d8;line-height:1.7;margin:0 0 16px;">
+      <strong style="color:#e8eef4;">Want to eliminate SAMSA ISPS rejections entirely?</strong><br>
+      CanalClear auto-fills every ISPS pre-arrival field, validates against Marine Notice 12 requirements, and integrates with SAMSA Cape Town Radio submission — so you never miss the 96-hour window.
+    </p>
+    <a href="https://canalclear.org/demo/cape" style="display:inline-block;border:1px solid #d4622b;color:#d4622b;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:0.875rem;margin-bottom:24px;">Try the Cape demo →</a>
+    <p style="color:#8fa3b8;font-size:0.75rem;margin-top:24px;border-top:1px solid rgba(255,255,255,0.06);padding-top:16px;">
+      Questions? Reply to this email or visit <a href="https://canalclear.org/cape-of-good-hope" style="color:#d4622b;">canalclear.org/cape-of-good-hope</a>
+    </p>
+  </div>
+</div>`;
+      await fetch('https://polsia.com/api/proxy/email/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+        body: JSON.stringify({
+          to: email,
+          subject: 'Your Cape of Good Hope SAMSA ISPS Compliance Guide — 2025 Edition',
+          body: 'Your Cape of Good Hope SAMSA ISPS Compliance Guide is ready. Download it at: https://canalclear.org/assets/cape-samsa-isps-guide.pdf',
+          html: primerHtml,
+        }),
+      });
+      console.log('[Leads] Cape primer email sent to', email);
+    } catch (err) {
+      console.error('[Leads] Cape primer email error:', err.message);
+    }
+    // Still send admin notification below (falls through)
+  }
+
   const firstName = companyName ? companyName.split(' ')[0] : 'there';
 
-  // 1. Auto-reply to the lead (generic — skipped for sources that already sent a specific email)
-  if (source !== 'bosporus_primer') {
+  // 1. Auto-reply to the lead (generic — skipped for sources that already sent a primer-specific email)
+  if (source !== 'bosporus_primer' && source !== 'malacca_primer' && source !== 'cape_primer') {
   try {
     const html = `
 <div style="font-family:sans-serif;max-width:600px;margin:0 auto;color:#1a2b45;">
@@ -3885,7 +4046,7 @@ async function sendLeadConfirmationEmail(email, companyName, leadData) {
   } catch (err) {
     console.error('[Leads] Confirmation email error:', err.message);
   }
-  } // end if (source !== 'bosporus_primer')
+  } // end if (not a primer source with custom email)
 
   // 2. Internal notification to Francis
   try {
@@ -3903,7 +4064,7 @@ async function sendLeadConfirmationEmail(email, companyName, leadData) {
     <tr><td style="padding:8px;background:#f5f5f5;font-weight:600;">Source</td><td style="padding:8px;">${adminSource}</td></tr>
     <tr><td style="padding:8px;background:#f5f5f5;font-weight:600;">Submitted</td><td style="padding:8px;">${timestamp}</td></tr>
   </table>
-  <a href="https://canal-clear.polsia.app/admin" style="background:#00D4AA;color:#0A1628;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:600;">View All Leads →</a>
+  <a href="https://canalclear.org/admin" style="background:#00D4AA;color:#0A1628;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:600;">View All Leads →</a>
 </div>`;
 
     const notifyResponse = await fetch('https://polsia.com/api/proxy/email/send', {
@@ -4169,15 +4330,15 @@ async function sendLeadFunnelEmails({ name, email, company, phone, canal_selecti
           <h2 style="color:#d4622b;">Thanks, ${name.split(' ')[0]}! Here's your Suez SCA cheat sheet.</h2>
           <p>Your copy of the <strong>Suez Canal SCA Filing Deadline Cheat Sheet</strong> is ready — all 7 forms, exact deadlines, and the #1 rejection mistake for each.</p>
           <p style="text-align:center;margin:24px 0;">
-            <a href="https://canal-clear.polsia.app/assets/suez-deadline-cheatsheet.pdf" style="background:#d4622b;color:#ffffff;padding:14px 32px;border-radius:8px;text-decoration:none;font-weight:700;display:inline-block;">Download Cheat Sheet PDF →</a>
+            <a href="https://canalclear.org/assets/suez-deadline-cheatsheet.pdf" style="background:#d4622b;color:#ffffff;padding:14px 32px;border-radius:8px;text-decoration:none;font-weight:700;display:inline-block;">Download Cheat Sheet PDF →</a>
           </p>
           <p><strong>Want to auto-file all 7 SCA forms without the manual deadline stress?</strong><br>
           CanalClear Suez Agent Pro validates every SCA form field — ISSC status, SCNT figures, UTC timestamps, crew endorsements — and submits before the deadline.</p>
           <p style="text-align:center;margin:24px 0;">
-            <a href="https://canal-clear.polsia.app/suez" style="background:#1a2332;color:#d4622b;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:700;display:inline-block;border:1px solid #d4622b;">See CanalClear Suez →</a>
+            <a href="https://canalclear.org/suez" style="background:#1a2332;color:#d4622b;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:700;display:inline-block;border:1px solid #d4622b;">See CanalClear Suez →</a>
           </p>
           <hr style="border:none;border-top:1px solid #eee;margin:24px 0;">
-          <p style="color:#aaa;font-size:0.8em;">CanalClear · <a href="https://canal-clear.polsia.app" style="color:#d4622b;">canal-clear.polsia.app</a></p>
+          <p style="color:#aaa;font-size:0.8em;">CanalClear · <a href="https://canalclear.org" style="color:#d4622b;">canalclear.org</a></p>
         </div>`
       );
     } else if (isChecklist) {
@@ -4188,15 +4349,15 @@ async function sendLeadFunnelEmails({ name, email, company, phone, canal_selecti
           <h2 style="color:#d4622b;">Thanks, ${name.split(' ')[0]}! Your checklist is attached below.</h2>
           <p>Here's your copy of <strong>Top 10 Reasons Panama VUMPA Filings Get Rejected</strong> — plus one-line fixes for each.</p>
           <p style="text-align:center;margin:24px 0;">
-            <a href="https://canal-clear.polsia.app/assets/vumpa-rejection-checklist.pdf" style="background:#d4622b;color:#ffffff;padding:14px 32px;border-radius:8px;text-decoration:none;font-weight:700;display:inline-block;">Download Checklist PDF →</a>
+            <a href="https://canalclear.org/assets/vumpa-rejection-checklist.pdf" style="background:#d4622b;color:#ffffff;padding:14px 32px;border-radius:8px;text-decoration:none;font-weight:700;display:inline-block;">Download Checklist PDF →</a>
           </p>
           <p><strong>Want to eliminate these errors automatically before you file?</strong><br>
           CanalClear validates every VUMPA field — IMO checksum, PCSOPEP attachment, tonnage, crew manifest — and flags issues before you hit submit.</p>
           <p style="text-align:center;margin:24px 0;">
-            <a href="https://canal-clear.polsia.app" style="background:#1a2332;color:#d4622b;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:700;display:inline-block;border:1px solid #d4622b;">Try CanalClear Free →</a>
+            <a href="https://canalclear.org" style="background:#1a2332;color:#d4622b;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:700;display:inline-block;border:1px solid #d4622b;">Try CanalClear Free →</a>
           </p>
           <hr style="border:none;border-top:1px solid #eee;margin:24px 0;">
-          <p style="color:#aaa;font-size:0.8em;">CanalClear · <a href="https://canal-clear.polsia.app" style="color:#d4622b;">canal-clear.polsia.app</a></p>
+          <p style="color:#aaa;font-size:0.8em;">CanalClear · <a href="https://canalclear.org" style="color:#d4622b;">canalclear.org</a></p>
         </div>`
       );
     } else {
@@ -5909,7 +6070,7 @@ async function sendMeetingEmails(meeting) {
           <tr><td style="padding:8px;background:#f5f5f5;font-weight:600;">Message</td><td style="padding:8px;">${meeting.message || '—'}</td></tr>
           <tr><td style="padding:8px;background:#f5f5f5;font-weight:600;">Submitted</td><td style="padding:8px;">${timestamp}</td></tr>
         </table>
-        <a href="https://canal-clear.polsia.app/admin" style="background:#00D4AA;color:#0A1628;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:600;">View in Admin Panel →</a>
+        <a href="https://canalclear.org/admin" style="background:#00D4AA;color:#0A1628;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:600;">View in Admin Panel →</a>
       </div>`
     );
     console.log('[MeetingEmail] Francis notification sent for', meeting.email);

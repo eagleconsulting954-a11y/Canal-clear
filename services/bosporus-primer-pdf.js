@@ -106,7 +106,7 @@ function generateBosporusPrimerPDF() {
         Title:    'Bosporus Strait SP-1 Filing Primer — CanalClear',
         Author:   'CanalClear',
         Subject:  'Bosporus Strait SP-1 Transit Filing Requirements',
-        Creator:  'CanalClear (canal-clear.polsia.app)',
+        Creator:  'CanalClear (canalclear.org)',
         Producer: 'CanalClear PDF Generator',
         Keywords: 'Bosporus, SP-1, Turkish Maritime Authority, transit filing, maritime compliance',
       },
@@ -265,7 +265,7 @@ function generateBosporusPrimerPDF() {
     doc.font('Helvetica-Bold').fontSize(8.5).fillColor(C.orange);
     doc.text('Eliminate SP-1 rejections automatically — try CanalClear free', marginX, footerY + 8, { continued: true });
     doc.font('Helvetica').fillColor(C.grey);
-    doc.text('  ·  canal-clear.polsia.app', { lineBreak: false });
+    doc.text('  ·  canalclear.org', { lineBreak: false });
 
     doc.font('Helvetica').fontSize(6.5).fillColor(C.grey);
     doc.text(

@@ -127,9 +127,9 @@ function emailWrapper(content, { preheader = '' } = {}) {
           <td style="background:#0f172a;border-radius:0 0 12px 12px;padding:24px 36px;border-top:1px solid rgba(255,255,255,0.06);">
             <p style="margin:0;font-size:12px;color:#475569;line-height:1.6;">
               You're receiving this because you have alert notifications enabled on
-              <a href="https://canal-clear.polsia.app" style="color:#00d4aa;text-decoration:none;">CanalClear</a>.<br>
+              <a href="https://canalclear.org" style="color:#00d4aa;text-decoration:none;">CanalClear</a>.<br>
               To manage your alert preferences, visit
-              <a href="https://canal-clear.polsia.app/settings/alerts" style="color:#00d4aa;text-decoration:none;">Settings → Alerts</a>.
+              <a href="https://canalclear.org/settings/alerts" style="color:#00d4aa;text-decoration:none;">Settings → Alerts</a>.
             </p>
           </td>
         </tr>
@@ -172,7 +172,7 @@ function buildCertExpiryEmail({ vessel, cert, daysLeft, lang }) {
       </p>
     </div>
 
-    <a href="https://canal-clear.polsia.app/app"
+    <a href="https://canalclear.org/app"
        style="display:inline-block;background:#00d4aa;color:#0f172a;text-decoration:none;
               font-weight:700;font-size:14px;padding:12px 24px;border-radius:8px;">
       View Fleet Dashboard →
@@ -218,7 +218,7 @@ function buildFilingReminderEmail({ vessel, filing, hoursLeft }) {
     </div>
     ` : ''}
 
-    <a href="https://canal-clear.polsia.app/filing"
+    <a href="https://canalclear.org/filing"
        style="display:inline-block;background:#00d4aa;color:#0f172a;text-decoration:none;
               font-weight:700;font-size:14px;padding:12px 24px;border-radius:8px;">
       Open Filing Wizard →
@@ -271,7 +271,7 @@ function buildFilingStatusEmail({ user, filing, status }) {
       <p style="margin:0;font-size:14px;color:#94a3b8;line-height:1.6;">${cfg.action}</p>
     </div>
 
-    <a href="https://canal-clear.polsia.app/filing"
+    <a href="https://canalclear.org/filing"
        style="display:inline-block;background:#00d4aa;color:#0f172a;text-decoration:none;
               font-weight:700;font-size:14px;padding:12px 24px;border-radius:8px;">
       View Filing Wizard →
@@ -519,7 +519,7 @@ function buildDigestEmail({ userName, certs, vessels }) {
       <tbody>${tableRows}</tbody>
     </table>
 
-    <a href="https://canal-clear.polsia.app/dashboard"
+    <a href="https://canalclear.org/dashboard"
        style="display:inline-block;background:#00d4aa;color:#0f172a;text-decoration:none;
               font-weight:700;font-size:14px;padding:12px 24px;border-radius:8px;">
       View Fleet Dashboard →
@@ -624,7 +624,7 @@ function buildIspsApproachingEmail({ userName, vesselName, imoNumber, stage, dea
       Failure to submit on time may result in transit delays or additional SCA fees.
     </p>
 
-    <a href="https://canal-clear.polsia.app/suez/notifications?filing=${filingId}"
+    <a href="https://canalclear.org/suez/notifications?filing=${filingId}"
        style="display:inline-block;background:#ffd93d;color:#0f172a;text-decoration:none;
               font-weight:700;font-size:14px;padding:12px 24px;border-radius:8px;margin-bottom:16px;">
       Submit ${stage} Notification Now →
@@ -676,7 +676,7 @@ function buildIspsOverdueEmail({ userName, vesselName, imoNumber, stage, deadlin
       or additional SCA fees.
     </p>
 
-    <a href="https://canal-clear.polsia.app/suez/notifications?filing=${filingId}"
+    <a href="https://canalclear.org/suez/notifications?filing=${filingId}"
        style="display:inline-block;background:#ff6b6b;color:#fff;text-decoration:none;
               font-weight:700;font-size:14px;padding:12px 24px;border-radius:8px;margin-bottom:16px;">
       Submit Overdue Notification →

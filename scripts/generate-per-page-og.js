@@ -243,7 +243,7 @@ async function main() {
     const buf = await generateOgImage(homepageTitle, 'product', 'AI-Powered Canal Compliance · canalclear.org');
     const ogPath = path.join(OG_DIR, 'homepage.png');
     fs.writeFileSync(ogPath, buf);
-    updateHtmlOgImage(homepagePath, 'https://canal-clear.polsia.app/images/og/homepage.png');
+    updateHtmlOgImage(homepagePath, 'https://canalclear.org/images/og/homepage.png');
     results.generated++;
     results.updated++;
     console.log(`  ✓ homepage.png (${(buf.length / 1024).toFixed(1)} KB)`);
@@ -261,7 +261,7 @@ async function main() {
       const buf = await generateOgImage(blogIndexTitle, 'general-maritime', 'Expert Guides & Analysis · canalclear.org/blog');
       const ogPath = path.join(OG_DIR, 'blog-index.png');
       fs.writeFileSync(ogPath, buf);
-      updateHtmlOgImage(blogIndexPath, 'https://canal-clear.polsia.app/images/og/blog-index.png');
+      updateHtmlOgImage(blogIndexPath, 'https://canalclear.org/images/og/blog-index.png');
       results.generated++;
       results.updated++;
       console.log(`  ✓ blog-index.png (${(buf.length / 1024).toFixed(1)} KB)`);
@@ -292,7 +292,7 @@ async function main() {
       const buf = await generateOgImage(title, cluster, `canalclear.org/blog/${slug}`);
       const ogPath = path.join(OG_DIR, `${slug}.png`);
       fs.writeFileSync(ogPath, buf);
-      updateHtmlOgImage(filePath, `https://canal-clear.polsia.app/images/og/${slug}.png`);
+      updateHtmlOgImage(filePath, `https://canalclear.org/images/og/${slug}.png`);
       results.generated++;
       results.updated++;
       console.log(`  ✓ ${slug}.png (${(buf.length / 1024).toFixed(1)} KB) [${cluster}]`);
@@ -315,13 +315,13 @@ async function main() {
 
   // Save the mapping for reference
   const mapping = {};
-  mapping['homepage'] = 'https://canal-clear.polsia.app/images/og/homepage.png';
+  mapping['homepage'] = 'https://canalclear.org/images/og/homepage.png';
   if (fs.existsSync(blogIndexPath)) {
-    mapping['blog-index'] = 'https://canal-clear.polsia.app/images/og/blog-index.png';
+    mapping['blog-index'] = 'https://canalclear.org/images/og/blog-index.png';
   }
   for (const file of blogFiles) {
     const slug = file.replace('.html', '');
-    mapping[slug] = `https://canal-clear.polsia.app/images/og/${slug}.png`;
+    mapping[slug] = `https://canalclear.org/images/og/${slug}.png`;
   }
   fs.writeFileSync(
     path.join(__dirname, 'og-page-urls.json'),

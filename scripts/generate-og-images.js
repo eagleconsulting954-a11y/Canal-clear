@@ -48,7 +48,7 @@ const images = [
   {
     label: 'og-default',
     filename: 'og-default.png',
-    prompt: 'Professional social media card for CanalClear maritime compliance software. Dark navy background. Center: bold white headline AI-Powered Canal Compliance. Below in orange: Panama Suez Bosporus Malacca Cape of Good Hope. Below in gray: Replace ship agent fees with automated pre-submission validation. Bottom: canal-clear.polsia.app in cyan. Top left: CC monogram and CanalClear in orange. Abstract shipping route lines. Landscape 16:9. No photos. Premium dark SaaS aesthetic.',
+    prompt: 'Professional social media card for CanalClear maritime compliance software. Dark navy background. Center: bold white headline AI-Powered Canal Compliance. Below in orange: Panama Suez Bosporus Malacca Cape of Good Hope. Below in gray: Replace ship agent fees with automated pre-submission validation. Bottom: canalclear.org in cyan. Top left: CC monogram and CanalClear in orange. Abstract shipping route lines. Landscape 16:9. No photos. Premium dark SaaS aesthetic.',
   }
 ];
 

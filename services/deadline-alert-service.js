@@ -54,7 +54,7 @@ function buildDeadlineAlertEmail({ waterway, filingType, vesselName, imoNumber, 
       </ul>`
     : '';
 
-  const ctaUrl = filingUrl || 'https://canal-clear.polsia.app/app';
+  const ctaUrl = filingUrl || 'https://canalclear.org/app';
 
   const content = `
     <div style="display:inline-block;background:${urgencyColor}22;border:1px solid ${urgencyColor}44;border-radius:8px;padding:6px 14px;margin-bottom:20px;">
@@ -111,7 +111,7 @@ function buildDeadlineAlertEmail({ waterway, filingType, vesselName, imoNumber, 
 
     <p style="margin:20px 0 0;font-size:12px;color:#475569;line-height:1.6;">
       Manage alert preferences at
-      <a href="https://canal-clear.polsia.app/settings/alerts" style="color:#00d4aa;text-decoration:none;">Settings → Alerts</a>.
+      <a href="https://canalclear.org/settings/alerts" style="color:#00d4aa;text-decoration:none;">Settings → Alerts</a>.
     </p>
   `;
 

@@ -216,7 +216,7 @@ function buildPdfReportEmail({ email, fleet_size, monthly_transits, cargo_type,
 
     <!-- CTA -->
     <div style="text-align:center;margin:32px 0 0;">
-      <a href="https://canal-clear.polsia.app/pricing" style="display:inline-block;background:#E85A00;color:#fff;font-weight:700;font-size:15px;padding:14px 36px;border-radius:8px;text-decoration:none;letter-spacing:0.2px;">
+      <a href="https://canalclear.org/pricing" style="display:inline-block;background:#E85A00;color:#fff;font-weight:700;font-size:15px;padding:14px 36px;border-radius:8px;text-decoration:none;letter-spacing:0.2px;">
         Eliminate Your Exposure →
       </a>
       <p style="font-size:12px;color:#475569;margin:16px 0 0;">Full platform demo — no commitment required</p>
@@ -253,7 +253,7 @@ Estimated annual rejection exposure: ${fmt(calc.annualExposure)}
 With CanalClear: ${fmt(calc.withCanalClear)}
 Estimated savings: ${fmt(calc.savings)} (${calc.savingsPct}% reduction)
 
-Visit https://canal-clear.polsia.app/pricing to eliminate your exposure.`,
+Visit https://canalclear.org/pricing to eliminate your exposure.`,
   };
 }
 

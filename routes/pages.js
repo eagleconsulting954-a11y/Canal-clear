@@ -12,18 +12,20 @@ const router = express.Router();
 const { requireAuth, requireSubscription, requireAdmin, requireAgentPlan, requireOpsPlan } = require('../middleware/auth');
 const { attachDemoSession, requireAuthOrDemo } = require('../middleware/demoAuth');
 
-// Landing page
+// Landing page — express.static at / already serves public/index.html for /
+// via the index option. This explicit route adds __POLSIA_SLUG__ replacement.
 router.get('/', (req, res) => {
-  const slug = process.env.POLSIA_ANALYTICS_SLUG || '';
   const htmlPath = path.join(__dirname, '..', 'public', 'index.html');
 
-  if (fs.existsSync(htmlPath)) {
-    let html = fs.readFileSync(htmlPath, 'utf8');
-    html = html.replace('__POLSIA_SLUG__', slug);
-    res.type('html').send(html);
-  } else {
-    res.json({ message: 'Hello from CanalClear!' });
+  if (!fs.existsSync(htmlPath)) {
+    res.status(503).json({ message: 'index.html not found — run npm run build' });
+    return;
   }
+
+  const slug = process.env.POLSIA_ANALYTICS_SLUG || '';
+  let html = fs.readFileSync(htmlPath, 'utf8');
+  html = html.replace('__POLSIA_SLUG__', slug);
+  res.type('html').send(html);
 });
 
 // Auth pages (public)

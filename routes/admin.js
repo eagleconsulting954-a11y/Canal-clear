@@ -204,7 +204,7 @@ router.post('/admin/create-user', async (req, res) => {
       },
       // JWT token in case caller wants to verify immediately
       token,
-      login_url: `https://canal-clear.polsia.app/login`,
+      login_url: `https://canalclear.org/login`,
       note: 'User can log in immediately. Onboarding flow will run on first login.',
     });
   } catch (err) {

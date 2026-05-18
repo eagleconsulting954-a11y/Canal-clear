@@ -190,4 +190,24 @@ router.post('/complete', requireAuth, async (req, res) => {
   }
 });
 
+// GET /api/onboarding/progress — returns which checklist items are complete
+// Used by the in-app progress bar shown until all steps are done.
+router.get('/progress', requireAuth, async (req, res) => {
+  try {
+    const progress = await usersDb.getOnboardingProgress(req.app.locals.pool, req.user.id);
+    const { hasVessel, hasFiling, hasSubmitted, hasPortal } = progress;
+
+    const steps = [
+      { key: 'vessel',  label: 'Add first vessel',         done: hasVessel },
+      { key: 'check',   label: 'Run compliance check',      done: hasFiling },
+      { key: 'submit',  label: 'Submit first filing',       done: hasSubmitted },
+      { key: 'portal',  label: 'Connect authority portal',  done: hasPortal, optional: true },
+    ];
+
+    res.json({ success: true, steps, all_done: steps.every(s => s.done) });
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Progress check failed' });
+  }
+});
+
 module.exports = router;

@@ -57,7 +57,7 @@ function generateDemoCodeString() {
  * Send demo code email via Polsia email proxy.
  */
 async function sendDemoEmail({ name, email, demoCode, waterway }) {
-  const loginUrl = `https://canal-clear.polsia.app/login`;
+  const loginUrl = `https://canalclear.org/login`;
 
   const waterwayNames = {
     panama: 'Panama Canal (VUMPA/PCSOPEP)',
@@ -155,7 +155,7 @@ Your CanalClear demo access code is: ${demoCode}
 This code unlocks full platform access for 14 days across all 5 waterways.
 
 To get started:
-1. Go to https://canal-clear.polsia.app/login
+1. Go to https://canalclear.org/login
 2. Enter your demo code: ${demoCode}
 
 What to try first:

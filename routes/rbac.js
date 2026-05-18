@@ -38,7 +38,7 @@ const {
 } = require('../db/rbac');
 const { seedDefaultRoles } = require('../services/rbac-defaults');
 
-const APP_URL = process.env.APP_URL || 'https://canal-clear.polsia.app';
+const APP_URL = process.env.APP_URL || 'https://canalclear.org';
 
 // ── Email helper ──────────────────────────────────────────────────────────────
 

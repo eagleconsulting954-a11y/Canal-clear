@@ -184,7 +184,7 @@ router.get('/admin/alerts/preview', requireAuth, requireAdmin, (req, res) => {
     hoursLeft:        parseInt(sample.window),
     alertWindow:      sample.window,
     complianceIssues: sample.issues,
-    filingUrl:        'https://canal-clear.polsia.app/demo/panama',
+    filingUrl:        'https://canalclear.org/demo/panama',
     userName:         req.user ? (req.user.name || 'Admin') : 'Admin',
   });
 
@@ -209,7 +209,7 @@ router.post('/admin/alerts/test-send', requireAuth, requireAdmin, async (req, re
     hoursLeft:        parseInt(sample.window),
     alertWindow:      sample.window,
     complianceIssues: sample.issues,
-    filingUrl:        'https://canal-clear.polsia.app/demo/panama',
+    filingUrl:        'https://canalclear.org/demo/panama',
     userName:         req.user.name || 'Admin',
   });
 

@@ -106,7 +106,7 @@ function generatePanamaVumpaPrimerPDF() {
         Title:    'Panama Canal VUMPA Filing Primer — CanalClear',
         Author:   'CanalClear',
         Subject:  'Panama Canal VUMPA Transit Filing Requirements',
-        Creator:  'CanalClear (canal-clear.polsia.app)',
+        Creator:  'CanalClear (canalclear.org)',
         Producer: 'CanalClear PDF Generator',
         Keywords: 'Panama Canal, VUMPA, ACP, PC/UMS, transit filing, maritime compliance',
       },
@@ -260,7 +260,7 @@ function generatePanamaVumpaPrimerPDF() {
     doc.font('Helvetica-Bold').fontSize(8.5).fillColor(C.orange);
     doc.text('Eliminate VUMPA rejections automatically — try CanalClear free', marginX, footerY + 8, { continued: true });
     doc.font('Helvetica').fillColor(C.grey);
-    doc.text('  ·  canal-clear.polsia.app', { lineBreak: false });
+    doc.text('  ·  canalclear.org', { lineBreak: false });
 
     doc.font('Helvetica').fontSize(6.5).fillColor(C.grey);
     doc.text(

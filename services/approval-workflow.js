@@ -21,7 +21,7 @@ const {
 
 const { getUserById } = require('../db/users');
 
-const APP_URL = process.env.APP_URL || 'https://canal-clear.polsia.app';
+const APP_URL = process.env.APP_URL || 'https://canalclear.org';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Valid transitions
