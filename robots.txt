@@ -22,4 +22,4 @@ Disallow: /agent
 #   /funnel/roi, /funnel/pricing, /compliance
 # ============================================================
 
-Sitemap: https://canal-clear.polsia.app/sitemap.xml
+Sitemap: https://canalclear.org/sitemap.xml

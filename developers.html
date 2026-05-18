@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Developer API — CanalClear TMS Integration</title>
   <meta name="description" content="Integrate your TMS (Veson, Q88, Dataloy, ShipNet) with CanalClear via REST API or webhook. Push vessel, voyage, and crew data directly into compliance workflows." />
-  <link rel="canonical" href="https://canal-clear.polsia.app/developers" />
+  <link rel="canonical" href="https://canalclear.org/developers" />
   <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   <link rel="stylesheet" href="/css/nav.css" />
   <link rel="stylesheet" href="/css/mobile.css" />
@@ -417,7 +417,7 @@
         </div>
         <div id="qs-curl">
 <pre><span class="cmt"># Push a vessel — replace with your API key and real IMO</span>
-<span class="kw">curl</span> -X POST https://canal-clear.polsia.app/api/v1/vessels \
+<span class="kw">curl</span> -X POST https://canalclear.org/api/v1/vessels \
   -H <span class="str">"Authorization: Bearer cc_live_YOUR_KEY_HERE"</span> \
   -H <span class="str">"Content-Type: application/json"</span> \
   -d <span class="str">'{
@@ -432,7 +432,7 @@
   }'</span></pre>
         </div>
         <div id="qs-node" style="display:none">
-<pre><span class="kw">const</span> <span class="var">res</span> = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">'https://canal-clear.polsia.app/api/v1/vessels'</span>, {
+<pre><span class="kw">const</span> <span class="var">res</span> = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">'https://canalclear.org/api/v1/vessels'</span>, {
   <span class="var">method</span>: <span class="str">'POST'</span>,
   <span class="var">headers</span>: {
     <span class="str">'Authorization'</span>: <span class="str">'Bearer cc_live_YOUR_KEY_HERE'</span>,
@@ -456,7 +456,7 @@
 <pre><span class="kw">import</span> requests
 
 <span class="var">response</span> = requests.<span class="fn">post</span>(
-    <span class="str">"https://canal-clear.polsia.app/api/v1/vessels"</span>,
+    <span class="str">"https://canalclear.org/api/v1/vessels"</span>,
     headers={
         <span class="str">"Authorization"</span>: <span class="str">"Bearer cc_live_YOUR_KEY_HERE"</span>,
         <span class="str">"Content-Type"</span>: <span class="str">"application/json"</span>,
@@ -476,7 +476,7 @@
       </div>
 
       <div class="callout" style="margin-top: 20px;">
-        <strong>Base URL:</strong> <code>https://canal-clear.polsia.app/api/v1</code>
+        <strong>Base URL:</strong> <code>https://canalclear.org/api/v1</code>
         &nbsp;·&nbsp; All requests and responses are JSON.
       </div>
     </section>
@@ -582,7 +582,7 @@ X-RateLimit-Reset: 1748000060    <span class="cmt"># Unix timestamp when window 
         </div>
         <div class="endpoint-body">
           <p>Returns the stored particulars for a vessel by its 7-digit IMO number.</p>
-<pre><span class="kw">curl</span> https://canal-clear.polsia.app/api/v1/vessels/9321483 \
+<pre><span class="kw">curl</span> https://canalclear.org/api/v1/vessels/9321483 \
   -H <span class="str">"Authorization: Bearer cc_live_YOUR_KEY"</span></pre>
         </div>
       </div>
@@ -672,7 +672,7 @@ X-RateLimit-Reset: 1748000060    <span class="cmt"># Unix timestamp when window 
             </tbody>
           </table>
 <pre><span class="cmt"># Example: push 2 crew members</span>
-<span class="kw">curl</span> -X POST https://canal-clear.polsia.app/api/v1/crew \
+<span class="kw">curl</span> -X POST https://canalclear.org/api/v1/crew \
   -H <span class="str">"Authorization: Bearer cc_live_YOUR_KEY"</span> \
   -H <span class="str">"Content-Type: application/json"</span> \
   -d <span class="str">'{
@@ -719,7 +719,7 @@ X-RateLimit-Reset: 1748000060    <span class="cmt"># Unix timestamp when window 
           </table>
 
           <p>Configure your Veson IMOS webhook URL as:</p>
-<pre>https://canal-clear.polsia.app/api/v1/webhook?source=veson&mapping_id=1
+<pre>https://canalclear.org/api/v1/webhook?source=veson&mapping_id=1
 Authorization: Bearer cc_live_YOUR_KEY</pre>
 
           <h4>Response <span class="resp resp-202">202</span></h4>
@@ -743,7 +743,7 @@ Authorization: Bearer cc_live_YOUR_KEY</pre>
       <p>Mapping keys are CanalClear target fields. Values are dot-notation paths into the source JSON payload.</p>
 
 <pre><span class="cmt"># Create a mapping template for Veson IMOS</span>
-<span class="kw">curl</span> -X POST https://canal-clear.polsia.app/api/developer/webhook-mappings \
+<span class="kw">curl</span> -X POST https://canalclear.org/api/developer/webhook-mappings \
   -H <span class="str">"Authorization: Bearer YOUR_SESSION_TOKEN"</span> \
   -H <span class="str">"Content-Type: application/json"</span> \
   -d <span class="str">'{

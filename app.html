@@ -294,6 +294,113 @@
             background: rgba(255, 255, 255, 0.12);
         }
 
+        /* ONBOARDING PROGRESS CHECKLIST */
+        .onboarding-checklist {
+            background: var(--deep);
+            border: 1px solid rgba(232,90,0,0.18);
+            border-radius: 14px;
+            padding: 1.1rem 1.5rem;
+            margin-bottom: 2rem;
+            display: none; /* shown via JS when not all_done */
+        }
+        .checklist-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.85rem;
+        }
+        .checklist-title {
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--teal);
+        }
+        .checklist-dismiss {
+            background: none;
+            border: none;
+            color: var(--gray);
+            font-size: 0.8rem;
+            cursor: pointer;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            transition: color 0.15s;
+        }
+        .checklist-dismiss:hover { color: var(--white); }
+        .checklist-steps {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .checklist-step {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(136,153,170,0.1);
+            border-radius: 8px;
+            padding: 0.55rem 0.9rem;
+            font-size: 0.85rem;
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .checklist-step:hover {
+            border-color: rgba(232,90,0,0.3);
+            color: var(--white);
+        }
+        .checklist-step.done {
+            background: rgba(74,222,128,0.07);
+            border-color: rgba(74,222,128,0.2);
+            color: var(--green);
+        }
+        .checklist-step .step-icon { font-size: 0.95rem; flex-shrink: 0; }
+        .checklist-step.optional { opacity: 0.7; }
+        .checklist-step.optional:hover { opacity: 1; }
+
+        /* TOOLTIP */
+        .help-tip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: rgba(136,153,170,0.15);
+            color: var(--gray);
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: help;
+            position: relative;
+            vertical-align: middle;
+            margin-left: 0.3rem;
+            flex-shrink: 0;
+        }
+        .help-tip::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0f1e33;
+            border: 1px solid rgba(232,90,0,0.3);
+            color: var(--white);
+            font-size: 0.78rem;
+            font-weight: 400;
+            line-height: 1.45;
+            padding: 0.55rem 0.8rem;
+            border-radius: 8px;
+            white-space: normal;
+            width: 220px;
+            text-align: left;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.15s;
+            z-index: 300;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+        .help-tip:hover::after { opacity: 1; }
+
         /* QUICK ACCESS STRIP */
         .quick-strip {
             display: grid;
@@ -528,12 +635,12 @@ async function endDemoSession() {
             <a href="/filing">Filing</a>
             <a href="/validator">Validator</a>
             <a href="/app/portals">🔗 Authority Portals</a>
-            <a href="/acp" id="acp-nav-link" style="display:flex;align-items:center;gap:0.35rem;">
-                <span id="acpNavDot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gray);flex-shrink:0;"></span>
+            <a href="/acp" id="acp-nav-link" style="display:flex;align-items:center;gap:0.35rem;" title="ACP Auto-Filing: green dot = portal reachable and credentials connected">
+                <span id="acpNavDot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gray);flex-shrink:0;" title="Green = connected · Grey = not yet configured"></span>
                 ACP Auto-Filing
             </a>
-            <a href="/sca-connect" id="sca-nav-link" style="display:flex;align-items:center;gap:0.35rem;">
-                <span id="scaNavDot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gray);flex-shrink:0;"></span>
+            <a href="/sca-connect" id="sca-nav-link" style="display:flex;align-items:center;gap:0.35rem;" title="SCA E-Services: green dot = credentials saved">
+                <span id="scaNavDot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gray);flex-shrink:0;" title="Green = credentials saved · Grey = not yet configured"></span>
                 SCA E-Services
             </a>
             <a href="/app/fleet">🚢 Fleet</a>
@@ -577,16 +684,27 @@ async function endDemoSession() {
             <div class="value" id="statTotal">—</div>
         </div>
         <div class="stat-card">
-            <div class="label">Passed</div>
+            <div class="label">Passed <span class="help-tip" data-tip="Filings where all compliance checks passed. Green = ready to submit. Yellow = warnings, still submittable. Red = blocking issues.">?</span></div>
             <div class="value green" id="statPassed">—</div>
         </div>
         <div class="stat-card">
-            <div class="label">Active Deadlines</div>
+            <div class="label">Active Deadlines <span class="help-tip" data-tip="Upcoming filing deadlines across all waterways. Set alert windows in Alert Settings to get notified before they expire.">?</span></div>
             <div class="value yellow" id="statDeadlines">—</div>
         </div>
         <div class="stat-card">
             <div class="label">Fleet Vessels</div>
             <div class="value cyan" id="statVessels">—</div>
+        </div>
+    </div>
+
+    <!-- Onboarding Progress Checklist (hidden until loaded, disappears when all done) -->
+    <div class="onboarding-checklist" id="onboardingChecklist">
+        <div class="checklist-header">
+            <span class="checklist-title">🧭 Getting started</span>
+            <button class="checklist-dismiss" onclick="dismissChecklist()" title="Hide this guide">Hide</button>
+        </div>
+        <div class="checklist-steps" id="checklistSteps">
+            <!-- Populated by JS -->
         </div>
     </div>
 
@@ -988,11 +1106,57 @@ document.addEventListener('click', function(e) {
     } catch (_) {}
 })();
 
+// ── Onboarding Checklist ───────────────────────────────────────────────────
+const CHECKLIST_STORAGE_KEY = 'cc_checklist_dismissed';
+
+const STEP_CONFIG = {
+  vessel:  { label: 'Add first vessel',          icon: '🚢', href: '/app/fleet' },
+  check:   { label: 'Run compliance check',       icon: '✅', href: '/filing' },
+  submit:  { label: 'Submit first filing',        icon: '📤', href: '/filing' },
+  portal:  { label: 'Connect authority portal',   icon: '🔗', href: '/app/portals', optional: true },
+};
+
+async function loadChecklist() {
+  // Don't show if user explicitly dismissed it this session
+  if (sessionStorage.getItem(CHECKLIST_STORAGE_KEY)) return;
+
+  try {
+    const r = await fetch('/api/onboarding/progress', { credentials: 'include' });
+    if (!r.ok) return;
+    const d = await r.json();
+    if (!d.success || d.all_done) return; // All done — hide permanently
+
+    const box   = document.getElementById('onboardingChecklist');
+    const steps = document.getElementById('checklistSteps');
+    if (!box || !steps) return;
+
+    steps.innerHTML = d.steps.map(step => {
+      const cfg = STEP_CONFIG[step.key] || {};
+      const doneClass  = step.done ? ' done' : '';
+      const optClass   = step.optional ? ' optional' : '';
+      const icon = step.done ? '✓' : cfg.icon || '○';
+      return `<a href="${cfg.href || '#'}" class="checklist-step${doneClass}${optClass}">
+        <span class="step-icon">${icon}</span>
+        <span>${cfg.label}${step.optional ? ' <em style="font-size:0.75rem;opacity:0.7;">(optional)</em>' : ''}</span>
+      </a>`;
+    }).join('');
+
+    box.style.display = '';
+  } catch (_) { /* non-fatal */ }
+}
+
+function dismissChecklist() {
+  sessionStorage.setItem(CHECKLIST_STORAGE_KEY, '1');
+  const box = document.getElementById('onboardingChecklist');
+  if (box) box.style.display = 'none';
+}
+
 // ── Init ───────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async function() {
     await checkAuth();
     loadNotifications();
     loadStats();
+    loadChecklist();
 });
 </script>
 

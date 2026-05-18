@@ -17,6 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/mobile.css">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
@@ -122,6 +123,50 @@
     .empty-state p  { color: var(--gray); font-size: 0.95rem; margin-bottom: 2rem; max-width: 380px; margin-left: auto; margin-right: auto; }
     .empty-cta { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--teal); color: var(--navy); padding: 0.9rem 2rem; border-radius: 10px; font-weight: 700; font-size: 1rem; border: none; cursor: pointer; transition: all 0.2s; }
     .empty-cta:hover { background: #ff7a1a; transform: translateY(-1px); }
+
+    /* FIRST-VESSEL PROMPT */
+    .first-vessel-prompt {
+      display: none;
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 500;
+      background: var(--deep);
+      border: 1.5px solid rgba(232,90,0,0.4);
+      border-radius: 14px;
+      padding: 1.25rem 1.75rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      gap: 1.25rem;
+      max-width: 560px;
+      width: calc(100% - 3rem);
+    }
+    .first-vessel-prompt.open { display: flex; }
+    .fvp-text { flex: 1; }
+    .fvp-text strong { font-size: 0.95rem; font-weight: 700; display: block; margin-bottom: 0.2rem; }
+    .fvp-text span   { font-size: 0.83rem; color: var(--gray); }
+    .fvp-actions { display: flex; gap: 0.6rem; flex-shrink: 0; }
+
+    /* TOOLTIP */
+    .help-tip {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 15px; height: 15px; border-radius: 50%;
+      background: rgba(136,153,170,0.15); color: var(--gray);
+      font-size: 0.65rem; font-weight: 700; cursor: help;
+      position: relative; vertical-align: middle; margin-left: 0.25rem;
+    }
+    .help-tip::after {
+      content: attr(data-tip);
+      position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+      background: #0f1e33; border: 1px solid rgba(232,90,0,0.3); color: var(--white);
+      font-size: 0.77rem; font-weight: 400; line-height: 1.45; text-transform: none; letter-spacing: 0;
+      padding: 0.55rem 0.8rem; border-radius: 8px; white-space: normal; width: 210px;
+      pointer-events: none; opacity: 0; transition: opacity 0.15s; z-index: 300;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+    .help-tip:hover::after { opacity: 1; }
 
     /* MODAL */
     .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; align-items: center; justify-content: center; padding: 1rem; }
@@ -255,7 +300,7 @@
             <th>Flag / Type</th>
             <th>GT</th>
             <th>LOA / Draft</th>
-            <th>Waterway Compliance</th>
+            <th>Waterway Compliance <span class="help-tip" data-tip="Green = all checks passed · Yellow = warnings (submittable) · Red = blocking issues · Grey = not yet checked">?</span></th>
             <th></th>
           </tr>
         </thead>
@@ -367,6 +412,19 @@
       <button class="btn btn-ghost" onclick="closeImportModal()">Cancel</button>
       <button class="btn btn-primary" id="importBtn" style="display:none;" onclick="submitImport()">Import Vessels</button>
     </div>
+  </div>
+</div>
+
+<!-- First-vessel compliance prompt -->
+<div class="first-vessel-prompt" id="firstVesselPrompt">
+  <div>⚓</div>
+  <div class="fvp-text">
+    <strong>Vessel added — ready to run a compliance check?</strong>
+    <span>Start your first filing to see which documents you need for transit.</span>
+  </div>
+  <div class="fvp-actions">
+    <button class="btn btn-primary btn-sm" id="fvpRunBtn" onclick="goToFiling()">Run Check →</button>
+    <button class="btn btn-ghost btn-sm" onclick="dismissFirstVesselPrompt()">Later</button>
   </div>
 </div>
 
@@ -550,9 +608,16 @@ async function submitVessel(e) {
     const r    = await fetch(url, { method, headers: { 'Content-Type':'application/json' }, body: JSON.stringify(body) });
     const data = await r.json();
     if (!data.success) { showError('addError', data.message); return; }
+    const wasEmpty = vessels.length === 0;
     closeAddModal();
     showToast(editingId ? 'Vessel updated' : 'Vessel added', 'success');
     await loadVessels();
+    // Prompt to run compliance check after adding the very first vessel
+    if (!editingId && wasEmpty) {
+      // Store the newly saved vessel name for the filing link pre-population
+      window._firstVesselName = body.name;
+      showFirstVesselPrompt();
+    }
   } catch (err) {
     showError('addError', err.message);
   } finally {
@@ -674,6 +739,24 @@ function showToast(msg, type = 'success') {
   t.className = `toast ${type}`;
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+// ── First Vessel Prompt ───────────────────────────────────────────────────────
+function showFirstVesselPrompt() {
+  const el = document.getElementById('firstVesselPrompt');
+  if (el) el.classList.add('open');
+  // Auto-dismiss after 30s
+  setTimeout(() => dismissFirstVesselPrompt(), 30000);
+}
+
+function dismissFirstVesselPrompt() {
+  const el = document.getElementById('firstVesselPrompt');
+  if (el) el.classList.remove('open');
+}
+
+function goToFiling() {
+  // Navigate to filing page; vessel name pre-population is best-effort
+  window.location.href = '/filing';
 }
 
 // Close modals on overlay click

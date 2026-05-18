@@ -1745,7 +1745,9 @@
                 <div class="nav-dropdown-menu" style="display:none;position:absolute;top:calc(100% + 8px);left:0;background:rgba(10,22,40,0.98);border:1px solid rgba(232,90,0,0.2);border-radius:10px;min-width:190px;padding:0.4rem 0;z-index:200;box-shadow:0 8px 32px rgba(0,0,0,0.4);">
                     <a href="/demo/panama" style="display:block;padding:0.55rem 1rem;font-size:0.875rem;color:#8fa3b8;text-decoration:none;white-space:nowrap;" onmouseover="this.style.color='#E85A00';this.style.background='rgba(232,90,0,0.06)'" onmouseout="this.style.color='#8fa3b8';this.style.background='none'">🇵🇦 Panama Demo</a>
                     <a href="/demo/suez" style="display:block;padding:0.55rem 1rem;font-size:0.875rem;color:#8fa3b8;text-decoration:none;white-space:nowrap;" onmouseover="this.style.color='#E85A00';this.style.background='rgba(232,90,0,0.06)'" onmouseout="this.style.color='#8fa3b8';this.style.background='none'">🇪🇬 Suez Demo</a>
-                    <a href="/demo/bosporus" style="display:block;padding:0.55rem 1rem;font-size:0.875rem;color:#8fa3b8;text-decoration:none;white-space:nowrap;" onmouseover="this.style.color='#E85A00';this.style.background='rgba(232,90,0,0.06)'" onmouseout="this.style.color='#8fa3b8';this.style.background='none'">⚓ Bosporus Demo</a>
+                    <a href="/demo/bosporus" style="display:block;padding:0.55rem 1rem;font-size:0.875rem;color:#8fa3b8;text-decoration:none;white-space:nowrap;" onmouseover="this.style.color='#E85A00';this.style.background='rgba(232,90,0,0.06)'" onmouseout="this.style.color='#8fa3b8';this.style.background='none'">🇹🇷 Bosporus Demo</a>
+                    <a href="/demo/malacca" style="display:block;padding:0.55rem 1rem;font-size:0.875rem;color:#8fa3b8;text-decoration:none;white-space:nowrap;" onmouseover="this.style.color='#E85A00';this.style.background='rgba(232,90,0,0.06)'" onmouseout="this.style.color='#8fa3b8';this.style.background='none'">🇸🇬 Malacca Demo</a>
+                    <a href="/demo/cape" style="display:block;padding:0.55rem 1rem;font-size:0.875rem;color:#8fa3b8;text-decoration:none;white-space:nowrap;" onmouseover="this.style.color='#E85A00';this.style.background='rgba(232,90,0,0.06)'" onmouseout="this.style.color='#8fa3b8';this.style.background='none'">🌍 Cape Demo</a>
                     <a href="/demo/dashboard" style="display:block;padding:0.55rem 1rem;font-size:0.875rem;color:#8fa3b8;text-decoration:none;white-space:nowrap;" onmouseover="this.style.color='#E85A00';this.style.background='rgba(232,90,0,0.06)'" onmouseout="this.style.color='#8fa3b8';this.style.background='none'">📊 Fleet Dashboard</a>
                 </div>
             </span>
@@ -2249,7 +2251,7 @@
                     <li>REST API access</li>
                     <li>Cancel anytime</li>
                 </ul>
-                <a href="https://buy.stripe.com/dRmaEY19s60L78Mf3H5ZC1X" class="agency-cta secondary" id="agency-starter-cta" target="_blank" rel="noopener">Start Agency Starter →</a>
+                <a href="#" class="agency-cta secondary" id="agency-starter-cta">Start Agency Starter →</a>
                 <button class="demo-cta" onclick="openDemoModal('Agency Starter')">Or <span>book a free assessment</span> first</button>
             </div>
 
@@ -2275,7 +2277,7 @@
                     <li>Priority support</li>
                     <li>Cancel anytime</li>
                 </ul>
-                <a href="https://buy.stripe.com/4gM8wQdWe2Oz0Ko3kZ5ZC1Y" class="agency-cta primary" id="agency-pro-cta" target="_blank" rel="noopener">Start Agency Pro →</a>
+                <a href="#" class="agency-cta primary" id="agency-pro-cta">Start Agency Pro →</a>
                 <button class="demo-cta" onclick="openDemoModal('Agency Pro')">Or <span>book a free assessment</span> first</button>
             </div>
 
@@ -2302,7 +2304,7 @@
                     <li>Priority support + dedicated onboarding</li>
                     <li>Cancel anytime</li>
                 </ul>
-                <a href="https://buy.stripe.com/cNifZidWegFpbp2dZD5ZC1Z" class="agency-cta secondary" id="agency-enterprise-cta" target="_blank" rel="noopener">Start Agency Enterprise →</a>
+                <a href="#" class="agency-cta secondary" id="agency-enterprise-cta">Start Agency Enterprise →</a>
                 <button class="demo-cta" onclick="openDemoModal('Agency Enterprise')">Or <span>book a free assessment</span> first</button>
             </div>
 
@@ -2476,7 +2478,7 @@
                     <div id="roi-rec-name" style="font-size:1rem; font-weight:700;">Agency Starter — Up to 50 Vessels</div>
                     <div id="roi-rec-price" style="font-size:0.875rem; color:var(--gray);">$999/mo · $11,988/yr</div>
                 </div>
-                <a id="roi-rec-cta" href="https://buy.stripe.com/dRmaEY19s60L78Mf3H5ZC1X" target="_blank" rel="noopener"
+                <a id="roi-rec-cta" href="#"
                     style="background:var(--teal); color:#fff; font-size:0.875rem; font-weight:700; padding:0.7rem 1.4rem; border-radius:8px; text-decoration:none; white-space:nowrap;">
                     Start Free Trial →
                 </a>
@@ -2494,9 +2496,9 @@
             var MANUAL_HRS_PER_VESSEL = 2.5 * 12; // 2.5h/filing × ~12 filings/yr
             var CANALCLEAR_HRS_PER_VESSEL = (8/60) * 12;
             var TIERS = [
-                { max: 50,   name: 'Agency Starter', label: 'Agency Starter · 50 vessels',  price: 11988, mo: 999,  cta: 'https://buy.stripe.com/dRmaEY19s60L78Mf3H5ZC1X' },
-                { max: 200,  name: 'Agency Pro',     label: 'Agency Pro · 200 vessels',      price: 23988, mo: 1999, cta: 'https://buy.stripe.com/4gM8wQdWe2Oz0Ko3kZ5ZC1Y' },
-                { max: Infinity, name: 'Agency Enterprise', label: 'Agency Enterprise · unlimited', price: 35988, mo: 2999, cta: 'https://buy.stripe.com/cNifZidWegFpbp2dZD5ZC1Z' }
+                { max: 50,   name: 'Agency Starter', label: 'Agency Starter · 50 vessels',  price: 11988, mo: 999,  tier: 'agency_starter' },
+                { max: 200,  name: 'Agency Pro',     label: 'Agency Pro · 200 vessels',      price: 23988, mo: 1999, tier: 'agency_pro' },
+                { max: Infinity, name: 'Agency Enterprise', label: 'Agency Enterprise · unlimited', price: 35988, mo: 2999, tier: 'agency_enterprise' }
             ];
             function fmt(n) {
                 if (n >= 1000000) return '$' + (n/1000000).toFixed(1) + 'M';
@@ -2539,7 +2541,23 @@
                 // tier rec
                 document.getElementById('roi-rec-name').textContent = tier.name + ' — Up to ' + (tier.max === Infinity ? 'Unlimited' : tier.max) + ' Vessels';
                 document.getElementById('roi-rec-price').textContent = '$' + tier.mo + '/mo · ' + fmtFull(tier.price) + '/yr';
-                document.getElementById('roi-rec-cta').href = tier.cta;
+                // Route through /api/checkout/agency (env-var-driven links)
+                var roiCta = document.getElementById('roi-rec-cta');
+                roiCta.dataset.tier = tier.tier;
+                roiCta.onclick = function(e) {
+                    e.preventDefault();
+                    var btn = document.getElementById('roi-rec-cta');
+                    var origText = btn.textContent;
+                    btn.textContent = 'Loading…';
+                    fetch('/api/checkout/agency', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ tier: tier.tier, waterway: 'all' }),
+                    }).then(function(r) { return r.json(); }).then(function(d) {
+                        if (d.success && d.url) { window.location.href = d.url; }
+                        else { btn.textContent = origText; }
+                    }).catch(function() { btn.textContent = origText; });
+                };
                 // GA4 events
                 if (typeof gtag !== 'undefined') {
                     gtag('event', 'pricing_calculator_interact', { fleet_size: fleet, incidents_per_year: incidents });
@@ -3144,10 +3162,10 @@
                 if (ul && ul.firstElementChild) ul.firstElementChild.textContent = featureText;
             });
 
-            // Update CTA links & labels
-            document.getElementById('agency-starter-cta').href    = links.starter;
-            document.getElementById('agency-pro-cta').href        = links.pro;
-            document.getElementById('agency-enterprise-cta').href = links.enterprise;
+            // Update CTA labels and store waterway selection (links route through /api/checkout/agency)
+            document.getElementById('agency-starter-cta').dataset.waterway    = waterway;
+            document.getElementById('agency-pro-cta').dataset.waterway        = waterway;
+            document.getElementById('agency-enterprise-cta').dataset.waterway = waterway;
 
             document.getElementById('agency-starter-cta').textContent    = isBundle ? 'Start Agency Starter →' : `Start Starter — ${wName} →`;
             document.getElementById('agency-pro-cta').textContent        = isBundle ? 'Start Agency Pro →'     : `Start Pro — ${wName} →`;
@@ -3156,11 +3174,58 @@
             if (window._ccTrack) window._ccTrack('agency_waterway_selected', { waterway });
         }
 
+        // ── Agency CTA click → /api/checkout/agency (env-var-driven links) ──
+        // Routes through the server so Stripe payment link URLs come from STRIPE_LINK_* env vars
+        // rather than being hardcoded in client HTML.
+        async function handleAgencyCtaClick(e) {
+            e.preventDefault();
+            if (!activePromo) { // SEAS block check below handles promo case
+                const tier = this.dataset.tier;
+                const waterway = this.dataset.waterway || 'all';
+                this.textContent = 'Loading…';
+                this.style.opacity = '0.7';
+                this.style.pointerEvents = 'none';
+                try {
+                    const res = await fetch('/api/checkout/agency', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ tier, waterway }),
+                    });
+                    const d = await res.json();
+                    if (d.success && d.url) {
+                        window.location.href = d.url;
+                        return;
+                    }
+                    throw new Error(d.message || 'Checkout failed');
+                } catch (err) {
+                    this.textContent = this.dataset.origText || 'Try Again';
+                    this.style.opacity = '';
+                    this.style.pointerEvents = '';
+                    console.error('[agency-cta]', err);
+                }
+            }
+        }
+
+        // Wire up agency CTA buttons — store tier in data attribute, waterway set by selectAgencyWaterway
+        ['agency-starter-cta', 'agency-pro-cta', 'agency-enterprise-cta'].forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            // Map id to tier key
+            const tierMap = {
+                'agency-starter-cta':    'agency_starter',
+                'agency-pro-cta':        'agency_pro',
+                'agency-enterprise-cta': 'agency_enterprise',
+            };
+            el.dataset.tier     = tierMap[id];
+            el.dataset.waterway = 'all'; // default — overridden by selectAgencyWaterway
+            el.dataset.origText = el.textContent;
+            el.addEventListener('click', handleAgencyCtaClick);
+        });
+
         // ── Block agency tier links when SEAS promo is active ────────────────
-        // Agency CTA buttons are plain <a href> to Stripe — intercept and warn.
         document.querySelectorAll('.agency-cta').forEach(link => {
             link.addEventListener('click', function(e) {
-                if (!activePromo) return; // no promo → normal Stripe redirect
+                if (!activePromo) return; // no promo → API redirect handled above
                 e.preventDefault();
                 const feedback = document.getElementById('promo-feedback');
                 feedback.textContent = 'SEAS discount applies to Fleet Ops plans only.';

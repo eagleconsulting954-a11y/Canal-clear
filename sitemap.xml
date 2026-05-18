@@ -1028,4 +1028,32 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/65000-panama-canal-compliance-risk-fleet-operators"/>
   </url>
 
+  <!-- ==================== BLOG — COMPARISON SERIES 2026-05-17 ==================== -->
+  <url>
+    <loc>https://canalclear.org/blog/canalclear-vs-compliance-competitors</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/canalclear-vs-compliance-competitors"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/canalclear-vs-compliance-competitors"/>
+  </url>
+
+  <url>
+    <loc>https://canalclear.org/blog/canalclear-vs-customs-broker</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/canalclear-vs-customs-broker"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/canalclear-vs-customs-broker"/>
+  </url>
+
+  <url>
+    <loc>https://canalclear.org/blog/canalclear-vs-manual-vumpa-filing</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canalclear.org/blog/canalclear-vs-manual-vumpa-filing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canalclear.org/blog/canalclear-vs-manual-vumpa-filing"/>
+  </url>
+
 </urlset>
