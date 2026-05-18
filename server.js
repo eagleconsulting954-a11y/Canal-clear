@@ -60,9 +60,15 @@ const vumpaRoutes            = require('./routes/vumpa');
 const submissionsRoutes      = require('./routes/submissions');
 const mpaRoutes              = require('./routes/mpa');
 const portalsRoutes          = require('./routes/portals');
+const stripeWebhookRoutes    = require('./routes/stripe-webhooks');
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+// Canonical public domain — update BASE_URL env var to change everywhere at once.
+// Falls back to canalclear.org if not set.
+const BASE_URL = process.env.BASE_URL || 'https://canalclear.org';
+app.locals.BASE_URL = BASE_URL;
 
 // Trust Render's reverse proxy — required for correct req.protocol, req.secure,
 // and proper Secure cookie handling behind HTTPS load balancer.
@@ -80,6 +86,10 @@ const pool = new Pool({
 });
 
 app.locals.pool = pool;
+
+// Stripe webhook — must come BEFORE express.json() so body stays as raw Buffer
+// for Stripe signature verification (constructWebhookEvent requires raw bytes).
+app.use('/api/webhooks/stripe', stripeWebhookRoutes);
 
 app.use(express.json());
 app.use(cookieParser());
@@ -141,7 +151,7 @@ app.use((req, res, next) => {
 
 // ── Route mounting ───────────────────────────────────────────────────────────
 app.use(assetRoutes);                     // /images/*, /assets/*
-app.use(express.static(path.join(__dirname, 'public'), { redirect: false }));
+app.use(express.static(path.join(__dirname, 'public'), { redirect: false, index: 'index.html' }));
 app.use('/api', apiRoutes);                          // /api/*
 app.use('/api', adminRoutes);                        // /api/admin/*, /api/compliance-score*
 app.use('/api/bosporus', bosporusRoutes);            // /api/bosporus/* (SP-1 filing engine)
@@ -174,6 +184,7 @@ app.use('/api/vumpa', vumpaRoutes);                   // /api/vumpa/* (ACP VUMPA
 app.use('/api/submissions', submissionsRoutes);        // /api/submissions/* (submission attempt audit log + admin viewer)
 app.use('/api/mpa', mpaRoutes);                       // /api/mpa/* (MPA digitalPORT@SG / OCEANS-X integration: credentials + enrichment + submissions)
 app.use('/api/portals', portalsRoutes);               // /api/portals/reachability (server-side portal HEAD checks + 60s cache)
+// Note: /api/webhooks/stripe is mounted before express.json() above (raw body required)
 app.use(pageRoutes);                      // /, /pricing, /login, etc.
 app.use(contentRoutes);                   // /podcast/*, /blog/*, /glossary, /compliance/*
 
