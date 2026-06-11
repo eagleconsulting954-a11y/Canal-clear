@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Backlinks — SeoBacklink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<div class="app-layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo">Seo<span>Backlink</span></div>
+    <a href="/dashboard"><span class="sidebar-icon">📊</span> Dashboard</a>
+    <a href="/articles"><span class="sidebar-icon">✍️</span> Articles</a>
+    <a href="/backlinks"><span class="sidebar-icon">🔗</span> Backlinks</a>
+    <a href="/visibility"><span class="sidebar-icon">🤖</span> AI Visibility</a>
+    <div class="sidebar-spacer"></div>
+    <a href="/settings"><span class="sidebar-icon">⚙️</span> Settings</a>
+    <a href="#" data-logout><span class="sidebar-icon">↩</span> Log out</a>
+    <div class="sidebar-user">
+      <div class="sidebar-user-name">—</div>
+      <div class="sidebar-user-plan">—</div>
+    </div>
+  </aside>
+  <main class="app-main">
+    <div class="page-header">
+      <h1>Backlinks</h1>
+      <p>Track and manage your backlink portfolio</p>
+    </div>
+
+    <div class="stats-row" style="margin-bottom:24px">
+      <div class="card"><div class="card-title">Active</div><div class="card-num" id="statActive">—</div></div>
+      <div class="card"><div class="card-title">Pending</div><div class="card-num" id="statPending">—</div></div>
+      <div class="card"><div class="card-title">Lost</div><div class="card-num" id="statLost">—</div></div>
+      <div class="card"><div class="card-title">Avg. DA</div><div class="card-num" id="statDA">—</div></div>
+    </div>
+
+    <div id="alert" class="alert alert-error"></div>
+
+    <!-- Add form -->
+    <div class="card" style="margin-bottom:24px">
+      <div style="font-size:0.875rem; font-weight:700; margin-bottom:16px">Add backlink</div>
+      <div class="input-row">
+        <div class="form-group"><label>Target URL</label><input type="url" id="targetUrl" class="input" placeholder="https://yoursite.com/page" style="width:100%"></div>
+        <div class="form-group"><label>Anchor text</label><input type="text" id="anchorText" class="input" placeholder="best SEO tools" style="width:100%"></div>
+      </div>
+      <div class="input-row">
+        <div class="form-group"><label>Source URL (optional)</label><input type="url" id="sourceUrl" class="input" placeholder="https://referring-site.com" style="width:100%"></div>
+        <div class="form-group" style="max-width:160px"><label>Domain Authority</label><input type="number" id="domainAuth" class="input" placeholder="1–100" min="1" max="100" style="width:100%"></div>
+        <button class="btn-primary" onclick="addBacklink()" id="addBtn" style="height:42px; white-space:nowrap">Add link</button>
+      </div>
+    </div>
+
+    <!-- List -->
+    <div class="card">
+      <div style="font-size:0.875rem; font-weight:700; margin-bottom:16px">Your backlinks</div>
+      <div id="backlinkList"><div class="empty-state"><div class="icon">🔗</div><h3>No backlinks yet</h3><p>Add your first backlink above.</p></div></div>
+    </div>
+  </main>
+</div>
+<script src="/js/app.js"></script>
+<script>
+(async () => {
+  const user = await requireAuth();
+  if (!user) return;
+  setSidebarUser(user);
+  setActiveNav();
+  await loadBacklinks();
+})();
+
+async function loadBacklinks() {
+  try {
+    const [data, stats] = await Promise.all([
+      api('GET', '/api/backlinks'),
+      api('GET', '/api/backlinks/stats'),
+    ]);
+    document.getElementById('statActive').textContent = fmtNum(stats.active || 0);
+    document.getElementById('statPending').textContent = fmtNum(stats.pending || 0);
+    document.getElementById('statLost').textContent = fmtNum(stats.lost || 0);
+    document.getElementById('statDA').textContent = stats.avg_da ? stats.avg_da : '—';
+    renderBacklinks(data.backlinks);
+  } catch (e) {
+    showAlert(document.getElementById('alert'), e.message);
+  }
+}
+
+function renderBacklinks(list) {
+  const el = document.getElementById('backlinkList');
+  if (!list.length) {
+    el.innerHTML = `<div class="empty-state"><div class="icon">🔗</div><h3>No backlinks yet</h3><p>Add your first backlink above.</p></div>`;
+    return;
+  }
+  el.innerHTML = `<div class="table-wrap"><table>
+    <thead><tr><th>Target URL</th><th>Anchor text</th><th>Source</th><th>DA</th><th>Status</th><th>Added</th><th></th></tr></thead>
+    <tbody>${list.map(b => `<tr>
+      <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${b.target_url}">${b.target_url}</td>
+      <td>${b.anchor_text}</td>
+      <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--muted)" title="${b.source_url || ''}">${b.source_url || '—'}</td>
+      <td>${b.domain_authority || '—'}</td>
+      <td>${statusBadge(b.status)}</td>
+      <td style="color:var(--muted)">${fmtDate(b.created_at)}</td>
+      <td>
+        <select onchange="updateStatus('${b.id}', this.value)" style="background:var(--bg3);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:4px 8px;font-size:0.78rem;cursor:pointer">
+          ${['pending','active','lost','rejected'].map(s => `<option value="${s}" ${s===b.status?'selected':''}>${s}</option>`).join('')}
+        </select>
+      </td>
+    </tr>`).join('')}</tbody>
+  </table></div>`;
+}
+
+async function addBacklink() {
+  const targetUrl = document.getElementById('targetUrl').value.trim();
+  const anchorText = document.getElementById('anchorText').value.trim();
+  if (!targetUrl || !anchorText) return showAlert(document.getElementById('alert'), 'Target URL and anchor text required');
+  const btn = document.getElementById('addBtn');
+  btn.disabled = true; btn.textContent = 'Adding…';
+  hide(document.getElementById('alert'));
+  try {
+    await api('POST', '/api/backlinks', {
+      targetUrl,
+      anchorText,
+      sourceUrl: document.getElementById('sourceUrl').value.trim() || undefined,
+      domainAuthority: document.getElementById('domainAuth').value || undefined,
+    });
+    document.getElementById('targetUrl').value = '';
+    document.getElementById('anchorText').value = '';
+    document.getElementById('sourceUrl').value = '';
+    document.getElementById('domainAuth').value = '';
+    await loadBacklinks();
+  } catch (e) {
+    showAlert(document.getElementById('alert'), e.message);
+  } finally {
+    btn.disabled = false; btn.textContent = 'Add link';
+  }
+}
+
+async function updateStatus(id, status) {
+  try {
+    await api('PATCH', `/api/backlinks/${id}`, { status });
+    await loadBacklinks();
+  } catch (e) {
+    showAlert(document.getElementById('alert'), e.message);
+  }
+}
+</script>
+</body>
+</html>

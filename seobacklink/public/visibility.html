@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Visibility — SeoBacklink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<div class="app-layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo">Seo<span>Backlink</span></div>
+    <a href="/dashboard"><span class="sidebar-icon">📊</span> Dashboard</a>
+    <a href="/articles"><span class="sidebar-icon">✍️</span> Articles</a>
+    <a href="/backlinks"><span class="sidebar-icon">🔗</span> Backlinks</a>
+    <a href="/visibility"><span class="sidebar-icon">🤖</span> AI Visibility</a>
+    <div class="sidebar-spacer"></div>
+    <a href="/settings"><span class="sidebar-icon">⚙️</span> Settings</a>
+    <a href="#" data-logout><span class="sidebar-icon">↩</span> Log out</a>
+    <div class="sidebar-user">
+      <div class="sidebar-user-name">—</div>
+      <div class="sidebar-user-plan">—</div>
+    </div>
+  </aside>
+  <main class="app-main">
+    <div class="page-header">
+      <h1>AI Visibility</h1>
+      <p>Measure how often your brand appears in AI-generated answers</p>
+    </div>
+
+    <div class="stats-row" style="margin-bottom:24px">
+      <div class="card"><div class="card-title">Total checks</div><div class="card-num" id="statChecks">—</div></div>
+      <div class="card"><div class="card-title">Avg. score</div><div class="card-num" id="statAvg">—</div><div class="card-sub">out of 100</div></div>
+      <div class="card"><div class="card-title">Best score</div><div class="card-num" id="statBest">—</div></div>
+      <div class="card"><div class="card-title">Total mentions</div><div class="card-num" id="statMentions">—</div></div>
+    </div>
+
+    <div id="alert" class="alert alert-error"></div>
+    <div id="upgradeNote" class="alert" style="background:rgba(108,99,255,0.08);border:1px solid rgba(108,99,255,0.25);color:var(--accent2);display:none">
+      AI visibility checks require an active paid plan. <a href="/pricing" style="font-weight:700;color:var(--accent)">Upgrade →</a>
+    </div>
+
+    <!-- Check form -->
+    <div class="card" style="margin-bottom:24px">
+      <div style="font-size:0.875rem; font-weight:700; margin-bottom:16px">Run visibility check</div>
+      <div class="input-row">
+        <div class="form-group"><label>Brand name</label><input type="text" id="brand" class="input" placeholder="Your company or product name" style="width:100%"></div>
+        <div class="form-group"><label>Target keyword</label><input type="text" id="keyword" class="input" placeholder="e.g. SEO automation tool" style="width:100%"></div>
+        <button class="btn-primary" onclick="runCheck()" id="checkBtn" style="height:42px; white-space:nowrap">Check →</button>
+      </div>
+      <div style="font-size:0.78rem; color:var(--muted)">AI analyzes how often your brand surfaces when users search for this keyword in AI assistants.</div>
+    </div>
+
+    <!-- Result card -->
+    <div class="card" id="resultCard" style="margin-bottom:24px; display:none">
+      <div style="font-size:0.875rem; font-weight:700; margin-bottom:16px">Latest result</div>
+      <div style="display:flex; gap:24px; align-items:center; flex-wrap:wrap">
+        <div style="text-align:center">
+          <div id="resultScore" style="font-size:3rem; font-weight:900; letter-spacing:-0.04em; color:var(--accent)">—</div>
+          <div style="font-size:0.78rem; color:var(--muted)">Visibility score</div>
+        </div>
+        <div style="flex:1; min-width:200px">
+          <div style="margin-bottom:8px; font-size:0.875rem;"><strong id="resultBrand"></strong> for "<span id="resultKw"></span>"</div>
+          <div id="resultAnalysis" style="font-size:0.875rem; color:var(--muted); line-height:1.6"></div>
+          <div style="margin-top:8px; font-size:0.78rem; color:var(--muted)"><span id="resultMentions"></span> estimated AI mention contexts</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- History -->
+    <div class="card">
+      <div style="font-size:0.875rem; font-weight:700; margin-bottom:16px">Check history</div>
+      <div id="checkList"><div class="empty-state"><div class="icon">🤖</div><h3>No checks yet</h3><p>Run your first visibility check above.</p></div></div>
+    </div>
+  </main>
+</div>
+<script src="/js/app.js"></script>
+<script>
+(async () => {
+  const user = await requireAuth();
+  if (!user) return;
+  setSidebarUser(user);
+  setActiveNav();
+  if (user.plan_type === 'free') show(document.getElementById('upgradeNote'));
+  await loadChecks();
+})();
+
+async function loadChecks() {
+  try {
+    const [data, stats] = await Promise.all([
+      api('GET', '/api/visibility'),
+      api('GET', '/api/visibility/stats'),
+    ]);
+    document.getElementById('statChecks').textContent = fmtNum(stats.total_checks || 0);
+    document.getElementById('statAvg').textContent = stats.avg_score ? stats.avg_score + '/100' : '—';
+    document.getElementById('statBest').textContent = stats.best_score || '—';
+    document.getElementById('statMentions').textContent = fmtNum(stats.total_mentions || 0);
+    renderChecks(data.checks);
+  } catch (e) {
+    showAlert(document.getElementById('alert'), e.message);
+  }
+}
+
+function renderChecks(list) {
+  const el = document.getElementById('checkList');
+  if (!list.length) {
+    el.innerHTML = `<div class="empty-state"><div class="icon">🤖</div><h3>No checks yet</h3><p>Run your first visibility check above.</p></div>`;
+    return;
+  }
+  el.innerHTML = `<div class="table-wrap"><table>
+    <thead><tr><th>Brand</th><th>Keyword</th><th>Score</th><th>Mentions</th><th>Date</th></tr></thead>
+    <tbody>${list.map(c => `<tr>
+      <td><strong>${c.brand}</strong></td>
+      <td style="color:var(--muted)">${c.keyword}</td>
+      <td><span style="font-weight:700;color:${c.score>=60?'var(--green)':c.score>=30?'#ca8a04':'var(--red)'}">${c.score}/100</span></td>
+      <td>${c.mentions}</td>
+      <td style="color:var(--muted)">${fmtDate(c.created_at)}</td>
+    </tr>`).join('')}</tbody>
+  </table></div>`;
+}
+
+async function runCheck() {
+  const brand = document.getElementById('brand').value.trim();
+  const keyword = document.getElementById('keyword').value.trim();
+  if (!brand || !keyword) return showAlert(document.getElementById('alert'), 'Brand and keyword required');
+  const btn = document.getElementById('checkBtn');
+  btn.disabled = true; btn.textContent = 'Analyzing…';
+  hide(document.getElementById('alert'));
+  hide(document.getElementById('resultCard'));
+  try {
+    const result = await api('POST', '/api/visibility/check', { brand, keyword });
+    document.getElementById('resultScore').textContent = result.score;
+    document.getElementById('resultBrand').textContent = result.brand;
+    document.getElementById('resultKw').textContent = result.keyword;
+    document.getElementById('resultAnalysis').textContent = result.analysis;
+    document.getElementById('resultMentions').textContent = result.mentions;
+    show(document.getElementById('resultCard'));
+    await loadChecks();
+  } catch (e) {
+    if (e.status === 402) {
+      show(document.getElementById('upgradeNote'));
+      showAlert(document.getElementById('alert'), 'Upgrade required for visibility checks');
+    } else {
+      showAlert(document.getElementById('alert'), e.message);
+    }
+  } finally {
+    btn.disabled = false; btn.textContent = 'Check →';
+  }
+}
+</script>
+</body>
+</html>

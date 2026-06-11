@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pricing — SeoBacklink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="/">Seo<span>Backlink</span></a>
+  <div class="nav-links">
+    <a href="/#features">Features</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/#faq">FAQ</a>
+    <a href="/login">Log in</a>
+    <a href="/register" class="nav-cta">Start free</a>
+  </div>
+</nav>
+
+<section class="section" style="text-align:center; padding-top:80px">
+  <div class="section-label">Pricing</div>
+  <h1 class="section-title">Simple, transparent pricing</h1>
+  <p class="section-sub" style="margin: 0 auto 48px">Start free. Upgrade when you need more. Cancel anytime.</p>
+
+  <div id="alert" class="alert alert-error" style="max-width:500px; margin: 0 auto 24px"></div>
+
+  <div class="pricing-grid" style="max-width:1000px; margin:0 auto">
+    <div class="pricing-card">
+      <div class="plan-name">Starter</div>
+      <div class="plan-price">$49<span>/mo</span></div>
+      <div class="plan-desc">For solo SEOs &amp; small blogs</div>
+      <ul class="plan-features">
+        <li>10 AI articles/month</li>
+        <li>Keyword clustering</li>
+        <li>Basic backlink tracker</li>
+        <li>Email support</li>
+      </ul>
+      <button class="plan-btn ghost" onclick="checkout('starter')" id="btn-starter">Get started</button>
+    </div>
+    <div class="pricing-card featured">
+      <div class="pricing-badge">Most Popular</div>
+      <div class="plan-name">Growth</div>
+      <div class="plan-price">$99<span>/mo</span></div>
+      <div class="plan-desc">For growing content teams</div>
+      <ul class="plan-features">
+        <li>30 AI articles/month</li>
+        <li>Advanced keyword clusters</li>
+        <li>Backlink outreach tracker</li>
+        <li>AI visibility scores</li>
+        <li>Priority support</li>
+      </ul>
+      <button class="plan-btn" onclick="checkout('growth')" id="btn-growth">Get started</button>
+    </div>
+    <div class="pricing-card">
+      <div class="plan-name">Agency</div>
+      <div class="plan-price">$249<span>/mo</span></div>
+      <div class="plan-desc">For agencies &amp; large teams</div>
+      <ul class="plan-features">
+        <li>100 AI articles/month</li>
+        <li>Unlimited keyword clusters</li>
+        <li>Full backlink suite</li>
+        <li>AI visibility monitoring</li>
+        <li>White-label exports</li>
+        <li>Dedicated support</li>
+      </ul>
+      <button class="plan-btn ghost" onclick="checkout('agency')" id="btn-agency">Get started</button>
+    </div>
+  </div>
+
+  <p style="margin-top:24px; font-size:0.83rem; color:var(--muted)">
+    All plans include a 2-article free tier. No credit card required to start.
+    Prices in USD, billed monthly. Cancel anytime.
+  </p>
+</section>
+
+<footer>
+  <div class="logo">Seo<span>Backlink</span></div>
+  <p>© 2025 SeoBacklink. All rights reserved.</p>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/login">Log in</a>
+    <a href="/register">Sign up</a>
+  </nav>
+</footer>
+
+<script src="/js/app.js"></script>
+<script>
+async function checkout(plan) {
+  const alertEl = document.getElementById('alert');
+  hide(alertEl);
+  const btn = document.getElementById('btn-' + plan);
+  btn.disabled = true; btn.textContent = 'Loading…';
+  try {
+    // Check if logged in
+    await api('GET', '/api/auth/me');
+    const data = await api('POST', '/api/checkout', { plan });
+    window.location.href = data.url;
+  } catch (err) {
+    if (err.status === 401) {
+      // Save intended plan and redirect to register
+      sessionStorage.setItem('intendedPlan', plan);
+      window.location.href = '/register';
+    } else {
+      showAlert(alertEl, err.message);
+      btn.disabled = false; btn.textContent = 'Get started';
+    }
+  }
+}
+
+// Handle post-registration redirect
+const intendedPlan = sessionStorage.getItem('intendedPlan');
+if (intendedPlan && window.location.search.includes('upgraded=1')) {
+  sessionStorage.removeItem('intendedPlan');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Settings — SeoBacklink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<div class="app-layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo">Seo<span>Backlink</span></div>
+    <a href="/dashboard"><span class="sidebar-icon">📊</span> Dashboard</a>
+    <a href="/articles"><span class="sidebar-icon">✍️</span> Articles</a>
+    <a href="/backlinks"><span class="sidebar-icon">🔗</span> Backlinks</a>
+    <a href="/visibility"><span class="sidebar-icon">🤖</span> AI Visibility</a>
+    <div class="sidebar-spacer"></div>
+    <a href="/settings"><span class="sidebar-icon">⚙️</span> Settings</a>
+    <a href="#" data-logout><span class="sidebar-icon">↩</span> Log out</a>
+    <div class="sidebar-user">
+      <div class="sidebar-user-name">—</div>
+      <div class="sidebar-user-plan">—</div>
+    </div>
+  </aside>
+  <main class="app-main">
+    <div class="page-header">
+      <h1>Settings</h1>
+      <p>Manage your account and subscription</p>
+    </div>
+
+    <div class="grid-2">
+      <!-- Profile -->
+      <div class="card">
+        <div style="font-size:0.875rem; font-weight:700; margin-bottom:16px">Profile</div>
+        <div id="profileAlert" class="alert alert-error"></div>
+        <form id="profileForm">
+          <div class="form-group">
+            <label>Full name</label>
+            <input type="text" id="name" class="input" style="width:100%">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="email" class="input" style="width:100%" disabled>
+          </div>
+          <button type="submit" class="btn-primary" id="saveBtn" style="font-size:0.875rem; padding:9px 20px">Save changes</button>
+        </form>
+      </div>
+
+      <!-- Plan -->
+      <div class="card">
+        <div style="font-size:0.875rem; font-weight:700; margin-bottom:16px">Subscription</div>
+        <div id="planAlert" class="alert alert-error"></div>
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:20px">
+          <div>
+            <div style="font-size:1.1rem; font-weight:800" id="planName">—</div>
+            <div style="font-size:0.83rem; color:var(--muted)" id="planStatus">—</div>
+          </div>
+          <span class="badge badge-green" id="planBadge" style="margin-left:auto">—</span>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap">
+          <button class="btn-primary" onclick="manageBilling()" id="billingBtn" style="font-size:0.875rem; padding:9px 18px">Manage billing →</button>
+          <a href="/pricing" class="btn-ghost" style="font-size:0.875rem; padding:9px 18px; display:inline-block">Upgrade plan</a>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="/js/app.js"></script>
+<script>
+let currentUser = null;
+
+(async () => {
+  const user = await requireAuth();
+  if (!user) return;
+  currentUser = user;
+  setSidebarUser(user);
+  setActiveNav();
+  document.getElementById('name').value = user.name;
+  document.getElementById('email').value = user.email;
+  const planMap = { free: 'Free', starter: 'Starter', growth: 'Growth', agency: 'Agency' };
+  document.getElementById('planName').textContent = (planMap[user.plan_type] || user.plan_type) + ' Plan';
+  document.getElementById('planStatus').textContent = 'Subscription status: ' + (user.subscription_status || '—');
+  document.getElementById('planBadge').textContent = user.subscription_status === 'active' ? 'Active' : user.subscription_status || '—';
+  if (user.subscription_status !== 'active' || user.plan_type === 'free') {
+    document.getElementById('billingBtn').disabled = true;
+    document.getElementById('billingBtn').textContent = 'No active subscription';
+  }
+})();
+
+document.getElementById('profileForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const btn = document.getElementById('saveBtn');
+  const alert = document.getElementById('profileAlert');
+  btn.disabled = true; btn.textContent = 'Saving…';
+  hide(alert);
+  try {
+    await api('PUT', '/api/settings', { name: document.getElementById('name').value });
+    showAlert(alert, 'Changes saved.', 'success');
+  } catch (err) {
+    showAlert(alert, err.message);
+  } finally {
+    btn.disabled = false; btn.textContent = 'Save changes';
+  }
+});
+
+async function manageBilling() {
+  const btn = document.getElementById('billingBtn');
+  btn.disabled = true; btn.textContent = 'Opening…';
+  try {
+    const data = await api('POST', '/api/portal');
+    window.location.href = data.url;
+  } catch (err) {
+    showAlert(document.getElementById('planAlert'), err.message);
+    btn.disabled = false; btn.textContent = 'Manage billing →';
+  }
+}
+</script>
+</body>
+</html>

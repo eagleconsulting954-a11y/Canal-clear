@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Articles — SeoBacklink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<div class="app-layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo">Seo<span>Backlink</span></div>
+    <a href="/dashboard"><span class="sidebar-icon">📊</span> Dashboard</a>
+    <a href="/articles"><span class="sidebar-icon">✍️</span> Articles</a>
+    <a href="/backlinks"><span class="sidebar-icon">🔗</span> Backlinks</a>
+    <a href="/visibility"><span class="sidebar-icon">🤖</span> AI Visibility</a>
+    <div class="sidebar-spacer"></div>
+    <a href="/settings"><span class="sidebar-icon">⚙️</span> Settings</a>
+    <a href="#" data-logout><span class="sidebar-icon">↩</span> Log out</a>
+    <div class="sidebar-user">
+      <div class="sidebar-user-name">—</div>
+      <div class="sidebar-user-plan">—</div>
+    </div>
+  </aside>
+  <main class="app-main">
+    <div class="page-header">
+      <h1>Articles</h1>
+      <p>Generate and manage your AI-written SEO articles</p>
+    </div>
+
+    <div id="alert" class="alert alert-error"></div>
+
+    <!-- Generate form -->
+    <div class="card" style="margin-bottom:24px">
+      <div style="font-size:0.875rem; font-weight:700; margin-bottom:16px">Generate new article</div>
+      <div class="input-row">
+        <div class="form-group">
+          <label>Keyword / topic</label>
+          <input type="text" id="keyword" class="input" placeholder="e.g. best SEO tools for small business" style="width:100%">
+        </div>
+        <div class="form-group" style="max-width:160px">
+          <label>Tone</label>
+          <select id="tone" class="input" style="width:100%">
+            <option value="professional">Professional</option>
+            <option value="conversational">Conversational</option>
+            <option value="authoritative">Authoritative</option>
+          </select>
+        </div>
+        <div class="form-group" style="max-width:140px">
+          <label>Word count</label>
+          <select id="wordCount" class="input" style="width:100%">
+            <option value="1000">~1,000</option>
+            <option value="1500" selected>~1,500</option>
+            <option value="2500">~2,500</option>
+          </select>
+        </div>
+        <button class="btn-primary" id="generateBtn" onclick="generateArticle()" style="height:42px; white-space:nowrap">Generate →</button>
+      </div>
+      <div style="font-size:0.78rem; color:var(--muted)" id="usageNote">Loading usage…</div>
+    </div>
+
+    <!-- Cluster tool -->
+    <div class="card" style="margin-bottom:24px">
+      <div style="font-size:0.875rem; font-weight:700; margin-bottom:12px">Keyword cluster generator</div>
+      <div class="input-row">
+        <div class="form-group"><input type="text" id="seedKw" class="input" placeholder="Seed keyword" style="width:100%"></div>
+        <button class="btn-ghost" id="clusterBtn" onclick="clusterKeywords()" style="height:42px; white-space:nowrap">Cluster →</button>
+      </div>
+      <div id="clusterResult" style="display:none; margin-top:12px"></div>
+    </div>
+
+    <!-- Article list -->
+    <div class="card">
+      <div style="font-size:0.875rem; font-weight:700; margin-bottom:16px">Your articles</div>
+      <div id="articleList"><div class="empty-state"><div class="icon">✍️</div><h3>No articles yet</h3><p>Generate your first AI article above.</p></div></div>
+    </div>
+
+    <!-- Article viewer modal -->
+    <div id="articleModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:200; padding:24px; overflow-y:auto">
+      <div style="max-width:800px; margin:0 auto; background:var(--bg2); border:1px solid var(--border); border-radius:16px; padding:32px">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px">
+          <div id="modalTitle" style="font-size:1.2rem; font-weight:800; max-width:600px"></div>
+          <button onclick="closeModal()" style="background:none;border:none;color:var(--muted);font-size:1.5rem;cursor:pointer;flex-shrink:0">×</button>
+        </div>
+        <div class="article-meta" id="modalMeta"></div>
+        <div class="article-content" id="modalContent"></div>
+        <div style="margin-top:20px; display:flex; gap:12px">
+          <button class="btn-primary" onclick="copyHtml()" style="font-size:0.875rem; padding:9px 18px">Copy HTML</button>
+          <button class="btn-ghost" onclick="closeModal()" style="font-size:0.875rem; padding:9px 18px">Close</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="/js/app.js"></script>
+<script>
+let articles = [];
+let currentArticleContent = '';
+
+(async () => {
+  const user = await requireAuth();
+  if (!user) return;
+  setSidebarUser(user);
+  setActiveNav();
+  await loadArticles();
+})();
+
+async function loadArticles() {
+  try {
+    const data = await api('GET', '/api/articles');
+    articles = data.articles;
+    const pct = Math.round((data.usedThisMonth / data.limit) * 100);
+    document.getElementById('usageNote').textContent = `${data.usedThisMonth} / ${data.limit} articles used this month (${pct}%)`;
+    renderArticles(articles);
+  } catch (e) {
+    showAlert(document.getElementById('alert'), e.message);
+  }
+}
+
+function renderArticles(list) {
+  const el = document.getElementById('articleList');
+  if (!list.length) {
+    el.innerHTML = `<div class="empty-state"><div class="icon">✍️</div><h3>No articles yet</h3><p>Generate your first AI article above.</p></div>`;
+    return;
+  }
+  el.innerHTML = `<div class="table-wrap"><table>
+    <thead><tr><th>Keyword</th><th>Title</th><th>Words</th><th>Status</th><th>Created</th><th></th></tr></thead>
+    <tbody>${list.map(a => `<tr>
+      <td style="color:var(--muted);max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${a.keyword}</td>
+      <td style="max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${a.title || '—'}</td>
+      <td>${a.word_count ? fmtNum(a.word_count) : '—'}</td>
+      <td>${statusBadge(a.status)}</td>
+      <td style="color:var(--muted)">${fmtDate(a.created_at)}</td>
+      <td><button class="btn-ghost" style="font-size:0.78rem;padding:5px 12px" onclick="viewArticle('${a.id}')" ${a.status !== 'ready' ? 'disabled' : ''}>View</button></td>
+    </tr>`).join('')}</tbody>
+  </table></div>`;
+}
+
+async function generateArticle() {
+  const keyword = document.getElementById('keyword').value.trim();
+  if (!keyword) return;
+  const btn = document.getElementById('generateBtn');
+  btn.disabled = true; btn.textContent = 'Starting…';
+  hide(document.getElementById('alert'));
+  try {
+    await api('POST', '/api/articles/generate', {
+      keyword,
+      tone: document.getElementById('tone').value,
+      wordCount: document.getElementById('wordCount').value,
+    });
+    document.getElementById('keyword').value = '';
+    showAlert(document.getElementById('alert'), 'Article is generating — check back in ~60 seconds.', 'success');
+    setTimeout(loadArticles, 3000);
+  } catch (e) {
+    showAlert(document.getElementById('alert'), e.message);
+  } finally {
+    btn.disabled = false; btn.textContent = 'Generate →';
+  }
+}
+
+async function clusterKeywords() {
+  const seed = document.getElementById('seedKw').value.trim();
+  if (!seed) return;
+  const btn = document.getElementById('clusterBtn');
+  btn.disabled = true; btn.textContent = 'Clustering…';
+  const resultEl = document.getElementById('clusterResult');
+  try {
+    const data = await api('POST', '/api/articles/keywords/cluster', { keyword: seed });
+    const rows = data.cluster.map(k => `<tr>
+      <td>${k.keyword}</td>
+      <td><span class="badge badge-purple">${k.intent}</span></td>
+      <td>${k.difficulty}</td>
+      <td style="color:var(--muted)">${k.volume}</td>
+    </tr>`).join('');
+    resultEl.innerHTML = `<div class="table-wrap"><table>
+      <thead><tr><th>Keyword</th><th>Intent</th><th>Difficulty</th><th>Est. Volume</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>`;
+    show(resultEl);
+  } catch (e) {
+    showAlert(document.getElementById('alert'), e.message);
+  } finally {
+    btn.disabled = false; btn.textContent = 'Cluster →';
+  }
+}
+
+async function viewArticle(id) {
+  try {
+    const a = await api('GET', `/api/articles/${id}`);
+    currentArticleContent = a.content || '';
+    document.getElementById('modalTitle').textContent = a.title || a.keyword;
+    document.getElementById('modalMeta').innerHTML = `
+      <span class="badge badge-gray">${fmtNum(a.word_count)} words</span>
+      <span class="badge badge-gray" title="${a.slug}">${a.slug || '—'}</span>
+      <span class="badge badge-gray" title="${a.meta_description}">${a.meta_description ? a.meta_description.substring(0, 60) + '…' : '—'}</span>`;
+    document.getElementById('modalContent').innerHTML = a.content || '<em>No content</em>';
+    show(document.getElementById('articleModal'));
+  } catch (e) {
+    showAlert(document.getElementById('alert'), e.message);
+  }
+}
+
+function closeModal() { hide(document.getElementById('articleModal')); }
+
+function copyHtml() {
+  navigator.clipboard.writeText(currentArticleContent).then(() => alert('HTML copied!'));
+}
+</script>
+</body>
+</html>
