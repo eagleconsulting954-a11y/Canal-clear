@@ -1,9 +1,38 @@
 const express = require('express');
+const multer = require('multer');
 const router = express.Router();
 const { requireAuth } = require('../middleware/auth');
 const bridge = require('../services/compliance-bridge');
+const documentIntelligence = require('../services/document-intelligence');
 
 function db(req) { return req.app.locals.pool; }
+
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 12 * 1024 * 1024, files: 1 },
+  fileFilter: (req, file, cb) => {
+    const ok = file.mimetype === 'application/pdf' || file.mimetype.startsWith('text/') || /\.(pdf|txt|csv)$/i.test(file.originalname || '');
+    cb(ok ? null : new Error('Only PDF and text documents are supported'), ok);
+  }
+});
+
+router.post('/documents/extract', requireAuth, upload.single('file'), async (req, res) => {
+  if (!req.file) return res.status(400).json({ success: false, message: 'file is required' });
+  try {
+    const extraction = await documentIntelligence.extractFromBuffer(req.file.buffer, {
+      filename: req.file.originalname,
+      mimetype: req.file.mimetype,
+    });
+    res.json({
+      success: true,
+      file: { name: req.file.originalname, size: req.file.size, mimetype: req.file.mimetype },
+      extraction,
+    });
+  } catch (err) {
+    console.error('[compliance-operations] document extraction:', err.message);
+    res.status(422).json({ success: false, message: 'Unable to extract document text', detail: err.message });
+  }
+});
 
 router.post('/documents', requireAuth, async (req, res) => {
   const userId = req.user.id;
