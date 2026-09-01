@@ -62,6 +62,7 @@ const mpaRoutes              = require('./routes/mpa');
 const portalsRoutes          = require('./routes/portals');
 const stripeWebhookRoutes    = require('./routes/stripe-webhooks');
 const complianceInfrastructureRoutes = require('./routes/compliance-infrastructure');
+const complianceOperationsRoutes = require('./routes/compliance-operations');
 const complianceInfrastructurePageRoutes = require('./routes/compliance-infrastructure-page');
 
 const app = express();
@@ -159,6 +160,7 @@ app.use('/api/submissions', submissionsRoutes);
 app.use('/api/mpa', mpaRoutes);
 app.use('/api/portals', portalsRoutes);
 app.use('/api/compliance-infrastructure', complianceInfrastructureRoutes);
+app.use('/api/compliance-infrastructure', complianceOperationsRoutes);
 app.use(complianceInfrastructurePageRoutes);
 app.use(pageRoutes);
 app.use(contentRoutes);
